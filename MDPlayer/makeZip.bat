@@ -9,22 +9,15 @@ mkdir  .\output\plugin
 del /Q .\output\plugin\*.*
 mkdir  .\output\plugin\driver
 del /Q .\output\plugin\driver\*.*
-mkdir  .\output\x64
-del /Q .\output\x64\*.*
-mkdir  .\output\x64\plugin
-del /Q .\output\x64\plugin\*.*
-mkdir  .\output\x64\plugin\driver
-del /Q .\output\x64\plugin\driver\*.*
 
 xcopy   .\mdc\bin\Release\*.*          .\output\ /E /R /Y /I /K
 xcopy   .\mdpc\bin\Release\*.*         .\output\ /E /R /Y /I /K
-xcopy   .\MDPlayer\bin\x86\Release\*.* .\output\ /E /R /Y /I /K
-xcopy   .\MDPlayerx64\bin\x64\Release\net6.0-windows\*.* .\output\x64 /E /R /Y /I /K
+xcopy   .\MDPlayerx64\bin\x64\Release\net6.0-windows\*.* .\output\ /E /R /Y /I /K
 xcopy   ..\licenses                    .\output\licenses\ /E /R /Y /I /K
-copy /Y .\MDPlayer\lib\scci*.*         .\output
-copy /Y .\MDPlayer\lib\c86ctl.*        .\output
-copy /Y .\MDPlayer\plugin\*.*          .\output\plugin
-copy /Y .\MDPlayer\plugin\driver\*.*   .\output\plugin\driver
+copy /Y .\MDPlayerx64\lib\scci*.*         .\output
+copy /Y .\MDPlayerx64\lib\c86ctl.*        .\output
+copy /Y .\MDPlayerx64\plugin\*.*          .\output\plugin
+copy /Y .\MDPlayerx64\plugin\driver\*.*   .\output\plugin\driver
 copy /Y .\..\CHANGE.txt                .\output
 copy /Y .\..\LICENSE.txt               .\output
 copy /Y .\..\README.md                 .\output
@@ -34,11 +27,12 @@ del /Q .\output\*.pdb
 rem del /Q .\output\*.config
 del /Q .\output\*.bat
 rem del /Q .\output\MGSDRV.COM
-del /Q .\output\x64\*.pdb
-del /Q .\output\x64\*.bat
-copy /Y MDPlayer\removeZoneIdent.bat   .\output
-copy /Y MDPlayer\mdp.bat   .\output
-
+copy /Y .\removeZoneIdent.bat   .\output
+copy /Y .\mdp.bat   .\output
+rmdir /S /Q .\output\deploy
+rmdir /S /Q .\output\net6.0-windows
+rmdir /S /Q .\output\ref
+rmdir /S /Q .\output\runtimes
 rem -- withoutVSTŒü‚¯
 Xcopy   .\MDPlayer\*.*                                                         ..\..\MDPlayerWithoutVST\MDPlayer\MDPlayer\ /E /R /Y /I /K
 copy /Y ..\..\MDPlayerWithoutVST\MDPlayer\MDPlayerBackUp\VST\*.*               ..\..\MDPlayerWithoutVST\MDPlayer\MDPlayer\VST

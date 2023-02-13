@@ -1152,9 +1152,9 @@ namespace MDPlayerx64.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap plane1 {
+        internal static System.Drawing.Bitmap plane {
             get {
-                object obj = ResourceManager.GetObject("plane1", resourceCulture);
+                object obj = ResourceManager.GetObject("plane", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

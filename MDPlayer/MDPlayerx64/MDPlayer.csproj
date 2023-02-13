@@ -1,0 +1,1148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\VST.NET2-Host.2.1.0\build\VST.NET2-Host.props" Condition="Exists('..\packages\VST.NET2-Host.2.1.0\build\VST.NET2-Host.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B3206C8D-424E-4378-A2C3-3E6B6718A3EB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MDPlayer</RootNamespace>
+    <AssemblyName>MDPlayer</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Feli.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+    <Optimize>false</Optimize>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>none</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>none</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <DebugSymbols>false</DebugSymbols>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MDSound, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\MDSound.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Win32.Registry, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Win32.Registry.5.0.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
+    </Reference>
+    <Reference Include="musicDriverInterface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\musicDriverInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.2.1.0\lib\net472\NAudio.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Asio, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.Asio.2.1.0\lib\netstandard2.0\NAudio.Asio.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Core, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.Core.2.1.0\lib\netstandard2.0\NAudio.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Midi, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.Midi.2.1.0\lib\netstandard2.0\NAudio.Midi.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Wasapi, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.Wasapi.2.1.0\lib\netstandard2.0\NAudio.Wasapi.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.WinForms, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.WinForms.2.1.0\lib\net472\NAudio.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.WinMM, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.WinMM.2.1.0\lib\netstandard2.0\NAudio.WinMM.dll</HintPath>
+    </Reference>
+    <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
+    <Reference Include="RealChipCtlWrap, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\RealChipCtlWrap.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Security.AccessControl, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.6.0.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Z80dotNet, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Z80dotNet.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Audio.cs" />
+    <Compile Include="ChipLEDs.cs" />
+    <Compile Include="ChipRegister.cs" />
+    <Compile Include="common.cs" />
+    <Compile Include="dacControl.cs" />
+    <Compile Include="ChipInf.cs" />
+    <Compile Include="drawBuff.cs" />
+    <Compile Include="Driver\baseDriver.cs" />
+    <Compile Include="Driver\HES\hes.cs" />
+    <Compile Include="Driver\HES\km6280.cs" />
+    <Compile Include="Driver\HES\kmevent.cs" />
+    <Compile Include="Driver\HES\m_hes.cs" />
+    <Compile Include="Driver\MGSDRV\Cartridge.cs" />
+    <Compile Include="Driver\MGSDRV\iMapper.cs" />
+    <Compile Include="Driver\MGSDRV\Mapper.cs" />
+    <Compile Include="Driver\MGSDRV\MapperRAMCartridge.cs" />
+    <Compile Include="Driver\MGSDRV\MGSDRV.cs" />
+    <Compile Include="Driver\MGSDRV\MsxMemory.cs" />
+    <Compile Include="Driver\MGSDRV\MSXMusicCartridge.cs" />
+    <Compile Include="Driver\MGSDRV\MsxPort.cs" />
+    <Compile Include="Driver\MGSDRV\MSXSlot.cs" />
+    <Compile Include="Driver\MGSDRV\SCCCartridge.cs" />
+    <Compile Include="Driver\MGSDRV\Slot.cs" />
+    <Compile Include="Driver\MNDRV\comanalyze.cs" />
+    <Compile Include="Driver\MNDRV\comcmds.cs" />
+    <Compile Include="Driver\MNDRV\comlfo.cs" />
+    <Compile Include="Driver\MNDRV\comwave.cs" />
+    <Compile Include="Driver\MNDRV\devmpcm.cs" />
+    <Compile Include="Driver\MNDRV\devopm.cs" />
+    <Compile Include="Driver\MNDRV\devopn.cs" />
+    <Compile Include="Driver\MNDRV\devopnemu.cs" />
+    <Compile Include="Driver\MNDRV\devpsg.cs" />
+    <Compile Include="Driver\MNDRV\devpsgemu.cs" />
+    <Compile Include="Driver\MNDRV\devrhy.cs" />
+    <Compile Include="Driver\MNDRV\interrupt.cs" />
+    <Compile Include="Driver\MNDRV\mndrv.cs" />
+    <Compile Include="Driver\MNDRV\mnwork.cs" />
+    <Compile Include="Driver\MNDRV\mpcm.cs" />
+    <Compile Include="Driver\MNDRV\reg.cs" />
+    <Compile Include="Driver\MoonDriver\MoonDriver.cs" />
+    <Compile Include="Driver\MoonDriver\MoonDriverDotNET.cs" />
+    <Compile Include="Driver\MUCOM\MucomDotNET.cs" />
+    <Compile Include="Driver\MXDRV\depend.cs" />
+    <Compile Include="Driver\MXDRV\MXDRV.cs" />
+    <Compile Include="Driver\MXDRV\MXDRVh.cs" />
+    <Compile Include="Driver\MXDRV\xReg.cs" />
+    <Compile Include="Driver\NSF\nsf.cs" />
+    <Compile Include="Driver\MID\MID.cs" />
+    <Compile Include="Driver\PMD\PMDDotNET.cs" />
+    <Compile Include="Driver\RCP\MIDIEvent.cs" />
+    <Compile Include="Driver\RCP\MIDIPart.cs" />
+    <Compile Include="Driver\RCP\MIDITrack.cs" />
+    <Compile Include="Driver\RCP\RCP.cs" />
+    <Compile Include="Driver\S98\S98.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\builders\resid-builder\resid-builder.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\builders\resid-builder\resid-emu.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\builders\resid-builder\resid.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\builders\resid-builder\reSID\dac.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\builders\resid-builder\reSID\envelope.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\builders\resid-builder\reSID\extfilt.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\builders\resid-builder\reSID\filter.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\builders\resid-builder\reSID\pot.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\builders\resid-builder\reSID\sid.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\builders\resid-builder\reSID\siddefs.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\builders\resid-builder\reSID\spline.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\builders\resid-builder\reSID\voice.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\builders\resid-builder\reSID\wave.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\Banks\Bank.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\Banks\ColorRAMBank.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\Banks\DisconnectedBusBank.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\Banks\ExtraSidBank.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\Banks\IBank.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\Banks\IOBank.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\Banks\IPLA.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\Banks\NullSid.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\Banks\SidBank.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\Banks\SystemRAMBank.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\Banks\SystemROMBanks.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\Banks\ZeroRAMBank.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\c64.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\c64cia.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\c64cpu.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\c64env.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\c64sid.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\c64vic.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\CIA\interrupt.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\CIA\mos6526.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\CIA\SerialPort.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\CIA\timer.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\CIA\tod.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\CPU\flags.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\CPU\mos6510.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\CPU\mos6510debug.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\CPU\opcodes.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\mmu.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\VIC_II\lightpen.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\VIC_II\mos656x.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\c64\VIC_II\sprites.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\Const.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\Event.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\EventCallback.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\EventScheduler.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\IEvent.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\mixer.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\player.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\psiddrv.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\reloc65.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\romCheck.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\sidemu.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\sidendian.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\SidInfoImpl.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\sidmd5.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\sidmemory.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\sidplayfp\sidbuilder.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\sidplayfp\SidConfig.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\sidplayfp\SidInfo.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\sidplayfp\sidplayfp.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\sidplayfp\SidTune.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\sidplayfp\SidTuneInfo.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\sidtune\MUS.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\sidtune\p00.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\sidtune\prg.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\sidtune\PSID.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\sidtune\SidTuneBase.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\sidtune\SidTuneCfg.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\sidtune\SidTuneInfoImpl.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\sidtune\SidTuneTools.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\sidtune\SmartPtr.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\stringutils.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\utils\iMd5.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\utils\iniParser.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\utils\md5Factory.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\utils\md5Gcrypt.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\utils\md5Internal.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\utils\MD5\MD5.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\utils\MD5\MD5_Defs.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\utils\SidDatabase.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\utils\STILview\stil.cs" />
+    <Compile Include="Driver\SID\libsidplayfp\utils\STILview\stildefs.cs" />
+    <Compile Include="Driver\SID\mem.cs" />
+    <Compile Include="Driver\SID\Ptr.cs" />
+    <Compile Include="Driver\HES\s_deltat.cs" />
+    <Compile Include="Driver\HES\s_hesad.cs" />
+    <Compile Include="Driver\SID\sid.cs" />
+    <Compile Include="Driver\xgm.cs" />
+    <Compile Include="Driver\ZGM\EnmZGMDevice.cs" />
+    <Compile Include="Driver\ZGM\zgm.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\Chip.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\ChipFactory.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\Conductor.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\YM2609.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\ZgmChip.cs" />
+    <Compile Include="fileCom.cs" />
+    <Compile Include="form\frmBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmBase.Designer.cs">
+      <DependentUpon>frmBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\OPN\frmYM2609.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\OPN\frmYM2609.designer.cs">
+      <DependentUpon>frmYM2609.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\OPX\frmYMF271.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\OPX\frmYMF271.Designer.cs">
+      <DependentUpon>frmYMF271.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\PCM\frmRf5c68.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\PCM\frmRf5c68.Designer.cs">
+      <DependentUpon>frmRf5c68.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\PSG\frmAY8910.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\PSG\frmAY8910.Designer.cs">
+      <DependentUpon>frmAY8910.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\PCM\frmC140.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\PCM\frmC140.Designer.cs">
+      <DependentUpon>frmC140.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\PCM\frmC352.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\PCM\frmC352.Designer.cs">
+      <DependentUpon>frmC352.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\frmChipBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\frmChipBase.Designer.cs">
+      <DependentUpon>frmChipBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\NES\frmDMG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\NES\frmDMG.Designer.cs">
+      <DependentUpon>frmDMG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\NES\frmFDS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\NES\frmFDS.Designer.cs">
+      <DependentUpon>frmFDS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\WF\frmHuC6280.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\WF\frmHuC6280.Designer.cs">
+      <DependentUpon>frmHuC6280.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\SYS\frmInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\SYS\frmInfo.Designer.cs">
+      <DependentUpon>frmInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\WF\frmK051649.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\WF\frmK051649.Designer.cs">
+      <DependentUpon>frmK051649.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\SYS\frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\SYS\frmMain.Designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DoubleBuffer.cs" />
+    <Compile Include="form\KB\PCM\frmMegaCD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\PCM\frmMegaCD.Designer.cs">
+      <DependentUpon>frmMegaCD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\frmMIDI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\frmMIDI.Designer.cs">
+      <DependentUpon>frmMIDI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\SYS\frmMixer2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\SYS\frmMixer2.Designer.cs">
+      <DependentUpon>frmMixer2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\NES\frmMMC5.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\NES\frmMMC5.Designer.cs">
+      <DependentUpon>frmMMC5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\PCM\frmMultiPCM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\PCM\frmMultiPCM.Designer.cs">
+      <DependentUpon>frmMultiPCM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\NES\frmN106.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\NES\frmN106.Designer.cs">
+      <DependentUpon>frmN106.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\NES\frmNESDMC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\NES\frmNESDMC.Designer.cs">
+      <DependentUpon>frmNESDMC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\PCM\frmOKIM6258.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\PCM\frmOKIM6258.Designer.cs">
+      <DependentUpon>frmOKIM6258.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\PCM\frmOKIM6295.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\PCM\frmOKIM6295.Designer.cs">
+      <DependentUpon>frmOKIM6295.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\Driver\frmPCM8.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\Driver\frmPCM8.Designer.cs">
+      <DependentUpon>frmPCM8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\SYS\frmPlayList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\SYS\frmPlayList.Designer.cs">
+      <DependentUpon>frmPlayList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\Driver\frmPPZ8.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\Driver\frmPPZ8.Designer.cs">
+      <DependentUpon>frmPPZ8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\PCM\frmPWM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\PCM\frmPWM.Designer.cs">
+      <DependentUpon>frmPWM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\PCM\frmQSound.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\PCM\frmQSound.Designer.cs">
+      <DependentUpon>frmQSound.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\frmRegTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\frmRegTest.Designer.cs">
+      <DependentUpon>frmRegTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\NES\frmS5B.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\NES\frmS5B.Designer.cs">
+      <DependentUpon>frmS5B.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\PSG\frmSAA1099.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\PSG\frmSAA1099.Designer.cs">
+      <DependentUpon>frmSAA1099.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\PCM\frmSegaPCM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\PCM\frmSegaPCM.Designer.cs">
+      <DependentUpon>frmSegaPCM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\SYS\frmSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\SYS\frmSetting.Designer.cs">
+      <DependentUpon>frmSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\PSG\frmSN76489.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\PSG\frmSN76489.Designer.cs">
+      <DependentUpon>frmSN76489.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\SYS\frmTPGet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\SYS\frmTPGet.Designer.cs">
+      <DependentUpon>frmTPGet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\SYS\frmTPPut.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\SYS\frmTPPut.Designer.cs">
+      <DependentUpon>frmTPPut.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\NES\frmVRC6.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\NES\frmVRC6.Designer.cs">
+      <DependentUpon>frmVRC6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\NES\frmVRC7.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\NES\frmVRC7.Designer.cs">
+      <DependentUpon>frmVRC7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\SYS\frmVisWave.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\SYS\frmVisWave.Designer.cs">
+      <DependentUpon>frmVisWave.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KumaCom.cs" />
+    <Compile Include="mmfControl.cs" />
+    <Compile Include="OpeManager.cs" />
+    <Compile Include="Request.cs" />
+    <Compile Include="VST\frmVST.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VST\frmVST.Designer.cs">
+      <DependentUpon>frmVST.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VST\frmVSTeffectList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VST\frmVSTeffectList.Designer.cs">
+      <DependentUpon>frmVSTeffectList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\OPL\frmY8950.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\OPL\frmY8950.Designer.cs">
+      <DependentUpon>frmY8950.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\frmYM2151.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\frmYM2151.Designer.cs">
+      <DependentUpon>frmYM2151.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\OPN\frmYM2203.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\OPN\frmYM2203.Designer.cs">
+      <DependentUpon>frmYM2203.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\OPL\frmYM2413.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\OPL\frmYM2413.Designer.cs">
+      <DependentUpon>frmYM2413.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\OPN\frmYM2608.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\OPN\frmYM2608.Designer.cs">
+      <DependentUpon>frmYM2608.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\OPN\frmYM2610.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\OPN\frmYM2610.Designer.cs">
+      <DependentUpon>frmYM2610.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\OPN\frmYM2612.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\OPN\frmYM2612.Designer.cs">
+      <DependentUpon>frmYM2612.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\OPN\frmYM2612MIDI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\OPN\frmYM2612MIDI.Designer.cs">
+      <DependentUpon>frmYM2612MIDI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\OPL\frmYM3526.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\OPL\frmYM3526.Designer.cs">
+      <DependentUpon>frmYM3526.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\OPL\frmYM3812.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\OPL\frmYM3812.Designer.cs">
+      <DependentUpon>frmYM3812.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\OPL\frmYMF262.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\OPL\frmYMF262.Designer.cs">
+      <DependentUpon>frmYMF262.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\OPL\frmYMF278B.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\OPL\frmYMF278B.Designer.cs">
+      <DependentUpon>frmYMF278B.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\KB\frmYMZ280B.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\frmYMZ280B.Designer.cs">
+      <DependentUpon>frmYMZ280B.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrameBuffer.cs" />
+    <Compile Include="KeyboardHook3.cs" />
+    <Compile Include="log.cs" />
+    <Compile Include="M3U.cs" />
+    <Compile Include="MDChipParams.cs" />
+    <Compile Include="MIDIExport.cs" />
+    <Compile Include="midiOutInfo.cs" />
+    <Compile Include="MIDIParam.cs" />
+    <Compile Include="NAudioWrap.cs" />
+    <Compile Include="Driver\NRTDRV\NRTDRV.cs" />
+    <Compile Include="NullOut.cs" />
+    <Compile Include="PlayList.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RealChip.cs" />
+    <Compile Include="Setting.cs" />
+    <Compile Include="SoundChip.cs" />
+    <Compile Include="Tables.cs" />
+    <Compile Include="form\SYS\ucSettingInstruments.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="form\SYS\ucSettingInstruments.Designer.cs">
+      <DependentUpon>ucSettingInstruments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Driver\vgm.cs" />
+    <Compile Include="Tone.cs" />
+    <Compile Include="TonePallet.cs" />
+    <Compile Include="UnlhaWrap\UnlhaAPI.cs" />
+    <Compile Include="UnlhaWrap\UnlhaCmd.cs" />
+    <Compile Include="VisVolume.cs" />
+    <Compile Include="VRC7.cs" />
+    <Compile Include="VST\vstInfo.cs" />
+    <Compile Include="VST\vstMng.cs" />
+    <Compile Include="WaveWriter.cs" />
+    <Compile Include="YM2612MIDI.cs" />
+    <EmbeddedResource Include="form\frmBase.resx">
+      <DependentUpon>frmBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\OPN\frmYM2609.resx">
+      <DependentUpon>frmYM2609.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\OPX\frmYMF271.resx">
+      <DependentUpon>frmYMF271.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\PCM\frmRf5c68.resx">
+      <DependentUpon>frmRf5c68.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\PSG\frmAY8910.resx">
+      <DependentUpon>frmAY8910.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\PCM\frmC140.resx">
+      <DependentUpon>frmC140.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\PCM\frmC352.resx">
+      <DependentUpon>frmC352.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\frmChipBase.resx">
+      <DependentUpon>frmChipBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\NES\frmDMG.resx">
+      <DependentUpon>frmDMG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\NES\frmFDS.resx">
+      <DependentUpon>frmFDS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\WF\frmHuC6280.resx">
+      <DependentUpon>frmHuC6280.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\SYS\frmInfo.resx">
+      <DependentUpon>frmInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\WF\frmK051649.resx">
+      <DependentUpon>frmK051649.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\SYS\frmMain.ja.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\SYS\frmMain.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\PCM\frmMegaCD.resx">
+      <DependentUpon>frmMegaCD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\frmMIDI.resx">
+      <DependentUpon>frmMIDI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\SYS\frmMixer2.resx">
+      <DependentUpon>frmMixer2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\NES\frmMMC5.resx">
+      <DependentUpon>frmMMC5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\PCM\frmMultiPCM.resx">
+      <DependentUpon>frmMultiPCM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\NES\frmN106.resx">
+      <DependentUpon>frmN106.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\NES\frmNESDMC.resx">
+      <DependentUpon>frmNESDMC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\PCM\frmOKIM6258.resx">
+      <DependentUpon>frmOKIM6258.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\PCM\frmOKIM6295.resx">
+      <DependentUpon>frmOKIM6295.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\Driver\frmPCM8.resx">
+      <DependentUpon>frmPCM8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\SYS\frmPlayList.ja.resx">
+      <DependentUpon>frmPlayList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\SYS\frmPlayList.resx">
+      <DependentUpon>frmPlayList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\Driver\frmPPZ8.resx">
+      <DependentUpon>frmPPZ8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\PCM\frmPWM.resx">
+      <DependentUpon>frmPWM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\PCM\frmQSound.resx">
+      <DependentUpon>frmQSound.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\frmRegTest.resx">
+      <DependentUpon>frmRegTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\NES\frmS5B.resx">
+      <DependentUpon>frmS5B.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\PSG\frmSAA1099.resx">
+      <DependentUpon>frmSAA1099.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\PCM\frmSegaPCM.resx">
+      <DependentUpon>frmSegaPCM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\SYS\frmSetting.ja.resx">
+      <DependentUpon>frmSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\SYS\frmSetting.resx">
+      <DependentUpon>frmSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\PSG\frmSN76489.resx">
+      <DependentUpon>frmSN76489.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\SYS\frmTPGet.resx">
+      <DependentUpon>frmTPGet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\SYS\frmTPPut.resx">
+      <DependentUpon>frmTPPut.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\NES\frmVRC6.resx">
+      <DependentUpon>frmVRC6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\NES\frmVRC7.resx">
+      <DependentUpon>frmVRC7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\SYS\frmVisWave.resx">
+      <DependentUpon>frmVisWave.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VST\frmVST.resx">
+      <DependentUpon>frmVST.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VST\frmVSTeffectList.resx">
+      <DependentUpon>frmVSTeffectList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\OPL\frmY8950.resx">
+      <DependentUpon>frmY8950.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\frmYM2151.resx">
+      <DependentUpon>frmYM2151.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\OPN\frmYM2203.resx">
+      <DependentUpon>frmYM2203.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\OPL\frmYM2413.resx">
+      <DependentUpon>frmYM2413.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\OPN\frmYM2608.resx">
+      <DependentUpon>frmYM2608.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\OPN\frmYM2610.resx">
+      <DependentUpon>frmYM2610.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\OPN\frmYM2612.resx">
+      <DependentUpon>frmYM2612.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\OPN\frmYM2612MIDI.resx">
+      <DependentUpon>frmYM2612MIDI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\OPL\frmYM3526.resx">
+      <DependentUpon>frmYM3526.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\OPL\frmYM3812.resx">
+      <DependentUpon>frmYM3812.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\OPL\frmYMF262.resx">
+      <DependentUpon>frmYMF262.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\OPL\frmYMF278B.resx">
+      <DependentUpon>frmYMF278B.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\frmYMZ280B.resx">
+      <DependentUpon>frmYMZ280B.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="form\SYS\ucSettingInstruments.resx">
+      <DependentUpon>ucSettingInstruments.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="lib\c86ctl.ini" />
+    <None Include="lib\MGSDRV.COM" />
+    <None Include="lib\scci.ini" />
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\BindData.datasource" />
+    <None Include="Properties\DataSources\Data.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+    <None Include="Resources\plane.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Driver\SID\debugMemo.txt" />
+    <Content Include="lang\MoonDriverDotNETmessage.ja-JP.txt" />
+    <Content Include="lang\MoonDriverDotNETmessage.txt" />
+    <Content Include="lang\PMDDotNETmessage.ja-JP.txt" />
+    <Content Include="lang\PMDDotNETmessage.txt" />
+    <Content Include="lib\c86ctl.dll" />
+    <Content Include="lib\MDSound.dll" />
+    <Content Include="lib\Z80dotNet.dll" />
+    <Content Include="plugin\driver\MoonDriverDotNETCommon.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="plugin\driver\MoonDriverDotNETCompiler.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="plugin\driver\MoonDriverDotNETDriver.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="plugin\driver\mucomDotNETCommon.dll" />
+    <Content Include="plugin\driver\mucomDotNETCompiler.dll" />
+    <Content Include="plugin\driver\mucomDotNETDriver.dll" />
+    <Content Include="lang\mucomDotNETmessage.ja-JP.txt" />
+    <Content Include="lang\mucomDotNETmessage.txt" />
+    <Content Include="lib\musicDriverInterface.dll" />
+    <Content Include="lib\RealChipCtlWrap.dll" />
+    <Content Include="lib\scci.dll" />
+    <Content Include="lib\scciconfig.exe" />
+    <Content Include="plugin\driver\PMDDotNETCommon.dll" />
+    <Content Include="plugin\driver\PMDDotNETCompiler.dll" />
+    <Content Include="plugin\driver\PMDDotNETDriver.dll" />
+    <Content Include="Resources\addFolderPL.png" />
+    <Content Include="Resources\addPL.png" />
+    <Content Include="Resources\ccFadeout.png" />
+    <Content Include="Resources\ccFast.png" />
+    <None Include="Resources\planeYM2609.png" />
+    <None Include="Resources\rPSG2.png" />
+    <Content Include="Resources\vHeight1.png" />
+    <Content Include="Resources\vHeight2.png" />
+    <Content Include="Resources\vHeight3.png" />
+    <Content Include="Resources\vType1.png" />
+    <Content Include="Resources\vType2.png" />
+    <Content Include="Resources\vType3.png" />
+    <None Include="Resources\ccInformation.png" />
+    <Content Include="Resources\ccKBD.png" />
+    <Content Include="Resources\ccLoop.png" />
+    <Content Include="Resources\ccLoopOne.png" />
+    <Content Include="Resources\ccMIDIKBD.png" />
+    <Content Include="Resources\ccMixer.png" />
+    <Content Include="Resources\ccNext.png" />
+    <Content Include="Resources\ccOpenFolder.png" />
+    <Content Include="Resources\ccPause.png" />
+    <Content Include="Resources\ccPlay.png" />
+    <Content Include="Resources\ccPlayList.png" />
+    <Content Include="Resources\ccPrevious.png" />
+    <Content Include="Resources\ccRandom.png" />
+    <Content Include="Resources\ccSetting.png" />
+    <Content Include="Resources\ccSlow.png" />
+    <Content Include="Resources\ccStep.png" />
+    <Content Include="Resources\ccStop.png" />
+    <Content Include="Resources\ccVST.png" />
+    <Content Include="Resources\ccZoom.png" />
+    <Content Include="Resources\chFadeout.png" />
+    <Content Include="Resources\chFast.png" />
+    <Content Include="Resources\chInformation.png" />
+    <Content Include="Resources\chKBD.png" />
+    <Content Include="Resources\chLoop.png" />
+    <Content Include="Resources\chLoopOne.png" />
+    <Content Include="Resources\chMIDIKBD.png" />
+    <Content Include="Resources\chMixer.png" />
+    <Content Include="Resources\chNext.png" />
+    <Content Include="Resources\chOpenFolder.png" />
+    <Content Include="Resources\chPause.png" />
+    <Content Include="Resources\chPlay.png" />
+    <Content Include="Resources\chPlayList.png" />
+    <Content Include="Resources\chPrevious.png" />
+    <Content Include="Resources\chRandom.png" />
+    <Content Include="Resources\chSetting.png" />
+    <Content Include="Resources\chSlow.png" />
+    <Content Include="Resources\chStep.png" />
+    <Content Include="Resources\chStop.png" />
+    <Content Include="Resources\chVST.png" />
+    <Content Include="Resources\chZoom.png" />
+    <Content Include="Resources\ciFadeout.png" />
+    <Content Include="Resources\ciFast.png" />
+    <Content Include="Resources\ciInformation.png" />
+    <Content Include="Resources\ciKBD.png" />
+    <Content Include="Resources\ciLoop.png" />
+    <Content Include="Resources\ciLoopOne.png" />
+    <Content Include="Resources\ciMIDIKBD.png" />
+    <Content Include="Resources\ciMixer.png" />
+    <Content Include="Resources\ciNext.png" />
+    <Content Include="Resources\ciOpenFolder.png" />
+    <Content Include="Resources\ciPause.png" />
+    <Content Include="Resources\ciPlay.png" />
+    <Content Include="Resources\ciPlayList.png" />
+    <Content Include="Resources\ciPrevious.png" />
+    <Content Include="Resources\ciRandom.png" />
+    <Content Include="Resources\ciSetting.png" />
+    <Content Include="Resources\ciSlow.png" />
+    <Content Include="Resources\ciStep.png" />
+    <Content Include="Resources\ciStop.png" />
+    <Content Include="Resources\ciVST.png" />
+    <Content Include="Resources\ciZoom.png" />
+    <Content Include="Resources\DefaultVolumeBalance_HES.xml" />
+    <Content Include="Resources\DefaultVolumeBalance_MDR.xml" />
+    <Content Include="Resources\DefaultVolumeBalance_MDX.xml" />
+    <Content Include="Resources\DefaultVolumeBalance_MND.xml" />
+    <Content Include="Resources\DefaultVolumeBalance_MUB.xml" />
+    <Content Include="Resources\DefaultVolumeBalance_MUC.xml" />
+    <Content Include="Resources\DefaultVolumeBalance_NRT.xml" />
+    <Content Include="Resources\DefaultVolumeBalance_NSF.xml" />
+    <Content Include="Resources\DefaultVolumeBalance_S98.xml" />
+    <Content Include="Resources\DefaultVolumeBalance_SID.xml" />
+    <Content Include="Resources\DefaultVolumeBalance_VGM.xml" />
+    <Content Include="Resources\DefaultVolumeBalance_XGM.xml" />
+    <Content Include="Resources\DefaultVolumeBalance_ZGM.xml" />
+    <Content Include="Resources\downPL.png" />
+    <Content Include="Resources\FeliTop.ico" />
+    <Content Include="Resources\imgPL.png" />
+    <Content Include="Resources\japPL.png" />
+    <Content Include="Resources\mmlPL.png" />
+    <Content Include="Resources\openPL.png" />
+    <Content Include="Resources\planeAY8910.png" />
+    <Content Include="Resources\planeB.png" />
+    <Content Include="Resources\planeC352.png" />
+    <Content Include="Resources\planeControl.png" />
+    <Content Include="Resources\planeD.png" />
+    <Content Include="Resources\planeDMG.png" />
+    <Content Include="Resources\planeE.png" />
+    <Content Include="Resources\planeF.png" />
+    <Content Include="Resources\planeFDS.png" />
+    <Content Include="Resources\planeHuC6280.png" />
+    <Content Include="Resources\planeK051649.png" />
+    <Content Include="Resources\planeMIDI_GM.png" />
+    <Content Include="Resources\planeMIDI_GS.png" />
+    <Content Include="Resources\planeMIDI_XG.png" />
+    <Content Include="Resources\planeMixer.png" />
+    <Content Include="Resources\planeMMC5.png" />
+    <Content Include="Resources\planeMSM6258.png" />
+    <Content Include="Resources\planeMSM6295.png" />
+    <Content Include="Resources\planeMultiPCM.png" />
+    <Content Include="Resources\planeN106.png" />
+    <Content Include="Resources\planeNESDMC.png" />
+    <Content Include="Resources\planePPZ8.png" />
+    <Content Include="Resources\planeQSound.png" />
+    <Content Include="Resources\planeS5B.png" />
+    <Content Include="Resources\planeSEGAPCM.png" />
+    <Content Include="Resources\planeSN76489.png" />
+    <Content Include="Resources\planeVRC6.png" />
+    <Content Include="Resources\planeVRC7.png" />
+    <Content Include="Resources\planeY8950.png" />
+    <Content Include="Resources\planeYM2203.png" />
+    <Content Include="Resources\planeYM2413.png" />
+    <Content Include="Resources\planeYM2610.png" />
+    <Content Include="Resources\planeYM2612.png" />
+    <Content Include="Resources\planeYM2612MIDI.png" />
+    <Content Include="Resources\planeYM3526.png" />
+    <Content Include="Resources\planeYM3812.png" />
+    <Content Include="Resources\planeYMF262.png" />
+    <Content Include="Resources\planeYMF271.png" />
+    <Content Include="Resources\planeYMF278B.png" />
+    <Content Include="Resources\planeYMZ280B.png" />
+    <Content Include="Resources\rChipName_01.png" />
+    <Content Include="Resources\rChipName_02.png" />
+    <Content Include="Resources\rChipName_03.png" />
+    <Content Include="Resources\rFader.png" />
+    <Content Include="Resources\rFont_01.png" />
+    <Content Include="Resources\rFont_02.png" />
+    <Content Include="Resources\rFont_03.png" />
+    <Content Include="Resources\rFont_04.png" />
+    <Content Include="Resources\rFont_05.png" />
+    <Content Include="Resources\rFont_06.png" />
+    <Content Include="Resources\rKakko_00.png" />
+    <Content Include="Resources\rKBD_01.png" />
+    <Content Include="Resources\rKBD_02.png" />
+    <Content Include="Resources\rKBD_03.png" />
+    <Content Include="Resources\rMenuButtons_01.png" />
+    <Content Include="Resources\rMenuButtons_02.png" />
+    <Content Include="Resources\rMIDILCD_01.png" />
+    <Content Include="Resources\rMIDILCD_02.png" />
+    <Content Include="Resources\rMIDILCD_03.png" />
+    <Content Include="Resources\rMIDILCD_Fader_01.png" />
+    <Content Include="Resources\rMIDILCD_Fader_02.png" />
+    <Content Include="Resources\rMIDILCD_Fader_03.png" />
+    <Content Include="Resources\rMIDILCD_Font_01.png" />
+    <Content Include="Resources\rMIDILCD_Font_02.png" />
+    <Content Include="Resources\rMIDILCD_Font_03.png" />
+    <None Include="Resources\README.md" />
+    <None Include="Resources\rMIDILCD_Font_04.png" />
+    <None Include="Resources\rMIDILCD_Font_05.png" />
+    <None Include="Resources\rMIDILCD_Font_06.png" />
+    <Content Include="Resources\rMIDILCD_KBD_01.png" />
+    <Content Include="Resources\rMIDILCD_Vol_01.png" />
+    <Content Include="Resources\rMIDILCD_Vol_02.png" />
+    <Content Include="Resources\rMIDILCD_Vol_03.png" />
+    <Content Include="Resources\rNESDMC.png" />
+    <Content Include="Resources\rPan2_01.png" />
+    <Content Include="Resources\rPan2_02.png" />
+    <Content Include="Resources\rPan_01.png" />
+    <Content Include="Resources\rPan_02.png" />
+    <Content Include="Resources\rPan_03.png" />
+    <Content Include="Resources\rPSGEnv.png" />
+    <Content Include="Resources\rPSGMode_01.png" />
+    <Content Include="Resources\rPSGMode_02.png" />
+    <Content Include="Resources\rPSGMode_03.png" />
+    <Content Include="Resources\rPSGMode_04.png" />
+    <Content Include="Resources\rPSGMode_05.png" />
+    <Content Include="Resources\rPSGMode_06.png" />
+    <Content Include="Resources\rType_01.png" />
+    <Content Include="Resources\rType_02.png" />
+    <Content Include="Resources\rType_03.png" />
+    <Content Include="Resources\rType_04.png" />
+    <Content Include="Resources\rType_05.png" />
+    <Content Include="Resources\rType_06.png" />
+    <Content Include="Resources\rType_YMF271.png" />
+    <Content Include="Resources\rVol_01.png" />
+    <Content Include="Resources\rVol_02.png" />
+    <Content Include="Resources\rVol_03.png" />
+    <Content Include="Resources\rWavGraph.png" />
+    <Content Include="Resources\rWavGraph2.png" />
+    <Content Include="Resources\savePL.png" />
+    <Content Include="Resources\txtPL.png" />
+    <Content Include="Resources\upPL.png" />
+    <Content Include="Resources\Feli.ico" />
+    <Content Include="Resources\Feli.png" />
+    <Content Include="Resources\Feli128.ico" />
+    <Content Include="Resources\Feli128.png" />
+    <Content Include="Resources\Feli48.png" />
+    <Content Include="Resources\Feli64.png" />
+    <None Include="Resources\FeliAndMD2.png" />
+    <Content Include="Feli.ico" />
+    <None Include="Resources\planeC.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 および x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy $(ProjectDir)lib\*.* $(TargetDir)
+mkdir $(TargetDir)plugin\driver
+copy $(ProjectDir)plugin\driver\*.* $(TargetDir)plugin\driver
+mkdir $(TargetDir)lang
+copy $(ProjectDir)lang\*.* $(TargetDir)lang
+</PostBuildEvent>
+  </PropertyGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>このプロジェクトは、このコンピューター上にない NuGet パッケージを参照しています。それらのパッケージをダウンロードするには、[NuGet パッケージの復元] を使用します。詳細については、http://go.microsoft.com/fwlink/?LinkID=322105 を参照してください。見つからないファイルは {0} です。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\VST.NET2-Host.2.1.0\build\VST.NET2-Host.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VST.NET2-Host.2.1.0\build\VST.NET2-Host.props'))" />
+    <Error Condition="!Exists('..\packages\VST.NET2-Host.2.1.0\build\VST.NET2-Host.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VST.NET2-Host.2.1.0\build\VST.NET2-Host.targets'))" />
+  </Target>
+  <Import Project="..\packages\VST.NET2-Host.2.1.0\build\VST.NET2-Host.targets" Condition="Exists('..\packages\VST.NET2-Host.2.1.0\build\VST.NET2-Host.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

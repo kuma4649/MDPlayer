@@ -8,6 +8,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Platforms>x64</Platforms>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <ApplicationIcon>Resources\Feli128.ico</ApplicationIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -19,660 +20,33 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\MDPlayer\Audio.cs" Link="Audio.cs" />
-    <Compile Include="..\MDPlayer\ChipInf.cs" Link="ChipInf.cs" />
-    <Compile Include="..\MDPlayer\ChipLEDs.cs" Link="ChipLEDs.cs" />
-    <Compile Include="..\MDPlayer\ChipRegister.cs" Link="ChipRegister.cs" />
-    <Compile Include="..\MDPlayer\common.cs" Link="common.cs" />
-    <Compile Include="..\MDPlayer\dacControl.cs" Link="dacControl.cs" />
-    <Compile Include="..\MDPlayer\DoubleBuffer.cs" Link="DoubleBuffer.cs" />
-    <Compile Include="..\MDPlayer\drawBuff.cs" Link="drawBuff.cs" />
-    <Compile Include="..\MDPlayer\Driver\baseDriver.cs" Link="Driver\baseDriver.cs" />
-    <Compile Include="..\MDPlayer\Driver\HES\hes.cs" Link="Driver\HES\hes.cs" />
-    <Compile Include="..\MDPlayer\Driver\HES\km6280.cs" Link="Driver\HES\km6280.cs" />
-    <Compile Include="..\MDPlayer\Driver\HES\kmevent.cs" Link="Driver\HES\kmevent.cs" />
-    <Compile Include="..\MDPlayer\Driver\HES\m_hes.cs" Link="Driver\HES\m_hes.cs" />
-    <Compile Include="..\MDPlayer\Driver\HES\s_deltat.cs" Link="Driver\HES\s_deltat.cs" />
-    <Compile Include="..\MDPlayer\Driver\HES\s_hesad.cs" Link="Driver\HES\s_hesad.cs" />
-    <Compile Include="..\MDPlayer\Driver\MGSDRV\Cartridge.cs" Link="Driver\MGSDRV\Cartridge.cs" />
-    <Compile Include="..\MDPlayer\Driver\MGSDRV\iMapper.cs" Link="Driver\MGSDRV\iMapper.cs" />
-    <Compile Include="..\MDPlayer\Driver\MGSDRV\Mapper.cs" Link="Driver\MGSDRV\Mapper.cs" />
-    <Compile Include="..\MDPlayer\Driver\MGSDRV\MapperRAMCartridge.cs" Link="Driver\MGSDRV\MapperRAMCartridge.cs" />
-    <Compile Include="..\MDPlayer\Driver\MGSDRV\MGSDRV.cs" Link="Driver\MGSDRV\MGSDRV.cs" />
-    <Compile Include="..\MDPlayer\Driver\MGSDRV\MsxMemory.cs" Link="Driver\MGSDRV\MsxMemory.cs" />
-    <Compile Include="..\MDPlayer\Driver\MGSDRV\MSXMusicCartridge.cs" Link="Driver\MGSDRV\MSXMusicCartridge.cs" />
-    <Compile Include="..\MDPlayer\Driver\MGSDRV\MsxPort.cs" Link="Driver\MGSDRV\MsxPort.cs" />
-    <Compile Include="..\MDPlayer\Driver\MGSDRV\MSXSlot.cs" Link="Driver\MGSDRV\MSXSlot.cs" />
-    <Compile Include="..\MDPlayer\Driver\MGSDRV\SCCCartridge.cs" Link="Driver\MGSDRV\SCCCartridge.cs" />
-    <Compile Include="..\MDPlayer\Driver\MGSDRV\Slot.cs" Link="Driver\MGSDRV\Slot.cs" />
-    <Compile Include="..\MDPlayer\Driver\MID\MID.cs" Link="Driver\MID\MID.cs" />
-    <Compile Include="..\MDPlayer\Driver\MNDRV\comanalyze.cs" Link="Driver\MNDRV\comanalyze.cs" />
-    <Compile Include="..\MDPlayer\Driver\MNDRV\comcmds.cs" Link="Driver\MNDRV\comcmds.cs" />
-    <Compile Include="..\MDPlayer\Driver\MNDRV\comlfo.cs" Link="Driver\MNDRV\comlfo.cs" />
-    <Compile Include="..\MDPlayer\Driver\MNDRV\comwave.cs" Link="Driver\MNDRV\comwave.cs" />
-    <Compile Include="..\MDPlayer\Driver\MNDRV\devmpcm.cs" Link="Driver\MNDRV\devmpcm.cs" />
-    <Compile Include="..\MDPlayer\Driver\MNDRV\devopm.cs" Link="Driver\MNDRV\devopm.cs" />
-    <Compile Include="..\MDPlayer\Driver\MNDRV\devopn.cs" Link="Driver\MNDRV\devopn.cs" />
-    <Compile Include="..\MDPlayer\Driver\MNDRV\devopnemu.cs" Link="Driver\MNDRV\devopnemu.cs" />
-    <Compile Include="..\MDPlayer\Driver\MNDRV\devpsg.cs" Link="Driver\MNDRV\devpsg.cs" />
-    <Compile Include="..\MDPlayer\Driver\MNDRV\devpsgemu.cs" Link="Driver\MNDRV\devpsgemu.cs" />
-    <Compile Include="..\MDPlayer\Driver\MNDRV\devrhy.cs" Link="Driver\MNDRV\devrhy.cs" />
-    <Compile Include="..\MDPlayer\Driver\MNDRV\interrupt.cs" Link="Driver\MNDRV\interrupt.cs" />
-    <Compile Include="..\MDPlayer\Driver\MNDRV\mndrv.cs" Link="Driver\MNDRV\mndrv.cs" />
-    <Compile Include="..\MDPlayer\Driver\MNDRV\mnwork.cs" Link="Driver\MNDRV\mnwork.cs" />
-    <Compile Include="..\MDPlayer\Driver\MNDRV\mpcm.cs" Link="Driver\MNDRV\mpcm.cs" />
-    <Compile Include="..\MDPlayer\Driver\MNDRV\reg.cs" Link="Driver\MNDRV\reg.cs" />
-    <Compile Include="..\MDPlayer\Driver\MoonDriver\MoonDriver.cs" Link="Driver\MoonDriver\MoonDriver.cs" />
-    <Compile Include="..\MDPlayer\Driver\MoonDriver\MoonDriverDotNET.cs" Link="Driver\MoonDriver\MoonDriverDotNET.cs" />
-    <Compile Include="..\MDPlayer\Driver\MUCOM\MucomDotNET.cs" Link="Driver\MUCOM\MucomDotNET.cs" />
-    <Compile Include="..\MDPlayer\Driver\MXDRV\depend.cs" Link="Driver\MXDRV\depend.cs" />
-    <Compile Include="..\MDPlayer\Driver\MXDRV\MXDRV.cs" Link="Driver\MXDRV\MXDRV.cs" />
-    <Compile Include="..\MDPlayer\Driver\MXDRV\MXDRVh.cs" Link="Driver\MXDRV\MXDRVh.cs" />
-    <Compile Include="..\MDPlayer\Driver\MXDRV\xReg.cs" Link="Driver\MXDRV\xReg.cs" />
-    <Compile Include="..\MDPlayer\Driver\NRTDRV\NRTDRV.cs" Link="Driver\NRTDRV\NRTDRV.cs" />
-    <Compile Include="..\MDPlayer\Driver\NSF\nsf.cs" Link="Driver\NSF\nsf.cs" />
-    <Compile Include="..\MDPlayer\Driver\PMD\PMDDotNET.cs" Link="Driver\PMD\PMDDotNET.cs" />
-    <Compile Include="..\MDPlayer\Driver\RCP\MIDIEvent.cs" Link="Driver\RCP\MIDIEvent.cs" />
-    <Compile Include="..\MDPlayer\Driver\RCP\MIDIPart.cs" Link="Driver\RCP\MIDIPart.cs" />
-    <Compile Include="..\MDPlayer\Driver\RCP\MIDITrack.cs" Link="Driver\RCP\MIDITrack.cs" />
-    <Compile Include="..\MDPlayer\Driver\RCP\RCP.cs" Link="Driver\RCP\RCP.cs" />
-    <Compile Include="..\MDPlayer\Driver\S98\S98.cs" Link="Driver\S98\S98.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\builders\resid-builder\resid-builder.cs" Link="Driver\SID\libsidplayfp\builders\resid-builder\resid-builder.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\builders\resid-builder\resid-emu.cs" Link="Driver\SID\libsidplayfp\builders\resid-builder\resid-emu.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\builders\resid-builder\resid.cs" Link="Driver\SID\libsidplayfp\builders\resid-builder\resid.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\builders\resid-builder\reSID\dac.cs" Link="Driver\SID\libsidplayfp\builders\resid-builder\reSID\dac.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\builders\resid-builder\reSID\envelope.cs" Link="Driver\SID\libsidplayfp\builders\resid-builder\reSID\envelope.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\builders\resid-builder\reSID\extfilt.cs" Link="Driver\SID\libsidplayfp\builders\resid-builder\reSID\extfilt.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\builders\resid-builder\reSID\filter.cs" Link="Driver\SID\libsidplayfp\builders\resid-builder\reSID\filter.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\builders\resid-builder\reSID\pot.cs" Link="Driver\SID\libsidplayfp\builders\resid-builder\reSID\pot.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\builders\resid-builder\reSID\sid.cs" Link="Driver\SID\libsidplayfp\builders\resid-builder\reSID\sid.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\builders\resid-builder\reSID\siddefs.cs" Link="Driver\SID\libsidplayfp\builders\resid-builder\reSID\siddefs.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\builders\resid-builder\reSID\spline.cs" Link="Driver\SID\libsidplayfp\builders\resid-builder\reSID\spline.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\builders\resid-builder\reSID\voice.cs" Link="Driver\SID\libsidplayfp\builders\resid-builder\reSID\voice.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\builders\resid-builder\reSID\wave.cs" Link="Driver\SID\libsidplayfp\builders\resid-builder\reSID\wave.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\Banks\Bank.cs" Link="Driver\SID\libsidplayfp\c64\Banks\Bank.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\Banks\ColorRAMBank.cs" Link="Driver\SID\libsidplayfp\c64\Banks\ColorRAMBank.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\Banks\DisconnectedBusBank.cs" Link="Driver\SID\libsidplayfp\c64\Banks\DisconnectedBusBank.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\Banks\ExtraSidBank.cs" Link="Driver\SID\libsidplayfp\c64\Banks\ExtraSidBank.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\Banks\IBank.cs" Link="Driver\SID\libsidplayfp\c64\Banks\IBank.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\Banks\IOBank.cs" Link="Driver\SID\libsidplayfp\c64\Banks\IOBank.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\Banks\IPLA.cs" Link="Driver\SID\libsidplayfp\c64\Banks\IPLA.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\Banks\NullSid.cs" Link="Driver\SID\libsidplayfp\c64\Banks\NullSid.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\Banks\SidBank.cs" Link="Driver\SID\libsidplayfp\c64\Banks\SidBank.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\Banks\SystemRAMBank.cs" Link="Driver\SID\libsidplayfp\c64\Banks\SystemRAMBank.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\Banks\SystemROMBanks.cs" Link="Driver\SID\libsidplayfp\c64\Banks\SystemROMBanks.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\Banks\ZeroRAMBank.cs" Link="Driver\SID\libsidplayfp\c64\Banks\ZeroRAMBank.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\c64.cs" Link="Driver\SID\libsidplayfp\c64\c64.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\c64cia.cs" Link="Driver\SID\libsidplayfp\c64\c64cia.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\c64cpu.cs" Link="Driver\SID\libsidplayfp\c64\c64cpu.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\c64env.cs" Link="Driver\SID\libsidplayfp\c64\c64env.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\c64sid.cs" Link="Driver\SID\libsidplayfp\c64\c64sid.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\c64vic.cs" Link="Driver\SID\libsidplayfp\c64\c64vic.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\CIA\interrupt.cs" Link="Driver\SID\libsidplayfp\c64\CIA\interrupt.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\CIA\mos6526.cs" Link="Driver\SID\libsidplayfp\c64\CIA\mos6526.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\CIA\SerialPort.cs" Link="Driver\SID\libsidplayfp\c64\CIA\SerialPort.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\CIA\timer.cs" Link="Driver\SID\libsidplayfp\c64\CIA\timer.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\CIA\tod.cs" Link="Driver\SID\libsidplayfp\c64\CIA\tod.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\CPU\flags.cs" Link="Driver\SID\libsidplayfp\c64\CPU\flags.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\CPU\mos6510.cs" Link="Driver\SID\libsidplayfp\c64\CPU\mos6510.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\CPU\mos6510debug.cs" Link="Driver\SID\libsidplayfp\c64\CPU\mos6510debug.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\CPU\opcodes.cs" Link="Driver\SID\libsidplayfp\c64\CPU\opcodes.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\mmu.cs" Link="Driver\SID\libsidplayfp\c64\mmu.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\VIC_II\lightpen.cs" Link="Driver\SID\libsidplayfp\c64\VIC_II\lightpen.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\VIC_II\mos656x.cs" Link="Driver\SID\libsidplayfp\c64\VIC_II\mos656x.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\c64\VIC_II\sprites.cs" Link="Driver\SID\libsidplayfp\c64\VIC_II\sprites.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\Const.cs" Link="Driver\SID\libsidplayfp\Const.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\Event.cs" Link="Driver\SID\libsidplayfp\Event.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\EventCallback.cs" Link="Driver\SID\libsidplayfp\EventCallback.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\EventScheduler.cs" Link="Driver\SID\libsidplayfp\EventScheduler.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\IEvent.cs" Link="Driver\SID\libsidplayfp\IEvent.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\mixer.cs" Link="Driver\SID\libsidplayfp\mixer.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\player.cs" Link="Driver\SID\libsidplayfp\player.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\psiddrv.cs" Link="Driver\SID\libsidplayfp\psiddrv.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\reloc65.cs" Link="Driver\SID\libsidplayfp\reloc65.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\romCheck.cs" Link="Driver\SID\libsidplayfp\romCheck.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\sidemu.cs" Link="Driver\SID\libsidplayfp\sidemu.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\sidendian.cs" Link="Driver\SID\libsidplayfp\sidendian.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\SidInfoImpl.cs" Link="Driver\SID\libsidplayfp\SidInfoImpl.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\sidmd5.cs" Link="Driver\SID\libsidplayfp\sidmd5.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\sidmemory.cs" Link="Driver\SID\libsidplayfp\sidmemory.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\sidplayfp\sidbuilder.cs" Link="Driver\SID\libsidplayfp\sidplayfp\sidbuilder.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\sidplayfp\SidConfig.cs" Link="Driver\SID\libsidplayfp\sidplayfp\SidConfig.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\sidplayfp\SidInfo.cs" Link="Driver\SID\libsidplayfp\sidplayfp\SidInfo.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\sidplayfp\sidplayfp.cs" Link="Driver\SID\libsidplayfp\sidplayfp\sidplayfp.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\sidplayfp\SidTune.cs" Link="Driver\SID\libsidplayfp\sidplayfp\SidTune.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\sidplayfp\SidTuneInfo.cs" Link="Driver\SID\libsidplayfp\sidplayfp\SidTuneInfo.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\sidtune\MUS.cs" Link="Driver\SID\libsidplayfp\sidtune\MUS.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\sidtune\p00.cs" Link="Driver\SID\libsidplayfp\sidtune\p00.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\sidtune\prg.cs" Link="Driver\SID\libsidplayfp\sidtune\prg.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\sidtune\PSID.cs" Link="Driver\SID\libsidplayfp\sidtune\PSID.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\sidtune\SidTuneBase.cs" Link="Driver\SID\libsidplayfp\sidtune\SidTuneBase.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\sidtune\SidTuneCfg.cs" Link="Driver\SID\libsidplayfp\sidtune\SidTuneCfg.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\sidtune\SidTuneInfoImpl.cs" Link="Driver\SID\libsidplayfp\sidtune\SidTuneInfoImpl.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\sidtune\SidTuneTools.cs" Link="Driver\SID\libsidplayfp\sidtune\SidTuneTools.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\sidtune\SmartPtr.cs" Link="Driver\SID\libsidplayfp\sidtune\SmartPtr.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\stringutils.cs" Link="Driver\SID\libsidplayfp\stringutils.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\utils\iMd5.cs" Link="Driver\SID\libsidplayfp\utils\iMd5.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\utils\iniParser.cs" Link="Driver\SID\libsidplayfp\utils\iniParser.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\utils\md5Factory.cs" Link="Driver\SID\libsidplayfp\utils\md5Factory.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\utils\md5Gcrypt.cs" Link="Driver\SID\libsidplayfp\utils\md5Gcrypt.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\utils\md5Internal.cs" Link="Driver\SID\libsidplayfp\utils\md5Internal.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\utils\MD5\MD5.cs" Link="Driver\SID\libsidplayfp\utils\MD5\MD5.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\utils\MD5\MD5_Defs.cs" Link="Driver\SID\libsidplayfp\utils\MD5\MD5_Defs.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\utils\SidDatabase.cs" Link="Driver\SID\libsidplayfp\utils\SidDatabase.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\utils\STILview\stil.cs" Link="Driver\SID\libsidplayfp\utils\STILview\stil.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\libsidplayfp\utils\STILview\stildefs.cs" Link="Driver\SID\libsidplayfp\utils\STILview\stildefs.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\mem.cs" Link="Driver\SID\mem.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\Ptr.cs" Link="Driver\SID\Ptr.cs" />
-    <Compile Include="..\MDPlayer\Driver\SID\sid.cs" Link="Driver\SID\sid.cs" />
-    <Compile Include="..\MDPlayer\Driver\vgm.cs" Link="Driver\vgm.cs" />
-    <Compile Include="..\MDPlayer\Driver\xgm.cs" Link="Driver\xgm.cs" />
-    <Compile Include="..\MDPlayer\Driver\ZGM\EnmZGMDevice.cs" Link="Driver\ZGM\EnmZGMDevice.cs" />
-    <Compile Include="..\MDPlayer\Driver\ZGM\zgm.cs" Link="Driver\ZGM\zgm.cs" />
-    <Compile Include="..\MDPlayer\Driver\ZGM\ZgmChip\Chip.cs" Link="Driver\ZGM\ZgmChip\Chip.cs" />
-    <Compile Include="..\MDPlayer\Driver\ZGM\ZgmChip\ChipFactory.cs" Link="Driver\ZGM\ZgmChip\ChipFactory.cs" />
-    <Compile Include="..\MDPlayer\Driver\ZGM\ZgmChip\Conductor.cs" Link="Driver\ZGM\ZgmChip\Conductor.cs" />
-    <Compile Include="..\MDPlayer\Driver\ZGM\ZgmChip\YM2609.cs" Link="Driver\ZGM\ZgmChip\YM2609.cs" />
-    <Compile Include="..\MDPlayer\Driver\ZGM\ZgmChip\ZgmChip.cs" Link="Driver\ZGM\ZgmChip\ZgmChip.cs" />
-    <Compile Include="..\MDPlayer\fileCom.cs" Link="fileCom.cs" />
-    <Compile Include="..\MDPlayer\form\frmBase.cs" Link="form\frmBase.cs" />
-    <Compile Include="..\MDPlayer\form\frmBase.Designer.cs" Link="form\frmBase.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\Driver\frmPCM8.cs" Link="form\KB\Driver\frmPCM8.cs" />
-    <Compile Include="..\MDPlayer\form\KB\Driver\frmPCM8.Designer.cs" Link="form\KB\Driver\frmPCM8.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\Driver\frmPPZ8.cs" Link="form\KB\Driver\frmPPZ8.cs" />
-    <Compile Include="..\MDPlayer\form\KB\Driver\frmPPZ8.Designer.cs" Link="form\KB\Driver\frmPPZ8.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\frmChipBase.cs" Link="form\KB\frmChipBase.cs" />
-    <Compile Include="..\MDPlayer\form\KB\frmChipBase.Designer.cs" Link="form\KB\frmChipBase.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\frmMIDI.cs" Link="form\KB\frmMIDI.cs" />
-    <Compile Include="..\MDPlayer\form\KB\frmMIDI.Designer.cs" Link="form\KB\frmMIDI.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\frmRegTest.cs" Link="form\KB\frmRegTest.cs" />
-    <Compile Include="..\MDPlayer\form\KB\frmRegTest.Designer.cs" Link="form\KB\frmRegTest.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\frmYM2151.cs" Link="form\KB\frmYM2151.cs" />
-    <Compile Include="..\MDPlayer\form\KB\frmYM2151.Designer.cs" Link="form\KB\frmYM2151.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\frmYMZ280B.cs" Link="form\KB\frmYMZ280B.cs" />
-    <Compile Include="..\MDPlayer\form\KB\frmYMZ280B.Designer.cs" Link="form\KB\frmYMZ280B.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\NES\frmDMG.cs" Link="form\KB\NES\frmDMG.cs" />
-    <Compile Include="..\MDPlayer\form\KB\NES\frmDMG.Designer.cs" Link="form\KB\NES\frmDMG.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\NES\frmFDS.cs" Link="form\KB\NES\frmFDS.cs" />
-    <Compile Include="..\MDPlayer\form\KB\NES\frmFDS.Designer.cs" Link="form\KB\NES\frmFDS.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\NES\frmMMC5.cs" Link="form\KB\NES\frmMMC5.cs" />
-    <Compile Include="..\MDPlayer\form\KB\NES\frmMMC5.Designer.cs" Link="form\KB\NES\frmMMC5.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\NES\frmN106.cs" Link="form\KB\NES\frmN106.cs" />
-    <Compile Include="..\MDPlayer\form\KB\NES\frmN106.Designer.cs" Link="form\KB\NES\frmN106.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\NES\frmNESDMC.cs" Link="form\KB\NES\frmNESDMC.cs" />
-    <Compile Include="..\MDPlayer\form\KB\NES\frmNESDMC.Designer.cs" Link="form\KB\NES\frmNESDMC.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\NES\frmS5B.cs" Link="form\KB\NES\frmS5B.cs" />
-    <Compile Include="..\MDPlayer\form\KB\NES\frmS5B.Designer.cs" Link="form\KB\NES\frmS5B.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\NES\frmVRC6.cs" Link="form\KB\NES\frmVRC6.cs" />
-    <Compile Include="..\MDPlayer\form\KB\NES\frmVRC6.Designer.cs" Link="form\KB\NES\frmVRC6.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\NES\frmVRC7.cs" Link="form\KB\NES\frmVRC7.cs" />
-    <Compile Include="..\MDPlayer\form\KB\NES\frmVRC7.Designer.cs" Link="form\KB\NES\frmVRC7.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\OPL\frmY8950.cs" Link="form\KB\OPL\frmY8950.cs" />
-    <Compile Include="..\MDPlayer\form\KB\OPL\frmY8950.Designer.cs" Link="form\KB\OPL\frmY8950.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\OPL\frmYM2413.cs" Link="form\KB\OPL\frmYM2413.cs" />
-    <Compile Include="..\MDPlayer\form\KB\OPL\frmYM2413.Designer.cs" Link="form\KB\OPL\frmYM2413.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\OPL\frmYM3526.cs" Link="form\KB\OPL\frmYM3526.cs" />
-    <Compile Include="..\MDPlayer\form\KB\OPL\frmYM3526.Designer.cs" Link="form\KB\OPL\frmYM3526.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\OPL\frmYM3812.cs" Link="form\KB\OPL\frmYM3812.cs" />
-    <Compile Include="..\MDPlayer\form\KB\OPL\frmYM3812.Designer.cs" Link="form\KB\OPL\frmYM3812.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\OPL\frmYMF262.cs" Link="form\KB\OPL\frmYMF262.cs" />
-    <Compile Include="..\MDPlayer\form\KB\OPL\frmYMF262.Designer.cs" Link="form\KB\OPL\frmYMF262.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\OPL\frmYMF278B.cs" Link="form\KB\OPL\frmYMF278B.cs" />
-    <Compile Include="..\MDPlayer\form\KB\OPL\frmYMF278B.Designer.cs" Link="form\KB\OPL\frmYMF278B.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\OPN\frmYM2203.cs" Link="form\KB\OPN\frmYM2203.cs" />
-    <Compile Include="..\MDPlayer\form\KB\OPN\frmYM2203.Designer.cs" Link="form\KB\OPN\frmYM2203.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\OPN\frmYM2608.cs" Link="form\KB\OPN\frmYM2608.cs" />
-    <Compile Include="..\MDPlayer\form\KB\OPN\frmYM2608.Designer.cs" Link="form\KB\OPN\frmYM2608.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\OPN\frmYM2609.cs" Link="form\KB\OPN\frmYM2609.cs" />
-    <Compile Include="..\MDPlayer\form\KB\OPN\frmYM2609.designer.cs" Link="form\KB\OPN\frmYM2609.designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\OPN\frmYM2610.cs" Link="form\KB\OPN\frmYM2610.cs" />
-    <Compile Include="..\MDPlayer\form\KB\OPN\frmYM2610.Designer.cs" Link="form\KB\OPN\frmYM2610.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\OPN\frmYM2612.cs" Link="form\KB\OPN\frmYM2612.cs" />
-    <Compile Include="..\MDPlayer\form\KB\OPN\frmYM2612.Designer.cs" Link="form\KB\OPN\frmYM2612.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\OPN\frmYM2612MIDI.cs" Link="form\KB\OPN\frmYM2612MIDI.cs" />
-    <Compile Include="..\MDPlayer\form\KB\OPN\frmYM2612MIDI.Designer.cs" Link="form\KB\OPN\frmYM2612MIDI.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\OPX\frmYMF271.cs" Link="form\KB\OPX\frmYMF271.cs" />
-    <Compile Include="..\MDPlayer\form\KB\OPX\frmYMF271.Designer.cs" Link="form\KB\OPX\frmYMF271.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\PCM\frmC140.cs" Link="form\KB\PCM\frmC140.cs" />
-    <Compile Include="..\MDPlayer\form\KB\PCM\frmC140.Designer.cs" Link="form\KB\PCM\frmC140.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\PCM\frmC352.cs" Link="form\KB\PCM\frmC352.cs" />
-    <Compile Include="..\MDPlayer\form\KB\PCM\frmC352.Designer.cs" Link="form\KB\PCM\frmC352.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\PCM\frmMegaCD.cs" Link="form\KB\PCM\frmMegaCD.cs" />
-    <Compile Include="..\MDPlayer\form\KB\PCM\frmMegaCD.Designer.cs" Link="form\KB\PCM\frmMegaCD.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\PCM\frmMultiPCM.cs" Link="form\KB\PCM\frmMultiPCM.cs" />
-    <Compile Include="..\MDPlayer\form\KB\PCM\frmMultiPCM.Designer.cs" Link="form\KB\PCM\frmMultiPCM.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\PCM\frmOKIM6258.cs" Link="form\KB\PCM\frmOKIM6258.cs" />
-    <Compile Include="..\MDPlayer\form\KB\PCM\frmOKIM6258.Designer.cs" Link="form\KB\PCM\frmOKIM6258.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\PCM\frmOKIM6295.cs" Link="form\KB\PCM\frmOKIM6295.cs" />
-    <Compile Include="..\MDPlayer\form\KB\PCM\frmOKIM6295.Designer.cs" Link="form\KB\PCM\frmOKIM6295.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\PCM\frmPWM.cs" Link="form\KB\PCM\frmPWM.cs" />
-    <Compile Include="..\MDPlayer\form\KB\PCM\frmPWM.Designer.cs" Link="form\KB\PCM\frmPWM.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\PCM\frmQSound.cs" Link="form\KB\PCM\frmQSound.cs" />
-    <Compile Include="..\MDPlayer\form\KB\PCM\frmQSound.Designer.cs" Link="form\KB\PCM\frmQSound.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\PCM\frmRf5c68.cs" Link="form\KB\PCM\frmRf5c68.cs" />
-    <Compile Include="..\MDPlayer\form\KB\PCM\frmRf5c68.Designer.cs" Link="form\KB\PCM\frmRf5c68.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\PCM\frmSegaPCM.cs" Link="form\KB\PCM\frmSegaPCM.cs" />
-    <Compile Include="..\MDPlayer\form\KB\PCM\frmSegaPCM.Designer.cs" Link="form\KB\PCM\frmSegaPCM.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\PSG\frmAY8910.cs" Link="form\KB\PSG\frmAY8910.cs" />
-    <Compile Include="..\MDPlayer\form\KB\PSG\frmAY8910.Designer.cs" Link="form\KB\PSG\frmAY8910.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\PSG\frmSAA1099.cs" Link="form\KB\PSG\frmSAA1099.cs" />
-    <Compile Include="..\MDPlayer\form\KB\PSG\frmSAA1099.Designer.cs" Link="form\KB\PSG\frmSAA1099.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\PSG\frmSN76489.cs" Link="form\KB\PSG\frmSN76489.cs" />
-    <Compile Include="..\MDPlayer\form\KB\PSG\frmSN76489.Designer.cs" Link="form\KB\PSG\frmSN76489.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\WF\frmHuC6280.cs" Link="form\KB\WF\frmHuC6280.cs" />
-    <Compile Include="..\MDPlayer\form\KB\WF\frmHuC6280.Designer.cs" Link="form\KB\WF\frmHuC6280.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\KB\WF\frmK051649.cs" Link="form\KB\WF\frmK051649.cs" />
-    <Compile Include="..\MDPlayer\form\KB\WF\frmK051649.Designer.cs" Link="form\KB\WF\frmK051649.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\SYS\frmInfo.cs" Link="form\SYS\frmInfo.cs" />
-    <Compile Include="..\MDPlayer\form\SYS\frmInfo.Designer.cs" Link="form\SYS\frmInfo.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\SYS\frmMain.cs" Link="form\SYS\frmMain.cs" />
-    <Compile Include="..\MDPlayer\form\SYS\frmMain.Designer.cs" Link="form\SYS\frmMain.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\SYS\frmMixer2.cs" Link="form\SYS\frmMixer2.cs" />
-    <Compile Include="..\MDPlayer\form\SYS\frmMixer2.Designer.cs" Link="form\SYS\frmMixer2.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\SYS\frmPlayList.cs" Link="form\SYS\frmPlayList.cs" />
-    <Compile Include="..\MDPlayer\form\SYS\frmPlayList.Designer.cs" Link="form\SYS\frmPlayList.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\SYS\frmSetting.cs" Link="form\SYS\frmSetting.cs" />
-    <Compile Include="..\MDPlayer\form\SYS\frmSetting.Designer.cs" Link="form\SYS\frmSetting.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\SYS\frmTPGet.cs" Link="form\SYS\frmTPGet.cs" />
-    <Compile Include="..\MDPlayer\form\SYS\frmTPGet.Designer.cs" Link="form\SYS\frmTPGet.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\SYS\frmTPPut.cs" Link="form\SYS\frmTPPut.cs" />
-    <Compile Include="..\MDPlayer\form\SYS\frmTPPut.Designer.cs" Link="form\SYS\frmTPPut.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\SYS\frmVisWave.cs" Link="form\SYS\frmVisWave.cs" />
-    <Compile Include="..\MDPlayer\form\SYS\frmVisWave.Designer.cs" Link="form\SYS\frmVisWave.Designer.cs" />
-    <Compile Include="..\MDPlayer\form\SYS\ucSettingInstruments.cs" Link="form\SYS\ucSettingInstruments.cs" />
-    <Compile Include="..\MDPlayer\form\SYS\ucSettingInstruments.Designer.cs" Link="form\SYS\ucSettingInstruments.Designer.cs" />
-    <Compile Include="..\MDPlayer\FrameBuffer.cs" Link="FrameBuffer.cs" />
-    <Compile Include="..\MDPlayer\KeyboardHook3.cs" Link="KeyboardHook3.cs" />
-    <Compile Include="..\MDPlayer\KumaCom.cs" Link="KumaCom.cs" />
-    <Compile Include="..\MDPlayer\log.cs" Link="log.cs" />
-    <Compile Include="..\MDPlayer\M3U.cs" Link="M3U.cs" />
-    <Compile Include="..\MDPlayer\MDChipParams.cs" Link="MDChipParams.cs" />
-    <Compile Include="..\MDPlayer\MIDIExport.cs" Link="MIDIExport.cs" />
-    <Compile Include="..\MDPlayer\midiOutInfo.cs" Link="midiOutInfo.cs" />
-    <Compile Include="..\MDPlayer\MIDIParam.cs" Link="MIDIParam.cs" />
-    <Compile Include="..\MDPlayer\mmfControl.cs" Link="mmfControl.cs" />
-    <Compile Include="..\MDPlayer\NAudioWrap.cs" Link="NAudioWrap.cs" />
-    <Compile Include="..\MDPlayer\NullOut.cs" Link="NullOut.cs" />
-    <Compile Include="..\MDPlayer\OpeManager.cs" Link="OpeManager.cs" />
-    <Compile Include="..\MDPlayer\PlayList.cs" Link="PlayList.cs" />
-    <Compile Include="..\MDPlayer\RealChip.cs" Link="RealChip.cs" />
-    <Compile Include="..\MDPlayer\Request.cs" Link="Request.cs" />
-    <Compile Include="..\MDPlayer\Setting.cs" Link="Setting.cs" />
-    <Compile Include="..\MDPlayer\SoundChip.cs" Link="SoundChip.cs" />
-    <Compile Include="..\MDPlayer\Tables.cs" Link="Tables.cs" />
-    <Compile Include="..\MDPlayer\Tone.cs" Link="Tone.cs" />
-    <Compile Include="..\MDPlayer\TonePallet.cs" Link="TonePallet.cs" />
-    <Compile Include="..\MDPlayer\UnlhaWrap\UnlhaAPI.cs" Link="UnlhaWrap\UnlhaAPI.cs" />
-    <Compile Include="..\MDPlayer\UnlhaWrap\UnlhaCmd.cs" Link="UnlhaWrap\UnlhaCmd.cs" />
-    <Compile Include="..\MDPlayer\VisVolume.cs" Link="VisVolume.cs" />
-    <Compile Include="..\MDPlayer\VRC7.cs" Link="VRC7.cs" />
-    <Compile Include="..\MDPlayer\VST\frmVST.cs" Link="VST\frmVST.cs" />
-    <Compile Include="..\MDPlayer\VST\frmVST.Designer.cs" Link="VST\frmVST.Designer.cs" />
-    <Compile Include="..\MDPlayer\VST\frmVSTeffectList.cs" Link="VST\frmVSTeffectList.cs" />
-    <Compile Include="..\MDPlayer\VST\frmVSTeffectList.Designer.cs" Link="VST\frmVSTeffectList.Designer.cs" />
-    <Compile Include="..\MDPlayer\VST\vstInfo.cs" Link="VST\vstInfo.cs" />
-    <Compile Include="..\MDPlayer\VST\vstMng.cs" Link="VST\vstMng.cs" />
-    <Compile Include="..\MDPlayer\WaveWriter.cs" Link="WaveWriter.cs" />
-    <Compile Include="..\MDPlayer\YM2612MIDI.cs" Link="YM2612MIDI.cs" />
+    <Compile Remove="Driver\EnmZGMDevice.cs" />
+    <Compile Remove="Operation.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\MDPlayer\lang\MoonDriverDotNETmessage.ja-JP.txt" Link="lang\MoonDriverDotNETmessage.ja-JP.txt" />
-    <Content Include="..\MDPlayer\lang\MoonDriverDotNETmessage.txt" Link="lang\MoonDriverDotNETmessage.txt" />
-    <Content Include="..\MDPlayer\lang\mucomDotNETmessage.ja-JP.txt" Link="lang\mucomDotNETmessage.ja-JP.txt" />
-    <Content Include="..\MDPlayer\lang\mucomDotNETmessage.txt" Link="lang\mucomDotNETmessage.txt" />
-    <Content Include="..\MDPlayer\lang\PMDDotNETmessage.ja-JP.txt" Link="lang\PMDDotNETmessage.ja-JP.txt" />
-    <Content Include="..\MDPlayer\lang\PMDDotNETmessage.txt" Link="lang\PMDDotNETmessage.txt" />
+    <None Remove="Setting.cs.bak" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="..\MDPlayer\lib\MDSound.deps.json" Link="lib\MDSound.deps.json" />
-    <Content Include="..\MDPlayer\plugin\driver\PMDDotNETmessage.ja-JP.txt" Link="plugin\driver\PMDDotNETmessage.ja-JP.txt" />
-    <Content Include="..\MDPlayer\plugin\driver\PMDDotNETmessage.txt" Link="plugin\driver\PMDDotNETmessage.txt" />
-    <Content Include="..\MDPlayer\Resources\addFolderPL.png" Link="Resources\addFolderPL.png" />
-    <Content Include="..\MDPlayer\Resources\addPL.png" Link="Resources\addPL.png" />
-    <Content Include="..\MDPlayer\Resources\ccFadeout.png" Link="Resources\ccFadeout.png" />
-    <Content Include="..\MDPlayer\Resources\ccFadeout64.png" Link="Resources\ccFadeout64.png" />
-    <Content Include="..\MDPlayer\Resources\ccFast.png" Link="Resources\ccFast.png" />
-    <Content Include="..\MDPlayer\Resources\ccFast64.png" Link="Resources\ccFast64.png" />
-    <Content Include="..\MDPlayer\Resources\ccInformation.png" Link="Resources\ccInformation.png" />
-    <Content Include="..\MDPlayer\Resources\ccInformation64.png" Link="Resources\ccInformation64.png" />
-    <Content Include="..\MDPlayer\Resources\ccKBD.png" Link="Resources\ccKBD.png" />
-    <Content Include="..\MDPlayer\Resources\ccLoop.png" Link="Resources\ccLoop.png" />
-    <Content Include="..\MDPlayer\Resources\ccLoop64.png" Link="Resources\ccLoop64.png" />
-    <Content Include="..\MDPlayer\Resources\ccLoopOne.png" Link="Resources\ccLoopOne.png" />
-    <Content Include="..\MDPlayer\Resources\ccMIDIKBD.png" Link="Resources\ccMIDIKBD.png" />
-    <Content Include="..\MDPlayer\Resources\ccMixer.png" Link="Resources\ccMixer.png" />
-    <Content Include="..\MDPlayer\Resources\ccMixer64.png" Link="Resources\ccMixer64.png" />
-    <Content Include="..\MDPlayer\Resources\ccNext.png" Link="Resources\ccNext.png" />
-    <Content Include="..\MDPlayer\Resources\ccNext64.png" Link="Resources\ccNext64.png" />
-    <Content Include="..\MDPlayer\Resources\ccOpenFolder.png" Link="Resources\ccOpenFolder.png" />
-    <Content Include="..\MDPlayer\Resources\ccPause.png" Link="Resources\ccPause.png" />
-    <Content Include="..\MDPlayer\Resources\ccPause64.png" Link="Resources\ccPause64.png" />
-    <Content Include="..\MDPlayer\Resources\ccPlay.png" Link="Resources\ccPlay.png" />
-    <Content Include="..\MDPlayer\Resources\ccPlay64.png" Link="Resources\ccPlay64.png" />
-    <Content Include="..\MDPlayer\Resources\ccPlayList.png" Link="Resources\ccPlayList.png" />
-    <Content Include="..\MDPlayer\Resources\ccPlayList64.png" Link="Resources\ccPlayList64.png" />
-    <Content Include="..\MDPlayer\Resources\ccPrevious.png" Link="Resources\ccPrevious.png" />
-    <Content Include="..\MDPlayer\Resources\ccPrevious64.png" Link="Resources\ccPrevious64.png" />
-    <Content Include="..\MDPlayer\Resources\ccRandom.png" Link="Resources\ccRandom.png" />
-    <Content Include="..\MDPlayer\Resources\ccSetting.png" Link="Resources\ccSetting.png" />
-    <Content Include="..\MDPlayer\Resources\ccSlow.png" Link="Resources\ccSlow.png" />
-    <Content Include="..\MDPlayer\Resources\ccSlow64.png" Link="Resources\ccSlow64.png" />
-    <Content Include="..\MDPlayer\Resources\ccStep.png" Link="Resources\ccStep.png" />
-    <Content Include="..\MDPlayer\Resources\ccStop.png" Link="Resources\ccStop.png" />
-    <Content Include="..\MDPlayer\Resources\ccStop64.png" Link="Resources\ccStop64.png" />
-    <Content Include="..\MDPlayer\Resources\ccVST.png" Link="Resources\ccVST.png" />
-    <Content Include="..\MDPlayer\Resources\ccZoom.png" Link="Resources\ccZoom.png" />
-    <Content Include="..\MDPlayer\Resources\chFadeout.png" Link="Resources\chFadeout.png" />
-    <Content Include="..\MDPlayer\Resources\chFast.png" Link="Resources\chFast.png" />
-    <Content Include="..\MDPlayer\Resources\chInformation.png" Link="Resources\chInformation.png" />
-    <Content Include="..\MDPlayer\Resources\chKBD.png" Link="Resources\chKBD.png" />
-    <Content Include="..\MDPlayer\Resources\chLoop.png" Link="Resources\chLoop.png" />
-    <Content Include="..\MDPlayer\Resources\chLoopOne.png" Link="Resources\chLoopOne.png" />
-    <Content Include="..\MDPlayer\Resources\chMIDIKBD.png" Link="Resources\chMIDIKBD.png" />
-    <Content Include="..\MDPlayer\Resources\chMixer.png" Link="Resources\chMixer.png" />
-    <Content Include="..\MDPlayer\Resources\chNext.png" Link="Resources\chNext.png" />
-    <Content Include="..\MDPlayer\Resources\chOpenFolder.png" Link="Resources\chOpenFolder.png" />
-    <Content Include="..\MDPlayer\Resources\chPause.png" Link="Resources\chPause.png" />
-    <Content Include="..\MDPlayer\Resources\chPlay.png" Link="Resources\chPlay.png" />
-    <Content Include="..\MDPlayer\Resources\chPlayList.png" Link="Resources\chPlayList.png" />
-    <Content Include="..\MDPlayer\Resources\chPrevious.png" Link="Resources\chPrevious.png" />
-    <Content Include="..\MDPlayer\Resources\chRandom.png" Link="Resources\chRandom.png" />
-    <Content Include="..\MDPlayer\Resources\chSetting.png" Link="Resources\chSetting.png" />
-    <Content Include="..\MDPlayer\Resources\chSlow.png" Link="Resources\chSlow.png" />
-    <Content Include="..\MDPlayer\Resources\chStep.png" Link="Resources\chStep.png" />
-    <Content Include="..\MDPlayer\Resources\chStop.png" Link="Resources\chStop.png" />
-    <Content Include="..\MDPlayer\Resources\chVST.png" Link="Resources\chVST.png" />
-    <Content Include="..\MDPlayer\Resources\chZoom.png" Link="Resources\chZoom.png" />
-    <Content Include="..\MDPlayer\Resources\ciFadeout.png" Link="Resources\ciFadeout.png" />
-    <Content Include="..\MDPlayer\Resources\ciFast.png" Link="Resources\ciFast.png" />
-    <Content Include="..\MDPlayer\Resources\ciInformation.png" Link="Resources\ciInformation.png" />
-    <Content Include="..\MDPlayer\Resources\ciKBD.png" Link="Resources\ciKBD.png" />
-    <Content Include="..\MDPlayer\Resources\ciLoop.png" Link="Resources\ciLoop.png" />
-    <Content Include="..\MDPlayer\Resources\ciLoopOne.png" Link="Resources\ciLoopOne.png" />
-    <Content Include="..\MDPlayer\Resources\ciMIDIKBD.png" Link="Resources\ciMIDIKBD.png" />
-    <Content Include="..\MDPlayer\Resources\ciMixer.png" Link="Resources\ciMixer.png" />
-    <Content Include="..\MDPlayer\Resources\ciNext.png" Link="Resources\ciNext.png" />
-    <Content Include="..\MDPlayer\Resources\ciOpenFolder.png" Link="Resources\ciOpenFolder.png" />
-    <Content Include="..\MDPlayer\Resources\ciPause.png" Link="Resources\ciPause.png" />
-    <Content Include="..\MDPlayer\Resources\ciPlay.png" Link="Resources\ciPlay.png" />
-    <Content Include="..\MDPlayer\Resources\ciPlayList.png" Link="Resources\ciPlayList.png" />
-    <Content Include="..\MDPlayer\Resources\ciPrevious.png" Link="Resources\ciPrevious.png" />
-    <Content Include="..\MDPlayer\Resources\ciRandom.png" Link="Resources\ciRandom.png" />
-    <Content Include="..\MDPlayer\Resources\ciSetting.png" Link="Resources\ciSetting.png" />
-    <Content Include="..\MDPlayer\Resources\ciSlow.png" Link="Resources\ciSlow.png" />
-    <Content Include="..\MDPlayer\Resources\ciStep.png" Link="Resources\ciStep.png" />
-    <Content Include="..\MDPlayer\Resources\ciStop.png" Link="Resources\ciStop.png" />
-    <Content Include="..\MDPlayer\Resources\ciVST.png" Link="Resources\ciVST.png" />
-    <Content Include="..\MDPlayer\Resources\ciZoom.png" Link="Resources\ciZoom.png" />
-    <Content Include="..\MDPlayer\Resources\DefaultVolumeBalance_HES.xml" Link="Resources\DefaultVolumeBalance_HES.xml" />
-    <Content Include="..\MDPlayer\Resources\DefaultVolumeBalance_MDR.xml" Link="Resources\DefaultVolumeBalance_MDR.xml" />
-    <Content Include="..\MDPlayer\Resources\DefaultVolumeBalance_MDX.xml" Link="Resources\DefaultVolumeBalance_MDX.xml" />
-    <Content Include="..\MDPlayer\Resources\DefaultVolumeBalance_MND.xml" Link="Resources\DefaultVolumeBalance_MND.xml" />
-    <Content Include="..\MDPlayer\Resources\DefaultVolumeBalance_MUB.xml" Link="Resources\DefaultVolumeBalance_MUB.xml" />
-    <Content Include="..\MDPlayer\Resources\DefaultVolumeBalance_MUC.xml" Link="Resources\DefaultVolumeBalance_MUC.xml" />
-    <Content Include="..\MDPlayer\Resources\DefaultVolumeBalance_NRT.xml" Link="Resources\DefaultVolumeBalance_NRT.xml" />
-    <Content Include="..\MDPlayer\Resources\DefaultVolumeBalance_NSF.xml" Link="Resources\DefaultVolumeBalance_NSF.xml" />
-    <Content Include="..\MDPlayer\Resources\DefaultVolumeBalance_S98.xml" Link="Resources\DefaultVolumeBalance_S98.xml" />
-    <Content Include="..\MDPlayer\Resources\DefaultVolumeBalance_SID.xml" Link="Resources\DefaultVolumeBalance_SID.xml" />
-    <Content Include="..\MDPlayer\Resources\DefaultVolumeBalance_VGM.xml" Link="Resources\DefaultVolumeBalance_VGM.xml" />
-    <Content Include="..\MDPlayer\Resources\DefaultVolumeBalance_XGM.xml" Link="Resources\DefaultVolumeBalance_XGM.xml" />
-    <Content Include="..\MDPlayer\Resources\DefaultVolumeBalance_ZGM.xml" Link="Resources\DefaultVolumeBalance_ZGM.xml" />
-    <Content Include="..\MDPlayer\Resources\downPL.png" Link="Resources\downPL.png" />
-    <Content Include="..\MDPlayer\Resources\Feli.ico" Link="Resources\Feli.ico" />
-    <Content Include="..\MDPlayer\Resources\Feli.png" Link="Resources\Feli.png" />
-    <Content Include="..\MDPlayer\Resources\Feli128.ico" Link="Resources\Feli128.ico" />
-    <Content Include="..\MDPlayer\Resources\Feli128.png" Link="Resources\Feli128.png" />
-    <Content Include="..\MDPlayer\Resources\Feli48.png" Link="Resources\Feli48.png" />
-    <Content Include="..\MDPlayer\Resources\Feli64.png" Link="Resources\Feli64.png" />
-    <Content Include="..\MDPlayer\Resources\FeliAndMD2.png" Link="Resources\FeliAndMD2.png" />
-    <Content Include="..\MDPlayer\Resources\FeliTop.ico" Link="Resources\FeliTop.ico" />
-    <Content Include="..\MDPlayer\Resources\imgPL.png" Link="Resources\imgPL.png" />
-    <Content Include="..\MDPlayer\Resources\japPL.png" Link="Resources\japPL.png" />
-    <Content Include="..\MDPlayer\Resources\mmlPL.png" Link="Resources\mmlPL.png" />
-    <Content Include="..\MDPlayer\Resources\openPL.png" Link="Resources\openPL.png" />
-    <Content Include="..\MDPlayer\Resources\plane.png" Link="Resources\plane.png" />
-    <Content Include="..\MDPlayer\Resources\planeAY8910.png" Link="Resources\planeAY8910.png" />
-    <Content Include="..\MDPlayer\Resources\planeB.png" Link="Resources\planeB.png" />
-    <Content Include="..\MDPlayer\Resources\planeC.png" Link="Resources\planeC.png" />
-    <Content Include="..\MDPlayer\Resources\planeC352.png" Link="Resources\planeC352.png" />
-    <Content Include="..\MDPlayer\Resources\planeControl.png" Link="Resources\planeControl.png" />
-    <Content Include="..\MDPlayer\Resources\planeD.png" Link="Resources\planeD.png" />
-    <Content Include="..\MDPlayer\Resources\planeDMG.png" Link="Resources\planeDMG.png" />
-    <Content Include="..\MDPlayer\Resources\planeE.png" Link="Resources\planeE.png" />
-    <Content Include="..\MDPlayer\Resources\planeF.png" Link="Resources\planeF.png" />
-    <Content Include="..\MDPlayer\Resources\planeFDS.png" Link="Resources\planeFDS.png" />
-    <Content Include="..\MDPlayer\Resources\planeHuC6280.png" Link="Resources\planeHuC6280.png" />
-    <Content Include="..\MDPlayer\Resources\planeK051649.png" Link="Resources\planeK051649.png" />
-    <Content Include="..\MDPlayer\Resources\planeMIDI_GM.png" Link="Resources\planeMIDI_GM.png" />
-    <Content Include="..\MDPlayer\Resources\planeMIDI_GS.png" Link="Resources\planeMIDI_GS.png" />
-    <Content Include="..\MDPlayer\Resources\planeMIDI_XG.png" Link="Resources\planeMIDI_XG.png" />
-    <Content Include="..\MDPlayer\Resources\planeMixer.png" Link="Resources\planeMixer.png" />
-    <Content Include="..\MDPlayer\Resources\planeMixerOld.png" Link="Resources\planeMixerOld.png" />
-    <Content Include="..\MDPlayer\Resources\planeMMC5.png" Link="Resources\planeMMC5.png" />
-    <Content Include="..\MDPlayer\Resources\planeMSM6258.png" Link="Resources\planeMSM6258.png" />
-    <Content Include="..\MDPlayer\Resources\planeMSM6295.png" Link="Resources\planeMSM6295.png" />
-    <Content Include="..\MDPlayer\Resources\planeMultiPCM.png" Link="Resources\planeMultiPCM.png" />
-    <Content Include="..\MDPlayer\Resources\planeN106.png" Link="Resources\planeN106.png" />
-    <Content Include="..\MDPlayer\Resources\planeNESDMC.png" Link="Resources\planeNESDMC.png" />
-    <Content Include="..\MDPlayer\Resources\planePPZ8.png" Link="Resources\planePPZ8.png" />
-    <Content Include="..\MDPlayer\Resources\planeQSound.png" Link="Resources\planeQSound.png" />
-    <Content Include="..\MDPlayer\Resources\planeS5B.png" Link="Resources\planeS5B.png" />
-    <Content Include="..\MDPlayer\Resources\planeSEGAPCM.png" Link="Resources\planeSEGAPCM.png" />
-    <Content Include="..\MDPlayer\Resources\planeSN76489.png" Link="Resources\planeSN76489.png" />
-    <Content Include="..\MDPlayer\Resources\planeVRC6.png" Link="Resources\planeVRC6.png" />
-    <Content Include="..\MDPlayer\Resources\planeVRC7.png" Link="Resources\planeVRC7.png" />
-    <Content Include="..\MDPlayer\Resources\planeY8950.png" Link="Resources\planeY8950.png" />
-    <Content Include="..\MDPlayer\Resources\planeYM2203.png" Link="Resources\planeYM2203.png" />
-    <Content Include="..\MDPlayer\Resources\planeYM2413.png" Link="Resources\planeYM2413.png" />
-    <Content Include="..\MDPlayer\Resources\planeYM2609.png" Link="Resources\planeYM2609.png" />
-    <Content Include="..\MDPlayer\Resources\planeYM2610.png" Link="Resources\planeYM2610.png" />
-    <Content Include="..\MDPlayer\Resources\planeYM2612.png" Link="Resources\planeYM2612.png" />
-    <Content Include="..\MDPlayer\Resources\planeYM2612MIDI.png" Link="Resources\planeYM2612MIDI.png" />
-    <Content Include="..\MDPlayer\Resources\planeYM3526.png" Link="Resources\planeYM3526.png" />
-    <Content Include="..\MDPlayer\Resources\planeYM3812.png" Link="Resources\planeYM3812.png" />
-    <Content Include="..\MDPlayer\Resources\planeYMF262.png" Link="Resources\planeYMF262.png" />
-    <Content Include="..\MDPlayer\Resources\planeYMF271.png" Link="Resources\planeYMF271.png" />
-    <Content Include="..\MDPlayer\Resources\planeYMF278B.png" Link="Resources\planeYMF278B.png" />
-    <Content Include="..\MDPlayer\Resources\planeYMZ280B.png" Link="Resources\planeYMZ280B.png" />
-    <Content Include="..\MDPlayer\Resources\rChipName_01.png" Link="Resources\rChipName_01.png" />
-    <Content Include="..\MDPlayer\Resources\rChipName_02.png" Link="Resources\rChipName_02.png" />
-    <Content Include="..\MDPlayer\Resources\rChipName_03.png" Link="Resources\rChipName_03.png" />
-    <Content Include="..\MDPlayer\Resources\rFader.png" Link="Resources\rFader.png" />
-    <Content Include="..\MDPlayer\Resources\rFont_01.png" Link="Resources\rFont_01.png" />
-    <Content Include="..\MDPlayer\Resources\rFont_02.png" Link="Resources\rFont_02.png" />
-    <Content Include="..\MDPlayer\Resources\rFont_03.png" Link="Resources\rFont_03.png" />
-    <Content Include="..\MDPlayer\Resources\rFont_04.png" Link="Resources\rFont_04.png" />
-    <Content Include="..\MDPlayer\Resources\rFont_05.png" Link="Resources\rFont_05.png" />
-    <Content Include="..\MDPlayer\Resources\rFont_06.png" Link="Resources\rFont_06.png" />
-    <Content Include="..\MDPlayer\Resources\rKakko_00.png" Link="Resources\rKakko_00.png" />
-    <Content Include="..\MDPlayer\Resources\rKBD_01.png" Link="Resources\rKBD_01.png" />
-    <Content Include="..\MDPlayer\Resources\rKBD_02.png" Link="Resources\rKBD_02.png" />
-    <Content Include="..\MDPlayer\Resources\rKBD_03.png" Link="Resources\rKBD_03.png" />
-    <Content Include="..\MDPlayer\Resources\rMenuButtons_01.png" Link="Resources\rMenuButtons_01.png" />
-    <Content Include="..\MDPlayer\Resources\rMenuButtons_02.png" Link="Resources\rMenuButtons_02.png" />
-    <Content Include="..\MDPlayer\Resources\rMIDILCD_01.png" Link="Resources\rMIDILCD_01.png" />
-    <Content Include="..\MDPlayer\Resources\rMIDILCD_02.png" Link="Resources\rMIDILCD_02.png" />
-    <Content Include="..\MDPlayer\Resources\rMIDILCD_03.png" Link="Resources\rMIDILCD_03.png" />
-    <Content Include="..\MDPlayer\Resources\rMIDILCD_Fader_01.png" Link="Resources\rMIDILCD_Fader_01.png" />
-    <Content Include="..\MDPlayer\Resources\rMIDILCD_Fader_02.png" Link="Resources\rMIDILCD_Fader_02.png" />
-    <Content Include="..\MDPlayer\Resources\rMIDILCD_Fader_03.png" Link="Resources\rMIDILCD_Fader_03.png" />
-    <Content Include="..\MDPlayer\Resources\rMIDILCD_Font_01.png" Link="Resources\rMIDILCD_Font_01.png" />
-    <Content Include="..\MDPlayer\Resources\rMIDILCD_Font_02.png" Link="Resources\rMIDILCD_Font_02.png" />
-    <Content Include="..\MDPlayer\Resources\rMIDILCD_Font_03.png" Link="Resources\rMIDILCD_Font_03.png" />
-    <Content Include="..\MDPlayer\Resources\rMIDILCD_Font_04.png" Link="Resources\rMIDILCD_Font_04.png" />
-    <Content Include="..\MDPlayer\Resources\rMIDILCD_Font_05.png" Link="Resources\rMIDILCD_Font_05.png" />
-    <Content Include="..\MDPlayer\Resources\rMIDILCD_Font_06.png" Link="Resources\rMIDILCD_Font_06.png" />
-    <Content Include="..\MDPlayer\Resources\rMIDILCD_KBD_01.png" Link="Resources\rMIDILCD_KBD_01.png" />
-    <Content Include="..\MDPlayer\Resources\rMIDILCD_Vol_01.png" Link="Resources\rMIDILCD_Vol_01.png" />
-    <Content Include="..\MDPlayer\Resources\rMIDILCD_Vol_02.png" Link="Resources\rMIDILCD_Vol_02.png" />
-    <Content Include="..\MDPlayer\Resources\rMIDILCD_Vol_03.png" Link="Resources\rMIDILCD_Vol_03.png" />
-    <Content Include="..\MDPlayer\Resources\rNESDMC.png" Link="Resources\rNESDMC.png" />
-    <Content Include="..\MDPlayer\Resources\rPan2_01.png" Link="Resources\rPan2_01.png" />
-    <Content Include="..\MDPlayer\Resources\rPan2_02.png" Link="Resources\rPan2_02.png" />
-    <Content Include="..\MDPlayer\Resources\rPan_01.png" Link="Resources\rPan_01.png" />
-    <Content Include="..\MDPlayer\Resources\rPan_02.png" Link="Resources\rPan_02.png" />
-    <Content Include="..\MDPlayer\Resources\rPan_03.png" Link="Resources\rPan_03.png" />
-    <Content Include="..\MDPlayer\Resources\rPSG2.png" Link="Resources\rPSG2.png" />
-    <Content Include="..\MDPlayer\Resources\rPSGEnv.png" Link="Resources\rPSGEnv.png" />
-    <Content Include="..\MDPlayer\Resources\rPSGMode_01.png" Link="Resources\rPSGMode_01.png" />
-    <Content Include="..\MDPlayer\Resources\rPSGMode_02.png" Link="Resources\rPSGMode_02.png" />
-    <Content Include="..\MDPlayer\Resources\rPSGMode_03.png" Link="Resources\rPSGMode_03.png" />
-    <Content Include="..\MDPlayer\Resources\rPSGMode_04.png" Link="Resources\rPSGMode_04.png" />
-    <Content Include="..\MDPlayer\Resources\rPSGMode_05.png" Link="Resources\rPSGMode_05.png" />
-    <Content Include="..\MDPlayer\Resources\rPSGMode_06.png" Link="Resources\rPSGMode_06.png" />
-    <Content Include="..\MDPlayer\Resources\rType_01.png" Link="Resources\rType_01.png" />
-    <Content Include="..\MDPlayer\Resources\rType_02.png" Link="Resources\rType_02.png" />
-    <Content Include="..\MDPlayer\Resources\rType_03.png" Link="Resources\rType_03.png" />
-    <Content Include="..\MDPlayer\Resources\rType_04.png" Link="Resources\rType_04.png" />
-    <Content Include="..\MDPlayer\Resources\rType_05.png" Link="Resources\rType_05.png" />
-    <Content Include="..\MDPlayer\Resources\rType_06.png" Link="Resources\rType_06.png" />
-    <Content Include="..\MDPlayer\Resources\rType_YMF271.png" Link="Resources\rType_YMF271.png" />
-    <Content Include="..\MDPlayer\Resources\rVol_01.png" Link="Resources\rVol_01.png" />
-    <Content Include="..\MDPlayer\Resources\rVol_02.png" Link="Resources\rVol_02.png" />
-    <Content Include="..\MDPlayer\Resources\rVol_03.png" Link="Resources\rVol_03.png" />
-    <Content Include="..\MDPlayer\Resources\rWavGraph.png" Link="Resources\rWavGraph.png" />
-    <Content Include="..\MDPlayer\Resources\rWavGraph2.png" Link="Resources\rWavGraph2.png" />
-    <Content Include="..\MDPlayer\Resources\savePL.png" Link="Resources\savePL.png" />
-    <Content Include="..\MDPlayer\Resources\txtPL.png" Link="Resources\txtPL.png" />
-    <Content Include="..\MDPlayer\Resources\upPL.png" Link="Resources\upPL.png" />
-    <Content Include="..\MDPlayer\Resources\vHeight1.png" Link="Resources\vHeight1.png" />
-    <Content Include="..\MDPlayer\Resources\vHeight2.png" Link="Resources\vHeight2.png" />
-    <Content Include="..\MDPlayer\Resources\vHeight3.png" Link="Resources\vHeight3.png" />
-    <Content Include="..\MDPlayer\Resources\vType1.png" Link="Resources\vType1.png" />
-    <Content Include="..\MDPlayer\Resources\vType2.png" Link="Resources\vType2.png" />
-    <Content Include="..\MDPlayer\Resources\vType3.png" Link="Resources\vType3.png" />
-    <Content Include="..\MDPlayer\Resources\フェーリAndMD2_.png" Link="Resources\フェーリAndMD2_.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="..\MDPlayer\form\frmBase.resx" Link="form\frmBase.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\Driver\frmPCM8.resx" Link="form\KB\Driver\frmPCM8.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\Driver\frmPPZ8.resx" Link="form\KB\Driver\frmPPZ8.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\frmChipBase.resx" Link="form\KB\frmChipBase.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\frmMIDI.resx" Link="form\KB\frmMIDI.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\frmRegTest.resx" Link="form\KB\frmRegTest.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\frmYM2151.resx" Link="form\KB\frmYM2151.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\frmYMZ280B.resx" Link="form\KB\frmYMZ280B.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\NES\frmDMG.resx" Link="form\KB\NES\frmDMG.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\NES\frmFDS.resx" Link="form\KB\NES\frmFDS.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\NES\frmMMC5.resx" Link="form\KB\NES\frmMMC5.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\NES\frmN106.resx" Link="form\KB\NES\frmN106.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\NES\frmNESDMC.resx" Link="form\KB\NES\frmNESDMC.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\NES\frmS5B.resx" Link="form\KB\NES\frmS5B.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\NES\frmVRC6.resx" Link="form\KB\NES\frmVRC6.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\NES\frmVRC7.resx" Link="form\KB\NES\frmVRC7.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\OPL\frmY8950.resx" Link="form\KB\OPL\frmY8950.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\OPL\frmYM2413.resx" Link="form\KB\OPL\frmYM2413.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\OPL\frmYM3526.resx" Link="form\KB\OPL\frmYM3526.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\OPL\frmYM3812.resx" Link="form\KB\OPL\frmYM3812.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\OPL\frmYMF262.resx" Link="form\KB\OPL\frmYMF262.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\OPL\frmYMF278B.resx" Link="form\KB\OPL\frmYMF278B.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\OPN\frmYM2203.resx" Link="form\KB\OPN\frmYM2203.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\OPN\frmYM2608.resx" Link="form\KB\OPN\frmYM2608.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\OPN\frmYM2609.resx" Link="form\KB\OPN\frmYM2609.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\OPN\frmYM2610.resx" Link="form\KB\OPN\frmYM2610.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\OPN\frmYM2612.resx" Link="form\KB\OPN\frmYM2612.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\OPN\frmYM2612MIDI.resx" Link="form\KB\OPN\frmYM2612MIDI.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\OPX\frmYMF271.resx" Link="form\KB\OPX\frmYMF271.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\PCM\frmC140.resx" Link="form\KB\PCM\frmC140.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\PCM\frmC352.resx" Link="form\KB\PCM\frmC352.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\PCM\frmMegaCD.resx" Link="form\KB\PCM\frmMegaCD.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\PCM\frmMultiPCM.resx" Link="form\KB\PCM\frmMultiPCM.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\PCM\frmOKIM6258.resx" Link="form\KB\PCM\frmOKIM6258.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\PCM\frmOKIM6295.resx" Link="form\KB\PCM\frmOKIM6295.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\PCM\frmPWM.resx" Link="form\KB\PCM\frmPWM.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\PCM\frmQSound.resx" Link="form\KB\PCM\frmQSound.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\PCM\frmRf5c68.resx" Link="form\KB\PCM\frmRf5c68.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\PCM\frmSegaPCM.resx" Link="form\KB\PCM\frmSegaPCM.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\PSG\frmAY8910.resx" Link="form\KB\PSG\frmAY8910.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\PSG\frmSAA1099.resx" Link="form\KB\PSG\frmSAA1099.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\PSG\frmSN76489.resx" Link="form\KB\PSG\frmSN76489.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\WF\frmHuC6280.resx" Link="form\KB\WF\frmHuC6280.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\KB\WF\frmK051649.resx" Link="form\KB\WF\frmK051649.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\SYS\frmInfo.resx" Link="form\SYS\frmInfo.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\SYS\frmMain.ja.resx" Link="form\SYS\frmMain.ja.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\SYS\frmMain.resx" Link="form\SYS\frmMain.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\SYS\frmMixer2.resx" Link="form\SYS\frmMixer2.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\SYS\frmPlayList.ja.resx" Link="form\SYS\frmPlayList.ja.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\SYS\frmPlayList.resx" Link="form\SYS\frmPlayList.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\SYS\frmSetting.ja.resx" Link="form\SYS\frmSetting.ja.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\SYS\frmSetting.resx" Link="form\SYS\frmSetting.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\SYS\frmTPGet.resx" Link="form\SYS\frmTPGet.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\SYS\frmTPPut.resx" Link="form\SYS\frmTPPut.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\SYS\frmVisWave.resx" Link="form\SYS\frmVisWave.resx" />
-    <EmbeddedResource Include="..\MDPlayer\form\SYS\ucSettingInstruments.resx" Link="form\SYS\ucSettingInstruments.resx" />
-    <EmbeddedResource Include="..\MDPlayer\VST\frmVST.resx" Link="VST\frmVST.resx" />
-    <EmbeddedResource Include="..\MDPlayer\VST\frmVSTeffectList.resx" Link="VST\frmVSTeffectList.resx" />
+    <Folder Include="Driver\SID\libsidplayfp\builders\exsid-builder\" />
+    <Folder Include="Driver\SID\libsidplayfp\builders\hardsid-builder\" />
+    <Folder Include="Driver\SID\libsidplayfp\builders\residfp-builder\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Driver\PMD\" />
-    <Folder Include="Driver\HES\" />
-    <Folder Include="Driver\MGSDRV\" />
-    <Folder Include="Driver\MID\" />
-    <Folder Include="Driver\MNDRV\" />
-    <Folder Include="Driver\MoonDriver\" />
-    <Folder Include="Driver\MUCOM\" />
-    <Folder Include="Driver\MXDRV\" />
-    <Folder Include="Driver\NRTDRV\" />
-    <Folder Include="Driver\NSF\" />
-    <Folder Include="Driver\RCP\" />
-    <Folder Include="Driver\S98\" />
-    <Folder Include="Driver\SID\libsidplayfp\builders\resid-builder\reSID\" />
-    <Folder Include="Driver\SID\libsidplayfp\c64\Banks\" />
-    <Folder Include="Driver\SID\libsidplayfp\c64\CIA\" />
-    <Folder Include="Driver\SID\libsidplayfp\c64\CPU\" />
-    <Folder Include="Driver\SID\libsidplayfp\c64\VIC_II\" />
-    <Folder Include="Driver\SID\libsidplayfp\sidplayfp\" />
-    <Folder Include="Driver\SID\libsidplayfp\sidtune\" />
-    <Folder Include="Driver\SID\libsidplayfp\utils\MD5\" />
-    <Folder Include="Driver\SID\libsidplayfp\utils\STILview\" />
-    <Folder Include="Driver\ZGM\ZgmChip\" />
-    <Folder Include="form\KB\Driver\" />
-    <Folder Include="form\KB\NES\" />
-    <Folder Include="form\KB\OPL\" />
-    <Folder Include="form\KB\OPN\" />
-    <Folder Include="form\KB\OPX\" />
-    <Folder Include="form\KB\PCM\" />
-    <Folder Include="form\KB\PSG\" />
-    <Folder Include="form\KB\WF\" />
-    <Folder Include="form\SYS\" />
-    <Folder Include="lib\" />
-    <Folder Include="lang\" />
-    <Folder Include="plugin\driver\" />
-    <Folder Include="UnlhaWrap\" />
-    <Folder Include="VST\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\MDPlayer\lib\fmgenmodule.dll" Link="lib\fmgenmodule.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="..\MDPlayer\lib\Jacobi.Vst.Core.dll" Link="lib\Jacobi.Vst.Core.dll" />
-    <None Include="..\MDPlayer\lib\Jacobi.Vst.Interop.dll" Link="lib\Jacobi.Vst.Interop.dll" />
     <None Include="..\MDPlayer\lib\MDSound.dll" Link="lib\MDSound.dll" />
     <None Include="..\MDPlayer\lib\MDSound.pdb" Link="lib\MDSound.pdb" />
-    <None Include="..\MDPlayer\lib\MGSDRV.COM" Link="lib\MGSDRV.COM">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="..\MDPlayer\lib\Z80dotNet.dll" Link="lib\Z80dotNet.dll" />
     <None Include="..\MDPlayer\plugin\driver\musicDriverInterface.dll" Link="plugin\driver\musicDriverInterface.dll" />
-    <None Include="..\MDPlayer\plugin\driver\PMDDotNETCommon.dll" Link="plugin\driver\PMDDotNETCommon.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="..\MDPlayer\plugin\driver\PMDDotNETCompiler.dll" Link="plugin\driver\PMDDotNETCompiler.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="..\MDPlayer\plugin\driver\PMDDotNETDriver.dll" Link="plugin\driver\PMDDotNETDriver.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="..\MDPlayer\Resources\md.pal" Link="Resources\md.pal" />
-    <None Include="..\MDPlayer\Resources\README.md" Link="Resources\README.md" />
-    <None Include="..\MDPlayer\Resources\Thumbs.db" Link="Resources\Thumbs.db" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="NAudio" Version="2.1.0" />
-    <PackageReference Include="VST.NET.x64" Version="1.1.0" />
+    <PackageReference Include="VST.NET2-Host" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -706,7 +80,43 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="lang\MoonDriverDotNETmessage.ja-JP.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="lang\MoonDriverDotNETmessage.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="lang\mucomDotNETmessage.ja-JP.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="lang\mucomDotNETmessage.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="lang\PMDDotNETmessage.ja-JP.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="lang\PMDDotNETmessage.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="lib\c86ctl.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\c86ctl.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\fmgenmodule.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\MDSound.deps.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\MDSound.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\MDSound.pdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\MGSDRV.COM">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="lib\musicDriverInterface.deps.json">
@@ -718,7 +128,25 @@
     <None Update="lib\musicDriverInterface.pdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="lib\RealChipCtlWrap64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\RealChipCtlWrap64.dll.metagen">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\RealChipCtlWrap64.pdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="lib\scci.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\scci.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\scciconfig.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\Z80dotNet.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="plugin\driver\MoonDriverDotNETCommon.dll">
@@ -745,10 +173,25 @@
     <None Update="plugin\driver\MoonDriverDotNETDriver.pdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="plugin\driver\MoonDriverDotNETmessage.ja-JP.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="plugin\driver\MoonDriverDotNETmessage.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="plugin\driver\mucomDotNETCommon.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="plugin\driver\mucomDotNETCommon.pdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="plugin\driver\mucomDotNETCompiler.deps.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="plugin\driver\mucomDotNETCompiler.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="plugin\driver\mucomDotNETCompiler.pdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="plugin\driver\mucomDotNETConsole.deps.json">
@@ -763,6 +206,15 @@
     <None Update="plugin\driver\mucomDotNETDriver.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="plugin\driver\mucomDotNETDriver.pdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="plugin\driver\mucomDotNETmessage.ja-JP.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="plugin\driver\mucomDotNETmessage.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="plugin\driver\musicDriverInterface.deps.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -770,6 +222,21 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="plugin\driver\musicDriverInterface.pdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="plugin\driver\PMDDotNETCommon.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="plugin\driver\PMDDotNETCompiler.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="plugin\driver\PMDDotNETDriver.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="plugin\driver\PMDDotNETmessage.ja-JP.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="plugin\driver\PMDDotNETmessage.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
