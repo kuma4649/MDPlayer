@@ -1,40 +1,40 @@
 ビルド方法
 
-　VisualStudio Community 2019向けにソリューションが作られています。
-　ビルドは基本的にVisualStudioを起動してビルドを行うだけです。
+  VisualStudio Community 2019向けにソリューションが作られています。
+  ビルドは基本的にVisualStudioを起動してビルドを行うだけです。
   但し以下のライブラリ、プログラムを用意する必要とする場合があります。
   併記した方法でファイルをコピーしてください
   libフォルダーとplugin\driverフォルダ－は作成する必要があります。
 
-    必要なファイル　　　　　　         コピー方法
-    c86ctl.dll                         MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\lib にコピー
-    c86ctl.ini                         MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\lib にコピー
-    Jacobi.Vst.Core.dll                MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\lib にコピー
-    Jacobi.Vst.Interop.dll             MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\lib にコピー
-  　MDSound.dll                        MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\lib にコピー
-    MGSDRV.COM                         MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\lib にコピー
-    musicDriverInterface.dll           MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\lib にコピー
-    RealChipWrap.dll                   MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\lib にコピー
-    scci.dll                           MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\lib にコピー
-    scciconfig.exe                     MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\lib にコピー
-    Z80dotNet.dll                      MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\lib にコピー
-
-    MoonDriverDotNETCommon.dll         MoonDriverDotNETのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\plugin\driver にコピー
-    MoonDriverDotNETCompiler.dll       MoonDriverDotNETのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\plugin\driver にコピー
-    MoonDriverDotNETDriver.dll         MoonDriverDotNETのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\plugin\driver にコピー
-    MoonDriverDotNETmessage.ja-JP.txt  MoonDriverDotNETのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\plugin\driver にコピー
-    MoonDriverDotNETmessage.txt        MoonDriverDotNETのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\plugin\driver にコピー
-    mucomDotNETCommon.dll              mucomDotNETのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\plugin\driver にコピー
-    mucomDotNETCompiler.dll            mucomDotNETのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\plugin\driver にコピー
-    mucomDotNETDriver.dll              mucomDotNETのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\plugin\driver にコピー
-    mucomDotNETmessage.ja-JP.txt       mucomDotNETのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\plugin\driver にコピー
-    mucomDotNETmessage.txt             mucomDotNETのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\plugin\driver にコピー
-    musicDriverInterface.dll           MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\plugin\driver にコピー
-    PMDDotNETCommon.dll                PMDDotNETのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\plugin\driver にコピー
-    PMDDotNETCompiler.dll              PMDDotNETのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\plugin\driver にコピー
-    PMDDotNETDriver.dll                PMDDotNETのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\plugin\driver にコピー
-    PMDDotNETmessage.ja-JP.txt         PMDDotNETのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\plugin\driver にコピー
-    PMDDotNETmessage.txt               PMDDotNETのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\plugin\driver にコピー
+    必要なファイル                     コピー方法
+    Z80dotNet.dll                      MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayerx64\lib にコピー
+    c86ctl.dll                         MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayerx64\lib にコピー
+    c86ctl.ini                         MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayerx64\lib にコピー
+    MDSound.dll                        MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayerx64\lib にコピー
+    MGSDRV.COM                         MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayerx64\lib にコピー
+    musicDriverInterface.dll           MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayerx64\lib にコピー
+    RealChipWrap.dll                   MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayerx64\lib にコピー
+    scci.dll                           MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayerx64\lib にコピー
+    scciconfig.exe                     MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayerx64\lib にコピー
+    MoonDriverDotNETCommon.dll         MoonDriverDotNETのバイナリ(bin.zip)に同梱されているファイルを MDPlayerx64\plugin\driver にコピー
+    MoonDriverDotNETCompiler.dll       MoonDriverDotNETのバイナリ(bin.zip)に同梱されているファイルを MDPlayerx64\plugin\driver にコピー
+    MoonDriverDotNETDriver.dll         MoonDriverDotNETのバイナリ(bin.zip)に同梱されているファイルを MDPlayerx64\plugin\driver にコピー
+    MoonDriverDotNETmessage.ja-JP.txt  MoonDriverDotNETのバイナリ(bin.zip)に同梱されているファイルを MDPlayerx64\plugin\driver にコピー
+    MoonDriverDotNETmessage.txt        MoonDriverDotNETのバイナリ(bin.zip)に同梱されているファイルを MDPlayerx64\plugin\driver にコピー
+    mucomDotNETCommon.dll              mucomDotNETのバイナリ(bin.zip)に同梱されているファイルを MDPlayerx64\plugin\driver にコピー
+    mucomDotNETCompiler.dll            mucomDotNETのバイナリ(bin.zip)に同梱されているファイルを MDPlayerx64\plugin\driver にコピー
+    mucomDotNETDriver.dll              mucomDotNETのバイナリ(bin.zip)に同梱されているファイルを MDPlayerx64\plugin\driver にコピー
+    mucomDotNETmessage.ja-JP.txt       mucomDotNETのバイナリ(bin.zip)に同梱されているファイルを MDPlayerx64\plugin\driver にコピー
+    mucomDotNETmessage.txt             mucomDotNETのバイナリ(bin.zip)に同梱されているファイルを MDPlayerx64\plugin\driver にコピー
+    musicDriverInterface.dll           MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayerx64\plugin\driver にコピー
+    PMDDotNETCommon.dll                PMDDotNETのバイナリ(bin.zip)に同梱されているファイルを MDPlayerx64\plugin\driver にコピー
+    PMDDotNETCompiler.dll              PMDDotNETのバイナリ(bin.zip)に同梱されているファイルを MDPlayerx64\plugin\driver にコピー
+    PMDDotNETDriver.dll                PMDDotNETのバイナリ(bin.zip)に同梱されているファイルを MDPlayerx64\plugin\driver にコピー
+    PMDDotNETmessage.ja-JP.txt         PMDDotNETのバイナリ(bin.zip)に同梱されているファイルを MDPlayerx64\plugin\driver にコピー
+    PMDDotNETmessage.txt               PMDDotNETのバイナリ(bin.zip)に同梱されているファイルを MDPlayerx64\plugin\driver にコピー
 
     MoonDriverDotNET,mucomDotNET,PMDDotNETについては以下のURLから辿って取得可能です。
     https://github.com/kuma4649?tab=repositories
+
+    NAudio,VST.NET2-HostはNuGetから自動で取得。
+
