@@ -6931,8 +6931,9 @@ namespace MDPlayer
                     Thread.Sleep(0);
 
                     double el1 = sw.ElapsedTicks / swFreq;
-                    if (el1 - o < step) continue;
-                    if (el1 - o >= step * setting.outputDevice.SampleRate / 100.0)//閾値10ms
+                    if (el1 - o < step)
+                        continue;
+                    if (el1 - o >= step * setting.outputDevice.SampleRate / 1.0)//閾値1000ms  //100.0)//閾値10ms
                     {
                         do
                         {
