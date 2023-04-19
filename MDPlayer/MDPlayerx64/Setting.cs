@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml.Serialization;
@@ -2651,23 +2652,43 @@ namespace MDPlayer
         [Serializable]
         public class Location
         {
-            private Point _PMain = Point.Empty;
-            public Point PMain
+            public class Form
             {
-                get
+                public Point Point
                 {
-                    if (_PMain.X < 0 || _PMain.Y < 0)
+                    get
                     {
-                        return new Point(0, 0);
+                        if (_Point.X < 0 || _Point.Y < 0)
+                        {
+                            return new Point(0, 0);
+                        }
+                        return _Point;
                     }
-                    return _PMain;
-                }
 
-                set
+                    set
+                    {
+                        _Point = value;
+                    }
+                }
+                private Point _Point = Point.Empty;
+
+                public bool IsOpen { get; set; } = false;
+                public System.Windows.Forms.FormWindowState State { get; set; } = FormWindowState.Normal;
+                public Size Size { get; set; } = Size.Empty;
+
+                public Form Copy()
                 {
-                    _PMain = value;
+                    Form n = new Form();
+                    n.Point = this.Point;
+                    n.IsOpen = this.IsOpen;
+                    n.State = this.State;
+                    n.Size = this.Size;
+
+                    return n;
                 }
             }
+
+            public Form Main = new Form();
 
             private Point _PInfo = Point.Empty;
             public Point PInfo
@@ -3971,7 +3992,7 @@ namespace MDPlayer
             {
                 Location Location = new Location();
 
-                Location.PMain = this.PMain;
+                Location.Main = this.Main.Copy();
                 Location.PInfo = this.PInfo;
                 Location.OInfo = this.OInfo;
                 Location.PPlayList = this.PPlayList;

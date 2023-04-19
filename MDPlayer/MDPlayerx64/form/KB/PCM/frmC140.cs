@@ -218,6 +218,7 @@ namespace MDPlayer.form
                     c140KeyOn[ch] = false;
 
                     newParam.channels[ch].freq = (c140State[ch * 16 + 2] << 8) | c140State[ch * 16 + 3];
+                    if (newParam.channels[ch].freq == 0) newParam.channels[ch].note = -1;
                     newParam.channels[ch].bank = c140State[ch * 16 + 4];
                     byte d = c140State[ch * 16 + 5];
                     newParam.channels[ch].bit[0] = (d & 0x10) != 0;

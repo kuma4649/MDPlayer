@@ -238,8 +238,11 @@ namespace MDPlayer.form
 
             log.ForcedWrite("frmMain_Load:STEP 05");
 
-            if (setting.location.PMain != System.Drawing.Point.Empty)
-                this.Location = setting.location.PMain;
+            if (setting.location.Main.Point != System.Drawing.Point.Empty)
+                this.Location = setting.location.Main.Point;
+            //this.WindowState = setting.location.Main.State;
+            //if(setting.location.Main.Size!= System.Drawing.Size.Empty)
+            //    this.Size=new Size(setting.location.Main.Size.Width,setting.location.Main.Size.Height);
 
             // DoubleBufferオブジェクトの作成
 
@@ -1009,6 +1012,7 @@ namespace MDPlayer.form
 
         private void frmMain_Shown(object sender, EventArgs e)
         {
+
             log.ForcedWrite("frmMain_Shown:STEP 09");
 
             System.Threading.Thread trd = new System.Threading.Thread(screenMainLoop);
@@ -1172,12 +1176,16 @@ namespace MDPlayer.form
 
             if (WindowState == FormWindowState.Normal)
             {
-                setting.location.PMain = Location;
+                setting.location.Main.Point = Location;
+                setting.location.Main.Size = Size;
             }
             else
             {
-                setting.location.PMain = RestoreBounds.Location;
+                setting.location.Main.Point = RestoreBounds.Location;
+                setting.location.Main.Size = RestoreBounds.Size;
             }
+            setting.location.Main.State = WindowState;
+
             if (frmPlayList != null && !frmPlayList.isClosed)
             {
                 frmPlayList.Close();
