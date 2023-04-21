@@ -3047,6 +3047,34 @@ namespace MDPlayer
                 }
             }
 
+            private Point[] _PosK053260 = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosK053260
+            {
+                get
+                {
+                    return _PosK053260;
+                }
+
+                set
+                {
+                    _PosK053260 = value;
+                }
+            }
+
+            private bool[] _OpenK053260 = new bool[2] { false, false };
+            public bool[] OpenK053260
+            {
+                get
+                {
+                    return _OpenK053260;
+                }
+
+                set
+                {
+                    _OpenK053260 = value;
+                }
+            }
+
             private Point[] _PosC352 = new Point[2] { Point.Empty, Point.Empty };
             public Point[] PosC352
             {
@@ -4059,6 +4087,8 @@ namespace MDPlayer
                 Location.OpenHuC6280 = this.OpenHuC6280;
                 Location.PosK051649 = this.PosK051649;
                 Location.OpenK051649 = this.OpenK051649;
+                Location.PosK053260 = this.PosK053260;
+                Location.OpenK053260 = this.OpenK053260;
                 Location.PosYm2612MIDI = this.PosYm2612MIDI;
                 Location.OpenYm2612MIDI = this.OpenYm2612MIDI;
                 Location.PosVSTeffectList = this.PosVSTeffectList;

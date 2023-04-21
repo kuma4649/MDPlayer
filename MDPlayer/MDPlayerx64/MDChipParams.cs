@@ -521,6 +521,7 @@ namespace MDPlayer
             };
 
         }
+
         public VRC7[] vrc7 = new VRC7[] { new VRC7(), new VRC7() };
 
         public class N106
@@ -533,6 +534,17 @@ namespace MDPlayer
 
         }
         public N106[] n106 = new N106[] { new N106(), new N106() };
+
+        public class K053260
+        {
+
+            public Channel[] channels = new Channel[4] {
+                new Channel(), new Channel(), new Channel(), new Channel()
+            };
+
+        }
+
+        public K053260[] k053260 = new K053260[] { new K053260(), new K053260() };
 
         public class PPZ8
         {

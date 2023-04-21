@@ -1141,6 +1141,29 @@ namespace MDPlayer
 
         }
 
+        public static void VolumeXY1(FrameBuffer screen, int x, int y, int c, ref int ov, int nv, int tp)
+        {
+            if (ov == nv) return;
+
+            int t = 0;
+            int sy = 0;
+            if (c == 1 || c == 2) { t = 4; }
+            if (c == 2) { sy = 4; }
+
+            for (int i = 0; i <= 19; i++)
+            {
+                VolumeP(screen, x + i * 2, y + sy, (1 + t), tp);
+            }
+
+            for (int i = 0; i <= nv; i++)
+            {
+                VolumeP(screen, x + i * 2, y + sy, i > 17 ? (2 + t) : (0 + t), tp);
+            }
+
+            ov = nv;
+
+        }
+
         public static void VolumeXYOPN2(FrameBuffer screen, int x, int y, int c, ref int ov, int nv, int tp)
         {
             if (ov == nv) return;
@@ -1302,6 +1325,41 @@ namespace MDPlayer
                 if (nt / 12 < 10)
                 {
                     drawFont8(screen, 280 + x, y, 1, Tables.kbo[nt / 12]);
+                }
+            }
+
+            ot = nt;
+        }
+
+        public static void KeyBoardXYFX(FrameBuffer screen, int x,int fx, int y, ref int ot, int nt, int tp)
+        {
+            if (ot == nt) return;
+
+            int kx = 0;
+            int kt = 0;
+
+            if (ot >= 0 && ot < 12 * 8)
+            {
+                kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
+                kt = Tables.kbl[(ot % 12) * 2 + 1];
+                drawKbn(screen, x + kx, y, kt, tp);
+            }
+
+            if (nt >= 0 && nt < 12 * 8)
+            {
+                kx = Tables.kbl[(nt % 12) * 2] + nt / 12 * 28;
+                kt = Tables.kbl[(nt % 12) * 2 + 1] + 4;
+                drawKbn(screen, x + kx, y, kt, tp);
+            }
+
+            drawFont8(screen, fx, y, 1, "   ");
+
+            if (nt >= 0)
+            {
+                drawFont8(screen, fx, y, 1, Tables.kbn[nt % 12]);
+                if (nt / 12 < 10)
+                {
+                    drawFont8(screen, 16 + fx, y, 1, Tables.kbo[nt / 12]);
                 }
             }
 
@@ -1832,6 +1890,18 @@ namespace MDPlayer
             }
 
             ChC352_P(screen, 0, 8 + ch * 8, ch, nm == null ? false : (bool)nm, tp);
+            om = nm;
+        }
+
+        public static void ChK053260(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            ChC352_P(screen, 1, 8 + ch * 8, ch, nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 

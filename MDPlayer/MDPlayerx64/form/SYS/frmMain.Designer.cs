@@ -33,1562 +33,1440 @@ namespace MDPlayer.form
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
-            this.pbScreen = new System.Windows.Forms.PictureBox();
-            this.cmsOpenOtherPanel = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.primaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiCPPSG = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPAY8910 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPDCSG = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiCPWF = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPHuC6280 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPK051649 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiCPOPL = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPOPLL = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPOPL = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPY8950 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPOPL2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPOPL3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPOPL4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiCPOPN = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPOPN = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPOPN2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPOPNA = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPOPNB = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPOPNA2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPOPM = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPOPX = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiYMZ280B = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiCPPCM = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPC140 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPC352 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPOKIM6258 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPOKIM6295 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPPWM = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPQSound = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPRF5C164 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPRF5C68 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPMultiPCM = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPPPZ8 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPSegaPCM = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPMIDI = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiCPNES = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPNESDMC = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPFDS = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPMMC5 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPVRC6 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPVRC7 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPN106 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPS5B = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPDMG = new System.Windows.Forms.ToolStripMenuItem();
-            this.sencondryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiCSPSG = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSAY8910 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSDCSG = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiCSWF = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSHuC6280 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSK051649 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiCSOPL = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSOPLL = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSOPL = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSY8950 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSOPL2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSOPL3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSOPL4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiCSOPN = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSOPN = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSOPN2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSOPNA = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSOPNB = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSOPNA2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSOPM = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSOPX = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSYMZ280B = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiCSPCM = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSC140 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSC352 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSOKIM6258 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSOKIM6295 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSPWM = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSRF5C164 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSRF5C68 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSSegaPCM = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSMultiPCM = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSPPZ8 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSMIDI = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiCSNES = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSFDS = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSMMC5 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSNESDMC = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSVRC6 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSVRC7 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSN106 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSS5B = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSDMG = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmsMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.ファイルToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiOpenFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiExit = new System.Windows.Forms.ToolStripMenuItem();
-            this.操作ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPlay = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiStop = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPause = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiFadeOut = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSlow = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiFf = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiNext = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPlayMode = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiOption = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPlayList = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiOpenInfo = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiOpenMixer = new System.Windows.Forms.ToolStripMenuItem();
-            this.その他ウィンドウ表示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiKBrd = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiVST = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiMIDIkbd = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiChangeZoom = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiChangeZoomX1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiChangeZoomX2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiChangeZoomX3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiChangeZoomX4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.レジスタダンプ表示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.yM2612ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ym2151ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ym2203ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ym2413ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ym2608ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.yM2610ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.yM3812ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.yMF262ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.yMF278BToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.yMZ280BToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.c140ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.c352ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.qSoundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.segaPCMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sN76489ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aY8910ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sIDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiVisualizer = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiOutputwavFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.opeButtonSetting = new System.Windows.Forms.Button();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.opeButtonStop = new System.Windows.Forms.Button();
-            this.opeButtonPause = new System.Windows.Forms.Button();
-            this.opeButtonFadeout = new System.Windows.Forms.Button();
-            this.opeButtonPrevious = new System.Windows.Forms.Button();
-            this.opeButtonSlow = new System.Windows.Forms.Button();
-            this.opeButtonPlay = new System.Windows.Forms.Button();
-            this.opeButtonFast = new System.Windows.Forms.Button();
-            this.opeButtonNext = new System.Windows.Forms.Button();
-            this.opeButtonZoom = new System.Windows.Forms.Button();
-            this.opeButtonMIDIKBD = new System.Windows.Forms.Button();
-            this.opeButtonVST = new System.Windows.Forms.Button();
-            this.opeButtonKBD = new System.Windows.Forms.Button();
-            this.opeButtonMixer = new System.Windows.Forms.Button();
-            this.opeButtonInformation = new System.Windows.Forms.Button();
-            this.opeButtonPlayList = new System.Windows.Forms.Button();
-            this.opeButtonOpen = new System.Windows.Forms.Button();
-            this.opeButtonMode = new System.Windows.Forms.Button();
-            this.keyboardHook1 = new HongliangSoft.Utilities.Gui.KeyboardHook();
-            ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).BeginInit();
-            this.cmsOpenOtherPanel.SuspendLayout();
-            this.cmsMenu.SuspendLayout();
-            this.SuspendLayout();
+            pbScreen = new PictureBox();
+            cmsOpenOtherPanel = new ContextMenuStrip(components);
+            primaryToolStripMenuItem = new ToolStripMenuItem();
+            tsmiCPPSG = new ToolStripMenuItem();
+            tsmiPAY8910 = new ToolStripMenuItem();
+            tsmiPDCSG = new ToolStripMenuItem();
+            tsmiCPWF = new ToolStripMenuItem();
+            tsmiPHuC6280 = new ToolStripMenuItem();
+            tsmiPK051649 = new ToolStripMenuItem();
+            toolStripMenuItem2 = new ToolStripMenuItem();
+            tsmiCPOPL = new ToolStripMenuItem();
+            tsmiPOPLL = new ToolStripMenuItem();
+            tsmiPOPL = new ToolStripMenuItem();
+            tsmiPY8950 = new ToolStripMenuItem();
+            tsmiPOPL2 = new ToolStripMenuItem();
+            tsmiPOPL3 = new ToolStripMenuItem();
+            tsmiPOPL4 = new ToolStripMenuItem();
+            tsmiCPOPN = new ToolStripMenuItem();
+            tsmiPOPN = new ToolStripMenuItem();
+            tsmiPOPN2 = new ToolStripMenuItem();
+            tsmiPOPNA = new ToolStripMenuItem();
+            tsmiPOPNB = new ToolStripMenuItem();
+            tsmiPOPNA2 = new ToolStripMenuItem();
+            tsmiPOPM = new ToolStripMenuItem();
+            tsmiPOPX = new ToolStripMenuItem();
+            tsmiYMZ280B = new ToolStripMenuItem();
+            tsmiCPPCM = new ToolStripMenuItem();
+            tsmiPC140 = new ToolStripMenuItem();
+            tsmiPC352 = new ToolStripMenuItem();
+            tsmiPOKIM6258 = new ToolStripMenuItem();
+            tsmiPOKIM6295 = new ToolStripMenuItem();
+            tsmiPPWM = new ToolStripMenuItem();
+            tsmiPQSound = new ToolStripMenuItem();
+            tsmiPRF5C164 = new ToolStripMenuItem();
+            tsmiPRF5C68 = new ToolStripMenuItem();
+            tsmiPMultiPCM = new ToolStripMenuItem();
+            tsmiPPPZ8 = new ToolStripMenuItem();
+            tsmiPSegaPCM = new ToolStripMenuItem();
+            tsmiPMIDI = new ToolStripMenuItem();
+            tsmiCPNES = new ToolStripMenuItem();
+            tsmiPNESDMC = new ToolStripMenuItem();
+            tsmiPFDS = new ToolStripMenuItem();
+            tsmiPMMC5 = new ToolStripMenuItem();
+            tsmiPVRC6 = new ToolStripMenuItem();
+            tsmiPVRC7 = new ToolStripMenuItem();
+            tsmiPN106 = new ToolStripMenuItem();
+            tsmiPS5B = new ToolStripMenuItem();
+            tsmiPDMG = new ToolStripMenuItem();
+            sencondryToolStripMenuItem = new ToolStripMenuItem();
+            tsmiCSPSG = new ToolStripMenuItem();
+            tsmiSAY8910 = new ToolStripMenuItem();
+            tsmiSDCSG = new ToolStripMenuItem();
+            tsmiCSWF = new ToolStripMenuItem();
+            tsmiSHuC6280 = new ToolStripMenuItem();
+            tsmiSK051649 = new ToolStripMenuItem();
+            tsmiCSOPL = new ToolStripMenuItem();
+            tsmiSOPLL = new ToolStripMenuItem();
+            tsmiSOPL = new ToolStripMenuItem();
+            tsmiSY8950 = new ToolStripMenuItem();
+            tsmiSOPL2 = new ToolStripMenuItem();
+            tsmiSOPL3 = new ToolStripMenuItem();
+            tsmiSOPL4 = new ToolStripMenuItem();
+            tsmiCSOPN = new ToolStripMenuItem();
+            tsmiSOPN = new ToolStripMenuItem();
+            tsmiSOPN2 = new ToolStripMenuItem();
+            tsmiSOPNA = new ToolStripMenuItem();
+            tsmiSOPNB = new ToolStripMenuItem();
+            tsmiSOPNA2 = new ToolStripMenuItem();
+            tsmiSOPM = new ToolStripMenuItem();
+            tsmiSOPX = new ToolStripMenuItem();
+            tsmiSYMZ280B = new ToolStripMenuItem();
+            tsmiCSPCM = new ToolStripMenuItem();
+            tsmiSC140 = new ToolStripMenuItem();
+            tsmiSC352 = new ToolStripMenuItem();
+            tsmiSOKIM6258 = new ToolStripMenuItem();
+            tsmiSOKIM6295 = new ToolStripMenuItem();
+            tsmiSPWM = new ToolStripMenuItem();
+            tsmiSRF5C164 = new ToolStripMenuItem();
+            tsmiSRF5C68 = new ToolStripMenuItem();
+            tsmiSSegaPCM = new ToolStripMenuItem();
+            tsmiSMultiPCM = new ToolStripMenuItem();
+            tsmiSPPZ8 = new ToolStripMenuItem();
+            tsmiSMIDI = new ToolStripMenuItem();
+            tsmiCSNES = new ToolStripMenuItem();
+            tsmiSFDS = new ToolStripMenuItem();
+            tsmiSMMC5 = new ToolStripMenuItem();
+            tsmiSNESDMC = new ToolStripMenuItem();
+            tsmiSVRC6 = new ToolStripMenuItem();
+            tsmiSVRC7 = new ToolStripMenuItem();
+            tsmiSN106 = new ToolStripMenuItem();
+            tsmiSS5B = new ToolStripMenuItem();
+            tsmiSDMG = new ToolStripMenuItem();
+            cmsMenu = new ContextMenuStrip(components);
+            ファイルToolStripMenuItem = new ToolStripMenuItem();
+            tsmiOpenFile = new ToolStripMenuItem();
+            tsmiExit = new ToolStripMenuItem();
+            操作ToolStripMenuItem = new ToolStripMenuItem();
+            tsmiPlay = new ToolStripMenuItem();
+            tsmiStop = new ToolStripMenuItem();
+            tsmiPause = new ToolStripMenuItem();
+            tsmiFadeOut = new ToolStripMenuItem();
+            tsmiSlow = new ToolStripMenuItem();
+            tsmiFf = new ToolStripMenuItem();
+            tsmiNext = new ToolStripMenuItem();
+            tsmiPlayMode = new ToolStripMenuItem();
+            tsmiOption = new ToolStripMenuItem();
+            tsmiPlayList = new ToolStripMenuItem();
+            tsmiOpenInfo = new ToolStripMenuItem();
+            tsmiOpenMixer = new ToolStripMenuItem();
+            その他ウィンドウ表示ToolStripMenuItem = new ToolStripMenuItem();
+            tsmiKBrd = new ToolStripMenuItem();
+            tsmiVST = new ToolStripMenuItem();
+            tsmiMIDIkbd = new ToolStripMenuItem();
+            tsmiChangeZoom = new ToolStripMenuItem();
+            tsmiChangeZoomX1 = new ToolStripMenuItem();
+            tsmiChangeZoomX2 = new ToolStripMenuItem();
+            tsmiChangeZoomX3 = new ToolStripMenuItem();
+            tsmiChangeZoomX4 = new ToolStripMenuItem();
+            レジスタダンプ表示ToolStripMenuItem = new ToolStripMenuItem();
+            yM2612ToolStripMenuItem = new ToolStripMenuItem();
+            ym2151ToolStripMenuItem = new ToolStripMenuItem();
+            ym2203ToolStripMenuItem = new ToolStripMenuItem();
+            ym2413ToolStripMenuItem = new ToolStripMenuItem();
+            ym2608ToolStripMenuItem = new ToolStripMenuItem();
+            yM2610ToolStripMenuItem = new ToolStripMenuItem();
+            yM3812ToolStripMenuItem = new ToolStripMenuItem();
+            yMF262ToolStripMenuItem = new ToolStripMenuItem();
+            yMF278BToolStripMenuItem = new ToolStripMenuItem();
+            yMZ280BToolStripMenuItem = new ToolStripMenuItem();
+            c140ToolStripMenuItem = new ToolStripMenuItem();
+            c352ToolStripMenuItem = new ToolStripMenuItem();
+            qSoundToolStripMenuItem = new ToolStripMenuItem();
+            segaPCMToolStripMenuItem = new ToolStripMenuItem();
+            sN76489ToolStripMenuItem = new ToolStripMenuItem();
+            aY8910ToolStripMenuItem = new ToolStripMenuItem();
+            sIDToolStripMenuItem = new ToolStripMenuItem();
+            tsmiVisualizer = new ToolStripMenuItem();
+            tsmiOutputwavFile = new ToolStripMenuItem();
+            opeButtonSetting = new Button();
+            toolTip1 = new ToolTip(components);
+            opeButtonStop = new Button();
+            opeButtonPause = new Button();
+            opeButtonFadeout = new Button();
+            opeButtonPrevious = new Button();
+            opeButtonSlow = new Button();
+            opeButtonPlay = new Button();
+            opeButtonFast = new Button();
+            opeButtonNext = new Button();
+            opeButtonZoom = new Button();
+            opeButtonMIDIKBD = new Button();
+            opeButtonVST = new Button();
+            opeButtonKBD = new Button();
+            opeButtonMixer = new Button();
+            opeButtonInformation = new Button();
+            opeButtonPlayList = new Button();
+            opeButtonOpen = new Button();
+            opeButtonMode = new Button();
+            keyboardHook1 = new HongliangSoft.Utilities.Gui.KeyboardHook();
+            tsmiPK053260 = new ToolStripMenuItem();
+            tsmiSK053260 = new ToolStripMenuItem();
+            ((System.ComponentModel.ISupportInitialize)pbScreen).BeginInit();
+            cmsOpenOtherPanel.SuspendLayout();
+            cmsMenu.SuspendLayout();
+            SuspendLayout();
             // 
             // pbScreen
             // 
-            this.pbScreen.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.pbScreen, "pbScreen");
-            this.pbScreen.Image = Resources.planeControl;
-            this.pbScreen.Name = "pbScreen";
-            this.pbScreen.TabStop = false;
-            this.pbScreen.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
-            this.pbScreen.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
-            this.pbScreen.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbScreen_MouseClick);
-            this.pbScreen.MouseLeave += new System.EventHandler(this.pbScreen_MouseLeave);
-            this.pbScreen.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbScreen_MouseMove);
+            pbScreen.BackColor = Color.Black;
+            resources.ApplyResources(pbScreen, "pbScreen");
+            pbScreen.Image = Resources.planeControl;
+            pbScreen.Name = "pbScreen";
+            pbScreen.TabStop = false;
+            pbScreen.DragDrop += pbScreen_DragDrop;
+            pbScreen.DragEnter += pbScreen_DragEnter;
+            pbScreen.MouseClick += pbScreen_MouseClick;
+            pbScreen.MouseLeave += pbScreen_MouseLeave;
+            pbScreen.MouseMove += pbScreen_MouseMove;
             // 
             // cmsOpenOtherPanel
             // 
-            this.cmsOpenOtherPanel.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.cmsOpenOtherPanel.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.primaryToolStripMenuItem,
-            this.sencondryToolStripMenuItem});
-            this.cmsOpenOtherPanel.Name = "cmsOpenOtherPanel";
-            resources.ApplyResources(this.cmsOpenOtherPanel, "cmsOpenOtherPanel");
+            cmsOpenOtherPanel.ImageScalingSize = new Size(20, 20);
+            cmsOpenOtherPanel.Items.AddRange(new ToolStripItem[] { primaryToolStripMenuItem, sencondryToolStripMenuItem });
+            cmsOpenOtherPanel.Name = "cmsOpenOtherPanel";
+            resources.ApplyResources(cmsOpenOtherPanel, "cmsOpenOtherPanel");
             // 
             // primaryToolStripMenuItem
             // 
-            this.primaryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiCPPSG,
-            this.tsmiCPWF,
-            this.tsmiCPOPL,
-            this.tsmiCPOPN,
-            this.tsmiPOPM,
-            this.tsmiPOPX,
-            this.tsmiYMZ280B,
-            this.tsmiCPPCM,
-            this.tsmiPMIDI,
-            this.tsmiCPNES,
-            this.tsmiPDMG});
-            this.primaryToolStripMenuItem.Name = "primaryToolStripMenuItem";
-            resources.ApplyResources(this.primaryToolStripMenuItem, "primaryToolStripMenuItem");
+            primaryToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { tsmiCPPSG, tsmiCPWF, tsmiCPOPL, tsmiCPOPN, tsmiPOPM, tsmiPOPX, tsmiYMZ280B, tsmiCPPCM, tsmiPMIDI, tsmiCPNES, tsmiPDMG });
+            primaryToolStripMenuItem.Name = "primaryToolStripMenuItem";
+            resources.ApplyResources(primaryToolStripMenuItem, "primaryToolStripMenuItem");
             // 
             // tsmiCPPSG
             // 
-            this.tsmiCPPSG.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiPAY8910,
-            this.tsmiPDCSG});
-            this.tsmiCPPSG.Name = "tsmiCPPSG";
-            resources.ApplyResources(this.tsmiCPPSG, "tsmiCPPSG");
+            tsmiCPPSG.DropDownItems.AddRange(new ToolStripItem[] { tsmiPAY8910, tsmiPDCSG });
+            tsmiCPPSG.Name = "tsmiCPPSG";
+            resources.ApplyResources(tsmiCPPSG, "tsmiCPPSG");
             // 
             // tsmiPAY8910
             // 
-            this.tsmiPAY8910.Name = "tsmiPAY8910";
-            resources.ApplyResources(this.tsmiPAY8910, "tsmiPAY8910");
-            this.tsmiPAY8910.Click += new System.EventHandler(this.tsmiPAY8910_Click);
+            tsmiPAY8910.Name = "tsmiPAY8910";
+            resources.ApplyResources(tsmiPAY8910, "tsmiPAY8910");
+            tsmiPAY8910.Click += tsmiPAY8910_Click;
             // 
             // tsmiPDCSG
             // 
-            this.tsmiPDCSG.Name = "tsmiPDCSG";
-            resources.ApplyResources(this.tsmiPDCSG, "tsmiPDCSG");
-            this.tsmiPDCSG.Click += new System.EventHandler(this.tsmiPDCSG_Click);
+            tsmiPDCSG.Name = "tsmiPDCSG";
+            resources.ApplyResources(tsmiPDCSG, "tsmiPDCSG");
+            tsmiPDCSG.Click += tsmiPDCSG_Click;
             // 
             // tsmiCPWF
             // 
-            this.tsmiCPWF.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiPHuC6280,
-            this.tsmiPK051649,
-            this.toolStripMenuItem2});
-            this.tsmiCPWF.Name = "tsmiCPWF";
-            resources.ApplyResources(this.tsmiCPWF, "tsmiCPWF");
+            tsmiCPWF.DropDownItems.AddRange(new ToolStripItem[] { tsmiPHuC6280, tsmiPK051649, toolStripMenuItem2 });
+            tsmiCPWF.Name = "tsmiCPWF";
+            resources.ApplyResources(tsmiCPWF, "tsmiCPWF");
             // 
             // tsmiPHuC6280
             // 
-            this.tsmiPHuC6280.Name = "tsmiPHuC6280";
-            resources.ApplyResources(this.tsmiPHuC6280, "tsmiPHuC6280");
-            this.tsmiPHuC6280.Click += new System.EventHandler(this.tsmiPHuC6280_Click);
+            tsmiPHuC6280.Name = "tsmiPHuC6280";
+            resources.ApplyResources(tsmiPHuC6280, "tsmiPHuC6280");
+            tsmiPHuC6280.Click += tsmiPHuC6280_Click;
             // 
             // tsmiPK051649
             // 
-            this.tsmiPK051649.Name = "tsmiPK051649";
-            resources.ApplyResources(this.tsmiPK051649, "tsmiPK051649");
-            this.tsmiPK051649.Click += new System.EventHandler(this.tsmiPK051649_Click);
+            tsmiPK051649.Name = "tsmiPK051649";
+            resources.ApplyResources(tsmiPK051649, "tsmiPK051649");
+            tsmiPK051649.Click += tsmiPK051649_Click;
             // 
             // toolStripMenuItem2
             // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            resources.ApplyResources(this.toolStripMenuItem2, "toolStripMenuItem2");
+            toolStripMenuItem2.Name = "toolStripMenuItem2";
+            resources.ApplyResources(toolStripMenuItem2, "toolStripMenuItem2");
             // 
             // tsmiCPOPL
             // 
-            this.tsmiCPOPL.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiPOPLL,
-            this.tsmiPOPL,
-            this.tsmiPY8950,
-            this.tsmiPOPL2,
-            this.tsmiPOPL3,
-            this.tsmiPOPL4});
-            this.tsmiCPOPL.Name = "tsmiCPOPL";
-            resources.ApplyResources(this.tsmiCPOPL, "tsmiCPOPL");
+            tsmiCPOPL.DropDownItems.AddRange(new ToolStripItem[] { tsmiPOPLL, tsmiPOPL, tsmiPY8950, tsmiPOPL2, tsmiPOPL3, tsmiPOPL4 });
+            tsmiCPOPL.Name = "tsmiCPOPL";
+            resources.ApplyResources(tsmiCPOPL, "tsmiCPOPL");
             // 
             // tsmiPOPLL
             // 
-            this.tsmiPOPLL.Name = "tsmiPOPLL";
-            resources.ApplyResources(this.tsmiPOPLL, "tsmiPOPLL");
-            this.tsmiPOPLL.Click += new System.EventHandler(this.tsmiPOPLL_Click);
+            tsmiPOPLL.Name = "tsmiPOPLL";
+            resources.ApplyResources(tsmiPOPLL, "tsmiPOPLL");
+            tsmiPOPLL.Click += tsmiPOPLL_Click;
             // 
             // tsmiPOPL
             // 
-            this.tsmiPOPL.Name = "tsmiPOPL";
-            resources.ApplyResources(this.tsmiPOPL, "tsmiPOPL");
-            this.tsmiPOPL.Click += new System.EventHandler(this.tsmiPOPL_Click);
+            tsmiPOPL.Name = "tsmiPOPL";
+            resources.ApplyResources(tsmiPOPL, "tsmiPOPL");
+            tsmiPOPL.Click += tsmiPOPL_Click;
             // 
             // tsmiPY8950
             // 
-            this.tsmiPY8950.Name = "tsmiPY8950";
-            resources.ApplyResources(this.tsmiPY8950, "tsmiPY8950");
-            this.tsmiPY8950.Click += new System.EventHandler(this.tsmiPY8950_Click);
+            tsmiPY8950.Name = "tsmiPY8950";
+            resources.ApplyResources(tsmiPY8950, "tsmiPY8950");
+            tsmiPY8950.Click += tsmiPY8950_Click;
             // 
             // tsmiPOPL2
             // 
-            this.tsmiPOPL2.Name = "tsmiPOPL2";
-            resources.ApplyResources(this.tsmiPOPL2, "tsmiPOPL2");
-            this.tsmiPOPL2.Click += new System.EventHandler(this.tsmiPOPL2_Click);
+            tsmiPOPL2.Name = "tsmiPOPL2";
+            resources.ApplyResources(tsmiPOPL2, "tsmiPOPL2");
+            tsmiPOPL2.Click += tsmiPOPL2_Click;
             // 
             // tsmiPOPL3
             // 
-            this.tsmiPOPL3.Name = "tsmiPOPL3";
-            resources.ApplyResources(this.tsmiPOPL3, "tsmiPOPL3");
-            this.tsmiPOPL3.Click += new System.EventHandler(this.tsmiPOPL3_Click);
+            tsmiPOPL3.Name = "tsmiPOPL3";
+            resources.ApplyResources(tsmiPOPL3, "tsmiPOPL3");
+            tsmiPOPL3.Click += tsmiPOPL3_Click;
             // 
             // tsmiPOPL4
             // 
-            this.tsmiPOPL4.Name = "tsmiPOPL4";
-            resources.ApplyResources(this.tsmiPOPL4, "tsmiPOPL4");
-            this.tsmiPOPL4.Click += new System.EventHandler(this.tsmiPOPL4_Click);
+            tsmiPOPL4.Name = "tsmiPOPL4";
+            resources.ApplyResources(tsmiPOPL4, "tsmiPOPL4");
+            tsmiPOPL4.Click += tsmiPOPL4_Click;
             // 
             // tsmiCPOPN
             // 
-            this.tsmiCPOPN.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiPOPN,
-            this.tsmiPOPN2,
-            this.tsmiPOPNA,
-            this.tsmiPOPNB,
-            this.tsmiPOPNA2});
-            this.tsmiCPOPN.Name = "tsmiCPOPN";
-            resources.ApplyResources(this.tsmiCPOPN, "tsmiCPOPN");
+            tsmiCPOPN.DropDownItems.AddRange(new ToolStripItem[] { tsmiPOPN, tsmiPOPN2, tsmiPOPNA, tsmiPOPNB, tsmiPOPNA2 });
+            tsmiCPOPN.Name = "tsmiCPOPN";
+            resources.ApplyResources(tsmiCPOPN, "tsmiCPOPN");
             // 
             // tsmiPOPN
             // 
-            this.tsmiPOPN.Name = "tsmiPOPN";
-            resources.ApplyResources(this.tsmiPOPN, "tsmiPOPN");
-            this.tsmiPOPN.Click += new System.EventHandler(this.tsmiPOPN_Click);
+            tsmiPOPN.Name = "tsmiPOPN";
+            resources.ApplyResources(tsmiPOPN, "tsmiPOPN");
+            tsmiPOPN.Click += tsmiPOPN_Click;
             // 
             // tsmiPOPN2
             // 
-            this.tsmiPOPN2.Name = "tsmiPOPN2";
-            resources.ApplyResources(this.tsmiPOPN2, "tsmiPOPN2");
-            this.tsmiPOPN2.Click += new System.EventHandler(this.tsmiPOPN2_Click);
+            tsmiPOPN2.Name = "tsmiPOPN2";
+            resources.ApplyResources(tsmiPOPN2, "tsmiPOPN2");
+            tsmiPOPN2.Click += tsmiPOPN2_Click;
             // 
             // tsmiPOPNA
             // 
-            this.tsmiPOPNA.Name = "tsmiPOPNA";
-            resources.ApplyResources(this.tsmiPOPNA, "tsmiPOPNA");
-            this.tsmiPOPNA.Click += new System.EventHandler(this.tsmiPOPNA_Click);
+            tsmiPOPNA.Name = "tsmiPOPNA";
+            resources.ApplyResources(tsmiPOPNA, "tsmiPOPNA");
+            tsmiPOPNA.Click += tsmiPOPNA_Click;
             // 
             // tsmiPOPNB
             // 
-            this.tsmiPOPNB.Name = "tsmiPOPNB";
-            resources.ApplyResources(this.tsmiPOPNB, "tsmiPOPNB");
-            this.tsmiPOPNB.Click += new System.EventHandler(this.tsmiPOPNB_Click);
+            tsmiPOPNB.Name = "tsmiPOPNB";
+            resources.ApplyResources(tsmiPOPNB, "tsmiPOPNB");
+            tsmiPOPNB.Click += tsmiPOPNB_Click;
             // 
             // tsmiPOPNA2
             // 
-            this.tsmiPOPNA2.Name = "tsmiPOPNA2";
-            resources.ApplyResources(this.tsmiPOPNA2, "tsmiPOPNA2");
-            this.tsmiPOPNA2.Click += new System.EventHandler(this.tsmiPOPNA2_Click);
+            tsmiPOPNA2.Name = "tsmiPOPNA2";
+            resources.ApplyResources(tsmiPOPNA2, "tsmiPOPNA2");
+            tsmiPOPNA2.Click += tsmiPOPNA2_Click;
             // 
             // tsmiPOPM
             // 
-            this.tsmiPOPM.Name = "tsmiPOPM";
-            resources.ApplyResources(this.tsmiPOPM, "tsmiPOPM");
-            this.tsmiPOPM.Click += new System.EventHandler(this.tsmiPOPM_Click);
+            tsmiPOPM.Name = "tsmiPOPM";
+            resources.ApplyResources(tsmiPOPM, "tsmiPOPM");
+            tsmiPOPM.Click += tsmiPOPM_Click;
             // 
             // tsmiPOPX
             // 
-            this.tsmiPOPX.Name = "tsmiPOPX";
-            resources.ApplyResources(this.tsmiPOPX, "tsmiPOPX");
-            this.tsmiPOPX.Click += new System.EventHandler(this.tsmiPOPX_Click);
+            tsmiPOPX.Name = "tsmiPOPX";
+            resources.ApplyResources(tsmiPOPX, "tsmiPOPX");
+            tsmiPOPX.Click += tsmiPOPX_Click;
             // 
             // tsmiYMZ280B
             // 
-            this.tsmiYMZ280B.Name = "tsmiYMZ280B";
-            resources.ApplyResources(this.tsmiYMZ280B, "tsmiYMZ280B");
-            this.tsmiYMZ280B.Click += new System.EventHandler(this.tsmiYMZ280B_Click);
+            tsmiYMZ280B.Name = "tsmiYMZ280B";
+            resources.ApplyResources(tsmiYMZ280B, "tsmiYMZ280B");
+            tsmiYMZ280B.Click += tsmiYMZ280B_Click;
             // 
             // tsmiCPPCM
             // 
-            this.tsmiCPPCM.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiPC140,
-            this.tsmiPC352,
-            this.tsmiPOKIM6258,
-            this.tsmiPOKIM6295,
-            this.tsmiPPWM,
-            this.tsmiPQSound,
-            this.tsmiPRF5C164,
-            this.tsmiPRF5C68,
-            this.tsmiPMultiPCM,
-            this.tsmiPPPZ8,
-            this.tsmiPSegaPCM});
-            this.tsmiCPPCM.Name = "tsmiCPPCM";
-            resources.ApplyResources(this.tsmiCPPCM, "tsmiCPPCM");
+            tsmiCPPCM.DropDownItems.AddRange(new ToolStripItem[] { tsmiPC140, tsmiPC352, tsmiPOKIM6258, tsmiPOKIM6295, tsmiPPWM, tsmiPQSound, tsmiPRF5C164, tsmiPRF5C68, tsmiPMultiPCM, tsmiPPPZ8, tsmiPSegaPCM, tsmiPK053260 });
+            tsmiCPPCM.Name = "tsmiCPPCM";
+            resources.ApplyResources(tsmiCPPCM, "tsmiCPPCM");
             // 
             // tsmiPC140
             // 
-            this.tsmiPC140.Name = "tsmiPC140";
-            resources.ApplyResources(this.tsmiPC140, "tsmiPC140");
-            this.tsmiPC140.Click += new System.EventHandler(this.tsmiPC140_Click);
+            tsmiPC140.Name = "tsmiPC140";
+            resources.ApplyResources(tsmiPC140, "tsmiPC140");
+            tsmiPC140.Click += tsmiPC140_Click;
             // 
             // tsmiPC352
             // 
-            this.tsmiPC352.Name = "tsmiPC352";
-            resources.ApplyResources(this.tsmiPC352, "tsmiPC352");
-            this.tsmiPC352.Click += new System.EventHandler(this.tsmiPC352_Click);
+            tsmiPC352.Name = "tsmiPC352";
+            resources.ApplyResources(tsmiPC352, "tsmiPC352");
+            tsmiPC352.Click += tsmiPC352_Click;
             // 
             // tsmiPOKIM6258
             // 
-            this.tsmiPOKIM6258.Name = "tsmiPOKIM6258";
-            resources.ApplyResources(this.tsmiPOKIM6258, "tsmiPOKIM6258");
-            this.tsmiPOKIM6258.Click += new System.EventHandler(this.tsmiPOKIM6258_Click);
+            tsmiPOKIM6258.Name = "tsmiPOKIM6258";
+            resources.ApplyResources(tsmiPOKIM6258, "tsmiPOKIM6258");
+            tsmiPOKIM6258.Click += tsmiPOKIM6258_Click;
             // 
             // tsmiPOKIM6295
             // 
-            this.tsmiPOKIM6295.Name = "tsmiPOKIM6295";
-            resources.ApplyResources(this.tsmiPOKIM6295, "tsmiPOKIM6295");
-            this.tsmiPOKIM6295.Click += new System.EventHandler(this.tsmiPOKIM6295_Click);
+            tsmiPOKIM6295.Name = "tsmiPOKIM6295";
+            resources.ApplyResources(tsmiPOKIM6295, "tsmiPOKIM6295");
+            tsmiPOKIM6295.Click += tsmiPOKIM6295_Click;
             // 
             // tsmiPPWM
             // 
-            this.tsmiPPWM.Name = "tsmiPPWM";
-            resources.ApplyResources(this.tsmiPPWM, "tsmiPPWM");
-            this.tsmiPPWM.Click += new System.EventHandler(this.tsmiPPWM_Click);
+            tsmiPPWM.Name = "tsmiPPWM";
+            resources.ApplyResources(tsmiPPWM, "tsmiPPWM");
+            tsmiPPWM.Click += tsmiPPWM_Click;
             // 
             // tsmiPQSound
             // 
-            this.tsmiPQSound.Name = "tsmiPQSound";
-            resources.ApplyResources(this.tsmiPQSound, "tsmiPQSound");
-            this.tsmiPQSound.Click += new System.EventHandler(this.tsmiPQSound_Click);
+            tsmiPQSound.Name = "tsmiPQSound";
+            resources.ApplyResources(tsmiPQSound, "tsmiPQSound");
+            tsmiPQSound.Click += tsmiPQSound_Click;
             // 
             // tsmiPRF5C164
             // 
-            this.tsmiPRF5C164.Name = "tsmiPRF5C164";
-            resources.ApplyResources(this.tsmiPRF5C164, "tsmiPRF5C164");
-            this.tsmiPRF5C164.Click += new System.EventHandler(this.tsmiPRF5C164_Click);
+            tsmiPRF5C164.Name = "tsmiPRF5C164";
+            resources.ApplyResources(tsmiPRF5C164, "tsmiPRF5C164");
+            tsmiPRF5C164.Click += tsmiPRF5C164_Click;
             // 
             // tsmiPRF5C68
             // 
-            this.tsmiPRF5C68.Name = "tsmiPRF5C68";
-            resources.ApplyResources(this.tsmiPRF5C68, "tsmiPRF5C68");
-            this.tsmiPRF5C68.Click += new System.EventHandler(this.tsmiPRF5C68_Click);
+            tsmiPRF5C68.Name = "tsmiPRF5C68";
+            resources.ApplyResources(tsmiPRF5C68, "tsmiPRF5C68");
+            tsmiPRF5C68.Click += tsmiPRF5C68_Click;
             // 
             // tsmiPMultiPCM
             // 
-            this.tsmiPMultiPCM.Name = "tsmiPMultiPCM";
-            resources.ApplyResources(this.tsmiPMultiPCM, "tsmiPMultiPCM");
-            this.tsmiPMultiPCM.Click += new System.EventHandler(this.tsmiPMultiPCM_Click);
+            tsmiPMultiPCM.Name = "tsmiPMultiPCM";
+            resources.ApplyResources(tsmiPMultiPCM, "tsmiPMultiPCM");
+            tsmiPMultiPCM.Click += tsmiPMultiPCM_Click;
             // 
             // tsmiPPPZ8
             // 
-            this.tsmiPPPZ8.Name = "tsmiPPPZ8";
-            resources.ApplyResources(this.tsmiPPPZ8, "tsmiPPPZ8");
-            this.tsmiPPPZ8.Click += new System.EventHandler(this.tsmiPPPZ8_Click);
+            tsmiPPPZ8.Name = "tsmiPPPZ8";
+            resources.ApplyResources(tsmiPPPZ8, "tsmiPPPZ8");
+            tsmiPPPZ8.Click += tsmiPPPZ8_Click;
             // 
             // tsmiPSegaPCM
             // 
-            this.tsmiPSegaPCM.Name = "tsmiPSegaPCM";
-            resources.ApplyResources(this.tsmiPSegaPCM, "tsmiPSegaPCM");
-            this.tsmiPSegaPCM.Click += new System.EventHandler(this.tsmiPSegaPCM_Click);
+            tsmiPSegaPCM.Name = "tsmiPSegaPCM";
+            resources.ApplyResources(tsmiPSegaPCM, "tsmiPSegaPCM");
+            tsmiPSegaPCM.Click += tsmiPSegaPCM_Click;
             // 
             // tsmiPMIDI
             // 
-            this.tsmiPMIDI.Name = "tsmiPMIDI";
-            resources.ApplyResources(this.tsmiPMIDI, "tsmiPMIDI");
-            this.tsmiPMIDI.Click += new System.EventHandler(this.tsmiPMIDI_Click);
+            tsmiPMIDI.Name = "tsmiPMIDI";
+            resources.ApplyResources(tsmiPMIDI, "tsmiPMIDI");
+            tsmiPMIDI.Click += tsmiPMIDI_Click;
             // 
             // tsmiCPNES
             // 
-            this.tsmiCPNES.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiPNESDMC,
-            this.tsmiPFDS,
-            this.tsmiPMMC5,
-            this.tsmiPVRC6,
-            this.tsmiPVRC7,
-            this.tsmiPN106,
-            this.tsmiPS5B});
-            this.tsmiCPNES.Name = "tsmiCPNES";
-            resources.ApplyResources(this.tsmiCPNES, "tsmiCPNES");
+            tsmiCPNES.DropDownItems.AddRange(new ToolStripItem[] { tsmiPNESDMC, tsmiPFDS, tsmiPMMC5, tsmiPVRC6, tsmiPVRC7, tsmiPN106, tsmiPS5B });
+            tsmiCPNES.Name = "tsmiCPNES";
+            resources.ApplyResources(tsmiCPNES, "tsmiCPNES");
             // 
             // tsmiPNESDMC
             // 
-            this.tsmiPNESDMC.Name = "tsmiPNESDMC";
-            resources.ApplyResources(this.tsmiPNESDMC, "tsmiPNESDMC");
-            this.tsmiPNESDMC.Click += new System.EventHandler(this.tsmiPNESDMC_Click);
+            tsmiPNESDMC.Name = "tsmiPNESDMC";
+            resources.ApplyResources(tsmiPNESDMC, "tsmiPNESDMC");
+            tsmiPNESDMC.Click += tsmiPNESDMC_Click;
             // 
             // tsmiPFDS
             // 
-            this.tsmiPFDS.Name = "tsmiPFDS";
-            resources.ApplyResources(this.tsmiPFDS, "tsmiPFDS");
-            this.tsmiPFDS.Click += new System.EventHandler(this.tsmiPFDS_Click);
+            tsmiPFDS.Name = "tsmiPFDS";
+            resources.ApplyResources(tsmiPFDS, "tsmiPFDS");
+            tsmiPFDS.Click += tsmiPFDS_Click;
             // 
             // tsmiPMMC5
             // 
-            this.tsmiPMMC5.Name = "tsmiPMMC5";
-            resources.ApplyResources(this.tsmiPMMC5, "tsmiPMMC5");
-            this.tsmiPMMC5.Click += new System.EventHandler(this.tsmiPMMC5_Click);
+            tsmiPMMC5.Name = "tsmiPMMC5";
+            resources.ApplyResources(tsmiPMMC5, "tsmiPMMC5");
+            tsmiPMMC5.Click += tsmiPMMC5_Click;
             // 
             // tsmiPVRC6
             // 
-            this.tsmiPVRC6.Name = "tsmiPVRC6";
-            resources.ApplyResources(this.tsmiPVRC6, "tsmiPVRC6");
-            this.tsmiPVRC6.Click += new System.EventHandler(this.tsmiPVRC6_Click);
+            tsmiPVRC6.Name = "tsmiPVRC6";
+            resources.ApplyResources(tsmiPVRC6, "tsmiPVRC6");
+            tsmiPVRC6.Click += tsmiPVRC6_Click;
             // 
             // tsmiPVRC7
             // 
-            this.tsmiPVRC7.Name = "tsmiPVRC7";
-            resources.ApplyResources(this.tsmiPVRC7, "tsmiPVRC7");
-            this.tsmiPVRC7.Click += new System.EventHandler(this.tsmiPVRC7_Click);
+            tsmiPVRC7.Name = "tsmiPVRC7";
+            resources.ApplyResources(tsmiPVRC7, "tsmiPVRC7");
+            tsmiPVRC7.Click += tsmiPVRC7_Click;
             // 
             // tsmiPN106
             // 
-            this.tsmiPN106.Name = "tsmiPN106";
-            resources.ApplyResources(this.tsmiPN106, "tsmiPN106");
-            this.tsmiPN106.Click += new System.EventHandler(this.tsmiPN106_Click);
+            tsmiPN106.Name = "tsmiPN106";
+            resources.ApplyResources(tsmiPN106, "tsmiPN106");
+            tsmiPN106.Click += tsmiPN106_Click;
             // 
             // tsmiPS5B
             // 
-            this.tsmiPS5B.Name = "tsmiPS5B";
-            resources.ApplyResources(this.tsmiPS5B, "tsmiPS5B");
-            this.tsmiPS5B.Click += new System.EventHandler(this.tsmiPS5B_Click);
+            tsmiPS5B.Name = "tsmiPS5B";
+            resources.ApplyResources(tsmiPS5B, "tsmiPS5B");
+            tsmiPS5B.Click += tsmiPS5B_Click;
             // 
             // tsmiPDMG
             // 
-            this.tsmiPDMG.Name = "tsmiPDMG";
-            resources.ApplyResources(this.tsmiPDMG, "tsmiPDMG");
-            this.tsmiPDMG.Click += new System.EventHandler(this.tsmiPDMG_Click);
+            tsmiPDMG.Name = "tsmiPDMG";
+            resources.ApplyResources(tsmiPDMG, "tsmiPDMG");
+            tsmiPDMG.Click += tsmiPDMG_Click;
             // 
             // sencondryToolStripMenuItem
             // 
-            this.sencondryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiCSPSG,
-            this.tsmiCSWF,
-            this.tsmiCSOPL,
-            this.tsmiCSOPN,
-            this.tsmiSOPM,
-            this.tsmiSOPX,
-            this.tsmiSYMZ280B,
-            this.tsmiCSPCM,
-            this.tsmiSMIDI,
-            this.tsmiCSNES,
-            this.tsmiSDMG});
-            this.sencondryToolStripMenuItem.Name = "sencondryToolStripMenuItem";
-            resources.ApplyResources(this.sencondryToolStripMenuItem, "sencondryToolStripMenuItem");
+            sencondryToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { tsmiCSPSG, tsmiCSWF, tsmiCSOPL, tsmiCSOPN, tsmiSOPM, tsmiSOPX, tsmiSYMZ280B, tsmiCSPCM, tsmiSMIDI, tsmiCSNES, tsmiSDMG });
+            sencondryToolStripMenuItem.Name = "sencondryToolStripMenuItem";
+            resources.ApplyResources(sencondryToolStripMenuItem, "sencondryToolStripMenuItem");
             // 
             // tsmiCSPSG
             // 
-            this.tsmiCSPSG.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiSAY8910,
-            this.tsmiSDCSG});
-            this.tsmiCSPSG.Name = "tsmiCSPSG";
-            resources.ApplyResources(this.tsmiCSPSG, "tsmiCSPSG");
+            tsmiCSPSG.DropDownItems.AddRange(new ToolStripItem[] { tsmiSAY8910, tsmiSDCSG });
+            tsmiCSPSG.Name = "tsmiCSPSG";
+            resources.ApplyResources(tsmiCSPSG, "tsmiCSPSG");
             // 
             // tsmiSAY8910
             // 
-            this.tsmiSAY8910.Name = "tsmiSAY8910";
-            resources.ApplyResources(this.tsmiSAY8910, "tsmiSAY8910");
-            this.tsmiSAY8910.Click += new System.EventHandler(this.tsmiSAY8910_Click);
+            tsmiSAY8910.Name = "tsmiSAY8910";
+            resources.ApplyResources(tsmiSAY8910, "tsmiSAY8910");
+            tsmiSAY8910.Click += tsmiSAY8910_Click;
             // 
             // tsmiSDCSG
             // 
-            this.tsmiSDCSG.Name = "tsmiSDCSG";
-            resources.ApplyResources(this.tsmiSDCSG, "tsmiSDCSG");
-            this.tsmiSDCSG.Click += new System.EventHandler(this.tsmiSDCSG_Click);
+            tsmiSDCSG.Name = "tsmiSDCSG";
+            resources.ApplyResources(tsmiSDCSG, "tsmiSDCSG");
+            tsmiSDCSG.Click += tsmiSDCSG_Click;
             // 
             // tsmiCSWF
             // 
-            this.tsmiCSWF.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiSHuC6280,
-            this.tsmiSK051649});
-            this.tsmiCSWF.Name = "tsmiCSWF";
-            resources.ApplyResources(this.tsmiCSWF, "tsmiCSWF");
+            tsmiCSWF.DropDownItems.AddRange(new ToolStripItem[] { tsmiSHuC6280, tsmiSK051649 });
+            tsmiCSWF.Name = "tsmiCSWF";
+            resources.ApplyResources(tsmiCSWF, "tsmiCSWF");
             // 
             // tsmiSHuC6280
             // 
-            this.tsmiSHuC6280.Name = "tsmiSHuC6280";
-            resources.ApplyResources(this.tsmiSHuC6280, "tsmiSHuC6280");
-            this.tsmiSHuC6280.Click += new System.EventHandler(this.tsmiSHuC6280_Click);
+            tsmiSHuC6280.Name = "tsmiSHuC6280";
+            resources.ApplyResources(tsmiSHuC6280, "tsmiSHuC6280");
+            tsmiSHuC6280.Click += tsmiSHuC6280_Click;
             // 
             // tsmiSK051649
             // 
-            this.tsmiSK051649.Name = "tsmiSK051649";
-            resources.ApplyResources(this.tsmiSK051649, "tsmiSK051649");
-            this.tsmiSK051649.Click += new System.EventHandler(this.tsmiSK051649_Click);
+            tsmiSK051649.Name = "tsmiSK051649";
+            resources.ApplyResources(tsmiSK051649, "tsmiSK051649");
+            tsmiSK051649.Click += tsmiSK051649_Click;
             // 
             // tsmiCSOPL
             // 
-            this.tsmiCSOPL.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiSOPLL,
-            this.tsmiSOPL,
-            this.tsmiSY8950,
-            this.tsmiSOPL2,
-            this.tsmiSOPL3,
-            this.tsmiSOPL4});
-            this.tsmiCSOPL.Name = "tsmiCSOPL";
-            resources.ApplyResources(this.tsmiCSOPL, "tsmiCSOPL");
+            tsmiCSOPL.DropDownItems.AddRange(new ToolStripItem[] { tsmiSOPLL, tsmiSOPL, tsmiSY8950, tsmiSOPL2, tsmiSOPL3, tsmiSOPL4 });
+            tsmiCSOPL.Name = "tsmiCSOPL";
+            resources.ApplyResources(tsmiCSOPL, "tsmiCSOPL");
             // 
             // tsmiSOPLL
             // 
-            this.tsmiSOPLL.Name = "tsmiSOPLL";
-            resources.ApplyResources(this.tsmiSOPLL, "tsmiSOPLL");
-            this.tsmiSOPLL.Click += new System.EventHandler(this.tsmiSOPLL_Click);
+            tsmiSOPLL.Name = "tsmiSOPLL";
+            resources.ApplyResources(tsmiSOPLL, "tsmiSOPLL");
+            tsmiSOPLL.Click += tsmiSOPLL_Click;
             // 
             // tsmiSOPL
             // 
-            this.tsmiSOPL.Name = "tsmiSOPL";
-            resources.ApplyResources(this.tsmiSOPL, "tsmiSOPL");
-            this.tsmiSOPL.Click += new System.EventHandler(this.tsmiSOPL_Click);
+            tsmiSOPL.Name = "tsmiSOPL";
+            resources.ApplyResources(tsmiSOPL, "tsmiSOPL");
+            tsmiSOPL.Click += tsmiSOPL_Click;
             // 
             // tsmiSY8950
             // 
-            this.tsmiSY8950.Name = "tsmiSY8950";
-            resources.ApplyResources(this.tsmiSY8950, "tsmiSY8950");
-            this.tsmiSY8950.Click += new System.EventHandler(this.tsmiSY8950_Click);
+            tsmiSY8950.Name = "tsmiSY8950";
+            resources.ApplyResources(tsmiSY8950, "tsmiSY8950");
+            tsmiSY8950.Click += tsmiSY8950_Click;
             // 
             // tsmiSOPL2
             // 
-            this.tsmiSOPL2.Name = "tsmiSOPL2";
-            resources.ApplyResources(this.tsmiSOPL2, "tsmiSOPL2");
-            this.tsmiSOPL2.Click += new System.EventHandler(this.tsmiSOPL2_Click);
+            tsmiSOPL2.Name = "tsmiSOPL2";
+            resources.ApplyResources(tsmiSOPL2, "tsmiSOPL2");
+            tsmiSOPL2.Click += tsmiSOPL2_Click;
             // 
             // tsmiSOPL3
             // 
-            this.tsmiSOPL3.Name = "tsmiSOPL3";
-            resources.ApplyResources(this.tsmiSOPL3, "tsmiSOPL3");
-            this.tsmiSOPL3.Click += new System.EventHandler(this.tsmiSOPL3_Click);
+            tsmiSOPL3.Name = "tsmiSOPL3";
+            resources.ApplyResources(tsmiSOPL3, "tsmiSOPL3");
+            tsmiSOPL3.Click += tsmiSOPL3_Click;
             // 
             // tsmiSOPL4
             // 
-            this.tsmiSOPL4.Name = "tsmiSOPL4";
-            resources.ApplyResources(this.tsmiSOPL4, "tsmiSOPL4");
-            this.tsmiSOPL4.Click += new System.EventHandler(this.tsmiSOPL4_Click);
+            tsmiSOPL4.Name = "tsmiSOPL4";
+            resources.ApplyResources(tsmiSOPL4, "tsmiSOPL4");
+            tsmiSOPL4.Click += tsmiSOPL4_Click;
             // 
             // tsmiCSOPN
             // 
-            this.tsmiCSOPN.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiSOPN,
-            this.tsmiSOPN2,
-            this.tsmiSOPNA,
-            this.tsmiSOPNB,
-            this.tsmiSOPNA2});
-            this.tsmiCSOPN.Name = "tsmiCSOPN";
-            resources.ApplyResources(this.tsmiCSOPN, "tsmiCSOPN");
+            tsmiCSOPN.DropDownItems.AddRange(new ToolStripItem[] { tsmiSOPN, tsmiSOPN2, tsmiSOPNA, tsmiSOPNB, tsmiSOPNA2 });
+            tsmiCSOPN.Name = "tsmiCSOPN";
+            resources.ApplyResources(tsmiCSOPN, "tsmiCSOPN");
             // 
             // tsmiSOPN
             // 
-            this.tsmiSOPN.Name = "tsmiSOPN";
-            resources.ApplyResources(this.tsmiSOPN, "tsmiSOPN");
-            this.tsmiSOPN.Click += new System.EventHandler(this.tsmiSOPN_Click);
+            tsmiSOPN.Name = "tsmiSOPN";
+            resources.ApplyResources(tsmiSOPN, "tsmiSOPN");
+            tsmiSOPN.Click += tsmiSOPN_Click;
             // 
             // tsmiSOPN2
             // 
-            this.tsmiSOPN2.Name = "tsmiSOPN2";
-            resources.ApplyResources(this.tsmiSOPN2, "tsmiSOPN2");
-            this.tsmiSOPN2.Click += new System.EventHandler(this.tsmiSOPN2_Click);
+            tsmiSOPN2.Name = "tsmiSOPN2";
+            resources.ApplyResources(tsmiSOPN2, "tsmiSOPN2");
+            tsmiSOPN2.Click += tsmiSOPN2_Click;
             // 
             // tsmiSOPNA
             // 
-            this.tsmiSOPNA.Name = "tsmiSOPNA";
-            resources.ApplyResources(this.tsmiSOPNA, "tsmiSOPNA");
-            this.tsmiSOPNA.Click += new System.EventHandler(this.tsmiSOPNA_Click);
+            tsmiSOPNA.Name = "tsmiSOPNA";
+            resources.ApplyResources(tsmiSOPNA, "tsmiSOPNA");
+            tsmiSOPNA.Click += tsmiSOPNA_Click;
             // 
             // tsmiSOPNB
             // 
-            this.tsmiSOPNB.Name = "tsmiSOPNB";
-            resources.ApplyResources(this.tsmiSOPNB, "tsmiSOPNB");
-            this.tsmiSOPNB.Click += new System.EventHandler(this.tsmiSOPNB_Click);
+            tsmiSOPNB.Name = "tsmiSOPNB";
+            resources.ApplyResources(tsmiSOPNB, "tsmiSOPNB");
+            tsmiSOPNB.Click += tsmiSOPNB_Click;
             // 
             // tsmiSOPNA2
             // 
-            this.tsmiSOPNA2.Name = "tsmiSOPNA2";
-            resources.ApplyResources(this.tsmiSOPNA2, "tsmiSOPNA2");
-            this.tsmiSOPNA2.Click += new System.EventHandler(this.tsmiSOPNA2_Click);
+            tsmiSOPNA2.Name = "tsmiSOPNA2";
+            resources.ApplyResources(tsmiSOPNA2, "tsmiSOPNA2");
+            tsmiSOPNA2.Click += tsmiSOPNA2_Click;
             // 
             // tsmiSOPM
             // 
-            this.tsmiSOPM.Name = "tsmiSOPM";
-            resources.ApplyResources(this.tsmiSOPM, "tsmiSOPM");
-            this.tsmiSOPM.Click += new System.EventHandler(this.tsmiSOPM_Click);
+            tsmiSOPM.Name = "tsmiSOPM";
+            resources.ApplyResources(tsmiSOPM, "tsmiSOPM");
+            tsmiSOPM.Click += tsmiSOPM_Click;
             // 
             // tsmiSOPX
             // 
-            this.tsmiSOPX.Name = "tsmiSOPX";
-            resources.ApplyResources(this.tsmiSOPX, "tsmiSOPX");
-            this.tsmiSOPX.Click += new System.EventHandler(this.tsmiSOPX_Click);
+            tsmiSOPX.Name = "tsmiSOPX";
+            resources.ApplyResources(tsmiSOPX, "tsmiSOPX");
+            tsmiSOPX.Click += tsmiSOPX_Click;
             // 
             // tsmiSYMZ280B
             // 
-            this.tsmiSYMZ280B.Name = "tsmiSYMZ280B";
-            resources.ApplyResources(this.tsmiSYMZ280B, "tsmiSYMZ280B");
-            this.tsmiSYMZ280B.Click += new System.EventHandler(this.tsmiSYMZ280B_Click);
+            tsmiSYMZ280B.Name = "tsmiSYMZ280B";
+            resources.ApplyResources(tsmiSYMZ280B, "tsmiSYMZ280B");
+            tsmiSYMZ280B.Click += tsmiSYMZ280B_Click;
             // 
             // tsmiCSPCM
             // 
-            this.tsmiCSPCM.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiSC140,
-            this.tsmiSC352,
-            this.tsmiSOKIM6258,
-            this.tsmiSOKIM6295,
-            this.tsmiSPWM,
-            this.tsmiSRF5C164,
-            this.tsmiSRF5C68,
-            this.tsmiSSegaPCM,
-            this.tsmiSMultiPCM,
-            this.tsmiSPPZ8});
-            this.tsmiCSPCM.Name = "tsmiCSPCM";
-            resources.ApplyResources(this.tsmiCSPCM, "tsmiCSPCM");
+            tsmiCSPCM.DropDownItems.AddRange(new ToolStripItem[] { tsmiSC140, tsmiSC352, tsmiSOKIM6258, tsmiSOKIM6295, tsmiSPWM, tsmiSRF5C164, tsmiSRF5C68, tsmiSSegaPCM, tsmiSMultiPCM, tsmiSPPZ8, tsmiSK053260 });
+            tsmiCSPCM.Name = "tsmiCSPCM";
+            resources.ApplyResources(tsmiCSPCM, "tsmiCSPCM");
             // 
             // tsmiSC140
             // 
-            this.tsmiSC140.Name = "tsmiSC140";
-            resources.ApplyResources(this.tsmiSC140, "tsmiSC140");
-            this.tsmiSC140.Click += new System.EventHandler(this.tsmiSC140_Click);
+            tsmiSC140.Name = "tsmiSC140";
+            resources.ApplyResources(tsmiSC140, "tsmiSC140");
+            tsmiSC140.Click += tsmiSC140_Click;
             // 
             // tsmiSC352
             // 
-            this.tsmiSC352.Name = "tsmiSC352";
-            resources.ApplyResources(this.tsmiSC352, "tsmiSC352");
-            this.tsmiSC352.Click += new System.EventHandler(this.tsmiSC352_Click);
+            tsmiSC352.Name = "tsmiSC352";
+            resources.ApplyResources(tsmiSC352, "tsmiSC352");
+            tsmiSC352.Click += tsmiSC352_Click;
             // 
             // tsmiSOKIM6258
             // 
-            this.tsmiSOKIM6258.Name = "tsmiSOKIM6258";
-            resources.ApplyResources(this.tsmiSOKIM6258, "tsmiSOKIM6258");
-            this.tsmiSOKIM6258.Click += new System.EventHandler(this.tsmiSOKIM6258_Click);
+            tsmiSOKIM6258.Name = "tsmiSOKIM6258";
+            resources.ApplyResources(tsmiSOKIM6258, "tsmiSOKIM6258");
+            tsmiSOKIM6258.Click += tsmiSOKIM6258_Click;
             // 
             // tsmiSOKIM6295
             // 
-            this.tsmiSOKIM6295.Name = "tsmiSOKIM6295";
-            resources.ApplyResources(this.tsmiSOKIM6295, "tsmiSOKIM6295");
-            this.tsmiSOKIM6295.Click += new System.EventHandler(this.tsmiSOKIM6295_Click);
+            tsmiSOKIM6295.Name = "tsmiSOKIM6295";
+            resources.ApplyResources(tsmiSOKIM6295, "tsmiSOKIM6295");
+            tsmiSOKIM6295.Click += tsmiSOKIM6295_Click;
             // 
             // tsmiSPWM
             // 
-            this.tsmiSPWM.Name = "tsmiSPWM";
-            resources.ApplyResources(this.tsmiSPWM, "tsmiSPWM");
-            this.tsmiSPWM.Click += new System.EventHandler(this.tsmiSPWM_Click);
+            tsmiSPWM.Name = "tsmiSPWM";
+            resources.ApplyResources(tsmiSPWM, "tsmiSPWM");
+            tsmiSPWM.Click += tsmiSPWM_Click;
             // 
             // tsmiSRF5C164
             // 
-            this.tsmiSRF5C164.Name = "tsmiSRF5C164";
-            resources.ApplyResources(this.tsmiSRF5C164, "tsmiSRF5C164");
-            this.tsmiSRF5C164.Click += new System.EventHandler(this.tsmiSRF5C164_Click);
+            tsmiSRF5C164.Name = "tsmiSRF5C164";
+            resources.ApplyResources(tsmiSRF5C164, "tsmiSRF5C164");
+            tsmiSRF5C164.Click += tsmiSRF5C164_Click;
             // 
             // tsmiSRF5C68
             // 
-            this.tsmiSRF5C68.Name = "tsmiSRF5C68";
-            resources.ApplyResources(this.tsmiSRF5C68, "tsmiSRF5C68");
-            this.tsmiSRF5C68.Click += new System.EventHandler(this.tsmiSRF5C68_Click);
+            tsmiSRF5C68.Name = "tsmiSRF5C68";
+            resources.ApplyResources(tsmiSRF5C68, "tsmiSRF5C68");
+            tsmiSRF5C68.Click += tsmiSRF5C68_Click;
             // 
             // tsmiSSegaPCM
             // 
-            this.tsmiSSegaPCM.Name = "tsmiSSegaPCM";
-            resources.ApplyResources(this.tsmiSSegaPCM, "tsmiSSegaPCM");
-            this.tsmiSSegaPCM.Click += new System.EventHandler(this.tsmiSSegaPCM_Click);
+            tsmiSSegaPCM.Name = "tsmiSSegaPCM";
+            resources.ApplyResources(tsmiSSegaPCM, "tsmiSSegaPCM");
+            tsmiSSegaPCM.Click += tsmiSSegaPCM_Click;
             // 
             // tsmiSMultiPCM
             // 
-            this.tsmiSMultiPCM.Name = "tsmiSMultiPCM";
-            resources.ApplyResources(this.tsmiSMultiPCM, "tsmiSMultiPCM");
-            this.tsmiSMultiPCM.Click += new System.EventHandler(this.tsmiSMultiPCM_Click);
+            tsmiSMultiPCM.Name = "tsmiSMultiPCM";
+            resources.ApplyResources(tsmiSMultiPCM, "tsmiSMultiPCM");
+            tsmiSMultiPCM.Click += tsmiSMultiPCM_Click;
             // 
             // tsmiSPPZ8
             // 
-            this.tsmiSPPZ8.Name = "tsmiSPPZ8";
-            resources.ApplyResources(this.tsmiSPPZ8, "tsmiSPPZ8");
-            this.tsmiSPPZ8.Click += new System.EventHandler(this.tsmiSPPZ8_Click);
+            tsmiSPPZ8.Name = "tsmiSPPZ8";
+            resources.ApplyResources(tsmiSPPZ8, "tsmiSPPZ8");
+            tsmiSPPZ8.Click += tsmiSPPZ8_Click;
             // 
             // tsmiSMIDI
             // 
-            this.tsmiSMIDI.Name = "tsmiSMIDI";
-            resources.ApplyResources(this.tsmiSMIDI, "tsmiSMIDI");
-            this.tsmiSMIDI.Click += new System.EventHandler(this.tsmiSMIDI_Click);
+            tsmiSMIDI.Name = "tsmiSMIDI";
+            resources.ApplyResources(tsmiSMIDI, "tsmiSMIDI");
+            tsmiSMIDI.Click += tsmiSMIDI_Click;
             // 
             // tsmiCSNES
             // 
-            this.tsmiCSNES.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiSFDS,
-            this.tsmiSMMC5,
-            this.tsmiSNESDMC,
-            this.tsmiSVRC6,
-            this.tsmiSVRC7,
-            this.tsmiSN106,
-            this.tsmiSS5B});
-            this.tsmiCSNES.Name = "tsmiCSNES";
-            resources.ApplyResources(this.tsmiCSNES, "tsmiCSNES");
+            tsmiCSNES.DropDownItems.AddRange(new ToolStripItem[] { tsmiSFDS, tsmiSMMC5, tsmiSNESDMC, tsmiSVRC6, tsmiSVRC7, tsmiSN106, tsmiSS5B });
+            tsmiCSNES.Name = "tsmiCSNES";
+            resources.ApplyResources(tsmiCSNES, "tsmiCSNES");
             // 
             // tsmiSFDS
             // 
-            this.tsmiSFDS.Name = "tsmiSFDS";
-            resources.ApplyResources(this.tsmiSFDS, "tsmiSFDS");
-            this.tsmiSFDS.Click += new System.EventHandler(this.tsmiSFDS_Click);
+            tsmiSFDS.Name = "tsmiSFDS";
+            resources.ApplyResources(tsmiSFDS, "tsmiSFDS");
+            tsmiSFDS.Click += tsmiSFDS_Click;
             // 
             // tsmiSMMC5
             // 
-            this.tsmiSMMC5.Name = "tsmiSMMC5";
-            resources.ApplyResources(this.tsmiSMMC5, "tsmiSMMC5");
-            this.tsmiSMMC5.Click += new System.EventHandler(this.tsmiSMMC5_Click);
+            tsmiSMMC5.Name = "tsmiSMMC5";
+            resources.ApplyResources(tsmiSMMC5, "tsmiSMMC5");
+            tsmiSMMC5.Click += tsmiSMMC5_Click;
             // 
             // tsmiSNESDMC
             // 
-            this.tsmiSNESDMC.Name = "tsmiSNESDMC";
-            resources.ApplyResources(this.tsmiSNESDMC, "tsmiSNESDMC");
-            this.tsmiSNESDMC.Click += new System.EventHandler(this.tsmiSNESDMC_Click);
+            tsmiSNESDMC.Name = "tsmiSNESDMC";
+            resources.ApplyResources(tsmiSNESDMC, "tsmiSNESDMC");
+            tsmiSNESDMC.Click += tsmiSNESDMC_Click;
             // 
             // tsmiSVRC6
             // 
-            this.tsmiSVRC6.Name = "tsmiSVRC6";
-            resources.ApplyResources(this.tsmiSVRC6, "tsmiSVRC6");
-            this.tsmiSVRC6.Click += new System.EventHandler(this.tsmiSVRC6_Click);
+            tsmiSVRC6.Name = "tsmiSVRC6";
+            resources.ApplyResources(tsmiSVRC6, "tsmiSVRC6");
+            tsmiSVRC6.Click += tsmiSVRC6_Click;
             // 
             // tsmiSVRC7
             // 
-            this.tsmiSVRC7.Name = "tsmiSVRC7";
-            resources.ApplyResources(this.tsmiSVRC7, "tsmiSVRC7");
-            this.tsmiSVRC7.Click += new System.EventHandler(this.tsmiSVRC7_Click);
+            tsmiSVRC7.Name = "tsmiSVRC7";
+            resources.ApplyResources(tsmiSVRC7, "tsmiSVRC7");
+            tsmiSVRC7.Click += tsmiSVRC7_Click;
             // 
             // tsmiSN106
             // 
-            this.tsmiSN106.Name = "tsmiSN106";
-            resources.ApplyResources(this.tsmiSN106, "tsmiSN106");
-            this.tsmiSN106.Click += new System.EventHandler(this.tsmiSN106_Click);
+            tsmiSN106.Name = "tsmiSN106";
+            resources.ApplyResources(tsmiSN106, "tsmiSN106");
+            tsmiSN106.Click += tsmiSN106_Click;
             // 
             // tsmiSS5B
             // 
-            this.tsmiSS5B.Name = "tsmiSS5B";
-            resources.ApplyResources(this.tsmiSS5B, "tsmiSS5B");
-            this.tsmiSS5B.Click += new System.EventHandler(this.tsmiSS5B_Click);
+            tsmiSS5B.Name = "tsmiSS5B";
+            resources.ApplyResources(tsmiSS5B, "tsmiSS5B");
+            tsmiSS5B.Click += tsmiSS5B_Click;
             // 
             // tsmiSDMG
             // 
-            this.tsmiSDMG.Name = "tsmiSDMG";
-            resources.ApplyResources(this.tsmiSDMG, "tsmiSDMG");
-            this.tsmiSDMG.Click += new System.EventHandler(this.tsmiSDMG_Click);
+            tsmiSDMG.Name = "tsmiSDMG";
+            resources.ApplyResources(tsmiSDMG, "tsmiSDMG");
+            tsmiSDMG.Click += tsmiSDMG_Click;
             // 
             // cmsMenu
             // 
-            this.cmsMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.cmsMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ファイルToolStripMenuItem,
-            this.操作ToolStripMenuItem,
-            this.tsmiOption,
-            this.tsmiPlayList,
-            this.tsmiOpenInfo,
-            this.tsmiOpenMixer,
-            this.その他ウィンドウ表示ToolStripMenuItem,
-            this.tsmiChangeZoom,
-            this.レジスタダンプ表示ToolStripMenuItem,
-            this.tsmiVisualizer,
-            this.tsmiOutputwavFile});
-            this.cmsMenu.Name = "contextMenuStrip1";
-            resources.ApplyResources(this.cmsMenu, "cmsMenu");
+            cmsMenu.ImageScalingSize = new Size(20, 20);
+            cmsMenu.Items.AddRange(new ToolStripItem[] { ファイルToolStripMenuItem, 操作ToolStripMenuItem, tsmiOption, tsmiPlayList, tsmiOpenInfo, tsmiOpenMixer, その他ウィンドウ表示ToolStripMenuItem, tsmiChangeZoom, レジスタダンプ表示ToolStripMenuItem, tsmiVisualizer, tsmiOutputwavFile });
+            cmsMenu.Name = "contextMenuStrip1";
+            resources.ApplyResources(cmsMenu, "cmsMenu");
             // 
             // ファイルToolStripMenuItem
             // 
-            this.ファイルToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiOpenFile,
-            this.tsmiExit});
-            this.ファイルToolStripMenuItem.Image = Resources.ccOpenFolder;
-            this.ファイルToolStripMenuItem.Name = "ファイルToolStripMenuItem";
-            resources.ApplyResources(this.ファイルToolStripMenuItem, "ファイルToolStripMenuItem");
+            ファイルToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { tsmiOpenFile, tsmiExit });
+            ファイルToolStripMenuItem.Image = Resources.ccOpenFolder;
+            ファイルToolStripMenuItem.Name = "ファイルToolStripMenuItem";
+            resources.ApplyResources(ファイルToolStripMenuItem, "ファイルToolStripMenuItem");
             // 
             // tsmiOpenFile
             // 
-            this.tsmiOpenFile.Name = "tsmiOpenFile";
-            resources.ApplyResources(this.tsmiOpenFile, "tsmiOpenFile");
-            this.tsmiOpenFile.Click += new System.EventHandler(this.tsmiOpenFile_Click);
+            tsmiOpenFile.Name = "tsmiOpenFile";
+            resources.ApplyResources(tsmiOpenFile, "tsmiOpenFile");
+            tsmiOpenFile.Click += tsmiOpenFile_Click;
             // 
             // tsmiExit
             // 
-            this.tsmiExit.Name = "tsmiExit";
-            resources.ApplyResources(this.tsmiExit, "tsmiExit");
-            this.tsmiExit.Click += new System.EventHandler(this.tsmiExit_Click);
+            tsmiExit.Name = "tsmiExit";
+            resources.ApplyResources(tsmiExit, "tsmiExit");
+            tsmiExit.Click += tsmiExit_Click;
             // 
             // 操作ToolStripMenuItem
             // 
-            this.操作ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiPlay,
-            this.tsmiStop,
-            this.tsmiPause,
-            this.tsmiFadeOut,
-            this.tsmiSlow,
-            this.tsmiFf,
-            this.tsmiNext,
-            this.tsmiPlayMode});
-            this.操作ToolStripMenuItem.Name = "操作ToolStripMenuItem";
-            resources.ApplyResources(this.操作ToolStripMenuItem, "操作ToolStripMenuItem");
+            操作ToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { tsmiPlay, tsmiStop, tsmiPause, tsmiFadeOut, tsmiSlow, tsmiFf, tsmiNext, tsmiPlayMode });
+            操作ToolStripMenuItem.Name = "操作ToolStripMenuItem";
+            resources.ApplyResources(操作ToolStripMenuItem, "操作ToolStripMenuItem");
             // 
             // tsmiPlay
             // 
-            this.tsmiPlay.Image = Resources.ccPlay;
-            this.tsmiPlay.Name = "tsmiPlay";
-            resources.ApplyResources(this.tsmiPlay, "tsmiPlay");
-            this.tsmiPlay.Click += new System.EventHandler(this.tsmiPlay_Click);
+            tsmiPlay.Image = Resources.ccPlay;
+            tsmiPlay.Name = "tsmiPlay";
+            resources.ApplyResources(tsmiPlay, "tsmiPlay");
+            tsmiPlay.Click += tsmiPlay_Click;
             // 
             // tsmiStop
             // 
-            this.tsmiStop.Image = Resources.ccStop;
-            this.tsmiStop.Name = "tsmiStop";
-            resources.ApplyResources(this.tsmiStop, "tsmiStop");
-            this.tsmiStop.Click += new System.EventHandler(this.tsmiStop_Click);
+            tsmiStop.Image = Resources.ccStop;
+            tsmiStop.Name = "tsmiStop";
+            resources.ApplyResources(tsmiStop, "tsmiStop");
+            tsmiStop.Click += tsmiStop_Click;
             // 
             // tsmiPause
             // 
-            this.tsmiPause.Image = Resources.ccPause;
-            this.tsmiPause.Name = "tsmiPause";
-            resources.ApplyResources(this.tsmiPause, "tsmiPause");
-            this.tsmiPause.Click += new System.EventHandler(this.tsmiPause_Click);
+            tsmiPause.Image = Resources.ccPause;
+            tsmiPause.Name = "tsmiPause";
+            resources.ApplyResources(tsmiPause, "tsmiPause");
+            tsmiPause.Click += tsmiPause_Click;
             // 
             // tsmiFadeOut
             // 
-            this.tsmiFadeOut.Image = Resources.ccFadeout;
-            this.tsmiFadeOut.Name = "tsmiFadeOut";
-            resources.ApplyResources(this.tsmiFadeOut, "tsmiFadeOut");
-            this.tsmiFadeOut.Click += new System.EventHandler(this.tsmiFadeOut_Click);
+            tsmiFadeOut.Image = Resources.ccFadeout;
+            tsmiFadeOut.Name = "tsmiFadeOut";
+            resources.ApplyResources(tsmiFadeOut, "tsmiFadeOut");
+            tsmiFadeOut.Click += tsmiFadeOut_Click;
             // 
             // tsmiSlow
             // 
-            this.tsmiSlow.Image = Resources.ccSlow;
-            this.tsmiSlow.Name = "tsmiSlow";
-            resources.ApplyResources(this.tsmiSlow, "tsmiSlow");
-            this.tsmiSlow.Click += new System.EventHandler(this.tsmiSlow_Click);
+            tsmiSlow.Image = Resources.ccSlow;
+            tsmiSlow.Name = "tsmiSlow";
+            resources.ApplyResources(tsmiSlow, "tsmiSlow");
+            tsmiSlow.Click += tsmiSlow_Click;
             // 
             // tsmiFf
             // 
-            this.tsmiFf.Image = Resources.ccFast;
-            this.tsmiFf.Name = "tsmiFf";
-            resources.ApplyResources(this.tsmiFf, "tsmiFf");
-            this.tsmiFf.Click += new System.EventHandler(this.tsmiFf_Click);
+            tsmiFf.Image = Resources.ccFast;
+            tsmiFf.Name = "tsmiFf";
+            resources.ApplyResources(tsmiFf, "tsmiFf");
+            tsmiFf.Click += tsmiFf_Click;
             // 
             // tsmiNext
             // 
-            this.tsmiNext.Image = Resources.ccNext;
-            this.tsmiNext.Name = "tsmiNext";
-            resources.ApplyResources(this.tsmiNext, "tsmiNext");
-            this.tsmiNext.Click += new System.EventHandler(this.tsmiNext_Click);
+            tsmiNext.Image = Resources.ccNext;
+            tsmiNext.Name = "tsmiNext";
+            resources.ApplyResources(tsmiNext, "tsmiNext");
+            tsmiNext.Click += tsmiNext_Click;
             // 
             // tsmiPlayMode
             // 
-            this.tsmiPlayMode.Image = Resources.ccStep;
-            this.tsmiPlayMode.Name = "tsmiPlayMode";
-            resources.ApplyResources(this.tsmiPlayMode, "tsmiPlayMode");
-            this.tsmiPlayMode.Click += new System.EventHandler(this.tsmiPlayMode_Click);
+            tsmiPlayMode.Image = Resources.ccStep;
+            tsmiPlayMode.Name = "tsmiPlayMode";
+            resources.ApplyResources(tsmiPlayMode, "tsmiPlayMode");
+            tsmiPlayMode.Click += tsmiPlayMode_Click;
             // 
             // tsmiOption
             // 
-            this.tsmiOption.Image = Resources.ccSetting;
-            this.tsmiOption.Name = "tsmiOption";
-            resources.ApplyResources(this.tsmiOption, "tsmiOption");
-            this.tsmiOption.Click += new System.EventHandler(this.tsmiOption_Click);
+            tsmiOption.Image = Resources.ccSetting;
+            tsmiOption.Name = "tsmiOption";
+            resources.ApplyResources(tsmiOption, "tsmiOption");
+            tsmiOption.Click += tsmiOption_Click;
             // 
             // tsmiPlayList
             // 
-            this.tsmiPlayList.Image = Resources.ccPlayList;
-            this.tsmiPlayList.Name = "tsmiPlayList";
-            resources.ApplyResources(this.tsmiPlayList, "tsmiPlayList");
-            this.tsmiPlayList.Click += new System.EventHandler(this.tsmiPlayList_Click);
+            tsmiPlayList.Image = Resources.ccPlayList;
+            tsmiPlayList.Name = "tsmiPlayList";
+            resources.ApplyResources(tsmiPlayList, "tsmiPlayList");
+            tsmiPlayList.Click += tsmiPlayList_Click;
             // 
             // tsmiOpenInfo
             // 
-            this.tsmiOpenInfo.Image = Resources.ccInformation;
-            this.tsmiOpenInfo.Name = "tsmiOpenInfo";
-            resources.ApplyResources(this.tsmiOpenInfo, "tsmiOpenInfo");
-            this.tsmiOpenInfo.Click += new System.EventHandler(this.tsmiOpenInfo_Click);
+            tsmiOpenInfo.Image = Resources.ccInformation;
+            tsmiOpenInfo.Name = "tsmiOpenInfo";
+            resources.ApplyResources(tsmiOpenInfo, "tsmiOpenInfo");
+            tsmiOpenInfo.Click += tsmiOpenInfo_Click;
             // 
             // tsmiOpenMixer
             // 
-            this.tsmiOpenMixer.Image = Resources.ccMixer;
-            this.tsmiOpenMixer.Name = "tsmiOpenMixer";
-            resources.ApplyResources(this.tsmiOpenMixer, "tsmiOpenMixer");
-            this.tsmiOpenMixer.Click += new System.EventHandler(this.tsmiOpenMixer_Click);
+            tsmiOpenMixer.Image = Resources.ccMixer;
+            tsmiOpenMixer.Name = "tsmiOpenMixer";
+            resources.ApplyResources(tsmiOpenMixer, "tsmiOpenMixer");
+            tsmiOpenMixer.Click += tsmiOpenMixer_Click;
             // 
             // その他ウィンドウ表示ToolStripMenuItem
             // 
-            this.その他ウィンドウ表示ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiKBrd,
-            this.tsmiVST,
-            this.tsmiMIDIkbd});
-            this.その他ウィンドウ表示ToolStripMenuItem.Name = "その他ウィンドウ表示ToolStripMenuItem";
-            resources.ApplyResources(this.その他ウィンドウ表示ToolStripMenuItem, "その他ウィンドウ表示ToolStripMenuItem");
+            その他ウィンドウ表示ToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { tsmiKBrd, tsmiVST, tsmiMIDIkbd });
+            その他ウィンドウ表示ToolStripMenuItem.Name = "その他ウィンドウ表示ToolStripMenuItem";
+            resources.ApplyResources(その他ウィンドウ表示ToolStripMenuItem, "その他ウィンドウ表示ToolStripMenuItem");
             // 
             // tsmiKBrd
             // 
-            this.tsmiKBrd.Image = Resources.ccKBD;
-            this.tsmiKBrd.Name = "tsmiKBrd";
-            resources.ApplyResources(this.tsmiKBrd, "tsmiKBrd");
-            this.tsmiKBrd.Click += new System.EventHandler(this.tsmiKBrd_Click);
+            tsmiKBrd.Image = Resources.ccKBD;
+            tsmiKBrd.Name = "tsmiKBrd";
+            resources.ApplyResources(tsmiKBrd, "tsmiKBrd");
+            tsmiKBrd.Click += tsmiKBrd_Click;
             // 
             // tsmiVST
             // 
-            this.tsmiVST.Image = Resources.ccVST;
-            this.tsmiVST.Name = "tsmiVST";
-            resources.ApplyResources(this.tsmiVST, "tsmiVST");
-            this.tsmiVST.Click += new System.EventHandler(this.tsmiVST_Click);
+            tsmiVST.Image = Resources.ccVST;
+            tsmiVST.Name = "tsmiVST";
+            resources.ApplyResources(tsmiVST, "tsmiVST");
+            tsmiVST.Click += tsmiVST_Click;
             // 
             // tsmiMIDIkbd
             // 
-            this.tsmiMIDIkbd.Image = Resources.ccMIDIKBD;
-            this.tsmiMIDIkbd.Name = "tsmiMIDIkbd";
-            resources.ApplyResources(this.tsmiMIDIkbd, "tsmiMIDIkbd");
-            this.tsmiMIDIkbd.Click += new System.EventHandler(this.tsmiMIDIkbd_Click);
+            tsmiMIDIkbd.Image = Resources.ccMIDIKBD;
+            tsmiMIDIkbd.Name = "tsmiMIDIkbd";
+            resources.ApplyResources(tsmiMIDIkbd, "tsmiMIDIkbd");
+            tsmiMIDIkbd.Click += tsmiMIDIkbd_Click;
             // 
             // tsmiChangeZoom
             // 
-            this.tsmiChangeZoom.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiChangeZoomX1,
-            this.tsmiChangeZoomX2,
-            this.tsmiChangeZoomX3,
-            this.tsmiChangeZoomX4});
-            this.tsmiChangeZoom.Image = Resources.ccZoom;
-            this.tsmiChangeZoom.Name = "tsmiChangeZoom";
-            resources.ApplyResources(this.tsmiChangeZoom, "tsmiChangeZoom");
-            this.tsmiChangeZoom.Click += new System.EventHandler(this.tsmiChangeZoom_Click);
+            tsmiChangeZoom.DropDownItems.AddRange(new ToolStripItem[] { tsmiChangeZoomX1, tsmiChangeZoomX2, tsmiChangeZoomX3, tsmiChangeZoomX4 });
+            tsmiChangeZoom.Image = Resources.ccZoom;
+            tsmiChangeZoom.Name = "tsmiChangeZoom";
+            resources.ApplyResources(tsmiChangeZoom, "tsmiChangeZoom");
+            tsmiChangeZoom.Click += tsmiChangeZoom_Click;
             // 
             // tsmiChangeZoomX1
             // 
-            this.tsmiChangeZoomX1.Name = "tsmiChangeZoomX1";
-            resources.ApplyResources(this.tsmiChangeZoomX1, "tsmiChangeZoomX1");
-            this.tsmiChangeZoomX1.Click += new System.EventHandler(this.tsmiChangeZoom_Click);
+            tsmiChangeZoomX1.Name = "tsmiChangeZoomX1";
+            resources.ApplyResources(tsmiChangeZoomX1, "tsmiChangeZoomX1");
+            tsmiChangeZoomX1.Click += tsmiChangeZoom_Click;
             // 
             // tsmiChangeZoomX2
             // 
-            this.tsmiChangeZoomX2.Name = "tsmiChangeZoomX2";
-            resources.ApplyResources(this.tsmiChangeZoomX2, "tsmiChangeZoomX2");
-            this.tsmiChangeZoomX2.Click += new System.EventHandler(this.tsmiChangeZoom_Click);
+            tsmiChangeZoomX2.Name = "tsmiChangeZoomX2";
+            resources.ApplyResources(tsmiChangeZoomX2, "tsmiChangeZoomX2");
+            tsmiChangeZoomX2.Click += tsmiChangeZoom_Click;
             // 
             // tsmiChangeZoomX3
             // 
-            this.tsmiChangeZoomX3.Name = "tsmiChangeZoomX3";
-            resources.ApplyResources(this.tsmiChangeZoomX3, "tsmiChangeZoomX3");
-            this.tsmiChangeZoomX3.Click += new System.EventHandler(this.tsmiChangeZoom_Click);
+            tsmiChangeZoomX3.Name = "tsmiChangeZoomX3";
+            resources.ApplyResources(tsmiChangeZoomX3, "tsmiChangeZoomX3");
+            tsmiChangeZoomX3.Click += tsmiChangeZoom_Click;
             // 
             // tsmiChangeZoomX4
             // 
-            this.tsmiChangeZoomX4.Name = "tsmiChangeZoomX4";
-            resources.ApplyResources(this.tsmiChangeZoomX4, "tsmiChangeZoomX4");
-            this.tsmiChangeZoomX4.Click += new System.EventHandler(this.tsmiChangeZoom_Click);
+            tsmiChangeZoomX4.Name = "tsmiChangeZoomX4";
+            resources.ApplyResources(tsmiChangeZoomX4, "tsmiChangeZoomX4");
+            tsmiChangeZoomX4.Click += tsmiChangeZoom_Click;
             // 
             // レジスタダンプ表示ToolStripMenuItem
             // 
-            this.レジスタダンプ表示ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.yM2612ToolStripMenuItem,
-            this.ym2151ToolStripMenuItem,
-            this.ym2203ToolStripMenuItem,
-            this.ym2413ToolStripMenuItem,
-            this.ym2608ToolStripMenuItem,
-            this.yM2610ToolStripMenuItem,
-            this.yM3812ToolStripMenuItem,
-            this.yMF262ToolStripMenuItem,
-            this.yMF278BToolStripMenuItem,
-            this.yMZ280BToolStripMenuItem,
-            this.c140ToolStripMenuItem,
-            this.c352ToolStripMenuItem,
-            this.qSoundToolStripMenuItem,
-            this.segaPCMToolStripMenuItem,
-            this.sN76489ToolStripMenuItem,
-            this.aY8910ToolStripMenuItem,
-            this.sIDToolStripMenuItem});
-            this.レジスタダンプ表示ToolStripMenuItem.Name = "レジスタダンプ表示ToolStripMenuItem";
-            resources.ApplyResources(this.レジスタダンプ表示ToolStripMenuItem, "レジスタダンプ表示ToolStripMenuItem");
+            レジスタダンプ表示ToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { yM2612ToolStripMenuItem, ym2151ToolStripMenuItem, ym2203ToolStripMenuItem, ym2413ToolStripMenuItem, ym2608ToolStripMenuItem, yM2610ToolStripMenuItem, yM3812ToolStripMenuItem, yMF262ToolStripMenuItem, yMF278BToolStripMenuItem, yMZ280BToolStripMenuItem, c140ToolStripMenuItem, c352ToolStripMenuItem, qSoundToolStripMenuItem, segaPCMToolStripMenuItem, sN76489ToolStripMenuItem, aY8910ToolStripMenuItem, sIDToolStripMenuItem });
+            レジスタダンプ表示ToolStripMenuItem.Name = "レジスタダンプ表示ToolStripMenuItem";
+            resources.ApplyResources(レジスタダンプ表示ToolStripMenuItem, "レジスタダンプ表示ToolStripMenuItem");
             // 
             // yM2612ToolStripMenuItem
             // 
-            this.yM2612ToolStripMenuItem.Name = "yM2612ToolStripMenuItem";
-            resources.ApplyResources(this.yM2612ToolStripMenuItem, "yM2612ToolStripMenuItem");
-            this.yM2612ToolStripMenuItem.Click += new System.EventHandler(this.RegisterDumpMenuItem_Click);
+            yM2612ToolStripMenuItem.Name = "yM2612ToolStripMenuItem";
+            resources.ApplyResources(yM2612ToolStripMenuItem, "yM2612ToolStripMenuItem");
+            yM2612ToolStripMenuItem.Click += RegisterDumpMenuItem_Click;
             // 
             // ym2151ToolStripMenuItem
             // 
-            this.ym2151ToolStripMenuItem.Name = "ym2151ToolStripMenuItem";
-            resources.ApplyResources(this.ym2151ToolStripMenuItem, "ym2151ToolStripMenuItem");
-            this.ym2151ToolStripMenuItem.Click += new System.EventHandler(this.RegisterDumpMenuItem_Click);
+            ym2151ToolStripMenuItem.Name = "ym2151ToolStripMenuItem";
+            resources.ApplyResources(ym2151ToolStripMenuItem, "ym2151ToolStripMenuItem");
+            ym2151ToolStripMenuItem.Click += RegisterDumpMenuItem_Click;
             // 
             // ym2203ToolStripMenuItem
             // 
-            this.ym2203ToolStripMenuItem.Name = "ym2203ToolStripMenuItem";
-            resources.ApplyResources(this.ym2203ToolStripMenuItem, "ym2203ToolStripMenuItem");
-            this.ym2203ToolStripMenuItem.Click += new System.EventHandler(this.RegisterDumpMenuItem_Click);
+            ym2203ToolStripMenuItem.Name = "ym2203ToolStripMenuItem";
+            resources.ApplyResources(ym2203ToolStripMenuItem, "ym2203ToolStripMenuItem");
+            ym2203ToolStripMenuItem.Click += RegisterDumpMenuItem_Click;
             // 
             // ym2413ToolStripMenuItem
             // 
-            this.ym2413ToolStripMenuItem.Name = "ym2413ToolStripMenuItem";
-            resources.ApplyResources(this.ym2413ToolStripMenuItem, "ym2413ToolStripMenuItem");
-            this.ym2413ToolStripMenuItem.Click += new System.EventHandler(this.RegisterDumpMenuItem_Click);
+            ym2413ToolStripMenuItem.Name = "ym2413ToolStripMenuItem";
+            resources.ApplyResources(ym2413ToolStripMenuItem, "ym2413ToolStripMenuItem");
+            ym2413ToolStripMenuItem.Click += RegisterDumpMenuItem_Click;
             // 
             // ym2608ToolStripMenuItem
             // 
-            this.ym2608ToolStripMenuItem.Name = "ym2608ToolStripMenuItem";
-            resources.ApplyResources(this.ym2608ToolStripMenuItem, "ym2608ToolStripMenuItem");
-            this.ym2608ToolStripMenuItem.Click += new System.EventHandler(this.RegisterDumpMenuItem_Click);
+            ym2608ToolStripMenuItem.Name = "ym2608ToolStripMenuItem";
+            resources.ApplyResources(ym2608ToolStripMenuItem, "ym2608ToolStripMenuItem");
+            ym2608ToolStripMenuItem.Click += RegisterDumpMenuItem_Click;
             // 
             // yM2610ToolStripMenuItem
             // 
-            this.yM2610ToolStripMenuItem.Name = "yM2610ToolStripMenuItem";
-            resources.ApplyResources(this.yM2610ToolStripMenuItem, "yM2610ToolStripMenuItem");
-            this.yM2610ToolStripMenuItem.Click += new System.EventHandler(this.RegisterDumpMenuItem_Click);
+            yM2610ToolStripMenuItem.Name = "yM2610ToolStripMenuItem";
+            resources.ApplyResources(yM2610ToolStripMenuItem, "yM2610ToolStripMenuItem");
+            yM2610ToolStripMenuItem.Click += RegisterDumpMenuItem_Click;
             // 
             // yM3812ToolStripMenuItem
             // 
-            this.yM3812ToolStripMenuItem.Name = "yM3812ToolStripMenuItem";
-            resources.ApplyResources(this.yM3812ToolStripMenuItem, "yM3812ToolStripMenuItem");
-            this.yM3812ToolStripMenuItem.Click += new System.EventHandler(this.RegisterDumpMenuItem_Click);
+            yM3812ToolStripMenuItem.Name = "yM3812ToolStripMenuItem";
+            resources.ApplyResources(yM3812ToolStripMenuItem, "yM3812ToolStripMenuItem");
+            yM3812ToolStripMenuItem.Click += RegisterDumpMenuItem_Click;
             // 
             // yMF262ToolStripMenuItem
             // 
-            this.yMF262ToolStripMenuItem.Name = "yMF262ToolStripMenuItem";
-            resources.ApplyResources(this.yMF262ToolStripMenuItem, "yMF262ToolStripMenuItem");
-            this.yMF262ToolStripMenuItem.Click += new System.EventHandler(this.RegisterDumpMenuItem_Click);
+            yMF262ToolStripMenuItem.Name = "yMF262ToolStripMenuItem";
+            resources.ApplyResources(yMF262ToolStripMenuItem, "yMF262ToolStripMenuItem");
+            yMF262ToolStripMenuItem.Click += RegisterDumpMenuItem_Click;
             // 
             // yMF278BToolStripMenuItem
             // 
-            this.yMF278BToolStripMenuItem.Name = "yMF278BToolStripMenuItem";
-            resources.ApplyResources(this.yMF278BToolStripMenuItem, "yMF278BToolStripMenuItem");
-            this.yMF278BToolStripMenuItem.Click += new System.EventHandler(this.RegisterDumpMenuItem_Click);
+            yMF278BToolStripMenuItem.Name = "yMF278BToolStripMenuItem";
+            resources.ApplyResources(yMF278BToolStripMenuItem, "yMF278BToolStripMenuItem");
+            yMF278BToolStripMenuItem.Click += RegisterDumpMenuItem_Click;
             // 
             // yMZ280BToolStripMenuItem
             // 
-            this.yMZ280BToolStripMenuItem.Name = "yMZ280BToolStripMenuItem";
-            resources.ApplyResources(this.yMZ280BToolStripMenuItem, "yMZ280BToolStripMenuItem");
-            this.yMZ280BToolStripMenuItem.Click += new System.EventHandler(this.RegisterDumpMenuItem_Click);
+            yMZ280BToolStripMenuItem.Name = "yMZ280BToolStripMenuItem";
+            resources.ApplyResources(yMZ280BToolStripMenuItem, "yMZ280BToolStripMenuItem");
+            yMZ280BToolStripMenuItem.Click += RegisterDumpMenuItem_Click;
             // 
             // c140ToolStripMenuItem
             // 
-            this.c140ToolStripMenuItem.Name = "c140ToolStripMenuItem";
-            resources.ApplyResources(this.c140ToolStripMenuItem, "c140ToolStripMenuItem");
-            this.c140ToolStripMenuItem.Click += new System.EventHandler(this.RegisterDumpMenuItem_Click);
+            c140ToolStripMenuItem.Name = "c140ToolStripMenuItem";
+            resources.ApplyResources(c140ToolStripMenuItem, "c140ToolStripMenuItem");
+            c140ToolStripMenuItem.Click += RegisterDumpMenuItem_Click;
             // 
             // c352ToolStripMenuItem
             // 
-            this.c352ToolStripMenuItem.Name = "c352ToolStripMenuItem";
-            resources.ApplyResources(this.c352ToolStripMenuItem, "c352ToolStripMenuItem");
-            this.c352ToolStripMenuItem.Click += new System.EventHandler(this.RegisterDumpMenuItem_Click);
+            c352ToolStripMenuItem.Name = "c352ToolStripMenuItem";
+            resources.ApplyResources(c352ToolStripMenuItem, "c352ToolStripMenuItem");
+            c352ToolStripMenuItem.Click += RegisterDumpMenuItem_Click;
             // 
             // qSoundToolStripMenuItem
             // 
-            this.qSoundToolStripMenuItem.Name = "qSoundToolStripMenuItem";
-            resources.ApplyResources(this.qSoundToolStripMenuItem, "qSoundToolStripMenuItem");
-            this.qSoundToolStripMenuItem.Click += new System.EventHandler(this.RegisterDumpMenuItem_Click);
+            qSoundToolStripMenuItem.Name = "qSoundToolStripMenuItem";
+            resources.ApplyResources(qSoundToolStripMenuItem, "qSoundToolStripMenuItem");
+            qSoundToolStripMenuItem.Click += RegisterDumpMenuItem_Click;
             // 
             // segaPCMToolStripMenuItem
             // 
-            this.segaPCMToolStripMenuItem.Name = "segaPCMToolStripMenuItem";
-            resources.ApplyResources(this.segaPCMToolStripMenuItem, "segaPCMToolStripMenuItem");
-            this.segaPCMToolStripMenuItem.Click += new System.EventHandler(this.RegisterDumpMenuItem_Click);
+            segaPCMToolStripMenuItem.Name = "segaPCMToolStripMenuItem";
+            resources.ApplyResources(segaPCMToolStripMenuItem, "segaPCMToolStripMenuItem");
+            segaPCMToolStripMenuItem.Click += RegisterDumpMenuItem_Click;
             // 
             // sN76489ToolStripMenuItem
             // 
-            this.sN76489ToolStripMenuItem.Name = "sN76489ToolStripMenuItem";
-            resources.ApplyResources(this.sN76489ToolStripMenuItem, "sN76489ToolStripMenuItem");
-            this.sN76489ToolStripMenuItem.Click += new System.EventHandler(this.RegisterDumpMenuItem_Click);
+            sN76489ToolStripMenuItem.Name = "sN76489ToolStripMenuItem";
+            resources.ApplyResources(sN76489ToolStripMenuItem, "sN76489ToolStripMenuItem");
+            sN76489ToolStripMenuItem.Click += RegisterDumpMenuItem_Click;
             // 
             // aY8910ToolStripMenuItem
             // 
-            this.aY8910ToolStripMenuItem.Name = "aY8910ToolStripMenuItem";
-            resources.ApplyResources(this.aY8910ToolStripMenuItem, "aY8910ToolStripMenuItem");
-            this.aY8910ToolStripMenuItem.Click += new System.EventHandler(this.RegisterDumpMenuItem_Click);
+            aY8910ToolStripMenuItem.Name = "aY8910ToolStripMenuItem";
+            resources.ApplyResources(aY8910ToolStripMenuItem, "aY8910ToolStripMenuItem");
+            aY8910ToolStripMenuItem.Click += RegisterDumpMenuItem_Click;
             // 
             // sIDToolStripMenuItem
             // 
-            this.sIDToolStripMenuItem.Name = "sIDToolStripMenuItem";
-            resources.ApplyResources(this.sIDToolStripMenuItem, "sIDToolStripMenuItem");
-            this.sIDToolStripMenuItem.Click += new System.EventHandler(this.RegisterDumpMenuItem_Click);
+            sIDToolStripMenuItem.Name = "sIDToolStripMenuItem";
+            resources.ApplyResources(sIDToolStripMenuItem, "sIDToolStripMenuItem");
+            sIDToolStripMenuItem.Click += RegisterDumpMenuItem_Click;
             // 
             // tsmiVisualizer
             // 
-            this.tsmiVisualizer.Name = "tsmiVisualizer";
-            resources.ApplyResources(this.tsmiVisualizer, "tsmiVisualizer");
-            this.tsmiVisualizer.Click += new System.EventHandler(this.tsmiVisWave_Click);
+            tsmiVisualizer.Name = "tsmiVisualizer";
+            resources.ApplyResources(tsmiVisualizer, "tsmiVisualizer");
+            tsmiVisualizer.Click += tsmiVisWave_Click;
             // 
             // tsmiOutputwavFile
             // 
-            this.tsmiOutputwavFile.CheckOnClick = true;
-            this.tsmiOutputwavFile.Name = "tsmiOutputwavFile";
-            resources.ApplyResources(this.tsmiOutputwavFile, "tsmiOutputwavFile");
-            this.tsmiOutputwavFile.Click += new System.EventHandler(this.tsmiOutputwavFile_Click);
+            tsmiOutputwavFile.CheckOnClick = true;
+            tsmiOutputwavFile.Name = "tsmiOutputwavFile";
+            resources.ApplyResources(tsmiOutputwavFile, "tsmiOutputwavFile");
+            tsmiOutputwavFile.Click += tsmiOutputwavFile_Click;
             // 
             // opeButtonSetting
             // 
-            this.opeButtonSetting.AllowDrop = true;
-            this.opeButtonSetting.BackColor = System.Drawing.Color.Black;
-            this.opeButtonSetting.BackgroundImage = Resources.ccFadeout;
-            resources.ApplyResources(this.opeButtonSetting, "opeButtonSetting");
-            this.opeButtonSetting.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.opeButtonSetting.FlatAppearance.BorderSize = 0;
-            this.opeButtonSetting.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
-            this.opeButtonSetting.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
-            this.opeButtonSetting.Name = "opeButtonSetting";
-            this.opeButtonSetting.Tag = "0";
-            this.toolTip1.SetToolTip(this.opeButtonSetting, resources.GetString("opeButtonSetting.ToolTip"));
-            this.opeButtonSetting.UseVisualStyleBackColor = false;
-            this.opeButtonSetting.Click += new System.EventHandler(this.opeButtonSetting_Click);
-            this.opeButtonSetting.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
-            this.opeButtonSetting.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
-            this.opeButtonSetting.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
-            this.opeButtonSetting.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            opeButtonSetting.AllowDrop = true;
+            opeButtonSetting.BackColor = Color.Black;
+            opeButtonSetting.BackgroundImage = Resources.ccFadeout;
+            resources.ApplyResources(opeButtonSetting, "opeButtonSetting");
+            opeButtonSetting.FlatAppearance.BorderColor = Color.Black;
+            opeButtonSetting.FlatAppearance.BorderSize = 0;
+            opeButtonSetting.FlatAppearance.MouseDownBackColor = Color.Black;
+            opeButtonSetting.FlatAppearance.MouseOverBackColor = Color.Black;
+            opeButtonSetting.Name = "opeButtonSetting";
+            opeButtonSetting.Tag = "0";
+            toolTip1.SetToolTip(opeButtonSetting, resources.GetString("opeButtonSetting.ToolTip"));
+            opeButtonSetting.UseVisualStyleBackColor = false;
+            opeButtonSetting.Click += opeButtonSetting_Click;
+            opeButtonSetting.DragDrop += pbScreen_DragDrop;
+            opeButtonSetting.DragEnter += pbScreen_DragEnter;
+            opeButtonSetting.MouseEnter += opeButton_MouseEnter;
+            opeButtonSetting.MouseLeave += opeButton_MouseLeave;
             // 
             // opeButtonStop
             // 
-            this.opeButtonStop.AllowDrop = true;
-            this.opeButtonStop.BackColor = System.Drawing.Color.Black;
-            this.opeButtonStop.BackgroundImage = Resources.ccFadeout;
-            resources.ApplyResources(this.opeButtonStop, "opeButtonStop");
-            this.opeButtonStop.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.opeButtonStop.FlatAppearance.BorderSize = 0;
-            this.opeButtonStop.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
-            this.opeButtonStop.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
-            this.opeButtonStop.Name = "opeButtonStop";
-            this.opeButtonStop.Tag = "1";
-            this.toolTip1.SetToolTip(this.opeButtonStop, resources.GetString("opeButtonStop.ToolTip"));
-            this.opeButtonStop.UseVisualStyleBackColor = false;
-            this.opeButtonStop.Click += new System.EventHandler(this.opeButtonStop_Click);
-            this.opeButtonStop.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
-            this.opeButtonStop.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
-            this.opeButtonStop.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
-            this.opeButtonStop.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            opeButtonStop.AllowDrop = true;
+            opeButtonStop.BackColor = Color.Black;
+            opeButtonStop.BackgroundImage = Resources.ccFadeout;
+            resources.ApplyResources(opeButtonStop, "opeButtonStop");
+            opeButtonStop.FlatAppearance.BorderColor = Color.Black;
+            opeButtonStop.FlatAppearance.BorderSize = 0;
+            opeButtonStop.FlatAppearance.MouseDownBackColor = Color.Black;
+            opeButtonStop.FlatAppearance.MouseOverBackColor = Color.Black;
+            opeButtonStop.Name = "opeButtonStop";
+            opeButtonStop.Tag = "1";
+            toolTip1.SetToolTip(opeButtonStop, resources.GetString("opeButtonStop.ToolTip"));
+            opeButtonStop.UseVisualStyleBackColor = false;
+            opeButtonStop.Click += opeButtonStop_Click;
+            opeButtonStop.DragDrop += pbScreen_DragDrop;
+            opeButtonStop.DragEnter += pbScreen_DragEnter;
+            opeButtonStop.MouseEnter += opeButton_MouseEnter;
+            opeButtonStop.MouseLeave += opeButton_MouseLeave;
             // 
             // opeButtonPause
             // 
-            this.opeButtonPause.AllowDrop = true;
-            this.opeButtonPause.BackColor = System.Drawing.Color.Black;
-            this.opeButtonPause.BackgroundImage = Resources.ccFadeout;
-            resources.ApplyResources(this.opeButtonPause, "opeButtonPause");
-            this.opeButtonPause.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.opeButtonPause.FlatAppearance.BorderSize = 0;
-            this.opeButtonPause.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
-            this.opeButtonPause.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
-            this.opeButtonPause.Name = "opeButtonPause";
-            this.opeButtonPause.Tag = "2";
-            this.toolTip1.SetToolTip(this.opeButtonPause, resources.GetString("opeButtonPause.ToolTip"));
-            this.opeButtonPause.UseVisualStyleBackColor = false;
-            this.opeButtonPause.Click += new System.EventHandler(this.opeButtonPause_Click);
-            this.opeButtonPause.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
-            this.opeButtonPause.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
-            this.opeButtonPause.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
-            this.opeButtonPause.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            opeButtonPause.AllowDrop = true;
+            opeButtonPause.BackColor = Color.Black;
+            opeButtonPause.BackgroundImage = Resources.ccFadeout;
+            resources.ApplyResources(opeButtonPause, "opeButtonPause");
+            opeButtonPause.FlatAppearance.BorderColor = Color.Black;
+            opeButtonPause.FlatAppearance.BorderSize = 0;
+            opeButtonPause.FlatAppearance.MouseDownBackColor = Color.Black;
+            opeButtonPause.FlatAppearance.MouseOverBackColor = Color.Black;
+            opeButtonPause.Name = "opeButtonPause";
+            opeButtonPause.Tag = "2";
+            toolTip1.SetToolTip(opeButtonPause, resources.GetString("opeButtonPause.ToolTip"));
+            opeButtonPause.UseVisualStyleBackColor = false;
+            opeButtonPause.Click += opeButtonPause_Click;
+            opeButtonPause.DragDrop += pbScreen_DragDrop;
+            opeButtonPause.DragEnter += pbScreen_DragEnter;
+            opeButtonPause.MouseEnter += opeButton_MouseEnter;
+            opeButtonPause.MouseLeave += opeButton_MouseLeave;
             // 
             // opeButtonFadeout
             // 
-            this.opeButtonFadeout.AllowDrop = true;
-            this.opeButtonFadeout.BackColor = System.Drawing.Color.Black;
-            this.opeButtonFadeout.BackgroundImage = Resources.ccFadeout;
-            resources.ApplyResources(this.opeButtonFadeout, "opeButtonFadeout");
-            this.opeButtonFadeout.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.opeButtonFadeout.FlatAppearance.BorderSize = 0;
-            this.opeButtonFadeout.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
-            this.opeButtonFadeout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
-            this.opeButtonFadeout.Name = "opeButtonFadeout";
-            this.opeButtonFadeout.Tag = "3";
-            this.toolTip1.SetToolTip(this.opeButtonFadeout, resources.GetString("opeButtonFadeout.ToolTip"));
-            this.opeButtonFadeout.UseVisualStyleBackColor = false;
-            this.opeButtonFadeout.Click += new System.EventHandler(this.opeButtonFadeout_Click);
-            this.opeButtonFadeout.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
-            this.opeButtonFadeout.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
-            this.opeButtonFadeout.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
-            this.opeButtonFadeout.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            opeButtonFadeout.AllowDrop = true;
+            opeButtonFadeout.BackColor = Color.Black;
+            opeButtonFadeout.BackgroundImage = Resources.ccFadeout;
+            resources.ApplyResources(opeButtonFadeout, "opeButtonFadeout");
+            opeButtonFadeout.FlatAppearance.BorderColor = Color.Black;
+            opeButtonFadeout.FlatAppearance.BorderSize = 0;
+            opeButtonFadeout.FlatAppearance.MouseDownBackColor = Color.Black;
+            opeButtonFadeout.FlatAppearance.MouseOverBackColor = Color.Black;
+            opeButtonFadeout.Name = "opeButtonFadeout";
+            opeButtonFadeout.Tag = "3";
+            toolTip1.SetToolTip(opeButtonFadeout, resources.GetString("opeButtonFadeout.ToolTip"));
+            opeButtonFadeout.UseVisualStyleBackColor = false;
+            opeButtonFadeout.Click += opeButtonFadeout_Click;
+            opeButtonFadeout.DragDrop += pbScreen_DragDrop;
+            opeButtonFadeout.DragEnter += pbScreen_DragEnter;
+            opeButtonFadeout.MouseEnter += opeButton_MouseEnter;
+            opeButtonFadeout.MouseLeave += opeButton_MouseLeave;
             // 
             // opeButtonPrevious
             // 
-            this.opeButtonPrevious.AllowDrop = true;
-            this.opeButtonPrevious.BackColor = System.Drawing.Color.Black;
-            this.opeButtonPrevious.BackgroundImage = Resources.ccFadeout;
-            resources.ApplyResources(this.opeButtonPrevious, "opeButtonPrevious");
-            this.opeButtonPrevious.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.opeButtonPrevious.FlatAppearance.BorderSize = 0;
-            this.opeButtonPrevious.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
-            this.opeButtonPrevious.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
-            this.opeButtonPrevious.Name = "opeButtonPrevious";
-            this.opeButtonPrevious.Tag = "4";
-            this.toolTip1.SetToolTip(this.opeButtonPrevious, resources.GetString("opeButtonPrevious.ToolTip"));
-            this.opeButtonPrevious.UseVisualStyleBackColor = false;
-            this.opeButtonPrevious.Click += new System.EventHandler(this.opeButtonPrevious_Click);
-            this.opeButtonPrevious.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
-            this.opeButtonPrevious.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
-            this.opeButtonPrevious.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
-            this.opeButtonPrevious.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            opeButtonPrevious.AllowDrop = true;
+            opeButtonPrevious.BackColor = Color.Black;
+            opeButtonPrevious.BackgroundImage = Resources.ccFadeout;
+            resources.ApplyResources(opeButtonPrevious, "opeButtonPrevious");
+            opeButtonPrevious.FlatAppearance.BorderColor = Color.Black;
+            opeButtonPrevious.FlatAppearance.BorderSize = 0;
+            opeButtonPrevious.FlatAppearance.MouseDownBackColor = Color.Black;
+            opeButtonPrevious.FlatAppearance.MouseOverBackColor = Color.Black;
+            opeButtonPrevious.Name = "opeButtonPrevious";
+            opeButtonPrevious.Tag = "4";
+            toolTip1.SetToolTip(opeButtonPrevious, resources.GetString("opeButtonPrevious.ToolTip"));
+            opeButtonPrevious.UseVisualStyleBackColor = false;
+            opeButtonPrevious.Click += opeButtonPrevious_Click;
+            opeButtonPrevious.DragDrop += pbScreen_DragDrop;
+            opeButtonPrevious.DragEnter += pbScreen_DragEnter;
+            opeButtonPrevious.MouseEnter += opeButton_MouseEnter;
+            opeButtonPrevious.MouseLeave += opeButton_MouseLeave;
             // 
             // opeButtonSlow
             // 
-            this.opeButtonSlow.AllowDrop = true;
-            this.opeButtonSlow.BackColor = System.Drawing.Color.Black;
-            this.opeButtonSlow.BackgroundImage = Resources.ccFadeout;
-            resources.ApplyResources(this.opeButtonSlow, "opeButtonSlow");
-            this.opeButtonSlow.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.opeButtonSlow.FlatAppearance.BorderSize = 0;
-            this.opeButtonSlow.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
-            this.opeButtonSlow.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
-            this.opeButtonSlow.Name = "opeButtonSlow";
-            this.opeButtonSlow.Tag = "5";
-            this.toolTip1.SetToolTip(this.opeButtonSlow, resources.GetString("opeButtonSlow.ToolTip"));
-            this.opeButtonSlow.UseVisualStyleBackColor = false;
-            this.opeButtonSlow.Click += new System.EventHandler(this.opeButtonSlow_Click);
-            this.opeButtonSlow.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
-            this.opeButtonSlow.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
-            this.opeButtonSlow.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
-            this.opeButtonSlow.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            opeButtonSlow.AllowDrop = true;
+            opeButtonSlow.BackColor = Color.Black;
+            opeButtonSlow.BackgroundImage = Resources.ccFadeout;
+            resources.ApplyResources(opeButtonSlow, "opeButtonSlow");
+            opeButtonSlow.FlatAppearance.BorderColor = Color.Black;
+            opeButtonSlow.FlatAppearance.BorderSize = 0;
+            opeButtonSlow.FlatAppearance.MouseDownBackColor = Color.Black;
+            opeButtonSlow.FlatAppearance.MouseOverBackColor = Color.Black;
+            opeButtonSlow.Name = "opeButtonSlow";
+            opeButtonSlow.Tag = "5";
+            toolTip1.SetToolTip(opeButtonSlow, resources.GetString("opeButtonSlow.ToolTip"));
+            opeButtonSlow.UseVisualStyleBackColor = false;
+            opeButtonSlow.Click += opeButtonSlow_Click;
+            opeButtonSlow.DragDrop += pbScreen_DragDrop;
+            opeButtonSlow.DragEnter += pbScreen_DragEnter;
+            opeButtonSlow.MouseEnter += opeButton_MouseEnter;
+            opeButtonSlow.MouseLeave += opeButton_MouseLeave;
             // 
             // opeButtonPlay
             // 
-            this.opeButtonPlay.AllowDrop = true;
-            this.opeButtonPlay.BackColor = System.Drawing.Color.Black;
-            this.opeButtonPlay.BackgroundImage = Resources.ccFadeout;
-            resources.ApplyResources(this.opeButtonPlay, "opeButtonPlay");
-            this.opeButtonPlay.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.opeButtonPlay.FlatAppearance.BorderSize = 0;
-            this.opeButtonPlay.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
-            this.opeButtonPlay.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
-            this.opeButtonPlay.Name = "opeButtonPlay";
-            this.opeButtonPlay.Tag = "6";
-            this.toolTip1.SetToolTip(this.opeButtonPlay, resources.GetString("opeButtonPlay.ToolTip"));
-            this.opeButtonPlay.UseVisualStyleBackColor = false;
-            this.opeButtonPlay.Click += new System.EventHandler(this.opeButtonPlay_Click);
-            this.opeButtonPlay.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
-            this.opeButtonPlay.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
-            this.opeButtonPlay.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
-            this.opeButtonPlay.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            opeButtonPlay.AllowDrop = true;
+            opeButtonPlay.BackColor = Color.Black;
+            opeButtonPlay.BackgroundImage = Resources.ccFadeout;
+            resources.ApplyResources(opeButtonPlay, "opeButtonPlay");
+            opeButtonPlay.FlatAppearance.BorderColor = Color.Black;
+            opeButtonPlay.FlatAppearance.BorderSize = 0;
+            opeButtonPlay.FlatAppearance.MouseDownBackColor = Color.Black;
+            opeButtonPlay.FlatAppearance.MouseOverBackColor = Color.Black;
+            opeButtonPlay.Name = "opeButtonPlay";
+            opeButtonPlay.Tag = "6";
+            toolTip1.SetToolTip(opeButtonPlay, resources.GetString("opeButtonPlay.ToolTip"));
+            opeButtonPlay.UseVisualStyleBackColor = false;
+            opeButtonPlay.Click += opeButtonPlay_Click;
+            opeButtonPlay.DragDrop += pbScreen_DragDrop;
+            opeButtonPlay.DragEnter += pbScreen_DragEnter;
+            opeButtonPlay.MouseEnter += opeButton_MouseEnter;
+            opeButtonPlay.MouseLeave += opeButton_MouseLeave;
             // 
             // opeButtonFast
             // 
-            this.opeButtonFast.AllowDrop = true;
-            this.opeButtonFast.BackColor = System.Drawing.Color.Black;
-            this.opeButtonFast.BackgroundImage = Resources.ccFadeout;
-            resources.ApplyResources(this.opeButtonFast, "opeButtonFast");
-            this.opeButtonFast.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.opeButtonFast.FlatAppearance.BorderSize = 0;
-            this.opeButtonFast.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
-            this.opeButtonFast.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
-            this.opeButtonFast.Name = "opeButtonFast";
-            this.opeButtonFast.Tag = "7";
-            this.toolTip1.SetToolTip(this.opeButtonFast, resources.GetString("opeButtonFast.ToolTip"));
-            this.opeButtonFast.UseVisualStyleBackColor = false;
-            this.opeButtonFast.Click += new System.EventHandler(this.opeButtonFast_Click);
-            this.opeButtonFast.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
-            this.opeButtonFast.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
-            this.opeButtonFast.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
-            this.opeButtonFast.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            opeButtonFast.AllowDrop = true;
+            opeButtonFast.BackColor = Color.Black;
+            opeButtonFast.BackgroundImage = Resources.ccFadeout;
+            resources.ApplyResources(opeButtonFast, "opeButtonFast");
+            opeButtonFast.FlatAppearance.BorderColor = Color.Black;
+            opeButtonFast.FlatAppearance.BorderSize = 0;
+            opeButtonFast.FlatAppearance.MouseDownBackColor = Color.Black;
+            opeButtonFast.FlatAppearance.MouseOverBackColor = Color.Black;
+            opeButtonFast.Name = "opeButtonFast";
+            opeButtonFast.Tag = "7";
+            toolTip1.SetToolTip(opeButtonFast, resources.GetString("opeButtonFast.ToolTip"));
+            opeButtonFast.UseVisualStyleBackColor = false;
+            opeButtonFast.Click += opeButtonFast_Click;
+            opeButtonFast.DragDrop += pbScreen_DragDrop;
+            opeButtonFast.DragEnter += pbScreen_DragEnter;
+            opeButtonFast.MouseEnter += opeButton_MouseEnter;
+            opeButtonFast.MouseLeave += opeButton_MouseLeave;
             // 
             // opeButtonNext
             // 
-            this.opeButtonNext.AllowDrop = true;
-            this.opeButtonNext.BackColor = System.Drawing.Color.Black;
-            this.opeButtonNext.BackgroundImage = Resources.ccFadeout;
-            resources.ApplyResources(this.opeButtonNext, "opeButtonNext");
-            this.opeButtonNext.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.opeButtonNext.FlatAppearance.BorderSize = 0;
-            this.opeButtonNext.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
-            this.opeButtonNext.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
-            this.opeButtonNext.Name = "opeButtonNext";
-            this.opeButtonNext.Tag = "8";
-            this.toolTip1.SetToolTip(this.opeButtonNext, resources.GetString("opeButtonNext.ToolTip"));
-            this.opeButtonNext.UseVisualStyleBackColor = false;
-            this.opeButtonNext.Click += new System.EventHandler(this.opeButtonNext_Click);
-            this.opeButtonNext.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
-            this.opeButtonNext.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
-            this.opeButtonNext.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
-            this.opeButtonNext.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            opeButtonNext.AllowDrop = true;
+            opeButtonNext.BackColor = Color.Black;
+            opeButtonNext.BackgroundImage = Resources.ccFadeout;
+            resources.ApplyResources(opeButtonNext, "opeButtonNext");
+            opeButtonNext.FlatAppearance.BorderColor = Color.Black;
+            opeButtonNext.FlatAppearance.BorderSize = 0;
+            opeButtonNext.FlatAppearance.MouseDownBackColor = Color.Black;
+            opeButtonNext.FlatAppearance.MouseOverBackColor = Color.Black;
+            opeButtonNext.Name = "opeButtonNext";
+            opeButtonNext.Tag = "8";
+            toolTip1.SetToolTip(opeButtonNext, resources.GetString("opeButtonNext.ToolTip"));
+            opeButtonNext.UseVisualStyleBackColor = false;
+            opeButtonNext.Click += opeButtonNext_Click;
+            opeButtonNext.DragDrop += pbScreen_DragDrop;
+            opeButtonNext.DragEnter += pbScreen_DragEnter;
+            opeButtonNext.MouseEnter += opeButton_MouseEnter;
+            opeButtonNext.MouseLeave += opeButton_MouseLeave;
             // 
             // opeButtonZoom
             // 
-            this.opeButtonZoom.AllowDrop = true;
-            this.opeButtonZoom.BackColor = System.Drawing.Color.Black;
-            this.opeButtonZoom.BackgroundImage = Resources.ccFadeout;
-            resources.ApplyResources(this.opeButtonZoom, "opeButtonZoom");
-            this.opeButtonZoom.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.opeButtonZoom.FlatAppearance.BorderSize = 0;
-            this.opeButtonZoom.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
-            this.opeButtonZoom.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
-            this.opeButtonZoom.Name = "opeButtonZoom";
-            this.opeButtonZoom.Tag = "17";
-            this.toolTip1.SetToolTip(this.opeButtonZoom, resources.GetString("opeButtonZoom.ToolTip"));
-            this.opeButtonZoom.UseVisualStyleBackColor = false;
-            this.opeButtonZoom.Click += new System.EventHandler(this.opeButtonZoom_Click);
-            this.opeButtonZoom.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
-            this.opeButtonZoom.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
-            this.opeButtonZoom.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
-            this.opeButtonZoom.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            opeButtonZoom.AllowDrop = true;
+            opeButtonZoom.BackColor = Color.Black;
+            opeButtonZoom.BackgroundImage = Resources.ccFadeout;
+            resources.ApplyResources(opeButtonZoom, "opeButtonZoom");
+            opeButtonZoom.FlatAppearance.BorderColor = Color.Black;
+            opeButtonZoom.FlatAppearance.BorderSize = 0;
+            opeButtonZoom.FlatAppearance.MouseDownBackColor = Color.Black;
+            opeButtonZoom.FlatAppearance.MouseOverBackColor = Color.Black;
+            opeButtonZoom.Name = "opeButtonZoom";
+            opeButtonZoom.Tag = "17";
+            toolTip1.SetToolTip(opeButtonZoom, resources.GetString("opeButtonZoom.ToolTip"));
+            opeButtonZoom.UseVisualStyleBackColor = false;
+            opeButtonZoom.Click += opeButtonZoom_Click;
+            opeButtonZoom.DragDrop += pbScreen_DragDrop;
+            opeButtonZoom.DragEnter += pbScreen_DragEnter;
+            opeButtonZoom.MouseEnter += opeButton_MouseEnter;
+            opeButtonZoom.MouseLeave += opeButton_MouseLeave;
             // 
             // opeButtonMIDIKBD
             // 
-            this.opeButtonMIDIKBD.AllowDrop = true;
-            this.opeButtonMIDIKBD.BackColor = System.Drawing.Color.Black;
-            this.opeButtonMIDIKBD.BackgroundImage = Resources.ccFadeout;
-            resources.ApplyResources(this.opeButtonMIDIKBD, "opeButtonMIDIKBD");
-            this.opeButtonMIDIKBD.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.opeButtonMIDIKBD.FlatAppearance.BorderSize = 0;
-            this.opeButtonMIDIKBD.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
-            this.opeButtonMIDIKBD.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
-            this.opeButtonMIDIKBD.Name = "opeButtonMIDIKBD";
-            this.opeButtonMIDIKBD.Tag = "16";
-            this.toolTip1.SetToolTip(this.opeButtonMIDIKBD, resources.GetString("opeButtonMIDIKBD.ToolTip"));
-            this.opeButtonMIDIKBD.UseVisualStyleBackColor = false;
-            this.opeButtonMIDIKBD.Click += new System.EventHandler(this.opeButtonMIDIKBD_Click);
-            this.opeButtonMIDIKBD.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
-            this.opeButtonMIDIKBD.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
-            this.opeButtonMIDIKBD.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
-            this.opeButtonMIDIKBD.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            opeButtonMIDIKBD.AllowDrop = true;
+            opeButtonMIDIKBD.BackColor = Color.Black;
+            opeButtonMIDIKBD.BackgroundImage = Resources.ccFadeout;
+            resources.ApplyResources(opeButtonMIDIKBD, "opeButtonMIDIKBD");
+            opeButtonMIDIKBD.FlatAppearance.BorderColor = Color.Black;
+            opeButtonMIDIKBD.FlatAppearance.BorderSize = 0;
+            opeButtonMIDIKBD.FlatAppearance.MouseDownBackColor = Color.Black;
+            opeButtonMIDIKBD.FlatAppearance.MouseOverBackColor = Color.Black;
+            opeButtonMIDIKBD.Name = "opeButtonMIDIKBD";
+            opeButtonMIDIKBD.Tag = "16";
+            toolTip1.SetToolTip(opeButtonMIDIKBD, resources.GetString("opeButtonMIDIKBD.ToolTip"));
+            opeButtonMIDIKBD.UseVisualStyleBackColor = false;
+            opeButtonMIDIKBD.Click += opeButtonMIDIKBD_Click;
+            opeButtonMIDIKBD.DragDrop += pbScreen_DragDrop;
+            opeButtonMIDIKBD.DragEnter += pbScreen_DragEnter;
+            opeButtonMIDIKBD.MouseEnter += opeButton_MouseEnter;
+            opeButtonMIDIKBD.MouseLeave += opeButton_MouseLeave;
             // 
             // opeButtonVST
             // 
-            this.opeButtonVST.AllowDrop = true;
-            this.opeButtonVST.BackColor = System.Drawing.Color.Black;
-            this.opeButtonVST.BackgroundImage = Resources.ccFadeout;
-            resources.ApplyResources(this.opeButtonVST, "opeButtonVST");
-            this.opeButtonVST.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.opeButtonVST.FlatAppearance.BorderSize = 0;
-            this.opeButtonVST.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
-            this.opeButtonVST.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
-            this.opeButtonVST.Name = "opeButtonVST";
-            this.opeButtonVST.Tag = "15";
-            this.toolTip1.SetToolTip(this.opeButtonVST, resources.GetString("opeButtonVST.ToolTip"));
-            this.opeButtonVST.UseVisualStyleBackColor = false;
-            this.opeButtonVST.Click += new System.EventHandler(this.opeButtonVST_Click);
-            this.opeButtonVST.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
-            this.opeButtonVST.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
-            this.opeButtonVST.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
-            this.opeButtonVST.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            opeButtonVST.AllowDrop = true;
+            opeButtonVST.BackColor = Color.Black;
+            opeButtonVST.BackgroundImage = Resources.ccFadeout;
+            resources.ApplyResources(opeButtonVST, "opeButtonVST");
+            opeButtonVST.FlatAppearance.BorderColor = Color.Black;
+            opeButtonVST.FlatAppearance.BorderSize = 0;
+            opeButtonVST.FlatAppearance.MouseDownBackColor = Color.Black;
+            opeButtonVST.FlatAppearance.MouseOverBackColor = Color.Black;
+            opeButtonVST.Name = "opeButtonVST";
+            opeButtonVST.Tag = "15";
+            toolTip1.SetToolTip(opeButtonVST, resources.GetString("opeButtonVST.ToolTip"));
+            opeButtonVST.UseVisualStyleBackColor = false;
+            opeButtonVST.Click += opeButtonVST_Click;
+            opeButtonVST.DragDrop += pbScreen_DragDrop;
+            opeButtonVST.DragEnter += pbScreen_DragEnter;
+            opeButtonVST.MouseEnter += opeButton_MouseEnter;
+            opeButtonVST.MouseLeave += opeButton_MouseLeave;
             // 
             // opeButtonKBD
             // 
-            this.opeButtonKBD.AllowDrop = true;
-            this.opeButtonKBD.BackColor = System.Drawing.Color.Black;
-            this.opeButtonKBD.BackgroundImage = Resources.ccFadeout;
-            resources.ApplyResources(this.opeButtonKBD, "opeButtonKBD");
-            this.opeButtonKBD.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.opeButtonKBD.FlatAppearance.BorderSize = 0;
-            this.opeButtonKBD.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
-            this.opeButtonKBD.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
-            this.opeButtonKBD.Name = "opeButtonKBD";
-            this.opeButtonKBD.Tag = "14";
-            this.toolTip1.SetToolTip(this.opeButtonKBD, resources.GetString("opeButtonKBD.ToolTip"));
-            this.opeButtonKBD.UseVisualStyleBackColor = false;
-            this.opeButtonKBD.Click += new System.EventHandler(this.opeButtonKBD_Click);
-            this.opeButtonKBD.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
-            this.opeButtonKBD.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
-            this.opeButtonKBD.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
-            this.opeButtonKBD.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            opeButtonKBD.AllowDrop = true;
+            opeButtonKBD.BackColor = Color.Black;
+            opeButtonKBD.BackgroundImage = Resources.ccFadeout;
+            resources.ApplyResources(opeButtonKBD, "opeButtonKBD");
+            opeButtonKBD.FlatAppearance.BorderColor = Color.Black;
+            opeButtonKBD.FlatAppearance.BorderSize = 0;
+            opeButtonKBD.FlatAppearance.MouseDownBackColor = Color.Black;
+            opeButtonKBD.FlatAppearance.MouseOverBackColor = Color.Black;
+            opeButtonKBD.Name = "opeButtonKBD";
+            opeButtonKBD.Tag = "14";
+            toolTip1.SetToolTip(opeButtonKBD, resources.GetString("opeButtonKBD.ToolTip"));
+            opeButtonKBD.UseVisualStyleBackColor = false;
+            opeButtonKBD.Click += opeButtonKBD_Click;
+            opeButtonKBD.DragDrop += pbScreen_DragDrop;
+            opeButtonKBD.DragEnter += pbScreen_DragEnter;
+            opeButtonKBD.MouseEnter += opeButton_MouseEnter;
+            opeButtonKBD.MouseLeave += opeButton_MouseLeave;
             // 
             // opeButtonMixer
             // 
-            this.opeButtonMixer.AllowDrop = true;
-            this.opeButtonMixer.BackColor = System.Drawing.Color.Black;
-            this.opeButtonMixer.BackgroundImage = Resources.ccFadeout;
-            resources.ApplyResources(this.opeButtonMixer, "opeButtonMixer");
-            this.opeButtonMixer.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.opeButtonMixer.FlatAppearance.BorderSize = 0;
-            this.opeButtonMixer.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
-            this.opeButtonMixer.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
-            this.opeButtonMixer.Name = "opeButtonMixer";
-            this.opeButtonMixer.Tag = "13";
-            this.toolTip1.SetToolTip(this.opeButtonMixer, resources.GetString("opeButtonMixer.ToolTip"));
-            this.opeButtonMixer.UseVisualStyleBackColor = false;
-            this.opeButtonMixer.Click += new System.EventHandler(this.opeButtonMixer_Click);
-            this.opeButtonMixer.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
-            this.opeButtonMixer.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
-            this.opeButtonMixer.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
-            this.opeButtonMixer.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            opeButtonMixer.AllowDrop = true;
+            opeButtonMixer.BackColor = Color.Black;
+            opeButtonMixer.BackgroundImage = Resources.ccFadeout;
+            resources.ApplyResources(opeButtonMixer, "opeButtonMixer");
+            opeButtonMixer.FlatAppearance.BorderColor = Color.Black;
+            opeButtonMixer.FlatAppearance.BorderSize = 0;
+            opeButtonMixer.FlatAppearance.MouseDownBackColor = Color.Black;
+            opeButtonMixer.FlatAppearance.MouseOverBackColor = Color.Black;
+            opeButtonMixer.Name = "opeButtonMixer";
+            opeButtonMixer.Tag = "13";
+            toolTip1.SetToolTip(opeButtonMixer, resources.GetString("opeButtonMixer.ToolTip"));
+            opeButtonMixer.UseVisualStyleBackColor = false;
+            opeButtonMixer.Click += opeButtonMixer_Click;
+            opeButtonMixer.DragDrop += pbScreen_DragDrop;
+            opeButtonMixer.DragEnter += pbScreen_DragEnter;
+            opeButtonMixer.MouseEnter += opeButton_MouseEnter;
+            opeButtonMixer.MouseLeave += opeButton_MouseLeave;
             // 
             // opeButtonInformation
             // 
-            this.opeButtonInformation.AllowDrop = true;
-            this.opeButtonInformation.BackColor = System.Drawing.Color.Black;
-            this.opeButtonInformation.BackgroundImage = Resources.ccFadeout;
-            resources.ApplyResources(this.opeButtonInformation, "opeButtonInformation");
-            this.opeButtonInformation.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.opeButtonInformation.FlatAppearance.BorderSize = 0;
-            this.opeButtonInformation.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
-            this.opeButtonInformation.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
-            this.opeButtonInformation.Name = "opeButtonInformation";
-            this.opeButtonInformation.Tag = "12";
-            this.toolTip1.SetToolTip(this.opeButtonInformation, resources.GetString("opeButtonInformation.ToolTip"));
-            this.opeButtonInformation.UseVisualStyleBackColor = false;
-            this.opeButtonInformation.Click += new System.EventHandler(this.opeButtonInformation_Click);
-            this.opeButtonInformation.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
-            this.opeButtonInformation.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
-            this.opeButtonInformation.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
-            this.opeButtonInformation.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            opeButtonInformation.AllowDrop = true;
+            opeButtonInformation.BackColor = Color.Black;
+            opeButtonInformation.BackgroundImage = Resources.ccFadeout;
+            resources.ApplyResources(opeButtonInformation, "opeButtonInformation");
+            opeButtonInformation.FlatAppearance.BorderColor = Color.Black;
+            opeButtonInformation.FlatAppearance.BorderSize = 0;
+            opeButtonInformation.FlatAppearance.MouseDownBackColor = Color.Black;
+            opeButtonInformation.FlatAppearance.MouseOverBackColor = Color.Black;
+            opeButtonInformation.Name = "opeButtonInformation";
+            opeButtonInformation.Tag = "12";
+            toolTip1.SetToolTip(opeButtonInformation, resources.GetString("opeButtonInformation.ToolTip"));
+            opeButtonInformation.UseVisualStyleBackColor = false;
+            opeButtonInformation.Click += opeButtonInformation_Click;
+            opeButtonInformation.DragDrop += pbScreen_DragDrop;
+            opeButtonInformation.DragEnter += pbScreen_DragEnter;
+            opeButtonInformation.MouseEnter += opeButton_MouseEnter;
+            opeButtonInformation.MouseLeave += opeButton_MouseLeave;
             // 
             // opeButtonPlayList
             // 
-            this.opeButtonPlayList.AllowDrop = true;
-            this.opeButtonPlayList.BackColor = System.Drawing.Color.Black;
-            this.opeButtonPlayList.BackgroundImage = Resources.ccFadeout;
-            resources.ApplyResources(this.opeButtonPlayList, "opeButtonPlayList");
-            this.opeButtonPlayList.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.opeButtonPlayList.FlatAppearance.BorderSize = 0;
-            this.opeButtonPlayList.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
-            this.opeButtonPlayList.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
-            this.opeButtonPlayList.Name = "opeButtonPlayList";
-            this.opeButtonPlayList.Tag = "11";
-            this.toolTip1.SetToolTip(this.opeButtonPlayList, resources.GetString("opeButtonPlayList.ToolTip"));
-            this.opeButtonPlayList.UseVisualStyleBackColor = false;
-            this.opeButtonPlayList.Click += new System.EventHandler(this.opeButtonPlayList_Click);
-            this.opeButtonPlayList.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
-            this.opeButtonPlayList.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
-            this.opeButtonPlayList.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
-            this.opeButtonPlayList.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            opeButtonPlayList.AllowDrop = true;
+            opeButtonPlayList.BackColor = Color.Black;
+            opeButtonPlayList.BackgroundImage = Resources.ccFadeout;
+            resources.ApplyResources(opeButtonPlayList, "opeButtonPlayList");
+            opeButtonPlayList.FlatAppearance.BorderColor = Color.Black;
+            opeButtonPlayList.FlatAppearance.BorderSize = 0;
+            opeButtonPlayList.FlatAppearance.MouseDownBackColor = Color.Black;
+            opeButtonPlayList.FlatAppearance.MouseOverBackColor = Color.Black;
+            opeButtonPlayList.Name = "opeButtonPlayList";
+            opeButtonPlayList.Tag = "11";
+            toolTip1.SetToolTip(opeButtonPlayList, resources.GetString("opeButtonPlayList.ToolTip"));
+            opeButtonPlayList.UseVisualStyleBackColor = false;
+            opeButtonPlayList.Click += opeButtonPlayList_Click;
+            opeButtonPlayList.DragDrop += pbScreen_DragDrop;
+            opeButtonPlayList.DragEnter += pbScreen_DragEnter;
+            opeButtonPlayList.MouseEnter += opeButton_MouseEnter;
+            opeButtonPlayList.MouseLeave += opeButton_MouseLeave;
             // 
             // opeButtonOpen
             // 
-            this.opeButtonOpen.AllowDrop = true;
-            this.opeButtonOpen.BackColor = System.Drawing.Color.Black;
-            this.opeButtonOpen.BackgroundImage = Resources.ccFadeout;
-            resources.ApplyResources(this.opeButtonOpen, "opeButtonOpen");
-            this.opeButtonOpen.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.opeButtonOpen.FlatAppearance.BorderSize = 0;
-            this.opeButtonOpen.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
-            this.opeButtonOpen.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
-            this.opeButtonOpen.Name = "opeButtonOpen";
-            this.opeButtonOpen.Tag = "10";
-            this.toolTip1.SetToolTip(this.opeButtonOpen, resources.GetString("opeButtonOpen.ToolTip"));
-            this.opeButtonOpen.UseVisualStyleBackColor = false;
-            this.opeButtonOpen.Click += new System.EventHandler(this.opeButtonOpen_Click);
-            this.opeButtonOpen.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
-            this.opeButtonOpen.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
-            this.opeButtonOpen.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
-            this.opeButtonOpen.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            opeButtonOpen.AllowDrop = true;
+            opeButtonOpen.BackColor = Color.Black;
+            opeButtonOpen.BackgroundImage = Resources.ccFadeout;
+            resources.ApplyResources(opeButtonOpen, "opeButtonOpen");
+            opeButtonOpen.FlatAppearance.BorderColor = Color.Black;
+            opeButtonOpen.FlatAppearance.BorderSize = 0;
+            opeButtonOpen.FlatAppearance.MouseDownBackColor = Color.Black;
+            opeButtonOpen.FlatAppearance.MouseOverBackColor = Color.Black;
+            opeButtonOpen.Name = "opeButtonOpen";
+            opeButtonOpen.Tag = "10";
+            toolTip1.SetToolTip(opeButtonOpen, resources.GetString("opeButtonOpen.ToolTip"));
+            opeButtonOpen.UseVisualStyleBackColor = false;
+            opeButtonOpen.Click += opeButtonOpen_Click;
+            opeButtonOpen.DragDrop += pbScreen_DragDrop;
+            opeButtonOpen.DragEnter += pbScreen_DragEnter;
+            opeButtonOpen.MouseEnter += opeButton_MouseEnter;
+            opeButtonOpen.MouseLeave += opeButton_MouseLeave;
             // 
             // opeButtonMode
             // 
-            this.opeButtonMode.AllowDrop = true;
-            this.opeButtonMode.BackColor = System.Drawing.Color.Black;
-            this.opeButtonMode.BackgroundImage = Resources.ccFadeout;
-            resources.ApplyResources(this.opeButtonMode, "opeButtonMode");
-            this.opeButtonMode.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.opeButtonMode.FlatAppearance.BorderSize = 0;
-            this.opeButtonMode.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
-            this.opeButtonMode.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
-            this.opeButtonMode.Name = "opeButtonMode";
-            this.opeButtonMode.Tag = "9";
-            this.toolTip1.SetToolTip(this.opeButtonMode, resources.GetString("opeButtonMode.ToolTip"));
-            this.opeButtonMode.UseVisualStyleBackColor = false;
-            this.opeButtonMode.Click += new System.EventHandler(this.opeButtonMode_Click);
-            this.opeButtonMode.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
-            this.opeButtonMode.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
-            this.opeButtonMode.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
-            this.opeButtonMode.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            opeButtonMode.AllowDrop = true;
+            opeButtonMode.BackColor = Color.Black;
+            opeButtonMode.BackgroundImage = Resources.ccFadeout;
+            resources.ApplyResources(opeButtonMode, "opeButtonMode");
+            opeButtonMode.FlatAppearance.BorderColor = Color.Black;
+            opeButtonMode.FlatAppearance.BorderSize = 0;
+            opeButtonMode.FlatAppearance.MouseDownBackColor = Color.Black;
+            opeButtonMode.FlatAppearance.MouseOverBackColor = Color.Black;
+            opeButtonMode.Name = "opeButtonMode";
+            opeButtonMode.Tag = "9";
+            toolTip1.SetToolTip(opeButtonMode, resources.GetString("opeButtonMode.ToolTip"));
+            opeButtonMode.UseVisualStyleBackColor = false;
+            opeButtonMode.Click += opeButtonMode_Click;
+            opeButtonMode.DragDrop += pbScreen_DragDrop;
+            opeButtonMode.DragEnter += pbScreen_DragEnter;
+            opeButtonMode.MouseEnter += opeButton_MouseEnter;
+            opeButtonMode.MouseLeave += opeButton_MouseLeave;
             // 
             // keyboardHook1
             // 
-            this.keyboardHook1.KeyboardHooked += new HongliangSoft.Utilities.Gui.KeyboardHookedEventHandler(this.keyboardHook1_KeyboardHooked);
+            keyboardHook1.KeyboardHooked += keyboardHook1_KeyboardHooked;
+            // 
+            // tsmiPK053260
+            // 
+            tsmiPK053260.Name = "tsmiPK053260";
+            resources.ApplyResources(tsmiPK053260, "tsmiPK053260");
+            tsmiPK053260.Click += tsmiPK053260_Click;
+            // 
+            // tsmiSK053260
+            // 
+            tsmiSK053260.Name = "tsmiSK053260";
+            resources.ApplyResources(tsmiSK053260, "tsmiSK053260");
+            tsmiSK053260.Click += tsmiSK053260_Click;
             // 
             // frmMain
             // 
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.Controls.Add(this.opeButtonZoom);
-            this.Controls.Add(this.opeButtonMIDIKBD);
-            this.Controls.Add(this.opeButtonVST);
-            this.Controls.Add(this.opeButtonKBD);
-            this.Controls.Add(this.opeButtonMixer);
-            this.Controls.Add(this.opeButtonInformation);
-            this.Controls.Add(this.opeButtonPlayList);
-            this.Controls.Add(this.opeButtonOpen);
-            this.Controls.Add(this.opeButtonMode);
-            this.Controls.Add(this.opeButtonNext);
-            this.Controls.Add(this.opeButtonFast);
-            this.Controls.Add(this.opeButtonPlay);
-            this.Controls.Add(this.opeButtonSlow);
-            this.Controls.Add(this.opeButtonPrevious);
-            this.Controls.Add(this.opeButtonFadeout);
-            this.Controls.Add(this.opeButtonPause);
-            this.Controls.Add(this.opeButtonStop);
-            this.Controls.Add(this.opeButtonSetting);
-            this.Controls.Add(this.pbScreen);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.Name = "frmMain";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmMain_FormClosed);
-            this.Load += new System.EventHandler(this.frmMain_Load);
-            this.Shown += new System.EventHandler(this.frmMain_Shown);
-            this.Resize += new System.EventHandler(this.frmMain_Resize);
-            ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).EndInit();
-            this.cmsOpenOtherPanel.ResumeLayout(false);
-            this.cmsMenu.ResumeLayout(false);
-            this.ResumeLayout(false);
-
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ControlDarkDark;
+            Controls.Add(opeButtonZoom);
+            Controls.Add(opeButtonMIDIKBD);
+            Controls.Add(opeButtonVST);
+            Controls.Add(opeButtonKBD);
+            Controls.Add(opeButtonMixer);
+            Controls.Add(opeButtonInformation);
+            Controls.Add(opeButtonPlayList);
+            Controls.Add(opeButtonOpen);
+            Controls.Add(opeButtonMode);
+            Controls.Add(opeButtonNext);
+            Controls.Add(opeButtonFast);
+            Controls.Add(opeButtonPlay);
+            Controls.Add(opeButtonSlow);
+            Controls.Add(opeButtonPrevious);
+            Controls.Add(opeButtonFadeout);
+            Controls.Add(opeButtonPause);
+            Controls.Add(opeButtonStop);
+            Controls.Add(opeButtonSetting);
+            Controls.Add(pbScreen);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+            Name = "frmMain";
+            FormClosing += frmMain_FormClosing;
+            FormClosed += frmMain_FormClosed;
+            Load += frmMain_Load;
+            Shown += frmMain_Shown;
+            Resize += frmMain_Resize;
+            ((System.ComponentModel.ISupportInitialize)pbScreen).EndInit();
+            cmsOpenOtherPanel.ResumeLayout(false);
+            cmsMenu.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion
@@ -1701,7 +1579,7 @@ namespace MDPlayer.form
         private System.Windows.Forms.ToolStripMenuItem sN76489ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aY8910ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem yM3812ToolStripMenuItem;
-      
+
         private System.Windows.Forms.ToolStripMenuItem tsmiPVRC6;
         private System.Windows.Forms.ToolStripMenuItem tsmiSVRC6;
         private System.Windows.Forms.ToolStripMenuItem tsmiPN106;
@@ -1753,6 +1631,8 @@ namespace MDPlayer.form
         private System.Windows.Forms.ToolStripMenuItem tsmiPOPNA2;
         private System.Windows.Forms.ToolStripMenuItem tsmiSOPNA2;
         private System.Windows.Forms.ToolStripMenuItem tsmiOutputwavFile;
+        private ToolStripMenuItem tsmiPK053260;
+        private ToolStripMenuItem tsmiSK053260;
     }
 }
 

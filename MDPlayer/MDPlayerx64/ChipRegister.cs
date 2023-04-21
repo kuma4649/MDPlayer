@@ -425,6 +425,13 @@ namespace MDPlayer
         private byte[] K051649_curCh = new byte[] { 0, 0 };
         private byte[][] K051649_vol = new byte[2][] { new byte[] { 0, 0, 0, 0, 0 }, new byte[] { 0, 0, 0, 0, 0 } };
 
+        public ushort[][] pcmRegisterK053260 = new ushort[2][] { null, null };
+        public bool[][] maskChK053260 = new bool[][]
+        {
+            new bool[]{ false, false, false, false},
+            new bool[]{ false, false, false, false}
+        };
+
         public byte[][] pcmRegisterSEGAPCM = new byte[2][] { null, null };
         public bool[][] pcmKeyOnSEGAPCM = new bool[2][] { null, null };
 
@@ -712,6 +719,9 @@ namespace MDPlayer
 
                 pcmRegisterSEGAPCM[chipID] = new byte[0x200];
                 pcmKeyOnSEGAPCM[chipID] = new bool[16];
+
+                pcmRegisterK053260[chipID] = new ushort[0x100];
+                for (int i = 0; i < pcmRegisterK053260.Length; i++) pcmRegisterK053260[chipID][i] = 0;
 
                 midiParams[chipID] = new MIDIParam();
 
@@ -4487,6 +4497,16 @@ namespace MDPlayer
             //writeK051649((byte)chipID, (3 << 1) | 1, K051649tKeyOnOff[chipID], EnmModel.VirtualModel);
         }
 
+        public void setK053260Mask(int chipID, int ch,bool mask)
+        {
+            maskChK053260[chipID][ch] = mask;
+            if (dicChipsInfo.ContainsKey(MDSound.MDSound.enmInstrumentType.K053260))
+            {
+                if (mask) mds.setK053260Mask(chipID, ch);
+                else mds.resetK053260Mask(chipID, ch);
+            }
+        }
+
         public void setDMGMask(int chipID, int ch)
         {
             maskChDMG[chipID][ch] = true;
@@ -5067,6 +5087,9 @@ namespace MDPlayer
 
         public void writeK053260(byte chipid, uint adr, byte data, EnmModel model)
         {
+            if (adr < pcmRegisterK053260[chipid].Length)
+                pcmRegisterK053260[chipid][adr] = (ushort)data;
+
             if (chipid == 0) chipLED.PriK053260 = 2;
             else chipLED.SecK053260 = 2;
 

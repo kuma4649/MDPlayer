@@ -1282,6 +1282,16 @@ namespace MDPlayerx64.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap planeK053260 {
+            get {
+                object obj = ResourceManager.GetObject("planeK053260", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap planeMIDI_GM {
             get {
                 object obj = ResourceManager.GetObject("planeMIDI_GM", resourceCulture);
