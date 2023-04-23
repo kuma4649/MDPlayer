@@ -2345,7 +2345,9 @@ namespace MDPlayer
                     chip.Stop = ym2151.Stop;
                     chip.Reset = ym2151.Reset;
                     chip.Volume = setting.balance.YM2151Volume;
-                    chip.Clock = (uint)((Driver.MucomDotNET)driverVirtual).OPMClock;
+                    uint clock = (uint)((Driver.MucomDotNET)driverVirtual).OPMClock;
+                    if (clock == 0) clock = Driver.MucomDotNET.OPMbaseclock;
+                    chip.Clock = clock;
                     chip.SamplingRate = (UInt32)chip.Clock / 64;// (UInt32)setting.outputDevice.SampleRate;
                     chip.Option = null;
                     lstChips.Add(chip);
