@@ -11,6 +11,8 @@ using NAudio.Wave;
 using NAudio.CoreAudioApi;
 using System.Reflection;
 using System.IO;
+using System.Diagnostics;
+using System.Security.Policy;
 
 namespace MDPlayer.form
 {
@@ -2945,7 +2947,12 @@ namespace MDPlayer.form
         private void llOpenGithub_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             llOpenGithub.LinkVisited = true;
-            System.Diagnostics.Process.Start("https://github.com/kuma4649/MDPlayer/releases/latest");
+            ProcessStartInfo pi = new()
+            {
+                FileName = "https://github.com/kuma4649/MDPlayer/releases/latest",
+                UseShellExecute = true,
+            };
+            Process.Start(pi);
         }
 
         private void rbPMDManual_CheckedChanged(object sender, EventArgs e)

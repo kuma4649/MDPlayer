@@ -320,6 +320,10 @@ namespace MDPlayer
             public int nfrq = -1;
             public int efrq = -1;
             public int etype = -1;
+            public int timerA = -1;
+            public int timerB = -1;
+            public int rhythmTotalLevel = -1;
+            public int adpcmLevel = -1;
 
             public Channel[] channels = new Channel[19] {
                 new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel() //FM 0

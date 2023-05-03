@@ -1243,7 +1243,7 @@ namespace MDPlayer
             int sy = 0;
             if (c == 1 || c == 2) { t = 4; }
             if (c == 2) { sy = 4; }
-            x = x * 4 * 13 + 8 * 2;
+            x = x * 4 * 15 + 6 * 4 + 1;
 
             for (int i = 0; i <= 19; i++)
             {
@@ -1820,7 +1820,7 @@ namespace MDPlayer
                 return;
             }
 
-            drawPanP(screen, c * 4 * 13 + 8, 8 * 13, nt, ntp);
+            drawPanP(screen, c * 4 * 15 + 17, 8 * 13, nt, ntp);
             ot = nt;
             otp = ntp;
         }
@@ -2181,7 +2181,7 @@ namespace MDPlayer
                 return;
             }
 
-            ChYM2610_P(screen, 0, 8 + ch * 8, ch, nm == null ? false : (bool)nm, tp);
+            ChYM2610_P(screen, 1, 8 + ch * 8, ch, nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 
@@ -2193,7 +2193,7 @@ namespace MDPlayer
                 return;
             }
 
-            Ch3YM2612_P(screen, 0, 8 + ch * 8, ch, nm == null ? false : (bool)nm, ne, tp);
+            Ch3YM2612_P(screen, 1, 8 + ch * 8, ch, nm == null ? false : (bool)nm, ne, tp);
             om = nm;
             oe = ne;
         }
@@ -2206,7 +2206,7 @@ namespace MDPlayer
                 return;
             }
 
-            ChYM2610Rhythm_P(screen, 0, 8 * 13, ch, nm == null ? false : (bool)nm, tp);
+            ChYM2610Rhythm_P(screen, 1, 8 * 13, ch, nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 
@@ -4512,12 +4512,12 @@ namespace MDPlayer
         {
             if (screen == null) return;
 
-            drawFont4(screen, x + 0 * 4, y, mask ? 1 : 0, "A1");
-            drawFont4(screen, x + 14 * 4, y, mask ? 1 : 0, "2");
-            drawFont4(screen, x + 27 * 4, y, mask ? 1 : 0, "3");
-            drawFont4(screen, x + 40 * 4, y, mask ? 1 : 0, "4");
-            drawFont4(screen, x + 53 * 4, y, mask ? 1 : 0, "5");
-            drawFont4(screen, x + 66 * 4, y, mask ? 1 : 0, "6");
+            drawFont4(screen, x + 15 * 0 * 4, y, mask ? 1 : 0, "A1");
+            drawFont4(screen, x + 15 * 1 * 4 + 4, y, mask ? 1 : 0, "2");
+            drawFont4(screen, x + 15 * 2 * 4 + 4, y, mask ? 1 : 0, "3");
+            drawFont4(screen, x + 15 * 3 * 4 + 4, y, mask ? 1 : 0, "4");
+            drawFont4(screen, x + 15 * 4 * 4 + 4, y, mask ? 1 : 0, "5");
+            drawFont4(screen, x + 15 * 5 * 4 + 4, y, mask ? 1 : 0, "6");
         }
 
         private static void Ch6YM2612_P(FrameBuffer screen, int x, int y, int m, bool mask, int tp)
