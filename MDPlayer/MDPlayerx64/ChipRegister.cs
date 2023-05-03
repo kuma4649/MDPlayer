@@ -3934,7 +3934,7 @@ namespace MDPlayer
             if (dAddr == 0x2a)
             {
                 //PCMデータをマスクする
-                if (maskFMChYM2612[chipID][5]) dData = 0x00;
+                if (maskFMChYM2612[chipID][5]) dData = 0x80;
                 //Console.WriteLine("{0:x02}",dData);
             }
 

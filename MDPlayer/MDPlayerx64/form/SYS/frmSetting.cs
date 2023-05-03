@@ -320,7 +320,7 @@ namespace MDPlayer.form
                     , ucSI.rbYM2612P_Emu
                     , ucSI.rbYM2612P_SCCI
                     , ucSI.cmbYM2612P_SCCI
-                    , null, null,null
+                    , null, null, null
                     , ucSI.rbYM2612P_EmuNuked
                     , ucSI.rbYM2612P_EmuMame);
                 SetRealParam(setting.YM2612Type[1]
@@ -328,7 +328,7 @@ namespace MDPlayer.form
                     , ucSI.rbYM2612S_Emu
                     , ucSI.rbYM2612S_SCCI
                     , ucSI.cmbYM2612S_SCCI
-                    , null, null,null
+                    , null, null, null
                     , ucSI.rbYM2612S_EmuNuked
                     , ucSI.rbYM2612S_EmuMame);
 
@@ -360,14 +360,14 @@ namespace MDPlayer.form
                     , ucSI.rbSN76489P_Emu
                     , ucSI.rbSN76489P_SCCI
                     , ucSI.cmbSN76489P_SCCI
-                    , null,null,null
+                    , null, null, null
                     , ucSI.rbSN76489P_Emu2);
                 SetRealParam(setting.SN76489Type[1]
                     , ucSI.rbSN76489S_Silent
                     , ucSI.rbSN76489S_Emu
                     , ucSI.rbSN76489S_SCCI
                     , ucSI.cmbSN76489S_SCCI
-                    , null,null,null
+                    , null, null, null
                     , ucSI.rbSN76489S_Emu2);
 
                 SetRealParam(setting.YM2608Type[0]
@@ -393,7 +393,7 @@ namespace MDPlayer.form
                 ucSI.cbYM2151P_Real4M.Checked = false;
                 if (setting.YM2151Type[0].UseRealChipFreqDiff != null && setting.YM2151Type[0].UseRealChipFreqDiff.Length > 0)
                     ucSI.cbYM2151P_Real4M.Checked = setting.YM2151Type[0].UseRealChipFreqDiff[0];
-                
+
                 ucSI.cbYM2151P_RealDefAutoAdjust.Checked = true;
                 if (setting.YM2151Type[0].UseRealChipAutoAdjust != null && setting.YM2151Type[0].UseRealChipAutoAdjust.Length > 0)
                     ucSI.cbYM2151P_RealDefAutoAdjust.Checked = setting.YM2151Type[0].UseRealChipAutoAdjust[0];
@@ -431,7 +431,7 @@ namespace MDPlayer.form
                     , ucSI.rbAY8910P_Emu
                     , ucSI.rbAY8910P_Real
                     , ucSI.cmbAY8910P_Real
-                    , null,null,null
+                    , null, null, null
                     , ucSI.rbAY8910P_Emu2);
 
                 SetRealParam(setting.AY8910Type[1]
@@ -520,7 +520,7 @@ namespace MDPlayer.form
                     , ucSI.cmbSEGAPCMS_SCCI);
             }
 
-            for(int i = 0; i < cmbSampleRate.Items.Count; i++)
+            for (int i = 0; i < cmbSampleRate.Items.Count; i++)
             {
                 if (cmbSampleRate.Items[i].ToString() == setting.outputDevice.SampleRate.ToString())
                 {
@@ -913,7 +913,7 @@ namespace MDPlayer.form
         private void SetRealCombo(EnmRealChipType realType, ComboBox cmbP, RadioButton rbP, ComboBox cmbS, RadioButton rbS)
         {
 
-            if(rbP!=null) rbP.Enabled = false;
+            if (rbP != null) rbP.Enabled = false;
             cmbP.Enabled = false;
 
             if (rbS != null) rbS.Enabled = false;
@@ -978,7 +978,7 @@ namespace MDPlayer.form
 
             if (cmbP2A != null)
             {
-                if (ChipType2.realChipInfo.Length==2 && ChipType2.realChipInfo[1] != null)
+                if (ChipType2.realChipInfo.Length == 2 && ChipType2.realChipInfo[1] != null)
                 {
                     n = string.Format("({0}:{1}:{2}:{3})"
                     , ChipType2.realChipInfo[1].InterfaceName
@@ -1073,7 +1073,7 @@ namespace MDPlayer.form
 
             dgv.Columns.Clear();
 
-            foreach(DataGridViewColumn col in dgvMIDIoutListA.Columns)
+            foreach (DataGridViewColumn col in dgvMIDIoutListA.Columns)
             {
                 dgv.Columns.Add((DataGridViewColumn)col.Clone());
             }
@@ -1295,7 +1295,7 @@ namespace MDPlayer.form
             setting.YM2151Type[0] = new Setting.ChipType2();
             SetChipType2FromControls(
                 EnmChip.YM2151
-                ,setting.YM2151Type[0]
+                , setting.YM2151Type[0]
                 , ucSI.rbYM2151P_SCCI
                 , ucSI.cmbYM2151P_SCCI
                 , ucSI.rbYM2151P_Emu
@@ -1313,7 +1313,7 @@ namespace MDPlayer.form
             setting.YM2151Type[1] = new Setting.ChipType2();
             SetChipType2FromControls(
                 EnmChip.S_YM2151
-                ,setting.YM2151Type[1]
+                , setting.YM2151Type[1]
                 , ucSI.rbYM2151S_SCCI
                 , ucSI.cmbYM2151S_SCCI
                 , ucSI.rbYM2151S_Emu
@@ -2032,7 +2032,7 @@ namespace MDPlayer.form
                     else ret = true;
 
             if (ucSI.rbYM2151P_SCCI.Checked)
-                if (ucSI.cmbYM2151P_SCCI.SelectedItem!=null)
+                if (ucSI.cmbYM2151P_SCCI.SelectedItem != null)
                     if (!hsSCCIs.Contains(ucSI.cmbYM2151P_SCCI.SelectedItem.ToString()))
                         hsSCCIs.Add(ucSI.cmbYM2151P_SCCI.SelectedItem.ToString());
                     else ret = true;
@@ -2276,7 +2276,7 @@ namespace MDPlayer.form
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             fbd.Description = "フォルダーを指定してください。";
-            
+
 
             if (fbd.ShowDialog(this) != DialogResult.OK)
             {
@@ -2330,7 +2330,7 @@ namespace MDPlayer.form
 
         private void btnResetPosition_Click(object sender, EventArgs e)
         {
-            DialogResult res= MessageBox.Show("表示位置を全てリセットします。よろしいですか。(現在開いているウィンドウの位置はリセットできません。)", "確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult res = MessageBox.Show("表示位置を全てリセットします。よろしいですか。(現在開いているウィンドウの位置はリセットできません。)", "確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (res == DialogResult.No) return;
 
             setting.location = new Setting.Location();
@@ -2422,7 +2422,7 @@ namespace MDPlayer.form
                     }
                 }
 
-                if (!found) dgv[p].Rows.Add(row.Cells[0].Value, false, "", row.Cells[1].Value, "GM","None", row.Cells[2].Value);
+                if (!found) dgv[p].Rows.Add(row.Cells[0].Value, false, "", row.Cells[1].Value, "GM", "None", row.Cells[2].Value);
             }
         }
 
@@ -2448,7 +2448,7 @@ namespace MDPlayer.form
             {
                 if (row.Index < 1) continue;
 
-                int i = row.Index-1;
+                int i = row.Index - 1;
                 dgv[p].Rows.Insert(i, row.Cells[0].Value, row.Cells[1].Value, row.Cells[2].Value, row.Cells[3].Value, row.Cells[4].Value, row.Cells[5].Value);
                 dgv[p].Rows.Remove(row);
                 dgv[p].Rows[i].Selected = true;
@@ -2463,10 +2463,10 @@ namespace MDPlayer.form
 
             foreach (DataGridViewRow row in dgv[p].SelectedRows)
             {
-                if (row.Index > dgv[p].Rows.Count-2) continue;
+                if (row.Index > dgv[p].Rows.Count - 2) continue;
 
                 int i = row.Index + 1;
-                dgv[p].Rows.Insert(row.Index+2, row.Cells[0].Value, row.Cells[1].Value, row.Cells[2].Value, row.Cells[3].Value, row.Cells[4].Value, row.Cells[5].Value);
+                dgv[p].Rows.Insert(row.Index + 2, row.Cells[0].Value, row.Cells[1].Value, row.Cells[2].Value, row.Cells[3].Value, row.Cells[4].Value, row.Cells[5].Value);
                 dgv[p].Rows.Remove(row);
                 dgv[p].Rows[i].Selected = true;
             }
@@ -2502,12 +2502,12 @@ namespace MDPlayer.form
 
             int p = tbcMIDIoutList.SelectedIndex;
             dgv[p].Rows.Add(
-                -999 
-                , true 
+                -999
+                , true
                 , s.fileName
                 , s.effectName
                 , "GM"
-                ,"None"
+                , "None"
                 , s.vendorName);
 
         }
@@ -2562,7 +2562,7 @@ namespace MDPlayer.form
 
         private void btnBeforeSend_Default_Click(object sender, EventArgs e)
         {
-            Setting.MidiOut mo=new Setting.MidiOut();
+            Setting.MidiOut mo = new Setting.MidiOut();
             tbBeforeSend_GMReset.Text = mo.GMReset;
             tbBeforeSend_XGReset.Text = mo.XGReset;
             tbBeforeSend_GSReset.Text = mo.GSReset;
@@ -2922,7 +2922,7 @@ namespace MDPlayer.form
             if (e.UpDown != HongliangSoft.Utilities.Gui.KeyboardUpDown.Up) return;
 
             lblKey.ForeColor = System.Drawing.SystemColors.ControlText;
-            lblKey.Text= e.KeyCode.ToString();
+            lblKey.Text = e.KeyCode.ToString();
             lblNotice.Visible = false;
 
             frmMain.keyHookMeth = null;

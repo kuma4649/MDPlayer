@@ -118,14 +118,556 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="plane" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\plane.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="rPSGMode_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rPSGMode_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DefaultVolumeBalance_NSF" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\defaultvolumebalance_nsf.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
+  <data name="rPSGMode_04" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rPSGMode_04.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="japPL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\japPL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Feli128" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Feli128.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeQSound" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeQSound.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeY8950" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeY8950.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccRandom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccRandom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeMultiPCM" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeMultiPCM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rFader" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rFader.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="vType3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\vType3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rMIDILCD_Font_04" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rMIDILCD_Font_04.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rMIDILCD_Font_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rMIDILCD_Font_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chFadeout" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chFadeout.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rMIDILCD_Fader_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rMIDILCD_Fader_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ciPlay" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ciPlay.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ciRandom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ciRandom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FeliTop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FeliTop.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="vHeight2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\vHeight2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccSlow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccSlow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ciOpenFolder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ciOpenFolder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rKBD_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rKBD_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cntLogFilename" xml:space="preserve">
+    <value>log.txt</value>
   </data>
   <data name="planeB" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\planeB.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ciPlayList" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ciPlayList.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccStep" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccStep.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeNESDMC" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeNESDMC.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeMIDI_XG" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeMIDI_XG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeMMC5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeMMC5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chInformation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chInformation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chSetting" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chSetting.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DefaultVolumeBalance_MUC" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DefaultVolumeBalance_MUC.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
+  <data name="rFont_06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rFont_06.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeYM2610" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeYM2610.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeC352" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeC352.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ciKBD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ciKBD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccZoom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccZoom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccInformation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccInformation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chFast" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chFast.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeK051649" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeK051649.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chPlayList" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chPlayList.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chSlow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chSlow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rPSGMode_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rPSGMode_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ciVST" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ciVST.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rMIDILCD_Fader_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rMIDILCD_Fader_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rFont_04" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rFont_04.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DefaultVolumeBalance_HES" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\defaultvolumebalance_hes.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
+  <data name="vHeight1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\vHeight1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chMixer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chMixer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeYM2612MIDI" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeYM2612MIDI.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rMIDILCD_Font_05" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rMIDILCD_Font_05.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chPause" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chPause.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DefaultVolumeBalance_S98" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\defaultvolumebalance_s98.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
+  <data name="chKBD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chKBD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccLoop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccLoop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rMIDILCD_Vol_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rMIDILCD_Vol_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rPSGMode_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rPSGMode_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DefaultVolumeBalance_ZGM" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DefaultVolumeBalance_ZGM.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
+  <data name="ciStop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ciStop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rMIDILCD_Fader_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rMIDILCD_Fader_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rPSGEnv" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rPSGEnv.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chPrevious" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chPrevious.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeFDS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeFDS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="vHeight3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\vHeight3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chNext" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chNext.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rKBD_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rKBD_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="addPL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\addPL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ciMIDIKBD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ciMIDIKBD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chVST" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chVST.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rMIDILCD_Vol_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rMIDILCD_Vol_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ciZoom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ciZoom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeN106" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeN106.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cntSupportFile" xml:space="preserve">
+    <value>VGMファイル(*.vgm;*.vgz)|*.vgm;*.vgz|
+XGMファイル(*.xgm)|*.xgm|
+ZGMファイル(*.zgm)|*.zgm|
+HESファイル(*.hes)|*.hes|
+MDRファイル(*.mdr)|*.mdr|
+MDXファイル(*.mdx)|*.mdx|
+MGSファイル(*.mgs)|*.mgs|
+MNDファイル(*.mnd)|*.mnd|
+MUCOM88ファイル(*.mub;*.muc)|*.mub;*.muc|
+NRDファイル(*.nrd)|*.nrd|
+NSFファイル(*.nsf)|*.nsf|
+PMDファイル(*.m;*.m2;*.mz;*.mml)|*.m;*.m2;*.mz;*.mml|
+RCPファイル(*.rcp)|*.rcp|
+S98ファイル(*.s98)|*.s98|
+SIDファイル(*.sid)|*.sid|
+StandardMIDIファイル(*.mid)|*.mid|
+WAVファイル(*.wav)|*.wav|
+MP3ファイル(*.mp3)|*.mp3|
+AIFFファイル(*.aiff)|*.aiff|
+M3Uファイル(*.m3u)|*.m3u|
+アーカイブファイル(*.zip;*.lzh)|*.zip;*.lzh|
+すべてのサポートファイル(*.vgm;*.vgz;*.zip;*.lzh;*.nrd;*.xgm;*.zgm;*.s98;*.nsf;*.hes;*.sid;*.mgs;*.mnd;*.mdr;*.mdx;*.mub;*.muc;*.m;*.m2;*.mz;*.mml;*.mid;*.rcp;*.wav;*.mp3;*.aiff;*.m3u)|
+*.vgm;*.vgz;*.zip;*.lzh;*.nrd;*.xgm;*.zgm;*.s98;*.nsf;*.hes;*.sid;*.mgs;*.mnd;*.mdr;*.mdx;*.mub;*.muc;*.m;*.m2;*.mz;*.mml;*.mid;*.rcp;*.wav;*.mp3;*.aiff;*.m3u|
+すべてのファイル(*.*)|*.*</value>
+  </data>
+  <data name="planeMSM6295" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeMSM6295.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mmlPL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mmlPL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeF" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeF.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccPrevious" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccPrevious.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeMIDI_GM" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeMIDI_GM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="downPL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\downPL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rKBD_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rKBD_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeMIDI_GS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeMIDI_GS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cntTimeFormat" xml:space="preserve">
+    <value>yyyy/MM/dd HH:mm:ss    </value>
+  </data>
+  <data name="ciSetting" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ciSetting.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rType_YMF271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rType_YMF271.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ciInformation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ciInformation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rMIDILCD_KBD_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rMIDILCD_KBD_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccSetting" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccSetting.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rFont_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rFont_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rPSG2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rPSG2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cntSettingFileName" xml:space="preserve">
+    <value>Setting.xml</value>
+  </data>
+  <data name="planeD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rKakko_00" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rKakko_00.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeHuC6280" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeHuC6280.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rMIDILCD_Font_06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rMIDILCD_Font_06.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="plane" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plane.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeMSM6258" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeMSM6258.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rMIDILCD_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rMIDILCD_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DefaultVolumeBalance_MDX" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\defaultvolumebalance_mdx.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
+  <data name="planeVRC7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeVRC7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rMenuButtons_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rMenuButtons_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rFont_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rFont_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DefaultVolumeBalance_NRT" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\defaultvolumebalance_nrt.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
+  <data name="addFolderPL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\addFolderPL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="savePL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\savePL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ciFadeout" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ciFadeout.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ciMixer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ciMixer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chZoom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chZoom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="planeC" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\planeC.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccVST" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccVST.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rMIDILCD_Vol_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rMIDILCD_Vol_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="txtPL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\txtPL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rVol_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rVol_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccFast" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccFast.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccStop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccStop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeDMG" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeDMG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rWavGraph" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rWavGraph.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccMIDIKBD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccMIDIKBD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="upPL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\upPL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeYMF271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeYMF271.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccFadeout" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccFadeout.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeYM2413" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeYM2413.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rFont_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rFont_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rChipName_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rChipName_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rNESDMC" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rNESDMC.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeSEGAPCM" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeSEGAPCM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rPSGMode_06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rPSGMode_06.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rType_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rType_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chLoopOne" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chLoopOne.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccOpenFolder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccOpenFolder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeYMF278B" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeYMF278B.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rPan_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rPan_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="imgPL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\imgPL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DefaultVolumeBalance_MND" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\defaultvolumebalance_mnd.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
+  <data name="planeYMZ280B" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeYMZ280B.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rVol_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rVol_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccPause" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccPause.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rType_06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rType_06.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rFont_05" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rFont_05.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="vType1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\vType1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chRandom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chRandom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="vType2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\vType2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeS5B" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeS5B.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DefaultVolumeBalance_VGM" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\defaultvolumebalance_vgm.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
+  <data name="planePPZ8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planePPZ8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeVRC6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeVRC6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rMIDILCD_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rMIDILCD_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rVol_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rVol_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rPan2_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rPan2_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chPlay" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chPlay.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rMenuButtons_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rMenuButtons_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeControl" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeControl.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ciSlow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ciSlow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rChipName_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rChipName_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ciFast" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ciFast.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DefaultVolumeBalance_MUB" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DefaultVolumeBalance_MUB.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
+  <data name="rType_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rType_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ciPause" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ciPause.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ciLoopOne" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ciLoopOne.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DefaultVolumeBalance_XGM" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\defaultvolumebalance_xgm.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
+  <data name="rType_04" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rType_04.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccMixer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccMixer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rType_05" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rType_05.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rChipName_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rChipName_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeYM2609" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeYM2609.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FeliAndMD2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FeliAndMD2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccLoopOne" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccLoopOne.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rWavGraph2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rWavGraph2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rType_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rType_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccKBD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccKBD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rPan_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rPan_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="openPL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\openPL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rMIDILCD_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rMIDILCD_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeMixer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeMixer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rPan2_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rPan2_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chStep" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chStep.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cntDescription" xml:space="preserve">
     <value># MDPlayer
@@ -509,278 +1051,77 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   ・NAudio  
   ・SCCI</value>
   </data>
-  <data name="FeliAndMD2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\FeliAndMD2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="addFolderPL" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\addFolderPL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="addPL" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\addPL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="downPL" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\downPL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="japPL" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\japPL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="openPL" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\openPL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="savePL" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\savePL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="upPL" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\upPL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeD" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeF" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeF.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeE" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeControl" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeControl.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeMSM6258" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeMSM6258.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeMSM6295" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeMSM6295.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeSEGAPCM" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeSEGAPCM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeSN76489" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeSN76489.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeYM2203" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeYM2203.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeYM2610" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeYM2610.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeYM2612" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeYM2612.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeAY8910" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeAY8910.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeHuC6280" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeHuC6280.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeYM2413" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeYM2413.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeYM2612MIDI" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeYM2612MIDI.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rChipName_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rChipName_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rChipName_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rChipName_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rChipName_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rChipName_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rFont_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rFont_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rFont_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rFont_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rFont_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rFont_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rFont_04" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rFont_04.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rFont_05" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rFont_05.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rFont_06" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rFont_06.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rKBD_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rKBD_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rKBD_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rKBD_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rMenuButtons_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rMenuButtons_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rMenuButtons_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rMenuButtons_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rPan2_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rPan2_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rPan2_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rPan2_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rPan_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rPan_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rPan_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rPan_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rPSGEnv" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rPSGEnv.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rPSGMode_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rPSGMode_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rPSGMode_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rPSGMode_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rPSGMode_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rPSGMode_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rPSGMode_04" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rPSGMode_04.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rType_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rType_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rType_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rType_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rType_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rType_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rType_04" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rType_04.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rVol_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rVol_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rVol_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rVol_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rWavGraph" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rWavGraph.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ccFadeout" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ccFadeout.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ccFast" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ccFast.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ccNext" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ccNext.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ccPause" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ccPause.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ccPlay" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ccPlay.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ccPrevious" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ccPrevious.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ccSlow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ccSlow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ccStop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ccStop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeMixer" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeMixer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rFader" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rFader.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeMIDI_GM" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeMIDI_GM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeMIDI_GS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeMIDI_GS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeMIDI_XG" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeMIDI_XG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rMIDILCD_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rMIDILCD_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rMIDILCD_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rMIDILCD_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rMIDILCD_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rMIDILCD_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rMIDILCD_Fader_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rMIDILCD_Fader_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rMIDILCD_Fader_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rMIDILCD_Fader_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rMIDILCD_Fader_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rMIDILCD_Fader_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="DefaultVolumeBalance_SID" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\defaultvolumebalance_sid.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
+  <data name="planeYMF262" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeYMF262.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="rMIDILCD_Font_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\rMIDILCD_Font_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="rMIDILCD_Font_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rMIDILCD_Font_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="planeAY8910" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeAY8910.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeSN76489" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeSN76489.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rPSGMode_05" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rPSGMode_05.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ciPrevious" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ciPrevious.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ciStep" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ciStep.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DefaultVolumeBalance_MDR" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\defaultvolumebalance_mdr.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
+  <data name="planeK053260" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeK053260.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeYM3812" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeYM3812.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rPan_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rPan_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccPlay" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccPlay.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chMIDIKBD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chMIDIKBD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="rMIDILCD_Font_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\rMIDILCD_Font_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="rMIDILCD_Vol_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rMIDILCD_Vol_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="chLoop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chLoop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="rMIDILCD_Vol_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rMIDILCD_Vol_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rMIDILCD_Vol_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rMIDILCD_Vol_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rMIDILCD_KBD_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rMIDILCD_KBD_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rMIDILCD_Font_04" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rMIDILCD_Font_04.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rMIDILCD_Font_05" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rMIDILCD_Font_05.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rMIDILCD_Font_06" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rMIDILCD_Font_06.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeNESDMC" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeNESDMC.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rNESDMC" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rNESDMC.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeFDS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeFDS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeMMC5" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeMMC5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeYMF278B" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeYMF278B.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rKakko_00" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rKakko_00.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ciNext" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ciNext.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="README" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\README.md;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="imgPL" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\imgPL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ccPlayList" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccPlayList.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="mmlPL" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\mmlPL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ccNext" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccNext.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="txtPL" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\txtPL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="planeYM2612" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeYM2612.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chStop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chStop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ciLoop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ciLoop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planeYM2203" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeYM2203.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cntExceptionFormat" xml:space="preserve">
     <value>例外発生:\r\n- Type ------\r\n{0}\r\n- Message ------\r\n{1}\r\n- Source ------\r\n{2}\r\n- StackTrace ------\r\n{3}\r\n</value>
@@ -788,351 +1129,13 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   <data name="cntInnerExceptionFormat" xml:space="preserve">
     <value>内部例外:\r\n- Type ------\r\n{0}\r\n- Message ------\r\n{1}\r\n- Source ------\r\n{2}\r\n- StackTrace ------\r\n{3}\r\n</value>
   </data>
-  <data name="cntLogFilename" xml:space="preserve">
-    <value>log.txt</value>
-  </data>
-  <data name="cntSettingFileName" xml:space="preserve">
-    <value>Setting.xml</value>
-  </data>
-  <data name="cntTimeFormat" xml:space="preserve">
-    <value>yyyy/MM/dd HH:mm:ss    </value>
-  </data>
-  <data name="DefaultVolumeBalance_MND" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\defaultvolumebalance_mnd.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
-  </data>
-  <data name="DefaultVolumeBalance_VGM" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\defaultvolumebalance_vgm.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
-  </data>
-  <data name="DefaultVolumeBalance_MDR" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\defaultvolumebalance_mdr.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
-  </data>
-  <data name="DefaultVolumeBalance_MDX" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\defaultvolumebalance_mdx.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
-  </data>
-  <data name="DefaultVolumeBalance_NRT" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\defaultvolumebalance_nrt.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
-  </data>
-  <data name="DefaultVolumeBalance_XGM" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\defaultvolumebalance_xgm.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
-  </data>
-  <data name="DefaultVolumeBalance_HES" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\defaultvolumebalance_hes.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
-  </data>
-  <data name="DefaultVolumeBalance_NSF" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\defaultvolumebalance_nsf.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
-  </data>
-  <data name="DefaultVolumeBalance_S98" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\defaultvolumebalance_s98.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
-  </data>
-  <data name="DefaultVolumeBalance_SID" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\defaultvolumebalance_sid.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
-  </data>
-  <data name="planeVRC7" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeVRC7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeYMF262" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeYMF262.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeC352" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeC352.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeYM3812" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeYM3812.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="chOpenFolder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chOpenFolder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="planeYM3526" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\planeYM3526.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="planeY8950" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeY8950.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeK051649" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeK051649.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DefaultVolumeBalance_MUB" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DefaultVolumeBalance_MUB.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
-  </data>
-  <data name="DefaultVolumeBalance_MUC" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DefaultVolumeBalance_MUC.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
-  </data>
-  <data name="rPan_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rPan_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rType_05" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rType_05.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rType_06" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rType_06.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rVol_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rVol_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rKBD_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rKBD_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rPSGMode_05" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rPSGMode_05.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rPSGMode_06" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rPSGMode_06.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DefaultVolumeBalance_ZGM" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DefaultVolumeBalance_ZGM.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
-  </data>
-  <data name="planeQSound" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeQSound.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="cntSupportFile" xml:space="preserve">
-    <value>VGMファイル(*.vgm;*.vgz)|*.vgm;*.vgz|
-XGMファイル(*.xgm)|*.xgm|
-ZGMファイル(*.zgm)|*.zgm|
-HESファイル(*.hes)|*.hes|
-MDRファイル(*.mdr)|*.mdr|
-MDXファイル(*.mdx)|*.mdx|
-MGSファイル(*.mgs)|*.mgs|
-MNDファイル(*.mnd)|*.mnd|
-MUCOM88ファイル(*.mub;*.muc)|*.mub;*.muc|
-NRDファイル(*.nrd)|*.nrd|
-NSFファイル(*.nsf)|*.nsf|
-PMDファイル(*.m;*.m2;*.mz;*.mml)|*.m;*.m2;*.mz;*.mml|
-RCPファイル(*.rcp)|*.rcp|
-S98ファイル(*.s98)|*.s98|
-SIDファイル(*.sid)|*.sid|
-StandardMIDIファイル(*.mid)|*.mid|
-WAVファイル(*.wav)|*.wav|
-MP3ファイル(*.mp3)|*.mp3|
-AIFFファイル(*.aiff)|*.aiff|
-M3Uファイル(*.m3u)|*.m3u|
-アーカイブファイル(*.zip;*.lzh)|*.zip;*.lzh|
-すべてのサポートファイル(*.vgm;*.vgz;*.zip;*.lzh;*.nrd;*.xgm;*.zgm;*.s98;*.nsf;*.hes;*.sid;*.mgs;*.mnd;*.mdr;*.mdx;*.mub;*.muc;*.m;*.m2;*.mz;*.mml;*.mid;*.rcp;*.wav;*.mp3;*.aiff;*.m3u)|
-*.vgm;*.vgz;*.zip;*.lzh;*.nrd;*.xgm;*.zgm;*.s98;*.nsf;*.hes;*.sid;*.mgs;*.mnd;*.mdr;*.mdx;*.mub;*.muc;*.m;*.m2;*.mz;*.mml;*.mid;*.rcp;*.wav;*.mp3;*.aiff;*.m3u|
-すべてのファイル(*.*)|*.*</value>
-  </data>
-  <data name="planeYMZ280B" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeYMZ280B.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeMultiPCM" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeMultiPCM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeVRC6" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeVRC6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeN106" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeN106.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rWavGraph2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rWavGraph2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planePPZ8" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planePPZ8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeS5B" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeS5B.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeDMG" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeDMG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeYMF271" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeYMF271.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rType_YMF271" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rType_YMF271.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ccInformation" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ccInformation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ccKBD" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ccKBD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ccLoop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ccLoop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ccLoopOne" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ccLoopOne.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ccMIDIKBD" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ccMIDIKBD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ccMixer" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ccMixer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ccOpenFolder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ccOpenFolder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ccPlayList" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ccPlayList.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ccRandom" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ccRandom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ccSetting" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ccSetting.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ccStep" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ccStep.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ccVST" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ccVST.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ccZoom" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ccZoom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="chFadeout" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\chFadeout.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="chFast" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\chFast.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="chInformation" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\chInformation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="chKBD" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\chKBD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="chLoop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\chLoop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="chLoopOne" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\chLoopOne.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="chMIDIKBD" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\chMIDIKBD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="chMixer" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\chMixer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="chNext" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\chNext.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="chOpenFolder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\chOpenFolder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="chPause" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\chPause.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="chPlay" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\chPlay.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="chPlayList" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\chPlayList.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="chPrevious" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\chPrevious.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="chRandom" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\chRandom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="chSetting" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\chSetting.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="chSlow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\chSlow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="chStep" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\chStep.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="chStop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\chStop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="chVST" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\chVST.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="chZoom" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\chZoom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ciFadeout" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ciFadeout.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ciFast" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ciFast.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ciInformation" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ciInformation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ciKBD" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ciKBD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ciLoop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ciLoop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ciLoopOne" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ciLoopOne.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ciMIDIKBD" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ciMIDIKBD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ciMixer" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ciMixer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ciNext" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ciNext.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ciOpenFolder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ciOpenFolder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ciPause" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ciPause.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ciPlay" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ciPlay.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ciPlayList" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ciPlayList.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ciPrevious" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ciPrevious.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ciRandom" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ciRandom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ciSetting" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ciSetting.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ciSlow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ciSlow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ciStep" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ciStep.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ciStop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ciStop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ciVST" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ciVST.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ciZoom" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ciZoom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="FeliTop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\FeliTop.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="vHeight1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\vHeight1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="vHeight2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\vHeight2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="vHeight3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\vHeight3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="vType1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\vType1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="vType2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\vType2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="vType3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\vType3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeYM2609" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeYM2609.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rPSG2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rPSG2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Feli128" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Feli128.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeK053260" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planeK053260.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="FeliAndMD21" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FeliAndMD2.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
