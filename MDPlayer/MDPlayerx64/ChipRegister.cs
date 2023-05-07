@@ -3193,7 +3193,6 @@ namespace MDPlayer
             if (chipID == 0) chipLED.PriOPNB = 2;
             else chipLED.SecOPNB = 2;
 
-
             if (
                 (model == EnmModel.VirtualModel && (ctYM2610[chipID] == null || !ctYM2610[chipID].UseReal[0]))
                 || (model == EnmModel.RealModel && (scYM2610 != null && scYM2610[chipID] != null))
@@ -3387,7 +3386,14 @@ namespace MDPlayer
                 }
             }
 
-
+            if (dPort == 0 && dAddr == 0x28)
+            {
+                int ch = (dData & 0x3) + ((dData & 0x4) > 0 ? 3 : 0);
+                if (maskFMChYM2610[chipID][ch])
+                {
+                    dData &= 0xf;
+                }
+            }
 
             if (model == EnmModel.VirtualModel)
             {
