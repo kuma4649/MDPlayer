@@ -175,6 +175,7 @@ namespace MDPlayer.form
             {
                 int ch = (py / 8) - 1;
                 if (ch < 0) return;
+                if (ch > 3) return;
 
                 if (e.Button == MouseButtons.Left)
                 {
