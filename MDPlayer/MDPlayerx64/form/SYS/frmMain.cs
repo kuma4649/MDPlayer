@@ -175,7 +175,10 @@ namespace MDPlayer.form
                 Process prc = GetPreviousProcess();
                 if (prc != null)
                 {
-                    SendString(prc.MainWindowHandle, Environment.GetCommandLineArgs()[1]);
+                    string[] args = Environment.GetCommandLineArgs();
+                    string arg = "";
+                    for (int i = 1; i < args.Length; i++) arg += string.Format("\"{0}\"", args[i]);
+                    SendString(prc.MainWindowHandle, arg);
                     forcedExit = true;
                     try
                     {
@@ -1034,6 +1037,8 @@ namespace MDPlayer.form
             trd.Priority = System.Threading.ThreadPriority.BelowNormal;
             trd.Start();
             string[] args = Environment.GetCommandLineArgs();
+            string arg = "";
+            for (int i = 1; i < args.Length; i++) arg += string.Format("\"{0}\"", args[i]);
 
             Application.DoEvents();
             Activate();
@@ -1048,27 +1053,7 @@ namespace MDPlayer.form
             try
             {
 
-                frmPlayList.Stop();
-
-                PlayList pl = frmPlayList.getPlayList();
-                if (pl.lstMusic.Count < 1 || pl.lstMusic[pl.lstMusic.Count - 1].fileName != args[1])
-                {
-                    pl.AddFile(args[1]);
-                    //frmPlayList.AddList(args[1]);
-                }
-
-                if (!loadAndPlay(0, 0, args[1], ""))
-                {
-                    frmPlayList.Stop();
-                    OpeManager.RequestToAudio(new Request(enmRequest.Stop));
-                    //Audio.Stop();
-                    return;
-                }
-
-                frmPlayList.setStart(-1);
-
-                oldParam = new MDChipParams();
-                frmPlayList.Play();
+                PlayArgs(arg);
 
             }
             catch (Exception ex)
@@ -7870,30 +7855,7 @@ namespace MDPlayer.form
                 string sParam = ReceiveString(m);
                 try
                 {
-
-                    frmPlayList.Stop();
-
-                    PlayList pl = frmPlayList.getPlayList();
-                    if (pl.lstMusic.Count < 1 || pl.lstMusic[pl.lstMusic.Count - 1].fileName != sParam)
-                    {
-                        frmPlayList.getPlayList().AddFile(sParam);
-                        //frmPlayList.AddList(sParam);
-                    }
-
-                    if (!loadAndPlay(0, 0, sParam))
-                    {
-                        frmPlayList.Stop();
-                        Request req = new Request(enmRequest.Stop);
-                        OpeManager.RequestToAudio(req);
-                        //Audio.Stop();
-                        return;
-                    }
-
-                    frmPlayList.setStart(-1);
-                    oldParam = new MDChipParams();
-
-                    frmPlayList.Play();
-
+                    PlayArgs(sParam);
                 }
                 catch (Exception ex)
                 {
@@ -7903,6 +7865,76 @@ namespace MDPlayer.form
                 }
             }
 
+        }
+
+        private void PlayArgs(string arg)
+        {
+            string fname = "";
+            bool addPL = true;
+            List<string> args = new List<string>();
+            string a = "";
+            for (int i = 0; i < arg.Length; i++)
+            {
+                char ch = arg[i];
+                if (ch != '"') continue;
+                i++;
+                a = "";
+                for (int j = i; j < arg.Length; j++)
+                {
+                    ch = arg[j];
+                    if (ch != '"')
+                    {
+                        a += ch;
+                        continue;
+                    }
+                    args.Add(a);
+                    i=j;
+                    break;
+                }
+            }
+            if (string.IsNullOrEmpty(a)) args.Add(a);
+
+            foreach(string b in args)
+            {
+                if (string.IsNullOrEmpty(b)) continue;
+                string c= b.Trim();
+                if (string.IsNullOrEmpty(c)) continue;
+                if (c[0] == '-')
+                {
+                    string d = c.Substring(1).ToUpper();
+                    if (d.IndexOf("PL") >= 0)
+                    {
+                        addPL = true;
+                        if (d.Length > 2 && d[2] == '-') addPL = false;
+                    }
+
+                    continue;
+                }
+                fname = c.Trim();
+            }
+
+            frmPlayList.Stop();
+
+            PlayList pl = frmPlayList.getPlayList();
+            if (pl.lstMusic.Count < 1 || pl.lstMusic[pl.lstMusic.Count - 1].fileName != fname)
+            {
+                if (addPL) frmPlayList.getPlayList().AddFile(fname);
+                //frmPlayList.AddList(sParam);
+            }
+
+            if (!loadAndPlay(0, 0, fname))
+            {
+                frmPlayList.Stop();
+                Request req = new Request(enmRequest.Stop);
+                OpeManager.RequestToAudio(req);
+                //Audio.Stop();
+                return;
+            }
+
+            frmPlayList.setStart(-1);
+            oldParam = new MDChipParams();
+
+            frmPlayList.Play();
         }
 
         //メッセージ処理
