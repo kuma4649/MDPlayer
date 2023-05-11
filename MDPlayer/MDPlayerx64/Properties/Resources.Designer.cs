@@ -779,6 +779,7 @@ namespace MDPlayerx64.Properties {
         ///MDRファイル(*.mdr)|*.mdr|
         ///MDXファイル(*.mdx)|*.mdx|
         ///MGSファイル(*.mgs)|*.mgs|
+        ///MuSICAファイル(*.bgm)|*.bgm|
         ///MNDファイル(*.mnd)|*.mnd|
         ///MUCOM88ファイル(*.mub;*.muc)|*.mub;*.muc|
         ///NRDファイル(*.nrd)|*.nrd|
@@ -790,8 +791,7 @@ namespace MDPlayerx64.Properties {
         ///StandardMIDIファイル(*.mid)|*.mid|
         ///WAVファイル(*.wav)|*.wav|
         ///MP3ファイル(*.mp3)|*.mp3|
-        ///AIFFファイル(*.aiff)|*.aiff|
-        ///M3Uファイル [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        ///AIFFファイ [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string cntSupportFile {
             get {

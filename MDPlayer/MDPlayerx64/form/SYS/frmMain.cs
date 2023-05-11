@@ -5700,6 +5700,12 @@ namespace MDPlayer.form
                 return buf;
             }
 
+            if (ext == ".bgm")
+            {
+                format = EnmFileFormat.MuSICA;
+                return buf;
+            }
+
             if (ext == ".mdr")
             {
                 format = EnmFileFormat.MDR;
