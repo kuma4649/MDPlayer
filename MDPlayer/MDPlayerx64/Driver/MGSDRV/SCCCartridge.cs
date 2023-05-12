@@ -42,8 +42,8 @@ namespace MDPlayer.Driver.MGSDRV
                     byte scc1_offset = (byte)address;
                     byte rDat = data;
                     byte scc1_chipid = 0;
-                    chipRegister.writeK051649(scc1_chipid, (uint)((scc1_port << 1) | 0x00), scc1_offset, model);
-                    chipRegister.writeK051649(scc1_chipid, (uint)((scc1_port << 1) | 0x01), rDat, model);
+                    chipRegister?.writeK051649(scc1_chipid, (uint)((scc1_port << 1) | 0x00), scc1_offset, model);
+                    chipRegister?.writeK051649(scc1_chipid, (uint)((scc1_port << 1) | 0x01), rDat, model);
                 }
                 else if (address < 0x988a)
                 {
@@ -51,8 +51,8 @@ namespace MDPlayer.Driver.MGSDRV
                     byte scc1_offset = (byte)(address-0x9880);
                     byte rDat = data;
                     byte scc1_chipid = 0;
-                    chipRegister.writeK051649(scc1_chipid, (uint)((scc1_port << 1) | 0x00), scc1_offset, model);
-                    chipRegister.writeK051649(scc1_chipid, (uint)((scc1_port << 1) | 0x01), rDat, model);
+                    chipRegister?.writeK051649(scc1_chipid, (uint)((scc1_port << 1) | 0x00), scc1_offset, model);
+                    chipRegister?.writeK051649(scc1_chipid, (uint)((scc1_port << 1) | 0x01), rDat, model);
                 }
                 else if (address < 0x988f)
                 {
@@ -60,8 +60,8 @@ namespace MDPlayer.Driver.MGSDRV
                     byte scc1_offset = (byte)(address-0x988a);
                     byte rDat = data;
                     byte scc1_chipid = 0;
-                    chipRegister.writeK051649(scc1_chipid, (uint)((scc1_port << 1) | 0x00), scc1_offset, model);
-                    chipRegister.writeK051649(scc1_chipid, (uint)((scc1_port << 1) | 0x01), rDat, model);
+                    chipRegister?.writeK051649(scc1_chipid, (uint)((scc1_port << 1) | 0x00), scc1_offset, model);
+                    chipRegister?.writeK051649(scc1_chipid, (uint)((scc1_port << 1) | 0x01), rDat, model);
                 }
                 else if (address == 0x988f)
                 {
@@ -69,8 +69,8 @@ namespace MDPlayer.Driver.MGSDRV
                     byte scc1_offset = (byte)(address-0x988f);
                     byte rDat = data;
                     byte scc1_chipid = 0;
-                    chipRegister.writeK051649(scc1_chipid, (uint)((scc1_port << 1) | 0x00), scc1_offset, model);
-                    chipRegister.writeK051649(scc1_chipid, (uint)((scc1_port << 1) | 0x01), rDat, model);
+                    chipRegister?.writeK051649(scc1_chipid, (uint)((scc1_port << 1) | 0x00), scc1_offset, model);
+                    chipRegister?.writeK051649(scc1_chipid, (uint)((scc1_port << 1) | 0x01), rDat, model);
                 }
 
             }

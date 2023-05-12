@@ -107,6 +107,9 @@
     <None Update="lib\fmgenmodule.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="lib\KINROU5.DRV">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="lib\MDSound.deps.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

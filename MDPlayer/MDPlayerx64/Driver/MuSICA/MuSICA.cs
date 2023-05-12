@@ -3,6 +3,7 @@ using MDPlayer.Driver.MGSDRV;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,9 +17,10 @@ namespace MDPlayer.Driver.MuSICA
             GD3 ret = new GD3();
             if (buf != null && buf.Length > 8)
             {
-                vgmGd3 = 8;
-                ret.TrackName = Common.getNRDString(buf, ref vgmGd3);
-                ret.TrackNameJ = ret.TrackName;
+                Run(buf);
+                ret.TrackName = GD3.TrackName;
+                ret.TrackNameJ = GD3.TrackNameJ;
+                ret.Notes = GD3.Notes;
             }
 
             return ret;
@@ -101,11 +103,15 @@ namespace MDPlayer.Driver.MuSICA
             z80.Registers.PC = 0x6029;
             z80.Registers.SP = unchecked((short)0xf380);
             z80.Continue();
-            DebugRegisters(z80);
+            //DebugRegisters(z80);
 
-            //byte PLAYFG = z80.Registers.A;
-            //if (PLAYFG == 0) Stopped = true;
-            //vgmCurLoop = z80.Registers.D;
+            z80.Registers.PC = 0x6032;
+            z80.Registers.SP = unchecked((short)0xf380);
+            z80.Continue();
+
+            byte PLAYFG = (byte)(z80.Registers.A & 0x1);
+            if (PLAYFG == 0) Stopped = true;
+            vgmCurLoop = (uint)z80.Registers.HL;
         }
 
         private static byte[] program = null;
@@ -143,6 +149,7 @@ namespace MDPlayer.Driver.MuSICA
 
             log.Write("\r\n_INITAL(6020H)");
             z80.Registers.PC = 0x6020;
+            z80.Registers.SP = unchecked((short)0xf380);
             z80.Continue();
 
             log.Write(string.Format("MSX-MUSIC slot {0:x02}", z80.Memory[0x6010]));
@@ -150,20 +157,46 @@ namespace MDPlayer.Driver.MuSICA
 
             byte[] mgsdata = vgmBuf;
             ushort dataAdr = (ushort)(vgmBuf[1] + vgmBuf[2] * 0x100);
-            dataAdr -= 7;
-            z80.Memory.SetContents(dataAdr, vgmBuf);
+            z80.Memory.SetContents(dataAdr-7, vgmBuf);
 
             log.Write("\r\n_MPLAY2(6026H)");
             z80.Registers.PC = 0x6026;
-            z80.Registers.HL = (short)(dataAdr + 7);
-            z80.Registers.DE = (short)(dataAdr + 7);
+            z80.Registers.HL = (short)(dataAdr);
+            z80.Registers.DE = (short)(dataAdr);
             z80.Registers.A = 0;//繰り返し回数(0:infinity)
+            z80.Registers.SP = unchecked((short)0xf380);
             z80.Continue();
             log.Write(string.Format("MPLAY2 IsSuccess? RegC={0:x02}", z80.Registers.C));
             if (z80.Registers.CF == 0x01)
             {
                 DebugRegisters(z80);
                 throw new Exception("MPLAY2 Fail");
+            }
+
+            uint index;
+            //log.Write("\r\n_GETPAR(6047H)");
+            z80.Registers.PC = 0x6047;
+            z80.Registers.SP = unchecked((short)0xf380);
+            z80.Registers.HL = (short)dataAdr;
+            z80.Registers.C = 2;//title
+            z80.Continue();
+            if (z80.Registers.CF == 0)
+            {
+                index = (uint)(z80.Registers.HL & 0xffff);
+                GD3.TrackName = Common.getNRDString(z80.Memory, ref index);
+                GD3.TrackNameJ = GD3.TrackName;
+            }
+
+            //log.Write("\r\n_GETPAR(6047H)");
+            z80.Registers.PC = 0x6047;
+            z80.Registers.SP = unchecked((short)0xf380);
+            z80.Registers.HL = (short)dataAdr;
+            z80.Registers.C = 3;//memo
+            z80.Continue();
+            if (z80.Registers.CF == 0)
+            {
+                index = (uint)(z80.Registers.HL & 0xffff);
+                GD3.Notes = Common.getNRDString(z80.Memory, ref index);
             }
 
         }

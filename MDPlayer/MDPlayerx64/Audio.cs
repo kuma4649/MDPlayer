@@ -272,18 +272,16 @@ namespace MDPlayer
             {
 
                 music.format = EnmFileFormat.MuSICA;
-                uint index = 8;
-                //GD3 gd3 = (new Driver.MuSICA.MuSICA()).getGD3Info(buf, index);
-                music.title = file;// gd3.TrackName;
-                music.titleJ = file;// gd3.TrackNameJ;
+                GD3 gd3 = (new Driver.MuSICA.MuSICA()).getGD3Info(buf, 0);
+                music.title = gd3.TrackName == "" ? Path.GetFileName(file) : gd3.TrackName;
+                music.titleJ = gd3.TrackName == "" ? Path.GetFileName(file) : gd3.TrackNameJ;
                 music.game = "";
                 music.gameJ = "";
                 music.composer = "";
                 music.composerJ = "";
                 music.vgmby = "";
-
                 music.converted = "";
-                music.notes = "";
+                music.notes = gd3.Notes == "" ? "" : gd3.Notes;
 
             }
             else if (file.ToLower().LastIndexOf(".mdr") != -1)

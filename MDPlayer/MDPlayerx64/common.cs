@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Konamiman.Z80dotNet;
+using MDSound.np;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -190,6 +192,31 @@ namespace MDPlayer
 
                 string n = System.Text.Encoding.GetEncoding(932).GetString(lst.ToArray());
                 index++;
+
+                return n;
+            }
+            catch (Exception e)
+            {
+                log.ForcedWrite(e);
+            }
+            return "";
+        }
+        public static string getNRDString(IMemory memory, ref uint adr)
+        {
+            if (memory == null || memory.Size < 1 || adr < 0 || adr >= memory.Size) return "";
+
+            try
+            {
+                List<byte> lst = new List<byte>();
+                for (int index=(int)adr; memory[index] != 0; index++)
+                {
+                    if (memory.Size > index + 1 && memory[index] == 0x1a && memory[index + 1] == 0x00)
+                        break;
+                    lst.Add(memory[index]);
+                }
+
+                string n = System.Text.Encoding.GetEncoding(932).GetString(lst.ToArray());
+                adr++;
 
                 return n;
             }
