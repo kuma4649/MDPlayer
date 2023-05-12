@@ -2255,29 +2255,17 @@ namespace MDPlayer
 
                 if (vgmBuf == null || setting == null) return false;
 
-                //Stop();
-
-                int i = 0;
-                while (vgmBuf.Length > 1 && i < vgmBuf.Length - 1 && (vgmBuf[i] != 0x1a || vgmBuf[i + 1] != 0x00))
+                int[] trkOffsets = new int[17];
+                for (int t = 0; t < trkOffsets.Length; t++)
                 {
-                    i++;
+                    trkOffsets[t] = vgmBuf[8 + t * 2] + vgmBuf[9 + t * 2] * 0x100;
                 }
-                i += 7;
-                int[] trkOffsets = new int[18];
-                //for(int t = 0; t < trkOffsets.Length; t++)
-                //{
-                //    trkOffsets[t] = vgmBuf[i + t * 2] + vgmBuf[i + t * 2 + 1] * 0x100;
-                //}
-                //bool useAY = (trkOffsets[0] + trkOffsets[1] + trkOffsets[2] != 0);
-                //bool useSCC = (trkOffsets[3] + trkOffsets[4] + trkOffsets[5] + trkOffsets[6] + trkOffsets[7] != 0);
-                //bool useOPLL = (trkOffsets[8] + trkOffsets[9] + trkOffsets[10] 
-                //    + trkOffsets[11] + trkOffsets[12] + trkOffsets[13]
-                //    + trkOffsets[14] + trkOffsets[15] + trkOffsets[16]
-                //    + trkOffsets[17]
-                //    != 0);
-                bool useAY = true;
-                bool useSCC = true;
-                bool useOPLL = true;
+                bool useAY = ((trkOffsets[9] + trkOffsets[10] + trkOffsets[11]) != 0);
+                bool useSCC = ((trkOffsets[12] + trkOffsets[13] + trkOffsets[14] + trkOffsets[15] + trkOffsets[16]) != 0);
+                bool useOPLL = ((trkOffsets[0] + trkOffsets[1] + trkOffsets[2]
+                    + trkOffsets[3] + trkOffsets[4] + trkOffsets[5]
+                    + trkOffsets[6] + trkOffsets[7] + trkOffsets[8]
+                    ) != 0);
 
                 chipRegister.resetChips();
                 ResetFadeOutParam();
@@ -2295,25 +2283,6 @@ namespace MDPlayer
 
                 if (useAY)
                 {
-                    //ay8910 ay8910 = null;
-                    //chip = new MDSound.MDSound.Chip();
-                    //ay8910 = new ay8910();
-                    //chip.ID = 0;
-                    //chipLED.PriAY10 = 1;
-                    //chip.type = MDSound.MDSound.enmInstrumentType.AY8910;
-                    //chip.Instrument = ay8910;
-                    //chip.Update = ay8910.Update;
-                    //chip.Start = ay8910.Start;
-                    //chip.Stop = ay8910.Stop;
-                    //chip.Reset = ay8910.Reset;
-                    //chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
-                    //chip.Volume = setting.balance.AY8910Volume;
-                    //chip.Clock = Driver.MGSDRV.MGSDRV.baseclockAY8910 / 2;
-                    //chip.Option = null;
-                    //lstChips.Add(chip);
-                    //useChip.Add(EnmChip.AY8910);
-                    //clockAY8910 = (int)Driver.MGSDRV.MGSDRV.baseclockAY8910;
-
                     ay8910 ay8910 = null;
                     ay8910_mame ay8910mame = null;
                     chip = new MDSound.MDSound.Chip();
@@ -2356,25 +2325,6 @@ namespace MDPlayer
 
                 if (useOPLL)
                 {
-                    //ym2413 ym2413 = null;
-                    //chip = new MDSound.MDSound.Chip();
-                    //ym2413 = new ym2413();
-                    //chip.ID = 0;
-                    //chipLED.PriOPLL = 1;
-                    //chip.type = MDSound.MDSound.enmInstrumentType.YM2413;
-                    //chip.Instrument = ym2413;
-                    //chip.Update = ym2413.Update;
-                    //chip.Start = ym2413.Start;
-                    //chip.Stop = ym2413.Stop;
-                    //chip.Reset = ym2413.Reset;
-                    //chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
-                    //chip.Volume = setting.balance.YM2413Volume;
-                    //chip.Clock = Driver.MGSDRV.MGSDRV.baseclockYM2413;
-                    //chip.Option = null;
-                    //lstChips.Add(chip);
-                    //useChip.Add(EnmChip.YM2413);
-                    //clockYM2413 = (int)Driver.MGSDRV.MGSDRV.baseclockYM2413;
-
                     MDSound.emu2413 ym2413 = null;
                     chip = new MDSound.MDSound.Chip();
                     ym2413 = new MDSound.emu2413();
@@ -2430,7 +2380,6 @@ namespace MDPlayer
                 if (useOPLL)
                 {
                     chipRegister.setYM2413Register(0, 14, 32, EnmModel.VirtualModel);
-                    //chipRegister.setYM2610Register(0, 0, 0x11, 0xc0, EnmModel.VirtualModel);
                 }
 
                 if (!driverVirtual.init(vgmBuf, chipRegister, EnmModel.VirtualModel, new EnmChip[] { EnmChip.AY8910, EnmChip.YM2413, EnmChip.K051649 }
