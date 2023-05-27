@@ -1142,9 +1142,31 @@ namespace MDPlayer
         }
 
 
-
+        static byte[][] ym2414Pan = new byte[2][] {
+                    new byte[8] { 0,0,0,0,0,0,0,0 },
+                    new byte[8] { 0,0,0,0,0,0,0,0 }
+                };
+        static byte[][] ym2414KC = new byte[2][] {
+                    new byte[8] { 0,0,0,0,0,0,0,0 },
+                    new byte[8] { 0,0,0,0,0,0,0,0 }
+                };
+        static byte[][] ym2414KF = new byte[2][] {
+                    new byte[8] { 0,0,0,0,0,0,0,0 },
+                    new byte[8] { 0,0,0,0,0,0,0,0 }
+                };
+        static byte[][] ym24140x20 = new byte[2][] {
+                    new byte[8] { 0,0,0,0,0,0,0,0 },
+                    new byte[8] { 0,0,0,0,0,0,0,0 }
+                };
+        
         public void setYM2151Register(int chipID, int dPort, int dAddr, int dData, EnmModel model, int hosei, long vgmFrameCounter)
         {
+            if (setting.debug.debugOPZ)
+            {
+                setYM2414Register(chipID, dPort, dAddr, dData, model, hosei, vgmFrameCounter);
+                return;
+            }
+
             if (ctYM2151 == null) return;
 
             RSoundChip sc = null;
@@ -1336,48 +1358,282 @@ namespace MDPlayer
                 writeYM2151(chipID, 0, 0x08, 0x00 + i, model);
             }
 
-            writeYM2151(chipID, 0, 0x0f, 0x00, model); //  FM NOISE ENABLE/NOISE FREQ
-            writeYM2151(chipID, 0, 0x18, 0x00, model); //  FM HW LFO FREQ
-            writeYM2151(chipID, 0, 0x19, 0x80, model); //  FM PMD/VALUE
-            writeYM2151(chipID, 0, 0x19, 0x00, model); //  FM AMD/VALUE
-            writeYM2151(chipID, 0, 0x1b, 0x00, model); //  FM HW LFO WAVEFORM
-
-            //FM HW LFO RESET
-            writeYM2151(chipID, 0,0x01, 0x02, model);
-            writeYM2151(chipID, 0, 0x01, 0x00, model);
-
-            writeYM2151(chipID, 0,0x10, 0x00, model); // FM Timer-A(H)
-            writeYM2151(chipID, 0,0x11, 0x00, model); // FM Timer-A(L)
-            writeYM2151(chipID, 0,0x12, 0x00, model); // FM Timer-B
-            writeYM2151(chipID, 0, 0x14, 0x00, model); // FM Timer Control
-
-            for (int i = 0; i < 8; i++)
+            if (!setting.debug.debugOPZ)
             {
-                //  FB/ALG/PAN
-                writeYM2151(chipID, 0, 0x20 + i, 0x00, model);
-                // KC
-                writeYM2151(chipID, 0, 0x28 + i, 0x00, model);
-                // KF
-                writeYM2151(chipID, 0, 0x30 + i, 0x00, model);
-                // PMS/AMS
-                writeYM2151(chipID, 0, 0x38 + i, 0x00, model);
+                writeYM2151(chipID, 0, 0x0f, 0x00, model); //  FM NOISE ENABLE/NOISE FREQ
+                writeYM2151(chipID, 0, 0x18, 0x00, model); //  FM HW LFO FREQ
+                writeYM2151(chipID, 0, 0x19, 0x80, model); //  FM PMD/VALUE
+                writeYM2151(chipID, 0, 0x19, 0x00, model); //  FM AMD/VALUE
+                writeYM2151(chipID, 0, 0x1b, 0x00, model); //  FM HW LFO WAVEFORM
+
+                //FM HW LFO RESET
+                writeYM2151(chipID, 0, 0x01, 0x02, model);
+                writeYM2151(chipID, 0, 0x01, 0x00, model);
+
+                writeYM2151(chipID, 0, 0x10, 0x00, model); // FM Timer-A(H)
+                writeYM2151(chipID, 0, 0x11, 0x00, model); // FM Timer-A(L)
+                writeYM2151(chipID, 0, 0x12, 0x00, model); // FM Timer-B
+                writeYM2151(chipID, 0, 0x14, 0x00, model); // FM Timer Control
+
+                for (int i = 0; i < 8; i++)
+                {
+                    //  FB/ALG/PAN
+                    writeYM2151(chipID, 0, 0x20 + i, 0x00, model);
+                    // KC
+                    writeYM2151(chipID, 0, 0x28 + i, 0x00, model);
+                    // KF
+                    writeYM2151(chipID, 0, 0x30 + i, 0x00, model);
+                    // PMS/AMS
+                    writeYM2151(chipID, 0, 0x38 + i, 0x00, model);
+                }
+                for (int i = 0; i < 0x20; i++)
+                {
+                    // DT1/ML
+                    writeYM2151(chipID, 0, 0x40 + i, 0x00, model);
+                    // TL=127
+                    writeYM2151(chipID, 0, 0x60 + i, 0x7f, model);
+                    // KS/AR
+                    writeYM2151(chipID, 0, 0x80 + i, 0x1F, model);
+                    // AMD/D1R
+                    writeYM2151(chipID, 0, 0xa0 + i, 0x00, model);
+                    // DT2/D2R
+                    writeYM2151(chipID, 0, 0xc0 + i, 0x00, model);
+                    // D1L/RR
+                    writeYM2151(chipID, 0, 0xe0 + i, 0x0F, model);
+                }
             }
-            for (int i = 0; i < 0x20; i++)
+
+            if (setting.debug.debugOPZ)
             {
-                // DT1/ML
-                writeYM2151(chipID, 0, 0x40 + i, 0x00, model);
-                // TL=127
-                writeYM2151(chipID, 0, 0x60 + i, 0x7f, model);
-                // KS/AR
-                writeYM2151(chipID, 0, 0x80 + i, 0x1F, model);
-                // AMD/D1R
-                writeYM2151(chipID, 0, 0xa0 + i, 0x00, model);
-                // DT2/D2R
-                writeYM2151(chipID, 0, 0xc0 + i, 0x00, model);
-                // D1L/RR
-                writeYM2151(chipID, 0, 0xe0 + i, 0x0F, model);
+                for (int i = 0; i < 8; i++)
+                {
+                    //writeYM2151(chipID, 0, 0x00 + i, 0x00, model);
+                    //writeYM2151(chipID, 0, 0x30 + i, 0x01, model);
+                }
+
+                //writeYM2151(chipID, 0, 0x09, 0x00, model);
+                //writeYM2151(chipID, 0, 0x0f, 0x00, model);
+                //writeYM2151(chipID, 0, 0x1c, 0x00, model);
+                //writeYM2151(chipID, 0, 0x1e, 0x00, model);
+
+                //writeYM2151(chipID, 0, 0x0a, 0x04, model);
+                //writeYM2151(chipID, 0, 0x14, 0x70, model);
+                //writeYM2151(chipID, 0, 0x15, 0x01, model);
+
+                //writeYM2151(chipID, 0, 0x16, 0x00, model);
+                //writeYM2151(chipID, 0, 0x17, 0x00, model);
+                //writeYM2151(chipID, 0, 0x18, 0x00, model);
+                //writeYM2151(chipID, 0, 0x19, 0x80, model);
+                //writeYM2151(chipID, 0, 0x19, 0x00, model);
+                //writeYM2151(chipID, 0, 0x1b, 0x00, model);
+                //writeYM2151(chipID, 0, 0x0f, 0x00, model);
+
+                //writeYM2151(chipID, 0, 0x0f, 0x00, model);
+                //writeYM2151(chipID, 0, 0x18, 0x00, model);
+                //writeYM2151(chipID, 0, 0x19, 0x80, model);
+                //writeYM2151(chipID, 0, 0x19, 0x00, model);
+                //writeYM2151(chipID, 0, 0x1b, 0x00, model);
+
+                //writeYM2151(chipID, 0, 0x10, 0x00, model);
+                //writeYM2151(chipID, 0, 0x11, 0x00, model);
+                //writeYM2151(chipID, 0, 0x12, 0x00, model);
+                //writeYM2151(chipID, 0, 0x14, 0x00, model);
+
+                //for (int i = 0; i < 0x20; i++)
+                //{
+                //    writeYM2151(chipID, 0, 0x20 + i, 0x00, model);
+                //}
+
+                //for (int i = 0; i < 0x20; i++)
+                //{
+                //    // DT1/ML
+                //    writeYM2151(chipID, 0, 0x40 + i, 0x00, model);
+                //    // TL=127
+                //    writeYM2151(chipID, 0, 0x60 + i, 0x7f, model);
+                //    // KS/AR
+                //    writeYM2151(chipID, 0, 0x80 + i, 0x1F, model);
+                //    // AMD/D1R
+                //    writeYM2151(chipID, 0, 0xa0 + i, 0x00, model);
+                //    // DT2/D2R
+                //    writeYM2151(chipID, 0, 0xc0 + i, 0x00, model);
+                //    // D1L/RR
+                //    writeYM2151(chipID, 0, 0xe0 + i, 0x0F, model);
+                //}
             }
         }
+
+
+        public void setYM2414Register(int chipID, int dPort, int dAddr, int dData, EnmModel model, int hosei, long vgmFrameCounter)
+        {
+            if (ctYM2151 == null) return;
+
+            RSoundChip sc = null;
+            if (!use4MYM2151scci[chipID])
+            {
+                if (scYM2151 != null && scYM2151.Length > chipID && scYM2151[chipID] != null)
+                    sc = scYM2151[chipID];
+            }
+            else
+            {
+                if (scYM2151_4M != null && scYM2151_4M.Length > chipID && scYM2151_4M[chipID] != null)
+                    sc = scYM2151_4M[chipID];
+            }
+
+            if (chipID == 0) chipLED.PriOPM = 2;
+            else chipLED.SecOPM = 2;
+
+            if (
+                (model == EnmModel.VirtualModel && (ctYM2151[chipID] == null || !ctYM2151[chipID].UseReal[0]))
+                || (model == EnmModel.RealModel && sc != null)
+                )
+            {
+                fmRegisterYM2151[chipID][dAddr] = dData;
+                midiExport.outMIDIData(EnmChip.YM2151, chipID, dPort, dAddr, dData, hosei, vgmFrameCounter);
+            }
+
+            if ((model == EnmModel.RealModel && ctYM2151[chipID].UseReal[0])
+                || (model == EnmModel.VirtualModel && !ctYM2151[chipID].UseReal[0]))
+            {
+                if (dAddr == 0x08) //Key-On/Off
+                {
+                    int ch = dData & 0x7;
+                    if ((dData & 0x78) != 0)
+                    {
+                        byte con = (byte)(dData & 0x78);
+                        fmKeyOnYM2151[chipID][ch] = con | 1;
+                        fmVolYM2151[chipID][ch] = 256 * 6;
+                    }
+                    else
+                    {
+                        fmKeyOnYM2151[chipID][ch] &= 0xfe;
+                    }
+                }
+            }
+
+            //AMD/PMD
+            if (dAddr == 0x19)
+            {
+                if ((dData & 0x80) != 0)
+                    fmPMDYM2151[chipID] = dData & 0x7f;
+                else
+                    fmAMDYM2151[chipID] = dData & 0x7f;
+            }
+
+            if ((dAddr & 0xf8) == 0x20)
+            {
+                int al = dData & 0x07;//AL
+                int ch = (dAddr & 0x7);
+
+                for (int i = 0; i < 4; i++)
+                {
+                    int slot = (i == 0) ? 0 : ((i == 1) ? 2 : ((i == 2) ? 1 : 3));
+                    if ((algM[al] & (1 << slot)) > 0 && (maskFMChYM2151[chipID][ch]))
+                        writeYM2151(chipID, dPort, (byte)(0x60 + i * 8 + ch), (byte)127, model);
+                }
+            }
+
+            if ((dAddr & 0xf0) == 0x60 || (dAddr & 0xf0) == 0x70)//TL
+            {
+                int ch = (dAddr & 0x7);
+                dData &= 0x7f;
+
+                dData = Math.Min(dData + nowYM2151FadeoutVol[chipID], 127);
+                dData = maskFMChYM2151[chipID][ch] ? 127 : dData;
+            }
+
+            if (dAddr >= 0x00 && dAddr <= 0x07 && dAddr != 0x01)
+                return;
+            if (dAddr >= 0x09 && dAddr <= 0x0e)
+                return;
+            if (dAddr >= 0x10 && dAddr <= 0x13)
+                return;
+            if (dAddr >= 0x16 && dAddr <= 0x17)
+                return;
+            if (dAddr == 0x1a)
+                return;
+            if (dAddr >= 0x1c && dAddr <= 0x1f)
+                return;
+
+            switch (dAddr & 0xf8)
+            {
+                case 0x00:
+                case 0x08:
+                case 0x10:
+                case 0x18:
+                    switch (dAddr)
+                    {
+                        case 0x01:
+                            //LFOrst=dData&2;
+                            return;
+                        case 0x08:
+                            //LFOrst=dData&2;
+                            //dData |= 0x80;
+                            break;
+                        case 0x0f:
+                            //Noise=dData&0x9f;
+                            return;
+                        case 0x14:
+                            //Noise=dData&0x9f;
+                            return;
+                        case 0x18:
+                            break;
+                        case 0x19:
+                            break;
+                        case 0x1b:
+                            break;
+                    }
+                    break;
+                case 0x20:
+                    // Adr     | 0x20  | 0x30  |
+                    // --------+-------+-------+--
+                    // Data bit| 7  6  | 0     |
+                    //         | 0  0  | 0     | -> R only
+                    //         | 0  0  | 1     | -> R only
+                    //         | 1  0  | 0     | -> L only
+                    //         | 1  0  | 1     | -> L only
+                    //         | 0  1  | 0     | -> R only
+                    //         | 0  1  | 1     | -> R only 
+                    //         | 1  1  | 0     | -> L only
+                    //         | 1  1  | 1     | -> L only
+                    //  0x20 のbit6は影響なし?
+                    //  0x30 は出力先に影響なし?
+                    ym24140x20[chipID][dAddr & 0x7] = (byte)dData;
+
+                    byte pan = (byte)(dData & 0xc0);
+                    ym2414Pan[chipID][dAddr & 0x7] = pan;
+                    dData &= 0x3f;
+                    dData |= pan == 0x40 ? 0x80 //L
+                        : (
+                             pan == 0x80 ? 0x00 //R
+                                         : 0x00 //C
+                        );
+                    //dData |= 0xc0;
+                    break;
+                case 0x28:
+                    //dData &= 0x7f;
+                    //dData |= 0x80;
+                    //setYM2151Register(chipID, dPort, 0x30 + (dAddr & 0x7), ym2414KF[chipID][dAddr & 0x7], model, hosei, vgmFrameCounter);
+                    byte kc = (byte)(dData & 0x7f);
+                    ym2414KC[chipID][dAddr & 0x7] = kc;
+                    break;
+                case 0x30:
+                    writeYM2151(chipID, dPort, 0x20 + (dAddr & 0x7), ym24140x20[chipID][dAddr & 0x7], model);
+                    writeYM2151(chipID, dPort, 0x28 + (dAddr & 0x7), ym2414KC[chipID][dAddr & 0x7], model);
+                    byte kf = (byte)(dData & 0xfc);
+                    ym2414KF[chipID][dAddr & 0x7] = kf;
+                    dData = kf;
+                    dData |= (ym2414Pan[chipID][dAddr & 0x7] == 0xc0 || ym2414Pan[chipID][dAddr & 0x7] == 0x00)
+                        ? 0x01
+                        : 0x00;
+                    //dData |= 0x01;
+                    break;
+            }
+
+            writeYM2151(chipID, dPort, dAddr, dData, model);
+        }
+
+
+
 
         public void setAY8910Register(int chipID, int dAddr, int dData, EnmModel model)
         {
@@ -5070,7 +5326,7 @@ namespace MDPlayer
                     }
 
                     scK051649[chipid].setRegister(
-                        (int)((uint)setting.Debug_SCCbaseAddress | sccR_offset)
+                        (int)((uint)setting.debug.SCCbaseAddress | sccR_offset)
                         , (int)sccR_dat);
                 }
             }

@@ -615,6 +615,16 @@ namespace MDPlayer
 
     }
 
+    public enum LogLevel : int
+    {
+        Trace = 0,
+        Debug,
+        Warning,
+        Error,
+        Information,
+        Enforcement
+    }
+
     public enum EnmModel
     {
         VirtualModel

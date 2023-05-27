@@ -615,34 +615,6 @@ namespace MDPlayer
             }
         }
 
-        private bool _Debug_DispFrameCounter = false;
-        public bool Debug_DispFrameCounter
-        {
-            get
-            {
-                return _Debug_DispFrameCounter;
-            }
-
-            set
-            {
-                _Debug_DispFrameCounter = value;
-            }
-        }
-
-        private int _Debug_SCCbaseAddress = 0x9800;
-        public int Debug_SCCbaseAddress
-        {
-            get
-            {
-                return _Debug_SCCbaseAddress;
-            }
-
-            set
-            {
-                _Debug_SCCbaseAddress = value;
-            }
-        }
-
         private Other _other = new Other();
         public Other other
         {
@@ -654,6 +626,20 @@ namespace MDPlayer
             set
             {
                 _other = value;
+            }
+        }
+
+        private Debug _debug = new Debug();
+        public Debug debug
+        {
+            get
+            {
+                return _debug;
+            }
+
+            set
+            {
+                _debug = value;
             }
         }
 
@@ -1605,6 +1591,33 @@ namespace MDPlayer
                 return other;
             }
         }
+
+        [Serializable]
+        public class Debug
+        {
+            public LogLevel LogLevel { get; set; } = LogLevel.Information;
+            public bool debugOPZ { get; set; } = false;
+            public bool DispFrameCounter { get; set; } = false;
+            public int SCCbaseAddress { get; set; } = 0x9800;
+            public bool logDebug { get; set; } = false;
+            public bool ShowConsole { get; set; } = false;
+            public LogLevel logLevel { get; set; } = LogLevel.Information;
+
+            public Debug Copy()
+            {
+                Debug dbg = new Debug();
+                dbg.LogLevel = this.LogLevel;
+                dbg.debugOPZ = this.debugOPZ;
+                dbg.DispFrameCounter = this.DispFrameCounter;
+                dbg.SCCbaseAddress = this.SCCbaseAddress;
+                dbg.logDebug = this.logDebug;
+                dbg.logLevel= this.logLevel;
+                dbg.ShowConsole = this.ShowConsole;
+
+                return dbg;
+            }
+        }
+
 
         [Serializable]
         public class Balance
@@ -5574,10 +5587,10 @@ namespace MDPlayer
             //setting.SEGAPCMSType = this.SEGAPCMSType.Copy();
 
             setting.other = this.other.Copy();
+            setting.debug = this.debug.Copy();
             setting.balance = this.balance.Copy();
             setting.LatencyEmulation = this.LatencyEmulation;
             setting.LatencySCCI = this.LatencySCCI;
-            setting.Debug_DispFrameCounter = this.Debug_DispFrameCounter;
             setting.HiyorimiMode = this.HiyorimiMode;
             setting.location = this.location.Copy();
             setting.midiExport = this.midiExport.Copy();

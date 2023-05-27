@@ -78,6 +78,7 @@ namespace MDPlayer
                 nc86ctl = new Nc86ctl.Nc86ctl();
                 nc86ctl.initialize();
                 n = nc86ctl.getNumberOfChip();
+                
                 if (n == 0)
                 {
                     nc86ctl.deinitialize();
@@ -266,6 +267,7 @@ namespace MDPlayer
                 for (int i = 0; i < iCount; i++)
                 {
                     NIRealChip rc = nc86ctl.getChipInterface(i);
+                    rc.reset();
                     NIGimic2 gm = rc.QueryInterface();
                     ChipType cct = gm.getModuleType();
                     int o = -1;
@@ -618,29 +620,40 @@ namespace MDPlayer
             realChip = rc;
             NIGimic2 gm = rc.QueryInterface();
             dClock = gm.getPLLClock();
+            log.ForcedWrite(string.Format("C86ctl:PLL Clock={0}", dClock));
             Devinfo di = gm.getModuleInfo();
             ChipType = gm.getModuleType();
+            log.ForcedWrite(string.Format("C86ctl:Found ChipType={0}", ChipType));
             if (ChipType == ChipType.CHIP_UNKNOWN)
             {
                 if (di.Devname == "GMC-S2149") ChipType = ChipType.CHIP_YM2149;
                 else if (di.Devname == "GMC-S8910") ChipType = ChipType.CHIP_AY38910;
                 else if (di.Devname == "GMC-S2413") ChipType = ChipType.CHIP_YM2413;
             }
-            if (ChipType == ChipType.CHIP_YM2608)
+            else if (ChipType == ChipType.CHIP_YM2608)
             {
                 //setRegister(0x2d, 00);
                 //setRegister(0x29, 82);
                 //setRegister(0x07, 38);
             }
+            else if (ChipType == ChipType.CHIP_OPM)
+            {
+                OPZReset();
+            }
         }
 
         override public void setRegister(int adr, int dat)
         {
+            if (adr < 0) 
+                return;
             realChip.@out((ushort)adr, (byte)dat);
+            log.Write(string.Format("Out Register C86Ctl(Adr:{0:x04} Dat:{1:x02})",(ushort)adr,(byte)dat));
+            //realChip.directOut((ushort)adr, (byte)dat);
         }
 
         override public int getRegister(int adr)
         {
+            log.Write(string.Format("In  Register C86Ctl(Adr:{0:x04}", (ushort)adr));
             return realChip.@in((ushort)adr);
         }
 
@@ -661,15 +674,49 @@ namespace MDPlayer
             if (nowClock != mClock)
             {
                 gm.setPLLClock(mClock);
+                log.Write(string.Format("Set PLLClock(clock:{0:d}", mClock));
+            }
+            nowClock = gm.getPLLClock();
+            realChip.reset();
+            log.Write("reset C86Ctl");
+
+            if (ChipType == ChipType.CHIP_OPM)
+            {
+                OPZReset2();
             }
 
-            return gm.getPLLClock();
+            return nowClock;
         }
 
         override public void setSSGVolume(byte vol)
         {
             NIGimic2 gm = realChip.QueryInterface();
             gm.setSSGVolume(vol);
+        }
+
+        private void OPZReset()
+        {
+            SetMasterClock(3579545);
+        }
+
+        private void OPZReset2()
+        {
+            setRegister(0x09, 0x00);
+            setRegister(0x0f, 0x00);
+            setRegister(0x1c, 0x00);
+            setRegister(0x1e, 0x00);
+
+            setRegister(0x0a, 0x04);
+            setRegister(0x14, 0x70);
+            setRegister(0x15, 0x01);
+
+            setRegister(0x16, 0x00);
+            setRegister(0x17, 0x00);
+            setRegister(0x18, 0x00);
+            //setRegister(0x19, 0x80);
+            setRegister(0x19, 0x00);
+            setRegister(0x1b, 0x00);
+            //setRegister(0x0f, 0x00);
         }
 
     }

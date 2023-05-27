@@ -3060,11 +3060,15 @@ namespace MDPlayer
 
                 int r = ((NRTDRV)driverVirtual).checkUseChip(vgmBuf);
 
-                chipRegister.setFadeoutVolYM2151(0, 0);
-                chipRegister.setFadeoutVolYM2151(1, 0);
+                if (!setting.debug.debugOPZ)
+                {
+                    chipRegister.setFadeoutVolYM2151(0, 0);
+                    chipRegister.setFadeoutVolYM2151(1, 0);
 
-                chipRegister.resetChips();
+                    chipRegister.resetChips();
+                }
 
+                //Realも含めた使用するChips
                 useChip.Clear();
 
                 vgmFadeout = false;
@@ -3073,11 +3077,15 @@ namespace MDPlayer
                 vgmSpeed = 1;
                 vgmRealFadeoutVol = 0;
                 vgmRealFadeoutVolWait = 4;
-                ClearFadeoutVolume();
-                chipRegister.resetChips();
 
+                if (!setting.debug.debugOPZ)
+                {
+                    ClearFadeoutVolume();
+                    chipRegister.resetChips();
+                }
                 startTrdVgmReal();
 
+                //emuするChips
                 List<MDSound.MDSound.Chip> lstChips = new List<MDSound.MDSound.Chip>();
 
                 MDSound.MDSound.Chip chip;
@@ -3140,11 +3148,8 @@ namespace MDPlayer
                         if (i == 0) chipLED.PriOPM = 1;
                         else chipLED.SecOPM = 1;
 
-                        if (chip.Start != null)
-                        {
-                            lstChips.Add(chip);
-                            useChip.Add(i == 0 ? EnmChip.YM2151 : EnmChip.S_YM2151);
-                        }
+                        if (chip.Start != null) lstChips.Add(chip);
+                        useChip.Add(i == 0 ? EnmChip.YM2151 : EnmChip.S_YM2151);
                     }
                 }
 
@@ -3187,13 +3192,19 @@ namespace MDPlayer
                 if (useChip.Contains(EnmChip.AY8910))
                     SetAY8910Volume(true, setting.balance.AY8910Volume);
 
-                if (useChip.Contains(EnmChip.YM2151))
-                    chipRegister.writeYM2151Clock(0, 4000000, EnmModel.RealModel);
-                if (useChip.Contains(EnmChip.S_YM2151))
-                    chipRegister.writeYM2151Clock(1, 4000000, EnmModel.RealModel);
+                int chipClock = 4000000;
+                if (setting.debug.debugOPZ)
+                {
+                    chipClock = 3579545;
+                }
 
-                if (driverVirtual != null) driverVirtual.SetYM2151Hosei(4000000);
-                if (driverReal != null) driverReal.SetYM2151Hosei(4000000);
+                if (useChip.Contains(EnmChip.YM2151))
+                    chipRegister.writeYM2151Clock(0, chipClock, EnmModel.RealModel);
+                if (useChip.Contains(EnmChip.S_YM2151))
+                    chipRegister.writeYM2151Clock(1, chipClock, EnmModel.RealModel);
+
+                if (driverVirtual != null) driverVirtual.SetYM2151Hosei(chipClock);
+                if (driverReal != null) driverReal.SetYM2151Hosei(chipClock);
                 //chipRegister.setYM2203SSGVolume(0, setting.balance.GimicOPNVolume, enmModel.RealModel);
                 //chipRegister.setYM2203SSGVolume(1, setting.balance.GimicOPNVolume, enmModel.RealModel);
                 //chipRegister.setYM2608SSGVolume(0, setting.balance.GimicOPNAVolume, enmModel.RealModel);

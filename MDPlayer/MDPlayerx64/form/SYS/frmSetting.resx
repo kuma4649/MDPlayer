@@ -1,4 +1,64 @@
-﻿<root>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema 
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing"">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -1430,13 +1490,13 @@
     <value>1</value>
   </data>
   <data name="tpModule.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 64</value>
+    <value>4, 44</value>
   </data>
   <data name="tpModule.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
   <data name="tpModule.Size" type="System.Drawing.Size, System.Drawing">
-    <value>575, 478</value>
+    <value>575, 498</value>
   </data>
   <data name="tpModule.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -1727,13 +1787,13 @@
     <value>1</value>
   </data>
   <data name="tpNuked.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 64</value>
+    <value>4, 44</value>
   </data>
   <data name="tpNuked.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
   <data name="tpNuked.Size" type="System.Drawing.Size, System.Drawing">
-    <value>575, 478</value>
+    <value>575, 498</value>
   </data>
   <data name="tpNuked.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -2639,13 +2699,13 @@
     <value>8</value>
   </data>
   <data name="tpNSF.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 64</value>
+    <value>4, 44</value>
   </data>
   <data name="tpNSF.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
   <data name="tpNSF.Size" type="System.Drawing.Size, System.Drawing">
-    <value>575, 478</value>
+    <value>575, 498</value>
   </data>
   <data name="tpNSF.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -3563,13 +3623,13 @@
     <value>6</value>
   </data>
   <data name="tpSID.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 64</value>
+    <value>4, 44</value>
   </data>
   <data name="tpSID.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
   <data name="tpSID.Size" type="System.Drawing.Size, System.Drawing">
-    <value>575, 478</value>
+    <value>575, 498</value>
   </data>
   <data name="tpSID.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -4688,13 +4748,13 @@
     <value>8</value>
   </data>
   <data name="tpPMDDotNET.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 64</value>
+    <value>4, 44</value>
   </data>
   <data name="tpPMDDotNET.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
   <data name="tpPMDDotNET.Size" type="System.Drawing.Size, System.Drawing">
-    <value>575, 478</value>
+    <value>575, 498</value>
   </data>
   <data name="tpPMDDotNET.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -6074,13 +6134,13 @@
     <value>6</value>
   </data>
   <data name="tpMIDIOut.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 64</value>
+    <value>4, 44</value>
   </data>
   <data name="tpMIDIOut.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
   <data name="tpMIDIOut.Size" type="System.Drawing.Size, System.Drawing">
-    <value>575, 478</value>
+    <value>575, 498</value>
   </data>
   <data name="tpMIDIOut.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -6427,13 +6487,13 @@
     <value>0</value>
   </data>
   <data name="tpMIDIOut2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 64</value>
+    <value>4, 44</value>
   </data>
   <data name="tpMIDIOut2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
   <data name="tpMIDIOut2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>575, 478</value>
+    <value>575, 498</value>
   </data>
   <data name="tpMIDIOut2.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -7114,13 +7174,13 @@
     <value>1</value>
   </data>
   <data name="tabMIDIExp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 64</value>
+    <value>4, 44</value>
   </data>
   <data name="tabMIDIExp.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
   <data name="tabMIDIExp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>575, 478</value>
+    <value>575, 498</value>
   </data>
   <data name="tabMIDIExp.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -8371,13 +8431,13 @@
     <value>1</value>
   </data>
   <data name="tpMIDIKBD.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 64</value>
+    <value>4, 44</value>
   </data>
   <data name="tpMIDIKBD.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
   <data name="tpMIDIKBD.Size" type="System.Drawing.Size, System.Drawing">
-    <value>575, 478</value>
+    <value>575, 498</value>
   </data>
   <data name="tpMIDIKBD.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -11959,13 +12019,13 @@
     <value>10</value>
   </data>
   <data name="tpKeyBoard.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 64</value>
+    <value>4, 44</value>
   </data>
   <data name="tpKeyBoard.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
   <data name="tpKeyBoard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>575, 478</value>
+    <value>575, 498</value>
   </data>
   <data name="tpKeyBoard.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -12535,13 +12595,13 @@
     <value>2</value>
   </data>
   <data name="tpBalance.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 64</value>
+    <value>4, 44</value>
   </data>
   <data name="tpBalance.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
   <data name="tpBalance.Size" type="System.Drawing.Size, System.Drawing">
-    <value>575, 478</value>
+    <value>575, 498</value>
   </data>
   <data name="tpBalance.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -12877,13 +12937,13 @@
     <value>1</value>
   </data>
   <data name="tpPlayList.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 64</value>
+    <value>4, 44</value>
   </data>
   <data name="tpPlayList.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
   <data name="tpPlayList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>575, 478</value>
+    <value>575, 498</value>
   </data>
   <data name="tpPlayList.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
@@ -13888,13 +13948,13 @@
     <value>23</value>
   </data>
   <data name="tpOther.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 64</value>
+    <value>4, 44</value>
   </data>
   <data name="tpOther.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
   <data name="tpOther.Size" type="System.Drawing.Size, System.Drawing">
-    <value>575, 478</value>
+    <value>575, 498</value>
   </data>
   <data name="tpOther.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -13921,7 +13981,7 @@
     <value>NoControl</value>
   </data>
   <data name="label67.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 121</value>
+    <value>10, 472</value>
   </data>
   <data name="label67.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
@@ -13954,7 +14014,7 @@
     <value>True</value>
   </data>
   <data name="label14.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 74</value>
+    <value>10, 437</value>
   </data>
   <data name="label14.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
@@ -13984,7 +14044,7 @@
     <value>1</value>
   </data>
   <data name="btVST.Location" type="System.Drawing.Point, System.Drawing">
-    <value>486, 68</value>
+    <value>488, 431</value>
   </data>
   <data name="btVST.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
@@ -14014,7 +14074,7 @@
     <value>2</value>
   </data>
   <data name="tbSCCbaseAddress.Location" type="System.Drawing.Point, System.Drawing">
-    <value>162, 118</value>
+    <value>164, 469</value>
   </data>
   <data name="tbSCCbaseAddress.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
@@ -14047,7 +14107,7 @@
     <value>3</value>
   </data>
   <data name="tbVST.Location" type="System.Drawing.Point, System.Drawing">
-    <value>103, 70</value>
+    <value>105, 433</value>
   </data>
   <data name="tbVST.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
@@ -14072,6 +14132,210 @@
   </data>
   <data name="&gt;&gt;tbVST.ZOrder" xml:space="preserve">
     <value>4</value>
+  </data>
+  <data name="rbLoglvlInformation.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="rbLoglvlInformation.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="rbLoglvlInformation.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 122</value>
+  </data>
+  <data name="rbLoglvlInformation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 19</value>
+  </data>
+  <data name="rbLoglvlInformation.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="rbLoglvlInformation.Text" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="&gt;&gt;rbLoglvlInformation.Name" xml:space="preserve">
+    <value>rbLoglvlInformation</value>
+  </data>
+  <data name="&gt;&gt;rbLoglvlInformation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rbLoglvlInformation.Parent" xml:space="preserve">
+    <value>groupBox30</value>
+  </data>
+  <data name="&gt;&gt;rbLoglvlInformation.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="rbLoglvlWarning.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="rbLoglvlWarning.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="rbLoglvlWarning.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 72</value>
+  </data>
+  <data name="rbLoglvlWarning.Size" type="System.Drawing.Size, System.Drawing">
+    <value>70, 19</value>
+  </data>
+  <data name="rbLoglvlWarning.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="rbLoglvlWarning.Text" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="&gt;&gt;rbLoglvlWarning.Name" xml:space="preserve">
+    <value>rbLoglvlWarning</value>
+  </data>
+  <data name="&gt;&gt;rbLoglvlWarning.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rbLoglvlWarning.Parent" xml:space="preserve">
+    <value>groupBox30</value>
+  </data>
+  <data name="&gt;&gt;rbLoglvlWarning.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="rbLoglvlError.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="rbLoglvlError.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="rbLoglvlError.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 97</value>
+  </data>
+  <data name="rbLoglvlError.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 19</value>
+  </data>
+  <data name="rbLoglvlError.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="rbLoglvlError.Text" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="&gt;&gt;rbLoglvlError.Name" xml:space="preserve">
+    <value>rbLoglvlError</value>
+  </data>
+  <data name="&gt;&gt;rbLoglvlError.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rbLoglvlError.Parent" xml:space="preserve">
+    <value>groupBox30</value>
+  </data>
+  <data name="&gt;&gt;rbLoglvlError.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="rbLogDebug.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="rbLogDebug.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="rbLogDebug.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 47</value>
+  </data>
+  <data name="rbLogDebug.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 19</value>
+  </data>
+  <data name="rbLogDebug.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="rbLogDebug.Text" xml:space="preserve">
+    <value>Debug</value>
+  </data>
+  <data name="&gt;&gt;rbLogDebug.Name" xml:space="preserve">
+    <value>rbLogDebug</value>
+  </data>
+  <data name="&gt;&gt;rbLogDebug.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rbLogDebug.Parent" xml:space="preserve">
+    <value>groupBox30</value>
+  </data>
+  <data name="&gt;&gt;rbLogDebug.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="rbLoglvlTrace.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="rbLoglvlTrace.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 22</value>
+  </data>
+  <data name="rbLoglvlTrace.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 19</value>
+  </data>
+  <data name="rbLoglvlTrace.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="rbLoglvlTrace.Text" xml:space="preserve">
+    <value>Trace</value>
+  </data>
+  <data name="&gt;&gt;rbLoglvlTrace.Name" xml:space="preserve">
+    <value>rbLoglvlTrace</value>
+  </data>
+  <data name="&gt;&gt;rbLoglvlTrace.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rbLoglvlTrace.Parent" xml:space="preserve">
+    <value>groupBox30</value>
+  </data>
+  <data name="&gt;&gt;rbLoglvlTrace.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="groupBox30.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 74</value>
+  </data>
+  <data name="groupBox30.Size" type="System.Drawing.Size, System.Drawing">
+    <value>243, 147</value>
+  </data>
+  <data name="groupBox30.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="groupBox30.Text" xml:space="preserve">
+    <value>LogLevel</value>
+  </data>
+  <data name="&gt;&gt;groupBox30.Name" xml:space="preserve">
+    <value>groupBox30</value>
+  </data>
+  <data name="&gt;&gt;groupBox30.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox30.Parent" xml:space="preserve">
+    <value>groupBox5</value>
+  </data>
+  <data name="&gt;&gt;groupBox30.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="cbShowConsole.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbShowConsole.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cbShowConsole.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 48</value>
+  </data>
+  <data name="cbShowConsole.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="cbShowConsole.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 19</value>
+  </data>
+  <data name="cbShowConsole.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="cbShowConsole.Text" xml:space="preserve">
+    <value>Show Console(startup only)</value>
+  </data>
+  <data name="&gt;&gt;cbShowConsole.Name" xml:space="preserve">
+    <value>cbShowConsole</value>
+  </data>
+  <data name="&gt;&gt;cbShowConsole.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbShowConsole.Parent" xml:space="preserve">
+    <value>groupBox5</value>
+  </data>
+  <data name="&gt;&gt;cbShowConsole.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="cbDispFrameCounter.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -14101,10 +14365,10 @@
     <value>groupBox5</value>
   </data>
   <data name="&gt;&gt;cbDispFrameCounter.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="groupBox5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 4</value>
+    <value>4, 4</value>
   </data>
   <data name="groupBox5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
@@ -14113,7 +14377,7 @@
     <value>4, 4, 4, 4</value>
   </data>
   <data name="groupBox5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>215, 46</value>
+    <value>257, 230</value>
   </data>
   <data name="groupBox5.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -14134,13 +14398,13 @@
     <value>5</value>
   </data>
   <data name="tpOmake.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 64</value>
+    <value>4, 44</value>
   </data>
   <data name="tpOmake.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
   <data name="tpOmake.Size" type="System.Drawing.Size, System.Drawing">
-    <value>575, 478</value>
+    <value>575, 498</value>
   </data>
   <data name="tpOmake.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>

@@ -800,7 +800,7 @@ namespace MDPlayerx64.Properties {
         }
         
         /// <summary>
-        ///   yyyy/MM/dd HH:mm:ss     に類似しているローカライズされた文字列を検索します。
+        ///   yyMMddHHmmssfff に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string cntTimeFormat {
             get {

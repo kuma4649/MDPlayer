@@ -33,4933 +33,5004 @@ namespace MDPlayer.form
         /// </summary>
         private void InitializeComponent()
         {
-            global::System.ComponentModel.ComponentResourceManager resources = new global::System.ComponentModel.ComponentResourceManager(typeof(global::MDPlayer.form.frmSetting));
-            this.btnOK = (new global::System.Windows.Forms.Button());
-            this.btnCancel = (new global::System.Windows.Forms.Button());
-            this.gbWaveOut = (new global::System.Windows.Forms.GroupBox());
-            this.cmbWaveOutDevice = (new global::System.Windows.Forms.ComboBox());
-            this.rbWaveOut = (new global::System.Windows.Forms.RadioButton());
-            this.rbAsioOut = (new global::System.Windows.Forms.RadioButton());
-            this.rbWasapiOut = (new global::System.Windows.Forms.RadioButton());
-            this.gbAsioOut = (new global::System.Windows.Forms.GroupBox());
-            this.btnASIOControlPanel = (new global::System.Windows.Forms.Button());
-            this.cmbAsioDevice = (new global::System.Windows.Forms.ComboBox());
-            this.rbDirectSoundOut = (new global::System.Windows.Forms.RadioButton());
-            this.gbWasapiOut = (new global::System.Windows.Forms.GroupBox());
-            this.rbExclusive = (new global::System.Windows.Forms.RadioButton());
-            this.rbShare = (new global::System.Windows.Forms.RadioButton());
-            this.cmbWasapiDevice = (new global::System.Windows.Forms.ComboBox());
-            this.gbDirectSound = (new global::System.Windows.Forms.GroupBox());
-            this.cmbDirectSoundDevice = (new global::System.Windows.Forms.ComboBox());
-            this.tcSetting = (new global::System.Windows.Forms.TabControl());
-            this.tpOutput = (new global::System.Windows.Forms.TabPage());
-            this.rbNullDevice = (new global::System.Windows.Forms.RadioButton());
-            this.label36 = (new global::System.Windows.Forms.Label());
-            this.lblWaitTime = (new global::System.Windows.Forms.Label());
-            this.label66 = (new global::System.Windows.Forms.Label());
-            this.lblLatencyUnit = (new global::System.Windows.Forms.Label());
-            this.label28 = (new global::System.Windows.Forms.Label());
-            this.label65 = (new global::System.Windows.Forms.Label());
-            this.lblLatency = (new global::System.Windows.Forms.Label());
-            this.cmbWaitTime = (new global::System.Windows.Forms.ComboBox());
-            this.cmbSampleRate = (new global::System.Windows.Forms.ComboBox());
-            this.cmbLatency = (new global::System.Windows.Forms.ComboBox());
-            this.rbSPPCM = (new global::System.Windows.Forms.RadioButton());
-            this.groupBox16 = (new global::System.Windows.Forms.GroupBox());
-            this.cmbSPPCMDevice = (new global::System.Windows.Forms.ComboBox());
-            this.tpModule = (new global::System.Windows.Forms.TabPage());
-            this.groupBox1 = (new global::System.Windows.Forms.GroupBox());
-            this.cbUnuseRealChip = (new global::System.Windows.Forms.CheckBox());
-            this.ucSI = (new global::MDPlayer.form.ucSettingInstruments());
-            this.groupBox3 = (new global::System.Windows.Forms.GroupBox());
-            this.cbHiyorimiMode = (new global::System.Windows.Forms.CheckBox());
-            this.label13 = (new global::System.Windows.Forms.Label());
-            this.label12 = (new global::System.Windows.Forms.Label());
-            this.label11 = (new global::System.Windows.Forms.Label());
-            this.tbLatencyEmu = (new global::System.Windows.Forms.TextBox());
-            this.tbLatencySCCI = (new global::System.Windows.Forms.TextBox());
-            this.label10 = (new global::System.Windows.Forms.Label());
-            this.tpNuked = (new global::System.Windows.Forms.TabPage());
-            this.groupBox29 = (new global::System.Windows.Forms.GroupBox());
-            this.cbGensSSGEG = (new global::System.Windows.Forms.CheckBox());
-            this.cbGensDACHPF = (new global::System.Windows.Forms.CheckBox());
-            this.groupBox26 = (new global::System.Windows.Forms.GroupBox());
-            this.rbNukedOPN2OptionYM2612u = (new global::System.Windows.Forms.RadioButton());
-            this.rbNukedOPN2OptionYM2612 = (new global::System.Windows.Forms.RadioButton());
-            this.rbNukedOPN2OptionDiscrete = (new global::System.Windows.Forms.RadioButton());
-            this.rbNukedOPN2OptionASIClp = (new global::System.Windows.Forms.RadioButton());
-            this.rbNukedOPN2OptionASIC = (new global::System.Windows.Forms.RadioButton());
-            this.tpNSF = (new global::System.Windows.Forms.TabPage());
-            this.trkbNSFLPF = (new global::System.Windows.Forms.TrackBar());
-            this.label53 = (new global::System.Windows.Forms.Label());
-            this.label52 = (new global::System.Windows.Forms.Label());
-            this.trkbNSFHPF = (new global::System.Windows.Forms.TrackBar());
-            this.groupBox10 = (new global::System.Windows.Forms.GroupBox());
-            this.cbNSFDmc_DPCMReverse = (new global::System.Windows.Forms.CheckBox());
-            this.cbNSFDmc_RandomizeTri = (new global::System.Windows.Forms.CheckBox());
-            this.cbNSFDmc_TriMute = (new global::System.Windows.Forms.CheckBox());
-            this.cbNSFDmc_RandomizeNoise = (new global::System.Windows.Forms.CheckBox());
-            this.cbNSFDmc_DPCMAntiClick = (new global::System.Windows.Forms.CheckBox());
-            this.cbNSFDmc_EnablePNoise = (new global::System.Windows.Forms.CheckBox());
-            this.cbNSFDmc_Enable4011 = (new global::System.Windows.Forms.CheckBox());
-            this.cbNSFDmc_NonLinearMixer = (new global::System.Windows.Forms.CheckBox());
-            this.cbNSFDmc_UnmuteOnReset = (new global::System.Windows.Forms.CheckBox());
-            this.groupBox12 = (new global::System.Windows.Forms.GroupBox());
-            this.cbNSFN160_Serial = (new global::System.Windows.Forms.CheckBox());
-            this.groupBox11 = (new global::System.Windows.Forms.GroupBox());
-            this.cbNSFMmc5_PhaseRefresh = (new global::System.Windows.Forms.CheckBox());
-            this.cbNSFMmc5_NonLinearMixer = (new global::System.Windows.Forms.CheckBox());
-            this.groupBox9 = (new global::System.Windows.Forms.GroupBox());
-            this.cbNFSNes_DutySwap = (new global::System.Windows.Forms.CheckBox());
-            this.cbNFSNes_PhaseRefresh = (new global::System.Windows.Forms.CheckBox());
-            this.cbNFSNes_NonLinearMixer = (new global::System.Windows.Forms.CheckBox());
-            this.cbNFSNes_UnmuteOnReset = (new global::System.Windows.Forms.CheckBox());
-            this.groupBox8 = (new global::System.Windows.Forms.GroupBox());
-            this.label21 = (new global::System.Windows.Forms.Label());
-            this.label20 = (new global::System.Windows.Forms.Label());
-            this.tbNSFFds_LPF = (new global::System.Windows.Forms.TextBox());
-            this.cbNFSFds_4085Reset = (new global::System.Windows.Forms.CheckBox());
-            this.cbNSFFDSWriteDisable8000 = (new global::System.Windows.Forms.CheckBox());
-            this.tpSID = (new global::System.Windows.Forms.TabPage());
-            this.groupBox28 = (new global::System.Windows.Forms.GroupBox());
-            this.cbSIDModel_Force = (new global::System.Windows.Forms.CheckBox());
-            this.rbSIDModel_8580 = (new global::System.Windows.Forms.RadioButton());
-            this.rbSIDModel_6581 = (new global::System.Windows.Forms.RadioButton());
-            this.groupBox27 = (new global::System.Windows.Forms.GroupBox());
-            this.cbSIDC64Model_Force = (new global::System.Windows.Forms.CheckBox());
-            this.rbSIDC64Model_DREAN = (new global::System.Windows.Forms.RadioButton());
-            this.rbSIDC64Model_OLDNTSC = (new global::System.Windows.Forms.RadioButton());
-            this.rbSIDC64Model_NTSC = (new global::System.Windows.Forms.RadioButton());
-            this.rbSIDC64Model_PAL = (new global::System.Windows.Forms.RadioButton());
-            this.groupBox14 = (new global::System.Windows.Forms.GroupBox());
-            this.label27 = (new global::System.Windows.Forms.Label());
-            this.label26 = (new global::System.Windows.Forms.Label());
-            this.label25 = (new global::System.Windows.Forms.Label());
-            this.rdSIDQ1 = (new global::System.Windows.Forms.RadioButton());
-            this.rdSIDQ3 = (new global::System.Windows.Forms.RadioButton());
-            this.rdSIDQ2 = (new global::System.Windows.Forms.RadioButton());
-            this.rdSIDQ4 = (new global::System.Windows.Forms.RadioButton());
-            this.groupBox13 = (new global::System.Windows.Forms.GroupBox());
-            this.btnSIDBasic = (new global::System.Windows.Forms.Button());
-            this.btnSIDCharacter = (new global::System.Windows.Forms.Button());
-            this.btnSIDKernal = (new global::System.Windows.Forms.Button());
-            this.tbSIDCharacter = (new global::System.Windows.Forms.TextBox());
-            this.tbSIDBasic = (new global::System.Windows.Forms.TextBox());
-            this.tbSIDKernal = (new global::System.Windows.Forms.TextBox());
-            this.label24 = (new global::System.Windows.Forms.Label());
-            this.label23 = (new global::System.Windows.Forms.Label());
-            this.label22 = (new global::System.Windows.Forms.Label());
-            this.tbSIDOutputBufferSize = (new global::System.Windows.Forms.TextBox());
-            this.label51 = (new global::System.Windows.Forms.Label());
-            this.label49 = (new global::System.Windows.Forms.Label());
-            this.tpPMDDotNET = (new global::System.Windows.Forms.TabPage());
-            this.rbPMDManual = (new global::System.Windows.Forms.RadioButton());
-            this.rbPMDAuto = (new global::System.Windows.Forms.RadioButton());
-            this.btnPMDResetDriverArguments = (new global::System.Windows.Forms.Button());
-            this.label54 = (new global::System.Windows.Forms.Label());
-            this.btnPMDResetCompilerArhguments = (new global::System.Windows.Forms.Button());
-            this.tbPMDDriverArguments = (new global::System.Windows.Forms.TextBox());
-            this.label55 = (new global::System.Windows.Forms.Label());
-            this.tbPMDCompilerArguments = (new global::System.Windows.Forms.TextBox());
-            this.gbPMDManual = (new global::System.Windows.Forms.GroupBox());
-            this.cbPMDSetManualVolume = (new global::System.Windows.Forms.CheckBox());
-            this.cbPMDUsePPZ8 = (new global::System.Windows.Forms.CheckBox());
-            this.groupBox32 = (new global::System.Windows.Forms.GroupBox());
-            this.rbPMD86B = (new global::System.Windows.Forms.RadioButton());
-            this.rbPMDSpbB = (new global::System.Windows.Forms.RadioButton());
-            this.rbPMDNrmB = (new global::System.Windows.Forms.RadioButton());
-            this.cbPMDUsePPSDRV = (new global::System.Windows.Forms.CheckBox());
-            this.gbPPSDRV = (new global::System.Windows.Forms.GroupBox());
-            this.groupBox33 = (new global::System.Windows.Forms.GroupBox());
-            this.rbPMDUsePPSDRVManualFreq = (new global::System.Windows.Forms.RadioButton());
-            this.label56 = (new global::System.Windows.Forms.Label());
-            this.rbPMDUsePPSDRVFreqDefault = (new global::System.Windows.Forms.RadioButton());
-            this.btnPMDPPSDRVManualWait = (new global::System.Windows.Forms.Button());
-            this.label57 = (new global::System.Windows.Forms.Label());
-            this.tbPMDPPSDRVFreq = (new global::System.Windows.Forms.TextBox());
-            this.label58 = (new global::System.Windows.Forms.Label());
-            this.tbPMDPPSDRVManualWait = (new global::System.Windows.Forms.TextBox());
-            this.gbPMDSetManualVolume = (new global::System.Windows.Forms.GroupBox());
-            this.label59 = (new global::System.Windows.Forms.Label());
-            this.label60 = (new global::System.Windows.Forms.Label());
-            this.tbPMDVolumeAdpcm = (new global::System.Windows.Forms.TextBox());
-            this.label61 = (new global::System.Windows.Forms.Label());
-            this.tbPMDVolumeRhythm = (new global::System.Windows.Forms.TextBox());
-            this.label62 = (new global::System.Windows.Forms.Label());
-            this.tbPMDVolumeSSG = (new global::System.Windows.Forms.TextBox());
-            this.label63 = (new global::System.Windows.Forms.Label());
-            this.tbPMDVolumeGIMICSSG = (new global::System.Windows.Forms.TextBox());
-            this.label64 = (new global::System.Windows.Forms.Label());
-            this.tbPMDVolumeFM = (new global::System.Windows.Forms.TextBox());
-            this.tpMIDIOut = (new global::System.Windows.Forms.TabPage());
-            this.btnAddVST = (new global::System.Windows.Forms.Button());
-            this.tbcMIDIoutList = (new global::System.Windows.Forms.TabControl());
-            this.tabPage1 = (new global::System.Windows.Forms.TabPage());
-            this.dgvMIDIoutListA = (new global::System.Windows.Forms.DataGridView());
-            this.dataGridViewTextBoxColumn1 = (new global::System.Windows.Forms.DataGridViewTextBoxColumn());
-            this.clmIsVST = (new global::System.Windows.Forms.DataGridViewCheckBoxColumn());
-            this.clmFileName = (new global::System.Windows.Forms.DataGridViewTextBoxColumn());
-            this.dataGridViewTextBoxColumn2 = (new global::System.Windows.Forms.DataGridViewTextBoxColumn());
-            this.clmType = (new global::System.Windows.Forms.DataGridViewComboBoxColumn());
-            this.ClmBeforeSend = (new global::System.Windows.Forms.DataGridViewComboBoxColumn());
-            this.dataGridViewTextBoxColumn3 = (new global::System.Windows.Forms.DataGridViewTextBoxColumn());
-            this.dataGridViewTextBoxColumn4 = (new global::System.Windows.Forms.DataGridViewTextBoxColumn());
-            this.btnUP_A = (new global::System.Windows.Forms.Button());
-            this.btnDOWN_A = (new global::System.Windows.Forms.Button());
-            this.tabPage2 = (new global::System.Windows.Forms.TabPage());
-            this.dgvMIDIoutListB = (new global::System.Windows.Forms.DataGridView());
-            this.btnUP_B = (new global::System.Windows.Forms.Button());
-            this.btnDOWN_B = (new global::System.Windows.Forms.Button());
-            this.tabPage3 = (new global::System.Windows.Forms.TabPage());
-            this.dgvMIDIoutListC = (new global::System.Windows.Forms.DataGridView());
-            this.btnUP_C = (new global::System.Windows.Forms.Button());
-            this.btnDOWN_C = (new global::System.Windows.Forms.Button());
-            this.tabPage4 = (new global::System.Windows.Forms.TabPage());
-            this.dgvMIDIoutListD = (new global::System.Windows.Forms.DataGridView());
-            this.btnUP_D = (new global::System.Windows.Forms.Button());
-            this.btnDOWN_D = (new global::System.Windows.Forms.Button());
-            this.tabPage5 = (new global::System.Windows.Forms.TabPage());
-            this.dgvMIDIoutListE = (new global::System.Windows.Forms.DataGridView());
-            this.btnUP_E = (new global::System.Windows.Forms.Button());
-            this.btnDOWN_E = (new global::System.Windows.Forms.Button());
-            this.tabPage6 = (new global::System.Windows.Forms.TabPage());
-            this.dgvMIDIoutListF = (new global::System.Windows.Forms.DataGridView());
-            this.btnUP_F = (new global::System.Windows.Forms.Button());
-            this.btnDOWN_F = (new global::System.Windows.Forms.Button());
-            this.tabPage7 = (new global::System.Windows.Forms.TabPage());
-            this.dgvMIDIoutListG = (new global::System.Windows.Forms.DataGridView());
-            this.btnUP_G = (new global::System.Windows.Forms.Button());
-            this.btnDOWN_G = (new global::System.Windows.Forms.Button());
-            this.tabPage8 = (new global::System.Windows.Forms.TabPage());
-            this.dgvMIDIoutListH = (new global::System.Windows.Forms.DataGridView());
-            this.btnUP_H = (new global::System.Windows.Forms.Button());
-            this.btnDOWN_H = (new global::System.Windows.Forms.Button());
-            this.tabPage9 = (new global::System.Windows.Forms.TabPage());
-            this.dgvMIDIoutListI = (new global::System.Windows.Forms.DataGridView());
-            this.btnUP_I = (new global::System.Windows.Forms.Button());
-            this.btnDOWN_I = (new global::System.Windows.Forms.Button());
-            this.tabPage10 = (new global::System.Windows.Forms.TabPage());
-            this.dgvMIDIoutListJ = (new global::System.Windows.Forms.DataGridView());
-            this.button17 = (new global::System.Windows.Forms.Button());
-            this.btnDOWN_J = (new global::System.Windows.Forms.Button());
-            this.btnSubMIDIout = (new global::System.Windows.Forms.Button());
-            this.btnAddMIDIout = (new global::System.Windows.Forms.Button());
-            this.label18 = (new global::System.Windows.Forms.Label());
-            this.dgvMIDIoutPallet = (new global::System.Windows.Forms.DataGridView());
-            this.clmID = (new global::System.Windows.Forms.DataGridViewTextBoxColumn());
-            this.clmDeviceName = (new global::System.Windows.Forms.DataGridViewTextBoxColumn());
-            this.clmManufacturer = (new global::System.Windows.Forms.DataGridViewTextBoxColumn());
-            this.clmSpacer = (new global::System.Windows.Forms.DataGridViewTextBoxColumn());
-            this.label16 = (new global::System.Windows.Forms.Label());
-            this.tpMIDIOut2 = (new global::System.Windows.Forms.TabPage());
-            this.groupBox15 = (new global::System.Windows.Forms.GroupBox());
-            this.btnBeforeSend_Default = (new global::System.Windows.Forms.Button());
-            this.tbBeforeSend_Custom = (new global::System.Windows.Forms.TextBox());
-            this.tbBeforeSend_XGReset = (new global::System.Windows.Forms.TextBox());
-            this.label35 = (new global::System.Windows.Forms.Label());
-            this.label34 = (new global::System.Windows.Forms.Label());
-            this.label32 = (new global::System.Windows.Forms.Label());
-            this.tbBeforeSend_GSReset = (new global::System.Windows.Forms.TextBox());
-            this.label33 = (new global::System.Windows.Forms.Label());
-            this.tbBeforeSend_GMReset = (new global::System.Windows.Forms.TextBox());
-            this.label31 = (new global::System.Windows.Forms.Label());
-            this.tabMIDIExp = (new global::System.Windows.Forms.TabPage());
-            this.cbUseMIDIExport = (new global::System.Windows.Forms.CheckBox());
-            this.gbMIDIExport = (new global::System.Windows.Forms.GroupBox());
-            this.cbMIDIKeyOnFnum = (new global::System.Windows.Forms.CheckBox());
-            this.cbMIDIUseVOPM = (new global::System.Windows.Forms.CheckBox());
-            this.groupBox6 = (new global::System.Windows.Forms.GroupBox());
-            this.cbMIDIYM2612 = (new global::System.Windows.Forms.CheckBox());
-            this.cbMIDISN76489Sec = (new global::System.Windows.Forms.CheckBox());
-            this.cbMIDIYM2612Sec = (new global::System.Windows.Forms.CheckBox());
-            this.cbMIDISN76489 = (new global::System.Windows.Forms.CheckBox());
-            this.cbMIDIYM2151 = (new global::System.Windows.Forms.CheckBox());
-            this.cbMIDIYM2610BSec = (new global::System.Windows.Forms.CheckBox());
-            this.cbMIDIYM2151Sec = (new global::System.Windows.Forms.CheckBox());
-            this.cbMIDIYM2610B = (new global::System.Windows.Forms.CheckBox());
-            this.cbMIDIYM2203 = (new global::System.Windows.Forms.CheckBox());
-            this.cbMIDIYM2608Sec = (new global::System.Windows.Forms.CheckBox());
-            this.cbMIDIYM2203Sec = (new global::System.Windows.Forms.CheckBox());
-            this.cbMIDIYM2608 = (new global::System.Windows.Forms.CheckBox());
-            this.cbMIDIPlayless = (new global::System.Windows.Forms.CheckBox());
-            this.btnMIDIOutputPath = (new global::System.Windows.Forms.Button());
-            this.lblOutputPath = (new global::System.Windows.Forms.Label());
-            this.tbMIDIOutputPath = (new global::System.Windows.Forms.TextBox());
-            this.tpMIDIKBD = (new global::System.Windows.Forms.TabPage());
-            this.cbUseMIDIKeyboard = (new global::System.Windows.Forms.CheckBox());
-            this.gbMIDIKeyboard = (new global::System.Windows.Forms.GroupBox());
-            this.pictureBox8 = (new global::System.Windows.Forms.PictureBox());
-            this.pictureBox7 = (new global::System.Windows.Forms.PictureBox());
-            this.pictureBox6 = (new global::System.Windows.Forms.PictureBox());
-            this.pictureBox5 = (new global::System.Windows.Forms.PictureBox());
-            this.pictureBox4 = (new global::System.Windows.Forms.PictureBox());
-            this.pictureBox3 = (new global::System.Windows.Forms.PictureBox());
-            this.pictureBox2 = (new global::System.Windows.Forms.PictureBox());
-            this.pictureBox1 = (new global::System.Windows.Forms.PictureBox());
-            this.tbCCFadeout = (new global::System.Windows.Forms.TextBox());
-            this.tbCCPause = (new global::System.Windows.Forms.TextBox());
-            this.tbCCSlow = (new global::System.Windows.Forms.TextBox());
-            this.tbCCPrevious = (new global::System.Windows.Forms.TextBox());
-            this.tbCCNext = (new global::System.Windows.Forms.TextBox());
-            this.tbCCFast = (new global::System.Windows.Forms.TextBox());
-            this.tbCCStop = (new global::System.Windows.Forms.TextBox());
-            this.tbCCPlay = (new global::System.Windows.Forms.TextBox());
-            this.tbCCCopyLog = (new global::System.Windows.Forms.TextBox());
-            this.label17 = (new global::System.Windows.Forms.Label());
-            this.tbCCDelLog = (new global::System.Windows.Forms.TextBox());
-            this.label15 = (new global::System.Windows.Forms.Label());
-            this.tbCCChCopy = (new global::System.Windows.Forms.TextBox());
-            this.label8 = (new global::System.Windows.Forms.Label());
-            this.label9 = (new global::System.Windows.Forms.Label());
-            this.gbUseChannel = (new global::System.Windows.Forms.GroupBox());
-            this.rbMONO = (new global::System.Windows.Forms.RadioButton());
-            this.rbPOLY = (new global::System.Windows.Forms.RadioButton());
-            this.groupBox7 = (new global::System.Windows.Forms.GroupBox());
-            this.rbFM6 = (new global::System.Windows.Forms.RadioButton());
-            this.rbFM3 = (new global::System.Windows.Forms.RadioButton());
-            this.rbFM5 = (new global::System.Windows.Forms.RadioButton());
-            this.rbFM2 = (new global::System.Windows.Forms.RadioButton());
-            this.rbFM4 = (new global::System.Windows.Forms.RadioButton());
-            this.rbFM1 = (new global::System.Windows.Forms.RadioButton());
-            this.groupBox2 = (new global::System.Windows.Forms.GroupBox());
-            this.cbFM1 = (new global::System.Windows.Forms.CheckBox());
-            this.cbFM6 = (new global::System.Windows.Forms.CheckBox());
-            this.cbFM2 = (new global::System.Windows.Forms.CheckBox());
-            this.cbFM5 = (new global::System.Windows.Forms.CheckBox());
-            this.cbFM3 = (new global::System.Windows.Forms.CheckBox());
-            this.cbFM4 = (new global::System.Windows.Forms.CheckBox());
-            this.cmbMIDIIN = (new global::System.Windows.Forms.ComboBox());
-            this.label5 = (new global::System.Windows.Forms.Label());
-            this.tpKeyBoard = (new global::System.Windows.Forms.TabPage());
-            this.cbUseKeyBoardHook = (new global::System.Windows.Forms.CheckBox());
-            this.gbUseKeyBoardHook = (new global::System.Windows.Forms.GroupBox());
-            this.panel1 = (new global::System.Windows.Forms.Panel());
-            this.btPpcClr = (new global::System.Windows.Forms.Button());
-            this.cbPpcShift = (new global::System.Windows.Forms.CheckBox());
-            this.btPpcSet = (new global::System.Windows.Forms.Button());
-            this.label76 = (new global::System.Windows.Forms.Label());
-            this.lblPpcKey = (new global::System.Windows.Forms.Label());
-            this.cbPpcAlt = (new global::System.Windows.Forms.CheckBox());
-            this.cbPpcCtrl = (new global::System.Windows.Forms.CheckBox());
-            this.btDpcClr = (new global::System.Windows.Forms.Button());
-            this.cbDpcShift = (new global::System.Windows.Forms.CheckBox());
-            this.btDpcSet = (new global::System.Windows.Forms.Button());
-            this.label74 = (new global::System.Windows.Forms.Label());
-            this.lblDpcKey = (new global::System.Windows.Forms.Label());
-            this.cbDpcAlt = (new global::System.Windows.Forms.CheckBox());
-            this.cbDpcCtrl = (new global::System.Windows.Forms.CheckBox());
-            this.btUpcClr = (new global::System.Windows.Forms.Button());
-            this.btRmvClr = (new global::System.Windows.Forms.Button());
-            this.cbUpcShift = (new global::System.Windows.Forms.CheckBox());
-            this.pictureBox14 = (new global::System.Windows.Forms.PictureBox());
-            this.cbRmvShift = (new global::System.Windows.Forms.CheckBox());
-            this.btUpcSet = (new global::System.Windows.Forms.Button());
-            this.cbFastShift = (new global::System.Windows.Forms.CheckBox());
-            this.label72 = (new global::System.Windows.Forms.Label());
-            this.btDmvClr = (new global::System.Windows.Forms.Button());
-            this.lblUpcKey = (new global::System.Windows.Forms.Label());
-            this.btRmvSet = (new global::System.Windows.Forms.Button());
-            this.cbUpcAlt = (new global::System.Windows.Forms.CheckBox());
-            this.cbDmvShift = (new global::System.Windows.Forms.CheckBox());
-            this.cbUpcCtrl = (new global::System.Windows.Forms.CheckBox());
-            this.label69 = (new global::System.Windows.Forms.Label());
-            this.btUmvClr = (new global::System.Windows.Forms.Button());
-            this.cbRmvAlt = (new global::System.Windows.Forms.CheckBox());
-            this.cbUmvShift = (new global::System.Windows.Forms.CheckBox());
-            this.cbRmvCtrl = (new global::System.Windows.Forms.CheckBox());
-            this.btNextClr = (new global::System.Windows.Forms.Button());
-            this.lblRmvKey = (new global::System.Windows.Forms.Label());
-            this.cbNextShift = (new global::System.Windows.Forms.CheckBox());
-            this.btPrevClr = (new global::System.Windows.Forms.Button());
-            this.cbPlayShift = (new global::System.Windows.Forms.CheckBox());
-            this.btPlayClr = (new global::System.Windows.Forms.Button());
-            this.cbStopCtrl = (new global::System.Windows.Forms.CheckBox());
-            this.btPauseClr = (new global::System.Windows.Forms.Button());
-            this.cbSlowShift = (new global::System.Windows.Forms.CheckBox());
-            this.btFastClr = (new global::System.Windows.Forms.Button());
-            this.cbPauseCtrl = (new global::System.Windows.Forms.CheckBox());
-            this.btFadeoutClr = (new global::System.Windows.Forms.Button());
-            this.cbPrevShift = (new global::System.Windows.Forms.CheckBox());
-            this.btSlowClr = (new global::System.Windows.Forms.Button());
-            this.cbFadeoutCtrl = (new global::System.Windows.Forms.CheckBox());
-            this.btDmvSet = (new global::System.Windows.Forms.Button());
-            this.btStopClr = (new global::System.Windows.Forms.Button());
-            this.btUmvSet = (new global::System.Windows.Forms.Button());
-            this.cbFadeoutShift = (new global::System.Windows.Forms.CheckBox());
-            this.btNextSet = (new global::System.Windows.Forms.Button());
-            this.cbPrevCtrl = (new global::System.Windows.Forms.CheckBox());
-            this.btPrevSet = (new global::System.Windows.Forms.Button());
-            this.cbPauseShift = (new global::System.Windows.Forms.CheckBox());
-            this.btPlaySet = (new global::System.Windows.Forms.Button());
-            this.cbSlowCtrl = (new global::System.Windows.Forms.CheckBox());
-            this.btPauseSet = (new global::System.Windows.Forms.Button());
-            this.cbStopShift = (new global::System.Windows.Forms.CheckBox());
-            this.btFastSet = (new global::System.Windows.Forms.Button());
-            this.label71 = (new global::System.Windows.Forms.Label());
-            this.cbPlayCtrl = (new global::System.Windows.Forms.CheckBox());
-            this.label70 = (new global::System.Windows.Forms.Label());
-            this.btFadeoutSet = (new global::System.Windows.Forms.Button());
-            this.label44 = (new global::System.Windows.Forms.Label());
-            this.btSlowSet = (new global::System.Windows.Forms.Button());
-            this.cbFastCtrl = (new global::System.Windows.Forms.CheckBox());
-            this.btStopSet = (new global::System.Windows.Forms.Button());
-            this.cbDmvCtrl = (new global::System.Windows.Forms.CheckBox());
-            this.label43 = (new global::System.Windows.Forms.Label());
-            this.cbUmvCtrl = (new global::System.Windows.Forms.CheckBox());
-            this.lblDmvKey = (new global::System.Windows.Forms.Label());
-            this.label50 = (new global::System.Windows.Forms.Label());
-            this.lblUmvKey = (new global::System.Windows.Forms.Label());
-            this.cbNextCtrl = (new global::System.Windows.Forms.CheckBox());
-            this.lblNextKey = (new global::System.Windows.Forms.Label());
-            this.label42 = (new global::System.Windows.Forms.Label());
-            this.lblFastKey = (new global::System.Windows.Forms.Label());
-            this.label41 = (new global::System.Windows.Forms.Label());
-            this.lblPlayKey = (new global::System.Windows.Forms.Label());
-            this.label40 = (new global::System.Windows.Forms.Label());
-            this.lblSlowKey = (new global::System.Windows.Forms.Label());
-            this.label39 = (new global::System.Windows.Forms.Label());
-            this.lblPrevKey = (new global::System.Windows.Forms.Label());
-            this.label38 = (new global::System.Windows.Forms.Label());
-            this.lblFadeoutKey = (new global::System.Windows.Forms.Label());
-            this.label48 = (new global::System.Windows.Forms.Label());
-            this.lblPauseKey = (new global::System.Windows.Forms.Label());
-            this.label46 = (new global::System.Windows.Forms.Label());
-            this.lblStopKey = (new global::System.Windows.Forms.Label());
-            this.label45 = (new global::System.Windows.Forms.Label());
-            this.cbStopAlt = (new global::System.Windows.Forms.CheckBox());
-            this.cbDmvAlt = (new global::System.Windows.Forms.CheckBox());
-            this.pictureBox17 = (new global::System.Windows.Forms.PictureBox());
-            this.cbUmvAlt = (new global::System.Windows.Forms.CheckBox());
-            this.label37 = (new global::System.Windows.Forms.Label());
-            this.cbNextAlt = (new global::System.Windows.Forms.CheckBox());
-            this.cbPauseAlt = (new global::System.Windows.Forms.CheckBox());
-            this.pictureBox16 = (new global::System.Windows.Forms.PictureBox());
-            this.pictureBox10 = (new global::System.Windows.Forms.PictureBox());
-            this.cbFastAlt = (new global::System.Windows.Forms.CheckBox());
-            this.cbFadeoutAlt = (new global::System.Windows.Forms.CheckBox());
-            this.pictureBox15 = (new global::System.Windows.Forms.PictureBox());
-            this.pictureBox11 = (new global::System.Windows.Forms.PictureBox());
-            this.cbPlayAlt = (new global::System.Windows.Forms.CheckBox());
-            this.cbPrevAlt = (new global::System.Windows.Forms.CheckBox());
-            this.pictureBox13 = (new global::System.Windows.Forms.PictureBox());
-            this.pictureBox12 = (new global::System.Windows.Forms.PictureBox());
-            this.cbSlowAlt = (new global::System.Windows.Forms.CheckBox());
-            this.lblKeyBoardHookNotice = (new global::System.Windows.Forms.Label());
-            this.label47 = (new global::System.Windows.Forms.Label());
-            this.cbStopWin = (new global::System.Windows.Forms.CheckBox());
-            this.cbPauseWin = (new global::System.Windows.Forms.CheckBox());
-            this.cbFadeoutWin = (new global::System.Windows.Forms.CheckBox());
-            this.cbPrevWin = (new global::System.Windows.Forms.CheckBox());
-            this.cbSlowWin = (new global::System.Windows.Forms.CheckBox());
-            this.cbPlayWin = (new global::System.Windows.Forms.CheckBox());
-            this.cbFastWin = (new global::System.Windows.Forms.CheckBox());
-            this.cbNextWin = (new global::System.Windows.Forms.CheckBox());
-            this.tpBalance = (new global::System.Windows.Forms.TabPage());
-            this.groupBox25 = (new global::System.Windows.Forms.GroupBox());
-            this.rbAutoBalanceNotSamePositionAsSongData = (new global::System.Windows.Forms.RadioButton());
-            this.rbAutoBalanceSamePositionAsSongData = (new global::System.Windows.Forms.RadioButton());
-            this.cbAutoBalanceUseThis = (new global::System.Windows.Forms.CheckBox());
-            this.groupBox18 = (new global::System.Windows.Forms.GroupBox());
-            this.groupBox24 = (new global::System.Windows.Forms.GroupBox());
-            this.groupBox21 = (new global::System.Windows.Forms.GroupBox());
-            this.rbAutoBalanceNotSaveSongBalance = (new global::System.Windows.Forms.RadioButton());
-            this.rbAutoBalanceSaveSongBalance = (new global::System.Windows.Forms.RadioButton());
-            this.groupBox22 = (new global::System.Windows.Forms.GroupBox());
-            this.label4 = (new global::System.Windows.Forms.Label());
-            this.groupBox23 = (new global::System.Windows.Forms.GroupBox());
-            this.groupBox19 = (new global::System.Windows.Forms.GroupBox());
-            this.rbAutoBalanceNotLoadSongBalance = (new global::System.Windows.Forms.RadioButton());
-            this.rbAutoBalanceLoadSongBalance = (new global::System.Windows.Forms.RadioButton());
-            this.groupBox20 = (new global::System.Windows.Forms.GroupBox());
-            this.rbAutoBalanceNotLoadDriverBalance = (new global::System.Windows.Forms.RadioButton());
-            this.rbAutoBalanceLoadDriverBalance = (new global::System.Windows.Forms.RadioButton());
-            this.tpPlayList = (new global::System.Windows.Forms.TabPage());
-            this.groupBox17 = (new global::System.Windows.Forms.GroupBox());
-            this.cbAutoOpenImg = (new global::System.Windows.Forms.CheckBox());
-            this.tbImageExt = (new global::System.Windows.Forms.TextBox());
-            this.cbAutoOpenMML = (new global::System.Windows.Forms.CheckBox());
-            this.tbMMLExt = (new global::System.Windows.Forms.TextBox());
-            this.tbTextExt = (new global::System.Windows.Forms.TextBox());
-            this.cbAutoOpenText = (new global::System.Windows.Forms.CheckBox());
-            this.label1 = (new global::System.Windows.Forms.Label());
-            this.label3 = (new global::System.Windows.Forms.Label());
-            this.label2 = (new global::System.Windows.Forms.Label());
-            this.cbEmptyPlayList = (new global::System.Windows.Forms.CheckBox());
-            this.tpOther = (new global::System.Windows.Forms.TabPage());
-            this.btnSearchPath = (new global::System.Windows.Forms.Button());
-            this.tbSearchPath = (new global::System.Windows.Forms.TextBox());
-            this.label68 = (new global::System.Windows.Forms.Label());
-            this.cbNonRenderingForPause = (new global::System.Windows.Forms.CheckBox());
-            this.cbWavSwitch = (new global::System.Windows.Forms.CheckBox());
-            this.cbUseGetInst = (new global::System.Windows.Forms.CheckBox());
-            this.groupBox4 = (new global::System.Windows.Forms.GroupBox());
-            this.cbAdjustTLParam = (new global::System.Windows.Forms.CheckBox());
-            this.cmbInstFormat = (new global::System.Windows.Forms.ComboBox());
-            this.lblInstFormat = (new global::System.Windows.Forms.Label());
-            this.cbDumpSwitch = (new global::System.Windows.Forms.CheckBox());
-            this.gbWav = (new global::System.Windows.Forms.GroupBox());
-            this.btnWavPath = (new global::System.Windows.Forms.Button());
-            this.label7 = (new global::System.Windows.Forms.Label());
-            this.tbWavPath = (new global::System.Windows.Forms.TextBox());
-            this.gbDump = (new global::System.Windows.Forms.GroupBox());
-            this.btnDumpPath = (new global::System.Windows.Forms.Button());
-            this.label6 = (new global::System.Windows.Forms.Label());
-            this.tbDumpPath = (new global::System.Windows.Forms.TextBox());
-            this.label30 = (new global::System.Windows.Forms.Label());
-            this.tbScreenFrameRate = (new global::System.Windows.Forms.TextBox());
-            this.label29 = (new global::System.Windows.Forms.Label());
-            this.lblLoopTimes = (new global::System.Windows.Forms.Label());
-            this.btnDataPath = (new global::System.Windows.Forms.Button());
-            this.tbLoopTimes = (new global::System.Windows.Forms.TextBox());
-            this.tbDataPath = (new global::System.Windows.Forms.TextBox());
-            this.label19 = (new global::System.Windows.Forms.Label());
-            this.btnResetPosition = (new global::System.Windows.Forms.Button());
-            this.btnOpenSettingFolder = (new global::System.Windows.Forms.Button());
-            this.cbExALL = (new global::System.Windows.Forms.CheckBox());
-            this.cbInitAlways = (new global::System.Windows.Forms.CheckBox());
-            this.cbAutoOpen = (new global::System.Windows.Forms.CheckBox());
-            this.cbUseLoopTimes = (new global::System.Windows.Forms.CheckBox());
-            this.tpOmake = (new global::System.Windows.Forms.TabPage());
-            this.label67 = (new global::System.Windows.Forms.Label());
-            this.label14 = (new global::System.Windows.Forms.Label());
-            this.btVST = (new global::System.Windows.Forms.Button());
-            this.tbSCCbaseAddress = (new global::System.Windows.Forms.TextBox());
-            this.tbVST = (new global::System.Windows.Forms.TextBox());
-            this.groupBox5 = (new global::System.Windows.Forms.GroupBox());
-            this.cbDispFrameCounter = (new global::System.Windows.Forms.CheckBox());
-            this.tpAbout = (new global::System.Windows.Forms.TabPage());
-            this.tableLayoutPanel = (new global::System.Windows.Forms.TableLayoutPanel());
-            this.logoPictureBox = (new global::System.Windows.Forms.PictureBox());
-            this.labelProductName = (new global::System.Windows.Forms.Label());
-            this.labelVersion = (new global::System.Windows.Forms.Label());
-            this.labelCopyright = (new global::System.Windows.Forms.Label());
-            this.labelCompanyName = (new global::System.Windows.Forms.Label());
-            this.textBoxDescription = (new global::System.Windows.Forms.TextBox());
-            this.llOpenGithub = (new global::System.Windows.Forms.LinkLabel());
-            this.gbWaveOut.SuspendLayout();
-            this.gbAsioOut.SuspendLayout();
-            this.gbWasapiOut.SuspendLayout();
-            this.gbDirectSound.SuspendLayout();
-            this.tcSetting.SuspendLayout();
-            this.tpOutput.SuspendLayout();
-            this.groupBox16.SuspendLayout();
-            this.tpModule.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.tpNuked.SuspendLayout();
-            this.groupBox29.SuspendLayout();
-            this.groupBox26.SuspendLayout();
-            this.tpNSF.SuspendLayout();
-            ((global::System.ComponentModel.ISupportInitialize)(this.trkbNSFLPF)).BeginInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.trkbNSFHPF)).BeginInit();
-            this.groupBox10.SuspendLayout();
-            this.groupBox12.SuspendLayout();
-            this.groupBox11.SuspendLayout();
-            this.groupBox9.SuspendLayout();
-            this.groupBox8.SuspendLayout();
-            this.tpSID.SuspendLayout();
-            this.groupBox28.SuspendLayout();
-            this.groupBox27.SuspendLayout();
-            this.groupBox14.SuspendLayout();
-            this.groupBox13.SuspendLayout();
-            this.tpPMDDotNET.SuspendLayout();
-            this.gbPMDManual.SuspendLayout();
-            this.groupBox32.SuspendLayout();
-            this.gbPPSDRV.SuspendLayout();
-            this.groupBox33.SuspendLayout();
-            this.gbPMDSetManualVolume.SuspendLayout();
-            this.tpMIDIOut.SuspendLayout();
-            this.tbcMIDIoutList.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            ((global::System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutListA)).BeginInit();
-            this.tabPage2.SuspendLayout();
-            ((global::System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutListB)).BeginInit();
-            this.tabPage3.SuspendLayout();
-            ((global::System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutListC)).BeginInit();
-            this.tabPage4.SuspendLayout();
-            ((global::System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutListD)).BeginInit();
-            this.tabPage5.SuspendLayout();
-            ((global::System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutListE)).BeginInit();
-            this.tabPage6.SuspendLayout();
-            ((global::System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutListF)).BeginInit();
-            this.tabPage7.SuspendLayout();
-            ((global::System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutListG)).BeginInit();
-            this.tabPage8.SuspendLayout();
-            ((global::System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutListH)).BeginInit();
-            this.tabPage9.SuspendLayout();
-            ((global::System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutListI)).BeginInit();
-            this.tabPage10.SuspendLayout();
-            ((global::System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutListJ)).BeginInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutPallet)).BeginInit();
-            this.tpMIDIOut2.SuspendLayout();
-            this.groupBox15.SuspendLayout();
-            this.tabMIDIExp.SuspendLayout();
-            this.gbMIDIExport.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            this.tpMIDIKBD.SuspendLayout();
-            this.gbMIDIKeyboard.SuspendLayout();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.gbUseChannel.SuspendLayout();
-            this.groupBox7.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.tpKeyBoard.SuspendLayout();
-            this.gbUseKeyBoardHook.SuspendLayout();
-            this.panel1.SuspendLayout();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox14)).BeginInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox17)).BeginInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox16)).BeginInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox15)).BeginInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox13)).BeginInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
-            this.tpBalance.SuspendLayout();
-            this.groupBox25.SuspendLayout();
-            this.groupBox18.SuspendLayout();
-            this.groupBox24.SuspendLayout();
-            this.groupBox21.SuspendLayout();
-            this.groupBox22.SuspendLayout();
-            this.groupBox23.SuspendLayout();
-            this.groupBox19.SuspendLayout();
-            this.groupBox20.SuspendLayout();
-            this.tpPlayList.SuspendLayout();
-            this.groupBox17.SuspendLayout();
-            this.tpOther.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.gbWav.SuspendLayout();
-            this.gbDump.SuspendLayout();
-            this.tpOmake.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            this.tpAbout.SuspendLayout();
-            this.tableLayoutPanel.SuspendLayout();
-            ((global::System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
-            this.SuspendLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSetting));
+            btnOK = new Button();
+            btnCancel = new Button();
+            gbWaveOut = new GroupBox();
+            cmbWaveOutDevice = new ComboBox();
+            rbWaveOut = new RadioButton();
+            rbAsioOut = new RadioButton();
+            rbWasapiOut = new RadioButton();
+            gbAsioOut = new GroupBox();
+            btnASIOControlPanel = new Button();
+            cmbAsioDevice = new ComboBox();
+            rbDirectSoundOut = new RadioButton();
+            gbWasapiOut = new GroupBox();
+            rbExclusive = new RadioButton();
+            rbShare = new RadioButton();
+            cmbWasapiDevice = new ComboBox();
+            gbDirectSound = new GroupBox();
+            cmbDirectSoundDevice = new ComboBox();
+            tcSetting = new TabControl();
+            tpOutput = new TabPage();
+            rbNullDevice = new RadioButton();
+            label36 = new Label();
+            lblWaitTime = new Label();
+            label66 = new Label();
+            lblLatencyUnit = new Label();
+            label28 = new Label();
+            label65 = new Label();
+            lblLatency = new Label();
+            cmbWaitTime = new ComboBox();
+            cmbSampleRate = new ComboBox();
+            cmbLatency = new ComboBox();
+            rbSPPCM = new RadioButton();
+            groupBox16 = new GroupBox();
+            cmbSPPCMDevice = new ComboBox();
+            tpModule = new TabPage();
+            groupBox1 = new GroupBox();
+            cbUnuseRealChip = new CheckBox();
+            ucSI = new ucSettingInstruments();
+            groupBox3 = new GroupBox();
+            cbHiyorimiMode = new CheckBox();
+            label13 = new Label();
+            label12 = new Label();
+            label11 = new Label();
+            tbLatencyEmu = new TextBox();
+            tbLatencySCCI = new TextBox();
+            label10 = new Label();
+            tpNuked = new TabPage();
+            groupBox29 = new GroupBox();
+            cbGensSSGEG = new CheckBox();
+            cbGensDACHPF = new CheckBox();
+            groupBox26 = new GroupBox();
+            rbNukedOPN2OptionYM2612u = new RadioButton();
+            rbNukedOPN2OptionYM2612 = new RadioButton();
+            rbNukedOPN2OptionDiscrete = new RadioButton();
+            rbNukedOPN2OptionASIClp = new RadioButton();
+            rbNukedOPN2OptionASIC = new RadioButton();
+            tpNSF = new TabPage();
+            trkbNSFLPF = new TrackBar();
+            label53 = new Label();
+            label52 = new Label();
+            trkbNSFHPF = new TrackBar();
+            groupBox10 = new GroupBox();
+            cbNSFDmc_DPCMReverse = new CheckBox();
+            cbNSFDmc_RandomizeTri = new CheckBox();
+            cbNSFDmc_TriMute = new CheckBox();
+            cbNSFDmc_RandomizeNoise = new CheckBox();
+            cbNSFDmc_DPCMAntiClick = new CheckBox();
+            cbNSFDmc_EnablePNoise = new CheckBox();
+            cbNSFDmc_Enable4011 = new CheckBox();
+            cbNSFDmc_NonLinearMixer = new CheckBox();
+            cbNSFDmc_UnmuteOnReset = new CheckBox();
+            groupBox12 = new GroupBox();
+            cbNSFN160_Serial = new CheckBox();
+            groupBox11 = new GroupBox();
+            cbNSFMmc5_PhaseRefresh = new CheckBox();
+            cbNSFMmc5_NonLinearMixer = new CheckBox();
+            groupBox9 = new GroupBox();
+            cbNFSNes_DutySwap = new CheckBox();
+            cbNFSNes_PhaseRefresh = new CheckBox();
+            cbNFSNes_NonLinearMixer = new CheckBox();
+            cbNFSNes_UnmuteOnReset = new CheckBox();
+            groupBox8 = new GroupBox();
+            label21 = new Label();
+            label20 = new Label();
+            tbNSFFds_LPF = new TextBox();
+            cbNFSFds_4085Reset = new CheckBox();
+            cbNSFFDSWriteDisable8000 = new CheckBox();
+            tpSID = new TabPage();
+            groupBox28 = new GroupBox();
+            cbSIDModel_Force = new CheckBox();
+            rbSIDModel_8580 = new RadioButton();
+            rbSIDModel_6581 = new RadioButton();
+            groupBox27 = new GroupBox();
+            cbSIDC64Model_Force = new CheckBox();
+            rbSIDC64Model_DREAN = new RadioButton();
+            rbSIDC64Model_OLDNTSC = new RadioButton();
+            rbSIDC64Model_NTSC = new RadioButton();
+            rbSIDC64Model_PAL = new RadioButton();
+            groupBox14 = new GroupBox();
+            label27 = new Label();
+            label26 = new Label();
+            label25 = new Label();
+            rdSIDQ1 = new RadioButton();
+            rdSIDQ3 = new RadioButton();
+            rdSIDQ2 = new RadioButton();
+            rdSIDQ4 = new RadioButton();
+            groupBox13 = new GroupBox();
+            btnSIDBasic = new Button();
+            btnSIDCharacter = new Button();
+            btnSIDKernal = new Button();
+            tbSIDCharacter = new TextBox();
+            tbSIDBasic = new TextBox();
+            tbSIDKernal = new TextBox();
+            label24 = new Label();
+            label23 = new Label();
+            label22 = new Label();
+            tbSIDOutputBufferSize = new TextBox();
+            label51 = new Label();
+            label49 = new Label();
+            tpPMDDotNET = new TabPage();
+            rbPMDManual = new RadioButton();
+            rbPMDAuto = new RadioButton();
+            btnPMDResetDriverArguments = new Button();
+            label54 = new Label();
+            btnPMDResetCompilerArhguments = new Button();
+            tbPMDDriverArguments = new TextBox();
+            label55 = new Label();
+            tbPMDCompilerArguments = new TextBox();
+            gbPMDManual = new GroupBox();
+            cbPMDSetManualVolume = new CheckBox();
+            cbPMDUsePPZ8 = new CheckBox();
+            groupBox32 = new GroupBox();
+            rbPMD86B = new RadioButton();
+            rbPMDSpbB = new RadioButton();
+            rbPMDNrmB = new RadioButton();
+            cbPMDUsePPSDRV = new CheckBox();
+            gbPPSDRV = new GroupBox();
+            groupBox33 = new GroupBox();
+            rbPMDUsePPSDRVManualFreq = new RadioButton();
+            label56 = new Label();
+            rbPMDUsePPSDRVFreqDefault = new RadioButton();
+            btnPMDPPSDRVManualWait = new Button();
+            label57 = new Label();
+            tbPMDPPSDRVFreq = new TextBox();
+            label58 = new Label();
+            tbPMDPPSDRVManualWait = new TextBox();
+            gbPMDSetManualVolume = new GroupBox();
+            label59 = new Label();
+            label60 = new Label();
+            tbPMDVolumeAdpcm = new TextBox();
+            label61 = new Label();
+            tbPMDVolumeRhythm = new TextBox();
+            label62 = new Label();
+            tbPMDVolumeSSG = new TextBox();
+            label63 = new Label();
+            tbPMDVolumeGIMICSSG = new TextBox();
+            label64 = new Label();
+            tbPMDVolumeFM = new TextBox();
+            tpMIDIOut = new TabPage();
+            btnAddVST = new Button();
+            tbcMIDIoutList = new TabControl();
+            tabPage1 = new TabPage();
+            dgvMIDIoutListA = new DataGridView();
+            dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+            clmIsVST = new DataGridViewCheckBoxColumn();
+            clmFileName = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
+            clmType = new DataGridViewComboBoxColumn();
+            ClmBeforeSend = new DataGridViewComboBoxColumn();
+            dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
+            btnUP_A = new Button();
+            btnDOWN_A = new Button();
+            tabPage2 = new TabPage();
+            dgvMIDIoutListB = new DataGridView();
+            btnUP_B = new Button();
+            btnDOWN_B = new Button();
+            tabPage3 = new TabPage();
+            dgvMIDIoutListC = new DataGridView();
+            btnUP_C = new Button();
+            btnDOWN_C = new Button();
+            tabPage4 = new TabPage();
+            dgvMIDIoutListD = new DataGridView();
+            btnUP_D = new Button();
+            btnDOWN_D = new Button();
+            tabPage5 = new TabPage();
+            dgvMIDIoutListE = new DataGridView();
+            btnUP_E = new Button();
+            btnDOWN_E = new Button();
+            tabPage6 = new TabPage();
+            dgvMIDIoutListF = new DataGridView();
+            btnUP_F = new Button();
+            btnDOWN_F = new Button();
+            tabPage7 = new TabPage();
+            dgvMIDIoutListG = new DataGridView();
+            btnUP_G = new Button();
+            btnDOWN_G = new Button();
+            tabPage8 = new TabPage();
+            dgvMIDIoutListH = new DataGridView();
+            btnUP_H = new Button();
+            btnDOWN_H = new Button();
+            tabPage9 = new TabPage();
+            dgvMIDIoutListI = new DataGridView();
+            btnUP_I = new Button();
+            btnDOWN_I = new Button();
+            tabPage10 = new TabPage();
+            dgvMIDIoutListJ = new DataGridView();
+            button17 = new Button();
+            btnDOWN_J = new Button();
+            btnSubMIDIout = new Button();
+            btnAddMIDIout = new Button();
+            label18 = new Label();
+            dgvMIDIoutPallet = new DataGridView();
+            clmID = new DataGridViewTextBoxColumn();
+            clmDeviceName = new DataGridViewTextBoxColumn();
+            clmManufacturer = new DataGridViewTextBoxColumn();
+            clmSpacer = new DataGridViewTextBoxColumn();
+            label16 = new Label();
+            tpMIDIOut2 = new TabPage();
+            groupBox15 = new GroupBox();
+            btnBeforeSend_Default = new Button();
+            tbBeforeSend_Custom = new TextBox();
+            tbBeforeSend_XGReset = new TextBox();
+            label35 = new Label();
+            label34 = new Label();
+            label32 = new Label();
+            tbBeforeSend_GSReset = new TextBox();
+            label33 = new Label();
+            tbBeforeSend_GMReset = new TextBox();
+            label31 = new Label();
+            tabMIDIExp = new TabPage();
+            cbUseMIDIExport = new CheckBox();
+            gbMIDIExport = new GroupBox();
+            cbMIDIKeyOnFnum = new CheckBox();
+            cbMIDIUseVOPM = new CheckBox();
+            groupBox6 = new GroupBox();
+            cbMIDIYM2612 = new CheckBox();
+            cbMIDISN76489Sec = new CheckBox();
+            cbMIDIYM2612Sec = new CheckBox();
+            cbMIDISN76489 = new CheckBox();
+            cbMIDIYM2151 = new CheckBox();
+            cbMIDIYM2610BSec = new CheckBox();
+            cbMIDIYM2151Sec = new CheckBox();
+            cbMIDIYM2610B = new CheckBox();
+            cbMIDIYM2203 = new CheckBox();
+            cbMIDIYM2608Sec = new CheckBox();
+            cbMIDIYM2203Sec = new CheckBox();
+            cbMIDIYM2608 = new CheckBox();
+            cbMIDIPlayless = new CheckBox();
+            btnMIDIOutputPath = new Button();
+            lblOutputPath = new Label();
+            tbMIDIOutputPath = new TextBox();
+            tpMIDIKBD = new TabPage();
+            cbUseMIDIKeyboard = new CheckBox();
+            gbMIDIKeyboard = new GroupBox();
+            pictureBox8 = new PictureBox();
+            pictureBox7 = new PictureBox();
+            pictureBox6 = new PictureBox();
+            pictureBox5 = new PictureBox();
+            pictureBox4 = new PictureBox();
+            pictureBox3 = new PictureBox();
+            pictureBox2 = new PictureBox();
+            pictureBox1 = new PictureBox();
+            tbCCFadeout = new TextBox();
+            tbCCPause = new TextBox();
+            tbCCSlow = new TextBox();
+            tbCCPrevious = new TextBox();
+            tbCCNext = new TextBox();
+            tbCCFast = new TextBox();
+            tbCCStop = new TextBox();
+            tbCCPlay = new TextBox();
+            tbCCCopyLog = new TextBox();
+            label17 = new Label();
+            tbCCDelLog = new TextBox();
+            label15 = new Label();
+            tbCCChCopy = new TextBox();
+            label8 = new Label();
+            label9 = new Label();
+            gbUseChannel = new GroupBox();
+            rbMONO = new RadioButton();
+            rbPOLY = new RadioButton();
+            groupBox7 = new GroupBox();
+            rbFM6 = new RadioButton();
+            rbFM3 = new RadioButton();
+            rbFM5 = new RadioButton();
+            rbFM2 = new RadioButton();
+            rbFM4 = new RadioButton();
+            rbFM1 = new RadioButton();
+            groupBox2 = new GroupBox();
+            cbFM1 = new CheckBox();
+            cbFM6 = new CheckBox();
+            cbFM2 = new CheckBox();
+            cbFM5 = new CheckBox();
+            cbFM3 = new CheckBox();
+            cbFM4 = new CheckBox();
+            cmbMIDIIN = new ComboBox();
+            label5 = new Label();
+            tpKeyBoard = new TabPage();
+            cbUseKeyBoardHook = new CheckBox();
+            gbUseKeyBoardHook = new GroupBox();
+            panel1 = new Panel();
+            btPpcClr = new Button();
+            cbPpcShift = new CheckBox();
+            btPpcSet = new Button();
+            label76 = new Label();
+            lblPpcKey = new Label();
+            cbPpcAlt = new CheckBox();
+            cbPpcCtrl = new CheckBox();
+            btDpcClr = new Button();
+            cbDpcShift = new CheckBox();
+            btDpcSet = new Button();
+            label74 = new Label();
+            lblDpcKey = new Label();
+            cbDpcAlt = new CheckBox();
+            cbDpcCtrl = new CheckBox();
+            btUpcClr = new Button();
+            btRmvClr = new Button();
+            cbUpcShift = new CheckBox();
+            pictureBox14 = new PictureBox();
+            cbRmvShift = new CheckBox();
+            btUpcSet = new Button();
+            cbFastShift = new CheckBox();
+            label72 = new Label();
+            btDmvClr = new Button();
+            lblUpcKey = new Label();
+            btRmvSet = new Button();
+            cbUpcAlt = new CheckBox();
+            cbDmvShift = new CheckBox();
+            cbUpcCtrl = new CheckBox();
+            label69 = new Label();
+            btUmvClr = new Button();
+            cbRmvAlt = new CheckBox();
+            cbUmvShift = new CheckBox();
+            cbRmvCtrl = new CheckBox();
+            btNextClr = new Button();
+            lblRmvKey = new Label();
+            cbNextShift = new CheckBox();
+            btPrevClr = new Button();
+            cbPlayShift = new CheckBox();
+            btPlayClr = new Button();
+            cbStopCtrl = new CheckBox();
+            btPauseClr = new Button();
+            cbSlowShift = new CheckBox();
+            btFastClr = new Button();
+            cbPauseCtrl = new CheckBox();
+            btFadeoutClr = new Button();
+            cbPrevShift = new CheckBox();
+            btSlowClr = new Button();
+            cbFadeoutCtrl = new CheckBox();
+            btDmvSet = new Button();
+            btStopClr = new Button();
+            btUmvSet = new Button();
+            cbFadeoutShift = new CheckBox();
+            btNextSet = new Button();
+            cbPrevCtrl = new CheckBox();
+            btPrevSet = new Button();
+            cbPauseShift = new CheckBox();
+            btPlaySet = new Button();
+            cbSlowCtrl = new CheckBox();
+            btPauseSet = new Button();
+            cbStopShift = new CheckBox();
+            btFastSet = new Button();
+            label71 = new Label();
+            cbPlayCtrl = new CheckBox();
+            label70 = new Label();
+            btFadeoutSet = new Button();
+            label44 = new Label();
+            btSlowSet = new Button();
+            cbFastCtrl = new CheckBox();
+            btStopSet = new Button();
+            cbDmvCtrl = new CheckBox();
+            label43 = new Label();
+            cbUmvCtrl = new CheckBox();
+            lblDmvKey = new Label();
+            label50 = new Label();
+            lblUmvKey = new Label();
+            cbNextCtrl = new CheckBox();
+            lblNextKey = new Label();
+            label42 = new Label();
+            lblFastKey = new Label();
+            label41 = new Label();
+            lblPlayKey = new Label();
+            label40 = new Label();
+            lblSlowKey = new Label();
+            label39 = new Label();
+            lblPrevKey = new Label();
+            label38 = new Label();
+            lblFadeoutKey = new Label();
+            label48 = new Label();
+            lblPauseKey = new Label();
+            label46 = new Label();
+            lblStopKey = new Label();
+            label45 = new Label();
+            cbStopAlt = new CheckBox();
+            cbDmvAlt = new CheckBox();
+            pictureBox17 = new PictureBox();
+            cbUmvAlt = new CheckBox();
+            label37 = new Label();
+            cbNextAlt = new CheckBox();
+            cbPauseAlt = new CheckBox();
+            pictureBox16 = new PictureBox();
+            pictureBox10 = new PictureBox();
+            cbFastAlt = new CheckBox();
+            cbFadeoutAlt = new CheckBox();
+            pictureBox15 = new PictureBox();
+            pictureBox11 = new PictureBox();
+            cbPlayAlt = new CheckBox();
+            cbPrevAlt = new CheckBox();
+            pictureBox13 = new PictureBox();
+            pictureBox12 = new PictureBox();
+            cbSlowAlt = new CheckBox();
+            lblKeyBoardHookNotice = new Label();
+            label47 = new Label();
+            cbStopWin = new CheckBox();
+            cbPauseWin = new CheckBox();
+            cbFadeoutWin = new CheckBox();
+            cbPrevWin = new CheckBox();
+            cbSlowWin = new CheckBox();
+            cbPlayWin = new CheckBox();
+            cbFastWin = new CheckBox();
+            cbNextWin = new CheckBox();
+            tpBalance = new TabPage();
+            groupBox25 = new GroupBox();
+            rbAutoBalanceNotSamePositionAsSongData = new RadioButton();
+            rbAutoBalanceSamePositionAsSongData = new RadioButton();
+            cbAutoBalanceUseThis = new CheckBox();
+            groupBox18 = new GroupBox();
+            groupBox24 = new GroupBox();
+            groupBox21 = new GroupBox();
+            rbAutoBalanceNotSaveSongBalance = new RadioButton();
+            rbAutoBalanceSaveSongBalance = new RadioButton();
+            groupBox22 = new GroupBox();
+            label4 = new Label();
+            groupBox23 = new GroupBox();
+            groupBox19 = new GroupBox();
+            rbAutoBalanceNotLoadSongBalance = new RadioButton();
+            rbAutoBalanceLoadSongBalance = new RadioButton();
+            groupBox20 = new GroupBox();
+            rbAutoBalanceNotLoadDriverBalance = new RadioButton();
+            rbAutoBalanceLoadDriverBalance = new RadioButton();
+            tpPlayList = new TabPage();
+            groupBox17 = new GroupBox();
+            cbAutoOpenImg = new CheckBox();
+            tbImageExt = new TextBox();
+            cbAutoOpenMML = new CheckBox();
+            tbMMLExt = new TextBox();
+            tbTextExt = new TextBox();
+            cbAutoOpenText = new CheckBox();
+            label1 = new Label();
+            label3 = new Label();
+            label2 = new Label();
+            cbEmptyPlayList = new CheckBox();
+            tpOther = new TabPage();
+            btnSearchPath = new Button();
+            tbSearchPath = new TextBox();
+            label68 = new Label();
+            cbNonRenderingForPause = new CheckBox();
+            cbWavSwitch = new CheckBox();
+            cbUseGetInst = new CheckBox();
+            groupBox4 = new GroupBox();
+            cbAdjustTLParam = new CheckBox();
+            cmbInstFormat = new ComboBox();
+            lblInstFormat = new Label();
+            cbDumpSwitch = new CheckBox();
+            gbWav = new GroupBox();
+            btnWavPath = new Button();
+            label7 = new Label();
+            tbWavPath = new TextBox();
+            gbDump = new GroupBox();
+            btnDumpPath = new Button();
+            label6 = new Label();
+            tbDumpPath = new TextBox();
+            label30 = new Label();
+            tbScreenFrameRate = new TextBox();
+            label29 = new Label();
+            lblLoopTimes = new Label();
+            btnDataPath = new Button();
+            tbLoopTimes = new TextBox();
+            tbDataPath = new TextBox();
+            label19 = new Label();
+            btnResetPosition = new Button();
+            btnOpenSettingFolder = new Button();
+            cbExALL = new CheckBox();
+            cbInitAlways = new CheckBox();
+            cbAutoOpen = new CheckBox();
+            cbUseLoopTimes = new CheckBox();
+            tpOmake = new TabPage();
+            label67 = new Label();
+            label14 = new Label();
+            btVST = new Button();
+            tbSCCbaseAddress = new TextBox();
+            tbVST = new TextBox();
+            groupBox5 = new GroupBox();
+            groupBox30 = new GroupBox();
+            rbLoglvlInformation = new RadioButton();
+            rbLoglvlWarning = new RadioButton();
+            rbLoglvlError = new RadioButton();
+            rbLogDebug = new RadioButton();
+            rbLoglvlTrace = new RadioButton();
+            cbShowConsole = new CheckBox();
+            cbDispFrameCounter = new CheckBox();
+            tpAbout = new TabPage();
+            tableLayoutPanel = new TableLayoutPanel();
+            logoPictureBox = new PictureBox();
+            labelProductName = new Label();
+            labelVersion = new Label();
+            labelCopyright = new Label();
+            labelCompanyName = new Label();
+            textBoxDescription = new TextBox();
+            llOpenGithub = new LinkLabel();
+            gbWaveOut.SuspendLayout();
+            gbAsioOut.SuspendLayout();
+            gbWasapiOut.SuspendLayout();
+            gbDirectSound.SuspendLayout();
+            tcSetting.SuspendLayout();
+            tpOutput.SuspendLayout();
+            groupBox16.SuspendLayout();
+            tpModule.SuspendLayout();
+            groupBox1.SuspendLayout();
+            groupBox3.SuspendLayout();
+            tpNuked.SuspendLayout();
+            groupBox29.SuspendLayout();
+            groupBox26.SuspendLayout();
+            tpNSF.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)trkbNSFLPF).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trkbNSFHPF).BeginInit();
+            groupBox10.SuspendLayout();
+            groupBox12.SuspendLayout();
+            groupBox11.SuspendLayout();
+            groupBox9.SuspendLayout();
+            groupBox8.SuspendLayout();
+            tpSID.SuspendLayout();
+            groupBox28.SuspendLayout();
+            groupBox27.SuspendLayout();
+            groupBox14.SuspendLayout();
+            groupBox13.SuspendLayout();
+            tpPMDDotNET.SuspendLayout();
+            gbPMDManual.SuspendLayout();
+            groupBox32.SuspendLayout();
+            gbPPSDRV.SuspendLayout();
+            groupBox33.SuspendLayout();
+            gbPMDSetManualVolume.SuspendLayout();
+            tpMIDIOut.SuspendLayout();
+            tbcMIDIoutList.SuspendLayout();
+            tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvMIDIoutListA).BeginInit();
+            tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvMIDIoutListB).BeginInit();
+            tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvMIDIoutListC).BeginInit();
+            tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvMIDIoutListD).BeginInit();
+            tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvMIDIoutListE).BeginInit();
+            tabPage6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvMIDIoutListF).BeginInit();
+            tabPage7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvMIDIoutListG).BeginInit();
+            tabPage8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvMIDIoutListH).BeginInit();
+            tabPage9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvMIDIoutListI).BeginInit();
+            tabPage10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvMIDIoutListJ).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvMIDIoutPallet).BeginInit();
+            tpMIDIOut2.SuspendLayout();
+            groupBox15.SuspendLayout();
+            tabMIDIExp.SuspendLayout();
+            gbMIDIExport.SuspendLayout();
+            groupBox6.SuspendLayout();
+            tpMIDIKBD.SuspendLayout();
+            gbMIDIKeyboard.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            gbUseChannel.SuspendLayout();
+            groupBox7.SuspendLayout();
+            groupBox2.SuspendLayout();
+            tpKeyBoard.SuspendLayout();
+            gbUseKeyBoardHook.SuspendLayout();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox14).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox17).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox16).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox10).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox15).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox11).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox13).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox12).BeginInit();
+            tpBalance.SuspendLayout();
+            groupBox25.SuspendLayout();
+            groupBox18.SuspendLayout();
+            groupBox24.SuspendLayout();
+            groupBox21.SuspendLayout();
+            groupBox22.SuspendLayout();
+            groupBox23.SuspendLayout();
+            groupBox19.SuspendLayout();
+            groupBox20.SuspendLayout();
+            tpPlayList.SuspendLayout();
+            groupBox17.SuspendLayout();
+            tpOther.SuspendLayout();
+            groupBox4.SuspendLayout();
+            gbWav.SuspendLayout();
+            gbDump.SuspendLayout();
+            tpOmake.SuspendLayout();
+            groupBox5.SuspendLayout();
+            groupBox30.SuspendLayout();
+            tpAbout.SuspendLayout();
+            tableLayoutPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)logoPictureBox).BeginInit();
+            SuspendLayout();
             // 
             // btnOK
             // 
-            resources.ApplyResources(this.btnOK, "btnOK");
-            this.btnOK.Name = ("btnOK");
-            this.btnOK.UseVisualStyleBackColor = (true);
-            this.btnOK.Click += (this.btnOK_Click);
+            resources.ApplyResources(btnOK, "btnOK");
+            btnOK.Name = "btnOK";
+            btnOK.UseVisualStyleBackColor = true;
+            btnOK.Click += btnOK_Click;
             // 
             // btnCancel
             // 
-            resources.ApplyResources(this.btnCancel, "btnCancel");
-            this.btnCancel.DialogResult = (global::System.Windows.Forms.DialogResult.Cancel);
-            this.btnCancel.Name = ("btnCancel");
-            this.btnCancel.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(btnCancel, "btnCancel");
+            btnCancel.DialogResult = DialogResult.Cancel;
+            btnCancel.Name = "btnCancel";
+            btnCancel.UseVisualStyleBackColor = true;
             // 
             // gbWaveOut
             // 
-            resources.ApplyResources(this.gbWaveOut, "gbWaveOut");
-            this.gbWaveOut.Controls.Add(this.cmbWaveOutDevice);
-            this.gbWaveOut.Name = ("gbWaveOut");
-            this.gbWaveOut.TabStop = (false);
+            resources.ApplyResources(gbWaveOut, "gbWaveOut");
+            gbWaveOut.Controls.Add(cmbWaveOutDevice);
+            gbWaveOut.Name = "gbWaveOut";
+            gbWaveOut.TabStop = false;
             // 
             // cmbWaveOutDevice
             // 
-            resources.ApplyResources(this.cmbWaveOutDevice, "cmbWaveOutDevice");
-            this.cmbWaveOutDevice.DropDownStyle = (global::System.Windows.Forms.ComboBoxStyle.DropDownList);
-            this.cmbWaveOutDevice.FormattingEnabled = (true);
-            this.cmbWaveOutDevice.Name = ("cmbWaveOutDevice");
+            resources.ApplyResources(cmbWaveOutDevice, "cmbWaveOutDevice");
+            cmbWaveOutDevice.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbWaveOutDevice.FormattingEnabled = true;
+            cmbWaveOutDevice.Name = "cmbWaveOutDevice";
             // 
             // rbWaveOut
             // 
-            resources.ApplyResources(this.rbWaveOut, "rbWaveOut");
-            this.rbWaveOut.Checked = (true);
-            this.rbWaveOut.Name = ("rbWaveOut");
-            this.rbWaveOut.TabStop = (true);
-            this.rbWaveOut.UseVisualStyleBackColor = (true);
-            this.rbWaveOut.CheckedChanged += (this.rbWaveOut_CheckedChanged);
+            resources.ApplyResources(rbWaveOut, "rbWaveOut");
+            rbWaveOut.Checked = true;
+            rbWaveOut.Name = "rbWaveOut";
+            rbWaveOut.TabStop = true;
+            rbWaveOut.UseVisualStyleBackColor = true;
+            rbWaveOut.CheckedChanged += rbWaveOut_CheckedChanged;
             // 
             // rbAsioOut
             // 
-            resources.ApplyResources(this.rbAsioOut, "rbAsioOut");
-            this.rbAsioOut.Name = ("rbAsioOut");
-            this.rbAsioOut.UseVisualStyleBackColor = (true);
-            this.rbAsioOut.CheckedChanged += (this.rbAsioOut_CheckedChanged);
+            resources.ApplyResources(rbAsioOut, "rbAsioOut");
+            rbAsioOut.Name = "rbAsioOut";
+            rbAsioOut.UseVisualStyleBackColor = true;
+            rbAsioOut.CheckedChanged += rbAsioOut_CheckedChanged;
             // 
             // rbWasapiOut
             // 
-            resources.ApplyResources(this.rbWasapiOut, "rbWasapiOut");
-            this.rbWasapiOut.Name = ("rbWasapiOut");
-            this.rbWasapiOut.UseVisualStyleBackColor = (true);
-            this.rbWasapiOut.CheckedChanged += (this.rbWasapiOut_CheckedChanged);
+            resources.ApplyResources(rbWasapiOut, "rbWasapiOut");
+            rbWasapiOut.Name = "rbWasapiOut";
+            rbWasapiOut.UseVisualStyleBackColor = true;
+            rbWasapiOut.CheckedChanged += rbWasapiOut_CheckedChanged;
             // 
             // gbAsioOut
             // 
-            resources.ApplyResources(this.gbAsioOut, "gbAsioOut");
-            this.gbAsioOut.Controls.Add(this.btnASIOControlPanel);
-            this.gbAsioOut.Controls.Add(this.cmbAsioDevice);
-            this.gbAsioOut.Name = ("gbAsioOut");
-            this.gbAsioOut.TabStop = (false);
+            resources.ApplyResources(gbAsioOut, "gbAsioOut");
+            gbAsioOut.Controls.Add(btnASIOControlPanel);
+            gbAsioOut.Controls.Add(cmbAsioDevice);
+            gbAsioOut.Name = "gbAsioOut";
+            gbAsioOut.TabStop = false;
             // 
             // btnASIOControlPanel
             // 
-            resources.ApplyResources(this.btnASIOControlPanel, "btnASIOControlPanel");
-            this.btnASIOControlPanel.Name = ("btnASIOControlPanel");
-            this.btnASIOControlPanel.UseVisualStyleBackColor = (true);
-            this.btnASIOControlPanel.Click += (this.btnASIOControlPanel_Click);
+            resources.ApplyResources(btnASIOControlPanel, "btnASIOControlPanel");
+            btnASIOControlPanel.Name = "btnASIOControlPanel";
+            btnASIOControlPanel.UseVisualStyleBackColor = true;
+            btnASIOControlPanel.Click += btnASIOControlPanel_Click;
             // 
             // cmbAsioDevice
             // 
-            resources.ApplyResources(this.cmbAsioDevice, "cmbAsioDevice");
-            this.cmbAsioDevice.DropDownStyle = (global::System.Windows.Forms.ComboBoxStyle.DropDownList);
-            this.cmbAsioDevice.FormattingEnabled = (true);
-            this.cmbAsioDevice.Name = ("cmbAsioDevice");
+            resources.ApplyResources(cmbAsioDevice, "cmbAsioDevice");
+            cmbAsioDevice.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbAsioDevice.FormattingEnabled = true;
+            cmbAsioDevice.Name = "cmbAsioDevice";
             // 
             // rbDirectSoundOut
             // 
-            resources.ApplyResources(this.rbDirectSoundOut, "rbDirectSoundOut");
-            this.rbDirectSoundOut.Name = ("rbDirectSoundOut");
-            this.rbDirectSoundOut.UseVisualStyleBackColor = (true);
-            this.rbDirectSoundOut.CheckedChanged += (this.rbDirectSoundOut_CheckedChanged);
+            resources.ApplyResources(rbDirectSoundOut, "rbDirectSoundOut");
+            rbDirectSoundOut.Name = "rbDirectSoundOut";
+            rbDirectSoundOut.UseVisualStyleBackColor = true;
+            rbDirectSoundOut.CheckedChanged += rbDirectSoundOut_CheckedChanged;
             // 
             // gbWasapiOut
             // 
-            resources.ApplyResources(this.gbWasapiOut, "gbWasapiOut");
-            this.gbWasapiOut.Controls.Add(this.rbExclusive);
-            this.gbWasapiOut.Controls.Add(this.rbShare);
-            this.gbWasapiOut.Controls.Add(this.cmbWasapiDevice);
-            this.gbWasapiOut.Name = ("gbWasapiOut");
-            this.gbWasapiOut.TabStop = (false);
+            resources.ApplyResources(gbWasapiOut, "gbWasapiOut");
+            gbWasapiOut.Controls.Add(rbExclusive);
+            gbWasapiOut.Controls.Add(rbShare);
+            gbWasapiOut.Controls.Add(cmbWasapiDevice);
+            gbWasapiOut.Name = "gbWasapiOut";
+            gbWasapiOut.TabStop = false;
             // 
             // rbExclusive
             // 
-            resources.ApplyResources(this.rbExclusive, "rbExclusive");
-            this.rbExclusive.Name = ("rbExclusive");
-            this.rbExclusive.TabStop = (true);
-            this.rbExclusive.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbExclusive, "rbExclusive");
+            rbExclusive.Name = "rbExclusive";
+            rbExclusive.TabStop = true;
+            rbExclusive.UseVisualStyleBackColor = true;
             // 
             // rbShare
             // 
-            resources.ApplyResources(this.rbShare, "rbShare");
-            this.rbShare.Name = ("rbShare");
-            this.rbShare.TabStop = (true);
-            this.rbShare.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbShare, "rbShare");
+            rbShare.Name = "rbShare";
+            rbShare.TabStop = true;
+            rbShare.UseVisualStyleBackColor = true;
             // 
             // cmbWasapiDevice
             // 
-            resources.ApplyResources(this.cmbWasapiDevice, "cmbWasapiDevice");
-            this.cmbWasapiDevice.DropDownStyle = (global::System.Windows.Forms.ComboBoxStyle.DropDownList);
-            this.cmbWasapiDevice.FormattingEnabled = (true);
-            this.cmbWasapiDevice.Name = ("cmbWasapiDevice");
+            resources.ApplyResources(cmbWasapiDevice, "cmbWasapiDevice");
+            cmbWasapiDevice.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbWasapiDevice.FormattingEnabled = true;
+            cmbWasapiDevice.Name = "cmbWasapiDevice";
             // 
             // gbDirectSound
             // 
-            resources.ApplyResources(this.gbDirectSound, "gbDirectSound");
-            this.gbDirectSound.Controls.Add(this.cmbDirectSoundDevice);
-            this.gbDirectSound.Name = ("gbDirectSound");
-            this.gbDirectSound.TabStop = (false);
+            resources.ApplyResources(gbDirectSound, "gbDirectSound");
+            gbDirectSound.Controls.Add(cmbDirectSoundDevice);
+            gbDirectSound.Name = "gbDirectSound";
+            gbDirectSound.TabStop = false;
             // 
             // cmbDirectSoundDevice
             // 
-            resources.ApplyResources(this.cmbDirectSoundDevice, "cmbDirectSoundDevice");
-            this.cmbDirectSoundDevice.DropDownStyle = (global::System.Windows.Forms.ComboBoxStyle.DropDownList);
-            this.cmbDirectSoundDevice.FormattingEnabled = (true);
-            this.cmbDirectSoundDevice.Name = ("cmbDirectSoundDevice");
+            resources.ApplyResources(cmbDirectSoundDevice, "cmbDirectSoundDevice");
+            cmbDirectSoundDevice.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbDirectSoundDevice.FormattingEnabled = true;
+            cmbDirectSoundDevice.Name = "cmbDirectSoundDevice";
             // 
             // tcSetting
             // 
-            resources.ApplyResources(this.tcSetting, "tcSetting");
-            this.tcSetting.Controls.Add(this.tpOutput);
-            this.tcSetting.Controls.Add(this.tpModule);
-            this.tcSetting.Controls.Add(this.tpNuked);
-            this.tcSetting.Controls.Add(this.tpNSF);
-            this.tcSetting.Controls.Add(this.tpSID);
-            this.tcSetting.Controls.Add(this.tpPMDDotNET);
-            this.tcSetting.Controls.Add(this.tpMIDIOut);
-            this.tcSetting.Controls.Add(this.tpMIDIOut2);
-            this.tcSetting.Controls.Add(this.tabMIDIExp);
-            this.tcSetting.Controls.Add(this.tpMIDIKBD);
-            this.tcSetting.Controls.Add(this.tpKeyBoard);
-            this.tcSetting.Controls.Add(this.tpBalance);
-            this.tcSetting.Controls.Add(this.tpPlayList);
-            this.tcSetting.Controls.Add(this.tpOther);
-            this.tcSetting.Controls.Add(this.tpOmake);
-            this.tcSetting.Controls.Add(this.tpAbout);
-            this.tcSetting.HotTrack = (true);
-            this.tcSetting.Multiline = (true);
-            this.tcSetting.Name = ("tcSetting");
-            this.tcSetting.SelectedIndex = (0);
+            resources.ApplyResources(tcSetting, "tcSetting");
+            tcSetting.Controls.Add(tpOutput);
+            tcSetting.Controls.Add(tpModule);
+            tcSetting.Controls.Add(tpNuked);
+            tcSetting.Controls.Add(tpNSF);
+            tcSetting.Controls.Add(tpSID);
+            tcSetting.Controls.Add(tpPMDDotNET);
+            tcSetting.Controls.Add(tpMIDIOut);
+            tcSetting.Controls.Add(tpMIDIOut2);
+            tcSetting.Controls.Add(tabMIDIExp);
+            tcSetting.Controls.Add(tpMIDIKBD);
+            tcSetting.Controls.Add(tpKeyBoard);
+            tcSetting.Controls.Add(tpBalance);
+            tcSetting.Controls.Add(tpPlayList);
+            tcSetting.Controls.Add(tpOther);
+            tcSetting.Controls.Add(tpOmake);
+            tcSetting.Controls.Add(tpAbout);
+            tcSetting.HotTrack = true;
+            tcSetting.Multiline = true;
+            tcSetting.Name = "tcSetting";
+            tcSetting.SelectedIndex = 0;
             // 
             // tpOutput
             // 
-            this.tpOutput.Controls.Add(this.rbNullDevice);
-            this.tpOutput.Controls.Add(this.label36);
-            this.tpOutput.Controls.Add(this.lblWaitTime);
-            this.tpOutput.Controls.Add(this.label66);
-            this.tpOutput.Controls.Add(this.lblLatencyUnit);
-            this.tpOutput.Controls.Add(this.label28);
-            this.tpOutput.Controls.Add(this.label65);
-            this.tpOutput.Controls.Add(this.lblLatency);
-            this.tpOutput.Controls.Add(this.cmbWaitTime);
-            this.tpOutput.Controls.Add(this.cmbSampleRate);
-            this.tpOutput.Controls.Add(this.cmbLatency);
-            this.tpOutput.Controls.Add(this.rbSPPCM);
-            this.tpOutput.Controls.Add(this.rbDirectSoundOut);
-            this.tpOutput.Controls.Add(this.rbWaveOut);
-            this.tpOutput.Controls.Add(this.rbAsioOut);
-            this.tpOutput.Controls.Add(this.gbWaveOut);
-            this.tpOutput.Controls.Add(this.rbWasapiOut);
-            this.tpOutput.Controls.Add(this.groupBox16);
-            this.tpOutput.Controls.Add(this.gbAsioOut);
-            this.tpOutput.Controls.Add(this.gbDirectSound);
-            this.tpOutput.Controls.Add(this.gbWasapiOut);
-            resources.ApplyResources(this.tpOutput, "tpOutput");
-            this.tpOutput.Name = ("tpOutput");
-            this.tpOutput.UseVisualStyleBackColor = (true);
+            tpOutput.Controls.Add(rbNullDevice);
+            tpOutput.Controls.Add(label36);
+            tpOutput.Controls.Add(lblWaitTime);
+            tpOutput.Controls.Add(label66);
+            tpOutput.Controls.Add(lblLatencyUnit);
+            tpOutput.Controls.Add(label28);
+            tpOutput.Controls.Add(label65);
+            tpOutput.Controls.Add(lblLatency);
+            tpOutput.Controls.Add(cmbWaitTime);
+            tpOutput.Controls.Add(cmbSampleRate);
+            tpOutput.Controls.Add(cmbLatency);
+            tpOutput.Controls.Add(rbSPPCM);
+            tpOutput.Controls.Add(rbDirectSoundOut);
+            tpOutput.Controls.Add(rbWaveOut);
+            tpOutput.Controls.Add(rbAsioOut);
+            tpOutput.Controls.Add(gbWaveOut);
+            tpOutput.Controls.Add(rbWasapiOut);
+            tpOutput.Controls.Add(groupBox16);
+            tpOutput.Controls.Add(gbAsioOut);
+            tpOutput.Controls.Add(gbDirectSound);
+            tpOutput.Controls.Add(gbWasapiOut);
+            resources.ApplyResources(tpOutput, "tpOutput");
+            tpOutput.Name = "tpOutput";
+            tpOutput.UseVisualStyleBackColor = true;
             // 
             // rbNullDevice
             // 
-            resources.ApplyResources(this.rbNullDevice, "rbNullDevice");
-            this.rbNullDevice.Name = ("rbNullDevice");
-            this.rbNullDevice.UseVisualStyleBackColor = (true);
-            this.rbNullDevice.CheckedChanged += (this.rbDirectSoundOut_CheckedChanged);
+            resources.ApplyResources(rbNullDevice, "rbNullDevice");
+            rbNullDevice.Name = "rbNullDevice";
+            rbNullDevice.UseVisualStyleBackColor = true;
+            rbNullDevice.CheckedChanged += rbDirectSoundOut_CheckedChanged;
             // 
             // label36
             // 
-            resources.ApplyResources(this.label36, "label36");
-            this.label36.Name = ("label36");
+            resources.ApplyResources(label36, "label36");
+            label36.Name = "label36";
             // 
             // lblWaitTime
             // 
-            resources.ApplyResources(this.lblWaitTime, "lblWaitTime");
-            this.lblWaitTime.Name = ("lblWaitTime");
+            resources.ApplyResources(lblWaitTime, "lblWaitTime");
+            lblWaitTime.Name = "lblWaitTime";
             // 
             // label66
             // 
-            resources.ApplyResources(this.label66, "label66");
-            this.label66.Name = ("label66");
+            resources.ApplyResources(label66, "label66");
+            label66.Name = "label66";
             // 
             // lblLatencyUnit
             // 
-            resources.ApplyResources(this.lblLatencyUnit, "lblLatencyUnit");
-            this.lblLatencyUnit.Name = ("lblLatencyUnit");
+            resources.ApplyResources(lblLatencyUnit, "lblLatencyUnit");
+            lblLatencyUnit.Name = "lblLatencyUnit";
             // 
             // label28
             // 
-            resources.ApplyResources(this.label28, "label28");
-            this.label28.Name = ("label28");
+            resources.ApplyResources(label28, "label28");
+            label28.Name = "label28";
             // 
             // label65
             // 
-            resources.ApplyResources(this.label65, "label65");
-            this.label65.Name = ("label65");
+            resources.ApplyResources(label65, "label65");
+            label65.Name = "label65";
             // 
             // lblLatency
             // 
-            resources.ApplyResources(this.lblLatency, "lblLatency");
-            this.lblLatency.Name = ("lblLatency");
+            resources.ApplyResources(lblLatency, "lblLatency");
+            lblLatency.Name = "lblLatency";
             // 
             // cmbWaitTime
             // 
-            this.cmbWaitTime.DropDownStyle = (global::System.Windows.Forms.ComboBoxStyle.DropDownList);
-            this.cmbWaitTime.FormattingEnabled = (true);
-            this.cmbWaitTime.Items.AddRange(new global::System.Object[] { resources.GetString("cmbWaitTime.Items"), resources.GetString("cmbWaitTime.Items1"), resources.GetString("cmbWaitTime.Items2"), resources.GetString("cmbWaitTime.Items3"), resources.GetString("cmbWaitTime.Items4"), resources.GetString("cmbWaitTime.Items5"), resources.GetString("cmbWaitTime.Items6"), resources.GetString("cmbWaitTime.Items7"), resources.GetString("cmbWaitTime.Items8"), resources.GetString("cmbWaitTime.Items9"), resources.GetString("cmbWaitTime.Items10") });
-            resources.ApplyResources(this.cmbWaitTime, "cmbWaitTime");
-            this.cmbWaitTime.Name = ("cmbWaitTime");
+            cmbWaitTime.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbWaitTime.FormattingEnabled = true;
+            cmbWaitTime.Items.AddRange(new object[] { resources.GetString("cmbWaitTime.Items"), resources.GetString("cmbWaitTime.Items1"), resources.GetString("cmbWaitTime.Items2"), resources.GetString("cmbWaitTime.Items3"), resources.GetString("cmbWaitTime.Items4"), resources.GetString("cmbWaitTime.Items5"), resources.GetString("cmbWaitTime.Items6"), resources.GetString("cmbWaitTime.Items7"), resources.GetString("cmbWaitTime.Items8"), resources.GetString("cmbWaitTime.Items9"), resources.GetString("cmbWaitTime.Items10") });
+            resources.ApplyResources(cmbWaitTime, "cmbWaitTime");
+            cmbWaitTime.Name = "cmbWaitTime";
             // 
             // cmbSampleRate
             // 
-            resources.ApplyResources(this.cmbSampleRate, "cmbSampleRate");
-            this.cmbSampleRate.DropDownStyle = (global::System.Windows.Forms.ComboBoxStyle.DropDownList);
-            this.cmbSampleRate.FormattingEnabled = (true);
-            this.cmbSampleRate.Items.AddRange(new global::System.Object[] { resources.GetString("cmbSampleRate.Items"), resources.GetString("cmbSampleRate.Items1"), resources.GetString("cmbSampleRate.Items2"), resources.GetString("cmbSampleRate.Items3"), resources.GetString("cmbSampleRate.Items4"), resources.GetString("cmbSampleRate.Items5"), resources.GetString("cmbSampleRate.Items6") });
-            this.cmbSampleRate.Name = ("cmbSampleRate");
+            resources.ApplyResources(cmbSampleRate, "cmbSampleRate");
+            cmbSampleRate.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbSampleRate.FormattingEnabled = true;
+            cmbSampleRate.Items.AddRange(new object[] { resources.GetString("cmbSampleRate.Items"), resources.GetString("cmbSampleRate.Items1"), resources.GetString("cmbSampleRate.Items2"), resources.GetString("cmbSampleRate.Items3"), resources.GetString("cmbSampleRate.Items4"), resources.GetString("cmbSampleRate.Items5"), resources.GetString("cmbSampleRate.Items6") });
+            cmbSampleRate.Name = "cmbSampleRate";
             // 
             // cmbLatency
             // 
-            this.cmbLatency.DropDownStyle = (global::System.Windows.Forms.ComboBoxStyle.DropDownList);
-            this.cmbLatency.FormattingEnabled = (true);
-            this.cmbLatency.Items.AddRange(new global::System.Object[] { resources.GetString("cmbLatency.Items"), resources.GetString("cmbLatency.Items1"), resources.GetString("cmbLatency.Items2"), resources.GetString("cmbLatency.Items3"), resources.GetString("cmbLatency.Items4"), resources.GetString("cmbLatency.Items5"), resources.GetString("cmbLatency.Items6"), resources.GetString("cmbLatency.Items7") });
-            resources.ApplyResources(this.cmbLatency, "cmbLatency");
-            this.cmbLatency.Name = ("cmbLatency");
+            cmbLatency.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbLatency.FormattingEnabled = true;
+            cmbLatency.Items.AddRange(new object[] { resources.GetString("cmbLatency.Items"), resources.GetString("cmbLatency.Items1"), resources.GetString("cmbLatency.Items2"), resources.GetString("cmbLatency.Items3"), resources.GetString("cmbLatency.Items4"), resources.GetString("cmbLatency.Items5"), resources.GetString("cmbLatency.Items6"), resources.GetString("cmbLatency.Items7") });
+            resources.ApplyResources(cmbLatency, "cmbLatency");
+            cmbLatency.Name = "cmbLatency";
             // 
             // rbSPPCM
             // 
-            resources.ApplyResources(this.rbSPPCM, "rbSPPCM");
-            this.rbSPPCM.Name = ("rbSPPCM");
-            this.rbSPPCM.UseVisualStyleBackColor = (true);
-            this.rbSPPCM.CheckedChanged += (this.rbDirectSoundOut_CheckedChanged);
+            resources.ApplyResources(rbSPPCM, "rbSPPCM");
+            rbSPPCM.Name = "rbSPPCM";
+            rbSPPCM.UseVisualStyleBackColor = true;
+            rbSPPCM.CheckedChanged += rbDirectSoundOut_CheckedChanged;
             // 
             // groupBox16
             // 
-            resources.ApplyResources(this.groupBox16, "groupBox16");
-            this.groupBox16.Controls.Add(this.cmbSPPCMDevice);
-            this.groupBox16.Name = ("groupBox16");
-            this.groupBox16.TabStop = (false);
+            resources.ApplyResources(groupBox16, "groupBox16");
+            groupBox16.Controls.Add(cmbSPPCMDevice);
+            groupBox16.Name = "groupBox16";
+            groupBox16.TabStop = false;
             // 
             // cmbSPPCMDevice
             // 
-            resources.ApplyResources(this.cmbSPPCMDevice, "cmbSPPCMDevice");
-            this.cmbSPPCMDevice.DropDownStyle = (global::System.Windows.Forms.ComboBoxStyle.DropDownList);
-            this.cmbSPPCMDevice.FormattingEnabled = (true);
-            this.cmbSPPCMDevice.Name = ("cmbSPPCMDevice");
+            resources.ApplyResources(cmbSPPCMDevice, "cmbSPPCMDevice");
+            cmbSPPCMDevice.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbSPPCMDevice.FormattingEnabled = true;
+            cmbSPPCMDevice.Name = "cmbSPPCMDevice";
             // 
             // tpModule
             // 
-            this.tpModule.Controls.Add(this.groupBox1);
-            this.tpModule.Controls.Add(this.groupBox3);
-            resources.ApplyResources(this.tpModule, "tpModule");
-            this.tpModule.Name = ("tpModule");
-            this.tpModule.UseVisualStyleBackColor = (true);
+            tpModule.Controls.Add(groupBox1);
+            tpModule.Controls.Add(groupBox3);
+            resources.ApplyResources(tpModule, "tpModule");
+            tpModule.Name = "tpModule";
+            tpModule.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.Controls.Add(this.cbUnuseRealChip);
-            this.groupBox1.Controls.Add(this.ucSI);
-            this.groupBox1.Name = ("groupBox1");
-            this.groupBox1.TabStop = (false);
+            resources.ApplyResources(groupBox1, "groupBox1");
+            groupBox1.Controls.Add(cbUnuseRealChip);
+            groupBox1.Controls.Add(ucSI);
+            groupBox1.Name = "groupBox1";
+            groupBox1.TabStop = false;
             // 
             // cbUnuseRealChip
             // 
-            resources.ApplyResources(this.cbUnuseRealChip, "cbUnuseRealChip");
-            this.cbUnuseRealChip.Name = ("cbUnuseRealChip");
-            this.cbUnuseRealChip.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbUnuseRealChip, "cbUnuseRealChip");
+            cbUnuseRealChip.Name = "cbUnuseRealChip";
+            cbUnuseRealChip.UseVisualStyleBackColor = true;
             // 
             // ucSI
             // 
-            resources.ApplyResources(this.ucSI, "ucSI");
-            this.ucSI.Name = ("ucSI");
+            resources.ApplyResources(ucSI, "ucSI");
+            ucSI.Name = "ucSI";
             // 
             // groupBox3
             // 
-            resources.ApplyResources(this.groupBox3, "groupBox3");
-            this.groupBox3.Controls.Add(this.cbHiyorimiMode);
-            this.groupBox3.Controls.Add(this.label13);
-            this.groupBox3.Controls.Add(this.label12);
-            this.groupBox3.Controls.Add(this.label11);
-            this.groupBox3.Controls.Add(this.tbLatencyEmu);
-            this.groupBox3.Controls.Add(this.tbLatencySCCI);
-            this.groupBox3.Controls.Add(this.label10);
-            this.groupBox3.Name = ("groupBox3");
-            this.groupBox3.TabStop = (false);
+            resources.ApplyResources(groupBox3, "groupBox3");
+            groupBox3.Controls.Add(cbHiyorimiMode);
+            groupBox3.Controls.Add(label13);
+            groupBox3.Controls.Add(label12);
+            groupBox3.Controls.Add(label11);
+            groupBox3.Controls.Add(tbLatencyEmu);
+            groupBox3.Controls.Add(tbLatencySCCI);
+            groupBox3.Controls.Add(label10);
+            groupBox3.Name = "groupBox3";
+            groupBox3.TabStop = false;
             // 
             // cbHiyorimiMode
             // 
-            resources.ApplyResources(this.cbHiyorimiMode, "cbHiyorimiMode");
-            this.cbHiyorimiMode.Name = ("cbHiyorimiMode");
-            this.cbHiyorimiMode.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbHiyorimiMode, "cbHiyorimiMode");
+            cbHiyorimiMode.Name = "cbHiyorimiMode";
+            cbHiyorimiMode.UseVisualStyleBackColor = true;
             // 
             // label13
             // 
-            resources.ApplyResources(this.label13, "label13");
-            this.label13.Name = ("label13");
+            resources.ApplyResources(label13, "label13");
+            label13.Name = "label13";
             // 
             // label12
             // 
-            resources.ApplyResources(this.label12, "label12");
-            this.label12.Name = ("label12");
+            resources.ApplyResources(label12, "label12");
+            label12.Name = "label12";
             // 
             // label11
             // 
-            resources.ApplyResources(this.label11, "label11");
-            this.label11.Name = ("label11");
+            resources.ApplyResources(label11, "label11");
+            label11.Name = "label11";
             // 
             // tbLatencyEmu
             // 
-            resources.ApplyResources(this.tbLatencyEmu, "tbLatencyEmu");
-            this.tbLatencyEmu.Name = ("tbLatencyEmu");
+            resources.ApplyResources(tbLatencyEmu, "tbLatencyEmu");
+            tbLatencyEmu.Name = "tbLatencyEmu";
             // 
             // tbLatencySCCI
             // 
-            resources.ApplyResources(this.tbLatencySCCI, "tbLatencySCCI");
-            this.tbLatencySCCI.Name = ("tbLatencySCCI");
+            resources.ApplyResources(tbLatencySCCI, "tbLatencySCCI");
+            tbLatencySCCI.Name = "tbLatencySCCI";
             // 
             // label10
             // 
-            resources.ApplyResources(this.label10, "label10");
-            this.label10.Name = ("label10");
+            resources.ApplyResources(label10, "label10");
+            label10.Name = "label10";
             // 
             // tpNuked
             // 
-            this.tpNuked.Controls.Add(this.groupBox29);
-            this.tpNuked.Controls.Add(this.groupBox26);
-            resources.ApplyResources(this.tpNuked, "tpNuked");
-            this.tpNuked.Name = ("tpNuked");
-            this.tpNuked.UseVisualStyleBackColor = (true);
+            tpNuked.Controls.Add(groupBox29);
+            tpNuked.Controls.Add(groupBox26);
+            resources.ApplyResources(tpNuked, "tpNuked");
+            tpNuked.Name = "tpNuked";
+            tpNuked.UseVisualStyleBackColor = true;
             // 
             // groupBox29
             // 
-            this.groupBox29.Controls.Add(this.cbGensSSGEG);
-            this.groupBox29.Controls.Add(this.cbGensDACHPF);
-            resources.ApplyResources(this.groupBox29, "groupBox29");
-            this.groupBox29.Name = ("groupBox29");
-            this.groupBox29.TabStop = (false);
+            groupBox29.Controls.Add(cbGensSSGEG);
+            groupBox29.Controls.Add(cbGensDACHPF);
+            resources.ApplyResources(groupBox29, "groupBox29");
+            groupBox29.Name = "groupBox29";
+            groupBox29.TabStop = false;
             // 
             // cbGensSSGEG
             // 
-            resources.ApplyResources(this.cbGensSSGEG, "cbGensSSGEG");
-            this.cbGensSSGEG.Name = ("cbGensSSGEG");
-            this.cbGensSSGEG.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbGensSSGEG, "cbGensSSGEG");
+            cbGensSSGEG.Name = "cbGensSSGEG";
+            cbGensSSGEG.UseVisualStyleBackColor = true;
             // 
             // cbGensDACHPF
             // 
-            resources.ApplyResources(this.cbGensDACHPF, "cbGensDACHPF");
-            this.cbGensDACHPF.Name = ("cbGensDACHPF");
-            this.cbGensDACHPF.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbGensDACHPF, "cbGensDACHPF");
+            cbGensDACHPF.Name = "cbGensDACHPF";
+            cbGensDACHPF.UseVisualStyleBackColor = true;
             // 
             // groupBox26
             // 
-            this.groupBox26.Controls.Add(this.rbNukedOPN2OptionYM2612u);
-            this.groupBox26.Controls.Add(this.rbNukedOPN2OptionYM2612);
-            this.groupBox26.Controls.Add(this.rbNukedOPN2OptionDiscrete);
-            this.groupBox26.Controls.Add(this.rbNukedOPN2OptionASIClp);
-            this.groupBox26.Controls.Add(this.rbNukedOPN2OptionASIC);
-            resources.ApplyResources(this.groupBox26, "groupBox26");
-            this.groupBox26.Name = ("groupBox26");
-            this.groupBox26.TabStop = (false);
+            groupBox26.Controls.Add(rbNukedOPN2OptionYM2612u);
+            groupBox26.Controls.Add(rbNukedOPN2OptionYM2612);
+            groupBox26.Controls.Add(rbNukedOPN2OptionDiscrete);
+            groupBox26.Controls.Add(rbNukedOPN2OptionASIClp);
+            groupBox26.Controls.Add(rbNukedOPN2OptionASIC);
+            resources.ApplyResources(groupBox26, "groupBox26");
+            groupBox26.Name = "groupBox26";
+            groupBox26.TabStop = false;
             // 
             // rbNukedOPN2OptionYM2612u
             // 
-            resources.ApplyResources(this.rbNukedOPN2OptionYM2612u, "rbNukedOPN2OptionYM2612u");
-            this.rbNukedOPN2OptionYM2612u.Name = ("rbNukedOPN2OptionYM2612u");
-            this.rbNukedOPN2OptionYM2612u.TabStop = (true);
-            this.rbNukedOPN2OptionYM2612u.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbNukedOPN2OptionYM2612u, "rbNukedOPN2OptionYM2612u");
+            rbNukedOPN2OptionYM2612u.Name = "rbNukedOPN2OptionYM2612u";
+            rbNukedOPN2OptionYM2612u.TabStop = true;
+            rbNukedOPN2OptionYM2612u.UseVisualStyleBackColor = true;
             // 
             // rbNukedOPN2OptionYM2612
             // 
-            resources.ApplyResources(this.rbNukedOPN2OptionYM2612, "rbNukedOPN2OptionYM2612");
-            this.rbNukedOPN2OptionYM2612.Name = ("rbNukedOPN2OptionYM2612");
-            this.rbNukedOPN2OptionYM2612.TabStop = (true);
-            this.rbNukedOPN2OptionYM2612.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbNukedOPN2OptionYM2612, "rbNukedOPN2OptionYM2612");
+            rbNukedOPN2OptionYM2612.Name = "rbNukedOPN2OptionYM2612";
+            rbNukedOPN2OptionYM2612.TabStop = true;
+            rbNukedOPN2OptionYM2612.UseVisualStyleBackColor = true;
             // 
             // rbNukedOPN2OptionDiscrete
             // 
-            resources.ApplyResources(this.rbNukedOPN2OptionDiscrete, "rbNukedOPN2OptionDiscrete");
-            this.rbNukedOPN2OptionDiscrete.Name = ("rbNukedOPN2OptionDiscrete");
-            this.rbNukedOPN2OptionDiscrete.TabStop = (true);
-            this.rbNukedOPN2OptionDiscrete.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbNukedOPN2OptionDiscrete, "rbNukedOPN2OptionDiscrete");
+            rbNukedOPN2OptionDiscrete.Name = "rbNukedOPN2OptionDiscrete";
+            rbNukedOPN2OptionDiscrete.TabStop = true;
+            rbNukedOPN2OptionDiscrete.UseVisualStyleBackColor = true;
             // 
             // rbNukedOPN2OptionASIClp
             // 
-            resources.ApplyResources(this.rbNukedOPN2OptionASIClp, "rbNukedOPN2OptionASIClp");
-            this.rbNukedOPN2OptionASIClp.Name = ("rbNukedOPN2OptionASIClp");
-            this.rbNukedOPN2OptionASIClp.TabStop = (true);
-            this.rbNukedOPN2OptionASIClp.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbNukedOPN2OptionASIClp, "rbNukedOPN2OptionASIClp");
+            rbNukedOPN2OptionASIClp.Name = "rbNukedOPN2OptionASIClp";
+            rbNukedOPN2OptionASIClp.TabStop = true;
+            rbNukedOPN2OptionASIClp.UseVisualStyleBackColor = true;
             // 
             // rbNukedOPN2OptionASIC
             // 
-            resources.ApplyResources(this.rbNukedOPN2OptionASIC, "rbNukedOPN2OptionASIC");
-            this.rbNukedOPN2OptionASIC.Name = ("rbNukedOPN2OptionASIC");
-            this.rbNukedOPN2OptionASIC.TabStop = (true);
-            this.rbNukedOPN2OptionASIC.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbNukedOPN2OptionASIC, "rbNukedOPN2OptionASIC");
+            rbNukedOPN2OptionASIC.Name = "rbNukedOPN2OptionASIC";
+            rbNukedOPN2OptionASIC.TabStop = true;
+            rbNukedOPN2OptionASIC.UseVisualStyleBackColor = true;
             // 
             // tpNSF
             // 
-            this.tpNSF.Controls.Add(this.trkbNSFLPF);
-            this.tpNSF.Controls.Add(this.label53);
-            this.tpNSF.Controls.Add(this.label52);
-            this.tpNSF.Controls.Add(this.trkbNSFHPF);
-            this.tpNSF.Controls.Add(this.groupBox10);
-            this.tpNSF.Controls.Add(this.groupBox12);
-            this.tpNSF.Controls.Add(this.groupBox11);
-            this.tpNSF.Controls.Add(this.groupBox9);
-            this.tpNSF.Controls.Add(this.groupBox8);
-            resources.ApplyResources(this.tpNSF, "tpNSF");
-            this.tpNSF.Name = ("tpNSF");
-            this.tpNSF.UseVisualStyleBackColor = (true);
+            tpNSF.Controls.Add(trkbNSFLPF);
+            tpNSF.Controls.Add(label53);
+            tpNSF.Controls.Add(label52);
+            tpNSF.Controls.Add(trkbNSFHPF);
+            tpNSF.Controls.Add(groupBox10);
+            tpNSF.Controls.Add(groupBox12);
+            tpNSF.Controls.Add(groupBox11);
+            tpNSF.Controls.Add(groupBox9);
+            tpNSF.Controls.Add(groupBox8);
+            resources.ApplyResources(tpNSF, "tpNSF");
+            tpNSF.Name = "tpNSF";
+            tpNSF.UseVisualStyleBackColor = true;
             // 
             // trkbNSFLPF
             // 
-            resources.ApplyResources(this.trkbNSFLPF, "trkbNSFLPF");
-            this.trkbNSFLPF.Maximum = (400);
-            this.trkbNSFLPF.Name = ("trkbNSFLPF");
-            this.trkbNSFLPF.TickFrequency = (10);
+            resources.ApplyResources(trkbNSFLPF, "trkbNSFLPF");
+            trkbNSFLPF.Maximum = 400;
+            trkbNSFLPF.Name = "trkbNSFLPF";
+            trkbNSFLPF.TickFrequency = 10;
             // 
             // label53
             // 
-            resources.ApplyResources(this.label53, "label53");
-            this.label53.Name = ("label53");
+            resources.ApplyResources(label53, "label53");
+            label53.Name = "label53";
             // 
             // label52
             // 
-            resources.ApplyResources(this.label52, "label52");
-            this.label52.Name = ("label52");
+            resources.ApplyResources(label52, "label52");
+            label52.Name = "label52";
             // 
             // trkbNSFHPF
             // 
-            resources.ApplyResources(this.trkbNSFHPF, "trkbNSFHPF");
-            this.trkbNSFHPF.Maximum = (256);
-            this.trkbNSFHPF.Name = ("trkbNSFHPF");
-            this.trkbNSFHPF.TickFrequency = (10);
+            resources.ApplyResources(trkbNSFHPF, "trkbNSFHPF");
+            trkbNSFHPF.Maximum = 256;
+            trkbNSFHPF.Name = "trkbNSFHPF";
+            trkbNSFHPF.TickFrequency = 10;
             // 
             // groupBox10
             // 
-            this.groupBox10.Controls.Add(this.cbNSFDmc_DPCMReverse);
-            this.groupBox10.Controls.Add(this.cbNSFDmc_RandomizeTri);
-            this.groupBox10.Controls.Add(this.cbNSFDmc_TriMute);
-            this.groupBox10.Controls.Add(this.cbNSFDmc_RandomizeNoise);
-            this.groupBox10.Controls.Add(this.cbNSFDmc_DPCMAntiClick);
-            this.groupBox10.Controls.Add(this.cbNSFDmc_EnablePNoise);
-            this.groupBox10.Controls.Add(this.cbNSFDmc_Enable4011);
-            this.groupBox10.Controls.Add(this.cbNSFDmc_NonLinearMixer);
-            this.groupBox10.Controls.Add(this.cbNSFDmc_UnmuteOnReset);
-            resources.ApplyResources(this.groupBox10, "groupBox10");
-            this.groupBox10.Name = ("groupBox10");
-            this.groupBox10.TabStop = (false);
+            groupBox10.Controls.Add(cbNSFDmc_DPCMReverse);
+            groupBox10.Controls.Add(cbNSFDmc_RandomizeTri);
+            groupBox10.Controls.Add(cbNSFDmc_TriMute);
+            groupBox10.Controls.Add(cbNSFDmc_RandomizeNoise);
+            groupBox10.Controls.Add(cbNSFDmc_DPCMAntiClick);
+            groupBox10.Controls.Add(cbNSFDmc_EnablePNoise);
+            groupBox10.Controls.Add(cbNSFDmc_Enable4011);
+            groupBox10.Controls.Add(cbNSFDmc_NonLinearMixer);
+            groupBox10.Controls.Add(cbNSFDmc_UnmuteOnReset);
+            resources.ApplyResources(groupBox10, "groupBox10");
+            groupBox10.Name = "groupBox10";
+            groupBox10.TabStop = false;
             // 
             // cbNSFDmc_DPCMReverse
             // 
-            resources.ApplyResources(this.cbNSFDmc_DPCMReverse, "cbNSFDmc_DPCMReverse");
-            this.cbNSFDmc_DPCMReverse.Name = ("cbNSFDmc_DPCMReverse");
-            this.cbNSFDmc_DPCMReverse.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbNSFDmc_DPCMReverse, "cbNSFDmc_DPCMReverse");
+            cbNSFDmc_DPCMReverse.Name = "cbNSFDmc_DPCMReverse";
+            cbNSFDmc_DPCMReverse.UseVisualStyleBackColor = true;
             // 
             // cbNSFDmc_RandomizeTri
             // 
-            resources.ApplyResources(this.cbNSFDmc_RandomizeTri, "cbNSFDmc_RandomizeTri");
-            this.cbNSFDmc_RandomizeTri.Name = ("cbNSFDmc_RandomizeTri");
-            this.cbNSFDmc_RandomizeTri.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbNSFDmc_RandomizeTri, "cbNSFDmc_RandomizeTri");
+            cbNSFDmc_RandomizeTri.Name = "cbNSFDmc_RandomizeTri";
+            cbNSFDmc_RandomizeTri.UseVisualStyleBackColor = true;
             // 
             // cbNSFDmc_TriMute
             // 
-            resources.ApplyResources(this.cbNSFDmc_TriMute, "cbNSFDmc_TriMute");
-            this.cbNSFDmc_TriMute.Name = ("cbNSFDmc_TriMute");
-            this.cbNSFDmc_TriMute.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbNSFDmc_TriMute, "cbNSFDmc_TriMute");
+            cbNSFDmc_TriMute.Name = "cbNSFDmc_TriMute";
+            cbNSFDmc_TriMute.UseVisualStyleBackColor = true;
             // 
             // cbNSFDmc_RandomizeNoise
             // 
-            resources.ApplyResources(this.cbNSFDmc_RandomizeNoise, "cbNSFDmc_RandomizeNoise");
-            this.cbNSFDmc_RandomizeNoise.Name = ("cbNSFDmc_RandomizeNoise");
-            this.cbNSFDmc_RandomizeNoise.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbNSFDmc_RandomizeNoise, "cbNSFDmc_RandomizeNoise");
+            cbNSFDmc_RandomizeNoise.Name = "cbNSFDmc_RandomizeNoise";
+            cbNSFDmc_RandomizeNoise.UseVisualStyleBackColor = true;
             // 
             // cbNSFDmc_DPCMAntiClick
             // 
-            resources.ApplyResources(this.cbNSFDmc_DPCMAntiClick, "cbNSFDmc_DPCMAntiClick");
-            this.cbNSFDmc_DPCMAntiClick.Name = ("cbNSFDmc_DPCMAntiClick");
-            this.cbNSFDmc_DPCMAntiClick.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbNSFDmc_DPCMAntiClick, "cbNSFDmc_DPCMAntiClick");
+            cbNSFDmc_DPCMAntiClick.Name = "cbNSFDmc_DPCMAntiClick";
+            cbNSFDmc_DPCMAntiClick.UseVisualStyleBackColor = true;
             // 
             // cbNSFDmc_EnablePNoise
             // 
-            resources.ApplyResources(this.cbNSFDmc_EnablePNoise, "cbNSFDmc_EnablePNoise");
-            this.cbNSFDmc_EnablePNoise.Name = ("cbNSFDmc_EnablePNoise");
-            this.cbNSFDmc_EnablePNoise.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbNSFDmc_EnablePNoise, "cbNSFDmc_EnablePNoise");
+            cbNSFDmc_EnablePNoise.Name = "cbNSFDmc_EnablePNoise";
+            cbNSFDmc_EnablePNoise.UseVisualStyleBackColor = true;
             // 
             // cbNSFDmc_Enable4011
             // 
-            resources.ApplyResources(this.cbNSFDmc_Enable4011, "cbNSFDmc_Enable4011");
-            this.cbNSFDmc_Enable4011.Name = ("cbNSFDmc_Enable4011");
-            this.cbNSFDmc_Enable4011.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbNSFDmc_Enable4011, "cbNSFDmc_Enable4011");
+            cbNSFDmc_Enable4011.Name = "cbNSFDmc_Enable4011";
+            cbNSFDmc_Enable4011.UseVisualStyleBackColor = true;
             // 
             // cbNSFDmc_NonLinearMixer
             // 
-            resources.ApplyResources(this.cbNSFDmc_NonLinearMixer, "cbNSFDmc_NonLinearMixer");
-            this.cbNSFDmc_NonLinearMixer.Name = ("cbNSFDmc_NonLinearMixer");
-            this.cbNSFDmc_NonLinearMixer.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbNSFDmc_NonLinearMixer, "cbNSFDmc_NonLinearMixer");
+            cbNSFDmc_NonLinearMixer.Name = "cbNSFDmc_NonLinearMixer";
+            cbNSFDmc_NonLinearMixer.UseVisualStyleBackColor = true;
             // 
             // cbNSFDmc_UnmuteOnReset
             // 
-            resources.ApplyResources(this.cbNSFDmc_UnmuteOnReset, "cbNSFDmc_UnmuteOnReset");
-            this.cbNSFDmc_UnmuteOnReset.Name = ("cbNSFDmc_UnmuteOnReset");
-            this.cbNSFDmc_UnmuteOnReset.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbNSFDmc_UnmuteOnReset, "cbNSFDmc_UnmuteOnReset");
+            cbNSFDmc_UnmuteOnReset.Name = "cbNSFDmc_UnmuteOnReset";
+            cbNSFDmc_UnmuteOnReset.UseVisualStyleBackColor = true;
             // 
             // groupBox12
             // 
-            this.groupBox12.Controls.Add(this.cbNSFN160_Serial);
-            resources.ApplyResources(this.groupBox12, "groupBox12");
-            this.groupBox12.Name = ("groupBox12");
-            this.groupBox12.TabStop = (false);
+            groupBox12.Controls.Add(cbNSFN160_Serial);
+            resources.ApplyResources(groupBox12, "groupBox12");
+            groupBox12.Name = "groupBox12";
+            groupBox12.TabStop = false;
             // 
             // cbNSFN160_Serial
             // 
-            resources.ApplyResources(this.cbNSFN160_Serial, "cbNSFN160_Serial");
-            this.cbNSFN160_Serial.Name = ("cbNSFN160_Serial");
-            this.cbNSFN160_Serial.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbNSFN160_Serial, "cbNSFN160_Serial");
+            cbNSFN160_Serial.Name = "cbNSFN160_Serial";
+            cbNSFN160_Serial.UseVisualStyleBackColor = true;
             // 
             // groupBox11
             // 
-            this.groupBox11.Controls.Add(this.cbNSFMmc5_PhaseRefresh);
-            this.groupBox11.Controls.Add(this.cbNSFMmc5_NonLinearMixer);
-            resources.ApplyResources(this.groupBox11, "groupBox11");
-            this.groupBox11.Name = ("groupBox11");
-            this.groupBox11.TabStop = (false);
+            groupBox11.Controls.Add(cbNSFMmc5_PhaseRefresh);
+            groupBox11.Controls.Add(cbNSFMmc5_NonLinearMixer);
+            resources.ApplyResources(groupBox11, "groupBox11");
+            groupBox11.Name = "groupBox11";
+            groupBox11.TabStop = false;
             // 
             // cbNSFMmc5_PhaseRefresh
             // 
-            resources.ApplyResources(this.cbNSFMmc5_PhaseRefresh, "cbNSFMmc5_PhaseRefresh");
-            this.cbNSFMmc5_PhaseRefresh.Name = ("cbNSFMmc5_PhaseRefresh");
-            this.cbNSFMmc5_PhaseRefresh.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbNSFMmc5_PhaseRefresh, "cbNSFMmc5_PhaseRefresh");
+            cbNSFMmc5_PhaseRefresh.Name = "cbNSFMmc5_PhaseRefresh";
+            cbNSFMmc5_PhaseRefresh.UseVisualStyleBackColor = true;
             // 
             // cbNSFMmc5_NonLinearMixer
             // 
-            resources.ApplyResources(this.cbNSFMmc5_NonLinearMixer, "cbNSFMmc5_NonLinearMixer");
-            this.cbNSFMmc5_NonLinearMixer.Name = ("cbNSFMmc5_NonLinearMixer");
-            this.cbNSFMmc5_NonLinearMixer.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbNSFMmc5_NonLinearMixer, "cbNSFMmc5_NonLinearMixer");
+            cbNSFMmc5_NonLinearMixer.Name = "cbNSFMmc5_NonLinearMixer";
+            cbNSFMmc5_NonLinearMixer.UseVisualStyleBackColor = true;
             // 
             // groupBox9
             // 
-            this.groupBox9.Controls.Add(this.cbNFSNes_DutySwap);
-            this.groupBox9.Controls.Add(this.cbNFSNes_PhaseRefresh);
-            this.groupBox9.Controls.Add(this.cbNFSNes_NonLinearMixer);
-            this.groupBox9.Controls.Add(this.cbNFSNes_UnmuteOnReset);
-            resources.ApplyResources(this.groupBox9, "groupBox9");
-            this.groupBox9.Name = ("groupBox9");
-            this.groupBox9.TabStop = (false);
+            groupBox9.Controls.Add(cbNFSNes_DutySwap);
+            groupBox9.Controls.Add(cbNFSNes_PhaseRefresh);
+            groupBox9.Controls.Add(cbNFSNes_NonLinearMixer);
+            groupBox9.Controls.Add(cbNFSNes_UnmuteOnReset);
+            resources.ApplyResources(groupBox9, "groupBox9");
+            groupBox9.Name = "groupBox9";
+            groupBox9.TabStop = false;
             // 
             // cbNFSNes_DutySwap
             // 
-            resources.ApplyResources(this.cbNFSNes_DutySwap, "cbNFSNes_DutySwap");
-            this.cbNFSNes_DutySwap.Name = ("cbNFSNes_DutySwap");
-            this.cbNFSNes_DutySwap.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbNFSNes_DutySwap, "cbNFSNes_DutySwap");
+            cbNFSNes_DutySwap.Name = "cbNFSNes_DutySwap";
+            cbNFSNes_DutySwap.UseVisualStyleBackColor = true;
             // 
             // cbNFSNes_PhaseRefresh
             // 
-            resources.ApplyResources(this.cbNFSNes_PhaseRefresh, "cbNFSNes_PhaseRefresh");
-            this.cbNFSNes_PhaseRefresh.Name = ("cbNFSNes_PhaseRefresh");
-            this.cbNFSNes_PhaseRefresh.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbNFSNes_PhaseRefresh, "cbNFSNes_PhaseRefresh");
+            cbNFSNes_PhaseRefresh.Name = "cbNFSNes_PhaseRefresh";
+            cbNFSNes_PhaseRefresh.UseVisualStyleBackColor = true;
             // 
             // cbNFSNes_NonLinearMixer
             // 
-            resources.ApplyResources(this.cbNFSNes_NonLinearMixer, "cbNFSNes_NonLinearMixer");
-            this.cbNFSNes_NonLinearMixer.Name = ("cbNFSNes_NonLinearMixer");
-            this.cbNFSNes_NonLinearMixer.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbNFSNes_NonLinearMixer, "cbNFSNes_NonLinearMixer");
+            cbNFSNes_NonLinearMixer.Name = "cbNFSNes_NonLinearMixer";
+            cbNFSNes_NonLinearMixer.UseVisualStyleBackColor = true;
             // 
             // cbNFSNes_UnmuteOnReset
             // 
-            resources.ApplyResources(this.cbNFSNes_UnmuteOnReset, "cbNFSNes_UnmuteOnReset");
-            this.cbNFSNes_UnmuteOnReset.Name = ("cbNFSNes_UnmuteOnReset");
-            this.cbNFSNes_UnmuteOnReset.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbNFSNes_UnmuteOnReset, "cbNFSNes_UnmuteOnReset");
+            cbNFSNes_UnmuteOnReset.Name = "cbNFSNes_UnmuteOnReset";
+            cbNFSNes_UnmuteOnReset.UseVisualStyleBackColor = true;
             // 
             // groupBox8
             // 
-            this.groupBox8.Controls.Add(this.label21);
-            this.groupBox8.Controls.Add(this.label20);
-            this.groupBox8.Controls.Add(this.tbNSFFds_LPF);
-            this.groupBox8.Controls.Add(this.cbNFSFds_4085Reset);
-            this.groupBox8.Controls.Add(this.cbNSFFDSWriteDisable8000);
-            resources.ApplyResources(this.groupBox8, "groupBox8");
-            this.groupBox8.Name = ("groupBox8");
-            this.groupBox8.TabStop = (false);
+            groupBox8.Controls.Add(label21);
+            groupBox8.Controls.Add(label20);
+            groupBox8.Controls.Add(tbNSFFds_LPF);
+            groupBox8.Controls.Add(cbNFSFds_4085Reset);
+            groupBox8.Controls.Add(cbNSFFDSWriteDisable8000);
+            resources.ApplyResources(groupBox8, "groupBox8");
+            groupBox8.Name = "groupBox8";
+            groupBox8.TabStop = false;
             // 
             // label21
             // 
-            resources.ApplyResources(this.label21, "label21");
-            this.label21.Name = ("label21");
+            resources.ApplyResources(label21, "label21");
+            label21.Name = "label21";
             // 
             // label20
             // 
-            resources.ApplyResources(this.label20, "label20");
-            this.label20.Name = ("label20");
+            resources.ApplyResources(label20, "label20");
+            label20.Name = "label20";
             // 
             // tbNSFFds_LPF
             // 
-            resources.ApplyResources(this.tbNSFFds_LPF, "tbNSFFds_LPF");
-            this.tbNSFFds_LPF.Name = ("tbNSFFds_LPF");
+            resources.ApplyResources(tbNSFFds_LPF, "tbNSFFds_LPF");
+            tbNSFFds_LPF.Name = "tbNSFFds_LPF";
             // 
             // cbNFSFds_4085Reset
             // 
-            resources.ApplyResources(this.cbNFSFds_4085Reset, "cbNFSFds_4085Reset");
-            this.cbNFSFds_4085Reset.Name = ("cbNFSFds_4085Reset");
-            this.cbNFSFds_4085Reset.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbNFSFds_4085Reset, "cbNFSFds_4085Reset");
+            cbNFSFds_4085Reset.Name = "cbNFSFds_4085Reset";
+            cbNFSFds_4085Reset.UseVisualStyleBackColor = true;
             // 
             // cbNSFFDSWriteDisable8000
             // 
-            resources.ApplyResources(this.cbNSFFDSWriteDisable8000, "cbNSFFDSWriteDisable8000");
-            this.cbNSFFDSWriteDisable8000.Name = ("cbNSFFDSWriteDisable8000");
-            this.cbNSFFDSWriteDisable8000.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbNSFFDSWriteDisable8000, "cbNSFFDSWriteDisable8000");
+            cbNSFFDSWriteDisable8000.Name = "cbNSFFDSWriteDisable8000";
+            cbNSFFDSWriteDisable8000.UseVisualStyleBackColor = true;
             // 
             // tpSID
             // 
-            this.tpSID.Controls.Add(this.groupBox28);
-            this.tpSID.Controls.Add(this.groupBox27);
-            this.tpSID.Controls.Add(this.groupBox14);
-            this.tpSID.Controls.Add(this.groupBox13);
-            this.tpSID.Controls.Add(this.tbSIDOutputBufferSize);
-            this.tpSID.Controls.Add(this.label51);
-            this.tpSID.Controls.Add(this.label49);
-            resources.ApplyResources(this.tpSID, "tpSID");
-            this.tpSID.Name = ("tpSID");
-            this.tpSID.UseVisualStyleBackColor = (true);
+            tpSID.Controls.Add(groupBox28);
+            tpSID.Controls.Add(groupBox27);
+            tpSID.Controls.Add(groupBox14);
+            tpSID.Controls.Add(groupBox13);
+            tpSID.Controls.Add(tbSIDOutputBufferSize);
+            tpSID.Controls.Add(label51);
+            tpSID.Controls.Add(label49);
+            resources.ApplyResources(tpSID, "tpSID");
+            tpSID.Name = "tpSID";
+            tpSID.UseVisualStyleBackColor = true;
             // 
             // groupBox28
             // 
-            this.groupBox28.Controls.Add(this.cbSIDModel_Force);
-            this.groupBox28.Controls.Add(this.rbSIDModel_8580);
-            this.groupBox28.Controls.Add(this.rbSIDModel_6581);
-            resources.ApplyResources(this.groupBox28, "groupBox28");
-            this.groupBox28.Name = ("groupBox28");
-            this.groupBox28.TabStop = (false);
+            groupBox28.Controls.Add(cbSIDModel_Force);
+            groupBox28.Controls.Add(rbSIDModel_8580);
+            groupBox28.Controls.Add(rbSIDModel_6581);
+            resources.ApplyResources(groupBox28, "groupBox28");
+            groupBox28.Name = "groupBox28";
+            groupBox28.TabStop = false;
             // 
             // cbSIDModel_Force
             // 
-            resources.ApplyResources(this.cbSIDModel_Force, "cbSIDModel_Force");
-            this.cbSIDModel_Force.Name = ("cbSIDModel_Force");
-            this.cbSIDModel_Force.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbSIDModel_Force, "cbSIDModel_Force");
+            cbSIDModel_Force.Name = "cbSIDModel_Force";
+            cbSIDModel_Force.UseVisualStyleBackColor = true;
             // 
             // rbSIDModel_8580
             // 
-            resources.ApplyResources(this.rbSIDModel_8580, "rbSIDModel_8580");
-            this.rbSIDModel_8580.Name = ("rbSIDModel_8580");
-            this.rbSIDModel_8580.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbSIDModel_8580, "rbSIDModel_8580");
+            rbSIDModel_8580.Name = "rbSIDModel_8580";
+            rbSIDModel_8580.UseVisualStyleBackColor = true;
             // 
             // rbSIDModel_6581
             // 
-            resources.ApplyResources(this.rbSIDModel_6581, "rbSIDModel_6581");
-            this.rbSIDModel_6581.Checked = (true);
-            this.rbSIDModel_6581.Name = ("rbSIDModel_6581");
-            this.rbSIDModel_6581.TabStop = (true);
-            this.rbSIDModel_6581.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbSIDModel_6581, "rbSIDModel_6581");
+            rbSIDModel_6581.Checked = true;
+            rbSIDModel_6581.Name = "rbSIDModel_6581";
+            rbSIDModel_6581.TabStop = true;
+            rbSIDModel_6581.UseVisualStyleBackColor = true;
             // 
             // groupBox27
             // 
-            this.groupBox27.Controls.Add(this.cbSIDC64Model_Force);
-            this.groupBox27.Controls.Add(this.rbSIDC64Model_DREAN);
-            this.groupBox27.Controls.Add(this.rbSIDC64Model_OLDNTSC);
-            this.groupBox27.Controls.Add(this.rbSIDC64Model_NTSC);
-            this.groupBox27.Controls.Add(this.rbSIDC64Model_PAL);
-            resources.ApplyResources(this.groupBox27, "groupBox27");
-            this.groupBox27.Name = ("groupBox27");
-            this.groupBox27.TabStop = (false);
+            groupBox27.Controls.Add(cbSIDC64Model_Force);
+            groupBox27.Controls.Add(rbSIDC64Model_DREAN);
+            groupBox27.Controls.Add(rbSIDC64Model_OLDNTSC);
+            groupBox27.Controls.Add(rbSIDC64Model_NTSC);
+            groupBox27.Controls.Add(rbSIDC64Model_PAL);
+            resources.ApplyResources(groupBox27, "groupBox27");
+            groupBox27.Name = "groupBox27";
+            groupBox27.TabStop = false;
             // 
             // cbSIDC64Model_Force
             // 
-            resources.ApplyResources(this.cbSIDC64Model_Force, "cbSIDC64Model_Force");
-            this.cbSIDC64Model_Force.Name = ("cbSIDC64Model_Force");
-            this.cbSIDC64Model_Force.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbSIDC64Model_Force, "cbSIDC64Model_Force");
+            cbSIDC64Model_Force.Name = "cbSIDC64Model_Force";
+            cbSIDC64Model_Force.UseVisualStyleBackColor = true;
             // 
             // rbSIDC64Model_DREAN
             // 
-            resources.ApplyResources(this.rbSIDC64Model_DREAN, "rbSIDC64Model_DREAN");
-            this.rbSIDC64Model_DREAN.Name = ("rbSIDC64Model_DREAN");
-            this.rbSIDC64Model_DREAN.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbSIDC64Model_DREAN, "rbSIDC64Model_DREAN");
+            rbSIDC64Model_DREAN.Name = "rbSIDC64Model_DREAN";
+            rbSIDC64Model_DREAN.UseVisualStyleBackColor = true;
             // 
             // rbSIDC64Model_OLDNTSC
             // 
-            resources.ApplyResources(this.rbSIDC64Model_OLDNTSC, "rbSIDC64Model_OLDNTSC");
-            this.rbSIDC64Model_OLDNTSC.Name = ("rbSIDC64Model_OLDNTSC");
-            this.rbSIDC64Model_OLDNTSC.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbSIDC64Model_OLDNTSC, "rbSIDC64Model_OLDNTSC");
+            rbSIDC64Model_OLDNTSC.Name = "rbSIDC64Model_OLDNTSC";
+            rbSIDC64Model_OLDNTSC.UseVisualStyleBackColor = true;
             // 
             // rbSIDC64Model_NTSC
             // 
-            resources.ApplyResources(this.rbSIDC64Model_NTSC, "rbSIDC64Model_NTSC");
-            this.rbSIDC64Model_NTSC.Name = ("rbSIDC64Model_NTSC");
-            this.rbSIDC64Model_NTSC.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbSIDC64Model_NTSC, "rbSIDC64Model_NTSC");
+            rbSIDC64Model_NTSC.Name = "rbSIDC64Model_NTSC";
+            rbSIDC64Model_NTSC.UseVisualStyleBackColor = true;
             // 
             // rbSIDC64Model_PAL
             // 
-            resources.ApplyResources(this.rbSIDC64Model_PAL, "rbSIDC64Model_PAL");
-            this.rbSIDC64Model_PAL.Checked = (true);
-            this.rbSIDC64Model_PAL.Name = ("rbSIDC64Model_PAL");
-            this.rbSIDC64Model_PAL.TabStop = (true);
-            this.rbSIDC64Model_PAL.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbSIDC64Model_PAL, "rbSIDC64Model_PAL");
+            rbSIDC64Model_PAL.Checked = true;
+            rbSIDC64Model_PAL.Name = "rbSIDC64Model_PAL";
+            rbSIDC64Model_PAL.TabStop = true;
+            rbSIDC64Model_PAL.UseVisualStyleBackColor = true;
             // 
             // groupBox14
             // 
-            this.groupBox14.Controls.Add(this.label27);
-            this.groupBox14.Controls.Add(this.label26);
-            this.groupBox14.Controls.Add(this.label25);
-            this.groupBox14.Controls.Add(this.rdSIDQ1);
-            this.groupBox14.Controls.Add(this.rdSIDQ3);
-            this.groupBox14.Controls.Add(this.rdSIDQ2);
-            this.groupBox14.Controls.Add(this.rdSIDQ4);
-            resources.ApplyResources(this.groupBox14, "groupBox14");
-            this.groupBox14.Name = ("groupBox14");
-            this.groupBox14.TabStop = (false);
+            groupBox14.Controls.Add(label27);
+            groupBox14.Controls.Add(label26);
+            groupBox14.Controls.Add(label25);
+            groupBox14.Controls.Add(rdSIDQ1);
+            groupBox14.Controls.Add(rdSIDQ3);
+            groupBox14.Controls.Add(rdSIDQ2);
+            groupBox14.Controls.Add(rdSIDQ4);
+            resources.ApplyResources(groupBox14, "groupBox14");
+            groupBox14.Name = "groupBox14";
+            groupBox14.TabStop = false;
             // 
             // label27
             // 
-            resources.ApplyResources(this.label27, "label27");
-            this.label27.Name = ("label27");
+            resources.ApplyResources(label27, "label27");
+            label27.Name = "label27";
             // 
             // label26
             // 
-            resources.ApplyResources(this.label26, "label26");
-            this.label26.Name = ("label26");
+            resources.ApplyResources(label26, "label26");
+            label26.Name = "label26";
             // 
             // label25
             // 
-            resources.ApplyResources(this.label25, "label25");
-            this.label25.Name = ("label25");
+            resources.ApplyResources(label25, "label25");
+            label25.Name = "label25";
             // 
             // rdSIDQ1
             // 
-            resources.ApplyResources(this.rdSIDQ1, "rdSIDQ1");
-            this.rdSIDQ1.Checked = (true);
-            this.rdSIDQ1.Name = ("rdSIDQ1");
-            this.rdSIDQ1.TabStop = (true);
-            this.rdSIDQ1.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rdSIDQ1, "rdSIDQ1");
+            rdSIDQ1.Checked = true;
+            rdSIDQ1.Name = "rdSIDQ1";
+            rdSIDQ1.TabStop = true;
+            rdSIDQ1.UseVisualStyleBackColor = true;
             // 
             // rdSIDQ3
             // 
-            resources.ApplyResources(this.rdSIDQ3, "rdSIDQ3");
-            this.rdSIDQ3.Name = ("rdSIDQ3");
-            this.rdSIDQ3.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rdSIDQ3, "rdSIDQ3");
+            rdSIDQ3.Name = "rdSIDQ3";
+            rdSIDQ3.UseVisualStyleBackColor = true;
             // 
             // rdSIDQ2
             // 
-            resources.ApplyResources(this.rdSIDQ2, "rdSIDQ2");
-            this.rdSIDQ2.Name = ("rdSIDQ2");
-            this.rdSIDQ2.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rdSIDQ2, "rdSIDQ2");
+            rdSIDQ2.Name = "rdSIDQ2";
+            rdSIDQ2.UseVisualStyleBackColor = true;
             // 
             // rdSIDQ4
             // 
-            resources.ApplyResources(this.rdSIDQ4, "rdSIDQ4");
-            this.rdSIDQ4.Name = ("rdSIDQ4");
-            this.rdSIDQ4.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rdSIDQ4, "rdSIDQ4");
+            rdSIDQ4.Name = "rdSIDQ4";
+            rdSIDQ4.UseVisualStyleBackColor = true;
             // 
             // groupBox13
             // 
-            this.groupBox13.Controls.Add(this.btnSIDBasic);
-            this.groupBox13.Controls.Add(this.btnSIDCharacter);
-            this.groupBox13.Controls.Add(this.btnSIDKernal);
-            this.groupBox13.Controls.Add(this.tbSIDCharacter);
-            this.groupBox13.Controls.Add(this.tbSIDBasic);
-            this.groupBox13.Controls.Add(this.tbSIDKernal);
-            this.groupBox13.Controls.Add(this.label24);
-            this.groupBox13.Controls.Add(this.label23);
-            this.groupBox13.Controls.Add(this.label22);
-            resources.ApplyResources(this.groupBox13, "groupBox13");
-            this.groupBox13.Name = ("groupBox13");
-            this.groupBox13.TabStop = (false);
+            groupBox13.Controls.Add(btnSIDBasic);
+            groupBox13.Controls.Add(btnSIDCharacter);
+            groupBox13.Controls.Add(btnSIDKernal);
+            groupBox13.Controls.Add(tbSIDCharacter);
+            groupBox13.Controls.Add(tbSIDBasic);
+            groupBox13.Controls.Add(tbSIDKernal);
+            groupBox13.Controls.Add(label24);
+            groupBox13.Controls.Add(label23);
+            groupBox13.Controls.Add(label22);
+            resources.ApplyResources(groupBox13, "groupBox13");
+            groupBox13.Name = "groupBox13";
+            groupBox13.TabStop = false;
             // 
             // btnSIDBasic
             // 
-            resources.ApplyResources(this.btnSIDBasic, "btnSIDBasic");
-            this.btnSIDBasic.Name = ("btnSIDBasic");
-            this.btnSIDBasic.UseVisualStyleBackColor = (true);
-            this.btnSIDBasic.Click += (this.btnSIDBasic_Click);
+            resources.ApplyResources(btnSIDBasic, "btnSIDBasic");
+            btnSIDBasic.Name = "btnSIDBasic";
+            btnSIDBasic.UseVisualStyleBackColor = true;
+            btnSIDBasic.Click += btnSIDBasic_Click;
             // 
             // btnSIDCharacter
             // 
-            resources.ApplyResources(this.btnSIDCharacter, "btnSIDCharacter");
-            this.btnSIDCharacter.Name = ("btnSIDCharacter");
-            this.btnSIDCharacter.UseVisualStyleBackColor = (true);
-            this.btnSIDCharacter.Click += (this.btnSIDCharacter_Click);
+            resources.ApplyResources(btnSIDCharacter, "btnSIDCharacter");
+            btnSIDCharacter.Name = "btnSIDCharacter";
+            btnSIDCharacter.UseVisualStyleBackColor = true;
+            btnSIDCharacter.Click += btnSIDCharacter_Click;
             // 
             // btnSIDKernal
             // 
-            resources.ApplyResources(this.btnSIDKernal, "btnSIDKernal");
-            this.btnSIDKernal.Name = ("btnSIDKernal");
-            this.btnSIDKernal.UseVisualStyleBackColor = (true);
-            this.btnSIDKernal.Click += (this.btnSIDKernal_Click);
+            resources.ApplyResources(btnSIDKernal, "btnSIDKernal");
+            btnSIDKernal.Name = "btnSIDKernal";
+            btnSIDKernal.UseVisualStyleBackColor = true;
+            btnSIDKernal.Click += btnSIDKernal_Click;
             // 
             // tbSIDCharacter
             // 
-            resources.ApplyResources(this.tbSIDCharacter, "tbSIDCharacter");
-            this.tbSIDCharacter.Name = ("tbSIDCharacter");
+            resources.ApplyResources(tbSIDCharacter, "tbSIDCharacter");
+            tbSIDCharacter.Name = "tbSIDCharacter";
             // 
             // tbSIDBasic
             // 
-            resources.ApplyResources(this.tbSIDBasic, "tbSIDBasic");
-            this.tbSIDBasic.Name = ("tbSIDBasic");
+            resources.ApplyResources(tbSIDBasic, "tbSIDBasic");
+            tbSIDBasic.Name = "tbSIDBasic";
             // 
             // tbSIDKernal
             // 
-            resources.ApplyResources(this.tbSIDKernal, "tbSIDKernal");
-            this.tbSIDKernal.Name = ("tbSIDKernal");
+            resources.ApplyResources(tbSIDKernal, "tbSIDKernal");
+            tbSIDKernal.Name = "tbSIDKernal";
             // 
             // label24
             // 
-            resources.ApplyResources(this.label24, "label24");
-            this.label24.Name = ("label24");
+            resources.ApplyResources(label24, "label24");
+            label24.Name = "label24";
             // 
             // label23
             // 
-            resources.ApplyResources(this.label23, "label23");
-            this.label23.Name = ("label23");
+            resources.ApplyResources(label23, "label23");
+            label23.Name = "label23";
             // 
             // label22
             // 
-            resources.ApplyResources(this.label22, "label22");
-            this.label22.Name = ("label22");
+            resources.ApplyResources(label22, "label22");
+            label22.Name = "label22";
             // 
             // tbSIDOutputBufferSize
             // 
-            resources.ApplyResources(this.tbSIDOutputBufferSize, "tbSIDOutputBufferSize");
-            this.tbSIDOutputBufferSize.Name = ("tbSIDOutputBufferSize");
+            resources.ApplyResources(tbSIDOutputBufferSize, "tbSIDOutputBufferSize");
+            tbSIDOutputBufferSize.Name = "tbSIDOutputBufferSize";
             // 
             // label51
             // 
-            resources.ApplyResources(this.label51, "label51");
-            this.label51.Name = ("label51");
+            resources.ApplyResources(label51, "label51");
+            label51.Name = "label51";
             // 
             // label49
             // 
-            resources.ApplyResources(this.label49, "label49");
-            this.label49.Name = ("label49");
+            resources.ApplyResources(label49, "label49");
+            label49.Name = "label49";
             // 
             // tpPMDDotNET
             // 
-            this.tpPMDDotNET.Controls.Add(this.rbPMDManual);
-            this.tpPMDDotNET.Controls.Add(this.rbPMDAuto);
-            this.tpPMDDotNET.Controls.Add(this.btnPMDResetDriverArguments);
-            this.tpPMDDotNET.Controls.Add(this.label54);
-            this.tpPMDDotNET.Controls.Add(this.btnPMDResetCompilerArhguments);
-            this.tpPMDDotNET.Controls.Add(this.tbPMDDriverArguments);
-            this.tpPMDDotNET.Controls.Add(this.label55);
-            this.tpPMDDotNET.Controls.Add(this.tbPMDCompilerArguments);
-            this.tpPMDDotNET.Controls.Add(this.gbPMDManual);
-            resources.ApplyResources(this.tpPMDDotNET, "tpPMDDotNET");
-            this.tpPMDDotNET.Name = ("tpPMDDotNET");
-            this.tpPMDDotNET.UseVisualStyleBackColor = (true);
+            tpPMDDotNET.Controls.Add(rbPMDManual);
+            tpPMDDotNET.Controls.Add(rbPMDAuto);
+            tpPMDDotNET.Controls.Add(btnPMDResetDriverArguments);
+            tpPMDDotNET.Controls.Add(label54);
+            tpPMDDotNET.Controls.Add(btnPMDResetCompilerArhguments);
+            tpPMDDotNET.Controls.Add(tbPMDDriverArguments);
+            tpPMDDotNET.Controls.Add(label55);
+            tpPMDDotNET.Controls.Add(tbPMDCompilerArguments);
+            tpPMDDotNET.Controls.Add(gbPMDManual);
+            resources.ApplyResources(tpPMDDotNET, "tpPMDDotNET");
+            tpPMDDotNET.Name = "tpPMDDotNET";
+            tpPMDDotNET.UseVisualStyleBackColor = true;
             // 
             // rbPMDManual
             // 
-            resources.ApplyResources(this.rbPMDManual, "rbPMDManual");
-            this.rbPMDManual.Name = ("rbPMDManual");
-            this.rbPMDManual.TabStop = (true);
-            this.rbPMDManual.UseVisualStyleBackColor = (true);
-            this.rbPMDManual.CheckedChanged += (this.rbPMDManual_CheckedChanged);
+            resources.ApplyResources(rbPMDManual, "rbPMDManual");
+            rbPMDManual.Name = "rbPMDManual";
+            rbPMDManual.TabStop = true;
+            rbPMDManual.UseVisualStyleBackColor = true;
+            rbPMDManual.CheckedChanged += rbPMDManual_CheckedChanged;
             // 
             // rbPMDAuto
             // 
-            resources.ApplyResources(this.rbPMDAuto, "rbPMDAuto");
-            this.rbPMDAuto.Name = ("rbPMDAuto");
-            this.rbPMDAuto.TabStop = (true);
-            this.rbPMDAuto.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbPMDAuto, "rbPMDAuto");
+            rbPMDAuto.Name = "rbPMDAuto";
+            rbPMDAuto.TabStop = true;
+            rbPMDAuto.UseVisualStyleBackColor = true;
             // 
             // btnPMDResetDriverArguments
             // 
-            resources.ApplyResources(this.btnPMDResetDriverArguments, "btnPMDResetDriverArguments");
-            this.btnPMDResetDriverArguments.Name = ("btnPMDResetDriverArguments");
-            this.btnPMDResetDriverArguments.UseVisualStyleBackColor = (true);
-            this.btnPMDResetDriverArguments.Click += (this.btnPMDResetDriverArguments_Click);
+            resources.ApplyResources(btnPMDResetDriverArguments, "btnPMDResetDriverArguments");
+            btnPMDResetDriverArguments.Name = "btnPMDResetDriverArguments";
+            btnPMDResetDriverArguments.UseVisualStyleBackColor = true;
+            btnPMDResetDriverArguments.Click += btnPMDResetDriverArguments_Click;
             // 
             // label54
             // 
-            resources.ApplyResources(this.label54, "label54");
-            this.label54.Name = ("label54");
+            resources.ApplyResources(label54, "label54");
+            label54.Name = "label54";
             // 
             // btnPMDResetCompilerArhguments
             // 
-            resources.ApplyResources(this.btnPMDResetCompilerArhguments, "btnPMDResetCompilerArhguments");
-            this.btnPMDResetCompilerArhguments.Name = ("btnPMDResetCompilerArhguments");
-            this.btnPMDResetCompilerArhguments.UseVisualStyleBackColor = (true);
-            this.btnPMDResetCompilerArhguments.Click += (this.btnPMDResetCompilerArhguments_Click);
+            resources.ApplyResources(btnPMDResetCompilerArhguments, "btnPMDResetCompilerArhguments");
+            btnPMDResetCompilerArhguments.Name = "btnPMDResetCompilerArhguments";
+            btnPMDResetCompilerArhguments.UseVisualStyleBackColor = true;
+            btnPMDResetCompilerArhguments.Click += btnPMDResetCompilerArhguments_Click;
             // 
             // tbPMDDriverArguments
             // 
-            resources.ApplyResources(this.tbPMDDriverArguments, "tbPMDDriverArguments");
-            this.tbPMDDriverArguments.Name = ("tbPMDDriverArguments");
+            resources.ApplyResources(tbPMDDriverArguments, "tbPMDDriverArguments");
+            tbPMDDriverArguments.Name = "tbPMDDriverArguments";
             // 
             // label55
             // 
-            resources.ApplyResources(this.label55, "label55");
-            this.label55.Name = ("label55");
+            resources.ApplyResources(label55, "label55");
+            label55.Name = "label55";
             // 
             // tbPMDCompilerArguments
             // 
-            resources.ApplyResources(this.tbPMDCompilerArguments, "tbPMDCompilerArguments");
-            this.tbPMDCompilerArguments.Name = ("tbPMDCompilerArguments");
+            resources.ApplyResources(tbPMDCompilerArguments, "tbPMDCompilerArguments");
+            tbPMDCompilerArguments.Name = "tbPMDCompilerArguments";
             // 
             // gbPMDManual
             // 
-            resources.ApplyResources(this.gbPMDManual, "gbPMDManual");
-            this.gbPMDManual.Controls.Add(this.cbPMDSetManualVolume);
-            this.gbPMDManual.Controls.Add(this.cbPMDUsePPZ8);
-            this.gbPMDManual.Controls.Add(this.groupBox32);
-            this.gbPMDManual.Controls.Add(this.cbPMDUsePPSDRV);
-            this.gbPMDManual.Controls.Add(this.gbPPSDRV);
-            this.gbPMDManual.Controls.Add(this.gbPMDSetManualVolume);
-            this.gbPMDManual.Name = ("gbPMDManual");
-            this.gbPMDManual.TabStop = (false);
+            resources.ApplyResources(gbPMDManual, "gbPMDManual");
+            gbPMDManual.Controls.Add(cbPMDSetManualVolume);
+            gbPMDManual.Controls.Add(cbPMDUsePPZ8);
+            gbPMDManual.Controls.Add(groupBox32);
+            gbPMDManual.Controls.Add(cbPMDUsePPSDRV);
+            gbPMDManual.Controls.Add(gbPPSDRV);
+            gbPMDManual.Controls.Add(gbPMDSetManualVolume);
+            gbPMDManual.Name = "gbPMDManual";
+            gbPMDManual.TabStop = false;
             // 
             // cbPMDSetManualVolume
             // 
-            resources.ApplyResources(this.cbPMDSetManualVolume, "cbPMDSetManualVolume");
-            this.cbPMDSetManualVolume.Name = ("cbPMDSetManualVolume");
-            this.cbPMDSetManualVolume.UseVisualStyleBackColor = (true);
-            this.cbPMDSetManualVolume.CheckedChanged += (this.cbPMDSetManualVolume_CheckedChanged);
+            resources.ApplyResources(cbPMDSetManualVolume, "cbPMDSetManualVolume");
+            cbPMDSetManualVolume.Name = "cbPMDSetManualVolume";
+            cbPMDSetManualVolume.UseVisualStyleBackColor = true;
+            cbPMDSetManualVolume.CheckedChanged += cbPMDSetManualVolume_CheckedChanged;
             // 
             // cbPMDUsePPZ8
             // 
-            resources.ApplyResources(this.cbPMDUsePPZ8, "cbPMDUsePPZ8");
-            this.cbPMDUsePPZ8.Name = ("cbPMDUsePPZ8");
-            this.cbPMDUsePPZ8.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbPMDUsePPZ8, "cbPMDUsePPZ8");
+            cbPMDUsePPZ8.Name = "cbPMDUsePPZ8";
+            cbPMDUsePPZ8.UseVisualStyleBackColor = true;
             // 
             // groupBox32
             // 
-            this.groupBox32.Controls.Add(this.rbPMD86B);
-            this.groupBox32.Controls.Add(this.rbPMDSpbB);
-            this.groupBox32.Controls.Add(this.rbPMDNrmB);
-            resources.ApplyResources(this.groupBox32, "groupBox32");
-            this.groupBox32.Name = ("groupBox32");
-            this.groupBox32.TabStop = (false);
+            groupBox32.Controls.Add(rbPMD86B);
+            groupBox32.Controls.Add(rbPMDSpbB);
+            groupBox32.Controls.Add(rbPMDNrmB);
+            resources.ApplyResources(groupBox32, "groupBox32");
+            groupBox32.Name = "groupBox32";
+            groupBox32.TabStop = false;
             // 
             // rbPMD86B
             // 
-            resources.ApplyResources(this.rbPMD86B, "rbPMD86B");
-            this.rbPMD86B.Name = ("rbPMD86B");
-            this.rbPMD86B.TabStop = (true);
-            this.rbPMD86B.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbPMD86B, "rbPMD86B");
+            rbPMD86B.Name = "rbPMD86B";
+            rbPMD86B.TabStop = true;
+            rbPMD86B.UseVisualStyleBackColor = true;
             // 
             // rbPMDSpbB
             // 
-            resources.ApplyResources(this.rbPMDSpbB, "rbPMDSpbB");
-            this.rbPMDSpbB.Name = ("rbPMDSpbB");
-            this.rbPMDSpbB.TabStop = (true);
-            this.rbPMDSpbB.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbPMDSpbB, "rbPMDSpbB");
+            rbPMDSpbB.Name = "rbPMDSpbB";
+            rbPMDSpbB.TabStop = true;
+            rbPMDSpbB.UseVisualStyleBackColor = true;
             // 
             // rbPMDNrmB
             // 
-            resources.ApplyResources(this.rbPMDNrmB, "rbPMDNrmB");
-            this.rbPMDNrmB.Name = ("rbPMDNrmB");
-            this.rbPMDNrmB.TabStop = (true);
-            this.rbPMDNrmB.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbPMDNrmB, "rbPMDNrmB");
+            rbPMDNrmB.Name = "rbPMDNrmB";
+            rbPMDNrmB.TabStop = true;
+            rbPMDNrmB.UseVisualStyleBackColor = true;
             // 
             // cbPMDUsePPSDRV
             // 
-            resources.ApplyResources(this.cbPMDUsePPSDRV, "cbPMDUsePPSDRV");
-            this.cbPMDUsePPSDRV.Name = ("cbPMDUsePPSDRV");
-            this.cbPMDUsePPSDRV.UseVisualStyleBackColor = (true);
-            this.cbPMDUsePPSDRV.CheckedChanged += (this.cbPMDUsePPSDRV_CheckedChanged);
+            resources.ApplyResources(cbPMDUsePPSDRV, "cbPMDUsePPSDRV");
+            cbPMDUsePPSDRV.Name = "cbPMDUsePPSDRV";
+            cbPMDUsePPSDRV.UseVisualStyleBackColor = true;
+            cbPMDUsePPSDRV.CheckedChanged += cbPMDUsePPSDRV_CheckedChanged;
             // 
             // gbPPSDRV
             // 
-            resources.ApplyResources(this.gbPPSDRV, "gbPPSDRV");
-            this.gbPPSDRV.Controls.Add(this.groupBox33);
-            this.gbPPSDRV.Name = ("gbPPSDRV");
-            this.gbPPSDRV.TabStop = (false);
+            resources.ApplyResources(gbPPSDRV, "gbPPSDRV");
+            gbPPSDRV.Controls.Add(groupBox33);
+            gbPPSDRV.Name = "gbPPSDRV";
+            gbPPSDRV.TabStop = false;
             // 
             // groupBox33
             // 
-            resources.ApplyResources(this.groupBox33, "groupBox33");
-            this.groupBox33.Controls.Add(this.rbPMDUsePPSDRVManualFreq);
-            this.groupBox33.Controls.Add(this.label56);
-            this.groupBox33.Controls.Add(this.rbPMDUsePPSDRVFreqDefault);
-            this.groupBox33.Controls.Add(this.btnPMDPPSDRVManualWait);
-            this.groupBox33.Controls.Add(this.label57);
-            this.groupBox33.Controls.Add(this.tbPMDPPSDRVFreq);
-            this.groupBox33.Controls.Add(this.label58);
-            this.groupBox33.Controls.Add(this.tbPMDPPSDRVManualWait);
-            this.groupBox33.Name = ("groupBox33");
-            this.groupBox33.TabStop = (false);
+            resources.ApplyResources(groupBox33, "groupBox33");
+            groupBox33.Controls.Add(rbPMDUsePPSDRVManualFreq);
+            groupBox33.Controls.Add(label56);
+            groupBox33.Controls.Add(rbPMDUsePPSDRVFreqDefault);
+            groupBox33.Controls.Add(btnPMDPPSDRVManualWait);
+            groupBox33.Controls.Add(label57);
+            groupBox33.Controls.Add(tbPMDPPSDRVFreq);
+            groupBox33.Controls.Add(label58);
+            groupBox33.Controls.Add(tbPMDPPSDRVManualWait);
+            groupBox33.Name = "groupBox33";
+            groupBox33.TabStop = false;
             // 
             // rbPMDUsePPSDRVManualFreq
             // 
-            resources.ApplyResources(this.rbPMDUsePPSDRVManualFreq, "rbPMDUsePPSDRVManualFreq");
-            this.rbPMDUsePPSDRVManualFreq.Name = ("rbPMDUsePPSDRVManualFreq");
-            this.rbPMDUsePPSDRVManualFreq.TabStop = (true);
-            this.rbPMDUsePPSDRVManualFreq.UseVisualStyleBackColor = (true);
-            this.rbPMDUsePPSDRVManualFreq.CheckedChanged += (this.rbPMDUsePPSDRVManualFreq_CheckedChanged);
+            resources.ApplyResources(rbPMDUsePPSDRVManualFreq, "rbPMDUsePPSDRVManualFreq");
+            rbPMDUsePPSDRVManualFreq.Name = "rbPMDUsePPSDRVManualFreq";
+            rbPMDUsePPSDRVManualFreq.TabStop = true;
+            rbPMDUsePPSDRVManualFreq.UseVisualStyleBackColor = true;
+            rbPMDUsePPSDRVManualFreq.CheckedChanged += rbPMDUsePPSDRVManualFreq_CheckedChanged;
             // 
             // label56
             // 
-            resources.ApplyResources(this.label56, "label56");
-            this.label56.Name = ("label56");
+            resources.ApplyResources(label56, "label56");
+            label56.Name = "label56";
             // 
             // rbPMDUsePPSDRVFreqDefault
             // 
-            resources.ApplyResources(this.rbPMDUsePPSDRVFreqDefault, "rbPMDUsePPSDRVFreqDefault");
-            this.rbPMDUsePPSDRVFreqDefault.Name = ("rbPMDUsePPSDRVFreqDefault");
-            this.rbPMDUsePPSDRVFreqDefault.TabStop = (true);
-            this.rbPMDUsePPSDRVFreqDefault.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbPMDUsePPSDRVFreqDefault, "rbPMDUsePPSDRVFreqDefault");
+            rbPMDUsePPSDRVFreqDefault.Name = "rbPMDUsePPSDRVFreqDefault";
+            rbPMDUsePPSDRVFreqDefault.TabStop = true;
+            rbPMDUsePPSDRVFreqDefault.UseVisualStyleBackColor = true;
             // 
             // btnPMDPPSDRVManualWait
             // 
-            resources.ApplyResources(this.btnPMDPPSDRVManualWait, "btnPMDPPSDRVManualWait");
-            this.btnPMDPPSDRVManualWait.Name = ("btnPMDPPSDRVManualWait");
-            this.btnPMDPPSDRVManualWait.UseVisualStyleBackColor = (true);
-            this.btnPMDPPSDRVManualWait.Click += (this.btnPMDPPSDRVManualWait_Click);
+            resources.ApplyResources(btnPMDPPSDRVManualWait, "btnPMDPPSDRVManualWait");
+            btnPMDPPSDRVManualWait.Name = "btnPMDPPSDRVManualWait";
+            btnPMDPPSDRVManualWait.UseVisualStyleBackColor = true;
+            btnPMDPPSDRVManualWait.Click += btnPMDPPSDRVManualWait_Click;
             // 
             // label57
             // 
-            resources.ApplyResources(this.label57, "label57");
-            this.label57.Name = ("label57");
+            resources.ApplyResources(label57, "label57");
+            label57.Name = "label57";
             // 
             // tbPMDPPSDRVFreq
             // 
-            resources.ApplyResources(this.tbPMDPPSDRVFreq, "tbPMDPPSDRVFreq");
-            this.tbPMDPPSDRVFreq.Name = ("tbPMDPPSDRVFreq");
-            this.tbPMDPPSDRVFreq.Click += (this.tbPMDPPSDRVFreq_Click);
-            this.tbPMDPPSDRVFreq.MouseClick += (this.tbPMDPPSDRVFreq_MouseClick);
+            resources.ApplyResources(tbPMDPPSDRVFreq, "tbPMDPPSDRVFreq");
+            tbPMDPPSDRVFreq.Name = "tbPMDPPSDRVFreq";
+            tbPMDPPSDRVFreq.Click += tbPMDPPSDRVFreq_Click;
+            tbPMDPPSDRVFreq.MouseClick += tbPMDPPSDRVFreq_MouseClick;
             // 
             // label58
             // 
-            resources.ApplyResources(this.label58, "label58");
-            this.label58.Name = ("label58");
+            resources.ApplyResources(label58, "label58");
+            label58.Name = "label58";
             // 
             // tbPMDPPSDRVManualWait
             // 
-            resources.ApplyResources(this.tbPMDPPSDRVManualWait, "tbPMDPPSDRVManualWait");
-            this.tbPMDPPSDRVManualWait.Name = ("tbPMDPPSDRVManualWait");
+            resources.ApplyResources(tbPMDPPSDRVManualWait, "tbPMDPPSDRVManualWait");
+            tbPMDPPSDRVManualWait.Name = "tbPMDPPSDRVManualWait";
             // 
             // gbPMDSetManualVolume
             // 
-            resources.ApplyResources(this.gbPMDSetManualVolume, "gbPMDSetManualVolume");
-            this.gbPMDSetManualVolume.Controls.Add(this.label59);
-            this.gbPMDSetManualVolume.Controls.Add(this.label60);
-            this.gbPMDSetManualVolume.Controls.Add(this.tbPMDVolumeAdpcm);
-            this.gbPMDSetManualVolume.Controls.Add(this.label61);
-            this.gbPMDSetManualVolume.Controls.Add(this.tbPMDVolumeRhythm);
-            this.gbPMDSetManualVolume.Controls.Add(this.label62);
-            this.gbPMDSetManualVolume.Controls.Add(this.tbPMDVolumeSSG);
-            this.gbPMDSetManualVolume.Controls.Add(this.label63);
-            this.gbPMDSetManualVolume.Controls.Add(this.tbPMDVolumeGIMICSSG);
-            this.gbPMDSetManualVolume.Controls.Add(this.label64);
-            this.gbPMDSetManualVolume.Controls.Add(this.tbPMDVolumeFM);
-            this.gbPMDSetManualVolume.Name = ("gbPMDSetManualVolume");
-            this.gbPMDSetManualVolume.TabStop = (false);
+            resources.ApplyResources(gbPMDSetManualVolume, "gbPMDSetManualVolume");
+            gbPMDSetManualVolume.Controls.Add(label59);
+            gbPMDSetManualVolume.Controls.Add(label60);
+            gbPMDSetManualVolume.Controls.Add(tbPMDVolumeAdpcm);
+            gbPMDSetManualVolume.Controls.Add(label61);
+            gbPMDSetManualVolume.Controls.Add(tbPMDVolumeRhythm);
+            gbPMDSetManualVolume.Controls.Add(label62);
+            gbPMDSetManualVolume.Controls.Add(tbPMDVolumeSSG);
+            gbPMDSetManualVolume.Controls.Add(label63);
+            gbPMDSetManualVolume.Controls.Add(tbPMDVolumeGIMICSSG);
+            gbPMDSetManualVolume.Controls.Add(label64);
+            gbPMDSetManualVolume.Controls.Add(tbPMDVolumeFM);
+            gbPMDSetManualVolume.Name = "gbPMDSetManualVolume";
+            gbPMDSetManualVolume.TabStop = false;
             // 
             // label59
             // 
-            resources.ApplyResources(this.label59, "label59");
-            this.label59.Name = ("label59");
+            resources.ApplyResources(label59, "label59");
+            label59.Name = "label59";
             // 
             // label60
             // 
-            resources.ApplyResources(this.label60, "label60");
-            this.label60.Name = ("label60");
+            resources.ApplyResources(label60, "label60");
+            label60.Name = "label60";
             // 
             // tbPMDVolumeAdpcm
             // 
-            resources.ApplyResources(this.tbPMDVolumeAdpcm, "tbPMDVolumeAdpcm");
-            this.tbPMDVolumeAdpcm.Name = ("tbPMDVolumeAdpcm");
+            resources.ApplyResources(tbPMDVolumeAdpcm, "tbPMDVolumeAdpcm");
+            tbPMDVolumeAdpcm.Name = "tbPMDVolumeAdpcm";
             // 
             // label61
             // 
-            resources.ApplyResources(this.label61, "label61");
-            this.label61.Name = ("label61");
+            resources.ApplyResources(label61, "label61");
+            label61.Name = "label61";
             // 
             // tbPMDVolumeRhythm
             // 
-            resources.ApplyResources(this.tbPMDVolumeRhythm, "tbPMDVolumeRhythm");
-            this.tbPMDVolumeRhythm.Name = ("tbPMDVolumeRhythm");
+            resources.ApplyResources(tbPMDVolumeRhythm, "tbPMDVolumeRhythm");
+            tbPMDVolumeRhythm.Name = "tbPMDVolumeRhythm";
             // 
             // label62
             // 
-            resources.ApplyResources(this.label62, "label62");
-            this.label62.Name = ("label62");
+            resources.ApplyResources(label62, "label62");
+            label62.Name = "label62";
             // 
             // tbPMDVolumeSSG
             // 
-            resources.ApplyResources(this.tbPMDVolumeSSG, "tbPMDVolumeSSG");
-            this.tbPMDVolumeSSG.Name = ("tbPMDVolumeSSG");
+            resources.ApplyResources(tbPMDVolumeSSG, "tbPMDVolumeSSG");
+            tbPMDVolumeSSG.Name = "tbPMDVolumeSSG";
             // 
             // label63
             // 
-            resources.ApplyResources(this.label63, "label63");
-            this.label63.Name = ("label63");
+            resources.ApplyResources(label63, "label63");
+            label63.Name = "label63";
             // 
             // tbPMDVolumeGIMICSSG
             // 
-            resources.ApplyResources(this.tbPMDVolumeGIMICSSG, "tbPMDVolumeGIMICSSG");
-            this.tbPMDVolumeGIMICSSG.Name = ("tbPMDVolumeGIMICSSG");
+            resources.ApplyResources(tbPMDVolumeGIMICSSG, "tbPMDVolumeGIMICSSG");
+            tbPMDVolumeGIMICSSG.Name = "tbPMDVolumeGIMICSSG";
             // 
             // label64
             // 
-            resources.ApplyResources(this.label64, "label64");
-            this.label64.Name = ("label64");
+            resources.ApplyResources(label64, "label64");
+            label64.Name = "label64";
             // 
             // tbPMDVolumeFM
             // 
-            resources.ApplyResources(this.tbPMDVolumeFM, "tbPMDVolumeFM");
-            this.tbPMDVolumeFM.Name = ("tbPMDVolumeFM");
+            resources.ApplyResources(tbPMDVolumeFM, "tbPMDVolumeFM");
+            tbPMDVolumeFM.Name = "tbPMDVolumeFM";
             // 
             // tpMIDIOut
             // 
-            this.tpMIDIOut.Controls.Add(this.btnAddVST);
-            this.tpMIDIOut.Controls.Add(this.tbcMIDIoutList);
-            this.tpMIDIOut.Controls.Add(this.btnSubMIDIout);
-            this.tpMIDIOut.Controls.Add(this.btnAddMIDIout);
-            this.tpMIDIOut.Controls.Add(this.label18);
-            this.tpMIDIOut.Controls.Add(this.dgvMIDIoutPallet);
-            this.tpMIDIOut.Controls.Add(this.label16);
-            resources.ApplyResources(this.tpMIDIOut, "tpMIDIOut");
-            this.tpMIDIOut.Name = ("tpMIDIOut");
-            this.tpMIDIOut.UseVisualStyleBackColor = (true);
+            tpMIDIOut.Controls.Add(btnAddVST);
+            tpMIDIOut.Controls.Add(tbcMIDIoutList);
+            tpMIDIOut.Controls.Add(btnSubMIDIout);
+            tpMIDIOut.Controls.Add(btnAddMIDIout);
+            tpMIDIOut.Controls.Add(label18);
+            tpMIDIOut.Controls.Add(dgvMIDIoutPallet);
+            tpMIDIOut.Controls.Add(label16);
+            resources.ApplyResources(tpMIDIOut, "tpMIDIOut");
+            tpMIDIOut.Name = "tpMIDIOut";
+            tpMIDIOut.UseVisualStyleBackColor = true;
             // 
             // btnAddVST
             // 
-            resources.ApplyResources(this.btnAddVST, "btnAddVST");
-            this.btnAddVST.Name = ("btnAddVST");
-            this.btnAddVST.UseVisualStyleBackColor = (true);
-            this.btnAddVST.Click += (this.btnAddVST_Click);
+            resources.ApplyResources(btnAddVST, "btnAddVST");
+            btnAddVST.Name = "btnAddVST";
+            btnAddVST.UseVisualStyleBackColor = true;
+            btnAddVST.Click += btnAddVST_Click;
             // 
             // tbcMIDIoutList
             // 
-            resources.ApplyResources(this.tbcMIDIoutList, "tbcMIDIoutList");
-            this.tbcMIDIoutList.Controls.Add(this.tabPage1);
-            this.tbcMIDIoutList.Controls.Add(this.tabPage2);
-            this.tbcMIDIoutList.Controls.Add(this.tabPage3);
-            this.tbcMIDIoutList.Controls.Add(this.tabPage4);
-            this.tbcMIDIoutList.Controls.Add(this.tabPage5);
-            this.tbcMIDIoutList.Controls.Add(this.tabPage6);
-            this.tbcMIDIoutList.Controls.Add(this.tabPage7);
-            this.tbcMIDIoutList.Controls.Add(this.tabPage8);
-            this.tbcMIDIoutList.Controls.Add(this.tabPage9);
-            this.tbcMIDIoutList.Controls.Add(this.tabPage10);
-            this.tbcMIDIoutList.Name = ("tbcMIDIoutList");
-            this.tbcMIDIoutList.SelectedIndex = (0);
+            resources.ApplyResources(tbcMIDIoutList, "tbcMIDIoutList");
+            tbcMIDIoutList.Controls.Add(tabPage1);
+            tbcMIDIoutList.Controls.Add(tabPage2);
+            tbcMIDIoutList.Controls.Add(tabPage3);
+            tbcMIDIoutList.Controls.Add(tabPage4);
+            tbcMIDIoutList.Controls.Add(tabPage5);
+            tbcMIDIoutList.Controls.Add(tabPage6);
+            tbcMIDIoutList.Controls.Add(tabPage7);
+            tbcMIDIoutList.Controls.Add(tabPage8);
+            tbcMIDIoutList.Controls.Add(tabPage9);
+            tbcMIDIoutList.Controls.Add(tabPage10);
+            tbcMIDIoutList.Name = "tbcMIDIoutList";
+            tbcMIDIoutList.SelectedIndex = 0;
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.dgvMIDIoutListA);
-            this.tabPage1.Controls.Add(this.btnUP_A);
-            this.tabPage1.Controls.Add(this.btnDOWN_A);
-            resources.ApplyResources(this.tabPage1, "tabPage1");
-            this.tabPage1.Name = ("tabPage1");
-            this.tabPage1.Tag = ("0");
-            this.tabPage1.UseVisualStyleBackColor = (true);
+            tabPage1.Controls.Add(dgvMIDIoutListA);
+            tabPage1.Controls.Add(btnUP_A);
+            tabPage1.Controls.Add(btnDOWN_A);
+            resources.ApplyResources(tabPage1, "tabPage1");
+            tabPage1.Name = "tabPage1";
+            tabPage1.Tag = "0";
+            tabPage1.UseVisualStyleBackColor = true;
             // 
             // dgvMIDIoutListA
             // 
-            this.dgvMIDIoutListA.AllowUserToAddRows = (false);
-            this.dgvMIDIoutListA.AllowUserToDeleteRows = (false);
-            this.dgvMIDIoutListA.AllowUserToResizeRows = (false);
-            resources.ApplyResources(this.dgvMIDIoutListA, "dgvMIDIoutListA");
-            this.dgvMIDIoutListA.ColumnHeadersHeightSizeMode = (global::System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize);
-            this.dgvMIDIoutListA.Columns.AddRange(new global::System.Windows.Forms.DataGridViewColumn[] { this.dataGridViewTextBoxColumn1, this.clmIsVST, this.clmFileName, this.dataGridViewTextBoxColumn2, this.clmType, this.ClmBeforeSend, this.dataGridViewTextBoxColumn3, this.dataGridViewTextBoxColumn4 });
-            this.dgvMIDIoutListA.MultiSelect = (false);
-            this.dgvMIDIoutListA.Name = ("dgvMIDIoutListA");
-            this.dgvMIDIoutListA.RowHeadersVisible = (false);
-            this.dgvMIDIoutListA.RowTemplate.Height = (21);
-            this.dgvMIDIoutListA.SelectionMode = (global::System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect);
+            dgvMIDIoutListA.AllowUserToAddRows = false;
+            dgvMIDIoutListA.AllowUserToDeleteRows = false;
+            dgvMIDIoutListA.AllowUserToResizeRows = false;
+            resources.ApplyResources(dgvMIDIoutListA, "dgvMIDIoutListA");
+            dgvMIDIoutListA.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvMIDIoutListA.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, clmIsVST, clmFileName, dataGridViewTextBoxColumn2, clmType, ClmBeforeSend, dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn4 });
+            dgvMIDIoutListA.MultiSelect = false;
+            dgvMIDIoutListA.Name = "dgvMIDIoutListA";
+            dgvMIDIoutListA.RowHeadersVisible = false;
+            dgvMIDIoutListA.RowTemplate.Height = 21;
+            dgvMIDIoutListA.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             // 
             // dataGridViewTextBoxColumn1
             // 
-            this.dataGridViewTextBoxColumn1.Frozen = (true);
-            resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
-            this.dataGridViewTextBoxColumn1.Name = ("dataGridViewTextBoxColumn1");
-            this.dataGridViewTextBoxColumn1.ReadOnly = (true);
-            this.dataGridViewTextBoxColumn1.SortMode = (global::System.Windows.Forms.DataGridViewColumnSortMode.NotSortable);
+            dataGridViewTextBoxColumn1.Frozen = true;
+            resources.ApplyResources(dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
+            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            dataGridViewTextBoxColumn1.ReadOnly = true;
+            dataGridViewTextBoxColumn1.SortMode = DataGridViewColumnSortMode.NotSortable;
             // 
             // clmIsVST
             // 
-            resources.ApplyResources(this.clmIsVST, "clmIsVST");
-            this.clmIsVST.Name = ("clmIsVST");
+            resources.ApplyResources(clmIsVST, "clmIsVST");
+            clmIsVST.Name = "clmIsVST";
             // 
             // clmFileName
             // 
-            resources.ApplyResources(this.clmFileName, "clmFileName");
-            this.clmFileName.Name = ("clmFileName");
-            this.clmFileName.Resizable = (global::System.Windows.Forms.DataGridViewTriState.True);
-            this.clmFileName.SortMode = (global::System.Windows.Forms.DataGridViewColumnSortMode.NotSortable);
+            resources.ApplyResources(clmFileName, "clmFileName");
+            clmFileName.Name = "clmFileName";
+            clmFileName.Resizable = DataGridViewTriState.True;
+            clmFileName.SortMode = DataGridViewColumnSortMode.NotSortable;
             // 
             // dataGridViewTextBoxColumn2
             // 
-            resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
-            this.dataGridViewTextBoxColumn2.Name = ("dataGridViewTextBoxColumn2");
-            this.dataGridViewTextBoxColumn2.ReadOnly = (true);
-            this.dataGridViewTextBoxColumn2.SortMode = (global::System.Windows.Forms.DataGridViewColumnSortMode.NotSortable);
+            resources.ApplyResources(dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
+            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            dataGridViewTextBoxColumn2.ReadOnly = true;
+            dataGridViewTextBoxColumn2.SortMode = DataGridViewColumnSortMode.NotSortable;
             // 
             // clmType
             // 
-            resources.ApplyResources(this.clmType, "clmType");
-            this.clmType.Items.AddRange(new global::System.Object[] { "GM", "XG", "GS", "LA", "GS(SC-55_1)", "GS(SC-55_2)" });
-            this.clmType.Name = ("clmType");
-            this.clmType.Resizable = (global::System.Windows.Forms.DataGridViewTriState.True);
+            resources.ApplyResources(clmType, "clmType");
+            clmType.Items.AddRange(new object[] { "GM", "XG", "GS", "LA", "GS(SC-55_1)", "GS(SC-55_2)" });
+            clmType.Name = "clmType";
+            clmType.Resizable = DataGridViewTriState.True;
             // 
             // ClmBeforeSend
             // 
-            resources.ApplyResources(this.ClmBeforeSend, "ClmBeforeSend");
-            this.ClmBeforeSend.Items.AddRange(new global::System.Object[] { "None", "GM Reset", "XG Reset", "GS Reset", "Custom" });
-            this.ClmBeforeSend.Name = ("ClmBeforeSend");
-            this.ClmBeforeSend.Resizable = (global::System.Windows.Forms.DataGridViewTriState.True);
-            this.ClmBeforeSend.SortMode = (global::System.Windows.Forms.DataGridViewColumnSortMode.Automatic);
+            resources.ApplyResources(ClmBeforeSend, "ClmBeforeSend");
+            ClmBeforeSend.Items.AddRange(new object[] { "None", "GM Reset", "XG Reset", "GS Reset", "Custom" });
+            ClmBeforeSend.Name = "ClmBeforeSend";
+            ClmBeforeSend.Resizable = DataGridViewTriState.True;
+            ClmBeforeSend.SortMode = DataGridViewColumnSortMode.Automatic;
             // 
             // dataGridViewTextBoxColumn3
             // 
-            resources.ApplyResources(this.dataGridViewTextBoxColumn3, "dataGridViewTextBoxColumn3");
-            this.dataGridViewTextBoxColumn3.Name = ("dataGridViewTextBoxColumn3");
-            this.dataGridViewTextBoxColumn3.ReadOnly = (true);
-            this.dataGridViewTextBoxColumn3.SortMode = (global::System.Windows.Forms.DataGridViewColumnSortMode.NotSortable);
+            resources.ApplyResources(dataGridViewTextBoxColumn3, "dataGridViewTextBoxColumn3");
+            dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            dataGridViewTextBoxColumn3.ReadOnly = true;
+            dataGridViewTextBoxColumn3.SortMode = DataGridViewColumnSortMode.NotSortable;
             // 
             // dataGridViewTextBoxColumn4
             // 
-            this.dataGridViewTextBoxColumn4.AutoSizeMode = (global::System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill);
-            resources.ApplyResources(this.dataGridViewTextBoxColumn4, "dataGridViewTextBoxColumn4");
-            this.dataGridViewTextBoxColumn4.Name = ("dataGridViewTextBoxColumn4");
-            this.dataGridViewTextBoxColumn4.ReadOnly = (true);
-            this.dataGridViewTextBoxColumn4.SortMode = (global::System.Windows.Forms.DataGridViewColumnSortMode.NotSortable);
+            dataGridViewTextBoxColumn4.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            resources.ApplyResources(dataGridViewTextBoxColumn4, "dataGridViewTextBoxColumn4");
+            dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            dataGridViewTextBoxColumn4.ReadOnly = true;
+            dataGridViewTextBoxColumn4.SortMode = DataGridViewColumnSortMode.NotSortable;
             // 
             // btnUP_A
             // 
-            resources.ApplyResources(this.btnUP_A, "btnUP_A");
-            this.btnUP_A.Name = ("btnUP_A");
-            this.btnUP_A.UseVisualStyleBackColor = (true);
-            this.btnUP_A.Click += (this.btnUP_Click);
+            resources.ApplyResources(btnUP_A, "btnUP_A");
+            btnUP_A.Name = "btnUP_A";
+            btnUP_A.UseVisualStyleBackColor = true;
+            btnUP_A.Click += btnUP_Click;
             // 
             // btnDOWN_A
             // 
-            resources.ApplyResources(this.btnDOWN_A, "btnDOWN_A");
-            this.btnDOWN_A.Name = ("btnDOWN_A");
-            this.btnDOWN_A.UseVisualStyleBackColor = (true);
-            this.btnDOWN_A.Click += (this.btnDOWN_Click);
+            resources.ApplyResources(btnDOWN_A, "btnDOWN_A");
+            btnDOWN_A.Name = "btnDOWN_A";
+            btnDOWN_A.UseVisualStyleBackColor = true;
+            btnDOWN_A.Click += btnDOWN_Click;
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.dgvMIDIoutListB);
-            this.tabPage2.Controls.Add(this.btnUP_B);
-            this.tabPage2.Controls.Add(this.btnDOWN_B);
-            resources.ApplyResources(this.tabPage2, "tabPage2");
-            this.tabPage2.Name = ("tabPage2");
-            this.tabPage2.Tag = ("1");
-            this.tabPage2.UseVisualStyleBackColor = (true);
+            tabPage2.Controls.Add(dgvMIDIoutListB);
+            tabPage2.Controls.Add(btnUP_B);
+            tabPage2.Controls.Add(btnDOWN_B);
+            resources.ApplyResources(tabPage2, "tabPage2");
+            tabPage2.Name = "tabPage2";
+            tabPage2.Tag = "1";
+            tabPage2.UseVisualStyleBackColor = true;
             // 
             // dgvMIDIoutListB
             // 
-            this.dgvMIDIoutListB.AllowUserToAddRows = (false);
-            this.dgvMIDIoutListB.AllowUserToDeleteRows = (false);
-            this.dgvMIDIoutListB.AllowUserToResizeRows = (false);
-            this.dgvMIDIoutListB.ColumnHeadersHeightSizeMode = (global::System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize);
-            resources.ApplyResources(this.dgvMIDIoutListB, "dgvMIDIoutListB");
-            this.dgvMIDIoutListB.MultiSelect = (false);
-            this.dgvMIDIoutListB.Name = ("dgvMIDIoutListB");
-            this.dgvMIDIoutListB.RowHeadersVisible = (false);
-            this.dgvMIDIoutListB.RowTemplate.Height = (21);
-            this.dgvMIDIoutListB.SelectionMode = (global::System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect);
+            dgvMIDIoutListB.AllowUserToAddRows = false;
+            dgvMIDIoutListB.AllowUserToDeleteRows = false;
+            dgvMIDIoutListB.AllowUserToResizeRows = false;
+            dgvMIDIoutListB.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            resources.ApplyResources(dgvMIDIoutListB, "dgvMIDIoutListB");
+            dgvMIDIoutListB.MultiSelect = false;
+            dgvMIDIoutListB.Name = "dgvMIDIoutListB";
+            dgvMIDIoutListB.RowHeadersVisible = false;
+            dgvMIDIoutListB.RowTemplate.Height = 21;
+            dgvMIDIoutListB.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             // 
             // btnUP_B
             // 
-            resources.ApplyResources(this.btnUP_B, "btnUP_B");
-            this.btnUP_B.Name = ("btnUP_B");
-            this.btnUP_B.UseVisualStyleBackColor = (true);
-            this.btnUP_B.Click += (this.btnUP_Click);
+            resources.ApplyResources(btnUP_B, "btnUP_B");
+            btnUP_B.Name = "btnUP_B";
+            btnUP_B.UseVisualStyleBackColor = true;
+            btnUP_B.Click += btnUP_Click;
             // 
             // btnDOWN_B
             // 
-            resources.ApplyResources(this.btnDOWN_B, "btnDOWN_B");
-            this.btnDOWN_B.Name = ("btnDOWN_B");
-            this.btnDOWN_B.UseVisualStyleBackColor = (true);
-            this.btnDOWN_B.Click += (this.btnDOWN_Click);
+            resources.ApplyResources(btnDOWN_B, "btnDOWN_B");
+            btnDOWN_B.Name = "btnDOWN_B";
+            btnDOWN_B.UseVisualStyleBackColor = true;
+            btnDOWN_B.Click += btnDOWN_Click;
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.dgvMIDIoutListC);
-            this.tabPage3.Controls.Add(this.btnUP_C);
-            this.tabPage3.Controls.Add(this.btnDOWN_C);
-            resources.ApplyResources(this.tabPage3, "tabPage3");
-            this.tabPage3.Name = ("tabPage3");
-            this.tabPage3.Tag = ("2");
-            this.tabPage3.UseVisualStyleBackColor = (true);
+            tabPage3.Controls.Add(dgvMIDIoutListC);
+            tabPage3.Controls.Add(btnUP_C);
+            tabPage3.Controls.Add(btnDOWN_C);
+            resources.ApplyResources(tabPage3, "tabPage3");
+            tabPage3.Name = "tabPage3";
+            tabPage3.Tag = "2";
+            tabPage3.UseVisualStyleBackColor = true;
             // 
             // dgvMIDIoutListC
             // 
-            this.dgvMIDIoutListC.AllowUserToAddRows = (false);
-            this.dgvMIDIoutListC.AllowUserToDeleteRows = (false);
-            this.dgvMIDIoutListC.AllowUserToResizeRows = (false);
-            this.dgvMIDIoutListC.ColumnHeadersHeightSizeMode = (global::System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize);
-            resources.ApplyResources(this.dgvMIDIoutListC, "dgvMIDIoutListC");
-            this.dgvMIDIoutListC.MultiSelect = (false);
-            this.dgvMIDIoutListC.Name = ("dgvMIDIoutListC");
-            this.dgvMIDIoutListC.RowHeadersVisible = (false);
-            this.dgvMIDIoutListC.RowTemplate.Height = (21);
-            this.dgvMIDIoutListC.SelectionMode = (global::System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect);
+            dgvMIDIoutListC.AllowUserToAddRows = false;
+            dgvMIDIoutListC.AllowUserToDeleteRows = false;
+            dgvMIDIoutListC.AllowUserToResizeRows = false;
+            dgvMIDIoutListC.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            resources.ApplyResources(dgvMIDIoutListC, "dgvMIDIoutListC");
+            dgvMIDIoutListC.MultiSelect = false;
+            dgvMIDIoutListC.Name = "dgvMIDIoutListC";
+            dgvMIDIoutListC.RowHeadersVisible = false;
+            dgvMIDIoutListC.RowTemplate.Height = 21;
+            dgvMIDIoutListC.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             // 
             // btnUP_C
             // 
-            resources.ApplyResources(this.btnUP_C, "btnUP_C");
-            this.btnUP_C.Name = ("btnUP_C");
-            this.btnUP_C.UseVisualStyleBackColor = (true);
-            this.btnUP_C.Click += (this.btnUP_Click);
+            resources.ApplyResources(btnUP_C, "btnUP_C");
+            btnUP_C.Name = "btnUP_C";
+            btnUP_C.UseVisualStyleBackColor = true;
+            btnUP_C.Click += btnUP_Click;
             // 
             // btnDOWN_C
             // 
-            resources.ApplyResources(this.btnDOWN_C, "btnDOWN_C");
-            this.btnDOWN_C.Name = ("btnDOWN_C");
-            this.btnDOWN_C.UseVisualStyleBackColor = (true);
-            this.btnDOWN_C.Click += (this.btnDOWN_Click);
+            resources.ApplyResources(btnDOWN_C, "btnDOWN_C");
+            btnDOWN_C.Name = "btnDOWN_C";
+            btnDOWN_C.UseVisualStyleBackColor = true;
+            btnDOWN_C.Click += btnDOWN_Click;
             // 
             // tabPage4
             // 
-            this.tabPage4.Controls.Add(this.dgvMIDIoutListD);
-            this.tabPage4.Controls.Add(this.btnUP_D);
-            this.tabPage4.Controls.Add(this.btnDOWN_D);
-            resources.ApplyResources(this.tabPage4, "tabPage4");
-            this.tabPage4.Name = ("tabPage4");
-            this.tabPage4.Tag = ("3");
-            this.tabPage4.UseVisualStyleBackColor = (true);
+            tabPage4.Controls.Add(dgvMIDIoutListD);
+            tabPage4.Controls.Add(btnUP_D);
+            tabPage4.Controls.Add(btnDOWN_D);
+            resources.ApplyResources(tabPage4, "tabPage4");
+            tabPage4.Name = "tabPage4";
+            tabPage4.Tag = "3";
+            tabPage4.UseVisualStyleBackColor = true;
             // 
             // dgvMIDIoutListD
             // 
-            this.dgvMIDIoutListD.AllowUserToAddRows = (false);
-            this.dgvMIDIoutListD.AllowUserToDeleteRows = (false);
-            this.dgvMIDIoutListD.AllowUserToResizeRows = (false);
-            this.dgvMIDIoutListD.ColumnHeadersHeightSizeMode = (global::System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize);
-            resources.ApplyResources(this.dgvMIDIoutListD, "dgvMIDIoutListD");
-            this.dgvMIDIoutListD.MultiSelect = (false);
-            this.dgvMIDIoutListD.Name = ("dgvMIDIoutListD");
-            this.dgvMIDIoutListD.RowHeadersVisible = (false);
-            this.dgvMIDIoutListD.RowTemplate.Height = (21);
-            this.dgvMIDIoutListD.SelectionMode = (global::System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect);
+            dgvMIDIoutListD.AllowUserToAddRows = false;
+            dgvMIDIoutListD.AllowUserToDeleteRows = false;
+            dgvMIDIoutListD.AllowUserToResizeRows = false;
+            dgvMIDIoutListD.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            resources.ApplyResources(dgvMIDIoutListD, "dgvMIDIoutListD");
+            dgvMIDIoutListD.MultiSelect = false;
+            dgvMIDIoutListD.Name = "dgvMIDIoutListD";
+            dgvMIDIoutListD.RowHeadersVisible = false;
+            dgvMIDIoutListD.RowTemplate.Height = 21;
+            dgvMIDIoutListD.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             // 
             // btnUP_D
             // 
-            resources.ApplyResources(this.btnUP_D, "btnUP_D");
-            this.btnUP_D.Name = ("btnUP_D");
-            this.btnUP_D.UseVisualStyleBackColor = (true);
-            this.btnUP_D.Click += (this.btnUP_Click);
+            resources.ApplyResources(btnUP_D, "btnUP_D");
+            btnUP_D.Name = "btnUP_D";
+            btnUP_D.UseVisualStyleBackColor = true;
+            btnUP_D.Click += btnUP_Click;
             // 
             // btnDOWN_D
             // 
-            resources.ApplyResources(this.btnDOWN_D, "btnDOWN_D");
-            this.btnDOWN_D.Name = ("btnDOWN_D");
-            this.btnDOWN_D.UseVisualStyleBackColor = (true);
-            this.btnDOWN_D.Click += (this.btnDOWN_Click);
+            resources.ApplyResources(btnDOWN_D, "btnDOWN_D");
+            btnDOWN_D.Name = "btnDOWN_D";
+            btnDOWN_D.UseVisualStyleBackColor = true;
+            btnDOWN_D.Click += btnDOWN_Click;
             // 
             // tabPage5
             // 
-            this.tabPage5.Controls.Add(this.dgvMIDIoutListE);
-            this.tabPage5.Controls.Add(this.btnUP_E);
-            this.tabPage5.Controls.Add(this.btnDOWN_E);
-            resources.ApplyResources(this.tabPage5, "tabPage5");
-            this.tabPage5.Name = ("tabPage5");
-            this.tabPage5.Tag = ("4");
-            this.tabPage5.UseVisualStyleBackColor = (true);
+            tabPage5.Controls.Add(dgvMIDIoutListE);
+            tabPage5.Controls.Add(btnUP_E);
+            tabPage5.Controls.Add(btnDOWN_E);
+            resources.ApplyResources(tabPage5, "tabPage5");
+            tabPage5.Name = "tabPage5";
+            tabPage5.Tag = "4";
+            tabPage5.UseVisualStyleBackColor = true;
             // 
             // dgvMIDIoutListE
             // 
-            this.dgvMIDIoutListE.AllowUserToAddRows = (false);
-            this.dgvMIDIoutListE.AllowUserToDeleteRows = (false);
-            this.dgvMIDIoutListE.AllowUserToResizeRows = (false);
-            this.dgvMIDIoutListE.ColumnHeadersHeightSizeMode = (global::System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize);
-            resources.ApplyResources(this.dgvMIDIoutListE, "dgvMIDIoutListE");
-            this.dgvMIDIoutListE.MultiSelect = (false);
-            this.dgvMIDIoutListE.Name = ("dgvMIDIoutListE");
-            this.dgvMIDIoutListE.RowHeadersVisible = (false);
-            this.dgvMIDIoutListE.RowTemplate.Height = (21);
-            this.dgvMIDIoutListE.SelectionMode = (global::System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect);
+            dgvMIDIoutListE.AllowUserToAddRows = false;
+            dgvMIDIoutListE.AllowUserToDeleteRows = false;
+            dgvMIDIoutListE.AllowUserToResizeRows = false;
+            dgvMIDIoutListE.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            resources.ApplyResources(dgvMIDIoutListE, "dgvMIDIoutListE");
+            dgvMIDIoutListE.MultiSelect = false;
+            dgvMIDIoutListE.Name = "dgvMIDIoutListE";
+            dgvMIDIoutListE.RowHeadersVisible = false;
+            dgvMIDIoutListE.RowTemplate.Height = 21;
+            dgvMIDIoutListE.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             // 
             // btnUP_E
             // 
-            resources.ApplyResources(this.btnUP_E, "btnUP_E");
-            this.btnUP_E.Name = ("btnUP_E");
-            this.btnUP_E.UseVisualStyleBackColor = (true);
-            this.btnUP_E.Click += (this.btnUP_Click);
+            resources.ApplyResources(btnUP_E, "btnUP_E");
+            btnUP_E.Name = "btnUP_E";
+            btnUP_E.UseVisualStyleBackColor = true;
+            btnUP_E.Click += btnUP_Click;
             // 
             // btnDOWN_E
             // 
-            resources.ApplyResources(this.btnDOWN_E, "btnDOWN_E");
-            this.btnDOWN_E.Name = ("btnDOWN_E");
-            this.btnDOWN_E.UseVisualStyleBackColor = (true);
-            this.btnDOWN_E.Click += (this.btnDOWN_Click);
+            resources.ApplyResources(btnDOWN_E, "btnDOWN_E");
+            btnDOWN_E.Name = "btnDOWN_E";
+            btnDOWN_E.UseVisualStyleBackColor = true;
+            btnDOWN_E.Click += btnDOWN_Click;
             // 
             // tabPage6
             // 
-            this.tabPage6.Controls.Add(this.dgvMIDIoutListF);
-            this.tabPage6.Controls.Add(this.btnUP_F);
-            this.tabPage6.Controls.Add(this.btnDOWN_F);
-            resources.ApplyResources(this.tabPage6, "tabPage6");
-            this.tabPage6.Name = ("tabPage6");
-            this.tabPage6.Tag = ("5");
-            this.tabPage6.UseVisualStyleBackColor = (true);
+            tabPage6.Controls.Add(dgvMIDIoutListF);
+            tabPage6.Controls.Add(btnUP_F);
+            tabPage6.Controls.Add(btnDOWN_F);
+            resources.ApplyResources(tabPage6, "tabPage6");
+            tabPage6.Name = "tabPage6";
+            tabPage6.Tag = "5";
+            tabPage6.UseVisualStyleBackColor = true;
             // 
             // dgvMIDIoutListF
             // 
-            this.dgvMIDIoutListF.AllowUserToAddRows = (false);
-            this.dgvMIDIoutListF.AllowUserToDeleteRows = (false);
-            this.dgvMIDIoutListF.AllowUserToResizeRows = (false);
-            this.dgvMIDIoutListF.ColumnHeadersHeightSizeMode = (global::System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize);
-            resources.ApplyResources(this.dgvMIDIoutListF, "dgvMIDIoutListF");
-            this.dgvMIDIoutListF.MultiSelect = (false);
-            this.dgvMIDIoutListF.Name = ("dgvMIDIoutListF");
-            this.dgvMIDIoutListF.RowHeadersVisible = (false);
-            this.dgvMIDIoutListF.RowTemplate.Height = (21);
-            this.dgvMIDIoutListF.SelectionMode = (global::System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect);
+            dgvMIDIoutListF.AllowUserToAddRows = false;
+            dgvMIDIoutListF.AllowUserToDeleteRows = false;
+            dgvMIDIoutListF.AllowUserToResizeRows = false;
+            dgvMIDIoutListF.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            resources.ApplyResources(dgvMIDIoutListF, "dgvMIDIoutListF");
+            dgvMIDIoutListF.MultiSelect = false;
+            dgvMIDIoutListF.Name = "dgvMIDIoutListF";
+            dgvMIDIoutListF.RowHeadersVisible = false;
+            dgvMIDIoutListF.RowTemplate.Height = 21;
+            dgvMIDIoutListF.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             // 
             // btnUP_F
             // 
-            resources.ApplyResources(this.btnUP_F, "btnUP_F");
-            this.btnUP_F.Name = ("btnUP_F");
-            this.btnUP_F.UseVisualStyleBackColor = (true);
-            this.btnUP_F.Click += (this.btnUP_Click);
+            resources.ApplyResources(btnUP_F, "btnUP_F");
+            btnUP_F.Name = "btnUP_F";
+            btnUP_F.UseVisualStyleBackColor = true;
+            btnUP_F.Click += btnUP_Click;
             // 
             // btnDOWN_F
             // 
-            resources.ApplyResources(this.btnDOWN_F, "btnDOWN_F");
-            this.btnDOWN_F.Name = ("btnDOWN_F");
-            this.btnDOWN_F.UseVisualStyleBackColor = (true);
-            this.btnDOWN_F.Click += (this.btnDOWN_Click);
+            resources.ApplyResources(btnDOWN_F, "btnDOWN_F");
+            btnDOWN_F.Name = "btnDOWN_F";
+            btnDOWN_F.UseVisualStyleBackColor = true;
+            btnDOWN_F.Click += btnDOWN_Click;
             // 
             // tabPage7
             // 
-            this.tabPage7.Controls.Add(this.dgvMIDIoutListG);
-            this.tabPage7.Controls.Add(this.btnUP_G);
-            this.tabPage7.Controls.Add(this.btnDOWN_G);
-            resources.ApplyResources(this.tabPage7, "tabPage7");
-            this.tabPage7.Name = ("tabPage7");
-            this.tabPage7.Tag = ("6");
-            this.tabPage7.UseVisualStyleBackColor = (true);
+            tabPage7.Controls.Add(dgvMIDIoutListG);
+            tabPage7.Controls.Add(btnUP_G);
+            tabPage7.Controls.Add(btnDOWN_G);
+            resources.ApplyResources(tabPage7, "tabPage7");
+            tabPage7.Name = "tabPage7";
+            tabPage7.Tag = "6";
+            tabPage7.UseVisualStyleBackColor = true;
             // 
             // dgvMIDIoutListG
             // 
-            this.dgvMIDIoutListG.AllowUserToAddRows = (false);
-            this.dgvMIDIoutListG.AllowUserToDeleteRows = (false);
-            this.dgvMIDIoutListG.AllowUserToResizeRows = (false);
-            this.dgvMIDIoutListG.ColumnHeadersHeightSizeMode = (global::System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize);
-            resources.ApplyResources(this.dgvMIDIoutListG, "dgvMIDIoutListG");
-            this.dgvMIDIoutListG.MultiSelect = (false);
-            this.dgvMIDIoutListG.Name = ("dgvMIDIoutListG");
-            this.dgvMIDIoutListG.RowHeadersVisible = (false);
-            this.dgvMIDIoutListG.RowTemplate.Height = (21);
-            this.dgvMIDIoutListG.SelectionMode = (global::System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect);
+            dgvMIDIoutListG.AllowUserToAddRows = false;
+            dgvMIDIoutListG.AllowUserToDeleteRows = false;
+            dgvMIDIoutListG.AllowUserToResizeRows = false;
+            dgvMIDIoutListG.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            resources.ApplyResources(dgvMIDIoutListG, "dgvMIDIoutListG");
+            dgvMIDIoutListG.MultiSelect = false;
+            dgvMIDIoutListG.Name = "dgvMIDIoutListG";
+            dgvMIDIoutListG.RowHeadersVisible = false;
+            dgvMIDIoutListG.RowTemplate.Height = 21;
+            dgvMIDIoutListG.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             // 
             // btnUP_G
             // 
-            resources.ApplyResources(this.btnUP_G, "btnUP_G");
-            this.btnUP_G.Name = ("btnUP_G");
-            this.btnUP_G.UseVisualStyleBackColor = (true);
-            this.btnUP_G.Click += (this.btnUP_Click);
+            resources.ApplyResources(btnUP_G, "btnUP_G");
+            btnUP_G.Name = "btnUP_G";
+            btnUP_G.UseVisualStyleBackColor = true;
+            btnUP_G.Click += btnUP_Click;
             // 
             // btnDOWN_G
             // 
-            resources.ApplyResources(this.btnDOWN_G, "btnDOWN_G");
-            this.btnDOWN_G.Name = ("btnDOWN_G");
-            this.btnDOWN_G.UseVisualStyleBackColor = (true);
-            this.btnDOWN_G.Click += (this.btnDOWN_Click);
+            resources.ApplyResources(btnDOWN_G, "btnDOWN_G");
+            btnDOWN_G.Name = "btnDOWN_G";
+            btnDOWN_G.UseVisualStyleBackColor = true;
+            btnDOWN_G.Click += btnDOWN_Click;
             // 
             // tabPage8
             // 
-            this.tabPage8.Controls.Add(this.dgvMIDIoutListH);
-            this.tabPage8.Controls.Add(this.btnUP_H);
-            this.tabPage8.Controls.Add(this.btnDOWN_H);
-            resources.ApplyResources(this.tabPage8, "tabPage8");
-            this.tabPage8.Name = ("tabPage8");
-            this.tabPage8.Tag = ("7");
-            this.tabPage8.UseVisualStyleBackColor = (true);
+            tabPage8.Controls.Add(dgvMIDIoutListH);
+            tabPage8.Controls.Add(btnUP_H);
+            tabPage8.Controls.Add(btnDOWN_H);
+            resources.ApplyResources(tabPage8, "tabPage8");
+            tabPage8.Name = "tabPage8";
+            tabPage8.Tag = "7";
+            tabPage8.UseVisualStyleBackColor = true;
             // 
             // dgvMIDIoutListH
             // 
-            this.dgvMIDIoutListH.AllowUserToAddRows = (false);
-            this.dgvMIDIoutListH.AllowUserToDeleteRows = (false);
-            this.dgvMIDIoutListH.AllowUserToResizeRows = (false);
-            this.dgvMIDIoutListH.ColumnHeadersHeightSizeMode = (global::System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize);
-            resources.ApplyResources(this.dgvMIDIoutListH, "dgvMIDIoutListH");
-            this.dgvMIDIoutListH.MultiSelect = (false);
-            this.dgvMIDIoutListH.Name = ("dgvMIDIoutListH");
-            this.dgvMIDIoutListH.RowHeadersVisible = (false);
-            this.dgvMIDIoutListH.RowTemplate.Height = (21);
-            this.dgvMIDIoutListH.SelectionMode = (global::System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect);
+            dgvMIDIoutListH.AllowUserToAddRows = false;
+            dgvMIDIoutListH.AllowUserToDeleteRows = false;
+            dgvMIDIoutListH.AllowUserToResizeRows = false;
+            dgvMIDIoutListH.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            resources.ApplyResources(dgvMIDIoutListH, "dgvMIDIoutListH");
+            dgvMIDIoutListH.MultiSelect = false;
+            dgvMIDIoutListH.Name = "dgvMIDIoutListH";
+            dgvMIDIoutListH.RowHeadersVisible = false;
+            dgvMIDIoutListH.RowTemplate.Height = 21;
+            dgvMIDIoutListH.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             // 
             // btnUP_H
             // 
-            resources.ApplyResources(this.btnUP_H, "btnUP_H");
-            this.btnUP_H.Name = ("btnUP_H");
-            this.btnUP_H.UseVisualStyleBackColor = (true);
-            this.btnUP_H.Click += (this.btnUP_Click);
+            resources.ApplyResources(btnUP_H, "btnUP_H");
+            btnUP_H.Name = "btnUP_H";
+            btnUP_H.UseVisualStyleBackColor = true;
+            btnUP_H.Click += btnUP_Click;
             // 
             // btnDOWN_H
             // 
-            resources.ApplyResources(this.btnDOWN_H, "btnDOWN_H");
-            this.btnDOWN_H.Name = ("btnDOWN_H");
-            this.btnDOWN_H.UseVisualStyleBackColor = (true);
-            this.btnDOWN_H.Click += (this.btnDOWN_Click);
+            resources.ApplyResources(btnDOWN_H, "btnDOWN_H");
+            btnDOWN_H.Name = "btnDOWN_H";
+            btnDOWN_H.UseVisualStyleBackColor = true;
+            btnDOWN_H.Click += btnDOWN_Click;
             // 
             // tabPage9
             // 
-            this.tabPage9.Controls.Add(this.dgvMIDIoutListI);
-            this.tabPage9.Controls.Add(this.btnUP_I);
-            this.tabPage9.Controls.Add(this.btnDOWN_I);
-            resources.ApplyResources(this.tabPage9, "tabPage9");
-            this.tabPage9.Name = ("tabPage9");
-            this.tabPage9.Tag = ("8");
-            this.tabPage9.UseVisualStyleBackColor = (true);
+            tabPage9.Controls.Add(dgvMIDIoutListI);
+            tabPage9.Controls.Add(btnUP_I);
+            tabPage9.Controls.Add(btnDOWN_I);
+            resources.ApplyResources(tabPage9, "tabPage9");
+            tabPage9.Name = "tabPage9";
+            tabPage9.Tag = "8";
+            tabPage9.UseVisualStyleBackColor = true;
             // 
             // dgvMIDIoutListI
             // 
-            this.dgvMIDIoutListI.AllowUserToAddRows = (false);
-            this.dgvMIDIoutListI.AllowUserToDeleteRows = (false);
-            this.dgvMIDIoutListI.AllowUserToResizeRows = (false);
-            this.dgvMIDIoutListI.ColumnHeadersHeightSizeMode = (global::System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize);
-            resources.ApplyResources(this.dgvMIDIoutListI, "dgvMIDIoutListI");
-            this.dgvMIDIoutListI.MultiSelect = (false);
-            this.dgvMIDIoutListI.Name = ("dgvMIDIoutListI");
-            this.dgvMIDIoutListI.RowHeadersVisible = (false);
-            this.dgvMIDIoutListI.RowTemplate.Height = (21);
-            this.dgvMIDIoutListI.SelectionMode = (global::System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect);
+            dgvMIDIoutListI.AllowUserToAddRows = false;
+            dgvMIDIoutListI.AllowUserToDeleteRows = false;
+            dgvMIDIoutListI.AllowUserToResizeRows = false;
+            dgvMIDIoutListI.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            resources.ApplyResources(dgvMIDIoutListI, "dgvMIDIoutListI");
+            dgvMIDIoutListI.MultiSelect = false;
+            dgvMIDIoutListI.Name = "dgvMIDIoutListI";
+            dgvMIDIoutListI.RowHeadersVisible = false;
+            dgvMIDIoutListI.RowTemplate.Height = 21;
+            dgvMIDIoutListI.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             // 
             // btnUP_I
             // 
-            resources.ApplyResources(this.btnUP_I, "btnUP_I");
-            this.btnUP_I.Name = ("btnUP_I");
-            this.btnUP_I.UseVisualStyleBackColor = (true);
-            this.btnUP_I.Click += (this.btnUP_Click);
+            resources.ApplyResources(btnUP_I, "btnUP_I");
+            btnUP_I.Name = "btnUP_I";
+            btnUP_I.UseVisualStyleBackColor = true;
+            btnUP_I.Click += btnUP_Click;
             // 
             // btnDOWN_I
             // 
-            resources.ApplyResources(this.btnDOWN_I, "btnDOWN_I");
-            this.btnDOWN_I.Name = ("btnDOWN_I");
-            this.btnDOWN_I.UseVisualStyleBackColor = (true);
-            this.btnDOWN_I.Click += (this.btnDOWN_Click);
+            resources.ApplyResources(btnDOWN_I, "btnDOWN_I");
+            btnDOWN_I.Name = "btnDOWN_I";
+            btnDOWN_I.UseVisualStyleBackColor = true;
+            btnDOWN_I.Click += btnDOWN_Click;
             // 
             // tabPage10
             // 
-            this.tabPage10.Controls.Add(this.dgvMIDIoutListJ);
-            this.tabPage10.Controls.Add(this.button17);
-            this.tabPage10.Controls.Add(this.btnDOWN_J);
-            resources.ApplyResources(this.tabPage10, "tabPage10");
-            this.tabPage10.Name = ("tabPage10");
-            this.tabPage10.Tag = ("9");
-            this.tabPage10.UseVisualStyleBackColor = (true);
+            tabPage10.Controls.Add(dgvMIDIoutListJ);
+            tabPage10.Controls.Add(button17);
+            tabPage10.Controls.Add(btnDOWN_J);
+            resources.ApplyResources(tabPage10, "tabPage10");
+            tabPage10.Name = "tabPage10";
+            tabPage10.Tag = "9";
+            tabPage10.UseVisualStyleBackColor = true;
             // 
             // dgvMIDIoutListJ
             // 
-            this.dgvMIDIoutListJ.AllowUserToAddRows = (false);
-            this.dgvMIDIoutListJ.AllowUserToDeleteRows = (false);
-            this.dgvMIDIoutListJ.AllowUserToResizeRows = (false);
-            this.dgvMIDIoutListJ.ColumnHeadersHeightSizeMode = (global::System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize);
-            resources.ApplyResources(this.dgvMIDIoutListJ, "dgvMIDIoutListJ");
-            this.dgvMIDIoutListJ.MultiSelect = (false);
-            this.dgvMIDIoutListJ.Name = ("dgvMIDIoutListJ");
-            this.dgvMIDIoutListJ.RowHeadersVisible = (false);
-            this.dgvMIDIoutListJ.RowTemplate.Height = (21);
-            this.dgvMIDIoutListJ.SelectionMode = (global::System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect);
+            dgvMIDIoutListJ.AllowUserToAddRows = false;
+            dgvMIDIoutListJ.AllowUserToDeleteRows = false;
+            dgvMIDIoutListJ.AllowUserToResizeRows = false;
+            dgvMIDIoutListJ.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            resources.ApplyResources(dgvMIDIoutListJ, "dgvMIDIoutListJ");
+            dgvMIDIoutListJ.MultiSelect = false;
+            dgvMIDIoutListJ.Name = "dgvMIDIoutListJ";
+            dgvMIDIoutListJ.RowHeadersVisible = false;
+            dgvMIDIoutListJ.RowTemplate.Height = 21;
+            dgvMIDIoutListJ.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             // 
             // button17
             // 
-            resources.ApplyResources(this.button17, "button17");
-            this.button17.Name = ("button17");
-            this.button17.UseVisualStyleBackColor = (true);
-            this.button17.Click += (this.btnUP_Click);
+            resources.ApplyResources(button17, "button17");
+            button17.Name = "button17";
+            button17.UseVisualStyleBackColor = true;
+            button17.Click += btnUP_Click;
             // 
             // btnDOWN_J
             // 
-            resources.ApplyResources(this.btnDOWN_J, "btnDOWN_J");
-            this.btnDOWN_J.Name = ("btnDOWN_J");
-            this.btnDOWN_J.UseVisualStyleBackColor = (true);
-            this.btnDOWN_J.Click += (this.btnDOWN_Click);
+            resources.ApplyResources(btnDOWN_J, "btnDOWN_J");
+            btnDOWN_J.Name = "btnDOWN_J";
+            btnDOWN_J.UseVisualStyleBackColor = true;
+            btnDOWN_J.Click += btnDOWN_Click;
             // 
             // btnSubMIDIout
             // 
-            resources.ApplyResources(this.btnSubMIDIout, "btnSubMIDIout");
-            this.btnSubMIDIout.Name = ("btnSubMIDIout");
-            this.btnSubMIDIout.UseVisualStyleBackColor = (true);
-            this.btnSubMIDIout.Click += (this.btnSubMIDIout_Click);
+            resources.ApplyResources(btnSubMIDIout, "btnSubMIDIout");
+            btnSubMIDIout.Name = "btnSubMIDIout";
+            btnSubMIDIout.UseVisualStyleBackColor = true;
+            btnSubMIDIout.Click += btnSubMIDIout_Click;
             // 
             // btnAddMIDIout
             // 
-            resources.ApplyResources(this.btnAddMIDIout, "btnAddMIDIout");
-            this.btnAddMIDIout.Name = ("btnAddMIDIout");
-            this.btnAddMIDIout.UseVisualStyleBackColor = (true);
-            this.btnAddMIDIout.Click += (this.btnAddMIDIout_Click);
+            resources.ApplyResources(btnAddMIDIout, "btnAddMIDIout");
+            btnAddMIDIout.Name = "btnAddMIDIout";
+            btnAddMIDIout.UseVisualStyleBackColor = true;
+            btnAddMIDIout.Click += btnAddMIDIout_Click;
             // 
             // label18
             // 
-            resources.ApplyResources(this.label18, "label18");
-            this.label18.Name = ("label18");
+            resources.ApplyResources(label18, "label18");
+            label18.Name = "label18";
             // 
             // dgvMIDIoutPallet
             // 
-            this.dgvMIDIoutPallet.AllowUserToAddRows = (false);
-            this.dgvMIDIoutPallet.AllowUserToDeleteRows = (false);
-            this.dgvMIDIoutPallet.AllowUserToResizeRows = (false);
-            resources.ApplyResources(this.dgvMIDIoutPallet, "dgvMIDIoutPallet");
-            this.dgvMIDIoutPallet.ColumnHeadersHeightSizeMode = (global::System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize);
-            this.dgvMIDIoutPallet.Columns.AddRange(new global::System.Windows.Forms.DataGridViewColumn[] { this.clmID, this.clmDeviceName, this.clmManufacturer, this.clmSpacer });
-            this.dgvMIDIoutPallet.MultiSelect = (false);
-            this.dgvMIDIoutPallet.Name = ("dgvMIDIoutPallet");
-            this.dgvMIDIoutPallet.RowHeadersVisible = (false);
-            this.dgvMIDIoutPallet.RowTemplate.Height = (21);
-            this.dgvMIDIoutPallet.SelectionMode = (global::System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect);
+            dgvMIDIoutPallet.AllowUserToAddRows = false;
+            dgvMIDIoutPallet.AllowUserToDeleteRows = false;
+            dgvMIDIoutPallet.AllowUserToResizeRows = false;
+            resources.ApplyResources(dgvMIDIoutPallet, "dgvMIDIoutPallet");
+            dgvMIDIoutPallet.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvMIDIoutPallet.Columns.AddRange(new DataGridViewColumn[] { clmID, clmDeviceName, clmManufacturer, clmSpacer });
+            dgvMIDIoutPallet.MultiSelect = false;
+            dgvMIDIoutPallet.Name = "dgvMIDIoutPallet";
+            dgvMIDIoutPallet.RowHeadersVisible = false;
+            dgvMIDIoutPallet.RowTemplate.Height = 21;
+            dgvMIDIoutPallet.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             // 
             // clmID
             // 
-            this.clmID.Frozen = (true);
-            resources.ApplyResources(this.clmID, "clmID");
-            this.clmID.Name = ("clmID");
-            this.clmID.ReadOnly = (true);
+            clmID.Frozen = true;
+            resources.ApplyResources(clmID, "clmID");
+            clmID.Name = "clmID";
+            clmID.ReadOnly = true;
             // 
             // clmDeviceName
             // 
-            this.clmDeviceName.Frozen = (true);
-            resources.ApplyResources(this.clmDeviceName, "clmDeviceName");
-            this.clmDeviceName.Name = ("clmDeviceName");
-            this.clmDeviceName.ReadOnly = (true);
-            this.clmDeviceName.SortMode = (global::System.Windows.Forms.DataGridViewColumnSortMode.NotSortable);
+            clmDeviceName.Frozen = true;
+            resources.ApplyResources(clmDeviceName, "clmDeviceName");
+            clmDeviceName.Name = "clmDeviceName";
+            clmDeviceName.ReadOnly = true;
+            clmDeviceName.SortMode = DataGridViewColumnSortMode.NotSortable;
             // 
             // clmManufacturer
             // 
-            this.clmManufacturer.Frozen = (true);
-            resources.ApplyResources(this.clmManufacturer, "clmManufacturer");
-            this.clmManufacturer.Name = ("clmManufacturer");
-            this.clmManufacturer.ReadOnly = (true);
-            this.clmManufacturer.SortMode = (global::System.Windows.Forms.DataGridViewColumnSortMode.NotSortable);
+            clmManufacturer.Frozen = true;
+            resources.ApplyResources(clmManufacturer, "clmManufacturer");
+            clmManufacturer.Name = "clmManufacturer";
+            clmManufacturer.ReadOnly = true;
+            clmManufacturer.SortMode = DataGridViewColumnSortMode.NotSortable;
             // 
             // clmSpacer
             // 
-            this.clmSpacer.AutoSizeMode = (global::System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill);
-            resources.ApplyResources(this.clmSpacer, "clmSpacer");
-            this.clmSpacer.Name = ("clmSpacer");
-            this.clmSpacer.ReadOnly = (true);
-            this.clmSpacer.SortMode = (global::System.Windows.Forms.DataGridViewColumnSortMode.NotSortable);
+            clmSpacer.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            resources.ApplyResources(clmSpacer, "clmSpacer");
+            clmSpacer.Name = "clmSpacer";
+            clmSpacer.ReadOnly = true;
+            clmSpacer.SortMode = DataGridViewColumnSortMode.NotSortable;
             // 
             // label16
             // 
-            resources.ApplyResources(this.label16, "label16");
-            this.label16.Name = ("label16");
+            resources.ApplyResources(label16, "label16");
+            label16.Name = "label16";
             // 
             // tpMIDIOut2
             // 
-            this.tpMIDIOut2.Controls.Add(this.groupBox15);
-            resources.ApplyResources(this.tpMIDIOut2, "tpMIDIOut2");
-            this.tpMIDIOut2.Name = ("tpMIDIOut2");
-            this.tpMIDIOut2.UseVisualStyleBackColor = (true);
+            tpMIDIOut2.Controls.Add(groupBox15);
+            resources.ApplyResources(tpMIDIOut2, "tpMIDIOut2");
+            tpMIDIOut2.Name = "tpMIDIOut2";
+            tpMIDIOut2.UseVisualStyleBackColor = true;
             // 
             // groupBox15
             // 
-            resources.ApplyResources(this.groupBox15, "groupBox15");
-            this.groupBox15.Controls.Add(this.btnBeforeSend_Default);
-            this.groupBox15.Controls.Add(this.tbBeforeSend_Custom);
-            this.groupBox15.Controls.Add(this.tbBeforeSend_XGReset);
-            this.groupBox15.Controls.Add(this.label35);
-            this.groupBox15.Controls.Add(this.label34);
-            this.groupBox15.Controls.Add(this.label32);
-            this.groupBox15.Controls.Add(this.tbBeforeSend_GSReset);
-            this.groupBox15.Controls.Add(this.label33);
-            this.groupBox15.Controls.Add(this.tbBeforeSend_GMReset);
-            this.groupBox15.Controls.Add(this.label31);
-            this.groupBox15.Name = ("groupBox15");
-            this.groupBox15.TabStop = (false);
+            resources.ApplyResources(groupBox15, "groupBox15");
+            groupBox15.Controls.Add(btnBeforeSend_Default);
+            groupBox15.Controls.Add(tbBeforeSend_Custom);
+            groupBox15.Controls.Add(tbBeforeSend_XGReset);
+            groupBox15.Controls.Add(label35);
+            groupBox15.Controls.Add(label34);
+            groupBox15.Controls.Add(label32);
+            groupBox15.Controls.Add(tbBeforeSend_GSReset);
+            groupBox15.Controls.Add(label33);
+            groupBox15.Controls.Add(tbBeforeSend_GMReset);
+            groupBox15.Controls.Add(label31);
+            groupBox15.Name = "groupBox15";
+            groupBox15.TabStop = false;
             // 
             // btnBeforeSend_Default
             // 
-            resources.ApplyResources(this.btnBeforeSend_Default, "btnBeforeSend_Default");
-            this.btnBeforeSend_Default.Name = ("btnBeforeSend_Default");
-            this.btnBeforeSend_Default.UseVisualStyleBackColor = (true);
-            this.btnBeforeSend_Default.Click += (this.btnBeforeSend_Default_Click);
+            resources.ApplyResources(btnBeforeSend_Default, "btnBeforeSend_Default");
+            btnBeforeSend_Default.Name = "btnBeforeSend_Default";
+            btnBeforeSend_Default.UseVisualStyleBackColor = true;
+            btnBeforeSend_Default.Click += btnBeforeSend_Default_Click;
             // 
             // tbBeforeSend_Custom
             // 
-            resources.ApplyResources(this.tbBeforeSend_Custom, "tbBeforeSend_Custom");
-            this.tbBeforeSend_Custom.Name = ("tbBeforeSend_Custom");
+            resources.ApplyResources(tbBeforeSend_Custom, "tbBeforeSend_Custom");
+            tbBeforeSend_Custom.Name = "tbBeforeSend_Custom";
             // 
             // tbBeforeSend_XGReset
             // 
-            resources.ApplyResources(this.tbBeforeSend_XGReset, "tbBeforeSend_XGReset");
-            this.tbBeforeSend_XGReset.Name = ("tbBeforeSend_XGReset");
+            resources.ApplyResources(tbBeforeSend_XGReset, "tbBeforeSend_XGReset");
+            tbBeforeSend_XGReset.Name = "tbBeforeSend_XGReset";
             // 
             // label35
             // 
-            resources.ApplyResources(this.label35, "label35");
-            this.label35.Name = ("label35");
+            resources.ApplyResources(label35, "label35");
+            label35.Name = "label35";
             // 
             // label34
             // 
-            resources.ApplyResources(this.label34, "label34");
-            this.label34.Name = ("label34");
+            resources.ApplyResources(label34, "label34");
+            label34.Name = "label34";
             // 
             // label32
             // 
-            resources.ApplyResources(this.label32, "label32");
-            this.label32.Name = ("label32");
+            resources.ApplyResources(label32, "label32");
+            label32.Name = "label32";
             // 
             // tbBeforeSend_GSReset
             // 
-            resources.ApplyResources(this.tbBeforeSend_GSReset, "tbBeforeSend_GSReset");
-            this.tbBeforeSend_GSReset.Name = ("tbBeforeSend_GSReset");
+            resources.ApplyResources(tbBeforeSend_GSReset, "tbBeforeSend_GSReset");
+            tbBeforeSend_GSReset.Name = "tbBeforeSend_GSReset";
             // 
             // label33
             // 
-            resources.ApplyResources(this.label33, "label33");
-            this.label33.Name = ("label33");
+            resources.ApplyResources(label33, "label33");
+            label33.Name = "label33";
             // 
             // tbBeforeSend_GMReset
             // 
-            resources.ApplyResources(this.tbBeforeSend_GMReset, "tbBeforeSend_GMReset");
-            this.tbBeforeSend_GMReset.Name = ("tbBeforeSend_GMReset");
+            resources.ApplyResources(tbBeforeSend_GMReset, "tbBeforeSend_GMReset");
+            tbBeforeSend_GMReset.Name = "tbBeforeSend_GMReset";
             // 
             // label31
             // 
-            resources.ApplyResources(this.label31, "label31");
-            this.label31.Name = ("label31");
+            resources.ApplyResources(label31, "label31");
+            label31.Name = "label31";
             // 
             // tabMIDIExp
             // 
-            this.tabMIDIExp.Controls.Add(this.cbUseMIDIExport);
-            this.tabMIDIExp.Controls.Add(this.gbMIDIExport);
-            resources.ApplyResources(this.tabMIDIExp, "tabMIDIExp");
-            this.tabMIDIExp.Name = ("tabMIDIExp");
-            this.tabMIDIExp.UseVisualStyleBackColor = (true);
+            tabMIDIExp.Controls.Add(cbUseMIDIExport);
+            tabMIDIExp.Controls.Add(gbMIDIExport);
+            resources.ApplyResources(tabMIDIExp, "tabMIDIExp");
+            tabMIDIExp.Name = "tabMIDIExp";
+            tabMIDIExp.UseVisualStyleBackColor = true;
             // 
             // cbUseMIDIExport
             // 
-            resources.ApplyResources(this.cbUseMIDIExport, "cbUseMIDIExport");
-            this.cbUseMIDIExport.Name = ("cbUseMIDIExport");
-            this.cbUseMIDIExport.UseVisualStyleBackColor = (true);
-            this.cbUseMIDIExport.CheckedChanged += (this.cbUseMIDIExport_CheckedChanged);
+            resources.ApplyResources(cbUseMIDIExport, "cbUseMIDIExport");
+            cbUseMIDIExport.Name = "cbUseMIDIExport";
+            cbUseMIDIExport.UseVisualStyleBackColor = true;
+            cbUseMIDIExport.CheckedChanged += cbUseMIDIExport_CheckedChanged;
             // 
             // gbMIDIExport
             // 
-            resources.ApplyResources(this.gbMIDIExport, "gbMIDIExport");
-            this.gbMIDIExport.Controls.Add(this.cbMIDIKeyOnFnum);
-            this.gbMIDIExport.Controls.Add(this.cbMIDIUseVOPM);
-            this.gbMIDIExport.Controls.Add(this.groupBox6);
-            this.gbMIDIExport.Controls.Add(this.cbMIDIPlayless);
-            this.gbMIDIExport.Controls.Add(this.btnMIDIOutputPath);
-            this.gbMIDIExport.Controls.Add(this.lblOutputPath);
-            this.gbMIDIExport.Controls.Add(this.tbMIDIOutputPath);
-            this.gbMIDIExport.Name = ("gbMIDIExport");
-            this.gbMIDIExport.TabStop = (false);
+            resources.ApplyResources(gbMIDIExport, "gbMIDIExport");
+            gbMIDIExport.Controls.Add(cbMIDIKeyOnFnum);
+            gbMIDIExport.Controls.Add(cbMIDIUseVOPM);
+            gbMIDIExport.Controls.Add(groupBox6);
+            gbMIDIExport.Controls.Add(cbMIDIPlayless);
+            gbMIDIExport.Controls.Add(btnMIDIOutputPath);
+            gbMIDIExport.Controls.Add(lblOutputPath);
+            gbMIDIExport.Controls.Add(tbMIDIOutputPath);
+            gbMIDIExport.Name = "gbMIDIExport";
+            gbMIDIExport.TabStop = false;
             // 
             // cbMIDIKeyOnFnum
             // 
-            resources.ApplyResources(this.cbMIDIKeyOnFnum, "cbMIDIKeyOnFnum");
-            this.cbMIDIKeyOnFnum.Name = ("cbMIDIKeyOnFnum");
-            this.cbMIDIKeyOnFnum.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbMIDIKeyOnFnum, "cbMIDIKeyOnFnum");
+            cbMIDIKeyOnFnum.Name = "cbMIDIKeyOnFnum";
+            cbMIDIKeyOnFnum.UseVisualStyleBackColor = true;
             // 
             // cbMIDIUseVOPM
             // 
-            resources.ApplyResources(this.cbMIDIUseVOPM, "cbMIDIUseVOPM");
-            this.cbMIDIUseVOPM.Name = ("cbMIDIUseVOPM");
-            this.cbMIDIUseVOPM.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbMIDIUseVOPM, "cbMIDIUseVOPM");
+            cbMIDIUseVOPM.Name = "cbMIDIUseVOPM";
+            cbMIDIUseVOPM.UseVisualStyleBackColor = true;
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.cbMIDIYM2612);
-            this.groupBox6.Controls.Add(this.cbMIDISN76489Sec);
-            this.groupBox6.Controls.Add(this.cbMIDIYM2612Sec);
-            this.groupBox6.Controls.Add(this.cbMIDISN76489);
-            this.groupBox6.Controls.Add(this.cbMIDIYM2151);
-            this.groupBox6.Controls.Add(this.cbMIDIYM2610BSec);
-            this.groupBox6.Controls.Add(this.cbMIDIYM2151Sec);
-            this.groupBox6.Controls.Add(this.cbMIDIYM2610B);
-            this.groupBox6.Controls.Add(this.cbMIDIYM2203);
-            this.groupBox6.Controls.Add(this.cbMIDIYM2608Sec);
-            this.groupBox6.Controls.Add(this.cbMIDIYM2203Sec);
-            this.groupBox6.Controls.Add(this.cbMIDIYM2608);
-            resources.ApplyResources(this.groupBox6, "groupBox6");
-            this.groupBox6.Name = ("groupBox6");
-            this.groupBox6.TabStop = (false);
+            groupBox6.Controls.Add(cbMIDIYM2612);
+            groupBox6.Controls.Add(cbMIDISN76489Sec);
+            groupBox6.Controls.Add(cbMIDIYM2612Sec);
+            groupBox6.Controls.Add(cbMIDISN76489);
+            groupBox6.Controls.Add(cbMIDIYM2151);
+            groupBox6.Controls.Add(cbMIDIYM2610BSec);
+            groupBox6.Controls.Add(cbMIDIYM2151Sec);
+            groupBox6.Controls.Add(cbMIDIYM2610B);
+            groupBox6.Controls.Add(cbMIDIYM2203);
+            groupBox6.Controls.Add(cbMIDIYM2608Sec);
+            groupBox6.Controls.Add(cbMIDIYM2203Sec);
+            groupBox6.Controls.Add(cbMIDIYM2608);
+            resources.ApplyResources(groupBox6, "groupBox6");
+            groupBox6.Name = "groupBox6";
+            groupBox6.TabStop = false;
             // 
             // cbMIDIYM2612
             // 
-            resources.ApplyResources(this.cbMIDIYM2612, "cbMIDIYM2612");
-            this.cbMIDIYM2612.Checked = (true);
-            this.cbMIDIYM2612.CheckState = (global::System.Windows.Forms.CheckState.Checked);
-            this.cbMIDIYM2612.Name = ("cbMIDIYM2612");
-            this.cbMIDIYM2612.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbMIDIYM2612, "cbMIDIYM2612");
+            cbMIDIYM2612.Checked = true;
+            cbMIDIYM2612.CheckState = CheckState.Checked;
+            cbMIDIYM2612.Name = "cbMIDIYM2612";
+            cbMIDIYM2612.UseVisualStyleBackColor = true;
             // 
             // cbMIDISN76489Sec
             // 
-            resources.ApplyResources(this.cbMIDISN76489Sec, "cbMIDISN76489Sec");
-            this.cbMIDISN76489Sec.Name = ("cbMIDISN76489Sec");
-            this.cbMIDISN76489Sec.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbMIDISN76489Sec, "cbMIDISN76489Sec");
+            cbMIDISN76489Sec.Name = "cbMIDISN76489Sec";
+            cbMIDISN76489Sec.UseVisualStyleBackColor = true;
             // 
             // cbMIDIYM2612Sec
             // 
-            resources.ApplyResources(this.cbMIDIYM2612Sec, "cbMIDIYM2612Sec");
-            this.cbMIDIYM2612Sec.Name = ("cbMIDIYM2612Sec");
-            this.cbMIDIYM2612Sec.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbMIDIYM2612Sec, "cbMIDIYM2612Sec");
+            cbMIDIYM2612Sec.Name = "cbMIDIYM2612Sec";
+            cbMIDIYM2612Sec.UseVisualStyleBackColor = true;
             // 
             // cbMIDISN76489
             // 
-            resources.ApplyResources(this.cbMIDISN76489, "cbMIDISN76489");
-            this.cbMIDISN76489.Name = ("cbMIDISN76489");
-            this.cbMIDISN76489.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbMIDISN76489, "cbMIDISN76489");
+            cbMIDISN76489.Name = "cbMIDISN76489";
+            cbMIDISN76489.UseVisualStyleBackColor = true;
             // 
             // cbMIDIYM2151
             // 
-            resources.ApplyResources(this.cbMIDIYM2151, "cbMIDIYM2151");
-            this.cbMIDIYM2151.Name = ("cbMIDIYM2151");
-            this.cbMIDIYM2151.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbMIDIYM2151, "cbMIDIYM2151");
+            cbMIDIYM2151.Name = "cbMIDIYM2151";
+            cbMIDIYM2151.UseVisualStyleBackColor = true;
             // 
             // cbMIDIYM2610BSec
             // 
-            resources.ApplyResources(this.cbMIDIYM2610BSec, "cbMIDIYM2610BSec");
-            this.cbMIDIYM2610BSec.Name = ("cbMIDIYM2610BSec");
-            this.cbMIDIYM2610BSec.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbMIDIYM2610BSec, "cbMIDIYM2610BSec");
+            cbMIDIYM2610BSec.Name = "cbMIDIYM2610BSec";
+            cbMIDIYM2610BSec.UseVisualStyleBackColor = true;
             // 
             // cbMIDIYM2151Sec
             // 
-            resources.ApplyResources(this.cbMIDIYM2151Sec, "cbMIDIYM2151Sec");
-            this.cbMIDIYM2151Sec.Name = ("cbMIDIYM2151Sec");
-            this.cbMIDIYM2151Sec.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbMIDIYM2151Sec, "cbMIDIYM2151Sec");
+            cbMIDIYM2151Sec.Name = "cbMIDIYM2151Sec";
+            cbMIDIYM2151Sec.UseVisualStyleBackColor = true;
             // 
             // cbMIDIYM2610B
             // 
-            resources.ApplyResources(this.cbMIDIYM2610B, "cbMIDIYM2610B");
-            this.cbMIDIYM2610B.Name = ("cbMIDIYM2610B");
-            this.cbMIDIYM2610B.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbMIDIYM2610B, "cbMIDIYM2610B");
+            cbMIDIYM2610B.Name = "cbMIDIYM2610B";
+            cbMIDIYM2610B.UseVisualStyleBackColor = true;
             // 
             // cbMIDIYM2203
             // 
-            resources.ApplyResources(this.cbMIDIYM2203, "cbMIDIYM2203");
-            this.cbMIDIYM2203.Name = ("cbMIDIYM2203");
-            this.cbMIDIYM2203.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbMIDIYM2203, "cbMIDIYM2203");
+            cbMIDIYM2203.Name = "cbMIDIYM2203";
+            cbMIDIYM2203.UseVisualStyleBackColor = true;
             // 
             // cbMIDIYM2608Sec
             // 
-            resources.ApplyResources(this.cbMIDIYM2608Sec, "cbMIDIYM2608Sec");
-            this.cbMIDIYM2608Sec.Name = ("cbMIDIYM2608Sec");
-            this.cbMIDIYM2608Sec.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbMIDIYM2608Sec, "cbMIDIYM2608Sec");
+            cbMIDIYM2608Sec.Name = "cbMIDIYM2608Sec";
+            cbMIDIYM2608Sec.UseVisualStyleBackColor = true;
             // 
             // cbMIDIYM2203Sec
             // 
-            resources.ApplyResources(this.cbMIDIYM2203Sec, "cbMIDIYM2203Sec");
-            this.cbMIDIYM2203Sec.Name = ("cbMIDIYM2203Sec");
-            this.cbMIDIYM2203Sec.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbMIDIYM2203Sec, "cbMIDIYM2203Sec");
+            cbMIDIYM2203Sec.Name = "cbMIDIYM2203Sec";
+            cbMIDIYM2203Sec.UseVisualStyleBackColor = true;
             // 
             // cbMIDIYM2608
             // 
-            resources.ApplyResources(this.cbMIDIYM2608, "cbMIDIYM2608");
-            this.cbMIDIYM2608.Name = ("cbMIDIYM2608");
-            this.cbMIDIYM2608.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbMIDIYM2608, "cbMIDIYM2608");
+            cbMIDIYM2608.Name = "cbMIDIYM2608";
+            cbMIDIYM2608.UseVisualStyleBackColor = true;
             // 
             // cbMIDIPlayless
             // 
-            resources.ApplyResources(this.cbMIDIPlayless, "cbMIDIPlayless");
-            this.cbMIDIPlayless.Name = ("cbMIDIPlayless");
-            this.cbMIDIPlayless.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbMIDIPlayless, "cbMIDIPlayless");
+            cbMIDIPlayless.Name = "cbMIDIPlayless";
+            cbMIDIPlayless.UseVisualStyleBackColor = true;
             // 
             // btnMIDIOutputPath
             // 
-            resources.ApplyResources(this.btnMIDIOutputPath, "btnMIDIOutputPath");
-            this.btnMIDIOutputPath.Name = ("btnMIDIOutputPath");
-            this.btnMIDIOutputPath.UseVisualStyleBackColor = (true);
-            this.btnMIDIOutputPath.Click += (this.btnMIDIOutputPath_Click);
+            resources.ApplyResources(btnMIDIOutputPath, "btnMIDIOutputPath");
+            btnMIDIOutputPath.Name = "btnMIDIOutputPath";
+            btnMIDIOutputPath.UseVisualStyleBackColor = true;
+            btnMIDIOutputPath.Click += btnMIDIOutputPath_Click;
             // 
             // lblOutputPath
             // 
-            resources.ApplyResources(this.lblOutputPath, "lblOutputPath");
-            this.lblOutputPath.Name = ("lblOutputPath");
+            resources.ApplyResources(lblOutputPath, "lblOutputPath");
+            lblOutputPath.Name = "lblOutputPath";
             // 
             // tbMIDIOutputPath
             // 
-            resources.ApplyResources(this.tbMIDIOutputPath, "tbMIDIOutputPath");
-            this.tbMIDIOutputPath.Name = ("tbMIDIOutputPath");
+            resources.ApplyResources(tbMIDIOutputPath, "tbMIDIOutputPath");
+            tbMIDIOutputPath.Name = "tbMIDIOutputPath";
             // 
             // tpMIDIKBD
             // 
-            this.tpMIDIKBD.Controls.Add(this.cbUseMIDIKeyboard);
-            this.tpMIDIKBD.Controls.Add(this.gbMIDIKeyboard);
-            resources.ApplyResources(this.tpMIDIKBD, "tpMIDIKBD");
-            this.tpMIDIKBD.Name = ("tpMIDIKBD");
-            this.tpMIDIKBD.UseVisualStyleBackColor = (true);
+            tpMIDIKBD.Controls.Add(cbUseMIDIKeyboard);
+            tpMIDIKBD.Controls.Add(gbMIDIKeyboard);
+            resources.ApplyResources(tpMIDIKBD, "tpMIDIKBD");
+            tpMIDIKBD.Name = "tpMIDIKBD";
+            tpMIDIKBD.UseVisualStyleBackColor = true;
             // 
             // cbUseMIDIKeyboard
             // 
-            resources.ApplyResources(this.cbUseMIDIKeyboard, "cbUseMIDIKeyboard");
-            this.cbUseMIDIKeyboard.Name = ("cbUseMIDIKeyboard");
-            this.cbUseMIDIKeyboard.UseVisualStyleBackColor = (true);
-            this.cbUseMIDIKeyboard.CheckedChanged += (this.cbUseMIDIKeyboard_CheckedChanged);
+            resources.ApplyResources(cbUseMIDIKeyboard, "cbUseMIDIKeyboard");
+            cbUseMIDIKeyboard.Name = "cbUseMIDIKeyboard";
+            cbUseMIDIKeyboard.UseVisualStyleBackColor = true;
+            cbUseMIDIKeyboard.CheckedChanged += cbUseMIDIKeyboard_CheckedChanged;
             // 
             // gbMIDIKeyboard
             // 
-            resources.ApplyResources(this.gbMIDIKeyboard, "gbMIDIKeyboard");
-            this.gbMIDIKeyboard.Controls.Add(this.pictureBox8);
-            this.gbMIDIKeyboard.Controls.Add(this.pictureBox7);
-            this.gbMIDIKeyboard.Controls.Add(this.pictureBox6);
-            this.gbMIDIKeyboard.Controls.Add(this.pictureBox5);
-            this.gbMIDIKeyboard.Controls.Add(this.pictureBox4);
-            this.gbMIDIKeyboard.Controls.Add(this.pictureBox3);
-            this.gbMIDIKeyboard.Controls.Add(this.pictureBox2);
-            this.gbMIDIKeyboard.Controls.Add(this.pictureBox1);
-            this.gbMIDIKeyboard.Controls.Add(this.tbCCFadeout);
-            this.gbMIDIKeyboard.Controls.Add(this.tbCCPause);
-            this.gbMIDIKeyboard.Controls.Add(this.tbCCSlow);
-            this.gbMIDIKeyboard.Controls.Add(this.tbCCPrevious);
-            this.gbMIDIKeyboard.Controls.Add(this.tbCCNext);
-            this.gbMIDIKeyboard.Controls.Add(this.tbCCFast);
-            this.gbMIDIKeyboard.Controls.Add(this.tbCCStop);
-            this.gbMIDIKeyboard.Controls.Add(this.tbCCPlay);
-            this.gbMIDIKeyboard.Controls.Add(this.tbCCCopyLog);
-            this.gbMIDIKeyboard.Controls.Add(this.label17);
-            this.gbMIDIKeyboard.Controls.Add(this.tbCCDelLog);
-            this.gbMIDIKeyboard.Controls.Add(this.label15);
-            this.gbMIDIKeyboard.Controls.Add(this.tbCCChCopy);
-            this.gbMIDIKeyboard.Controls.Add(this.label8);
-            this.gbMIDIKeyboard.Controls.Add(this.label9);
-            this.gbMIDIKeyboard.Controls.Add(this.gbUseChannel);
-            this.gbMIDIKeyboard.Controls.Add(this.cmbMIDIIN);
-            this.gbMIDIKeyboard.Controls.Add(this.label5);
-            this.gbMIDIKeyboard.Name = ("gbMIDIKeyboard");
-            this.gbMIDIKeyboard.TabStop = (false);
+            resources.ApplyResources(gbMIDIKeyboard, "gbMIDIKeyboard");
+            gbMIDIKeyboard.Controls.Add(pictureBox8);
+            gbMIDIKeyboard.Controls.Add(pictureBox7);
+            gbMIDIKeyboard.Controls.Add(pictureBox6);
+            gbMIDIKeyboard.Controls.Add(pictureBox5);
+            gbMIDIKeyboard.Controls.Add(pictureBox4);
+            gbMIDIKeyboard.Controls.Add(pictureBox3);
+            gbMIDIKeyboard.Controls.Add(pictureBox2);
+            gbMIDIKeyboard.Controls.Add(pictureBox1);
+            gbMIDIKeyboard.Controls.Add(tbCCFadeout);
+            gbMIDIKeyboard.Controls.Add(tbCCPause);
+            gbMIDIKeyboard.Controls.Add(tbCCSlow);
+            gbMIDIKeyboard.Controls.Add(tbCCPrevious);
+            gbMIDIKeyboard.Controls.Add(tbCCNext);
+            gbMIDIKeyboard.Controls.Add(tbCCFast);
+            gbMIDIKeyboard.Controls.Add(tbCCStop);
+            gbMIDIKeyboard.Controls.Add(tbCCPlay);
+            gbMIDIKeyboard.Controls.Add(tbCCCopyLog);
+            gbMIDIKeyboard.Controls.Add(label17);
+            gbMIDIKeyboard.Controls.Add(tbCCDelLog);
+            gbMIDIKeyboard.Controls.Add(label15);
+            gbMIDIKeyboard.Controls.Add(tbCCChCopy);
+            gbMIDIKeyboard.Controls.Add(label8);
+            gbMIDIKeyboard.Controls.Add(label9);
+            gbMIDIKeyboard.Controls.Add(gbUseChannel);
+            gbMIDIKeyboard.Controls.Add(cmbMIDIIN);
+            gbMIDIKeyboard.Controls.Add(label5);
+            gbMIDIKeyboard.Name = "gbMIDIKeyboard";
+            gbMIDIKeyboard.TabStop = false;
             // 
             // pictureBox8
             // 
-            this.pictureBox8.Image = (global::MDPlayerx64.Properties.Resources.ccNext);
-            resources.ApplyResources(this.pictureBox8, "pictureBox8");
-            this.pictureBox8.Name = ("pictureBox8");
-            this.pictureBox8.TabStop = (false);
+            pictureBox8.Image = Resources.ccNext;
+            resources.ApplyResources(pictureBox8, "pictureBox8");
+            pictureBox8.Name = "pictureBox8";
+            pictureBox8.TabStop = false;
             // 
             // pictureBox7
             // 
-            this.pictureBox7.Image = (global::MDPlayerx64.Properties.Resources.ccFast);
-            resources.ApplyResources(this.pictureBox7, "pictureBox7");
-            this.pictureBox7.Name = ("pictureBox7");
-            this.pictureBox7.TabStop = (false);
+            pictureBox7.Image = Resources.ccFast;
+            resources.ApplyResources(pictureBox7, "pictureBox7");
+            pictureBox7.Name = "pictureBox7";
+            pictureBox7.TabStop = false;
             // 
             // pictureBox6
             // 
-            this.pictureBox6.Image = (global::MDPlayerx64.Properties.Resources.ccPlay);
-            resources.ApplyResources(this.pictureBox6, "pictureBox6");
-            this.pictureBox6.Name = ("pictureBox6");
-            this.pictureBox6.TabStop = (false);
+            pictureBox6.Image = Resources.ccPlay;
+            resources.ApplyResources(pictureBox6, "pictureBox6");
+            pictureBox6.Name = "pictureBox6";
+            pictureBox6.TabStop = false;
             // 
             // pictureBox5
             // 
-            this.pictureBox5.Image = (global::MDPlayerx64.Properties.Resources.ccSlow);
-            resources.ApplyResources(this.pictureBox5, "pictureBox5");
-            this.pictureBox5.Name = ("pictureBox5");
-            this.pictureBox5.TabStop = (false);
+            pictureBox5.Image = Resources.ccSlow;
+            resources.ApplyResources(pictureBox5, "pictureBox5");
+            pictureBox5.Name = "pictureBox5";
+            pictureBox5.TabStop = false;
             // 
             // pictureBox4
             // 
-            this.pictureBox4.Image = (global::MDPlayerx64.Properties.Resources.ccStop);
-            resources.ApplyResources(this.pictureBox4, "pictureBox4");
-            this.pictureBox4.Name = ("pictureBox4");
-            this.pictureBox4.TabStop = (false);
+            pictureBox4.Image = Resources.ccStop;
+            resources.ApplyResources(pictureBox4, "pictureBox4");
+            pictureBox4.Name = "pictureBox4";
+            pictureBox4.TabStop = false;
             // 
             // pictureBox3
             // 
-            this.pictureBox3.Image = (global::MDPlayerx64.Properties.Resources.ccPause);
-            resources.ApplyResources(this.pictureBox3, "pictureBox3");
-            this.pictureBox3.Name = ("pictureBox3");
-            this.pictureBox3.TabStop = (false);
+            pictureBox3.Image = Resources.ccPause;
+            resources.ApplyResources(pictureBox3, "pictureBox3");
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.TabStop = false;
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = (global::MDPlayerx64.Properties.Resources.ccPrevious);
-            resources.ApplyResources(this.pictureBox2, "pictureBox2");
-            this.pictureBox2.Name = ("pictureBox2");
-            this.pictureBox2.TabStop = (false);
+            pictureBox2.Image = Resources.ccPrevious;
+            resources.ApplyResources(pictureBox2, "pictureBox2");
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.TabStop = false;
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = (global::MDPlayerx64.Properties.Resources.ccFadeout);
-            resources.ApplyResources(this.pictureBox1, "pictureBox1");
-            this.pictureBox1.Name = ("pictureBox1");
-            this.pictureBox1.TabStop = (false);
+            pictureBox1.Image = Resources.ccFadeout;
+            resources.ApplyResources(pictureBox1, "pictureBox1");
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.TabStop = false;
             // 
             // tbCCFadeout
             // 
-            resources.ApplyResources(this.tbCCFadeout, "tbCCFadeout");
-            this.tbCCFadeout.Name = ("tbCCFadeout");
+            resources.ApplyResources(tbCCFadeout, "tbCCFadeout");
+            tbCCFadeout.Name = "tbCCFadeout";
             // 
             // tbCCPause
             // 
-            resources.ApplyResources(this.tbCCPause, "tbCCPause");
-            this.tbCCPause.Name = ("tbCCPause");
+            resources.ApplyResources(tbCCPause, "tbCCPause");
+            tbCCPause.Name = "tbCCPause";
             // 
             // tbCCSlow
             // 
-            resources.ApplyResources(this.tbCCSlow, "tbCCSlow");
-            this.tbCCSlow.Name = ("tbCCSlow");
+            resources.ApplyResources(tbCCSlow, "tbCCSlow");
+            tbCCSlow.Name = "tbCCSlow";
             // 
             // tbCCPrevious
             // 
-            resources.ApplyResources(this.tbCCPrevious, "tbCCPrevious");
-            this.tbCCPrevious.Name = ("tbCCPrevious");
+            resources.ApplyResources(tbCCPrevious, "tbCCPrevious");
+            tbCCPrevious.Name = "tbCCPrevious";
             // 
             // tbCCNext
             // 
-            resources.ApplyResources(this.tbCCNext, "tbCCNext");
-            this.tbCCNext.Name = ("tbCCNext");
+            resources.ApplyResources(tbCCNext, "tbCCNext");
+            tbCCNext.Name = "tbCCNext";
             // 
             // tbCCFast
             // 
-            resources.ApplyResources(this.tbCCFast, "tbCCFast");
-            this.tbCCFast.Name = ("tbCCFast");
+            resources.ApplyResources(tbCCFast, "tbCCFast");
+            tbCCFast.Name = "tbCCFast";
             // 
             // tbCCStop
             // 
-            resources.ApplyResources(this.tbCCStop, "tbCCStop");
-            this.tbCCStop.Name = ("tbCCStop");
+            resources.ApplyResources(tbCCStop, "tbCCStop");
+            tbCCStop.Name = "tbCCStop";
             // 
             // tbCCPlay
             // 
-            resources.ApplyResources(this.tbCCPlay, "tbCCPlay");
-            this.tbCCPlay.Name = ("tbCCPlay");
+            resources.ApplyResources(tbCCPlay, "tbCCPlay");
+            tbCCPlay.Name = "tbCCPlay";
             // 
             // tbCCCopyLog
             // 
-            resources.ApplyResources(this.tbCCCopyLog, "tbCCCopyLog");
-            this.tbCCCopyLog.Name = ("tbCCCopyLog");
+            resources.ApplyResources(tbCCCopyLog, "tbCCCopyLog");
+            tbCCCopyLog.Name = "tbCCCopyLog";
             // 
             // label17
             // 
-            resources.ApplyResources(this.label17, "label17");
-            this.label17.Name = ("label17");
+            resources.ApplyResources(label17, "label17");
+            label17.Name = "label17";
             // 
             // tbCCDelLog
             // 
-            resources.ApplyResources(this.tbCCDelLog, "tbCCDelLog");
-            this.tbCCDelLog.Name = ("tbCCDelLog");
+            resources.ApplyResources(tbCCDelLog, "tbCCDelLog");
+            tbCCDelLog.Name = "tbCCDelLog";
             // 
             // label15
             // 
-            resources.ApplyResources(this.label15, "label15");
-            this.label15.Name = ("label15");
+            resources.ApplyResources(label15, "label15");
+            label15.Name = "label15";
             // 
             // tbCCChCopy
             // 
-            resources.ApplyResources(this.tbCCChCopy, "tbCCChCopy");
-            this.tbCCChCopy.Name = ("tbCCChCopy");
+            resources.ApplyResources(tbCCChCopy, "tbCCChCopy");
+            tbCCChCopy.Name = "tbCCChCopy";
             // 
             // label8
             // 
-            resources.ApplyResources(this.label8, "label8");
-            this.label8.Name = ("label8");
+            resources.ApplyResources(label8, "label8");
+            label8.Name = "label8";
             // 
             // label9
             // 
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.Name = ("label9");
+            resources.ApplyResources(label9, "label9");
+            label9.Name = "label9";
             // 
             // gbUseChannel
             // 
-            this.gbUseChannel.Controls.Add(this.rbMONO);
-            this.gbUseChannel.Controls.Add(this.rbPOLY);
-            this.gbUseChannel.Controls.Add(this.groupBox7);
-            this.gbUseChannel.Controls.Add(this.groupBox2);
-            resources.ApplyResources(this.gbUseChannel, "gbUseChannel");
-            this.gbUseChannel.Name = ("gbUseChannel");
-            this.gbUseChannel.TabStop = (false);
+            gbUseChannel.Controls.Add(rbMONO);
+            gbUseChannel.Controls.Add(rbPOLY);
+            gbUseChannel.Controls.Add(groupBox7);
+            gbUseChannel.Controls.Add(groupBox2);
+            resources.ApplyResources(gbUseChannel, "gbUseChannel");
+            gbUseChannel.Name = "gbUseChannel";
+            gbUseChannel.TabStop = false;
             // 
             // rbMONO
             // 
-            resources.ApplyResources(this.rbMONO, "rbMONO");
-            this.rbMONO.Checked = (true);
-            this.rbMONO.Name = ("rbMONO");
-            this.rbMONO.TabStop = (true);
-            this.rbMONO.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbMONO, "rbMONO");
+            rbMONO.Checked = true;
+            rbMONO.Name = "rbMONO";
+            rbMONO.TabStop = true;
+            rbMONO.UseVisualStyleBackColor = true;
             // 
             // rbPOLY
             // 
-            resources.ApplyResources(this.rbPOLY, "rbPOLY");
-            this.rbPOLY.Name = ("rbPOLY");
-            this.rbPOLY.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbPOLY, "rbPOLY");
+            rbPOLY.Name = "rbPOLY";
+            rbPOLY.UseVisualStyleBackColor = true;
             // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.rbFM6);
-            this.groupBox7.Controls.Add(this.rbFM3);
-            this.groupBox7.Controls.Add(this.rbFM5);
-            this.groupBox7.Controls.Add(this.rbFM2);
-            this.groupBox7.Controls.Add(this.rbFM4);
-            this.groupBox7.Controls.Add(this.rbFM1);
-            resources.ApplyResources(this.groupBox7, "groupBox7");
-            this.groupBox7.Name = ("groupBox7");
-            this.groupBox7.TabStop = (false);
+            groupBox7.Controls.Add(rbFM6);
+            groupBox7.Controls.Add(rbFM3);
+            groupBox7.Controls.Add(rbFM5);
+            groupBox7.Controls.Add(rbFM2);
+            groupBox7.Controls.Add(rbFM4);
+            groupBox7.Controls.Add(rbFM1);
+            resources.ApplyResources(groupBox7, "groupBox7");
+            groupBox7.Name = "groupBox7";
+            groupBox7.TabStop = false;
             // 
             // rbFM6
             // 
-            resources.ApplyResources(this.rbFM6, "rbFM6");
-            this.rbFM6.Name = ("rbFM6");
-            this.rbFM6.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbFM6, "rbFM6");
+            rbFM6.Name = "rbFM6";
+            rbFM6.UseVisualStyleBackColor = true;
             // 
             // rbFM3
             // 
-            resources.ApplyResources(this.rbFM3, "rbFM3");
-            this.rbFM3.Name = ("rbFM3");
-            this.rbFM3.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbFM3, "rbFM3");
+            rbFM3.Name = "rbFM3";
+            rbFM3.UseVisualStyleBackColor = true;
             // 
             // rbFM5
             // 
-            resources.ApplyResources(this.rbFM5, "rbFM5");
-            this.rbFM5.Name = ("rbFM5");
-            this.rbFM5.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbFM5, "rbFM5");
+            rbFM5.Name = "rbFM5";
+            rbFM5.UseVisualStyleBackColor = true;
             // 
             // rbFM2
             // 
-            resources.ApplyResources(this.rbFM2, "rbFM2");
-            this.rbFM2.Name = ("rbFM2");
-            this.rbFM2.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbFM2, "rbFM2");
+            rbFM2.Name = "rbFM2";
+            rbFM2.UseVisualStyleBackColor = true;
             // 
             // rbFM4
             // 
-            resources.ApplyResources(this.rbFM4, "rbFM4");
-            this.rbFM4.Name = ("rbFM4");
-            this.rbFM4.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbFM4, "rbFM4");
+            rbFM4.Name = "rbFM4";
+            rbFM4.UseVisualStyleBackColor = true;
             // 
             // rbFM1
             // 
-            resources.ApplyResources(this.rbFM1, "rbFM1");
-            this.rbFM1.Checked = (true);
-            this.rbFM1.Name = ("rbFM1");
-            this.rbFM1.TabStop = (true);
-            this.rbFM1.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbFM1, "rbFM1");
+            rbFM1.Checked = true;
+            rbFM1.Name = "rbFM1";
+            rbFM1.TabStop = true;
+            rbFM1.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.cbFM1);
-            this.groupBox2.Controls.Add(this.cbFM6);
-            this.groupBox2.Controls.Add(this.cbFM2);
-            this.groupBox2.Controls.Add(this.cbFM5);
-            this.groupBox2.Controls.Add(this.cbFM3);
-            this.groupBox2.Controls.Add(this.cbFM4);
-            resources.ApplyResources(this.groupBox2, "groupBox2");
-            this.groupBox2.Name = ("groupBox2");
-            this.groupBox2.TabStop = (false);
+            groupBox2.Controls.Add(cbFM1);
+            groupBox2.Controls.Add(cbFM6);
+            groupBox2.Controls.Add(cbFM2);
+            groupBox2.Controls.Add(cbFM5);
+            groupBox2.Controls.Add(cbFM3);
+            groupBox2.Controls.Add(cbFM4);
+            resources.ApplyResources(groupBox2, "groupBox2");
+            groupBox2.Name = "groupBox2";
+            groupBox2.TabStop = false;
             // 
             // cbFM1
             // 
-            resources.ApplyResources(this.cbFM1, "cbFM1");
-            this.cbFM1.Checked = (true);
-            this.cbFM1.CheckState = (global::System.Windows.Forms.CheckState.Checked);
-            this.cbFM1.Name = ("cbFM1");
-            this.cbFM1.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbFM1, "cbFM1");
+            cbFM1.Checked = true;
+            cbFM1.CheckState = CheckState.Checked;
+            cbFM1.Name = "cbFM1";
+            cbFM1.UseVisualStyleBackColor = true;
             // 
             // cbFM6
             // 
-            resources.ApplyResources(this.cbFM6, "cbFM6");
-            this.cbFM6.Checked = (true);
-            this.cbFM6.CheckState = (global::System.Windows.Forms.CheckState.Checked);
-            this.cbFM6.Name = ("cbFM6");
-            this.cbFM6.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbFM6, "cbFM6");
+            cbFM6.Checked = true;
+            cbFM6.CheckState = CheckState.Checked;
+            cbFM6.Name = "cbFM6";
+            cbFM6.UseVisualStyleBackColor = true;
             // 
             // cbFM2
             // 
-            resources.ApplyResources(this.cbFM2, "cbFM2");
-            this.cbFM2.Checked = (true);
-            this.cbFM2.CheckState = (global::System.Windows.Forms.CheckState.Checked);
-            this.cbFM2.Name = ("cbFM2");
-            this.cbFM2.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbFM2, "cbFM2");
+            cbFM2.Checked = true;
+            cbFM2.CheckState = CheckState.Checked;
+            cbFM2.Name = "cbFM2";
+            cbFM2.UseVisualStyleBackColor = true;
             // 
             // cbFM5
             // 
-            resources.ApplyResources(this.cbFM5, "cbFM5");
-            this.cbFM5.Checked = (true);
-            this.cbFM5.CheckState = (global::System.Windows.Forms.CheckState.Checked);
-            this.cbFM5.Name = ("cbFM5");
-            this.cbFM5.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbFM5, "cbFM5");
+            cbFM5.Checked = true;
+            cbFM5.CheckState = CheckState.Checked;
+            cbFM5.Name = "cbFM5";
+            cbFM5.UseVisualStyleBackColor = true;
             // 
             // cbFM3
             // 
-            resources.ApplyResources(this.cbFM3, "cbFM3");
-            this.cbFM3.Checked = (true);
-            this.cbFM3.CheckState = (global::System.Windows.Forms.CheckState.Checked);
-            this.cbFM3.Name = ("cbFM3");
-            this.cbFM3.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbFM3, "cbFM3");
+            cbFM3.Checked = true;
+            cbFM3.CheckState = CheckState.Checked;
+            cbFM3.Name = "cbFM3";
+            cbFM3.UseVisualStyleBackColor = true;
             // 
             // cbFM4
             // 
-            resources.ApplyResources(this.cbFM4, "cbFM4");
-            this.cbFM4.Checked = (true);
-            this.cbFM4.CheckState = (global::System.Windows.Forms.CheckState.Checked);
-            this.cbFM4.Name = ("cbFM4");
-            this.cbFM4.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbFM4, "cbFM4");
+            cbFM4.Checked = true;
+            cbFM4.CheckState = CheckState.Checked;
+            cbFM4.Name = "cbFM4";
+            cbFM4.UseVisualStyleBackColor = true;
             // 
             // cmbMIDIIN
             // 
-            this.cmbMIDIIN.DropDownStyle = (global::System.Windows.Forms.ComboBoxStyle.DropDownList);
-            this.cmbMIDIIN.FormattingEnabled = (true);
-            resources.ApplyResources(this.cmbMIDIIN, "cmbMIDIIN");
-            this.cmbMIDIIN.Name = ("cmbMIDIIN");
+            cmbMIDIIN.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbMIDIIN.FormattingEnabled = true;
+            resources.ApplyResources(cmbMIDIIN, "cmbMIDIIN");
+            cmbMIDIIN.Name = "cmbMIDIIN";
             // 
             // label5
             // 
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.Name = ("label5");
+            resources.ApplyResources(label5, "label5");
+            label5.Name = "label5";
             // 
             // tpKeyBoard
             // 
-            this.tpKeyBoard.Controls.Add(this.cbUseKeyBoardHook);
-            this.tpKeyBoard.Controls.Add(this.gbUseKeyBoardHook);
-            this.tpKeyBoard.Controls.Add(this.label47);
-            this.tpKeyBoard.Controls.Add(this.cbStopWin);
-            this.tpKeyBoard.Controls.Add(this.cbPauseWin);
-            this.tpKeyBoard.Controls.Add(this.cbFadeoutWin);
-            this.tpKeyBoard.Controls.Add(this.cbPrevWin);
-            this.tpKeyBoard.Controls.Add(this.cbSlowWin);
-            this.tpKeyBoard.Controls.Add(this.cbPlayWin);
-            this.tpKeyBoard.Controls.Add(this.cbFastWin);
-            this.tpKeyBoard.Controls.Add(this.cbNextWin);
-            resources.ApplyResources(this.tpKeyBoard, "tpKeyBoard");
-            this.tpKeyBoard.Name = ("tpKeyBoard");
-            this.tpKeyBoard.UseVisualStyleBackColor = (true);
+            tpKeyBoard.Controls.Add(cbUseKeyBoardHook);
+            tpKeyBoard.Controls.Add(gbUseKeyBoardHook);
+            tpKeyBoard.Controls.Add(label47);
+            tpKeyBoard.Controls.Add(cbStopWin);
+            tpKeyBoard.Controls.Add(cbPauseWin);
+            tpKeyBoard.Controls.Add(cbFadeoutWin);
+            tpKeyBoard.Controls.Add(cbPrevWin);
+            tpKeyBoard.Controls.Add(cbSlowWin);
+            tpKeyBoard.Controls.Add(cbPlayWin);
+            tpKeyBoard.Controls.Add(cbFastWin);
+            tpKeyBoard.Controls.Add(cbNextWin);
+            resources.ApplyResources(tpKeyBoard, "tpKeyBoard");
+            tpKeyBoard.Name = "tpKeyBoard";
+            tpKeyBoard.UseVisualStyleBackColor = true;
             // 
             // cbUseKeyBoardHook
             // 
-            resources.ApplyResources(this.cbUseKeyBoardHook, "cbUseKeyBoardHook");
-            this.cbUseKeyBoardHook.Name = ("cbUseKeyBoardHook");
-            this.cbUseKeyBoardHook.UseVisualStyleBackColor = (true);
-            this.cbUseKeyBoardHook.CheckedChanged += (this.cbUseKeyBoardHook_CheckedChanged);
+            resources.ApplyResources(cbUseKeyBoardHook, "cbUseKeyBoardHook");
+            cbUseKeyBoardHook.Name = "cbUseKeyBoardHook";
+            cbUseKeyBoardHook.UseVisualStyleBackColor = true;
+            cbUseKeyBoardHook.CheckedChanged += cbUseKeyBoardHook_CheckedChanged;
             // 
             // gbUseKeyBoardHook
             // 
-            resources.ApplyResources(this.gbUseKeyBoardHook, "gbUseKeyBoardHook");
-            this.gbUseKeyBoardHook.Controls.Add(this.panel1);
-            this.gbUseKeyBoardHook.Controls.Add(this.lblKeyBoardHookNotice);
-            this.gbUseKeyBoardHook.Name = ("gbUseKeyBoardHook");
-            this.gbUseKeyBoardHook.TabStop = (false);
+            resources.ApplyResources(gbUseKeyBoardHook, "gbUseKeyBoardHook");
+            gbUseKeyBoardHook.Controls.Add(panel1);
+            gbUseKeyBoardHook.Controls.Add(lblKeyBoardHookNotice);
+            gbUseKeyBoardHook.Name = "gbUseKeyBoardHook";
+            gbUseKeyBoardHook.TabStop = false;
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
-            this.panel1.Controls.Add(this.btPpcClr);
-            this.panel1.Controls.Add(this.cbPpcShift);
-            this.panel1.Controls.Add(this.btPpcSet);
-            this.panel1.Controls.Add(this.label76);
-            this.panel1.Controls.Add(this.lblPpcKey);
-            this.panel1.Controls.Add(this.cbPpcAlt);
-            this.panel1.Controls.Add(this.cbPpcCtrl);
-            this.panel1.Controls.Add(this.btDpcClr);
-            this.panel1.Controls.Add(this.cbDpcShift);
-            this.panel1.Controls.Add(this.btDpcSet);
-            this.panel1.Controls.Add(this.label74);
-            this.panel1.Controls.Add(this.lblDpcKey);
-            this.panel1.Controls.Add(this.cbDpcAlt);
-            this.panel1.Controls.Add(this.cbDpcCtrl);
-            this.panel1.Controls.Add(this.btUpcClr);
-            this.panel1.Controls.Add(this.btRmvClr);
-            this.panel1.Controls.Add(this.cbUpcShift);
-            this.panel1.Controls.Add(this.pictureBox14);
-            this.panel1.Controls.Add(this.cbRmvShift);
-            this.panel1.Controls.Add(this.btUpcSet);
-            this.panel1.Controls.Add(this.cbFastShift);
-            this.panel1.Controls.Add(this.label72);
-            this.panel1.Controls.Add(this.btDmvClr);
-            this.panel1.Controls.Add(this.lblUpcKey);
-            this.panel1.Controls.Add(this.btRmvSet);
-            this.panel1.Controls.Add(this.cbUpcAlt);
-            this.panel1.Controls.Add(this.cbDmvShift);
-            this.panel1.Controls.Add(this.cbUpcCtrl);
-            this.panel1.Controls.Add(this.label69);
-            this.panel1.Controls.Add(this.btUmvClr);
-            this.panel1.Controls.Add(this.cbRmvAlt);
-            this.panel1.Controls.Add(this.cbUmvShift);
-            this.panel1.Controls.Add(this.cbRmvCtrl);
-            this.panel1.Controls.Add(this.btNextClr);
-            this.panel1.Controls.Add(this.lblRmvKey);
-            this.panel1.Controls.Add(this.cbNextShift);
-            this.panel1.Controls.Add(this.btPrevClr);
-            this.panel1.Controls.Add(this.cbPlayShift);
-            this.panel1.Controls.Add(this.btPlayClr);
-            this.panel1.Controls.Add(this.cbStopCtrl);
-            this.panel1.Controls.Add(this.btPauseClr);
-            this.panel1.Controls.Add(this.cbSlowShift);
-            this.panel1.Controls.Add(this.btFastClr);
-            this.panel1.Controls.Add(this.cbPauseCtrl);
-            this.panel1.Controls.Add(this.btFadeoutClr);
-            this.panel1.Controls.Add(this.cbPrevShift);
-            this.panel1.Controls.Add(this.btSlowClr);
-            this.panel1.Controls.Add(this.cbFadeoutCtrl);
-            this.panel1.Controls.Add(this.btDmvSet);
-            this.panel1.Controls.Add(this.btStopClr);
-            this.panel1.Controls.Add(this.btUmvSet);
-            this.panel1.Controls.Add(this.cbFadeoutShift);
-            this.panel1.Controls.Add(this.btNextSet);
-            this.panel1.Controls.Add(this.cbPrevCtrl);
-            this.panel1.Controls.Add(this.btPrevSet);
-            this.panel1.Controls.Add(this.cbPauseShift);
-            this.panel1.Controls.Add(this.btPlaySet);
-            this.panel1.Controls.Add(this.cbSlowCtrl);
-            this.panel1.Controls.Add(this.btPauseSet);
-            this.panel1.Controls.Add(this.cbStopShift);
-            this.panel1.Controls.Add(this.btFastSet);
-            this.panel1.Controls.Add(this.label71);
-            this.panel1.Controls.Add(this.cbPlayCtrl);
-            this.panel1.Controls.Add(this.label70);
-            this.panel1.Controls.Add(this.btFadeoutSet);
-            this.panel1.Controls.Add(this.label44);
-            this.panel1.Controls.Add(this.btSlowSet);
-            this.panel1.Controls.Add(this.cbFastCtrl);
-            this.panel1.Controls.Add(this.btStopSet);
-            this.panel1.Controls.Add(this.cbDmvCtrl);
-            this.panel1.Controls.Add(this.label43);
-            this.panel1.Controls.Add(this.cbUmvCtrl);
-            this.panel1.Controls.Add(this.lblDmvKey);
-            this.panel1.Controls.Add(this.label50);
-            this.panel1.Controls.Add(this.lblUmvKey);
-            this.panel1.Controls.Add(this.cbNextCtrl);
-            this.panel1.Controls.Add(this.lblNextKey);
-            this.panel1.Controls.Add(this.label42);
-            this.panel1.Controls.Add(this.lblFastKey);
-            this.panel1.Controls.Add(this.label41);
-            this.panel1.Controls.Add(this.lblPlayKey);
-            this.panel1.Controls.Add(this.label40);
-            this.panel1.Controls.Add(this.lblSlowKey);
-            this.panel1.Controls.Add(this.label39);
-            this.panel1.Controls.Add(this.lblPrevKey);
-            this.panel1.Controls.Add(this.label38);
-            this.panel1.Controls.Add(this.lblFadeoutKey);
-            this.panel1.Controls.Add(this.label48);
-            this.panel1.Controls.Add(this.lblPauseKey);
-            this.panel1.Controls.Add(this.label46);
-            this.panel1.Controls.Add(this.lblStopKey);
-            this.panel1.Controls.Add(this.label45);
-            this.panel1.Controls.Add(this.cbStopAlt);
-            this.panel1.Controls.Add(this.cbDmvAlt);
-            this.panel1.Controls.Add(this.pictureBox17);
-            this.panel1.Controls.Add(this.cbUmvAlt);
-            this.panel1.Controls.Add(this.label37);
-            this.panel1.Controls.Add(this.cbNextAlt);
-            this.panel1.Controls.Add(this.cbPauseAlt);
-            this.panel1.Controls.Add(this.pictureBox16);
-            this.panel1.Controls.Add(this.pictureBox10);
-            this.panel1.Controls.Add(this.cbFastAlt);
-            this.panel1.Controls.Add(this.cbFadeoutAlt);
-            this.panel1.Controls.Add(this.pictureBox15);
-            this.panel1.Controls.Add(this.pictureBox11);
-            this.panel1.Controls.Add(this.cbPlayAlt);
-            this.panel1.Controls.Add(this.cbPrevAlt);
-            this.panel1.Controls.Add(this.pictureBox13);
-            this.panel1.Controls.Add(this.pictureBox12);
-            this.panel1.Controls.Add(this.cbSlowAlt);
-            this.panel1.Name = ("panel1");
+            resources.ApplyResources(panel1, "panel1");
+            panel1.Controls.Add(btPpcClr);
+            panel1.Controls.Add(cbPpcShift);
+            panel1.Controls.Add(btPpcSet);
+            panel1.Controls.Add(label76);
+            panel1.Controls.Add(lblPpcKey);
+            panel1.Controls.Add(cbPpcAlt);
+            panel1.Controls.Add(cbPpcCtrl);
+            panel1.Controls.Add(btDpcClr);
+            panel1.Controls.Add(cbDpcShift);
+            panel1.Controls.Add(btDpcSet);
+            panel1.Controls.Add(label74);
+            panel1.Controls.Add(lblDpcKey);
+            panel1.Controls.Add(cbDpcAlt);
+            panel1.Controls.Add(cbDpcCtrl);
+            panel1.Controls.Add(btUpcClr);
+            panel1.Controls.Add(btRmvClr);
+            panel1.Controls.Add(cbUpcShift);
+            panel1.Controls.Add(pictureBox14);
+            panel1.Controls.Add(cbRmvShift);
+            panel1.Controls.Add(btUpcSet);
+            panel1.Controls.Add(cbFastShift);
+            panel1.Controls.Add(label72);
+            panel1.Controls.Add(btDmvClr);
+            panel1.Controls.Add(lblUpcKey);
+            panel1.Controls.Add(btRmvSet);
+            panel1.Controls.Add(cbUpcAlt);
+            panel1.Controls.Add(cbDmvShift);
+            panel1.Controls.Add(cbUpcCtrl);
+            panel1.Controls.Add(label69);
+            panel1.Controls.Add(btUmvClr);
+            panel1.Controls.Add(cbRmvAlt);
+            panel1.Controls.Add(cbUmvShift);
+            panel1.Controls.Add(cbRmvCtrl);
+            panel1.Controls.Add(btNextClr);
+            panel1.Controls.Add(lblRmvKey);
+            panel1.Controls.Add(cbNextShift);
+            panel1.Controls.Add(btPrevClr);
+            panel1.Controls.Add(cbPlayShift);
+            panel1.Controls.Add(btPlayClr);
+            panel1.Controls.Add(cbStopCtrl);
+            panel1.Controls.Add(btPauseClr);
+            panel1.Controls.Add(cbSlowShift);
+            panel1.Controls.Add(btFastClr);
+            panel1.Controls.Add(cbPauseCtrl);
+            panel1.Controls.Add(btFadeoutClr);
+            panel1.Controls.Add(cbPrevShift);
+            panel1.Controls.Add(btSlowClr);
+            panel1.Controls.Add(cbFadeoutCtrl);
+            panel1.Controls.Add(btDmvSet);
+            panel1.Controls.Add(btStopClr);
+            panel1.Controls.Add(btUmvSet);
+            panel1.Controls.Add(cbFadeoutShift);
+            panel1.Controls.Add(btNextSet);
+            panel1.Controls.Add(cbPrevCtrl);
+            panel1.Controls.Add(btPrevSet);
+            panel1.Controls.Add(cbPauseShift);
+            panel1.Controls.Add(btPlaySet);
+            panel1.Controls.Add(cbSlowCtrl);
+            panel1.Controls.Add(btPauseSet);
+            panel1.Controls.Add(cbStopShift);
+            panel1.Controls.Add(btFastSet);
+            panel1.Controls.Add(label71);
+            panel1.Controls.Add(cbPlayCtrl);
+            panel1.Controls.Add(label70);
+            panel1.Controls.Add(btFadeoutSet);
+            panel1.Controls.Add(label44);
+            panel1.Controls.Add(btSlowSet);
+            panel1.Controls.Add(cbFastCtrl);
+            panel1.Controls.Add(btStopSet);
+            panel1.Controls.Add(cbDmvCtrl);
+            panel1.Controls.Add(label43);
+            panel1.Controls.Add(cbUmvCtrl);
+            panel1.Controls.Add(lblDmvKey);
+            panel1.Controls.Add(label50);
+            panel1.Controls.Add(lblUmvKey);
+            panel1.Controls.Add(cbNextCtrl);
+            panel1.Controls.Add(lblNextKey);
+            panel1.Controls.Add(label42);
+            panel1.Controls.Add(lblFastKey);
+            panel1.Controls.Add(label41);
+            panel1.Controls.Add(lblPlayKey);
+            panel1.Controls.Add(label40);
+            panel1.Controls.Add(lblSlowKey);
+            panel1.Controls.Add(label39);
+            panel1.Controls.Add(lblPrevKey);
+            panel1.Controls.Add(label38);
+            panel1.Controls.Add(lblFadeoutKey);
+            panel1.Controls.Add(label48);
+            panel1.Controls.Add(lblPauseKey);
+            panel1.Controls.Add(label46);
+            panel1.Controls.Add(lblStopKey);
+            panel1.Controls.Add(label45);
+            panel1.Controls.Add(cbStopAlt);
+            panel1.Controls.Add(cbDmvAlt);
+            panel1.Controls.Add(pictureBox17);
+            panel1.Controls.Add(cbUmvAlt);
+            panel1.Controls.Add(label37);
+            panel1.Controls.Add(cbNextAlt);
+            panel1.Controls.Add(cbPauseAlt);
+            panel1.Controls.Add(pictureBox16);
+            panel1.Controls.Add(pictureBox10);
+            panel1.Controls.Add(cbFastAlt);
+            panel1.Controls.Add(cbFadeoutAlt);
+            panel1.Controls.Add(pictureBox15);
+            panel1.Controls.Add(pictureBox11);
+            panel1.Controls.Add(cbPlayAlt);
+            panel1.Controls.Add(cbPrevAlt);
+            panel1.Controls.Add(pictureBox13);
+            panel1.Controls.Add(pictureBox12);
+            panel1.Controls.Add(cbSlowAlt);
+            panel1.Name = "panel1";
             // 
             // btPpcClr
             // 
-            resources.ApplyResources(this.btPpcClr, "btPpcClr");
-            this.btPpcClr.Name = ("btPpcClr");
-            this.btPpcClr.UseVisualStyleBackColor = (true);
-            this.btPpcClr.Click += (this.btPpcClr_Click);
+            resources.ApplyResources(btPpcClr, "btPpcClr");
+            btPpcClr.Name = "btPpcClr";
+            btPpcClr.UseVisualStyleBackColor = true;
+            btPpcClr.Click += btPpcClr_Click;
             // 
             // cbPpcShift
             // 
-            resources.ApplyResources(this.cbPpcShift, "cbPpcShift");
-            this.cbPpcShift.Name = ("cbPpcShift");
-            this.cbPpcShift.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbPpcShift, "cbPpcShift");
+            cbPpcShift.Name = "cbPpcShift";
+            cbPpcShift.UseVisualStyleBackColor = true;
             // 
             // btPpcSet
             // 
-            resources.ApplyResources(this.btPpcSet, "btPpcSet");
-            this.btPpcSet.Name = ("btPpcSet");
-            this.btPpcSet.UseVisualStyleBackColor = (true);
-            this.btPpcSet.Click += (this.btPpcSet_Click);
+            resources.ApplyResources(btPpcSet, "btPpcSet");
+            btPpcSet.Name = "btPpcSet";
+            btPpcSet.UseVisualStyleBackColor = true;
+            btPpcSet.Click += btPpcSet_Click;
             // 
             // label76
             // 
-            resources.ApplyResources(this.label76, "label76");
-            this.label76.Name = ("label76");
+            resources.ApplyResources(label76, "label76");
+            label76.Name = "label76";
             // 
             // lblPpcKey
             // 
-            resources.ApplyResources(this.lblPpcKey, "lblPpcKey");
-            this.lblPpcKey.Name = ("lblPpcKey");
+            resources.ApplyResources(lblPpcKey, "lblPpcKey");
+            lblPpcKey.Name = "lblPpcKey";
             // 
             // cbPpcAlt
             // 
-            resources.ApplyResources(this.cbPpcAlt, "cbPpcAlt");
-            this.cbPpcAlt.Name = ("cbPpcAlt");
-            this.cbPpcAlt.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbPpcAlt, "cbPpcAlt");
+            cbPpcAlt.Name = "cbPpcAlt";
+            cbPpcAlt.UseVisualStyleBackColor = true;
             // 
             // cbPpcCtrl
             // 
-            resources.ApplyResources(this.cbPpcCtrl, "cbPpcCtrl");
-            this.cbPpcCtrl.Name = ("cbPpcCtrl");
-            this.cbPpcCtrl.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbPpcCtrl, "cbPpcCtrl");
+            cbPpcCtrl.Name = "cbPpcCtrl";
+            cbPpcCtrl.UseVisualStyleBackColor = true;
             // 
             // btDpcClr
             // 
-            resources.ApplyResources(this.btDpcClr, "btDpcClr");
-            this.btDpcClr.Name = ("btDpcClr");
-            this.btDpcClr.UseVisualStyleBackColor = (true);
-            this.btDpcClr.Click += (this.btDpcClr_Click);
+            resources.ApplyResources(btDpcClr, "btDpcClr");
+            btDpcClr.Name = "btDpcClr";
+            btDpcClr.UseVisualStyleBackColor = true;
+            btDpcClr.Click += btDpcClr_Click;
             // 
             // cbDpcShift
             // 
-            resources.ApplyResources(this.cbDpcShift, "cbDpcShift");
-            this.cbDpcShift.Name = ("cbDpcShift");
-            this.cbDpcShift.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbDpcShift, "cbDpcShift");
+            cbDpcShift.Name = "cbDpcShift";
+            cbDpcShift.UseVisualStyleBackColor = true;
             // 
             // btDpcSet
             // 
-            resources.ApplyResources(this.btDpcSet, "btDpcSet");
-            this.btDpcSet.Name = ("btDpcSet");
-            this.btDpcSet.UseVisualStyleBackColor = (true);
-            this.btDpcSet.Click += (this.btDpcSet_Click);
+            resources.ApplyResources(btDpcSet, "btDpcSet");
+            btDpcSet.Name = "btDpcSet";
+            btDpcSet.UseVisualStyleBackColor = true;
+            btDpcSet.Click += btDpcSet_Click;
             // 
             // label74
             // 
-            resources.ApplyResources(this.label74, "label74");
-            this.label74.Name = ("label74");
+            resources.ApplyResources(label74, "label74");
+            label74.Name = "label74";
             // 
             // lblDpcKey
             // 
-            resources.ApplyResources(this.lblDpcKey, "lblDpcKey");
-            this.lblDpcKey.Name = ("lblDpcKey");
+            resources.ApplyResources(lblDpcKey, "lblDpcKey");
+            lblDpcKey.Name = "lblDpcKey";
             // 
             // cbDpcAlt
             // 
-            resources.ApplyResources(this.cbDpcAlt, "cbDpcAlt");
-            this.cbDpcAlt.Name = ("cbDpcAlt");
-            this.cbDpcAlt.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbDpcAlt, "cbDpcAlt");
+            cbDpcAlt.Name = "cbDpcAlt";
+            cbDpcAlt.UseVisualStyleBackColor = true;
             // 
             // cbDpcCtrl
             // 
-            resources.ApplyResources(this.cbDpcCtrl, "cbDpcCtrl");
-            this.cbDpcCtrl.Name = ("cbDpcCtrl");
-            this.cbDpcCtrl.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbDpcCtrl, "cbDpcCtrl");
+            cbDpcCtrl.Name = "cbDpcCtrl";
+            cbDpcCtrl.UseVisualStyleBackColor = true;
             // 
             // btUpcClr
             // 
-            resources.ApplyResources(this.btUpcClr, "btUpcClr");
-            this.btUpcClr.Name = ("btUpcClr");
-            this.btUpcClr.UseVisualStyleBackColor = (true);
-            this.btUpcClr.Click += (this.btUpcClr_Click);
+            resources.ApplyResources(btUpcClr, "btUpcClr");
+            btUpcClr.Name = "btUpcClr";
+            btUpcClr.UseVisualStyleBackColor = true;
+            btUpcClr.Click += btUpcClr_Click;
             // 
             // btRmvClr
             // 
-            resources.ApplyResources(this.btRmvClr, "btRmvClr");
-            this.btRmvClr.Name = ("btRmvClr");
-            this.btRmvClr.UseVisualStyleBackColor = (true);
-            this.btRmvClr.Click += (this.btRmvClr_Click);
+            resources.ApplyResources(btRmvClr, "btRmvClr");
+            btRmvClr.Name = "btRmvClr";
+            btRmvClr.UseVisualStyleBackColor = true;
+            btRmvClr.Click += btRmvClr_Click;
             // 
             // cbUpcShift
             // 
-            resources.ApplyResources(this.cbUpcShift, "cbUpcShift");
-            this.cbUpcShift.Name = ("cbUpcShift");
-            this.cbUpcShift.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbUpcShift, "cbUpcShift");
+            cbUpcShift.Name = "cbUpcShift";
+            cbUpcShift.UseVisualStyleBackColor = true;
             // 
             // pictureBox14
             // 
-            this.pictureBox14.Image = (global::MDPlayerx64.Properties.Resources.ccStop);
-            resources.ApplyResources(this.pictureBox14, "pictureBox14");
-            this.pictureBox14.Name = ("pictureBox14");
-            this.pictureBox14.TabStop = (false);
+            pictureBox14.Image = Resources.ccStop;
+            resources.ApplyResources(pictureBox14, "pictureBox14");
+            pictureBox14.Name = "pictureBox14";
+            pictureBox14.TabStop = false;
             // 
             // cbRmvShift
             // 
-            resources.ApplyResources(this.cbRmvShift, "cbRmvShift");
-            this.cbRmvShift.Name = ("cbRmvShift");
-            this.cbRmvShift.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbRmvShift, "cbRmvShift");
+            cbRmvShift.Name = "cbRmvShift";
+            cbRmvShift.UseVisualStyleBackColor = true;
             // 
             // btUpcSet
             // 
-            resources.ApplyResources(this.btUpcSet, "btUpcSet");
-            this.btUpcSet.Name = ("btUpcSet");
-            this.btUpcSet.UseVisualStyleBackColor = (true);
-            this.btUpcSet.Click += (this.btUpcSet_Click);
+            resources.ApplyResources(btUpcSet, "btUpcSet");
+            btUpcSet.Name = "btUpcSet";
+            btUpcSet.UseVisualStyleBackColor = true;
+            btUpcSet.Click += btUpcSet_Click;
             // 
             // cbFastShift
             // 
-            resources.ApplyResources(this.cbFastShift, "cbFastShift");
-            this.cbFastShift.Name = ("cbFastShift");
-            this.cbFastShift.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbFastShift, "cbFastShift");
+            cbFastShift.Name = "cbFastShift";
+            cbFastShift.UseVisualStyleBackColor = true;
             // 
             // label72
             // 
-            resources.ApplyResources(this.label72, "label72");
-            this.label72.Name = ("label72");
+            resources.ApplyResources(label72, "label72");
+            label72.Name = "label72";
             // 
             // btDmvClr
             // 
-            resources.ApplyResources(this.btDmvClr, "btDmvClr");
-            this.btDmvClr.Name = ("btDmvClr");
-            this.btDmvClr.UseVisualStyleBackColor = (true);
-            this.btDmvClr.Click += (this.btDmvClr_Click);
+            resources.ApplyResources(btDmvClr, "btDmvClr");
+            btDmvClr.Name = "btDmvClr";
+            btDmvClr.UseVisualStyleBackColor = true;
+            btDmvClr.Click += btDmvClr_Click;
             // 
             // lblUpcKey
             // 
-            resources.ApplyResources(this.lblUpcKey, "lblUpcKey");
-            this.lblUpcKey.Name = ("lblUpcKey");
+            resources.ApplyResources(lblUpcKey, "lblUpcKey");
+            lblUpcKey.Name = "lblUpcKey";
             // 
             // btRmvSet
             // 
-            resources.ApplyResources(this.btRmvSet, "btRmvSet");
-            this.btRmvSet.Name = ("btRmvSet");
-            this.btRmvSet.UseVisualStyleBackColor = (true);
-            this.btRmvSet.Click += (this.btRmvSet_Click);
+            resources.ApplyResources(btRmvSet, "btRmvSet");
+            btRmvSet.Name = "btRmvSet";
+            btRmvSet.UseVisualStyleBackColor = true;
+            btRmvSet.Click += btRmvSet_Click;
             // 
             // cbUpcAlt
             // 
-            resources.ApplyResources(this.cbUpcAlt, "cbUpcAlt");
-            this.cbUpcAlt.Name = ("cbUpcAlt");
-            this.cbUpcAlt.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbUpcAlt, "cbUpcAlt");
+            cbUpcAlt.Name = "cbUpcAlt";
+            cbUpcAlt.UseVisualStyleBackColor = true;
             // 
             // cbDmvShift
             // 
-            resources.ApplyResources(this.cbDmvShift, "cbDmvShift");
-            this.cbDmvShift.Name = ("cbDmvShift");
-            this.cbDmvShift.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbDmvShift, "cbDmvShift");
+            cbDmvShift.Name = "cbDmvShift";
+            cbDmvShift.UseVisualStyleBackColor = true;
             // 
             // cbUpcCtrl
             // 
-            resources.ApplyResources(this.cbUpcCtrl, "cbUpcCtrl");
-            this.cbUpcCtrl.Name = ("cbUpcCtrl");
-            this.cbUpcCtrl.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbUpcCtrl, "cbUpcCtrl");
+            cbUpcCtrl.Name = "cbUpcCtrl";
+            cbUpcCtrl.UseVisualStyleBackColor = true;
             // 
             // label69
             // 
-            resources.ApplyResources(this.label69, "label69");
-            this.label69.Name = ("label69");
+            resources.ApplyResources(label69, "label69");
+            label69.Name = "label69";
             // 
             // btUmvClr
             // 
-            resources.ApplyResources(this.btUmvClr, "btUmvClr");
-            this.btUmvClr.Name = ("btUmvClr");
-            this.btUmvClr.UseVisualStyleBackColor = (true);
-            this.btUmvClr.Click += (this.btUmvClr_Click);
+            resources.ApplyResources(btUmvClr, "btUmvClr");
+            btUmvClr.Name = "btUmvClr";
+            btUmvClr.UseVisualStyleBackColor = true;
+            btUmvClr.Click += btUmvClr_Click;
             // 
             // cbRmvAlt
             // 
-            resources.ApplyResources(this.cbRmvAlt, "cbRmvAlt");
-            this.cbRmvAlt.Name = ("cbRmvAlt");
-            this.cbRmvAlt.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbRmvAlt, "cbRmvAlt");
+            cbRmvAlt.Name = "cbRmvAlt";
+            cbRmvAlt.UseVisualStyleBackColor = true;
             // 
             // cbUmvShift
             // 
-            resources.ApplyResources(this.cbUmvShift, "cbUmvShift");
-            this.cbUmvShift.Name = ("cbUmvShift");
-            this.cbUmvShift.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbUmvShift, "cbUmvShift");
+            cbUmvShift.Name = "cbUmvShift";
+            cbUmvShift.UseVisualStyleBackColor = true;
             // 
             // cbRmvCtrl
             // 
-            resources.ApplyResources(this.cbRmvCtrl, "cbRmvCtrl");
-            this.cbRmvCtrl.Name = ("cbRmvCtrl");
-            this.cbRmvCtrl.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbRmvCtrl, "cbRmvCtrl");
+            cbRmvCtrl.Name = "cbRmvCtrl";
+            cbRmvCtrl.UseVisualStyleBackColor = true;
             // 
             // btNextClr
             // 
-            resources.ApplyResources(this.btNextClr, "btNextClr");
-            this.btNextClr.Name = ("btNextClr");
-            this.btNextClr.UseVisualStyleBackColor = (true);
-            this.btNextClr.Click += (this.btNextClr_Click);
+            resources.ApplyResources(btNextClr, "btNextClr");
+            btNextClr.Name = "btNextClr";
+            btNextClr.UseVisualStyleBackColor = true;
+            btNextClr.Click += btNextClr_Click;
             // 
             // lblRmvKey
             // 
-            resources.ApplyResources(this.lblRmvKey, "lblRmvKey");
-            this.lblRmvKey.Name = ("lblRmvKey");
+            resources.ApplyResources(lblRmvKey, "lblRmvKey");
+            lblRmvKey.Name = "lblRmvKey";
             // 
             // cbNextShift
             // 
-            resources.ApplyResources(this.cbNextShift, "cbNextShift");
-            this.cbNextShift.Name = ("cbNextShift");
-            this.cbNextShift.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbNextShift, "cbNextShift");
+            cbNextShift.Name = "cbNextShift";
+            cbNextShift.UseVisualStyleBackColor = true;
             // 
             // btPrevClr
             // 
-            resources.ApplyResources(this.btPrevClr, "btPrevClr");
-            this.btPrevClr.Name = ("btPrevClr");
-            this.btPrevClr.UseVisualStyleBackColor = (true);
-            this.btPrevClr.Click += (this.btPrevClr_Click);
+            resources.ApplyResources(btPrevClr, "btPrevClr");
+            btPrevClr.Name = "btPrevClr";
+            btPrevClr.UseVisualStyleBackColor = true;
+            btPrevClr.Click += btPrevClr_Click;
             // 
             // cbPlayShift
             // 
-            resources.ApplyResources(this.cbPlayShift, "cbPlayShift");
-            this.cbPlayShift.Name = ("cbPlayShift");
-            this.cbPlayShift.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbPlayShift, "cbPlayShift");
+            cbPlayShift.Name = "cbPlayShift";
+            cbPlayShift.UseVisualStyleBackColor = true;
             // 
             // btPlayClr
             // 
-            resources.ApplyResources(this.btPlayClr, "btPlayClr");
-            this.btPlayClr.Name = ("btPlayClr");
-            this.btPlayClr.UseVisualStyleBackColor = (true);
-            this.btPlayClr.Click += (this.btPlayClr_Click);
+            resources.ApplyResources(btPlayClr, "btPlayClr");
+            btPlayClr.Name = "btPlayClr";
+            btPlayClr.UseVisualStyleBackColor = true;
+            btPlayClr.Click += btPlayClr_Click;
             // 
             // cbStopCtrl
             // 
-            resources.ApplyResources(this.cbStopCtrl, "cbStopCtrl");
-            this.cbStopCtrl.Name = ("cbStopCtrl");
-            this.cbStopCtrl.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbStopCtrl, "cbStopCtrl");
+            cbStopCtrl.Name = "cbStopCtrl";
+            cbStopCtrl.UseVisualStyleBackColor = true;
             // 
             // btPauseClr
             // 
-            resources.ApplyResources(this.btPauseClr, "btPauseClr");
-            this.btPauseClr.Name = ("btPauseClr");
-            this.btPauseClr.UseVisualStyleBackColor = (true);
-            this.btPauseClr.Click += (this.btPauseClr_Click);
+            resources.ApplyResources(btPauseClr, "btPauseClr");
+            btPauseClr.Name = "btPauseClr";
+            btPauseClr.UseVisualStyleBackColor = true;
+            btPauseClr.Click += btPauseClr_Click;
             // 
             // cbSlowShift
             // 
-            resources.ApplyResources(this.cbSlowShift, "cbSlowShift");
-            this.cbSlowShift.Name = ("cbSlowShift");
-            this.cbSlowShift.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbSlowShift, "cbSlowShift");
+            cbSlowShift.Name = "cbSlowShift";
+            cbSlowShift.UseVisualStyleBackColor = true;
             // 
             // btFastClr
             // 
-            resources.ApplyResources(this.btFastClr, "btFastClr");
-            this.btFastClr.Name = ("btFastClr");
-            this.btFastClr.UseVisualStyleBackColor = (true);
-            this.btFastClr.Click += (this.btFastClr_Click);
+            resources.ApplyResources(btFastClr, "btFastClr");
+            btFastClr.Name = "btFastClr";
+            btFastClr.UseVisualStyleBackColor = true;
+            btFastClr.Click += btFastClr_Click;
             // 
             // cbPauseCtrl
             // 
-            resources.ApplyResources(this.cbPauseCtrl, "cbPauseCtrl");
-            this.cbPauseCtrl.Name = ("cbPauseCtrl");
-            this.cbPauseCtrl.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbPauseCtrl, "cbPauseCtrl");
+            cbPauseCtrl.Name = "cbPauseCtrl";
+            cbPauseCtrl.UseVisualStyleBackColor = true;
             // 
             // btFadeoutClr
             // 
-            resources.ApplyResources(this.btFadeoutClr, "btFadeoutClr");
-            this.btFadeoutClr.Name = ("btFadeoutClr");
-            this.btFadeoutClr.UseVisualStyleBackColor = (true);
-            this.btFadeoutClr.Click += (this.btFadeoutClr_Click);
+            resources.ApplyResources(btFadeoutClr, "btFadeoutClr");
+            btFadeoutClr.Name = "btFadeoutClr";
+            btFadeoutClr.UseVisualStyleBackColor = true;
+            btFadeoutClr.Click += btFadeoutClr_Click;
             // 
             // cbPrevShift
             // 
-            resources.ApplyResources(this.cbPrevShift, "cbPrevShift");
-            this.cbPrevShift.Name = ("cbPrevShift");
-            this.cbPrevShift.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbPrevShift, "cbPrevShift");
+            cbPrevShift.Name = "cbPrevShift";
+            cbPrevShift.UseVisualStyleBackColor = true;
             // 
             // btSlowClr
             // 
-            resources.ApplyResources(this.btSlowClr, "btSlowClr");
-            this.btSlowClr.Name = ("btSlowClr");
-            this.btSlowClr.UseVisualStyleBackColor = (true);
-            this.btSlowClr.Click += (this.btSlowClr_Click);
+            resources.ApplyResources(btSlowClr, "btSlowClr");
+            btSlowClr.Name = "btSlowClr";
+            btSlowClr.UseVisualStyleBackColor = true;
+            btSlowClr.Click += btSlowClr_Click;
             // 
             // cbFadeoutCtrl
             // 
-            resources.ApplyResources(this.cbFadeoutCtrl, "cbFadeoutCtrl");
-            this.cbFadeoutCtrl.Name = ("cbFadeoutCtrl");
-            this.cbFadeoutCtrl.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbFadeoutCtrl, "cbFadeoutCtrl");
+            cbFadeoutCtrl.Name = "cbFadeoutCtrl";
+            cbFadeoutCtrl.UseVisualStyleBackColor = true;
             // 
             // btDmvSet
             // 
-            resources.ApplyResources(this.btDmvSet, "btDmvSet");
-            this.btDmvSet.Name = ("btDmvSet");
-            this.btDmvSet.UseVisualStyleBackColor = (true);
-            this.btDmvSet.Click += (this.btDmvSet_Click);
+            resources.ApplyResources(btDmvSet, "btDmvSet");
+            btDmvSet.Name = "btDmvSet";
+            btDmvSet.UseVisualStyleBackColor = true;
+            btDmvSet.Click += btDmvSet_Click;
             // 
             // btStopClr
             // 
-            resources.ApplyResources(this.btStopClr, "btStopClr");
-            this.btStopClr.Name = ("btStopClr");
-            this.btStopClr.UseVisualStyleBackColor = (true);
-            this.btStopClr.Click += (this.btStopClr_Click);
+            resources.ApplyResources(btStopClr, "btStopClr");
+            btStopClr.Name = "btStopClr";
+            btStopClr.UseVisualStyleBackColor = true;
+            btStopClr.Click += btStopClr_Click;
             // 
             // btUmvSet
             // 
-            resources.ApplyResources(this.btUmvSet, "btUmvSet");
-            this.btUmvSet.Name = ("btUmvSet");
-            this.btUmvSet.UseVisualStyleBackColor = (true);
-            this.btUmvSet.Click += (this.btUmvSet_Click);
+            resources.ApplyResources(btUmvSet, "btUmvSet");
+            btUmvSet.Name = "btUmvSet";
+            btUmvSet.UseVisualStyleBackColor = true;
+            btUmvSet.Click += btUmvSet_Click;
             // 
             // cbFadeoutShift
             // 
-            resources.ApplyResources(this.cbFadeoutShift, "cbFadeoutShift");
-            this.cbFadeoutShift.Name = ("cbFadeoutShift");
-            this.cbFadeoutShift.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbFadeoutShift, "cbFadeoutShift");
+            cbFadeoutShift.Name = "cbFadeoutShift";
+            cbFadeoutShift.UseVisualStyleBackColor = true;
             // 
             // btNextSet
             // 
-            resources.ApplyResources(this.btNextSet, "btNextSet");
-            this.btNextSet.Name = ("btNextSet");
-            this.btNextSet.UseVisualStyleBackColor = (true);
-            this.btNextSet.Click += (this.btNextSet_Click);
+            resources.ApplyResources(btNextSet, "btNextSet");
+            btNextSet.Name = "btNextSet";
+            btNextSet.UseVisualStyleBackColor = true;
+            btNextSet.Click += btNextSet_Click;
             // 
             // cbPrevCtrl
             // 
-            resources.ApplyResources(this.cbPrevCtrl, "cbPrevCtrl");
-            this.cbPrevCtrl.Name = ("cbPrevCtrl");
-            this.cbPrevCtrl.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbPrevCtrl, "cbPrevCtrl");
+            cbPrevCtrl.Name = "cbPrevCtrl";
+            cbPrevCtrl.UseVisualStyleBackColor = true;
             // 
             // btPrevSet
             // 
-            resources.ApplyResources(this.btPrevSet, "btPrevSet");
-            this.btPrevSet.Name = ("btPrevSet");
-            this.btPrevSet.UseVisualStyleBackColor = (true);
-            this.btPrevSet.Click += (this.btPrevSet_Click);
+            resources.ApplyResources(btPrevSet, "btPrevSet");
+            btPrevSet.Name = "btPrevSet";
+            btPrevSet.UseVisualStyleBackColor = true;
+            btPrevSet.Click += btPrevSet_Click;
             // 
             // cbPauseShift
             // 
-            resources.ApplyResources(this.cbPauseShift, "cbPauseShift");
-            this.cbPauseShift.Name = ("cbPauseShift");
-            this.cbPauseShift.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbPauseShift, "cbPauseShift");
+            cbPauseShift.Name = "cbPauseShift";
+            cbPauseShift.UseVisualStyleBackColor = true;
             // 
             // btPlaySet
             // 
-            resources.ApplyResources(this.btPlaySet, "btPlaySet");
-            this.btPlaySet.Name = ("btPlaySet");
-            this.btPlaySet.UseVisualStyleBackColor = (true);
-            this.btPlaySet.Click += (this.btPlaySet_Click);
+            resources.ApplyResources(btPlaySet, "btPlaySet");
+            btPlaySet.Name = "btPlaySet";
+            btPlaySet.UseVisualStyleBackColor = true;
+            btPlaySet.Click += btPlaySet_Click;
             // 
             // cbSlowCtrl
             // 
-            resources.ApplyResources(this.cbSlowCtrl, "cbSlowCtrl");
-            this.cbSlowCtrl.Name = ("cbSlowCtrl");
-            this.cbSlowCtrl.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbSlowCtrl, "cbSlowCtrl");
+            cbSlowCtrl.Name = "cbSlowCtrl";
+            cbSlowCtrl.UseVisualStyleBackColor = true;
             // 
             // btPauseSet
             // 
-            resources.ApplyResources(this.btPauseSet, "btPauseSet");
-            this.btPauseSet.Name = ("btPauseSet");
-            this.btPauseSet.UseVisualStyleBackColor = (true);
-            this.btPauseSet.Click += (this.btPauseSet_Click);
+            resources.ApplyResources(btPauseSet, "btPauseSet");
+            btPauseSet.Name = "btPauseSet";
+            btPauseSet.UseVisualStyleBackColor = true;
+            btPauseSet.Click += btPauseSet_Click;
             // 
             // cbStopShift
             // 
-            resources.ApplyResources(this.cbStopShift, "cbStopShift");
-            this.cbStopShift.Name = ("cbStopShift");
-            this.cbStopShift.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbStopShift, "cbStopShift");
+            cbStopShift.Name = "cbStopShift";
+            cbStopShift.UseVisualStyleBackColor = true;
             // 
             // btFastSet
             // 
-            resources.ApplyResources(this.btFastSet, "btFastSet");
-            this.btFastSet.Name = ("btFastSet");
-            this.btFastSet.UseVisualStyleBackColor = (true);
-            this.btFastSet.Click += (this.btFastSet_Click);
+            resources.ApplyResources(btFastSet, "btFastSet");
+            btFastSet.Name = "btFastSet";
+            btFastSet.UseVisualStyleBackColor = true;
+            btFastSet.Click += btFastSet_Click;
             // 
             // label71
             // 
-            resources.ApplyResources(this.label71, "label71");
-            this.label71.Name = ("label71");
+            resources.ApplyResources(label71, "label71");
+            label71.Name = "label71";
             // 
             // cbPlayCtrl
             // 
-            resources.ApplyResources(this.cbPlayCtrl, "cbPlayCtrl");
-            this.cbPlayCtrl.Name = ("cbPlayCtrl");
-            this.cbPlayCtrl.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbPlayCtrl, "cbPlayCtrl");
+            cbPlayCtrl.Name = "cbPlayCtrl";
+            cbPlayCtrl.UseVisualStyleBackColor = true;
             // 
             // label70
             // 
-            resources.ApplyResources(this.label70, "label70");
-            this.label70.Name = ("label70");
+            resources.ApplyResources(label70, "label70");
+            label70.Name = "label70";
             // 
             // btFadeoutSet
             // 
-            resources.ApplyResources(this.btFadeoutSet, "btFadeoutSet");
-            this.btFadeoutSet.Name = ("btFadeoutSet");
-            this.btFadeoutSet.UseVisualStyleBackColor = (true);
-            this.btFadeoutSet.Click += (this.btFadeoutSet_Click);
+            resources.ApplyResources(btFadeoutSet, "btFadeoutSet");
+            btFadeoutSet.Name = "btFadeoutSet";
+            btFadeoutSet.UseVisualStyleBackColor = true;
+            btFadeoutSet.Click += btFadeoutSet_Click;
             // 
             // label44
             // 
-            resources.ApplyResources(this.label44, "label44");
-            this.label44.Name = ("label44");
+            resources.ApplyResources(label44, "label44");
+            label44.Name = "label44";
             // 
             // btSlowSet
             // 
-            resources.ApplyResources(this.btSlowSet, "btSlowSet");
-            this.btSlowSet.Name = ("btSlowSet");
-            this.btSlowSet.UseVisualStyleBackColor = (true);
-            this.btSlowSet.Click += (this.btSlowSet_Click);
+            resources.ApplyResources(btSlowSet, "btSlowSet");
+            btSlowSet.Name = "btSlowSet";
+            btSlowSet.UseVisualStyleBackColor = true;
+            btSlowSet.Click += btSlowSet_Click;
             // 
             // cbFastCtrl
             // 
-            resources.ApplyResources(this.cbFastCtrl, "cbFastCtrl");
-            this.cbFastCtrl.Name = ("cbFastCtrl");
-            this.cbFastCtrl.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbFastCtrl, "cbFastCtrl");
+            cbFastCtrl.Name = "cbFastCtrl";
+            cbFastCtrl.UseVisualStyleBackColor = true;
             // 
             // btStopSet
             // 
-            resources.ApplyResources(this.btStopSet, "btStopSet");
-            this.btStopSet.Name = ("btStopSet");
-            this.btStopSet.UseVisualStyleBackColor = (true);
-            this.btStopSet.Click += (this.btStopSet_Click);
+            resources.ApplyResources(btStopSet, "btStopSet");
+            btStopSet.Name = "btStopSet";
+            btStopSet.UseVisualStyleBackColor = true;
+            btStopSet.Click += btStopSet_Click;
             // 
             // cbDmvCtrl
             // 
-            resources.ApplyResources(this.cbDmvCtrl, "cbDmvCtrl");
-            this.cbDmvCtrl.Name = ("cbDmvCtrl");
-            this.cbDmvCtrl.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbDmvCtrl, "cbDmvCtrl");
+            cbDmvCtrl.Name = "cbDmvCtrl";
+            cbDmvCtrl.UseVisualStyleBackColor = true;
             // 
             // label43
             // 
-            resources.ApplyResources(this.label43, "label43");
-            this.label43.Name = ("label43");
+            resources.ApplyResources(label43, "label43");
+            label43.Name = "label43";
             // 
             // cbUmvCtrl
             // 
-            resources.ApplyResources(this.cbUmvCtrl, "cbUmvCtrl");
-            this.cbUmvCtrl.Name = ("cbUmvCtrl");
-            this.cbUmvCtrl.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbUmvCtrl, "cbUmvCtrl");
+            cbUmvCtrl.Name = "cbUmvCtrl";
+            cbUmvCtrl.UseVisualStyleBackColor = true;
             // 
             // lblDmvKey
             // 
-            resources.ApplyResources(this.lblDmvKey, "lblDmvKey");
-            this.lblDmvKey.Name = ("lblDmvKey");
+            resources.ApplyResources(lblDmvKey, "lblDmvKey");
+            lblDmvKey.Name = "lblDmvKey";
             // 
             // label50
             // 
-            resources.ApplyResources(this.label50, "label50");
-            this.label50.Name = ("label50");
+            resources.ApplyResources(label50, "label50");
+            label50.Name = "label50";
             // 
             // lblUmvKey
             // 
-            resources.ApplyResources(this.lblUmvKey, "lblUmvKey");
-            this.lblUmvKey.Name = ("lblUmvKey");
+            resources.ApplyResources(lblUmvKey, "lblUmvKey");
+            lblUmvKey.Name = "lblUmvKey";
             // 
             // cbNextCtrl
             // 
-            resources.ApplyResources(this.cbNextCtrl, "cbNextCtrl");
-            this.cbNextCtrl.Name = ("cbNextCtrl");
-            this.cbNextCtrl.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbNextCtrl, "cbNextCtrl");
+            cbNextCtrl.Name = "cbNextCtrl";
+            cbNextCtrl.UseVisualStyleBackColor = true;
             // 
             // lblNextKey
             // 
-            resources.ApplyResources(this.lblNextKey, "lblNextKey");
-            this.lblNextKey.Name = ("lblNextKey");
+            resources.ApplyResources(lblNextKey, "lblNextKey");
+            lblNextKey.Name = "lblNextKey";
             // 
             // label42
             // 
-            resources.ApplyResources(this.label42, "label42");
-            this.label42.Name = ("label42");
+            resources.ApplyResources(label42, "label42");
+            label42.Name = "label42";
             // 
             // lblFastKey
             // 
-            resources.ApplyResources(this.lblFastKey, "lblFastKey");
-            this.lblFastKey.Name = ("lblFastKey");
+            resources.ApplyResources(lblFastKey, "lblFastKey");
+            lblFastKey.Name = "lblFastKey";
             // 
             // label41
             // 
-            resources.ApplyResources(this.label41, "label41");
-            this.label41.Name = ("label41");
+            resources.ApplyResources(label41, "label41");
+            label41.Name = "label41";
             // 
             // lblPlayKey
             // 
-            resources.ApplyResources(this.lblPlayKey, "lblPlayKey");
-            this.lblPlayKey.Name = ("lblPlayKey");
+            resources.ApplyResources(lblPlayKey, "lblPlayKey");
+            lblPlayKey.Name = "lblPlayKey";
             // 
             // label40
             // 
-            resources.ApplyResources(this.label40, "label40");
-            this.label40.Name = ("label40");
+            resources.ApplyResources(label40, "label40");
+            label40.Name = "label40";
             // 
             // lblSlowKey
             // 
-            resources.ApplyResources(this.lblSlowKey, "lblSlowKey");
-            this.lblSlowKey.Name = ("lblSlowKey");
+            resources.ApplyResources(lblSlowKey, "lblSlowKey");
+            lblSlowKey.Name = "lblSlowKey";
             // 
             // label39
             // 
-            resources.ApplyResources(this.label39, "label39");
-            this.label39.Name = ("label39");
+            resources.ApplyResources(label39, "label39");
+            label39.Name = "label39";
             // 
             // lblPrevKey
             // 
-            resources.ApplyResources(this.lblPrevKey, "lblPrevKey");
-            this.lblPrevKey.Name = ("lblPrevKey");
+            resources.ApplyResources(lblPrevKey, "lblPrevKey");
+            lblPrevKey.Name = "lblPrevKey";
             // 
             // label38
             // 
-            resources.ApplyResources(this.label38, "label38");
-            this.label38.Name = ("label38");
+            resources.ApplyResources(label38, "label38");
+            label38.Name = "label38";
             // 
             // lblFadeoutKey
             // 
-            resources.ApplyResources(this.lblFadeoutKey, "lblFadeoutKey");
-            this.lblFadeoutKey.Name = ("lblFadeoutKey");
+            resources.ApplyResources(lblFadeoutKey, "lblFadeoutKey");
+            lblFadeoutKey.Name = "lblFadeoutKey";
             // 
             // label48
             // 
-            resources.ApplyResources(this.label48, "label48");
-            this.label48.Name = ("label48");
+            resources.ApplyResources(label48, "label48");
+            label48.Name = "label48";
             // 
             // lblPauseKey
             // 
-            resources.ApplyResources(this.lblPauseKey, "lblPauseKey");
-            this.lblPauseKey.Name = ("lblPauseKey");
+            resources.ApplyResources(lblPauseKey, "lblPauseKey");
+            lblPauseKey.Name = "lblPauseKey";
             // 
             // label46
             // 
-            resources.ApplyResources(this.label46, "label46");
-            this.label46.Name = ("label46");
+            resources.ApplyResources(label46, "label46");
+            label46.Name = "label46";
             // 
             // lblStopKey
             // 
-            resources.ApplyResources(this.lblStopKey, "lblStopKey");
-            this.lblStopKey.Name = ("lblStopKey");
+            resources.ApplyResources(lblStopKey, "lblStopKey");
+            lblStopKey.Name = "lblStopKey";
             // 
             // label45
             // 
-            resources.ApplyResources(this.label45, "label45");
-            this.label45.Name = ("label45");
+            resources.ApplyResources(label45, "label45");
+            label45.Name = "label45";
             // 
             // cbStopAlt
             // 
-            resources.ApplyResources(this.cbStopAlt, "cbStopAlt");
-            this.cbStopAlt.Name = ("cbStopAlt");
-            this.cbStopAlt.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbStopAlt, "cbStopAlt");
+            cbStopAlt.Name = "cbStopAlt";
+            cbStopAlt.UseVisualStyleBackColor = true;
             // 
             // cbDmvAlt
             // 
-            resources.ApplyResources(this.cbDmvAlt, "cbDmvAlt");
-            this.cbDmvAlt.Name = ("cbDmvAlt");
-            this.cbDmvAlt.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbDmvAlt, "cbDmvAlt");
+            cbDmvAlt.Name = "cbDmvAlt";
+            cbDmvAlt.UseVisualStyleBackColor = true;
             // 
             // pictureBox17
             // 
-            this.pictureBox17.Image = (global::MDPlayerx64.Properties.Resources.ccFadeout);
-            resources.ApplyResources(this.pictureBox17, "pictureBox17");
-            this.pictureBox17.Name = ("pictureBox17");
-            this.pictureBox17.TabStop = (false);
+            pictureBox17.Image = Resources.ccFadeout;
+            resources.ApplyResources(pictureBox17, "pictureBox17");
+            pictureBox17.Name = "pictureBox17";
+            pictureBox17.TabStop = false;
             // 
             // cbUmvAlt
             // 
-            resources.ApplyResources(this.cbUmvAlt, "cbUmvAlt");
-            this.cbUmvAlt.Name = ("cbUmvAlt");
-            this.cbUmvAlt.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbUmvAlt, "cbUmvAlt");
+            cbUmvAlt.Name = "cbUmvAlt";
+            cbUmvAlt.UseVisualStyleBackColor = true;
             // 
             // label37
             // 
-            resources.ApplyResources(this.label37, "label37");
-            this.label37.Name = ("label37");
+            resources.ApplyResources(label37, "label37");
+            label37.Name = "label37";
             // 
             // cbNextAlt
             // 
-            resources.ApplyResources(this.cbNextAlt, "cbNextAlt");
-            this.cbNextAlt.Name = ("cbNextAlt");
-            this.cbNextAlt.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbNextAlt, "cbNextAlt");
+            cbNextAlt.Name = "cbNextAlt";
+            cbNextAlt.UseVisualStyleBackColor = true;
             // 
             // cbPauseAlt
             // 
-            resources.ApplyResources(this.cbPauseAlt, "cbPauseAlt");
-            this.cbPauseAlt.Name = ("cbPauseAlt");
-            this.cbPauseAlt.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbPauseAlt, "cbPauseAlt");
+            cbPauseAlt.Name = "cbPauseAlt";
+            cbPauseAlt.UseVisualStyleBackColor = true;
             // 
             // pictureBox16
             // 
-            this.pictureBox16.Image = (global::MDPlayerx64.Properties.Resources.ccPrevious);
-            resources.ApplyResources(this.pictureBox16, "pictureBox16");
-            this.pictureBox16.Name = ("pictureBox16");
-            this.pictureBox16.TabStop = (false);
+            pictureBox16.Image = Resources.ccPrevious;
+            resources.ApplyResources(pictureBox16, "pictureBox16");
+            pictureBox16.Name = "pictureBox16";
+            pictureBox16.TabStop = false;
             // 
             // pictureBox10
             // 
-            this.pictureBox10.Image = (global::MDPlayerx64.Properties.Resources.ccNext);
-            resources.ApplyResources(this.pictureBox10, "pictureBox10");
-            this.pictureBox10.Name = ("pictureBox10");
-            this.pictureBox10.TabStop = (false);
+            pictureBox10.Image = Resources.ccNext;
+            resources.ApplyResources(pictureBox10, "pictureBox10");
+            pictureBox10.Name = "pictureBox10";
+            pictureBox10.TabStop = false;
             // 
             // cbFastAlt
             // 
-            resources.ApplyResources(this.cbFastAlt, "cbFastAlt");
-            this.cbFastAlt.Name = ("cbFastAlt");
-            this.cbFastAlt.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbFastAlt, "cbFastAlt");
+            cbFastAlt.Name = "cbFastAlt";
+            cbFastAlt.UseVisualStyleBackColor = true;
             // 
             // cbFadeoutAlt
             // 
-            resources.ApplyResources(this.cbFadeoutAlt, "cbFadeoutAlt");
-            this.cbFadeoutAlt.Name = ("cbFadeoutAlt");
-            this.cbFadeoutAlt.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbFadeoutAlt, "cbFadeoutAlt");
+            cbFadeoutAlt.Name = "cbFadeoutAlt";
+            cbFadeoutAlt.UseVisualStyleBackColor = true;
             // 
             // pictureBox15
             // 
-            this.pictureBox15.Image = (global::MDPlayerx64.Properties.Resources.ccPause);
-            resources.ApplyResources(this.pictureBox15, "pictureBox15");
-            this.pictureBox15.Name = ("pictureBox15");
-            this.pictureBox15.TabStop = (false);
+            pictureBox15.Image = Resources.ccPause;
+            resources.ApplyResources(pictureBox15, "pictureBox15");
+            pictureBox15.Name = "pictureBox15";
+            pictureBox15.TabStop = false;
             // 
             // pictureBox11
             // 
-            this.pictureBox11.Image = (global::MDPlayerx64.Properties.Resources.ccFast);
-            resources.ApplyResources(this.pictureBox11, "pictureBox11");
-            this.pictureBox11.Name = ("pictureBox11");
-            this.pictureBox11.TabStop = (false);
+            pictureBox11.Image = Resources.ccFast;
+            resources.ApplyResources(pictureBox11, "pictureBox11");
+            pictureBox11.Name = "pictureBox11";
+            pictureBox11.TabStop = false;
             // 
             // cbPlayAlt
             // 
-            resources.ApplyResources(this.cbPlayAlt, "cbPlayAlt");
-            this.cbPlayAlt.Name = ("cbPlayAlt");
-            this.cbPlayAlt.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbPlayAlt, "cbPlayAlt");
+            cbPlayAlt.Name = "cbPlayAlt";
+            cbPlayAlt.UseVisualStyleBackColor = true;
             // 
             // cbPrevAlt
             // 
-            resources.ApplyResources(this.cbPrevAlt, "cbPrevAlt");
-            this.cbPrevAlt.Name = ("cbPrevAlt");
-            this.cbPrevAlt.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbPrevAlt, "cbPrevAlt");
+            cbPrevAlt.Name = "cbPrevAlt";
+            cbPrevAlt.UseVisualStyleBackColor = true;
             // 
             // pictureBox13
             // 
-            this.pictureBox13.Image = (global::MDPlayerx64.Properties.Resources.ccSlow);
-            resources.ApplyResources(this.pictureBox13, "pictureBox13");
-            this.pictureBox13.Name = ("pictureBox13");
-            this.pictureBox13.TabStop = (false);
+            pictureBox13.Image = Resources.ccSlow;
+            resources.ApplyResources(pictureBox13, "pictureBox13");
+            pictureBox13.Name = "pictureBox13";
+            pictureBox13.TabStop = false;
             // 
             // pictureBox12
             // 
-            this.pictureBox12.Image = (global::MDPlayerx64.Properties.Resources.ccPlay);
-            resources.ApplyResources(this.pictureBox12, "pictureBox12");
-            this.pictureBox12.Name = ("pictureBox12");
-            this.pictureBox12.TabStop = (false);
+            pictureBox12.Image = Resources.ccPlay;
+            resources.ApplyResources(pictureBox12, "pictureBox12");
+            pictureBox12.Name = "pictureBox12";
+            pictureBox12.TabStop = false;
             // 
             // cbSlowAlt
             // 
-            resources.ApplyResources(this.cbSlowAlt, "cbSlowAlt");
-            this.cbSlowAlt.Name = ("cbSlowAlt");
-            this.cbSlowAlt.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbSlowAlt, "cbSlowAlt");
+            cbSlowAlt.Name = "cbSlowAlt";
+            cbSlowAlt.UseVisualStyleBackColor = true;
             // 
             // lblKeyBoardHookNotice
             // 
-            resources.ApplyResources(this.lblKeyBoardHookNotice, "lblKeyBoardHookNotice");
-            this.lblKeyBoardHookNotice.ForeColor = (global::System.Drawing.Color.Red);
-            this.lblKeyBoardHookNotice.Name = ("lblKeyBoardHookNotice");
+            resources.ApplyResources(lblKeyBoardHookNotice, "lblKeyBoardHookNotice");
+            lblKeyBoardHookNotice.ForeColor = Color.Red;
+            lblKeyBoardHookNotice.Name = "lblKeyBoardHookNotice";
             // 
             // label47
             // 
-            resources.ApplyResources(this.label47, "label47");
-            this.label47.Name = ("label47");
+            resources.ApplyResources(label47, "label47");
+            label47.Name = "label47";
             // 
             // cbStopWin
             // 
-            resources.ApplyResources(this.cbStopWin, "cbStopWin");
-            this.cbStopWin.Name = ("cbStopWin");
-            this.cbStopWin.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbStopWin, "cbStopWin");
+            cbStopWin.Name = "cbStopWin";
+            cbStopWin.UseVisualStyleBackColor = true;
             // 
             // cbPauseWin
             // 
-            resources.ApplyResources(this.cbPauseWin, "cbPauseWin");
-            this.cbPauseWin.Name = ("cbPauseWin");
-            this.cbPauseWin.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbPauseWin, "cbPauseWin");
+            cbPauseWin.Name = "cbPauseWin";
+            cbPauseWin.UseVisualStyleBackColor = true;
             // 
             // cbFadeoutWin
             // 
-            resources.ApplyResources(this.cbFadeoutWin, "cbFadeoutWin");
-            this.cbFadeoutWin.Name = ("cbFadeoutWin");
-            this.cbFadeoutWin.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbFadeoutWin, "cbFadeoutWin");
+            cbFadeoutWin.Name = "cbFadeoutWin";
+            cbFadeoutWin.UseVisualStyleBackColor = true;
             // 
             // cbPrevWin
             // 
-            resources.ApplyResources(this.cbPrevWin, "cbPrevWin");
-            this.cbPrevWin.Name = ("cbPrevWin");
-            this.cbPrevWin.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbPrevWin, "cbPrevWin");
+            cbPrevWin.Name = "cbPrevWin";
+            cbPrevWin.UseVisualStyleBackColor = true;
             // 
             // cbSlowWin
             // 
-            resources.ApplyResources(this.cbSlowWin, "cbSlowWin");
-            this.cbSlowWin.Name = ("cbSlowWin");
-            this.cbSlowWin.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbSlowWin, "cbSlowWin");
+            cbSlowWin.Name = "cbSlowWin";
+            cbSlowWin.UseVisualStyleBackColor = true;
             // 
             // cbPlayWin
             // 
-            resources.ApplyResources(this.cbPlayWin, "cbPlayWin");
-            this.cbPlayWin.Name = ("cbPlayWin");
-            this.cbPlayWin.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbPlayWin, "cbPlayWin");
+            cbPlayWin.Name = "cbPlayWin";
+            cbPlayWin.UseVisualStyleBackColor = true;
             // 
             // cbFastWin
             // 
-            resources.ApplyResources(this.cbFastWin, "cbFastWin");
-            this.cbFastWin.Name = ("cbFastWin");
-            this.cbFastWin.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbFastWin, "cbFastWin");
+            cbFastWin.Name = "cbFastWin";
+            cbFastWin.UseVisualStyleBackColor = true;
             // 
             // cbNextWin
             // 
-            resources.ApplyResources(this.cbNextWin, "cbNextWin");
-            this.cbNextWin.Name = ("cbNextWin");
-            this.cbNextWin.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbNextWin, "cbNextWin");
+            cbNextWin.Name = "cbNextWin";
+            cbNextWin.UseVisualStyleBackColor = true;
             // 
             // tpBalance
             // 
-            this.tpBalance.Controls.Add(this.groupBox25);
-            this.tpBalance.Controls.Add(this.cbAutoBalanceUseThis);
-            this.tpBalance.Controls.Add(this.groupBox18);
-            resources.ApplyResources(this.tpBalance, "tpBalance");
-            this.tpBalance.Name = ("tpBalance");
-            this.tpBalance.UseVisualStyleBackColor = (true);
+            tpBalance.Controls.Add(groupBox25);
+            tpBalance.Controls.Add(cbAutoBalanceUseThis);
+            tpBalance.Controls.Add(groupBox18);
+            resources.ApplyResources(tpBalance, "tpBalance");
+            tpBalance.Name = "tpBalance";
+            tpBalance.UseVisualStyleBackColor = true;
             // 
             // groupBox25
             // 
-            resources.ApplyResources(this.groupBox25, "groupBox25");
-            this.groupBox25.Controls.Add(this.rbAutoBalanceNotSamePositionAsSongData);
-            this.groupBox25.Controls.Add(this.rbAutoBalanceSamePositionAsSongData);
-            this.groupBox25.Name = ("groupBox25");
-            this.groupBox25.TabStop = (false);
+            resources.ApplyResources(groupBox25, "groupBox25");
+            groupBox25.Controls.Add(rbAutoBalanceNotSamePositionAsSongData);
+            groupBox25.Controls.Add(rbAutoBalanceSamePositionAsSongData);
+            groupBox25.Name = "groupBox25";
+            groupBox25.TabStop = false;
             // 
             // rbAutoBalanceNotSamePositionAsSongData
             // 
-            resources.ApplyResources(this.rbAutoBalanceNotSamePositionAsSongData, "rbAutoBalanceNotSamePositionAsSongData");
-            this.rbAutoBalanceNotSamePositionAsSongData.Checked = (true);
-            this.rbAutoBalanceNotSamePositionAsSongData.Name = ("rbAutoBalanceNotSamePositionAsSongData");
-            this.rbAutoBalanceNotSamePositionAsSongData.TabStop = (true);
-            this.rbAutoBalanceNotSamePositionAsSongData.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbAutoBalanceNotSamePositionAsSongData, "rbAutoBalanceNotSamePositionAsSongData");
+            rbAutoBalanceNotSamePositionAsSongData.Checked = true;
+            rbAutoBalanceNotSamePositionAsSongData.Name = "rbAutoBalanceNotSamePositionAsSongData";
+            rbAutoBalanceNotSamePositionAsSongData.TabStop = true;
+            rbAutoBalanceNotSamePositionAsSongData.UseVisualStyleBackColor = true;
             // 
             // rbAutoBalanceSamePositionAsSongData
             // 
-            resources.ApplyResources(this.rbAutoBalanceSamePositionAsSongData, "rbAutoBalanceSamePositionAsSongData");
-            this.rbAutoBalanceSamePositionAsSongData.Name = ("rbAutoBalanceSamePositionAsSongData");
-            this.rbAutoBalanceSamePositionAsSongData.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbAutoBalanceSamePositionAsSongData, "rbAutoBalanceSamePositionAsSongData");
+            rbAutoBalanceSamePositionAsSongData.Name = "rbAutoBalanceSamePositionAsSongData";
+            rbAutoBalanceSamePositionAsSongData.UseVisualStyleBackColor = true;
             // 
             // cbAutoBalanceUseThis
             // 
-            resources.ApplyResources(this.cbAutoBalanceUseThis, "cbAutoBalanceUseThis");
-            this.cbAutoBalanceUseThis.Checked = (true);
-            this.cbAutoBalanceUseThis.CheckState = (global::System.Windows.Forms.CheckState.Checked);
-            this.cbAutoBalanceUseThis.Name = ("cbAutoBalanceUseThis");
-            this.cbAutoBalanceUseThis.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbAutoBalanceUseThis, "cbAutoBalanceUseThis");
+            cbAutoBalanceUseThis.Checked = true;
+            cbAutoBalanceUseThis.CheckState = CheckState.Checked;
+            cbAutoBalanceUseThis.Name = "cbAutoBalanceUseThis";
+            cbAutoBalanceUseThis.UseVisualStyleBackColor = true;
             // 
             // groupBox18
             // 
-            resources.ApplyResources(this.groupBox18, "groupBox18");
-            this.groupBox18.Controls.Add(this.groupBox24);
-            this.groupBox18.Controls.Add(this.groupBox23);
-            this.groupBox18.Name = ("groupBox18");
-            this.groupBox18.TabStop = (false);
+            resources.ApplyResources(groupBox18, "groupBox18");
+            groupBox18.Controls.Add(groupBox24);
+            groupBox18.Controls.Add(groupBox23);
+            groupBox18.Name = "groupBox18";
+            groupBox18.TabStop = false;
             // 
             // groupBox24
             // 
-            this.groupBox24.Controls.Add(this.groupBox21);
-            this.groupBox24.Controls.Add(this.groupBox22);
-            resources.ApplyResources(this.groupBox24, "groupBox24");
-            this.groupBox24.Name = ("groupBox24");
-            this.groupBox24.TabStop = (false);
+            groupBox24.Controls.Add(groupBox21);
+            groupBox24.Controls.Add(groupBox22);
+            resources.ApplyResources(groupBox24, "groupBox24");
+            groupBox24.Name = "groupBox24";
+            groupBox24.TabStop = false;
             // 
             // groupBox21
             // 
-            this.groupBox21.Controls.Add(this.rbAutoBalanceNotSaveSongBalance);
-            this.groupBox21.Controls.Add(this.rbAutoBalanceSaveSongBalance);
-            resources.ApplyResources(this.groupBox21, "groupBox21");
-            this.groupBox21.Name = ("groupBox21");
-            this.groupBox21.TabStop = (false);
+            groupBox21.Controls.Add(rbAutoBalanceNotSaveSongBalance);
+            groupBox21.Controls.Add(rbAutoBalanceSaveSongBalance);
+            resources.ApplyResources(groupBox21, "groupBox21");
+            groupBox21.Name = "groupBox21";
+            groupBox21.TabStop = false;
             // 
             // rbAutoBalanceNotSaveSongBalance
             // 
-            resources.ApplyResources(this.rbAutoBalanceNotSaveSongBalance, "rbAutoBalanceNotSaveSongBalance");
-            this.rbAutoBalanceNotSaveSongBalance.Checked = (true);
-            this.rbAutoBalanceNotSaveSongBalance.Name = ("rbAutoBalanceNotSaveSongBalance");
-            this.rbAutoBalanceNotSaveSongBalance.TabStop = (true);
-            this.rbAutoBalanceNotSaveSongBalance.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbAutoBalanceNotSaveSongBalance, "rbAutoBalanceNotSaveSongBalance");
+            rbAutoBalanceNotSaveSongBalance.Checked = true;
+            rbAutoBalanceNotSaveSongBalance.Name = "rbAutoBalanceNotSaveSongBalance";
+            rbAutoBalanceNotSaveSongBalance.TabStop = true;
+            rbAutoBalanceNotSaveSongBalance.UseVisualStyleBackColor = true;
             // 
             // rbAutoBalanceSaveSongBalance
             // 
-            resources.ApplyResources(this.rbAutoBalanceSaveSongBalance, "rbAutoBalanceSaveSongBalance");
-            this.rbAutoBalanceSaveSongBalance.Name = ("rbAutoBalanceSaveSongBalance");
-            this.rbAutoBalanceSaveSongBalance.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbAutoBalanceSaveSongBalance, "rbAutoBalanceSaveSongBalance");
+            rbAutoBalanceSaveSongBalance.Name = "rbAutoBalanceSaveSongBalance";
+            rbAutoBalanceSaveSongBalance.UseVisualStyleBackColor = true;
             // 
             // groupBox22
             // 
-            this.groupBox22.Controls.Add(this.label4);
-            resources.ApplyResources(this.groupBox22, "groupBox22");
-            this.groupBox22.Name = ("groupBox22");
-            this.groupBox22.TabStop = (false);
+            groupBox22.Controls.Add(label4);
+            resources.ApplyResources(groupBox22, "groupBox22");
+            groupBox22.Name = "groupBox22";
+            groupBox22.TabStop = false;
             // 
             // label4
             // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.Name = ("label4");
+            resources.ApplyResources(label4, "label4");
+            label4.Name = "label4";
             // 
             // groupBox23
             // 
-            resources.ApplyResources(this.groupBox23, "groupBox23");
-            this.groupBox23.Controls.Add(this.groupBox19);
-            this.groupBox23.Controls.Add(this.groupBox20);
-            this.groupBox23.Name = ("groupBox23");
-            this.groupBox23.TabStop = (false);
+            resources.ApplyResources(groupBox23, "groupBox23");
+            groupBox23.Controls.Add(groupBox19);
+            groupBox23.Controls.Add(groupBox20);
+            groupBox23.Name = "groupBox23";
+            groupBox23.TabStop = false;
             // 
             // groupBox19
             // 
-            this.groupBox19.Controls.Add(this.rbAutoBalanceNotLoadSongBalance);
-            this.groupBox19.Controls.Add(this.rbAutoBalanceLoadSongBalance);
-            resources.ApplyResources(this.groupBox19, "groupBox19");
-            this.groupBox19.Name = ("groupBox19");
-            this.groupBox19.TabStop = (false);
+            groupBox19.Controls.Add(rbAutoBalanceNotLoadSongBalance);
+            groupBox19.Controls.Add(rbAutoBalanceLoadSongBalance);
+            resources.ApplyResources(groupBox19, "groupBox19");
+            groupBox19.Name = "groupBox19";
+            groupBox19.TabStop = false;
             // 
             // rbAutoBalanceNotLoadSongBalance
             // 
-            resources.ApplyResources(this.rbAutoBalanceNotLoadSongBalance, "rbAutoBalanceNotLoadSongBalance");
-            this.rbAutoBalanceNotLoadSongBalance.Checked = (true);
-            this.rbAutoBalanceNotLoadSongBalance.Name = ("rbAutoBalanceNotLoadSongBalance");
-            this.rbAutoBalanceNotLoadSongBalance.TabStop = (true);
-            this.rbAutoBalanceNotLoadSongBalance.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbAutoBalanceNotLoadSongBalance, "rbAutoBalanceNotLoadSongBalance");
+            rbAutoBalanceNotLoadSongBalance.Checked = true;
+            rbAutoBalanceNotLoadSongBalance.Name = "rbAutoBalanceNotLoadSongBalance";
+            rbAutoBalanceNotLoadSongBalance.TabStop = true;
+            rbAutoBalanceNotLoadSongBalance.UseVisualStyleBackColor = true;
             // 
             // rbAutoBalanceLoadSongBalance
             // 
-            resources.ApplyResources(this.rbAutoBalanceLoadSongBalance, "rbAutoBalanceLoadSongBalance");
-            this.rbAutoBalanceLoadSongBalance.Name = ("rbAutoBalanceLoadSongBalance");
-            this.rbAutoBalanceLoadSongBalance.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbAutoBalanceLoadSongBalance, "rbAutoBalanceLoadSongBalance");
+            rbAutoBalanceLoadSongBalance.Name = "rbAutoBalanceLoadSongBalance";
+            rbAutoBalanceLoadSongBalance.UseVisualStyleBackColor = true;
             // 
             // groupBox20
             // 
-            resources.ApplyResources(this.groupBox20, "groupBox20");
-            this.groupBox20.Controls.Add(this.rbAutoBalanceNotLoadDriverBalance);
-            this.groupBox20.Controls.Add(this.rbAutoBalanceLoadDriverBalance);
-            this.groupBox20.Name = ("groupBox20");
-            this.groupBox20.TabStop = (false);
-            this.groupBox20.Enter += (this.groupBox20_Enter);
+            resources.ApplyResources(groupBox20, "groupBox20");
+            groupBox20.Controls.Add(rbAutoBalanceNotLoadDriverBalance);
+            groupBox20.Controls.Add(rbAutoBalanceLoadDriverBalance);
+            groupBox20.Name = "groupBox20";
+            groupBox20.TabStop = false;
+            groupBox20.Enter += groupBox20_Enter;
             // 
             // rbAutoBalanceNotLoadDriverBalance
             // 
-            resources.ApplyResources(this.rbAutoBalanceNotLoadDriverBalance, "rbAutoBalanceNotLoadDriverBalance");
-            this.rbAutoBalanceNotLoadDriverBalance.Name = ("rbAutoBalanceNotLoadDriverBalance");
-            this.rbAutoBalanceNotLoadDriverBalance.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbAutoBalanceNotLoadDriverBalance, "rbAutoBalanceNotLoadDriverBalance");
+            rbAutoBalanceNotLoadDriverBalance.Name = "rbAutoBalanceNotLoadDriverBalance";
+            rbAutoBalanceNotLoadDriverBalance.UseVisualStyleBackColor = true;
             // 
             // rbAutoBalanceLoadDriverBalance
             // 
-            resources.ApplyResources(this.rbAutoBalanceLoadDriverBalance, "rbAutoBalanceLoadDriverBalance");
-            this.rbAutoBalanceLoadDriverBalance.Checked = (true);
-            this.rbAutoBalanceLoadDriverBalance.Name = ("rbAutoBalanceLoadDriverBalance");
-            this.rbAutoBalanceLoadDriverBalance.TabStop = (true);
-            this.rbAutoBalanceLoadDriverBalance.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(rbAutoBalanceLoadDriverBalance, "rbAutoBalanceLoadDriverBalance");
+            rbAutoBalanceLoadDriverBalance.Checked = true;
+            rbAutoBalanceLoadDriverBalance.Name = "rbAutoBalanceLoadDriverBalance";
+            rbAutoBalanceLoadDriverBalance.TabStop = true;
+            rbAutoBalanceLoadDriverBalance.UseVisualStyleBackColor = true;
             // 
             // tpPlayList
             // 
-            this.tpPlayList.Controls.Add(this.groupBox17);
-            this.tpPlayList.Controls.Add(this.cbEmptyPlayList);
-            resources.ApplyResources(this.tpPlayList, "tpPlayList");
-            this.tpPlayList.Name = ("tpPlayList");
-            this.tpPlayList.UseVisualStyleBackColor = (true);
+            tpPlayList.Controls.Add(groupBox17);
+            tpPlayList.Controls.Add(cbEmptyPlayList);
+            resources.ApplyResources(tpPlayList, "tpPlayList");
+            tpPlayList.Name = "tpPlayList";
+            tpPlayList.UseVisualStyleBackColor = true;
             // 
             // groupBox17
             // 
-            resources.ApplyResources(this.groupBox17, "groupBox17");
-            this.groupBox17.Controls.Add(this.cbAutoOpenImg);
-            this.groupBox17.Controls.Add(this.tbImageExt);
-            this.groupBox17.Controls.Add(this.cbAutoOpenMML);
-            this.groupBox17.Controls.Add(this.tbMMLExt);
-            this.groupBox17.Controls.Add(this.tbTextExt);
-            this.groupBox17.Controls.Add(this.cbAutoOpenText);
-            this.groupBox17.Controls.Add(this.label1);
-            this.groupBox17.Controls.Add(this.label3);
-            this.groupBox17.Controls.Add(this.label2);
-            this.groupBox17.Name = ("groupBox17");
-            this.groupBox17.TabStop = (false);
+            resources.ApplyResources(groupBox17, "groupBox17");
+            groupBox17.Controls.Add(cbAutoOpenImg);
+            groupBox17.Controls.Add(tbImageExt);
+            groupBox17.Controls.Add(cbAutoOpenMML);
+            groupBox17.Controls.Add(tbMMLExt);
+            groupBox17.Controls.Add(tbTextExt);
+            groupBox17.Controls.Add(cbAutoOpenText);
+            groupBox17.Controls.Add(label1);
+            groupBox17.Controls.Add(label3);
+            groupBox17.Controls.Add(label2);
+            groupBox17.Name = "groupBox17";
+            groupBox17.TabStop = false;
             // 
             // cbAutoOpenImg
             // 
-            resources.ApplyResources(this.cbAutoOpenImg, "cbAutoOpenImg");
-            this.cbAutoOpenImg.Name = ("cbAutoOpenImg");
-            this.cbAutoOpenImg.UseVisualStyleBackColor = (true);
-            this.cbAutoOpenImg.CheckedChanged += (this.cbUseLoopTimes_CheckedChanged);
+            resources.ApplyResources(cbAutoOpenImg, "cbAutoOpenImg");
+            cbAutoOpenImg.Name = "cbAutoOpenImg";
+            cbAutoOpenImg.UseVisualStyleBackColor = true;
+            cbAutoOpenImg.CheckedChanged += cbUseLoopTimes_CheckedChanged;
             // 
             // tbImageExt
             // 
-            resources.ApplyResources(this.tbImageExt, "tbImageExt");
-            this.tbImageExt.Name = ("tbImageExt");
+            resources.ApplyResources(tbImageExt, "tbImageExt");
+            tbImageExt.Name = "tbImageExt";
             // 
             // cbAutoOpenMML
             // 
-            resources.ApplyResources(this.cbAutoOpenMML, "cbAutoOpenMML");
-            this.cbAutoOpenMML.Name = ("cbAutoOpenMML");
-            this.cbAutoOpenMML.UseVisualStyleBackColor = (true);
-            this.cbAutoOpenMML.CheckedChanged += (this.cbUseLoopTimes_CheckedChanged);
+            resources.ApplyResources(cbAutoOpenMML, "cbAutoOpenMML");
+            cbAutoOpenMML.Name = "cbAutoOpenMML";
+            cbAutoOpenMML.UseVisualStyleBackColor = true;
+            cbAutoOpenMML.CheckedChanged += cbUseLoopTimes_CheckedChanged;
             // 
             // tbMMLExt
             // 
-            resources.ApplyResources(this.tbMMLExt, "tbMMLExt");
-            this.tbMMLExt.Name = ("tbMMLExt");
+            resources.ApplyResources(tbMMLExt, "tbMMLExt");
+            tbMMLExt.Name = "tbMMLExt";
             // 
             // tbTextExt
             // 
-            resources.ApplyResources(this.tbTextExt, "tbTextExt");
-            this.tbTextExt.Name = ("tbTextExt");
+            resources.ApplyResources(tbTextExt, "tbTextExt");
+            tbTextExt.Name = "tbTextExt";
             // 
             // cbAutoOpenText
             // 
-            resources.ApplyResources(this.cbAutoOpenText, "cbAutoOpenText");
-            this.cbAutoOpenText.Name = ("cbAutoOpenText");
-            this.cbAutoOpenText.UseVisualStyleBackColor = (true);
-            this.cbAutoOpenText.CheckedChanged += (this.cbUseLoopTimes_CheckedChanged);
+            resources.ApplyResources(cbAutoOpenText, "cbAutoOpenText");
+            cbAutoOpenText.Name = "cbAutoOpenText";
+            cbAutoOpenText.UseVisualStyleBackColor = true;
+            cbAutoOpenText.CheckedChanged += cbUseLoopTimes_CheckedChanged;
             // 
             // label1
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = ("label1");
+            resources.ApplyResources(label1, "label1");
+            label1.Name = "label1";
             // 
             // label3
             // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.Name = ("label3");
+            resources.ApplyResources(label3, "label3");
+            label3.Name = "label3";
             // 
             // label2
             // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = ("label2");
+            resources.ApplyResources(label2, "label2");
+            label2.Name = "label2";
             // 
             // cbEmptyPlayList
             // 
-            resources.ApplyResources(this.cbEmptyPlayList, "cbEmptyPlayList");
-            this.cbEmptyPlayList.Name = ("cbEmptyPlayList");
-            this.cbEmptyPlayList.UseVisualStyleBackColor = (true);
-            this.cbEmptyPlayList.CheckedChanged += (this.cbUseLoopTimes_CheckedChanged);
+            resources.ApplyResources(cbEmptyPlayList, "cbEmptyPlayList");
+            cbEmptyPlayList.Name = "cbEmptyPlayList";
+            cbEmptyPlayList.UseVisualStyleBackColor = true;
+            cbEmptyPlayList.CheckedChanged += cbUseLoopTimes_CheckedChanged;
             // 
             // tpOther
             // 
-            this.tpOther.Controls.Add(this.btnSearchPath);
-            this.tpOther.Controls.Add(this.tbSearchPath);
-            this.tpOther.Controls.Add(this.label68);
-            this.tpOther.Controls.Add(this.cbNonRenderingForPause);
-            this.tpOther.Controls.Add(this.cbWavSwitch);
-            this.tpOther.Controls.Add(this.cbUseGetInst);
-            this.tpOther.Controls.Add(this.groupBox4);
-            this.tpOther.Controls.Add(this.cbDumpSwitch);
-            this.tpOther.Controls.Add(this.gbWav);
-            this.tpOther.Controls.Add(this.gbDump);
-            this.tpOther.Controls.Add(this.label30);
-            this.tpOther.Controls.Add(this.tbScreenFrameRate);
-            this.tpOther.Controls.Add(this.label29);
-            this.tpOther.Controls.Add(this.lblLoopTimes);
-            this.tpOther.Controls.Add(this.btnDataPath);
-            this.tpOther.Controls.Add(this.tbLoopTimes);
-            this.tpOther.Controls.Add(this.tbDataPath);
-            this.tpOther.Controls.Add(this.label19);
-            this.tpOther.Controls.Add(this.btnResetPosition);
-            this.tpOther.Controls.Add(this.btnOpenSettingFolder);
-            this.tpOther.Controls.Add(this.cbExALL);
-            this.tpOther.Controls.Add(this.cbInitAlways);
-            this.tpOther.Controls.Add(this.cbAutoOpen);
-            this.tpOther.Controls.Add(this.cbUseLoopTimes);
-            resources.ApplyResources(this.tpOther, "tpOther");
-            this.tpOther.Name = ("tpOther");
-            this.tpOther.UseVisualStyleBackColor = (true);
+            tpOther.Controls.Add(btnSearchPath);
+            tpOther.Controls.Add(tbSearchPath);
+            tpOther.Controls.Add(label68);
+            tpOther.Controls.Add(cbNonRenderingForPause);
+            tpOther.Controls.Add(cbWavSwitch);
+            tpOther.Controls.Add(cbUseGetInst);
+            tpOther.Controls.Add(groupBox4);
+            tpOther.Controls.Add(cbDumpSwitch);
+            tpOther.Controls.Add(gbWav);
+            tpOther.Controls.Add(gbDump);
+            tpOther.Controls.Add(label30);
+            tpOther.Controls.Add(tbScreenFrameRate);
+            tpOther.Controls.Add(label29);
+            tpOther.Controls.Add(lblLoopTimes);
+            tpOther.Controls.Add(btnDataPath);
+            tpOther.Controls.Add(tbLoopTimes);
+            tpOther.Controls.Add(tbDataPath);
+            tpOther.Controls.Add(label19);
+            tpOther.Controls.Add(btnResetPosition);
+            tpOther.Controls.Add(btnOpenSettingFolder);
+            tpOther.Controls.Add(cbExALL);
+            tpOther.Controls.Add(cbInitAlways);
+            tpOther.Controls.Add(cbAutoOpen);
+            tpOther.Controls.Add(cbUseLoopTimes);
+            resources.ApplyResources(tpOther, "tpOther");
+            tpOther.Name = "tpOther";
+            tpOther.UseVisualStyleBackColor = true;
             // 
             // btnSearchPath
             // 
-            resources.ApplyResources(this.btnSearchPath, "btnSearchPath");
-            this.btnSearchPath.Name = ("btnSearchPath");
-            this.btnSearchPath.UseVisualStyleBackColor = (true);
-            this.btnSearchPath.Click += (this.btnSearchPath_Click);
+            resources.ApplyResources(btnSearchPath, "btnSearchPath");
+            btnSearchPath.Name = "btnSearchPath";
+            btnSearchPath.UseVisualStyleBackColor = true;
+            btnSearchPath.Click += btnSearchPath_Click;
             // 
             // tbSearchPath
             // 
-            resources.ApplyResources(this.tbSearchPath, "tbSearchPath");
-            this.tbSearchPath.Name = ("tbSearchPath");
+            resources.ApplyResources(tbSearchPath, "tbSearchPath");
+            tbSearchPath.Name = "tbSearchPath";
             // 
             // label68
             // 
-            resources.ApplyResources(this.label68, "label68");
-            this.label68.Name = ("label68");
+            resources.ApplyResources(label68, "label68");
+            label68.Name = "label68";
             // 
             // cbNonRenderingForPause
             // 
-            resources.ApplyResources(this.cbNonRenderingForPause, "cbNonRenderingForPause");
-            this.cbNonRenderingForPause.Name = ("cbNonRenderingForPause");
-            this.cbNonRenderingForPause.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbNonRenderingForPause, "cbNonRenderingForPause");
+            cbNonRenderingForPause.Name = "cbNonRenderingForPause";
+            cbNonRenderingForPause.UseVisualStyleBackColor = true;
             // 
             // cbWavSwitch
             // 
-            resources.ApplyResources(this.cbWavSwitch, "cbWavSwitch");
-            this.cbWavSwitch.Name = ("cbWavSwitch");
-            this.cbWavSwitch.UseVisualStyleBackColor = (true);
-            this.cbWavSwitch.CheckedChanged += (this.cbWavSwitch_CheckedChanged);
+            resources.ApplyResources(cbWavSwitch, "cbWavSwitch");
+            cbWavSwitch.Name = "cbWavSwitch";
+            cbWavSwitch.UseVisualStyleBackColor = true;
+            cbWavSwitch.CheckedChanged += cbWavSwitch_CheckedChanged;
             // 
             // cbUseGetInst
             // 
-            resources.ApplyResources(this.cbUseGetInst, "cbUseGetInst");
-            this.cbUseGetInst.Name = ("cbUseGetInst");
-            this.cbUseGetInst.UseVisualStyleBackColor = (true);
-            this.cbUseGetInst.CheckedChanged += (this.cbUseGetInst_CheckedChanged);
+            resources.ApplyResources(cbUseGetInst, "cbUseGetInst");
+            cbUseGetInst.Name = "cbUseGetInst";
+            cbUseGetInst.UseVisualStyleBackColor = true;
+            cbUseGetInst.CheckedChanged += cbUseGetInst_CheckedChanged;
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.cbAdjustTLParam);
-            this.groupBox4.Controls.Add(this.cmbInstFormat);
-            this.groupBox4.Controls.Add(this.lblInstFormat);
-            resources.ApplyResources(this.groupBox4, "groupBox4");
-            this.groupBox4.Name = ("groupBox4");
-            this.groupBox4.TabStop = (false);
+            groupBox4.Controls.Add(cbAdjustTLParam);
+            groupBox4.Controls.Add(cmbInstFormat);
+            groupBox4.Controls.Add(lblInstFormat);
+            resources.ApplyResources(groupBox4, "groupBox4");
+            groupBox4.Name = "groupBox4";
+            groupBox4.TabStop = false;
             // 
             // cbAdjustTLParam
             // 
-            resources.ApplyResources(this.cbAdjustTLParam, "cbAdjustTLParam");
-            this.cbAdjustTLParam.Name = ("cbAdjustTLParam");
-            this.cbAdjustTLParam.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbAdjustTLParam, "cbAdjustTLParam");
+            cbAdjustTLParam.Name = "cbAdjustTLParam";
+            cbAdjustTLParam.UseVisualStyleBackColor = true;
             // 
             // cmbInstFormat
             // 
-            this.cmbInstFormat.DropDownStyle = (global::System.Windows.Forms.ComboBoxStyle.DropDownList);
-            this.cmbInstFormat.FormattingEnabled = (true);
-            this.cmbInstFormat.Items.AddRange(new global::System.Object[] { resources.GetString("cmbInstFormat.Items"), resources.GetString("cmbInstFormat.Items1"), resources.GetString("cmbInstFormat.Items2"), resources.GetString("cmbInstFormat.Items3"), resources.GetString("cmbInstFormat.Items4"), resources.GetString("cmbInstFormat.Items5"), resources.GetString("cmbInstFormat.Items6"), resources.GetString("cmbInstFormat.Items7"), resources.GetString("cmbInstFormat.Items8"), resources.GetString("cmbInstFormat.Items9"), resources.GetString("cmbInstFormat.Items10"), resources.GetString("cmbInstFormat.Items11"), resources.GetString("cmbInstFormat.Items12"), resources.GetString("cmbInstFormat.Items13"), resources.GetString("cmbInstFormat.Items14"), resources.GetString("cmbInstFormat.Items15"), resources.GetString("cmbInstFormat.Items16") });
-            resources.ApplyResources(this.cmbInstFormat, "cmbInstFormat");
-            this.cmbInstFormat.Name = ("cmbInstFormat");
+            cmbInstFormat.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbInstFormat.FormattingEnabled = true;
+            cmbInstFormat.Items.AddRange(new object[] { resources.GetString("cmbInstFormat.Items"), resources.GetString("cmbInstFormat.Items1"), resources.GetString("cmbInstFormat.Items2"), resources.GetString("cmbInstFormat.Items3"), resources.GetString("cmbInstFormat.Items4"), resources.GetString("cmbInstFormat.Items5"), resources.GetString("cmbInstFormat.Items6"), resources.GetString("cmbInstFormat.Items7"), resources.GetString("cmbInstFormat.Items8"), resources.GetString("cmbInstFormat.Items9"), resources.GetString("cmbInstFormat.Items10"), resources.GetString("cmbInstFormat.Items11"), resources.GetString("cmbInstFormat.Items12"), resources.GetString("cmbInstFormat.Items13"), resources.GetString("cmbInstFormat.Items14"), resources.GetString("cmbInstFormat.Items15"), resources.GetString("cmbInstFormat.Items16") });
+            resources.ApplyResources(cmbInstFormat, "cmbInstFormat");
+            cmbInstFormat.Name = "cmbInstFormat";
             // 
             // lblInstFormat
             // 
-            resources.ApplyResources(this.lblInstFormat, "lblInstFormat");
-            this.lblInstFormat.Name = ("lblInstFormat");
+            resources.ApplyResources(lblInstFormat, "lblInstFormat");
+            lblInstFormat.Name = "lblInstFormat";
             // 
             // cbDumpSwitch
             // 
-            resources.ApplyResources(this.cbDumpSwitch, "cbDumpSwitch");
-            this.cbDumpSwitch.Name = ("cbDumpSwitch");
-            this.cbDumpSwitch.UseVisualStyleBackColor = (true);
-            this.cbDumpSwitch.CheckedChanged += (this.cbDumpSwitch_CheckedChanged);
+            resources.ApplyResources(cbDumpSwitch, "cbDumpSwitch");
+            cbDumpSwitch.Name = "cbDumpSwitch";
+            cbDumpSwitch.UseVisualStyleBackColor = true;
+            cbDumpSwitch.CheckedChanged += cbDumpSwitch_CheckedChanged;
             // 
             // gbWav
             // 
-            this.gbWav.Controls.Add(this.btnWavPath);
-            this.gbWav.Controls.Add(this.label7);
-            this.gbWav.Controls.Add(this.tbWavPath);
-            resources.ApplyResources(this.gbWav, "gbWav");
-            this.gbWav.Name = ("gbWav");
-            this.gbWav.TabStop = (false);
+            gbWav.Controls.Add(btnWavPath);
+            gbWav.Controls.Add(label7);
+            gbWav.Controls.Add(tbWavPath);
+            resources.ApplyResources(gbWav, "gbWav");
+            gbWav.Name = "gbWav";
+            gbWav.TabStop = false;
             // 
             // btnWavPath
             // 
-            resources.ApplyResources(this.btnWavPath, "btnWavPath");
-            this.btnWavPath.Name = ("btnWavPath");
-            this.btnWavPath.UseVisualStyleBackColor = (true);
-            this.btnWavPath.Click += (this.btnWavPath_Click);
+            resources.ApplyResources(btnWavPath, "btnWavPath");
+            btnWavPath.Name = "btnWavPath";
+            btnWavPath.UseVisualStyleBackColor = true;
+            btnWavPath.Click += btnWavPath_Click;
             // 
             // label7
             // 
-            resources.ApplyResources(this.label7, "label7");
-            this.label7.Name = ("label7");
+            resources.ApplyResources(label7, "label7");
+            label7.Name = "label7";
             // 
             // tbWavPath
             // 
-            resources.ApplyResources(this.tbWavPath, "tbWavPath");
-            this.tbWavPath.Name = ("tbWavPath");
+            resources.ApplyResources(tbWavPath, "tbWavPath");
+            tbWavPath.Name = "tbWavPath";
             // 
             // gbDump
             // 
-            this.gbDump.Controls.Add(this.btnDumpPath);
-            this.gbDump.Controls.Add(this.label6);
-            this.gbDump.Controls.Add(this.tbDumpPath);
-            resources.ApplyResources(this.gbDump, "gbDump");
-            this.gbDump.Name = ("gbDump");
-            this.gbDump.TabStop = (false);
+            gbDump.Controls.Add(btnDumpPath);
+            gbDump.Controls.Add(label6);
+            gbDump.Controls.Add(tbDumpPath);
+            resources.ApplyResources(gbDump, "gbDump");
+            gbDump.Name = "gbDump";
+            gbDump.TabStop = false;
             // 
             // btnDumpPath
             // 
-            resources.ApplyResources(this.btnDumpPath, "btnDumpPath");
-            this.btnDumpPath.Name = ("btnDumpPath");
-            this.btnDumpPath.UseVisualStyleBackColor = (true);
-            this.btnDumpPath.Click += (this.btnDumpPath_Click);
+            resources.ApplyResources(btnDumpPath, "btnDumpPath");
+            btnDumpPath.Name = "btnDumpPath";
+            btnDumpPath.UseVisualStyleBackColor = true;
+            btnDumpPath.Click += btnDumpPath_Click;
             // 
             // label6
             // 
-            resources.ApplyResources(this.label6, "label6");
-            this.label6.Name = ("label6");
+            resources.ApplyResources(label6, "label6");
+            label6.Name = "label6";
             // 
             // tbDumpPath
             // 
-            resources.ApplyResources(this.tbDumpPath, "tbDumpPath");
-            this.tbDumpPath.Name = ("tbDumpPath");
+            resources.ApplyResources(tbDumpPath, "tbDumpPath");
+            tbDumpPath.Name = "tbDumpPath";
             // 
             // label30
             // 
-            resources.ApplyResources(this.label30, "label30");
-            this.label30.Name = ("label30");
+            resources.ApplyResources(label30, "label30");
+            label30.Name = "label30";
             // 
             // tbScreenFrameRate
             // 
-            resources.ApplyResources(this.tbScreenFrameRate, "tbScreenFrameRate");
-            this.tbScreenFrameRate.Name = ("tbScreenFrameRate");
+            resources.ApplyResources(tbScreenFrameRate, "tbScreenFrameRate");
+            tbScreenFrameRate.Name = "tbScreenFrameRate";
             // 
             // label29
             // 
-            resources.ApplyResources(this.label29, "label29");
-            this.label29.Name = ("label29");
+            resources.ApplyResources(label29, "label29");
+            label29.Name = "label29";
             // 
             // lblLoopTimes
             // 
-            resources.ApplyResources(this.lblLoopTimes, "lblLoopTimes");
-            this.lblLoopTimes.Name = ("lblLoopTimes");
+            resources.ApplyResources(lblLoopTimes, "lblLoopTimes");
+            lblLoopTimes.Name = "lblLoopTimes";
             // 
             // btnDataPath
             // 
-            resources.ApplyResources(this.btnDataPath, "btnDataPath");
-            this.btnDataPath.Name = ("btnDataPath");
-            this.btnDataPath.UseVisualStyleBackColor = (true);
-            this.btnDataPath.Click += (this.btnDataPath_Click);
+            resources.ApplyResources(btnDataPath, "btnDataPath");
+            btnDataPath.Name = "btnDataPath";
+            btnDataPath.UseVisualStyleBackColor = true;
+            btnDataPath.Click += btnDataPath_Click;
             // 
             // tbLoopTimes
             // 
-            resources.ApplyResources(this.tbLoopTimes, "tbLoopTimes");
-            this.tbLoopTimes.Name = ("tbLoopTimes");
+            resources.ApplyResources(tbLoopTimes, "tbLoopTimes");
+            tbLoopTimes.Name = "tbLoopTimes";
             // 
             // tbDataPath
             // 
-            resources.ApplyResources(this.tbDataPath, "tbDataPath");
-            this.tbDataPath.Name = ("tbDataPath");
+            resources.ApplyResources(tbDataPath, "tbDataPath");
+            tbDataPath.Name = "tbDataPath";
             // 
             // label19
             // 
-            resources.ApplyResources(this.label19, "label19");
-            this.label19.Name = ("label19");
+            resources.ApplyResources(label19, "label19");
+            label19.Name = "label19";
             // 
             // btnResetPosition
             // 
-            resources.ApplyResources(this.btnResetPosition, "btnResetPosition");
-            this.btnResetPosition.Name = ("btnResetPosition");
-            this.btnResetPosition.UseVisualStyleBackColor = (true);
-            this.btnResetPosition.Click += (this.btnResetPosition_Click);
+            resources.ApplyResources(btnResetPosition, "btnResetPosition");
+            btnResetPosition.Name = "btnResetPosition";
+            btnResetPosition.UseVisualStyleBackColor = true;
+            btnResetPosition.Click += btnResetPosition_Click;
             // 
             // btnOpenSettingFolder
             // 
-            resources.ApplyResources(this.btnOpenSettingFolder, "btnOpenSettingFolder");
-            this.btnOpenSettingFolder.Name = ("btnOpenSettingFolder");
-            this.btnOpenSettingFolder.UseVisualStyleBackColor = (true);
-            this.btnOpenSettingFolder.Click += (this.btnOpenSettingFolder_Click);
+            resources.ApplyResources(btnOpenSettingFolder, "btnOpenSettingFolder");
+            btnOpenSettingFolder.Name = "btnOpenSettingFolder";
+            btnOpenSettingFolder.UseVisualStyleBackColor = true;
+            btnOpenSettingFolder.Click += btnOpenSettingFolder_Click;
             // 
             // cbExALL
             // 
-            resources.ApplyResources(this.cbExALL, "cbExALL");
-            this.cbExALL.Name = ("cbExALL");
-            this.cbExALL.UseVisualStyleBackColor = (true);
-            this.cbExALL.CheckedChanged += (this.cbUseLoopTimes_CheckedChanged);
+            resources.ApplyResources(cbExALL, "cbExALL");
+            cbExALL.Name = "cbExALL";
+            cbExALL.UseVisualStyleBackColor = true;
+            cbExALL.CheckedChanged += cbUseLoopTimes_CheckedChanged;
             // 
             // cbInitAlways
             // 
-            resources.ApplyResources(this.cbInitAlways, "cbInitAlways");
-            this.cbInitAlways.Name = ("cbInitAlways");
-            this.cbInitAlways.UseVisualStyleBackColor = (true);
-            this.cbInitAlways.CheckedChanged += (this.cbUseLoopTimes_CheckedChanged);
+            resources.ApplyResources(cbInitAlways, "cbInitAlways");
+            cbInitAlways.Name = "cbInitAlways";
+            cbInitAlways.UseVisualStyleBackColor = true;
+            cbInitAlways.CheckedChanged += cbUseLoopTimes_CheckedChanged;
             // 
             // cbAutoOpen
             // 
-            resources.ApplyResources(this.cbAutoOpen, "cbAutoOpen");
-            this.cbAutoOpen.Name = ("cbAutoOpen");
-            this.cbAutoOpen.UseVisualStyleBackColor = (true);
-            this.cbAutoOpen.CheckedChanged += (this.cbUseLoopTimes_CheckedChanged);
+            resources.ApplyResources(cbAutoOpen, "cbAutoOpen");
+            cbAutoOpen.Name = "cbAutoOpen";
+            cbAutoOpen.UseVisualStyleBackColor = true;
+            cbAutoOpen.CheckedChanged += cbUseLoopTimes_CheckedChanged;
             // 
             // cbUseLoopTimes
             // 
-            resources.ApplyResources(this.cbUseLoopTimes, "cbUseLoopTimes");
-            this.cbUseLoopTimes.Name = ("cbUseLoopTimes");
-            this.cbUseLoopTimes.UseVisualStyleBackColor = (true);
-            this.cbUseLoopTimes.CheckedChanged += (this.cbUseLoopTimes_CheckedChanged);
+            resources.ApplyResources(cbUseLoopTimes, "cbUseLoopTimes");
+            cbUseLoopTimes.Name = "cbUseLoopTimes";
+            cbUseLoopTimes.UseVisualStyleBackColor = true;
+            cbUseLoopTimes.CheckedChanged += cbUseLoopTimes_CheckedChanged;
             // 
             // tpOmake
             // 
-            this.tpOmake.Controls.Add(this.label67);
-            this.tpOmake.Controls.Add(this.label14);
-            this.tpOmake.Controls.Add(this.btVST);
-            this.tpOmake.Controls.Add(this.tbSCCbaseAddress);
-            this.tpOmake.Controls.Add(this.tbVST);
-            this.tpOmake.Controls.Add(this.groupBox5);
-            resources.ApplyResources(this.tpOmake, "tpOmake");
-            this.tpOmake.Name = ("tpOmake");
-            this.tpOmake.UseVisualStyleBackColor = (true);
+            tpOmake.Controls.Add(label67);
+            tpOmake.Controls.Add(label14);
+            tpOmake.Controls.Add(btVST);
+            tpOmake.Controls.Add(tbSCCbaseAddress);
+            tpOmake.Controls.Add(tbVST);
+            tpOmake.Controls.Add(groupBox5);
+            resources.ApplyResources(tpOmake, "tpOmake");
+            tpOmake.Name = "tpOmake";
+            tpOmake.UseVisualStyleBackColor = true;
             // 
             // label67
             // 
-            resources.ApplyResources(this.label67, "label67");
-            this.label67.Name = ("label67");
+            resources.ApplyResources(label67, "label67");
+            label67.Name = "label67";
             // 
             // label14
             // 
-            resources.ApplyResources(this.label14, "label14");
-            this.label14.Name = ("label14");
+            resources.ApplyResources(label14, "label14");
+            label14.Name = "label14";
             // 
             // btVST
             // 
-            resources.ApplyResources(this.btVST, "btVST");
-            this.btVST.Name = ("btVST");
-            this.btVST.UseVisualStyleBackColor = (true);
-            this.btVST.Click += (this.btVST_Click);
+            resources.ApplyResources(btVST, "btVST");
+            btVST.Name = "btVST";
+            btVST.UseVisualStyleBackColor = true;
+            btVST.Click += btVST_Click;
             // 
             // tbSCCbaseAddress
             // 
-            resources.ApplyResources(this.tbSCCbaseAddress, "tbSCCbaseAddress");
-            this.tbSCCbaseAddress.Name = ("tbSCCbaseAddress");
+            resources.ApplyResources(tbSCCbaseAddress, "tbSCCbaseAddress");
+            tbSCCbaseAddress.Name = "tbSCCbaseAddress";
             // 
             // tbVST
             // 
-            resources.ApplyResources(this.tbVST, "tbVST");
-            this.tbVST.Name = ("tbVST");
+            resources.ApplyResources(tbVST, "tbVST");
+            tbVST.Name = "tbVST";
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.cbDispFrameCounter);
-            resources.ApplyResources(this.groupBox5, "groupBox5");
-            this.groupBox5.Name = ("groupBox5");
-            this.groupBox5.TabStop = (false);
+            groupBox5.Controls.Add(groupBox30);
+            groupBox5.Controls.Add(cbShowConsole);
+            groupBox5.Controls.Add(cbDispFrameCounter);
+            resources.ApplyResources(groupBox5, "groupBox5");
+            groupBox5.Name = "groupBox5";
+            groupBox5.TabStop = false;
+            // 
+            // groupBox30
+            // 
+            groupBox30.Controls.Add(rbLoglvlInformation);
+            groupBox30.Controls.Add(rbLoglvlWarning);
+            groupBox30.Controls.Add(rbLoglvlError);
+            groupBox30.Controls.Add(rbLogDebug);
+            groupBox30.Controls.Add(rbLoglvlTrace);
+            resources.ApplyResources(groupBox30, "groupBox30");
+            groupBox30.Name = "groupBox30";
+            groupBox30.TabStop = false;
+            // 
+            // rbLoglvlInformation
+            // 
+            resources.ApplyResources(rbLoglvlInformation, "rbLoglvlInformation");
+            rbLoglvlInformation.Name = "rbLoglvlInformation";
+            rbLoglvlInformation.TabStop = true;
+            rbLoglvlInformation.UseVisualStyleBackColor = true;
+            // 
+            // rbLoglvlWarning
+            // 
+            resources.ApplyResources(rbLoglvlWarning, "rbLoglvlWarning");
+            rbLoglvlWarning.Name = "rbLoglvlWarning";
+            rbLoglvlWarning.TabStop = true;
+            rbLoglvlWarning.UseVisualStyleBackColor = true;
+            // 
+            // rbLoglvlError
+            // 
+            resources.ApplyResources(rbLoglvlError, "rbLoglvlError");
+            rbLoglvlError.Name = "rbLoglvlError";
+            rbLoglvlError.TabStop = true;
+            rbLoglvlError.UseVisualStyleBackColor = true;
+            // 
+            // rbLogDebug
+            // 
+            resources.ApplyResources(rbLogDebug, "rbLogDebug");
+            rbLogDebug.Name = "rbLogDebug";
+            rbLogDebug.TabStop = true;
+            rbLogDebug.UseVisualStyleBackColor = true;
+            // 
+            // rbLoglvlTrace
+            // 
+            resources.ApplyResources(rbLoglvlTrace, "rbLoglvlTrace");
+            rbLoglvlTrace.Name = "rbLoglvlTrace";
+            rbLoglvlTrace.TabStop = true;
+            rbLoglvlTrace.UseVisualStyleBackColor = true;
+            // 
+            // cbShowConsole
+            // 
+            resources.ApplyResources(cbShowConsole, "cbShowConsole");
+            cbShowConsole.Name = "cbShowConsole";
+            cbShowConsole.UseVisualStyleBackColor = true;
             // 
             // cbDispFrameCounter
             // 
-            resources.ApplyResources(this.cbDispFrameCounter, "cbDispFrameCounter");
-            this.cbDispFrameCounter.Name = ("cbDispFrameCounter");
-            this.cbDispFrameCounter.UseVisualStyleBackColor = (true);
+            resources.ApplyResources(cbDispFrameCounter, "cbDispFrameCounter");
+            cbDispFrameCounter.Name = "cbDispFrameCounter";
+            cbDispFrameCounter.UseVisualStyleBackColor = true;
             // 
             // tpAbout
             // 
-            this.tpAbout.Controls.Add(this.tableLayoutPanel);
-            resources.ApplyResources(this.tpAbout, "tpAbout");
-            this.tpAbout.Name = ("tpAbout");
-            this.tpAbout.UseVisualStyleBackColor = (true);
+            tpAbout.Controls.Add(tableLayoutPanel);
+            resources.ApplyResources(tpAbout, "tpAbout");
+            tpAbout.Name = "tpAbout";
+            tpAbout.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel
             // 
-            resources.ApplyResources(this.tableLayoutPanel, "tableLayoutPanel");
-            this.tableLayoutPanel.Controls.Add(this.logoPictureBox, 0, 0);
-            this.tableLayoutPanel.Controls.Add(this.labelProductName, 1, 0);
-            this.tableLayoutPanel.Controls.Add(this.labelVersion, 1, 1);
-            this.tableLayoutPanel.Controls.Add(this.labelCopyright, 1, 2);
-            this.tableLayoutPanel.Controls.Add(this.labelCompanyName, 1, 3);
-            this.tableLayoutPanel.Controls.Add(this.textBoxDescription, 1, 4);
-            this.tableLayoutPanel.Controls.Add(this.llOpenGithub, 1, 5);
-            this.tableLayoutPanel.Name = ("tableLayoutPanel");
+            resources.ApplyResources(tableLayoutPanel, "tableLayoutPanel");
+            tableLayoutPanel.Controls.Add(logoPictureBox, 0, 0);
+            tableLayoutPanel.Controls.Add(labelProductName, 1, 0);
+            tableLayoutPanel.Controls.Add(labelVersion, 1, 1);
+            tableLayoutPanel.Controls.Add(labelCopyright, 1, 2);
+            tableLayoutPanel.Controls.Add(labelCompanyName, 1, 3);
+            tableLayoutPanel.Controls.Add(textBoxDescription, 1, 4);
+            tableLayoutPanel.Controls.Add(llOpenGithub, 1, 5);
+            tableLayoutPanel.Name = "tableLayoutPanel";
             // 
             // logoPictureBox
             // 
-            resources.ApplyResources(this.logoPictureBox, "logoPictureBox");
-            this.logoPictureBox.Image = (global::MDPlayerx64.Properties.Resources.FeliAndMD21);
-            this.logoPictureBox.Name = ("logoPictureBox");
-            this.tableLayoutPanel.SetRowSpan(this.logoPictureBox, 6);
-            this.logoPictureBox.TabStop = (false);
+            resources.ApplyResources(logoPictureBox, "logoPictureBox");
+            logoPictureBox.Image = Resources.FeliAndMD21;
+            logoPictureBox.Name = "logoPictureBox";
+            tableLayoutPanel.SetRowSpan(logoPictureBox, 6);
+            logoPictureBox.TabStop = false;
             // 
             // labelProductName
             // 
-            resources.ApplyResources(this.labelProductName, "labelProductName");
-            this.labelProductName.Name = ("labelProductName");
+            resources.ApplyResources(labelProductName, "labelProductName");
+            labelProductName.Name = "labelProductName";
             // 
             // labelVersion
             // 
-            resources.ApplyResources(this.labelVersion, "labelVersion");
-            this.labelVersion.Name = ("labelVersion");
+            resources.ApplyResources(labelVersion, "labelVersion");
+            labelVersion.Name = "labelVersion";
             // 
             // labelCopyright
             // 
-            resources.ApplyResources(this.labelCopyright, "labelCopyright");
-            this.labelCopyright.Name = ("labelCopyright");
+            resources.ApplyResources(labelCopyright, "labelCopyright");
+            labelCopyright.Name = "labelCopyright";
             // 
             // labelCompanyName
             // 
-            resources.ApplyResources(this.labelCompanyName, "labelCompanyName");
-            this.labelCompanyName.Name = ("labelCompanyName");
+            resources.ApplyResources(labelCompanyName, "labelCompanyName");
+            labelCompanyName.Name = "labelCompanyName";
             // 
             // textBoxDescription
             // 
-            resources.ApplyResources(this.textBoxDescription, "textBoxDescription");
-            this.textBoxDescription.Name = ("textBoxDescription");
-            this.textBoxDescription.ReadOnly = (true);
-            this.textBoxDescription.TabStop = (false);
+            resources.ApplyResources(textBoxDescription, "textBoxDescription");
+            textBoxDescription.Name = "textBoxDescription";
+            textBoxDescription.ReadOnly = true;
+            textBoxDescription.TabStop = false;
             // 
             // llOpenGithub
             // 
-            resources.ApplyResources(this.llOpenGithub, "llOpenGithub");
-            this.llOpenGithub.Name = ("llOpenGithub");
-            this.llOpenGithub.TabStop = (true);
-            this.llOpenGithub.LinkClicked += (this.llOpenGithub_LinkClicked);
+            resources.ApplyResources(llOpenGithub, "llOpenGithub");
+            llOpenGithub.Name = "llOpenGithub";
+            llOpenGithub.TabStop = true;
+            llOpenGithub.LinkClicked += llOpenGithub_LinkClicked;
             // 
             // frmSetting
             // 
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = (global::System.Windows.Forms.AutoScaleMode.Font);
-            this.CancelButton = (this.btnCancel);
-            this.Controls.Add(this.tcSetting);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnOK);
-            this.MaximizeBox = (false);
-            this.MinimizeBox = (false);
-            this.Name = ("frmSetting");
-            this.FormClosed += (this.frmSetting_FormClosed);
-            this.Load += (this.frmSetting_Load);
-            this.gbWaveOut.ResumeLayout(false);
-            this.gbAsioOut.ResumeLayout(false);
-            this.gbWasapiOut.ResumeLayout(false);
-            this.gbWasapiOut.PerformLayout();
-            this.gbDirectSound.ResumeLayout(false);
-            this.tcSetting.ResumeLayout(false);
-            this.tpOutput.ResumeLayout(false);
-            this.tpOutput.PerformLayout();
-            this.groupBox16.ResumeLayout(false);
-            this.tpModule.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.tpNuked.ResumeLayout(false);
-            this.groupBox29.ResumeLayout(false);
-            this.groupBox29.PerformLayout();
-            this.groupBox26.ResumeLayout(false);
-            this.groupBox26.PerformLayout();
-            this.tpNSF.ResumeLayout(false);
-            this.tpNSF.PerformLayout();
-            ((global::System.ComponentModel.ISupportInitialize)(this.trkbNSFLPF)).EndInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.trkbNSFHPF)).EndInit();
-            this.groupBox10.ResumeLayout(false);
-            this.groupBox10.PerformLayout();
-            this.groupBox12.ResumeLayout(false);
-            this.groupBox12.PerformLayout();
-            this.groupBox11.ResumeLayout(false);
-            this.groupBox11.PerformLayout();
-            this.groupBox9.ResumeLayout(false);
-            this.groupBox9.PerformLayout();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
-            this.tpSID.ResumeLayout(false);
-            this.tpSID.PerformLayout();
-            this.groupBox28.ResumeLayout(false);
-            this.groupBox28.PerformLayout();
-            this.groupBox27.ResumeLayout(false);
-            this.groupBox27.PerformLayout();
-            this.groupBox14.ResumeLayout(false);
-            this.groupBox14.PerformLayout();
-            this.groupBox13.ResumeLayout(false);
-            this.groupBox13.PerformLayout();
-            this.tpPMDDotNET.ResumeLayout(false);
-            this.tpPMDDotNET.PerformLayout();
-            this.gbPMDManual.ResumeLayout(false);
-            this.gbPMDManual.PerformLayout();
-            this.groupBox32.ResumeLayout(false);
-            this.groupBox32.PerformLayout();
-            this.gbPPSDRV.ResumeLayout(false);
-            this.groupBox33.ResumeLayout(false);
-            this.groupBox33.PerformLayout();
-            this.gbPMDSetManualVolume.ResumeLayout(false);
-            this.gbPMDSetManualVolume.PerformLayout();
-            this.tpMIDIOut.ResumeLayout(false);
-            this.tpMIDIOut.PerformLayout();
-            this.tbcMIDIoutList.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            ((global::System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutListA)).EndInit();
-            this.tabPage2.ResumeLayout(false);
-            ((global::System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutListB)).EndInit();
-            this.tabPage3.ResumeLayout(false);
-            ((global::System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutListC)).EndInit();
-            this.tabPage4.ResumeLayout(false);
-            ((global::System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutListD)).EndInit();
-            this.tabPage5.ResumeLayout(false);
-            ((global::System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutListE)).EndInit();
-            this.tabPage6.ResumeLayout(false);
-            ((global::System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutListF)).EndInit();
-            this.tabPage7.ResumeLayout(false);
-            ((global::System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutListG)).EndInit();
-            this.tabPage8.ResumeLayout(false);
-            ((global::System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutListH)).EndInit();
-            this.tabPage9.ResumeLayout(false);
-            ((global::System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutListI)).EndInit();
-            this.tabPage10.ResumeLayout(false);
-            ((global::System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutListJ)).EndInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutPallet)).EndInit();
-            this.tpMIDIOut2.ResumeLayout(false);
-            this.groupBox15.ResumeLayout(false);
-            this.groupBox15.PerformLayout();
-            this.tabMIDIExp.ResumeLayout(false);
-            this.tabMIDIExp.PerformLayout();
-            this.gbMIDIExport.ResumeLayout(false);
-            this.gbMIDIExport.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
-            this.tpMIDIKBD.ResumeLayout(false);
-            this.tpMIDIKBD.PerformLayout();
-            this.gbMIDIKeyboard.ResumeLayout(false);
-            this.gbMIDIKeyboard.PerformLayout();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.gbUseChannel.ResumeLayout(false);
-            this.gbUseChannel.PerformLayout();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.tpKeyBoard.ResumeLayout(false);
-            this.tpKeyBoard.PerformLayout();
-            this.gbUseKeyBoardHook.ResumeLayout(false);
-            this.gbUseKeyBoardHook.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox14)).EndInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox17)).EndInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox16)).EndInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox15)).EndInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox13)).EndInit();
-            ((global::System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
-            this.tpBalance.ResumeLayout(false);
-            this.tpBalance.PerformLayout();
-            this.groupBox25.ResumeLayout(false);
-            this.groupBox25.PerformLayout();
-            this.groupBox18.ResumeLayout(false);
-            this.groupBox24.ResumeLayout(false);
-            this.groupBox21.ResumeLayout(false);
-            this.groupBox21.PerformLayout();
-            this.groupBox22.ResumeLayout(false);
-            this.groupBox22.PerformLayout();
-            this.groupBox23.ResumeLayout(false);
-            this.groupBox19.ResumeLayout(false);
-            this.groupBox19.PerformLayout();
-            this.groupBox20.ResumeLayout(false);
-            this.groupBox20.PerformLayout();
-            this.tpPlayList.ResumeLayout(false);
-            this.tpPlayList.PerformLayout();
-            this.groupBox17.ResumeLayout(false);
-            this.groupBox17.PerformLayout();
-            this.tpOther.ResumeLayout(false);
-            this.tpOther.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            this.gbWav.ResumeLayout(false);
-            this.gbWav.PerformLayout();
-            this.gbDump.ResumeLayout(false);
-            this.gbDump.PerformLayout();
-            this.tpOmake.ResumeLayout(false);
-            this.tpOmake.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
-            this.tpAbout.ResumeLayout(false);
-            this.tableLayoutPanel.ResumeLayout(false);
-            this.tableLayoutPanel.PerformLayout();
-            ((global::System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
-            this.ResumeLayout(false);
+            AutoScaleMode = AutoScaleMode.Font;
+            CancelButton = btnCancel;
+            Controls.Add(tcSetting);
+            Controls.Add(btnCancel);
+            Controls.Add(btnOK);
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "frmSetting";
+            FormClosed += frmSetting_FormClosed;
+            Load += frmSetting_Load;
+            gbWaveOut.ResumeLayout(false);
+            gbAsioOut.ResumeLayout(false);
+            gbWasapiOut.ResumeLayout(false);
+            gbWasapiOut.PerformLayout();
+            gbDirectSound.ResumeLayout(false);
+            tcSetting.ResumeLayout(false);
+            tpOutput.ResumeLayout(false);
+            tpOutput.PerformLayout();
+            groupBox16.ResumeLayout(false);
+            tpModule.ResumeLayout(false);
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
+            tpNuked.ResumeLayout(false);
+            groupBox29.ResumeLayout(false);
+            groupBox29.PerformLayout();
+            groupBox26.ResumeLayout(false);
+            groupBox26.PerformLayout();
+            tpNSF.ResumeLayout(false);
+            tpNSF.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)trkbNSFLPF).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trkbNSFHPF).EndInit();
+            groupBox10.ResumeLayout(false);
+            groupBox10.PerformLayout();
+            groupBox12.ResumeLayout(false);
+            groupBox12.PerformLayout();
+            groupBox11.ResumeLayout(false);
+            groupBox11.PerformLayout();
+            groupBox9.ResumeLayout(false);
+            groupBox9.PerformLayout();
+            groupBox8.ResumeLayout(false);
+            groupBox8.PerformLayout();
+            tpSID.ResumeLayout(false);
+            tpSID.PerformLayout();
+            groupBox28.ResumeLayout(false);
+            groupBox28.PerformLayout();
+            groupBox27.ResumeLayout(false);
+            groupBox27.PerformLayout();
+            groupBox14.ResumeLayout(false);
+            groupBox14.PerformLayout();
+            groupBox13.ResumeLayout(false);
+            groupBox13.PerformLayout();
+            tpPMDDotNET.ResumeLayout(false);
+            tpPMDDotNET.PerformLayout();
+            gbPMDManual.ResumeLayout(false);
+            gbPMDManual.PerformLayout();
+            groupBox32.ResumeLayout(false);
+            groupBox32.PerformLayout();
+            gbPPSDRV.ResumeLayout(false);
+            groupBox33.ResumeLayout(false);
+            groupBox33.PerformLayout();
+            gbPMDSetManualVolume.ResumeLayout(false);
+            gbPMDSetManualVolume.PerformLayout();
+            tpMIDIOut.ResumeLayout(false);
+            tpMIDIOut.PerformLayout();
+            tbcMIDIoutList.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvMIDIoutListA).EndInit();
+            tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvMIDIoutListB).EndInit();
+            tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvMIDIoutListC).EndInit();
+            tabPage4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvMIDIoutListD).EndInit();
+            tabPage5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvMIDIoutListE).EndInit();
+            tabPage6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvMIDIoutListF).EndInit();
+            tabPage7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvMIDIoutListG).EndInit();
+            tabPage8.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvMIDIoutListH).EndInit();
+            tabPage9.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvMIDIoutListI).EndInit();
+            tabPage10.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvMIDIoutListJ).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvMIDIoutPallet).EndInit();
+            tpMIDIOut2.ResumeLayout(false);
+            groupBox15.ResumeLayout(false);
+            groupBox15.PerformLayout();
+            tabMIDIExp.ResumeLayout(false);
+            tabMIDIExp.PerformLayout();
+            gbMIDIExport.ResumeLayout(false);
+            gbMIDIExport.PerformLayout();
+            groupBox6.ResumeLayout(false);
+            groupBox6.PerformLayout();
+            tpMIDIKBD.ResumeLayout(false);
+            tpMIDIKBD.PerformLayout();
+            gbMIDIKeyboard.ResumeLayout(false);
+            gbMIDIKeyboard.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            gbUseChannel.ResumeLayout(false);
+            gbUseChannel.PerformLayout();
+            groupBox7.ResumeLayout(false);
+            groupBox7.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
+            tpKeyBoard.ResumeLayout(false);
+            tpKeyBoard.PerformLayout();
+            gbUseKeyBoardHook.ResumeLayout(false);
+            gbUseKeyBoardHook.PerformLayout();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox14).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox17).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox16).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox10).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox15).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox11).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox13).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox12).EndInit();
+            tpBalance.ResumeLayout(false);
+            tpBalance.PerformLayout();
+            groupBox25.ResumeLayout(false);
+            groupBox25.PerformLayout();
+            groupBox18.ResumeLayout(false);
+            groupBox24.ResumeLayout(false);
+            groupBox21.ResumeLayout(false);
+            groupBox21.PerformLayout();
+            groupBox22.ResumeLayout(false);
+            groupBox22.PerformLayout();
+            groupBox23.ResumeLayout(false);
+            groupBox19.ResumeLayout(false);
+            groupBox19.PerformLayout();
+            groupBox20.ResumeLayout(false);
+            groupBox20.PerformLayout();
+            tpPlayList.ResumeLayout(false);
+            tpPlayList.PerformLayout();
+            groupBox17.ResumeLayout(false);
+            groupBox17.PerformLayout();
+            tpOther.ResumeLayout(false);
+            tpOther.PerformLayout();
+            groupBox4.ResumeLayout(false);
+            groupBox4.PerformLayout();
+            gbWav.ResumeLayout(false);
+            gbWav.PerformLayout();
+            gbDump.ResumeLayout(false);
+            gbDump.PerformLayout();
+            tpOmake.ResumeLayout(false);
+            tpOmake.PerformLayout();
+            groupBox5.ResumeLayout(false);
+            groupBox5.PerformLayout();
+            groupBox30.ResumeLayout(false);
+            groupBox30.PerformLayout();
+            tpAbout.ResumeLayout(false);
+            tableLayoutPanel.ResumeLayout(false);
+            tableLayoutPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)logoPictureBox).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion
 
-        private System.Windows.Forms.Button btnOK;
-        private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.GroupBox gbWaveOut;
-        private System.Windows.Forms.RadioButton rbWaveOut;
-        private System.Windows.Forms.RadioButton rbAsioOut;
-        private System.Windows.Forms.RadioButton rbWasapiOut;
-        private System.Windows.Forms.GroupBox gbAsioOut;
-        private System.Windows.Forms.RadioButton rbDirectSoundOut;
-        private System.Windows.Forms.GroupBox gbWasapiOut;
-        private System.Windows.Forms.GroupBox gbDirectSound;
-        private System.Windows.Forms.ComboBox cmbWaveOutDevice;
-        private System.Windows.Forms.Button btnASIOControlPanel;
-        private System.Windows.Forms.ComboBox cmbAsioDevice;
-        private System.Windows.Forms.ComboBox cmbWasapiDevice;
-        private System.Windows.Forms.ComboBox cmbDirectSoundDevice;
-        private System.Windows.Forms.TabControl tcSetting;
-        private System.Windows.Forms.TabPage tpOutput;
-        private System.Windows.Forms.TabPage tpAbout;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
-        private System.Windows.Forms.PictureBox logoPictureBox;
-        private System.Windows.Forms.Label labelProductName;
-        private System.Windows.Forms.Label labelVersion;
-        private System.Windows.Forms.Label labelCopyright;
-        private System.Windows.Forms.Label labelCompanyName;
-        private System.Windows.Forms.TextBox textBoxDescription;
-        private System.Windows.Forms.TabPage tpOther;
-        private System.Windows.Forms.GroupBox gbMIDIKeyboard;
-        private System.Windows.Forms.GroupBox gbUseChannel;
-        private System.Windows.Forms.CheckBox cbFM1;
-        private System.Windows.Forms.CheckBox cbFM2;
-        private System.Windows.Forms.CheckBox cbFM3;
-        private System.Windows.Forms.CheckBox cbUseMIDIKeyboard;
-        private System.Windows.Forms.CheckBox cbFM4;
-        private System.Windows.Forms.CheckBox cbFM5;
-        private System.Windows.Forms.CheckBox cbFM6;
-        private System.Windows.Forms.ComboBox cmbMIDIIN;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.RadioButton rbExclusive;
-        private System.Windows.Forms.RadioButton rbShare;
-        private System.Windows.Forms.Label lblLatencyUnit;
-        private System.Windows.Forms.Label lblLatency;
-        private System.Windows.Forms.ComboBox cmbLatency;
-        private System.Windows.Forms.TabPage tpModule;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox tbLatencyEmu;
-        private System.Windows.Forms.TextBox tbLatencySCCI;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.CheckBox cbDispFrameCounter;
-        private System.Windows.Forms.CheckBox cbHiyorimiMode;
-        private System.Windows.Forms.CheckBox cbUseLoopTimes;
-        private System.Windows.Forms.Label lblLoopTimes;
-        private System.Windows.Forms.TextBox tbLoopTimes;
-        private System.Windows.Forms.Button btnOpenSettingFolder;
-        private System.Windows.Forms.CheckBox cbUseGetInst;
-        private System.Windows.Forms.Button btnDataPath;
-        private System.Windows.Forms.TextBox tbDataPath;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.TabPage tpMIDIKBD;
-        private System.Windows.Forms.ComboBox cmbInstFormat;
-        private System.Windows.Forms.Label lblInstFormat;
-        private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.TextBox tbScreenFrameRate;
-        private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.CheckBox cbAutoOpen;
+        private Button btnOK;
+        private Button btnCancel;
+        private GroupBox gbWaveOut;
+        private RadioButton rbWaveOut;
+        private RadioButton rbAsioOut;
+        private RadioButton rbWasapiOut;
+        private GroupBox gbAsioOut;
+        private RadioButton rbDirectSoundOut;
+        private GroupBox gbWasapiOut;
+        private GroupBox gbDirectSound;
+        private ComboBox cmbWaveOutDevice;
+        private Button btnASIOControlPanel;
+        private ComboBox cmbAsioDevice;
+        private ComboBox cmbWasapiDevice;
+        private ComboBox cmbDirectSoundDevice;
+        private TabControl tcSetting;
+        private TabPage tpOutput;
+        private TabPage tpAbout;
+        private TableLayoutPanel tableLayoutPanel;
+        private PictureBox logoPictureBox;
+        private Label labelProductName;
+        private Label labelVersion;
+        private Label labelCopyright;
+        private Label labelCompanyName;
+        private TextBox textBoxDescription;
+        private TabPage tpOther;
+        private GroupBox gbMIDIKeyboard;
+        private GroupBox gbUseChannel;
+        private CheckBox cbFM1;
+        private CheckBox cbFM2;
+        private CheckBox cbFM3;
+        private CheckBox cbUseMIDIKeyboard;
+        private CheckBox cbFM4;
+        private CheckBox cbFM5;
+        private CheckBox cbFM6;
+        private ComboBox cmbMIDIIN;
+        private Label label5;
+        private RadioButton rbExclusive;
+        private RadioButton rbShare;
+        private Label lblLatencyUnit;
+        private Label lblLatency;
+        private ComboBox cmbLatency;
+        private TabPage tpModule;
+        private GroupBox groupBox3;
+        private Label label13;
+        private Label label12;
+        private Label label11;
+        private TextBox tbLatencyEmu;
+        private TextBox tbLatencySCCI;
+        private Label label10;
+        private GroupBox groupBox5;
+        private CheckBox cbDispFrameCounter;
+        private CheckBox cbHiyorimiMode;
+        private CheckBox cbUseLoopTimes;
+        private Label lblLoopTimes;
+        private TextBox tbLoopTimes;
+        private Button btnOpenSettingFolder;
+        private CheckBox cbUseGetInst;
+        private Button btnDataPath;
+        private TextBox tbDataPath;
+        private Label label19;
+        private TabPage tpMIDIKBD;
+        private ComboBox cmbInstFormat;
+        private Label lblInstFormat;
+        private Label label30;
+        private TextBox tbScreenFrameRate;
+        private Label label29;
+        private CheckBox cbAutoOpen;
         private ucSettingInstruments ucSI;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.CheckBox cbDumpSwitch;
-        private System.Windows.Forms.GroupBox gbDump;
-        private System.Windows.Forms.Button btnDumpPath;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox tbDumpPath;
-        private System.Windows.Forms.Button btnResetPosition;
-        private System.Windows.Forms.TabPage tabMIDIExp;
-        private System.Windows.Forms.CheckBox cbUseMIDIExport;
-        private System.Windows.Forms.GroupBox gbMIDIExport;
-        private System.Windows.Forms.CheckBox cbMIDIUseVOPM;
-        private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.CheckBox cbMIDIYM2612;
-        private System.Windows.Forms.CheckBox cbMIDISN76489Sec;
-        private System.Windows.Forms.CheckBox cbMIDIYM2612Sec;
-        private System.Windows.Forms.CheckBox cbMIDISN76489;
-        private System.Windows.Forms.CheckBox cbMIDIYM2151;
-        private System.Windows.Forms.CheckBox cbMIDIYM2610BSec;
-        private System.Windows.Forms.CheckBox cbMIDIYM2151Sec;
-        private System.Windows.Forms.CheckBox cbMIDIYM2610B;
-        private System.Windows.Forms.CheckBox cbMIDIYM2203;
-        private System.Windows.Forms.CheckBox cbMIDIYM2608Sec;
-        private System.Windows.Forms.CheckBox cbMIDIYM2203Sec;
-        private System.Windows.Forms.CheckBox cbMIDIYM2608;
-        private System.Windows.Forms.CheckBox cbMIDIPlayless;
-        private System.Windows.Forms.Button btnMIDIOutputPath;
-        private System.Windows.Forms.Label lblOutputPath;
-        private System.Windows.Forms.TextBox tbMIDIOutputPath;
-        private System.Windows.Forms.CheckBox cbWavSwitch;
-        private System.Windows.Forms.GroupBox gbWav;
-        private System.Windows.Forms.Button btnWavPath;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox tbWavPath;
-        private System.Windows.Forms.RadioButton rbMONO;
-        private System.Windows.Forms.RadioButton rbPOLY;
-        private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.RadioButton rbFM6;
-        private System.Windows.Forms.RadioButton rbFM3;
-        private System.Windows.Forms.RadioButton rbFM5;
-        private System.Windows.Forms.RadioButton rbFM2;
-        private System.Windows.Forms.RadioButton rbFM4;
-        private System.Windows.Forms.RadioButton rbFM1;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TabPage tpOmake;
-        private System.Windows.Forms.TextBox tbCCFadeout;
-        private System.Windows.Forms.TextBox tbCCPause;
-        private System.Windows.Forms.TextBox tbCCSlow;
-        private System.Windows.Forms.TextBox tbCCPrevious;
-        private System.Windows.Forms.TextBox tbCCNext;
-        private System.Windows.Forms.TextBox tbCCFast;
-        private System.Windows.Forms.TextBox tbCCStop;
-        private System.Windows.Forms.TextBox tbCCPlay;
-        private System.Windows.Forms.TextBox tbCCCopyLog;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.TextBox tbCCDelLog;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox tbCCChCopy;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.PictureBox pictureBox4;
-        private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.PictureBox pictureBox8;
-        private System.Windows.Forms.PictureBox pictureBox7;
-        private System.Windows.Forms.PictureBox pictureBox6;
-        private System.Windows.Forms.PictureBox pictureBox5;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Button btVST;
-        private System.Windows.Forms.TextBox tbVST;
-        private System.Windows.Forms.TabPage tpMIDIOut;
-        private System.Windows.Forms.Button btnUP_A;
-        private System.Windows.Forms.Button btnSubMIDIout;
-        private System.Windows.Forms.Button btnDOWN_A;
-        private System.Windows.Forms.Button btnAddMIDIout;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.DataGridView dgvMIDIoutListA;
-        private System.Windows.Forms.DataGridView dgvMIDIoutPallet;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmDeviceName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmManufacturer;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmSpacer;
-        private System.Windows.Forms.TabControl tbcMIDIoutList;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.Button btnUP_B;
-        private System.Windows.Forms.Button btnDOWN_B;
-        private System.Windows.Forms.Button btnUP_C;
-        private System.Windows.Forms.Button btnDOWN_C;
-        private System.Windows.Forms.Button btnUP_D;
-        private System.Windows.Forms.Button btnDOWN_D;
-        private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.Button btnUP_E;
-        private System.Windows.Forms.Button btnDOWN_E;
-        private System.Windows.Forms.TabPage tabPage6;
-        private System.Windows.Forms.Button btnUP_F;
-        private System.Windows.Forms.Button btnDOWN_F;
-        private System.Windows.Forms.TabPage tabPage7;
-        private System.Windows.Forms.Button btnUP_G;
-        private System.Windows.Forms.Button btnDOWN_G;
-        private System.Windows.Forms.TabPage tabPage8;
-        private System.Windows.Forms.Button btnUP_H;
-        private System.Windows.Forms.Button btnDOWN_H;
-        private System.Windows.Forms.TabPage tabPage9;
-        private System.Windows.Forms.Button btnUP_I;
-        private System.Windows.Forms.Button btnDOWN_I;
-        private System.Windows.Forms.TabPage tabPage10;
-        private System.Windows.Forms.Button button17;
-        private System.Windows.Forms.Button btnDOWN_J;
-        private System.Windows.Forms.Button btnAddVST;
-        private System.Windows.Forms.DataGridView dgvMIDIoutListB;
-        private System.Windows.Forms.DataGridView dgvMIDIoutListC;
-        private System.Windows.Forms.DataGridView dgvMIDIoutListD;
-        private System.Windows.Forms.DataGridView dgvMIDIoutListE;
-        private System.Windows.Forms.DataGridView dgvMIDIoutListF;
-        private System.Windows.Forms.DataGridView dgvMIDIoutListG;
-        private System.Windows.Forms.DataGridView dgvMIDIoutListH;
-        private System.Windows.Forms.DataGridView dgvMIDIoutListI;
-        private System.Windows.Forms.DataGridView dgvMIDIoutListJ;
-        private System.Windows.Forms.TabPage tpNSF;
-        private System.Windows.Forms.GroupBox groupBox8;
-        private System.Windows.Forms.CheckBox cbNSFFDSWriteDisable8000;
-        private System.Windows.Forms.GroupBox groupBox10;
-        private System.Windows.Forms.CheckBox cbNSFDmc_RandomizeTri;
-        private System.Windows.Forms.CheckBox cbNSFDmc_TriMute;
-        private System.Windows.Forms.CheckBox cbNSFDmc_RandomizeNoise;
-        private System.Windows.Forms.CheckBox cbNSFDmc_DPCMAntiClick;
-        private System.Windows.Forms.CheckBox cbNSFDmc_EnablePNoise;
-        private System.Windows.Forms.CheckBox cbNSFDmc_Enable4011;
-        private System.Windows.Forms.CheckBox cbNSFDmc_NonLinearMixer;
-        private System.Windows.Forms.CheckBox cbNSFDmc_UnmuteOnReset;
-        private System.Windows.Forms.GroupBox groupBox12;
-        private System.Windows.Forms.CheckBox cbNSFN160_Serial;
-        private System.Windows.Forms.GroupBox groupBox11;
-        private System.Windows.Forms.CheckBox cbNSFMmc5_PhaseRefresh;
-        private System.Windows.Forms.CheckBox cbNSFMmc5_NonLinearMixer;
-        private System.Windows.Forms.GroupBox groupBox9;
-        private System.Windows.Forms.CheckBox cbNFSNes_DutySwap;
-        private System.Windows.Forms.CheckBox cbNFSNes_PhaseRefresh;
-        private System.Windows.Forms.CheckBox cbNFSNes_NonLinearMixer;
-        private System.Windows.Forms.CheckBox cbNFSNes_UnmuteOnReset;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.TextBox tbNSFFds_LPF;
-        private System.Windows.Forms.CheckBox cbNFSFds_4085Reset;
-        private System.Windows.Forms.TabPage tpSID;
-        private System.Windows.Forms.GroupBox groupBox13;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Button btnSIDCharacter;
-        private System.Windows.Forms.Button btnSIDBasic;
-        private System.Windows.Forms.Button btnSIDKernal;
-        private System.Windows.Forms.TextBox tbSIDCharacter;
-        private System.Windows.Forms.TextBox tbSIDBasic;
-        private System.Windows.Forms.TextBox tbSIDKernal;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.GroupBox groupBox14;
-        private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.RadioButton rdSIDQ1;
-        private System.Windows.Forms.RadioButton rdSIDQ3;
-        private System.Windows.Forms.RadioButton rdSIDQ2;
-        private System.Windows.Forms.RadioButton rdSIDQ4;
-        private System.Windows.Forms.Label lblWaitTime;
-        private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.ComboBox cmbWaitTime;
-        private System.Windows.Forms.TabPage tpMIDIOut2;
-        private System.Windows.Forms.GroupBox groupBox15;
-        private System.Windows.Forms.Button btnBeforeSend_Default;
-        private System.Windows.Forms.TextBox tbBeforeSend_Custom;
-        private System.Windows.Forms.TextBox tbBeforeSend_XGReset;
-        private System.Windows.Forms.Label label34;
-        private System.Windows.Forms.Label label32;
-        private System.Windows.Forms.TextBox tbBeforeSend_GSReset;
-        private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.TextBox tbBeforeSend_GMReset;
-        private System.Windows.Forms.Label label31;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn clmIsVST;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmFileName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewComboBoxColumn clmType;
-        private System.Windows.Forms.DataGridViewComboBoxColumn ClmBeforeSend;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.Label label35;
-        private System.Windows.Forms.Label label36;
-        private System.Windows.Forms.RadioButton rbSPPCM;
-        private System.Windows.Forms.GroupBox groupBox16;
-        private System.Windows.Forms.ComboBox cmbSPPCMDevice;
-        private System.Windows.Forms.GroupBox groupBox17;
-        private System.Windows.Forms.TextBox tbImageExt;
-        private System.Windows.Forms.TextBox tbMMLExt;
-        private System.Windows.Forms.TextBox tbTextExt;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckBox cbInitAlways;
-        private System.Windows.Forms.TabPage tpBalance;
-        private System.Windows.Forms.CheckBox cbAutoBalanceUseThis;
-        private System.Windows.Forms.GroupBox groupBox18;
-        private System.Windows.Forms.GroupBox groupBox24;
-        private System.Windows.Forms.GroupBox groupBox21;
-        private System.Windows.Forms.RadioButton rbAutoBalanceNotSaveSongBalance;
-        private System.Windows.Forms.RadioButton rbAutoBalanceSamePositionAsSongData;
-        private System.Windows.Forms.RadioButton rbAutoBalanceSaveSongBalance;
-        private System.Windows.Forms.GroupBox groupBox22;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.GroupBox groupBox23;
-        private System.Windows.Forms.GroupBox groupBox19;
-        private System.Windows.Forms.RadioButton rbAutoBalanceNotLoadSongBalance;
-        private System.Windows.Forms.RadioButton rbAutoBalanceLoadSongBalance;
-        private System.Windows.Forms.GroupBox groupBox20;
-        private System.Windows.Forms.RadioButton rbAutoBalanceNotLoadDriverBalance;
-        private System.Windows.Forms.RadioButton rbAutoBalanceLoadDriverBalance;
-        private System.Windows.Forms.GroupBox groupBox25;
-        private System.Windows.Forms.RadioButton rbAutoBalanceNotSamePositionAsSongData;
-        private System.Windows.Forms.TabPage tpKeyBoard;
-        private System.Windows.Forms.PictureBox pictureBox10;
-        private System.Windows.Forms.PictureBox pictureBox11;
-        private System.Windows.Forms.PictureBox pictureBox12;
-        private System.Windows.Forms.PictureBox pictureBox13;
-        private System.Windows.Forms.PictureBox pictureBox14;
-        private System.Windows.Forms.PictureBox pictureBox15;
-        private System.Windows.Forms.PictureBox pictureBox16;
-        private System.Windows.Forms.PictureBox pictureBox17;
-        private System.Windows.Forms.CheckBox cbUseKeyBoardHook;
-        private System.Windows.Forms.GroupBox gbUseKeyBoardHook;
-        private System.Windows.Forms.Button btPrevClr;
-        private System.Windows.Forms.Button btPauseClr;
-        private System.Windows.Forms.Button btFadeoutClr;
-        private System.Windows.Forms.Button btStopClr;
-        private System.Windows.Forms.Button btNextSet;
-        private System.Windows.Forms.Button btPrevSet;
-        private System.Windows.Forms.Button btPlaySet;
-        private System.Windows.Forms.Button btPauseSet;
-        private System.Windows.Forms.Button btFastSet;
-        private System.Windows.Forms.Button btFadeoutSet;
-        private System.Windows.Forms.Button btSlowSet;
-        private System.Windows.Forms.Button btStopSet;
-        private System.Windows.Forms.Label label50;
-        private System.Windows.Forms.Label lblNextKey;
-        private System.Windows.Forms.Label lblFastKey;
-        private System.Windows.Forms.Label lblPlayKey;
-        private System.Windows.Forms.Label lblSlowKey;
-        private System.Windows.Forms.Label lblPrevKey;
-        private System.Windows.Forms.Label lblFadeoutKey;
-        private System.Windows.Forms.Label lblPauseKey;
-        private System.Windows.Forms.Label lblStopKey;
-        private System.Windows.Forms.CheckBox cbNextAlt;
-        private System.Windows.Forms.CheckBox cbFastAlt;
-        private System.Windows.Forms.CheckBox cbPlayAlt;
-        private System.Windows.Forms.CheckBox cbSlowAlt;
-        private System.Windows.Forms.CheckBox cbPrevAlt;
-        private System.Windows.Forms.CheckBox cbFadeoutAlt;
-        private System.Windows.Forms.CheckBox cbPauseAlt;
-        private System.Windows.Forms.Label label37;
-        private System.Windows.Forms.CheckBox cbStopAlt;
-        private System.Windows.Forms.Label label45;
-        private System.Windows.Forms.CheckBox cbNextWin;
-        private System.Windows.Forms.Label label46;
-        private System.Windows.Forms.CheckBox cbFastWin;
-        private System.Windows.Forms.Label label47;
-        private System.Windows.Forms.CheckBox cbPlayWin;
-        private System.Windows.Forms.Label label48;
-        private System.Windows.Forms.CheckBox cbSlowWin;
-        private System.Windows.Forms.Label label38;
-        private System.Windows.Forms.CheckBox cbPrevWin;
-        private System.Windows.Forms.Label label39;
-        private System.Windows.Forms.CheckBox cbFadeoutWin;
-        private System.Windows.Forms.Label label40;
-        private System.Windows.Forms.CheckBox cbPauseWin;
-        private System.Windows.Forms.Label label41;
-        private System.Windows.Forms.CheckBox cbStopWin;
-        private System.Windows.Forms.Label label42;
-        private System.Windows.Forms.CheckBox cbNextCtrl;
-        private System.Windows.Forms.Label label43;
-        private System.Windows.Forms.CheckBox cbFastCtrl;
-        private System.Windows.Forms.Label label44;
-        private System.Windows.Forms.CheckBox cbPlayCtrl;
-        private System.Windows.Forms.CheckBox cbStopShift;
-        private System.Windows.Forms.CheckBox cbSlowCtrl;
-        private System.Windows.Forms.CheckBox cbPauseShift;
-        private System.Windows.Forms.CheckBox cbPrevCtrl;
-        private System.Windows.Forms.CheckBox cbFadeoutShift;
-        private System.Windows.Forms.CheckBox cbFadeoutCtrl;
-        private System.Windows.Forms.CheckBox cbPrevShift;
-        private System.Windows.Forms.CheckBox cbPauseCtrl;
-        private System.Windows.Forms.CheckBox cbSlowShift;
-        private System.Windows.Forms.CheckBox cbStopCtrl;
-        private System.Windows.Forms.CheckBox cbPlayShift;
-        private System.Windows.Forms.CheckBox cbNextShift;
-        private System.Windows.Forms.CheckBox cbFastShift;
-        private System.Windows.Forms.Button btNextClr;
-        private System.Windows.Forms.Button btPlayClr;
-        private System.Windows.Forms.Button btFastClr;
-        private System.Windows.Forms.Button btSlowClr;
+        private GroupBox groupBox1;
+        private GroupBox groupBox4;
+        private CheckBox cbDumpSwitch;
+        private GroupBox gbDump;
+        private Button btnDumpPath;
+        private Label label6;
+        private TextBox tbDumpPath;
+        private Button btnResetPosition;
+        private TabPage tabMIDIExp;
+        private CheckBox cbUseMIDIExport;
+        private GroupBox gbMIDIExport;
+        private CheckBox cbMIDIUseVOPM;
+        private GroupBox groupBox6;
+        private CheckBox cbMIDIYM2612;
+        private CheckBox cbMIDISN76489Sec;
+        private CheckBox cbMIDIYM2612Sec;
+        private CheckBox cbMIDISN76489;
+        private CheckBox cbMIDIYM2151;
+        private CheckBox cbMIDIYM2610BSec;
+        private CheckBox cbMIDIYM2151Sec;
+        private CheckBox cbMIDIYM2610B;
+        private CheckBox cbMIDIYM2203;
+        private CheckBox cbMIDIYM2608Sec;
+        private CheckBox cbMIDIYM2203Sec;
+        private CheckBox cbMIDIYM2608;
+        private CheckBox cbMIDIPlayless;
+        private Button btnMIDIOutputPath;
+        private Label lblOutputPath;
+        private TextBox tbMIDIOutputPath;
+        private CheckBox cbWavSwitch;
+        private GroupBox gbWav;
+        private Button btnWavPath;
+        private Label label7;
+        private TextBox tbWavPath;
+        private RadioButton rbMONO;
+        private RadioButton rbPOLY;
+        private GroupBox groupBox7;
+        private RadioButton rbFM6;
+        private RadioButton rbFM3;
+        private RadioButton rbFM5;
+        private RadioButton rbFM2;
+        private RadioButton rbFM4;
+        private RadioButton rbFM1;
+        private GroupBox groupBox2;
+        private TabPage tpOmake;
+        private TextBox tbCCFadeout;
+        private TextBox tbCCPause;
+        private TextBox tbCCSlow;
+        private TextBox tbCCPrevious;
+        private TextBox tbCCNext;
+        private TextBox tbCCFast;
+        private TextBox tbCCStop;
+        private TextBox tbCCPlay;
+        private TextBox tbCCCopyLog;
+        private Label label17;
+        private TextBox tbCCDelLog;
+        private Label label15;
+        private TextBox tbCCChCopy;
+        private Label label9;
+        private Label label8;
+        private PictureBox pictureBox1;
+        private PictureBox pictureBox4;
+        private PictureBox pictureBox3;
+        private PictureBox pictureBox2;
+        private PictureBox pictureBox8;
+        private PictureBox pictureBox7;
+        private PictureBox pictureBox6;
+        private PictureBox pictureBox5;
+        private Label label14;
+        private Button btVST;
+        private TextBox tbVST;
+        private TabPage tpMIDIOut;
+        private Button btnUP_A;
+        private Button btnSubMIDIout;
+        private Button btnDOWN_A;
+        private Button btnAddMIDIout;
+        private Label label18;
+        private DataGridView dgvMIDIoutListA;
+        private DataGridView dgvMIDIoutPallet;
+        private Label label16;
+        private DataGridViewTextBoxColumn clmID;
+        private DataGridViewTextBoxColumn clmDeviceName;
+        private DataGridViewTextBoxColumn clmManufacturer;
+        private DataGridViewTextBoxColumn clmSpacer;
+        private TabControl tbcMIDIoutList;
+        private TabPage tabPage1;
+        private TabPage tabPage2;
+        private TabPage tabPage3;
+        private TabPage tabPage4;
+        private Button btnUP_B;
+        private Button btnDOWN_B;
+        private Button btnUP_C;
+        private Button btnDOWN_C;
+        private Button btnUP_D;
+        private Button btnDOWN_D;
+        private TabPage tabPage5;
+        private Button btnUP_E;
+        private Button btnDOWN_E;
+        private TabPage tabPage6;
+        private Button btnUP_F;
+        private Button btnDOWN_F;
+        private TabPage tabPage7;
+        private Button btnUP_G;
+        private Button btnDOWN_G;
+        private TabPage tabPage8;
+        private Button btnUP_H;
+        private Button btnDOWN_H;
+        private TabPage tabPage9;
+        private Button btnUP_I;
+        private Button btnDOWN_I;
+        private TabPage tabPage10;
+        private Button button17;
+        private Button btnDOWN_J;
+        private Button btnAddVST;
+        private DataGridView dgvMIDIoutListB;
+        private DataGridView dgvMIDIoutListC;
+        private DataGridView dgvMIDIoutListD;
+        private DataGridView dgvMIDIoutListE;
+        private DataGridView dgvMIDIoutListF;
+        private DataGridView dgvMIDIoutListG;
+        private DataGridView dgvMIDIoutListH;
+        private DataGridView dgvMIDIoutListI;
+        private DataGridView dgvMIDIoutListJ;
+        private TabPage tpNSF;
+        private GroupBox groupBox8;
+        private CheckBox cbNSFFDSWriteDisable8000;
+        private GroupBox groupBox10;
+        private CheckBox cbNSFDmc_RandomizeTri;
+        private CheckBox cbNSFDmc_TriMute;
+        private CheckBox cbNSFDmc_RandomizeNoise;
+        private CheckBox cbNSFDmc_DPCMAntiClick;
+        private CheckBox cbNSFDmc_EnablePNoise;
+        private CheckBox cbNSFDmc_Enable4011;
+        private CheckBox cbNSFDmc_NonLinearMixer;
+        private CheckBox cbNSFDmc_UnmuteOnReset;
+        private GroupBox groupBox12;
+        private CheckBox cbNSFN160_Serial;
+        private GroupBox groupBox11;
+        private CheckBox cbNSFMmc5_PhaseRefresh;
+        private CheckBox cbNSFMmc5_NonLinearMixer;
+        private GroupBox groupBox9;
+        private CheckBox cbNFSNes_DutySwap;
+        private CheckBox cbNFSNes_PhaseRefresh;
+        private CheckBox cbNFSNes_NonLinearMixer;
+        private CheckBox cbNFSNes_UnmuteOnReset;
+        private Label label21;
+        private Label label20;
+        private TextBox tbNSFFds_LPF;
+        private CheckBox cbNFSFds_4085Reset;
+        private TabPage tpSID;
+        private GroupBox groupBox13;
+        private Label label22;
+        private Button btnSIDCharacter;
+        private Button btnSIDBasic;
+        private Button btnSIDKernal;
+        private TextBox tbSIDCharacter;
+        private TextBox tbSIDBasic;
+        private TextBox tbSIDKernal;
+        private Label label24;
+        private Label label23;
+        private GroupBox groupBox14;
+        private Label label27;
+        private Label label26;
+        private Label label25;
+        private RadioButton rdSIDQ1;
+        private RadioButton rdSIDQ3;
+        private RadioButton rdSIDQ2;
+        private RadioButton rdSIDQ4;
+        private Label lblWaitTime;
+        private Label label28;
+        private ComboBox cmbWaitTime;
+        private TabPage tpMIDIOut2;
+        private GroupBox groupBox15;
+        private Button btnBeforeSend_Default;
+        private TextBox tbBeforeSend_Custom;
+        private TextBox tbBeforeSend_XGReset;
+        private Label label34;
+        private Label label32;
+        private TextBox tbBeforeSend_GSReset;
+        private Label label33;
+        private TextBox tbBeforeSend_GMReset;
+        private Label label31;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private DataGridViewCheckBoxColumn clmIsVST;
+        private DataGridViewTextBoxColumn clmFileName;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private DataGridViewComboBoxColumn clmType;
+        private DataGridViewComboBoxColumn ClmBeforeSend;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private Label label35;
+        private Label label36;
+        private RadioButton rbSPPCM;
+        private GroupBox groupBox16;
+        private ComboBox cmbSPPCMDevice;
+        private GroupBox groupBox17;
+        private TextBox tbImageExt;
+        private TextBox tbMMLExt;
+        private TextBox tbTextExt;
+        private Label label1;
+        private Label label3;
+        private Label label2;
+        private CheckBox cbInitAlways;
+        private TabPage tpBalance;
+        private CheckBox cbAutoBalanceUseThis;
+        private GroupBox groupBox18;
+        private GroupBox groupBox24;
+        private GroupBox groupBox21;
+        private RadioButton rbAutoBalanceNotSaveSongBalance;
+        private RadioButton rbAutoBalanceSamePositionAsSongData;
+        private RadioButton rbAutoBalanceSaveSongBalance;
+        private GroupBox groupBox22;
+        private Label label4;
+        private GroupBox groupBox23;
+        private GroupBox groupBox19;
+        private RadioButton rbAutoBalanceNotLoadSongBalance;
+        private RadioButton rbAutoBalanceLoadSongBalance;
+        private GroupBox groupBox20;
+        private RadioButton rbAutoBalanceNotLoadDriverBalance;
+        private RadioButton rbAutoBalanceLoadDriverBalance;
+        private GroupBox groupBox25;
+        private RadioButton rbAutoBalanceNotSamePositionAsSongData;
+        private TabPage tpKeyBoard;
+        private PictureBox pictureBox10;
+        private PictureBox pictureBox11;
+        private PictureBox pictureBox12;
+        private PictureBox pictureBox13;
+        private PictureBox pictureBox14;
+        private PictureBox pictureBox15;
+        private PictureBox pictureBox16;
+        private PictureBox pictureBox17;
+        private CheckBox cbUseKeyBoardHook;
+        private GroupBox gbUseKeyBoardHook;
+        private Button btPrevClr;
+        private Button btPauseClr;
+        private Button btFadeoutClr;
+        private Button btStopClr;
+        private Button btNextSet;
+        private Button btPrevSet;
+        private Button btPlaySet;
+        private Button btPauseSet;
+        private Button btFastSet;
+        private Button btFadeoutSet;
+        private Button btSlowSet;
+        private Button btStopSet;
+        private Label label50;
+        private Label lblNextKey;
+        private Label lblFastKey;
+        private Label lblPlayKey;
+        private Label lblSlowKey;
+        private Label lblPrevKey;
+        private Label lblFadeoutKey;
+        private Label lblPauseKey;
+        private Label lblStopKey;
+        private CheckBox cbNextAlt;
+        private CheckBox cbFastAlt;
+        private CheckBox cbPlayAlt;
+        private CheckBox cbSlowAlt;
+        private CheckBox cbPrevAlt;
+        private CheckBox cbFadeoutAlt;
+        private CheckBox cbPauseAlt;
+        private Label label37;
+        private CheckBox cbStopAlt;
+        private Label label45;
+        private CheckBox cbNextWin;
+        private Label label46;
+        private CheckBox cbFastWin;
+        private Label label47;
+        private CheckBox cbPlayWin;
+        private Label label48;
+        private CheckBox cbSlowWin;
+        private Label label38;
+        private CheckBox cbPrevWin;
+        private Label label39;
+        private CheckBox cbFadeoutWin;
+        private Label label40;
+        private CheckBox cbPauseWin;
+        private Label label41;
+        private CheckBox cbStopWin;
+        private Label label42;
+        private CheckBox cbNextCtrl;
+        private Label label43;
+        private CheckBox cbFastCtrl;
+        private Label label44;
+        private CheckBox cbPlayCtrl;
+        private CheckBox cbStopShift;
+        private CheckBox cbSlowCtrl;
+        private CheckBox cbPauseShift;
+        private CheckBox cbPrevCtrl;
+        private CheckBox cbFadeoutShift;
+        private CheckBox cbFadeoutCtrl;
+        private CheckBox cbPrevShift;
+        private CheckBox cbPauseCtrl;
+        private CheckBox cbSlowShift;
+        private CheckBox cbStopCtrl;
+        private CheckBox cbPlayShift;
+        private CheckBox cbNextShift;
+        private CheckBox cbFastShift;
+        private Button btNextClr;
+        private Button btPlayClr;
+        private Button btFastClr;
+        private Button btSlowClr;
         //private ucSettingInstruments ucSettingInstruments1;
-        private System.Windows.Forms.Label lblKeyBoardHookNotice;
-        private System.Windows.Forms.RadioButton rbNullDevice;
-        private System.Windows.Forms.TextBox tbSIDOutputBufferSize;
-        private System.Windows.Forms.Label label49;
-        private System.Windows.Forms.Label label51;
-        private System.Windows.Forms.TabPage tpNuked;
-        private System.Windows.Forms.GroupBox groupBox26;
-        private System.Windows.Forms.RadioButton rbNukedOPN2OptionYM2612u;
-        private System.Windows.Forms.RadioButton rbNukedOPN2OptionYM2612;
-        private System.Windows.Forms.RadioButton rbNukedOPN2OptionDiscrete;
-        private System.Windows.Forms.RadioButton rbNukedOPN2OptionASIC;
-        private System.Windows.Forms.RadioButton rbNukedOPN2OptionASIClp;
-        private System.Windows.Forms.CheckBox cbEmptyPlayList;
-        private System.Windows.Forms.CheckBox cbMIDIKeyOnFnum;
-        private System.Windows.Forms.CheckBox cbExALL;
-        private System.Windows.Forms.CheckBox cbNonRenderingForPause;
-        private System.Windows.Forms.LinkLabel llOpenGithub;
-        private System.Windows.Forms.TrackBar trkbNSFLPF;
-        private System.Windows.Forms.Label label53;
-        private System.Windows.Forms.Label label52;
-        private System.Windows.Forms.TrackBar trkbNSFHPF;
-        private System.Windows.Forms.TabPage tpPMDDotNET;
-        private System.Windows.Forms.RadioButton rbPMDManual;
-        private System.Windows.Forms.RadioButton rbPMDAuto;
-        private System.Windows.Forms.Button btnPMDResetDriverArguments;
-        private System.Windows.Forms.Label label54;
-        private System.Windows.Forms.Button btnPMDResetCompilerArhguments;
-        private System.Windows.Forms.TextBox tbPMDDriverArguments;
-        private System.Windows.Forms.Label label55;
-        private System.Windows.Forms.TextBox tbPMDCompilerArguments;
-        private System.Windows.Forms.GroupBox gbPMDManual;
-        private System.Windows.Forms.CheckBox cbPMDSetManualVolume;
-        private System.Windows.Forms.CheckBox cbPMDUsePPZ8;
-        private System.Windows.Forms.GroupBox groupBox32;
-        private System.Windows.Forms.RadioButton rbPMD86B;
-        private System.Windows.Forms.RadioButton rbPMDSpbB;
-        private System.Windows.Forms.RadioButton rbPMDNrmB;
-        private System.Windows.Forms.CheckBox cbPMDUsePPSDRV;
-        private System.Windows.Forms.GroupBox gbPPSDRV;
-        private System.Windows.Forms.GroupBox groupBox33;
-        private System.Windows.Forms.RadioButton rbPMDUsePPSDRVManualFreq;
-        private System.Windows.Forms.Label label56;
-        private System.Windows.Forms.RadioButton rbPMDUsePPSDRVFreqDefault;
-        private System.Windows.Forms.Button btnPMDPPSDRVManualWait;
-        private System.Windows.Forms.Label label57;
-        private System.Windows.Forms.TextBox tbPMDPPSDRVFreq;
-        private System.Windows.Forms.Label label58;
-        private System.Windows.Forms.TextBox tbPMDPPSDRVManualWait;
-        private System.Windows.Forms.GroupBox gbPMDSetManualVolume;
-        private System.Windows.Forms.Label label59;
-        private System.Windows.Forms.Label label60;
-        private System.Windows.Forms.TextBox tbPMDVolumeAdpcm;
-        private System.Windows.Forms.Label label61;
-        private System.Windows.Forms.TextBox tbPMDVolumeRhythm;
-        private System.Windows.Forms.Label label62;
-        private System.Windows.Forms.TextBox tbPMDVolumeSSG;
-        private System.Windows.Forms.Label label63;
-        private System.Windows.Forms.TextBox tbPMDVolumeGIMICSSG;
-        private System.Windows.Forms.Label label64;
-        private System.Windows.Forms.TextBox tbPMDVolumeFM;
-        private System.Windows.Forms.GroupBox groupBox28;
-        private System.Windows.Forms.GroupBox groupBox27;
-        private System.Windows.Forms.RadioButton rbSIDC64Model_PAL;
-        private System.Windows.Forms.RadioButton rbSIDC64Model_DREAN;
-        private System.Windows.Forms.RadioButton rbSIDC64Model_OLDNTSC;
-        private System.Windows.Forms.RadioButton rbSIDC64Model_NTSC;
-        private System.Windows.Forms.RadioButton rbSIDModel_8580;
-        private System.Windows.Forms.RadioButton rbSIDModel_6581;
-        private System.Windows.Forms.CheckBox cbSIDC64Model_Force;
-        private System.Windows.Forms.CheckBox cbSIDModel_Force;
-        private System.Windows.Forms.GroupBox groupBox29;
-        private System.Windows.Forms.CheckBox cbGensSSGEG;
-        private System.Windows.Forms.CheckBox cbGensDACHPF;
-        private System.Windows.Forms.TabPage tpPlayList;
-        private System.Windows.Forms.CheckBox cbAutoOpenImg;
-        private System.Windows.Forms.CheckBox cbAutoOpenMML;
-        private System.Windows.Forms.CheckBox cbAutoOpenText;
-        private System.Windows.Forms.Label label66;
-        private System.Windows.Forms.Label label65;
-        private System.Windows.Forms.ComboBox cmbSampleRate;
-        private System.Windows.Forms.Label label67;
-        private System.Windows.Forms.TextBox tbSCCbaseAddress;
-        private System.Windows.Forms.Button btnSearchPath;
-        private System.Windows.Forms.TextBox tbSearchPath;
-        private System.Windows.Forms.Label label68;
-        private System.Windows.Forms.CheckBox cbNSFDmc_DPCMReverse;
-        private System.Windows.Forms.CheckBox cbUnuseRealChip;
-        private System.Windows.Forms.CheckBox cbAdjustTLParam;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btDmvClr;
-        private System.Windows.Forms.CheckBox cbDmvShift;
-        private System.Windows.Forms.Button btUmvClr;
-        private System.Windows.Forms.CheckBox cbUmvShift;
-        private System.Windows.Forms.Button btDmvSet;
-        private System.Windows.Forms.Button btUmvSet;
-        private System.Windows.Forms.Label label71;
-        private System.Windows.Forms.Label label70;
-        private System.Windows.Forms.CheckBox cbDmvCtrl;
-        private System.Windows.Forms.CheckBox cbUmvCtrl;
-        private System.Windows.Forms.Label lblDmvKey;
-        private System.Windows.Forms.Label lblUmvKey;
-        private System.Windows.Forms.CheckBox cbDmvAlt;
-        private System.Windows.Forms.CheckBox cbUmvAlt;
-        private System.Windows.Forms.Button btRmvClr;
-        private System.Windows.Forms.CheckBox cbRmvShift;
-        private System.Windows.Forms.Button btRmvSet;
-        private System.Windows.Forms.Label label69;
-        private System.Windows.Forms.CheckBox cbRmvAlt;
-        private System.Windows.Forms.CheckBox cbRmvCtrl;
-        private System.Windows.Forms.Label lblRmvKey;
-        private System.Windows.Forms.Button btPpcClr;
-        private System.Windows.Forms.CheckBox cbPpcShift;
-        private System.Windows.Forms.Button btPpcSet;
-        private System.Windows.Forms.Label label76;
-        private System.Windows.Forms.Label lblPpcKey;
-        private System.Windows.Forms.CheckBox cbPpcAlt;
-        private System.Windows.Forms.CheckBox cbPpcCtrl;
-        private System.Windows.Forms.Button btDpcClr;
-        private System.Windows.Forms.CheckBox cbDpcShift;
-        private System.Windows.Forms.Button btDpcSet;
-        private System.Windows.Forms.Label label74;
-        private System.Windows.Forms.Label lblDpcKey;
-        private System.Windows.Forms.CheckBox cbDpcAlt;
-        private System.Windows.Forms.CheckBox cbDpcCtrl;
-        private System.Windows.Forms.Button btUpcClr;
-        private System.Windows.Forms.CheckBox cbUpcShift;
-        private System.Windows.Forms.Button btUpcSet;
-        private System.Windows.Forms.Label label72;
-        private System.Windows.Forms.Label lblUpcKey;
-        private System.Windows.Forms.CheckBox cbUpcAlt;
-        private System.Windows.Forms.CheckBox cbUpcCtrl;
+        private Label lblKeyBoardHookNotice;
+        private RadioButton rbNullDevice;
+        private TextBox tbSIDOutputBufferSize;
+        private Label label49;
+        private Label label51;
+        private TabPage tpNuked;
+        private GroupBox groupBox26;
+        private RadioButton rbNukedOPN2OptionYM2612u;
+        private RadioButton rbNukedOPN2OptionYM2612;
+        private RadioButton rbNukedOPN2OptionDiscrete;
+        private RadioButton rbNukedOPN2OptionASIC;
+        private RadioButton rbNukedOPN2OptionASIClp;
+        private CheckBox cbEmptyPlayList;
+        private CheckBox cbMIDIKeyOnFnum;
+        private CheckBox cbExALL;
+        private CheckBox cbNonRenderingForPause;
+        private LinkLabel llOpenGithub;
+        private TrackBar trkbNSFLPF;
+        private Label label53;
+        private Label label52;
+        private TrackBar trkbNSFHPF;
+        private TabPage tpPMDDotNET;
+        private RadioButton rbPMDManual;
+        private RadioButton rbPMDAuto;
+        private Button btnPMDResetDriverArguments;
+        private Label label54;
+        private Button btnPMDResetCompilerArhguments;
+        private TextBox tbPMDDriverArguments;
+        private Label label55;
+        private TextBox tbPMDCompilerArguments;
+        private GroupBox gbPMDManual;
+        private CheckBox cbPMDSetManualVolume;
+        private CheckBox cbPMDUsePPZ8;
+        private GroupBox groupBox32;
+        private RadioButton rbPMD86B;
+        private RadioButton rbPMDSpbB;
+        private RadioButton rbPMDNrmB;
+        private CheckBox cbPMDUsePPSDRV;
+        private GroupBox gbPPSDRV;
+        private GroupBox groupBox33;
+        private RadioButton rbPMDUsePPSDRVManualFreq;
+        private Label label56;
+        private RadioButton rbPMDUsePPSDRVFreqDefault;
+        private Button btnPMDPPSDRVManualWait;
+        private Label label57;
+        private TextBox tbPMDPPSDRVFreq;
+        private Label label58;
+        private TextBox tbPMDPPSDRVManualWait;
+        private GroupBox gbPMDSetManualVolume;
+        private Label label59;
+        private Label label60;
+        private TextBox tbPMDVolumeAdpcm;
+        private Label label61;
+        private TextBox tbPMDVolumeRhythm;
+        private Label label62;
+        private TextBox tbPMDVolumeSSG;
+        private Label label63;
+        private TextBox tbPMDVolumeGIMICSSG;
+        private Label label64;
+        private TextBox tbPMDVolumeFM;
+        private GroupBox groupBox28;
+        private GroupBox groupBox27;
+        private RadioButton rbSIDC64Model_PAL;
+        private RadioButton rbSIDC64Model_DREAN;
+        private RadioButton rbSIDC64Model_OLDNTSC;
+        private RadioButton rbSIDC64Model_NTSC;
+        private RadioButton rbSIDModel_8580;
+        private RadioButton rbSIDModel_6581;
+        private CheckBox cbSIDC64Model_Force;
+        private CheckBox cbSIDModel_Force;
+        private GroupBox groupBox29;
+        private CheckBox cbGensSSGEG;
+        private CheckBox cbGensDACHPF;
+        private TabPage tpPlayList;
+        private CheckBox cbAutoOpenImg;
+        private CheckBox cbAutoOpenMML;
+        private CheckBox cbAutoOpenText;
+        private Label label66;
+        private Label label65;
+        private ComboBox cmbSampleRate;
+        private Label label67;
+        private TextBox tbSCCbaseAddress;
+        private Button btnSearchPath;
+        private TextBox tbSearchPath;
+        private Label label68;
+        private CheckBox cbNSFDmc_DPCMReverse;
+        private CheckBox cbUnuseRealChip;
+        private CheckBox cbAdjustTLParam;
+        private Panel panel1;
+        private Button btDmvClr;
+        private CheckBox cbDmvShift;
+        private Button btUmvClr;
+        private CheckBox cbUmvShift;
+        private Button btDmvSet;
+        private Button btUmvSet;
+        private Label label71;
+        private Label label70;
+        private CheckBox cbDmvCtrl;
+        private CheckBox cbUmvCtrl;
+        private Label lblDmvKey;
+        private Label lblUmvKey;
+        private CheckBox cbDmvAlt;
+        private CheckBox cbUmvAlt;
+        private Button btRmvClr;
+        private CheckBox cbRmvShift;
+        private Button btRmvSet;
+        private Label label69;
+        private CheckBox cbRmvAlt;
+        private CheckBox cbRmvCtrl;
+        private Label lblRmvKey;
+        private Button btPpcClr;
+        private CheckBox cbPpcShift;
+        private Button btPpcSet;
+        private Label label76;
+        private Label lblPpcKey;
+        private CheckBox cbPpcAlt;
+        private CheckBox cbPpcCtrl;
+        private Button btDpcClr;
+        private CheckBox cbDpcShift;
+        private Button btDpcSet;
+        private Label label74;
+        private Label lblDpcKey;
+        private CheckBox cbDpcAlt;
+        private CheckBox cbDpcCtrl;
+        private Button btUpcClr;
+        private CheckBox cbUpcShift;
+        private Button btUpcSet;
+        private Label label72;
+        private Label lblUpcKey;
+        private CheckBox cbUpcAlt;
+        private CheckBox cbUpcCtrl;
+        private CheckBox cbShowConsole;
+        private GroupBox groupBox30;
+        private RadioButton rbLoglvlInformation;
+        private RadioButton rbLoglvlWarning;
+        private RadioButton rbLoglvlError;
+        private RadioButton rbLogDebug;
+        private RadioButton rbLoglvlTrace;
     }
 }

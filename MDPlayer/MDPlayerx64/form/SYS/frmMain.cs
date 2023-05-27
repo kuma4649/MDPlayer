@@ -18,6 +18,7 @@ using MDSound;
 //using MDPlayer.Properties;
 using MDPlayer.Driver.ZGM.ZgmChip;
 using MDSound.np.chip;
+using MDPlayerx64.form.SYS;
 
 namespace MDPlayer.form
 {
@@ -75,6 +76,7 @@ namespace MDPlayer.form
         private frmN106[] frmN106 = new frmN106[2] { null, null };
         private frmRegTest frmRegTest;
         private frmVisWave frmVisWave;
+        private frmConsole frmConsole;
 
         private List<Form[]> lstForm = new List<Form[]>();
 
@@ -130,6 +132,12 @@ namespace MDPlayer.form
 
         public frmMain()
         {
+            log.debug = this.setting.debug.logDebug;
+            log.logLevel = this.setting.debug.logLevel;
+
+            frmConsole = new frmConsole(setting);
+            if (setting.debug.ShowConsole) frmConsole.Show();
+
             log.ForcedWrite("起動処理開始");
             log.ForcedWrite("frmMain(コンストラクタ):STEP 00");
 
@@ -228,7 +236,6 @@ namespace MDPlayer.form
 
             log.ForcedWrite("frmMain(コンストラクタ):STEP 04");
 
-            log.debug = setting.Debug_DispFrameCounter;
 
         }
 
@@ -365,10 +372,10 @@ namespace MDPlayer.form
 
             log.ForcedWrite("frmMain_Load:STEP 09");
 
-            ////operationフォルダクリア
-            //opeFolder = Common.GetOperationFolder(true);
-            //startWatch(opeFolder);
+            //operationフォルダクリア
+            log.ForcedWrite("frmMain_Load:Clear Operation folder.");
             mmf = new fileCom(false, "MDPlayer", "MDPlayer", 1024 * 4);
+
         }
 
         //private void startWatch(string opeFolder)
@@ -1043,27 +1050,25 @@ namespace MDPlayer.form
             Application.DoEvents();
             Activate();
 
-            if (args.Length < 2)
-            {
-                return;
-            }
+            log.ForcedWrite("起動処理完了");
 
-            log.ForcedWrite("frmMain_Shown:STEP 10");
+            log.Write("-------------------------------------------");
+            log.Write(" Welcome to the MDPlayer zone. Get Ready ? ");
+            log.Write("-------------------------------------------");
+
+            if (args.Length < 2) return;
+
+            log.ForcedWrite("frmMain_Shown:起動時オプション解析");
 
             try
             {
-
                 PlayArgs(arg);
-
             }
             catch (Exception ex)
             {
                 log.ForcedWrite(ex);
                 MessageBox.Show("ファイルの読み込みに失敗しました。");
             }
-
-            log.ForcedWrite("frmMain_Shown:STEP 11");
-            log.ForcedWrite("起動処理完了");
 
         }
 
@@ -4389,7 +4394,8 @@ namespace MDPlayer.form
             Audio.Init(this.setting);
 
             log.ForcedWrite("Audio初期化処理完了");
-            log.debug = this.setting.Debug_DispFrameCounter;
+            log.debug = this.setting.debug.logDebug;
+            log.logLevel = this.setting.debug.logLevel;
 
             frmVSTeffectList.dispPluginList();
             StartMIDIInMonitoring();
@@ -4907,7 +4913,7 @@ namespace MDPlayer.form
             DrawBuff.drawFont4(screen.mainScreen, 1, 17, 1, Audio.GetIsDataBlock(EnmModel.RealModel) ? "RD" : "  ");
             DrawBuff.drawFont4(screen.mainScreen, 321 - 16, 17, 1, Audio.GetIsPcmRAMWrite(EnmModel.RealModel) ? "RP" : "  ");
 
-            if (setting.Debug_DispFrameCounter)
+            if (setting.debug.DispFrameCounter)
             {
                 long v = Audio.getVirtualFrameCounter();
                 if (v != -1) DrawBuff.drawFont8(screen.mainScreen, 0, 0, 0, string.Format("EMU        : {0:D12} ", v));

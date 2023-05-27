@@ -553,9 +553,15 @@ namespace MDPlayer.form
             tbLatencyEmu.Text = setting.LatencyEmulation.ToString();
             tbLatencySCCI.Text = setting.LatencySCCI.ToString();
 
-            cbDispFrameCounter.Checked = setting.Debug_DispFrameCounter;
+            cbDispFrameCounter.Checked = setting.debug.DispFrameCounter;
+            cbShowConsole.Checked = setting.debug.ShowConsole;
+            rbLoglvlTrace.Checked = setting.debug.logLevel == LogLevel.Trace;
+            rbLogDebug.Checked = setting.debug.logLevel == LogLevel.Debug;
+            rbLoglvlError.Checked = setting.debug.logLevel == LogLevel.Error;
+            rbLoglvlWarning.Checked = setting.debug.logLevel == LogLevel.Warning;
+            rbLoglvlInformation.Checked = setting.debug.logLevel == LogLevel.Information;
             cbHiyorimiMode.Checked = setting.HiyorimiMode;
-            tbSCCbaseAddress.Text = string.Format("{0:X04}", setting.Debug_SCCbaseAddress);
+            tbSCCbaseAddress.Text = string.Format("{0:X04}", setting.debug.SCCbaseAddress);
 
             cbUseLoopTimes.Checked = setting.other.UseLoopTimes;
             tbLoopTimes.Enabled = cbUseLoopTimes.Checked;
@@ -1610,14 +1616,20 @@ namespace MDPlayer.form
             setting.other.NonRenderingForPause = cbNonRenderingForPause.Checked;
             setting.other.AdjustTLParam = cbAdjustTLParam.Checked;
 
-            setting.Debug_DispFrameCounter = cbDispFrameCounter.Checked;
+            setting.debug.DispFrameCounter = cbDispFrameCounter.Checked;
+            setting.debug.ShowConsole= cbShowConsole.Checked;
+            if (rbLoglvlTrace.Checked) setting.debug.logLevel = LogLevel.Trace;
+            if (rbLogDebug.Checked ) setting.debug.logLevel = LogLevel.Debug;
+            if (rbLoglvlError.Checked ) setting.debug.logLevel = LogLevel.Error;
+            if (rbLoglvlWarning.Checked ) setting.debug.logLevel = LogLevel.Warning;
+            if (rbLoglvlInformation.Checked) setting.debug.logLevel = LogLevel.Information;
             try
             {
-                setting.Debug_SCCbaseAddress = Convert.ToInt32(tbSCCbaseAddress.Text, 16);
+                setting.debug.SCCbaseAddress = Convert.ToInt32(tbSCCbaseAddress.Text, 16);
             }
             catch
             {
-                setting.Debug_SCCbaseAddress = 0x9800;
+                setting.debug.SCCbaseAddress = 0x9800;
             }
 
             setting.HiyorimiMode = cbHiyorimiMode.Checked;
