@@ -414,7 +414,7 @@ namespace MDPlayer.Driver.ZGM
             }
             catch (Exception e)
             {
-                log.Write(string.Format("XGMの情報取得中に例外発生 Message=[{0}] StackTrace=[{1}]", e.Message, e.StackTrace));
+                log.ForcedWrite("XGMの情報取得中に例外発生 Message=[{0}] StackTrace=[{1}]", e.Message, e.StackTrace);
                 return false;
             }
 

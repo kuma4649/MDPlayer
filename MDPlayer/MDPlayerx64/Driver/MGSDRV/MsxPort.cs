@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,14 +12,16 @@ namespace MDPlayer.Driver.MGSDRV
     {
         private MSXSlot slot;
         private ChipRegister chipRegister;
+        private MSXVDP vdp;
         private EnmModel model;
         private byte opllAdr;
         private byte ay8910Adr;
 
-        public MsxPort(MSXSlot slot, ChipRegister chipRegister,EnmModel model)
+        public MsxPort(MSXSlot slot, ChipRegister chipRegister,MSXVDP vdp,EnmModel model)
         {
             this.slot = slot;
             this.chipRegister= chipRegister;
+            this.vdp = vdp;
             this.model = model;
         }
 
@@ -52,6 +55,12 @@ namespace MDPlayer.Driver.MGSDRV
 
             switch (address)
             {
+                case 0x00:
+                case 0x01:
+                case 0x02:
+                case 0x03:
+                    vdp?.Write(address, value);
+                    break;
                 case 0xa0:
                     ay8910Adr = value;
                     break;
@@ -73,7 +82,7 @@ namespace MDPlayer.Driver.MGSDRV
                     ChangeSlot(value);
                     break;
                 default:
-                    log.Write(string.Format("Port out Adr:{0:x04} Dat:{1:x02}", address, value));
+                    //log.Write(LogLevel.Trace, "Port out Adr:{0:x04} Dat:{1:x02}", address, value);
                     break;
             }
 
@@ -82,13 +91,20 @@ namespace MDPlayer.Driver.MGSDRV
         private byte InPort(int address)
         {
 
-            if (address == 0xa8)
+            switch(address)
             {
-                //log.Write("ChangeSlot Port in  Adr:{0:x04}", address);
-                return ReadSlot();
+                case 0x00:
+                case 0x01:
+                case 0x02:
+                case 0x03:
+                    if (vdp == null) return 0;
+                    return vdp.Read(address);
+                case 0xa8:
+                    //log.Write("ChangeSlot Port in  Adr:{0:x04}", address);
+                    return ReadSlot();
             }
 
-            log.Write(string.Format("Port in  Adr:{0:x04}", address));
+            //log.Write(LogLevel.Trace, "Port in  Adr:{0:x04}", address);
             return 0;
         }
 

@@ -173,7 +173,7 @@ namespace MDPlayer
             }
             catch(Exception ex)
             {
-                log.Write(string.Format("Exception message:{0} StackTrace:{1}",ex.Message,ex.StackTrace));
+                log.ForcedWrite(ex);
             }
 
         }

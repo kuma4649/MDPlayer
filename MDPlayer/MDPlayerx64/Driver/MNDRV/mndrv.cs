@@ -1061,8 +1061,8 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a5 + w.dataptr, reg.a3);
 
 #if DEBUG
-            log.Write(string.Format("TrackWorkAdr:{0:x}", reg.a5));
-            log.Write(string.Format("DataPtr:{0:x}", reg.a3));
+            log.Write(LogLevel.Trace, "TrackWorkAdr:{0:x}", reg.a5);
+            log.Write(LogLevel.Trace, "DataPtr:{0:x}", reg.a3);
 #endif
 
             reg.D1_L = 0;
@@ -1194,7 +1194,7 @@ namespace MDPlayer.Driver.MNDRV
                 case 22:
                 case 24:
 #if DEBUG
-                    log.Write(string.Format("Track : OPN {0}", reg.D1_W / 2));
+                    log.Write(LogLevel.Trace, "Track : OPN {0}", reg.D1_W / 2);
 #endif
                     _track_opn();
                     break;
@@ -1229,7 +1229,7 @@ namespace MDPlayer.Driver.MNDRV
                 case 74:
                 case 76:
 #if DEBUG
-                    log.Write(string.Format("Track : PSG {0}", (reg.D1_W - 64) / 2));
+                    log.Write(LogLevel.Trace, "Track : PSG {0}", (reg.D1_W - 64) / 2);
 #endif
                     _track_psg();
                     break;
@@ -1266,7 +1266,7 @@ namespace MDPlayer.Driver.MNDRV
                 case 130:
                 case 132:
 #if DEBUG
-                    log.Write(string.Format("Track : RHY {0}", (reg.D1_W - 128) / 2));
+                    log.Write(LogLevel.Trace, "Track : RHY {0}", (reg.D1_W - 128) / 2);
 #endif
                     _track_rhy();
                     break;
@@ -1349,7 +1349,7 @@ namespace MDPlayer.Driver.MNDRV
                 case 270:
                 case 272:
 #if DEBUG
-                    log.Write(string.Format("Track : OPM {0}", (reg.D1_W - 256) / 2));
+                    log.Write(LogLevel.Trace, "Track : OPM {0}", (reg.D1_W - 256) / 2);
 #endif
                     _track_opm();
                     break;
@@ -1398,7 +1398,7 @@ namespace MDPlayer.Driver.MNDRV
                 case 350:
                 case 352:
 #if DEBUG
-                    log.Write(string.Format("Track : PCM {0}", (reg.D1_W - 320) / 2));
+                    log.Write(LogLevel.Trace, "Track : PCM {0}", (reg.D1_W - 320) / 2);
 #endif
                     _track_pcm();
                     break;
@@ -3134,7 +3134,7 @@ namespace MDPlayer.Driver.MNDRV
         //─────────────────────────────────────
         public void putdec()
         {
-            log.Write(string.Format("{0:d}", reg.D0_L));
+            log.Write("{0:d}", reg.D0_L);
         }
 
         //─────────────────────────────────────

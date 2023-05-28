@@ -61,7 +61,7 @@ namespace MDPlayer
                 }
                 else
                 {
-                    log.ForcedWrite(string.Format("RealChip:Ctr:Found SCCI.(Interface count={0})", n));
+                    log.ForcedWrite("RealChip:Ctr:Found SCCI.(Interface count={0})", n);
                     getScciInstances();
                     nScci.NSoundInterfaceManager_.setLevelDisp(false);
                 }
@@ -87,7 +87,7 @@ namespace MDPlayer
                 }
                 else
                 {
-                    log.ForcedWrite(string.Format("RealChip:Ctr:Found G.I.M.I.C.(Interface count={0})", n));
+                    log.ForcedWrite("RealChip:Ctr:Found G.I.M.I.C.(Interface count={0})", n);
                     Nc86ctl.NIRealChip nirc = nc86ctl.getChipInterface(0);
                     nirc.reset();
                 }
@@ -620,10 +620,10 @@ namespace MDPlayer
             realChip = rc;
             NIGimic2 gm = rc.QueryInterface();
             dClock = gm.getPLLClock();
-            log.ForcedWrite(string.Format("C86ctl:PLL Clock={0}", dClock));
+            log.ForcedWrite("C86ctl:PLL Clock={0}", dClock);
             Devinfo di = gm.getModuleInfo();
             ChipType = gm.getModuleType();
-            log.ForcedWrite(string.Format("C86ctl:Found ChipType={0}", ChipType));
+            log.ForcedWrite("C86ctl:Found ChipType={0}", ChipType);
             if (ChipType == ChipType.CHIP_UNKNOWN)
             {
                 if (di.Devname == "GMC-S2149") ChipType = ChipType.CHIP_YM2149;
@@ -647,13 +647,13 @@ namespace MDPlayer
             if (adr < 0) 
                 return;
             realChip.@out((ushort)adr, (byte)dat);
-            log.Write(string.Format("Out Register C86Ctl(Adr:{0:x04} Dat:{1:x02})",(ushort)adr,(byte)dat));
+            log.Write("Out Register C86Ctl(Adr:{0:x04} Dat:{1:x02})",(ushort)adr,(byte)dat);
             //realChip.directOut((ushort)adr, (byte)dat);
         }
 
         override public int getRegister(int adr)
         {
-            log.Write(string.Format("In  Register C86Ctl(Adr:{0:x04}", (ushort)adr));
+            log.Write("In  Register C86Ctl(Adr:{0:x04}", (ushort)adr);
             return realChip.@in((ushort)adr);
         }
 
@@ -674,7 +674,7 @@ namespace MDPlayer
             if (nowClock != mClock)
             {
                 gm.setPLLClock(mClock);
-                log.Write(string.Format("Set PLLClock(clock:{0:d}", mClock));
+                log.Write("Set PLLClock(clock:{0:d}", mClock);
             }
             nowClock = gm.getPLLClock();
             realChip.reset();

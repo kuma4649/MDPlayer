@@ -131,7 +131,7 @@ namespace MDPlayer.Driver.MuSICA
             z80.ClockSynchronizer = null;
             z80.AutoStopOnRetWithStackEmpty = true;
             z80.Memory = new MsxMemory(chipRegister, model);
-            z80.PortsSpace = new MsxPort(((MsxMemory)z80.Memory).slot, chipRegister, model);
+            z80.PortsSpace = new MsxPort(((MsxMemory)z80.Memory).slot, chipRegister, null, model);
             z80.BeforeInstructionFetch += Z80OnBeforeInstructionFetch;
 
             mapper = new Mapper((MapperRAMCartridge)((MsxMemory)z80.Memory).slot.slots[3][1], (MsxMemory)z80.Memory);
@@ -147,26 +147,26 @@ namespace MDPlayer.Driver.MuSICA
             z80.Memory.SetContents(0x6000 - 7, program);
             z80.Registers.PC = 0x6000;
 
-            log.Write("\r\n_INITAL(6020H)");
+            log.Write(LogLevel.Trace,"\r\n_INITAL(6020H)");
             z80.Registers.PC = 0x6020;
             z80.Registers.SP = unchecked((short)0xf380);
             z80.Continue();
 
-            log.Write(string.Format("MSX-MUSIC slot {0:x02}", z80.Memory[0x6010]));
-            log.Write(string.Format("SCC       slot {0:x02}", z80.Memory[0x6011]));
+            log.Write(LogLevel.Trace, "MSX-MUSIC slot {0:x02}", z80.Memory[0x6010]);
+            log.Write(LogLevel.Trace, "SCC       slot {0:x02}", z80.Memory[0x6011]);
 
             byte[] mgsdata = vgmBuf;
             ushort dataAdr = (ushort)(vgmBuf[1] + vgmBuf[2] * 0x100);
             z80.Memory.SetContents(dataAdr-7, vgmBuf);
 
-            log.Write("\r\n_MPLAY2(6026H)");
+            log.Write(LogLevel.Trace, "\r\n_MPLAY2(6026H)");
             z80.Registers.PC = 0x6026;
             z80.Registers.HL = (short)(dataAdr);
             z80.Registers.DE = (short)(dataAdr);
             z80.Registers.A = 0;//繰り返し回数(0:infinity)
             z80.Registers.SP = unchecked((short)0xf380);
             z80.Continue();
-            log.Write(string.Format("MPLAY2 IsSuccess? RegC={0:x02}", z80.Registers.C));
+            log.Write(LogLevel.Trace, "MPLAY2 IsSuccess? RegC={0:x02}", z80.Registers.C);
             if (z80.Registers.CF == 0x01)
             {
                 DebugRegisters(z80);
@@ -235,12 +235,12 @@ namespace MDPlayer.Driver.MuSICA
             }
             else if (z80.Registers.PC == 0x0014)
             {
-                log.Write(string.Format("Call WRSLT(0x0014) Reg.A={0:x02} Reg.HL={1:x04} Reg.E={2:x02}", z80.Registers.A, z80.Registers.HL, z80.Registers.E));
+                log.Write(LogLevel.Trace, "Call WRSLT(0x0014) Reg.A={0:x02} Reg.HL={1:x04} Reg.E={2:x02}", z80.Registers.A, z80.Registers.HL, z80.Registers.E);
                 throw new NotImplementedException();
             }
             else if (z80.Registers.PC == 0x001c)
             {
-                log.Write(string.Format("Call CALSLT(0x001c) Reg.IY={0:x04} Reg.IX={1:x04}", z80.Registers.IY, z80.Registers.IX));
+                log.Write(LogLevel.Trace, "Call CALSLT(0x001c) Reg.IY={0:x04} Reg.IX={1:x04}", z80.Registers.IY, z80.Registers.IX);
                 throw new NotImplementedException();
             }
             else if (z80.Registers.PC == 0x0024)
@@ -257,34 +257,34 @@ namespace MDPlayer.Driver.MuSICA
             }
             else if (z80.Registers.PC == 0x0030)
             {
-                log.Write("Call CALLF(0x0030)");
+                log.Write(LogLevel.Trace, "Call CALLF(0x0030)");
                 throw new NotImplementedException();
             }
             else if (z80.Registers.PC == 0x0090)
             {
-                log.Write("Call GICINI (0090H/MAIN)");
+                log.Write(LogLevel.Trace, "Call GICINI (0090H/MAIN)");
                 //throw new NotImplementedException();
             }
             else if (z80.Registers.PC == 0x0093)
             {
-                log.Write("Call WRTPSG (0093H/MAIN)");
+                log.Write(LogLevel.Trace, "Call WRTPSG (0093H/MAIN)");
                 //throw new NotImplementedException();
             }
             else if (z80.Registers.PC == 0x0096)
             {
-                log.Write("Call RDPSG (0096H/MAIN)");
+                log.Write(LogLevel.Trace, "Call RDPSG (0096H/MAIN)");
                 //throw new NotImplementedException();
             }
             else if (z80.Registers.PC == 0x0138 || z80.Registers.PC == 0x013B || z80.Registers.PC == 0x015C || z80.Registers.PC == 0x015f)
             {
-                log.Write("Call InterSlot");
+                log.Write(LogLevel.Trace, "Call InterSlot");
                 //throw new NotImplementedException();
             }
             else if (z80.Registers.PC == 0x4601)
             {
-                log.Write(string.Format("JP NEWSTT(0x4601) Reg.HL={0:x04}", z80.Registers.HL));
+                log.Write(LogLevel.Trace, "JP NEWSTT(0x4601) Reg.HL={0:x04}", z80.Registers.HL);
                 string msg = GetASCIIZ(z80, (ushort)z80.Registers.HL);
-                log.Write(string.Format("(HL)={0}", msg));
+                log.Write(LogLevel.Trace, "(HL)={0}", msg);
                 if (msg == ":_SYSTEM")
                 {
                     args.ExecutionStopper.Stop();
@@ -311,10 +311,10 @@ namespace MDPlayer.Driver.MuSICA
 
         private static void DebugRegisters(IZ80Processor z80)
         {
-            log.Write(string.Format("Reg PC:{0:x04} AF:{1:x04} BC:{2:x04} DE:{3:x04} HL:{4:x04} IX:{5:x04} IY:{6:x04}"
+            log.Write(LogLevel.Trace, "Reg PC:{0:x04} AF:{1:x04} BC:{2:x04} DE:{3:x04} HL:{4:x04} IX:{5:x04} IY:{6:x04}"
                 , z80.Registers.PC
                 , z80.Registers.AF, z80.Registers.BC, z80.Registers.DE, z80.Registers.HL
-                , z80.Registers.IX, z80.Registers.IY));
+                , z80.Registers.IX, z80.Registers.IY);
         }
 
         private void CallEXTBIO(BeforeInstructionFetchEventArgs args, IZ80Processor z80)
@@ -333,7 +333,7 @@ namespace MDPlayer.Driver.MuSICA
                     z80.Registers.A = 0;//非常駐時
                     break;
                 default:
-                    log.Write(" EXTBIO Unknown type");
+                    log.Write(LogLevel.Trace, " EXTBIO Unknown type");
                     break;
             }
 
@@ -379,7 +379,7 @@ namespace MDPlayer.Driver.MuSICA
             else if (function == 0x62)
             {
                 //_TERM
-                log.Write(string.Format("_TERM ErrorCode:{0:x02}", z80.Registers.B));
+                log.Write(LogLevel.Trace, "_TERM ErrorCode:{0:x02}", z80.Registers.B);
                 args.ExecutionStopper.Stop();
                 return;
 
@@ -434,7 +434,7 @@ namespace MDPlayer.Driver.MuSICA
             }
             else
             {
-                log.Write(string.Format("unknown 0x{0:x02}", function));
+                log.ForcedWrite("unknown 0x{0:x02}", function);
                 DebugRegisters(z80);
             }
 

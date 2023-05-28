@@ -315,6 +315,9 @@ namespace MDPlayer
                 case EnmFileFormat.MuSICA:
                     AddFileMML(mc, entry);
                     break;
+                case EnmFileFormat.MuSICA_src:
+                    AddFileMML(mc, entry);
+                    break;
                 case EnmFileFormat.M:
                     AddFileM(mc, entry);
                     break;

@@ -11,6 +11,7 @@ using MDSound.np.chip;
 using NAudio.Wave;
 using MDPlayer.Driver.SID;
 using System.Reflection;
+using static MDPlayer.PlayList;
 
 namespace MDPlayer
 {
@@ -283,6 +284,37 @@ namespace MDPlayer
                 music.converted = "";
                 music.notes = gd3.Notes == "" ? "" : gd3.Notes;
 
+            }
+            else if (file.ToLower().LastIndexOf(".msd") != -1)
+            {
+
+                music.format = EnmFileFormat.MuSICA_src;
+                string vcd = Path.ChangeExtension(music.fileName,".vcd");
+                byte[] vcdBuf = null;
+                if (File.Exists(vcd))
+                {
+                    vcdBuf=File.ReadAllBytes(vcd);
+                }
+                GD3 gd3 = (new Driver.MuSICA.MuSICA_K4()).getGD3Info(buf, vcdBuf);
+                if (gd3 == null)
+                {
+                    //MessageBox.Show(".MSDのコンパイルに失敗しました", "PlayList", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    music.title = Path.GetFileName(file);
+                    music.titleJ = Path.GetFileName(file);
+                    music.notes = "";
+                }
+                else
+                {
+                    music.title = gd3.TrackName == "" ? Path.GetFileName(file) : gd3.TrackName;
+                    music.titleJ = gd3.TrackName == "" ? Path.GetFileName(file) : gd3.TrackNameJ;
+                    music.notes = gd3.Notes == "" ? "" : gd3.Notes;
+                }
+                music.game = "";
+                music.gameJ = "";
+                music.composer = "";
+                music.composerJ = "";
+                music.vgmby = "";
+                music.converted = "";
             }
             else if (file.ToLower().LastIndexOf(".mdr") != -1)
             {
@@ -1750,6 +1782,33 @@ namespace MDPlayer
 
             if (PlayingFileFormat == EnmFileFormat.MuSICA)
             {
+                driverVirtual = new Driver.MuSICA.MuSICA();
+                driverVirtual.setting = setting;
+                ((Driver.MuSICA.MuSICA)driverVirtual).PlayingFileName = PlayingFileName;
+                driverReal = null;
+                if (setting.outputDevice.DeviceType != Common.DEV_Null)
+                {
+                    driverReal = new Driver.MuSICA.MuSICA();
+                    driverReal.setting = setting;
+                    ((Driver.MuSICA.MuSICA)driverReal).PlayingFileName = PlayingFileName;
+                }
+                return mscPlay_mscdrv(setting);
+            }
+
+            if (PlayingFileFormat == EnmFileFormat.MuSICA_src)
+            {
+                string vcd = Path.ChangeExtension(PlayingFileName, ".vcd");
+                byte[] vcdBuf = null;
+                if (File.Exists(vcd))
+                {
+                    vcdBuf = File.ReadAllBytes(vcd);
+                }
+
+                driverVirtual = new Driver.MuSICA.MuSICA_K4();
+                bool ret = ((Driver.MuSICA.MuSICA_K4)driverVirtual).compile(vgmBuf, vcdBuf);
+                if (!ret) return false;
+
+                vgmBuf = ((Driver.MuSICA.MuSICA_K4)driverVirtual).getBgmBin();
                 driverVirtual = new Driver.MuSICA.MuSICA();
                 driverVirtual.setting = setting;
                 ((Driver.MuSICA.MuSICA)driverVirtual).PlayingFileName = PlayingFileName;

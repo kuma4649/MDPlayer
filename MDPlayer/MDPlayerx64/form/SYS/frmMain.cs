@@ -5712,6 +5712,12 @@ namespace MDPlayer.form
                 return buf;
             }
 
+            if (ext == ".msd")
+            {
+                format = EnmFileFormat.MuSICA_src;
+                return buf;
+            }
+
             if (ext == ".mdr")
             {
                 format = EnmFileFormat.MDR;

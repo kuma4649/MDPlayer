@@ -393,7 +393,7 @@ namespace MDPlayer.form
                 bool n = (YM2610Register[0][0x07] & (0x8 << ch)) == 0;
                 channel.tn = (t ? 1 : 0) + (n ? 2 : 0);
 
-                channel.volume = (int)(((t || n) ? 1 : 0) * (YM2610Register[0][0x08 + ch] & 0xf) * (20.0 / 16.0));
+                channel.volume = (int)(((t || n) ? 1 : 0) * (YM2610Register[0][0x08 + ch] & 0xf) * (15.0 / 16.0));
                 if (!t && !n && channel.volume > 0)
                 {
                     channel.volume--;

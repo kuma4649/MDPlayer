@@ -53,11 +53,11 @@ namespace MDPlayer.Driver.MGSDRV
                     z80.Registers.A = (byte)crt.GetSegmentNumberFromPageNumber(1);
                     break;
                 case 12://adr:0x24
-                    log.Write(string.Format(" MAPPER PROC PUT_P2 Reg.A={0:x02}", z80.Registers.A));
+                    log.Write(" MAPPER PROC PUT_P2 Reg.A={0:x02}", z80.Registers.A);
                     crt.SetSegmentToPage(z80.Registers.A, 2);
                     break;
                 case 13://adr:0x27
-                    log.Write(string.Format(" MAPPER PROC GET_P1 P2:{0:x02}", crt.GetSegmentNumberFromPageNumber(2)));
+                    log.Write(" MAPPER PROC GET_P1 P2:{0:x02}", crt.GetSegmentNumberFromPageNumber(2));
                     z80.Registers.A = (byte)crt.GetSegmentNumberFromPageNumber(2);
                     break;
                 default:

@@ -3,11 +3,7 @@ using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
-using System;
-using System.Reflection;
 using System.Text;
-using System.IO;
-using System.Runtime.CompilerServices;
 
 namespace MDPlayer
 {
@@ -32,9 +28,7 @@ namespace MDPlayer
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 #else
 #endif
-
             sjisEnc = Encoding.GetEncoding("Shift_JIS");
-
         }
 
         private static void CheckPath()
@@ -45,26 +39,27 @@ namespace MDPlayer
             if (File.Exists(path)) File.Delete(path);
         }
 
-        private static void logging(LogLevel logLvl, string msg)
+        private static void logging(LogLevel logLvl, string msg, params object[] prm)
         {
             if (logLvl != LogLevel.Enforcement && !debug && logLevel > logLvl) return;
 
             lock (logLock)
             {
                 string timefmt = DateTime.Now.ToString(Resources.cntTimeFormat).Trim();
-                string tmsg = string.Format("[{0}][{1}]{2}", timefmt, logLvl, msg);
+                string mmsg=string.Format(msg, prm);
+                string tmsg = string.Format("[{0}][{1}]{2}", timefmt, logLvl, mmsg);
                 logger?.Invoke(tmsg);
-                if (consoleEchoBack) Console.WriteLine(timefmt + msg);
-                using (StreamWriter writer = new StreamWriter(path, true, sjisEnc)) writer.WriteLine(timefmt + msg);
+                if (consoleEchoBack) Console.WriteLine(tmsg);
+                using (StreamWriter writer = new StreamWriter(path, true, sjisEnc)) writer.WriteLine(tmsg);
             }
         }
 
-        public static void ForcedWrite(string msg)
+        public static void ForcedWrite(string msg, params object[] prm)
         {
             try
             {
                 CheckPath();
-                logging(LogLevel.Enforcement, msg);
+                logging(LogLevel.Enforcement, msg, prm);
             }
             catch
             {
@@ -90,24 +85,24 @@ namespace MDPlayer
             }
         }
 
-        public static void Write(string msg)
+        public static void Write(string msg,params object[] prm)
         {
             try
             {
                 CheckPath();
-                logging(LogLevel.Information, msg);
+                logging(LogLevel.Information, msg, prm);
             }
             catch
             {
             }
         }
 
-        public static void Write(LogLevel logLevel, string msg)
+        public static void Write(LogLevel logLevel, string msg,params object[] prm)
         {
             try
             {
                 CheckPath();
-                logging(logLevel, msg);
+                logging(logLevel, msg, prm);
             }
             catch
             {
