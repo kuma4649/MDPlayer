@@ -1,4 +1,5 @@
 ﻿#if X64
+using MDPlayerx64;
 using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
@@ -37,7 +38,7 @@ namespace MDPlayer.form
             this.newParam = newParam;
             this.oldParam = oldParam;
 
-            frameBuffer.Add(this.pbScreen, Resources.planeDMG, null, zoom);
+            frameBuffer.Add(this.pbScreen, ResMng.imgDic["planeDMG"], null, zoom);
             screenInit();
             update();
         }
@@ -80,9 +81,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new Size(frameSizeW + Resources.planeDMG.Width * zoom, frameSizeH + Resources.planeDMG.Height * zoom);
-            this.MinimumSize = new Size(frameSizeW + Resources.planeDMG.Width * zoom, frameSizeH + Resources.planeDMG.Height * zoom);
-            this.Size = new Size(frameSizeW + Resources.planeDMG.Width * zoom, frameSizeH + Resources.planeDMG.Height * zoom);
+            this.MaximumSize = new Size(frameSizeW + ResMng.imgDic["planeDMG"].Width * zoom, frameSizeH + ResMng.imgDic["planeDMG"].Height * zoom);
+            this.MinimumSize = new Size(frameSizeW + ResMng.imgDic["planeDMG"].Width * zoom, frameSizeH + ResMng.imgDic["planeDMG"].Height * zoom);
+            this.Size = new Size(frameSizeW + ResMng.imgDic["planeDMG"].Width * zoom, frameSizeH + ResMng.imgDic["planeDMG"].Height * zoom);
             frmDMG_Resize(null, null);
 
         }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MDPlayerx64;
 #if X64
 using MDPlayerx64.Properties;
 #else
@@ -56,7 +57,7 @@ namespace MDPlayer.form
 
             this.newParam = newParam;
             this.oldParam = oldParam;
-            frameBuffer.Add(pbScreen, Resources.planeYMF271, null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.imgDic["planeYMF271"], null, zoom);
             screenInitYMF271(frameBuffer);
             update();
         }
@@ -99,9 +100,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + Resources.planeYMF271.Width * zoom, frameSizeH + Resources.planeYMF271.Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + Resources.planeYMF271.Width * zoom, frameSizeH + Resources.planeYMF271.Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + Resources.planeYMF271.Width * zoom, frameSizeH + Resources.planeYMF271.Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYMF271"].Width * zoom, frameSizeH + ResMng.imgDic["planeYMF271"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYMF271"].Width * zoom, frameSizeH + ResMng.imgDic["planeYMF271"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYMF271"].Width * zoom, frameSizeH + ResMng.imgDic["planeYMF271"].Height * zoom);
             frmYMF271_Resize(null, null);
 
         }

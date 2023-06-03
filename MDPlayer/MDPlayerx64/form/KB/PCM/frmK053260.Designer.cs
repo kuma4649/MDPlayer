@@ -35,8 +35,8 @@
             // 
             // pbScreen
             // 
-            pbScreen.Image = MDPlayerx64.Properties.Resources.planeK053260;
-            pbScreen.InitialImage = MDPlayerx64.Properties.Resources.planeK053260;
+            //pbScreen.Image = MDPlayerx64.Properties.Resources.planeK053260;
+            //pbScreen.InitialImage = MDPlayerx64.Properties.Resources.planeK053260;
             pbScreen.Location = new Point(0, 0);
             pbScreen.Margin = new Padding(4);
             pbScreen.Name = "pbScreen";

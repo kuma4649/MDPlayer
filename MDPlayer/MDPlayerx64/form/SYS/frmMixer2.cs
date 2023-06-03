@@ -1,4 +1,5 @@
 ﻿#if X64
+using MDPlayerx64;
 using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
@@ -39,7 +40,7 @@ namespace MDPlayer.form
             pbScreen.MouseWheel += new MouseEventHandler(this.pbScreen_MouseWheel);
 
             this.newParam = newParam;
-            frameBuffer.Add(pbScreen, Resources.planeMixer, null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.imgDic["planeMixer"], null, zoom);
             DrawBuff.screenInitMixer(frameBuffer);
             update();
         }
@@ -93,9 +94,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + Resources.planeMixer.Width * zoom, frameSizeH + Resources.planeMixer.Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + Resources.planeMixer.Width * zoom, frameSizeH + Resources.planeMixer.Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + Resources.planeMixer.Width * zoom, frameSizeH + Resources.planeMixer.Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeMixer"].Width * zoom, frameSizeH + ResMng.imgDic["planeMixer"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeMixer"].Width * zoom, frameSizeH + ResMng.imgDic["planeMixer"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeMixer"].Width * zoom, frameSizeH + ResMng.imgDic["planeMixer"].Height * zoom);
             frmMixer2_Resize(null, null);
 
         }

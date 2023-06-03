@@ -1,4 +1,5 @@
 ﻿#if X64
+using MDPlayerx64;
 using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
@@ -39,7 +40,7 @@ namespace MDPlayer.form
             InitializeComponent();
 
             this.newParam = newParam;
-            frameBuffer.Add(pbScreen, Resources.planeMIDI_GM, null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.imgDic["planeMIDI_GM"], null, zoom);
             DrawBuff.screenInitMIDI(frameBuffer);
             update();
         }
@@ -82,9 +83,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + Resources.planeMIDI_GM.Width * zoom, frameSizeH + Resources.planeMIDI_GM.Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + Resources.planeMIDI_GM.Width * zoom, frameSizeH + Resources.planeMIDI_GM.Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + Resources.planeMIDI_GM.Width * zoom, frameSizeH + Resources.planeMIDI_GM.Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeMIDI_GM"].Width * zoom, frameSizeH + ResMng.imgDic["planeMIDI_GM"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeMIDI_GM"].Width * zoom, frameSizeH + ResMng.imgDic["planeMIDI_GM"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeMIDI_GM"].Width * zoom, frameSizeH + ResMng.imgDic["planeMIDI_GM"].Height * zoom);
             frmMIDI_Resize(null, null);
 
         }

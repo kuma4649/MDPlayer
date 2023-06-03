@@ -19,6 +19,7 @@ using MDSound;
 using MDPlayer.Driver.ZGM.ZgmChip;
 using MDSound.np.chip;
 using MDPlayerx64.form.SYS;
+using MDPlayerx64;
 
 namespace MDPlayer.form
 {
@@ -140,6 +141,12 @@ namespace MDPlayer.form
 
             log.ForcedWrite("起動処理開始");
             log.ForcedWrite("frmMain(コンストラクタ):STEP 00");
+
+            string resPath = setting.other.ResourceFile;
+            if (string.IsNullOrEmpty(resPath))
+                resPath = Application.StartupPath;
+            ResMng.Init(resPath);
+            setupControlImages();
 
             InitializeComponent();
             DrawBuff.Init();
@@ -264,7 +271,7 @@ namespace MDPlayer.form
 
             log.ForcedWrite("frmMain_Load:STEP 06");
 
-            screen = new DoubleBuffer(pbScreen, Resources.planeControl, 1);
+            screen = new DoubleBuffer(pbScreen, ResMng.imgDic["planeControl"], 1);
             screen.setting = setting;
             //oldParam = new MDChipParams();
             //newParam = new MDChipParams();
@@ -593,9 +600,9 @@ namespace MDPlayer.form
         {
             toolTip1.SetToolTip(opeButtonZoom, zoomTip[setting.other.Zoom - 1]);
 
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + Resources.planeControl.Width * setting.other.Zoom, frameSizeH + Resources.planeControl.Height * setting.other.Zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + Resources.planeControl.Width * setting.other.Zoom, frameSizeH + Resources.planeControl.Height * setting.other.Zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + Resources.planeControl.Width * setting.other.Zoom, frameSizeH + Resources.planeControl.Height * setting.other.Zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeControl"].Width * setting.other.Zoom, frameSizeH + ResMng.imgDic["planeControl"].Height * setting.other.Zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeControl"].Width * setting.other.Zoom, frameSizeH + ResMng.imgDic["planeControl"].Height * setting.other.Zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeControl"].Width * setting.other.Zoom, frameSizeH + ResMng.imgDic["planeControl"].Height * setting.other.Zoom);
             frmMain_Resize(null, null);
             RelocateOpeButton(setting.other.Zoom);
 
@@ -1078,7 +1085,7 @@ namespace MDPlayer.form
 
             if (screen != null) screen.Dispose();
 
-            screen = new DoubleBuffer(pbScreen, Resources.planeControl, setting.other.Zoom);
+            screen = new DoubleBuffer(pbScreen, ResMng.imgDic["planeControl"], setting.other.Zoom);
             screen.setting = setting;
             reqAllScreenInit = true;
             //screen.screenInitAll();
@@ -1421,6 +1428,7 @@ namespace MDPlayer.form
             log.ForcedWrite("frmMain_FormClosing:STEP 06");
 
             mmf.Close();
+            ResMng.Release();
 
             log.ForcedWrite("終了処理完了");
 
@@ -10053,78 +10061,86 @@ namespace MDPlayer.form
             else OpenFormRegTest(0);
         }
 
-        private Bitmap[] lstOpeButtonEnterImage = new Bitmap[]
+        private void setupControlImages()
         {
-            Resources.chSetting,
-            Resources.chStop,
-            Resources.chPause,
-            Resources.chFadeout,
-            Resources.chPrevious,
-            Resources.chSlow,
-            Resources.chPlay,
-            Resources.chFast,
-            Resources.chNext,
-            Resources.chStep,
-            Resources.chOpenFolder,
-            Resources.chPlayList,
-            Resources.chInformation,
-            Resources.chMixer,
-            Resources.chKBD,
-            Resources.chVST,
-            Resources.chMIDIKBD,
-            Resources.chZoom,
-            Resources.chRandom,
-            Resources.chLoop,
-            Resources.chLoopOne
-        };
-        private Bitmap[] lstOpeButtonLeaveImage = new Bitmap[]
-        {
-            Resources.ccSetting,
-            Resources.ccStop,
-            Resources.ccPause,
-            Resources.ccFadeout,
-            Resources.ccPrevious,
-            Resources.ccSlow,
-            Resources.ccPlay,
-            Resources.ccFast,
-            Resources.ccNext,
-            Resources.ccStep,
-            Resources.ccOpenFolder,
-            Resources.ccPlayList,
-            Resources.ccInformation,
-            Resources.ccMixer,
-            Resources.ccKBD,
-            Resources.ccVST,
-            Resources.ccMIDIKBD,
-            Resources.ccZoom,
-            Resources.ccRandom,
-            Resources.ccLoop,
-            Resources.ccLoopOne
-        };
-        private Bitmap[] lstOpeButtonActiveImage = new Bitmap[]
-        {
-            Resources.ciSetting,
-            Resources.ciStop,
-            Resources.ciPause,
-            Resources.ciFadeout,
-            Resources.ciPrevious,
-            Resources.ciSlow,
-            Resources.ciPlay,
-            Resources.ciFast,
-            Resources.ciNext,
-            Resources.ciStep,
-            Resources.ciOpenFolder,
-            Resources.ciPlayList,
-            Resources.ciInformation,
-            Resources.ciMixer,
-            Resources.ciKBD,
-            Resources.ciVST,
-            Resources.ciMIDIKBD,
-            Resources.ciZoom,
-            Resources.ciRandom,
-            Resources.ciLoop,
-            Resources.ciLoopOne
-        };
+            lstOpeButtonEnterImage = new Bitmap[]
+{
+            ResMng.imgDic["chSetting"],
+            ResMng.imgDic["chStop"],
+            ResMng.imgDic["chPause"],
+            ResMng.imgDic["chFadeout"],
+            ResMng.imgDic["chPrevious"],
+            ResMng.imgDic["chSlow"],
+            ResMng.imgDic["chPlay"],
+            ResMng.imgDic["chFast"],
+            ResMng.imgDic["chNext"],
+            ResMng.imgDic["chStep"],
+            ResMng.imgDic["chOpenFolder"],
+            ResMng.imgDic["chPlayList"],
+            ResMng.imgDic["chInformation"],
+            ResMng.imgDic["chMixer"],
+            ResMng.imgDic["chKBD"],
+            ResMng.imgDic["chVST"],
+            ResMng.imgDic["chMIDIKBD"],
+            ResMng.imgDic["chZoom"],
+            ResMng.imgDic["chRandom"],
+            ResMng.imgDic["chLoop"],
+            ResMng.imgDic["chLoopOne"]
+};
+            lstOpeButtonLeaveImage = new Bitmap[]
+            {
+            ResMng.imgDic["ccSetting"],
+            ResMng.imgDic["ccStop"],
+            ResMng.imgDic["ccPause"],
+            ResMng.imgDic["ccFadeout"],
+            ResMng.imgDic["ccPrevious"],
+            ResMng.imgDic["ccSlow"],
+            ResMng.imgDic["ccPlay"],
+            ResMng.imgDic["ccFast"],
+            ResMng.imgDic["ccNext"],
+            ResMng.imgDic["ccStep"],
+            ResMng.imgDic["ccOpenFolder"],
+            ResMng.imgDic["ccPlayList"],
+            ResMng.imgDic["ccInformation"],
+            ResMng.imgDic["ccMixer"],
+            ResMng.imgDic["ccKBD"],
+            ResMng.imgDic["ccVST"],
+            ResMng.imgDic["ccMIDIKBD"],
+            ResMng.imgDic["ccZoom"],
+            ResMng.imgDic["ccRandom"],
+            ResMng.imgDic["ccLoop"],
+            ResMng.imgDic["ccLoopOne"]
+            };
+            lstOpeButtonActiveImage = new Bitmap[]
+            {
+            ResMng.imgDic["ciSetting"],
+            ResMng.imgDic["ciStop"],
+            ResMng.imgDic["ciPause"],
+            ResMng.imgDic["ciFadeout"],
+            ResMng.imgDic["ciPrevious"],
+            ResMng.imgDic["ciSlow"],
+            ResMng.imgDic["ciPlay"],
+            ResMng.imgDic["ciFast"],
+            ResMng.imgDic["ciNext"],
+            ResMng.imgDic["ciStep"],
+            ResMng.imgDic["ciOpenFolder"],
+            ResMng.imgDic["ciPlayList"],
+            ResMng.imgDic["ciInformation"],
+            ResMng.imgDic["ciMixer"],
+            ResMng.imgDic["ciKBD"],
+            ResMng.imgDic["ciVST"],
+            ResMng.imgDic["ciMIDIKBD"],
+            ResMng.imgDic["ciZoom"],
+            ResMng.imgDic["ciRandom"],
+            ResMng.imgDic["ciLoop"],
+            ResMng.imgDic["ciLoopOne"]
+            };
+
+        }
+
+        private Bitmap[] lstOpeButtonEnterImage;
+        private Bitmap[] lstOpeButtonLeaveImage;
+        private Bitmap[] lstOpeButtonActiveImage;
         private bool[] lstOpeButtonActive = new bool[]
         {
             false,

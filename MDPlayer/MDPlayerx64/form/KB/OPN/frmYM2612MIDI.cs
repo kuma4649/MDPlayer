@@ -1,4 +1,5 @@
 ﻿#if X64
+using MDPlayerx64;
 using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
@@ -37,7 +38,7 @@ namespace MDPlayer.form
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.frmYM2612MIDI_MouseWheel);
 
             this.newParam = newParam;
-            frameBuffer.Add(pbScreen, Resources.planeYM2612MIDI, null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.imgDic["planeYM2612MIDI"], null, zoom);
             DrawBuff.screenInitYM2612MIDI(frameBuffer);
             update();
         }
@@ -80,9 +81,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + Resources.planeYM2612MIDI.Width * zoom, frameSizeH + Resources.planeYM2612MIDI.Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + Resources.planeYM2612MIDI.Width * zoom, frameSizeH + Resources.planeYM2612MIDI.Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + Resources.planeYM2612MIDI.Width * zoom, frameSizeH + Resources.planeYM2612MIDI.Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYM2612MIDI"].Width * zoom, frameSizeH + ResMng.imgDic["planeYM2612MIDI"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYM2612MIDI"].Width * zoom, frameSizeH + ResMng.imgDic["planeYM2612MIDI"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYM2612MIDI"].Width * zoom, frameSizeH + ResMng.imgDic["planeYM2612MIDI"].Height * zoom);
             frmYM2612MIDI_Resize(null, null);
 
         }

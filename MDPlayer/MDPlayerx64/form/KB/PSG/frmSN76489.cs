@@ -1,4 +1,5 @@
 ﻿#if X64
+using MDPlayerx64;
 using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
@@ -38,7 +39,7 @@ namespace MDPlayer.form
 
             this.newParam = newParam;
             this.oldParam = oldParam;
-            frameBuffer.Add(pbScreen, Resources.planeSN76489, null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.imgDic["planeSN76489"], null, zoom);
             bool SN76489Type = (chipID == 0) ? parent.setting.SN76489Type[0].UseReal[0] : parent.setting.SN76489Type[1].UseReal[0];
             int tp = SN76489Type ? 1 : 0;
             DrawBuff.screenInitSN76489(frameBuffer, tp);
@@ -83,9 +84,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + Resources.planeSN76489.Width * zoom, frameSizeH + Resources.planeSN76489.Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + Resources.planeSN76489.Width * zoom, frameSizeH + Resources.planeSN76489.Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + Resources.planeSN76489.Width * zoom, frameSizeH + Resources.planeSN76489.Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeSN76489"].Width * zoom, frameSizeH + ResMng.imgDic["planeSN76489"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeSN76489"].Width * zoom, frameSizeH + ResMng.imgDic["planeSN76489"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeSN76489"].Width * zoom, frameSizeH + ResMng.imgDic["planeSN76489"].Height * zoom);
             frmSN76489_Resize(null, null);
 
         }

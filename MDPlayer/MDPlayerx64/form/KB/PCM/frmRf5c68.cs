@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MDPlayerx64;
 #if X64
 using MDPlayerx64.Properties;
 #else
@@ -38,7 +39,7 @@ namespace MDPlayer.form
 
             this.newParam = newParam;
             this.oldParam = oldParam;
-            frameBuffer.Add(pbScreen, Resources.planeC, null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.imgDic["planeC"], null, zoom);
             DrawBuff.screenInitRF5C68(frameBuffer);
             update();
         }
@@ -81,9 +82,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + Resources.planeC.Width * zoom, frameSizeH + Resources.planeC.Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + Resources.planeC.Width * zoom, frameSizeH + Resources.planeC.Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + Resources.planeC.Width * zoom, frameSizeH + Resources.planeC.Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeC"].Width * zoom, frameSizeH + ResMng.imgDic["planeC"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeC"].Width * zoom, frameSizeH + ResMng.imgDic["planeC"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeC"].Width * zoom, frameSizeH + ResMng.imgDic["planeC"].Height * zoom);
             frmRf5c68_Resize(null, null);
 
         }

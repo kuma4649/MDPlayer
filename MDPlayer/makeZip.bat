@@ -16,6 +16,8 @@ xcopy   .\MDPlayerx64\bin\x64\Release\net6.0-windows\*.* .\output\ /E /R /Y /I /
 xcopy   ..\licenses                    .\output\licenses\ /E /R /Y /I /K
 copy /Y .\MDPlayerx64\lib\scci*.*         .\output
 copy /Y .\MDPlayerx64\lib\c86ctl.*        .\output
+copy /Y .\MDPlayerx64\lib\MGSDRV.COM      .\output
+copy /Y .\MDPlayerx64\lib\KINROU*.*       .\output
 copy /Y .\MDPlayerx64\plugin\*.*          .\output\plugin
 copy /Y .\MDPlayerx64\plugin\driver\*.*   .\output\plugin\driver
 copy /Y .\..\CHANGE.txt                .\output

@@ -42,9 +42,9 @@ namespace MDPlayer.form
             // pbScreen
             // 
 #if X64
-            this.pbScreen.Image = Resources.planePPZ8;
+            //this.pbScreen.Image = Resources.planePPZ8;
 #else
-            this.pbScreen.Image = global::MDPlayer.Properties.Resources.planePPZ8;
+            //this.pbScreen.Image = global::MDPlayer.Properties.Resources.planePPZ8;
 #endif
             this.pbScreen.Location = new System.Drawing.Point(0, 0);
             this.pbScreen.Name = "pbScreen";

@@ -41,9 +41,9 @@ namespace MDPlayer.form
             // pbScreen
             // 
 #if X64
-            this.pbScreen.Image = Resources.planeMIDI_GM;
+            //this.pbScreen.Image = Resources.planeMIDI_GM;
 #else
-            this.pbScreen.Image = global::MDPlayer.Properties.Resources.planeMIDI_GM;
+            //this.pbScreen.Image = global::MDPlayer.Properties.Resources.planeMIDI_GM;
 #endif
             this.pbScreen.Location = new System.Drawing.Point(0, 0);
             this.pbScreen.Name = "pbScreen";

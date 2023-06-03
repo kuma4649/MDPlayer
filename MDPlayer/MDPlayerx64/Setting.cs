@@ -1559,6 +1559,7 @@ namespace MDPlayer
             public bool ExAll { get; set; } = false;
             public bool NonRenderingForPause { get; set; } = false;
             public bool AdjustTLParam { get; set; } = false;
+            public string ResourceFile { get; set; } = null;
 
             public Other Copy()
             {
@@ -1587,6 +1588,7 @@ namespace MDPlayer
                 other.ExAll = this.ExAll;
                 other.NonRenderingForPause = this.NonRenderingForPause;
                 other.AdjustTLParam = this.AdjustTLParam;
+                other.ResourceFile = this.ResourceFile;
 
                 return other;
             }

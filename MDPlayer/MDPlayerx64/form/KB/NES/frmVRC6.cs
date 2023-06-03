@@ -1,4 +1,5 @@
 ﻿#if X64
+using MDPlayerx64;
 using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
@@ -38,7 +39,7 @@ namespace MDPlayer.form
             this.newParam = newParam;
             this.oldParam = oldParam;
 
-            frameBuffer.Add(pbScreen, Resources.planeVRC6, null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.imgDic["planeVRC6"], null, zoom);
             screenInit();
             update();
         }
@@ -81,9 +82,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + Resources.planeVRC6.Width * zoom, frameSizeH + Resources.planeVRC6.Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + Resources.planeVRC6.Width * zoom, frameSizeH + Resources.planeVRC6.Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + Resources.planeVRC6.Width * zoom, frameSizeH + Resources.planeVRC6.Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeVRC6"].Width * zoom, frameSizeH + ResMng.imgDic["planeVRC6"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeVRC6"].Width * zoom, frameSizeH + ResMng.imgDic["planeVRC6"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeVRC6"].Width * zoom, frameSizeH + ResMng.imgDic["planeVRC6"].Height * zoom);
             frmVRC6_Resize(null, null);
 
         }

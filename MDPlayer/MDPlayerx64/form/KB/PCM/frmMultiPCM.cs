@@ -1,4 +1,5 @@
 ﻿#if X64
+using MDPlayerx64;
 using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
@@ -37,7 +38,7 @@ namespace MDPlayer.form
             this.newParam = newParam;
             this.oldParam = oldParam;
 
-            frameBuffer.Add(pbScreen, Resources.planeMultiPCM, null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.imgDic["planeMultiPCM"], null, zoom);
             screenInit();
             update();
         }
@@ -80,9 +81,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + Resources.planeMultiPCM.Width * zoom, frameSizeH + Resources.planeMultiPCM.Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + Resources.planeMultiPCM.Width * zoom, frameSizeH + Resources.planeMultiPCM.Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + Resources.planeMultiPCM.Width * zoom, frameSizeH + Resources.planeMultiPCM.Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeMultiPCM"].Width * zoom, frameSizeH + ResMng.imgDic["planeMultiPCM"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeMultiPCM"].Width * zoom, frameSizeH + ResMng.imgDic["planeMultiPCM"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeMultiPCM"].Width * zoom, frameSizeH + ResMng.imgDic["planeMultiPCM"].Height * zoom);
             frmMultiPCM_Resize(null, null);
 
         }

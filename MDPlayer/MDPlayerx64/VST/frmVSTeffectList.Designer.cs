@@ -1,4 +1,5 @@
 ﻿#if X64
+using MDPlayerx64;
 using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
@@ -206,7 +207,7 @@ namespace MDPlayer.form
             // tsbAddVST
             // 
             this.tsbAddVST.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbAddVST.Image = Resources.addPL;
+            this.tsbAddVST.Image = ResMng.imgDic["addPL"];
             this.tsbAddVST.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbAddVST.Name = "tsbAddVST";
             this.tsbAddVST.Size = new System.Drawing.Size(23, 22);
@@ -222,7 +223,7 @@ namespace MDPlayer.form
             // 
             this.tsbUp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbUp.Enabled = false;
-            this.tsbUp.Image = Resources.upPL;
+            this.tsbUp.Image = ResMng.imgDic["upPL"];
             this.tsbUp.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbUp.Name = "tsbUp";
             this.tsbUp.Size = new System.Drawing.Size(23, 22);
@@ -232,7 +233,7 @@ namespace MDPlayer.form
             // 
             this.tsbDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbDown.Enabled = false;
-            this.tsbDown.Image = Resources.downPL;
+            this.tsbDown.Image = ResMng.imgDic["downPL"];
             this.tsbDown.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbDown.Name = "tsbDown";
             this.tsbDown.Size = new System.Drawing.Size(23, 22);

@@ -1,4 +1,5 @@
 ﻿#if X64
+using MDPlayerx64;
 using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
@@ -37,7 +38,7 @@ namespace MDPlayer.form
 
             this.newParam = newParam;
             this.oldParam = oldParam;
-            frameBuffer.Add(pbScreen, Resources.planeYM2413, null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.imgDic["planeYM2413"], null, zoom);
 
             bool YM2413Type = (chipID == 0) 
                 ? parent.setting.YM2413Type[0].UseReal[0]
@@ -89,9 +90,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + Resources.planeYM2413.Width * zoom, frameSizeH + Resources.planeYM2413.Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + Resources.planeYM2413.Width * zoom, frameSizeH + Resources.planeYM2413.Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + Resources.planeYM2413.Width * zoom, frameSizeH + Resources.planeYM2413.Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYM2413"].Width * zoom, frameSizeH + ResMng.imgDic["planeYM2413"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYM2413"].Width * zoom, frameSizeH + ResMng.imgDic["planeYM2413"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYM2413"].Width * zoom, frameSizeH + ResMng.imgDic["planeYM2413"].Height * zoom);
             frmYM2413_Resize(null, null);
 
         }

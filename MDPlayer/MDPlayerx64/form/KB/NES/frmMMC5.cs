@@ -1,4 +1,5 @@
 ﻿#if X64
+using MDPlayerx64;
 using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
@@ -38,7 +39,7 @@ namespace MDPlayer.form
             InitializeComponent();
 
             this.newParam = newParam;
-            frameBuffer.Add(pbScreen, Resources.planeMMC5, null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.imgDic["planeMMC5"], null, zoom);
             DrawBuff.screenInitNESDMC(frameBuffer);
             update();
         }
@@ -81,9 +82,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + Resources.planeMMC5.Width * zoom, frameSizeH + Resources.planeMMC5.Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + Resources.planeMMC5.Width * zoom, frameSizeH + Resources.planeMMC5.Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + Resources.planeMMC5.Width * zoom, frameSizeH + Resources.planeMMC5.Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeMMC5"].Width * zoom, frameSizeH + ResMng.imgDic["planeMMC5"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeMMC5"].Width * zoom, frameSizeH + ResMng.imgDic["planeMMC5"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeMMC5"].Width * zoom, frameSizeH + ResMng.imgDic["planeMMC5"].Height * zoom);
             frmMMC5_Resize(null, null);
 
         }

@@ -570,6 +570,7 @@ namespace MDPlayer.form
             cbUseGetInst.Checked = setting.other.UseGetInst;
             cbUseGetInst_CheckedChanged(null, null);
             tbDataPath.Text = setting.other.DefaultDataPath;
+            tbResourceFile.Text = setting.other.ResourceFile;
             tbSearchPath.Text = setting.FileSearchPathList;
             cmbInstFormat.SelectedIndex = (int)setting.other.InstFormat;
             tbScreenFrameRate.Text = setting.other.ScreenFrameRate.ToString();
@@ -1593,6 +1594,7 @@ namespace MDPlayer.form
 
             setting.other.UseGetInst = cbUseGetInst.Checked;
             setting.other.DefaultDataPath = tbDataPath.Text;
+            setting.other.ResourceFile = tbResourceFile.Text;
             setting.FileSearchPathList = tbSearchPath.Text;
             setting.other.InstFormat = (EnmInstFormat)cmbInstFormat.SelectedIndex;
             if (int.TryParse(tbScreenFrameRate.Text, out i))
@@ -1617,11 +1619,11 @@ namespace MDPlayer.form
             setting.other.AdjustTLParam = cbAdjustTLParam.Checked;
 
             setting.debug.DispFrameCounter = cbDispFrameCounter.Checked;
-            setting.debug.ShowConsole= cbShowConsole.Checked;
+            setting.debug.ShowConsole = cbShowConsole.Checked;
             if (rbLoglvlTrace.Checked) setting.debug.logLevel = LogLevel.Trace;
-            if (rbLogDebug.Checked ) setting.debug.logLevel = LogLevel.Debug;
-            if (rbLoglvlError.Checked ) setting.debug.logLevel = LogLevel.Error;
-            if (rbLoglvlWarning.Checked ) setting.debug.logLevel = LogLevel.Warning;
+            if (rbLogDebug.Checked) setting.debug.logLevel = LogLevel.Debug;
+            if (rbLoglvlError.Checked) setting.debug.logLevel = LogLevel.Error;
+            if (rbLoglvlWarning.Checked) setting.debug.logLevel = LogLevel.Warning;
             if (rbLoglvlInformation.Checked) setting.debug.logLevel = LogLevel.Information;
             try
             {
@@ -2299,6 +2301,21 @@ namespace MDPlayer.form
 
             tbDataPath.Text = fbd.SelectedPath;
 
+        }
+
+        private void btnImageResourcePath_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Zip file(*.zip)|*.zip";
+            ofd.Title = "Select zip archive file.";
+            ofd.FilterIndex = setting.other.FilterIndex;
+
+            if (ofd.ShowDialog(this) != DialogResult.OK)
+            {
+                return;
+            }
+
+            tbResourceFile.Text = ofd.FileName;
         }
 
         private void btnSearchPath_Click(object sender, EventArgs e)

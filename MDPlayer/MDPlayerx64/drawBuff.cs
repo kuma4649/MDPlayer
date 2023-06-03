@@ -5,6 +5,7 @@ using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MDPlayerx64;
 #if X64
 using MDPlayerx64.Properties;
 #else
@@ -50,99 +51,98 @@ namespace MDPlayer
         public static void Init()
         {
             rChipName = new byte[3][];
-            rChipName[0] = getByteArray(Resources.rChipName_01);
-            rChipName[1] = getByteArray(Resources.rChipName_02);
-            rChipName[2] = getByteArray(Resources.rChipName_03);
+            rChipName[0] = getByteArray(ResMng.imgDic["rChipName_01"]);
+            rChipName[1] = getByteArray(ResMng.imgDic["rChipName_02"]);
+            rChipName[2] = getByteArray(ResMng.imgDic["rChipName_03"]);
 
             rFont1 = new byte[2][];
-            rFont1[0] = getByteArray(Resources.rFont_01);
-            rFont1[1] = getByteArray(Resources.rFont_02);
+            rFont1[0] = getByteArray(ResMng.imgDic["rFont_01"]);
+            rFont1[1] = getByteArray(ResMng.imgDic["rFont_02"]);
             rFont2 = new byte[5][];
-            rFont2[0] = getByteArray(Resources.rFont_03);
-            rFont2[1] = getByteArray(Resources.rFont_04);
-            rFont2[2] = getByteArray(Resources.rMIDILCD_Font_04);
-            rFont2[3] = getByteArray(Resources.rMIDILCD_Font_05);
-            rFont2[4] = getByteArray(Resources.rMIDILCD_Font_06);
+            rFont2[0] = getByteArray(ResMng.imgDic["rFont_03"]);
+            rFont2[1] = getByteArray(ResMng.imgDic["rFont_04"]);
+            rFont2[2] = getByteArray(ResMng.imgDic["rMIDILCD_Font_04"]);
+            rFont2[3] = getByteArray(ResMng.imgDic["rMIDILCD_Font_05"]);
+            rFont2[4] = getByteArray(ResMng.imgDic["rMIDILCD_Font_06"]);
             rFont3 = new byte[2][];
-            rFont3[0] = getByteArray(Resources.rFont_05);
-            rFont3[1] = getByteArray(Resources.rFont_06);
+            rFont3[0] = getByteArray(ResMng.imgDic["rFont_05"]);
+            rFont3[1] = getByteArray(ResMng.imgDic["rFont_06"]);
 
             rKBD = new byte[3][];
-            rKBD[0] = getByteArray(Resources.rKBD_01);
-            rKBD[1] = getByteArray(Resources.rKBD_02);
-            rKBD[2] = getByteArray(Resources.rKBD_03);
+            rKBD[0] = getByteArray(ResMng.imgDic["rKBD_01"]);
+            rKBD[1] = getByteArray(ResMng.imgDic["rKBD_02"]);
+            rKBD[2] = getByteArray(ResMng.imgDic["rKBD_03"]);
 
             rMenuButtons = new byte[2][];
-            rMenuButtons[0] = getByteArray(Resources.rMenuButtons_01);
-            rMenuButtons[1] = getByteArray(Resources.rMenuButtons_02);
-
+            rMenuButtons[0] = getByteArray(ResMng.imgDic["rMenuButtons_01"]);
+            rMenuButtons[1] = getByteArray(ResMng.imgDic["rMenuButtons_02"]);
             rPan = new byte[3][];
-            rPan[0] = getByteArray(Resources.rPan_01);
-            rPan[1] = getByteArray(Resources.rPan_02);
-            rPan[2] = getByteArray(Resources.rPan_03);
+            rPan[0] = getByteArray(ResMng.imgDic["rPan_01"]);
+            rPan[1] = getByteArray(ResMng.imgDic["rPan_02"]);
+            rPan[2] = getByteArray(ResMng.imgDic["rPan_03"]);
 
             rPan2 = new byte[2][];
-            rPan2[0] = getByteArray(Resources.rPan2_01);
-            rPan2[1] = getByteArray(Resources.rPan2_02);
+            rPan2[0] = getByteArray(ResMng.imgDic["rPan2_01"]);
+            rPan2[1] = getByteArray(ResMng.imgDic["rPan2_02"]);
 
-            rPSGEnv = getByteArray(Resources.rPSGEnv);
+            rPSGEnv = getByteArray(ResMng.imgDic["rPSGEnv"]);
 
             rPSGMode = new byte[6][];
-            rPSGMode[0] = getByteArray(Resources.rPSGMode_01);
-            rPSGMode[1] = getByteArray(Resources.rPSGMode_02);
-            rPSGMode[2] = getByteArray(Resources.rPSGMode_03);
-            rPSGMode[3] = getByteArray(Resources.rPSGMode_04);
-            rPSGMode[4] = getByteArray(Resources.rPSGMode_05);
-            rPSGMode[5] = getByteArray(Resources.rPSGMode_06);
+            rPSGMode[0] = getByteArray(ResMng.imgDic["rPSGMode_01"]);
+            rPSGMode[1] = getByteArray(ResMng.imgDic["rPSGMode_02"]);
+            rPSGMode[2] = getByteArray(ResMng.imgDic["rPSGMode_03"]);
+            rPSGMode[3] = getByteArray(ResMng.imgDic["rPSGMode_04"]);
+            rPSGMode[4] = getByteArray(ResMng.imgDic["rPSGMode_05"]);
+            rPSGMode[5] = getByteArray(ResMng.imgDic["rPSGMode_06"]);
 
-            rPSG2 = getByteArray(Resources.rPSG2);
+            rPSG2 = getByteArray(ResMng.imgDic["rPSG2"]);
 
             rType = new byte[6][];
-            rType[0] = getByteArray(Resources.rType_01);
-            rType[1] = getByteArray(Resources.rType_02);
-            rType[2] = getByteArray(Resources.rType_03);
-            rType[3] = getByteArray(Resources.rType_04);
-            rType[4] = getByteArray(Resources.rType_05);
-            rType[5] = getByteArray(Resources.rType_06);
+            rType[0] = getByteArray(ResMng.imgDic["rType_01"]);
+            rType[1] = getByteArray(ResMng.imgDic["rType_02"]);
+            rType[2] = getByteArray(ResMng.imgDic["rType_03"]);
+            rType[3] = getByteArray(ResMng.imgDic["rType_04"]);
+            rType[4] = getByteArray(ResMng.imgDic["rType_05"]);
+            rType[5] = getByteArray(ResMng.imgDic["rType_06"]);
 
             rVol = new byte[3][];
-            rVol[0] = getByteArray(Resources.rVol_01);
-            rVol[1] = getByteArray(Resources.rVol_02);
-            rVol[2] = getByteArray(Resources.rVol_03);
+            rVol[0] = getByteArray(ResMng.imgDic["rVol_01"]);
+            rVol[1] = getByteArray(ResMng.imgDic["rVol_02"]);
+            rVol[2] = getByteArray(ResMng.imgDic["rVol_03"]);
 
-            rWavGraph = getByteArray(Resources.rWavGraph);
-            rWavGraph2 = getByteArray(Resources.rWavGraph2);
-            rFader = getByteArray(Resources.rFader);
-            rNESDMC = getByteArray(Resources.rNESDMC);
+            rWavGraph = getByteArray(ResMng.imgDic["rWavGraph"]);
+            rWavGraph2 = getByteArray(ResMng.imgDic["rWavGraph2"]);
+            rFader = getByteArray(ResMng.imgDic["rFader"]);
+            rNESDMC = getByteArray(ResMng.imgDic["rNESDMC"]);
 
-            rKakko = getByteArray(Resources.rKakko_00);
+            rKakko = getByteArray(ResMng.imgDic["rKakko_00"]);
 
             rMIDILCD_Fader = new byte[3][];
-            rMIDILCD_Fader[0] = getByteArray(Resources.rMIDILCD_Fader_01);
-            rMIDILCD_Fader[1] = getByteArray(Resources.rMIDILCD_Fader_02);
-            rMIDILCD_Fader[2] = getByteArray(Resources.rMIDILCD_Fader_03);
+            rMIDILCD_Fader[0] = getByteArray(ResMng.imgDic["rMIDILCD_Fader_01"]);
+            rMIDILCD_Fader[1] = getByteArray(ResMng.imgDic["rMIDILCD_Fader_02"]);
+            rMIDILCD_Fader[2] = getByteArray(ResMng.imgDic["rMIDILCD_Fader_03"]);
 
-            rMIDILCD_KBD = getByteArray(Resources.rMIDILCD_KBD_01);
+            rMIDILCD_KBD = getByteArray(ResMng.imgDic["rMIDILCD_KBD_01"]);
 
             rMIDILCD_Vol = new byte[3][];
-            rMIDILCD_Vol[0] = getByteArray(Resources.rMIDILCD_Vol_01);
-            rMIDILCD_Vol[1] = getByteArray(Resources.rMIDILCD_Vol_02);
-            rMIDILCD_Vol[2] = getByteArray(Resources.rMIDILCD_Vol_03);
+            rMIDILCD_Vol[0] = getByteArray(ResMng.imgDic["rMIDILCD_Vol_01"]);
+            rMIDILCD_Vol[1] = getByteArray(ResMng.imgDic["rMIDILCD_Vol_02"]);
+            rMIDILCD_Vol[2] = getByteArray(ResMng.imgDic["rMIDILCD_Vol_03"]);
 
             rMIDILCD = new byte[3][];
-            rMIDILCD[0] = getByteArray(Resources.rMIDILCD_01);
-            rMIDILCD[1] = getByteArray(Resources.rMIDILCD_02);
-            rMIDILCD[2] = getByteArray(Resources.rMIDILCD_03);
+            rMIDILCD[0] = getByteArray(ResMng.imgDic["rMIDILCD_01"]);
+            rMIDILCD[1] = getByteArray(ResMng.imgDic["rMIDILCD_02"]);
+            rMIDILCD[2] = getByteArray(ResMng.imgDic["rMIDILCD_03"]);
 
             rMIDILCD_Font = new byte[3][];
-            rMIDILCD_Font[0] = getByteArray(Resources.rMIDILCD_Font_01);
-            rMIDILCD_Font[1] = getByteArray(Resources.rMIDILCD_Font_02);
-            rMIDILCD_Font[2] = getByteArray(Resources.rMIDILCD_Font_03);
+            rMIDILCD_Font[0] = getByteArray(ResMng.imgDic["rMIDILCD_Font_01"]);
+            rMIDILCD_Font[1] = getByteArray(ResMng.imgDic["rMIDILCD_Font_02"]);
+            rMIDILCD_Font[2] = getByteArray(ResMng.imgDic["rMIDILCD_Font_03"]);
 
             rPlane_MIDI = new byte[3][];
-            rPlane_MIDI[0] = getByteArray(Resources.planeMIDI_GM);
-            rPlane_MIDI[1] = getByteArray(Resources.planeMIDI_XG);
-            rPlane_MIDI[2] = getByteArray(Resources.planeMIDI_GS);
+            rPlane_MIDI[0] = getByteArray(ResMng.imgDic["planeMIDI_GM"]);
+            rPlane_MIDI[1] = getByteArray(ResMng.imgDic["planeMIDI_XG"]);
+            rPlane_MIDI[2] = getByteArray(ResMng.imgDic["planeMIDI_GS"]);
 
             bitmapMIDILyric = new Bitmap[2];
             bitmapMIDILyric[0] = new Bitmap(200, 24);
@@ -154,7 +154,7 @@ namespace MDPlayer
             fntMIDILyric[0] = new Font("MS UI Gothic", 8);//, FontStyle.Bold);
             fntMIDILyric[1] = new Font("MS UI Gothic", 8);//, FontStyle.Bold);
 
-            rType_YMF271 = getByteArray(Resources.rType_YMF271);
+            rType_YMF271 = getByteArray(ResMng.imgDic["rType_YMF271"]);
         }
 
 

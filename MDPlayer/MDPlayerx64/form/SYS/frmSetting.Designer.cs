@@ -1,4 +1,5 @@
 ﻿#if X64
+using MDPlayerx64;
 using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
@@ -486,6 +487,9 @@ namespace MDPlayer.form
             label2 = new Label();
             cbEmptyPlayList = new CheckBox();
             tpOther = new TabPage();
+            btnImageResourceFile = new Button();
+            tbResourceFile = new TextBox();
+            label73 = new Label();
             btnSearchPath = new Button();
             tbSearchPath = new TextBox();
             label68 = new Label();
@@ -2575,56 +2579,48 @@ namespace MDPlayer.form
             // 
             // pictureBox8
             // 
-            pictureBox8.Image = Resources.ccNext;
             resources.ApplyResources(pictureBox8, "pictureBox8");
             pictureBox8.Name = "pictureBox8";
             pictureBox8.TabStop = false;
             // 
             // pictureBox7
             // 
-            pictureBox7.Image = Resources.ccFast;
             resources.ApplyResources(pictureBox7, "pictureBox7");
             pictureBox7.Name = "pictureBox7";
             pictureBox7.TabStop = false;
             // 
             // pictureBox6
             // 
-            pictureBox6.Image = Resources.ccPlay;
             resources.ApplyResources(pictureBox6, "pictureBox6");
             pictureBox6.Name = "pictureBox6";
             pictureBox6.TabStop = false;
             // 
             // pictureBox5
             // 
-            pictureBox5.Image = Resources.ccSlow;
             resources.ApplyResources(pictureBox5, "pictureBox5");
             pictureBox5.Name = "pictureBox5";
             pictureBox5.TabStop = false;
             // 
             // pictureBox4
             // 
-            pictureBox4.Image = Resources.ccStop;
             resources.ApplyResources(pictureBox4, "pictureBox4");
             pictureBox4.Name = "pictureBox4";
             pictureBox4.TabStop = false;
             // 
             // pictureBox3
             // 
-            pictureBox3.Image = Resources.ccPause;
             resources.ApplyResources(pictureBox3, "pictureBox3");
             pictureBox3.Name = "pictureBox3";
             pictureBox3.TabStop = false;
             // 
             // pictureBox2
             // 
-            pictureBox2.Image = Resources.ccPrevious;
             resources.ApplyResources(pictureBox2, "pictureBox2");
             pictureBox2.Name = "pictureBox2";
             pictureBox2.TabStop = false;
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Resources.ccFadeout;
             resources.ApplyResources(pictureBox1, "pictureBox1");
             pictureBox1.Name = "pictureBox1";
             pictureBox1.TabStop = false;
@@ -3103,7 +3099,6 @@ namespace MDPlayer.form
             // 
             // pictureBox14
             // 
-            pictureBox14.Image = Resources.ccStop;
             resources.ApplyResources(pictureBox14, "pictureBox14");
             pictureBox14.Name = "pictureBox14";
             pictureBox14.TabStop = false;
@@ -3561,7 +3556,6 @@ namespace MDPlayer.form
             // 
             // pictureBox17
             // 
-            pictureBox17.Image = Resources.ccFadeout;
             resources.ApplyResources(pictureBox17, "pictureBox17");
             pictureBox17.Name = "pictureBox17";
             pictureBox17.TabStop = false;
@@ -3591,14 +3585,12 @@ namespace MDPlayer.form
             // 
             // pictureBox16
             // 
-            pictureBox16.Image = Resources.ccPrevious;
             resources.ApplyResources(pictureBox16, "pictureBox16");
             pictureBox16.Name = "pictureBox16";
             pictureBox16.TabStop = false;
             // 
             // pictureBox10
             // 
-            pictureBox10.Image = Resources.ccNext;
             resources.ApplyResources(pictureBox10, "pictureBox10");
             pictureBox10.Name = "pictureBox10";
             pictureBox10.TabStop = false;
@@ -3617,14 +3609,12 @@ namespace MDPlayer.form
             // 
             // pictureBox15
             // 
-            pictureBox15.Image = Resources.ccPause;
             resources.ApplyResources(pictureBox15, "pictureBox15");
             pictureBox15.Name = "pictureBox15";
             pictureBox15.TabStop = false;
             // 
             // pictureBox11
             // 
-            pictureBox11.Image = Resources.ccFast;
             resources.ApplyResources(pictureBox11, "pictureBox11");
             pictureBox11.Name = "pictureBox11";
             pictureBox11.TabStop = false;
@@ -3643,14 +3633,12 @@ namespace MDPlayer.form
             // 
             // pictureBox13
             // 
-            pictureBox13.Image = Resources.ccSlow;
             resources.ApplyResources(pictureBox13, "pictureBox13");
             pictureBox13.Name = "pictureBox13";
             pictureBox13.TabStop = false;
             // 
             // pictureBox12
             // 
-            pictureBox12.Image = Resources.ccPlay;
             resources.ApplyResources(pictureBox12, "pictureBox12");
             pictureBox12.Name = "pictureBox12";
             pictureBox12.TabStop = false;
@@ -3945,6 +3933,9 @@ namespace MDPlayer.form
             // 
             // tpOther
             // 
+            tpOther.Controls.Add(btnImageResourceFile);
+            tpOther.Controls.Add(tbResourceFile);
+            tpOther.Controls.Add(label73);
             tpOther.Controls.Add(btnSearchPath);
             tpOther.Controls.Add(tbSearchPath);
             tpOther.Controls.Add(label68);
@@ -3972,6 +3963,23 @@ namespace MDPlayer.form
             resources.ApplyResources(tpOther, "tpOther");
             tpOther.Name = "tpOther";
             tpOther.UseVisualStyleBackColor = true;
+            // 
+            // btnImageResourceFile
+            // 
+            resources.ApplyResources(btnImageResourceFile, "btnImageResourceFile");
+            btnImageResourceFile.Name = "btnImageResourceFile";
+            btnImageResourceFile.UseVisualStyleBackColor = true;
+            btnImageResourceFile.Click += btnImageResourcePath_Click;
+            // 
+            // tbResourceFile
+            // 
+            resources.ApplyResources(tbResourceFile, "tbResourceFile");
+            tbResourceFile.Name = "tbResourceFile";
+            // 
+            // label73
+            // 
+            resources.ApplyResources(label73, "label73");
+            label73.Name = "label73";
             // 
             // btnSearchPath
             // 
@@ -5032,5 +5040,8 @@ namespace MDPlayer.form
         private RadioButton rbLoglvlError;
         private RadioButton rbLogDebug;
         private RadioButton rbLoglvlTrace;
+        private Button btnImageResourceFile;
+        private TextBox tbResourceFile;
+        private Label label73;
     }
 }
