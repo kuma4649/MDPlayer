@@ -1,4 +1,8 @@
 更新履歴
+STBL303 2023/06/04
+  mdc.exe:共有メモリではなくFile型通信方式にするのを忘れていたので修正
+  (mdc.exeは主にSTREAM DECKやエディタなどからMDPlayerを操作するのに使います。使用方法はREADMEを参照)
+
 STBL302 2023/06/03
   コア:画像リソースを外部のzipファイルから読み込めるオプションを追加
   (SampleImageResource.zipを参考にしてください。

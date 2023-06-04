@@ -17,7 +17,7 @@ namespace mdc
                 return;
             }
 
-            mmfControl mmf = new mmfControl(true, "MDPlayer", 1024 * 4);
+            KumaCom mmf = new fileCom(true, "MDPlayer", "MDPlayer", 1024 * 4);
             try
             {
                 mmf.SendMessage(string.Join(" ", args));

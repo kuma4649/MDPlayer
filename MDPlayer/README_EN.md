@@ -136,10 +136,10 @@ Player for VGM files, etc. (a performance tool that emulates Mega Drive sound ch
       Dual performance of RF5C164  
       Lyrics display  
 
-  MDPlayer can be operated from command line using mdp.bat.  
-        The command of mdp.bat is as follows.  
+  MDPlayer can be operated from command line using mdc.exe.  
+        The command of mdc.exe is as follows.  
             PLAY [file]  
-            STOP [file  
+            STOP [file]  
             NEXT  
             PREV [file] FADEOUT  
             FADEOUT  

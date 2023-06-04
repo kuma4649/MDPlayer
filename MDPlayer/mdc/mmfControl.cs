@@ -6,10 +6,10 @@ using System.Text;
 
 namespace mdc
 {
-    public class mmfControl
+    public class mmfControl : KumaCom
     {
         private object lockobj = new object();
-        private MemoryMappedFile _map;
+        private MemoryMappedFile _map = null;
         private byte[] mmfBuf;
         public string mmfName = "dummy";
         public int mmfSize = 1024;
@@ -25,57 +25,115 @@ namespace mdc
             if (!isClient) Open(mmfName, mmfSize);
         }
 
-        public void Open(string mmfName, int mmfSize)
+        public override bool Open(string mmfName, int mmfSize)
         {
-            mmfBuf = new byte[mmfSize];
-
-            lock (lockobj)
+            try
             {
-                _map = MemoryMappedFile.CreateNew(mmfName, mmfSize);
-                MemoryMappedFileSecurity permission = _map.GetAccessControl();
-                permission.AddAccessRule(
-                  new AccessRule<MemoryMappedFileRights>("Everyone",
-                    MemoryMappedFileRights.FullControl, AccessControlType.Allow));
-                _map.SetAccessControl(permission);
+                //mmfBuf = new byte[mmfSize];
+
+                //lock (lockobj)
+                //{
+                //    _map = MemoryMappedFile.CreateNew(mmfName, mmfSize);
+                //    try
+                //    {
+                //        MemoryMappedFileSecurity permission = _map.GetAccessControl();
+                //        permission.AddAccessRule(
+                //          new AccessRule<MemoryMappedFileRights>("Everyone",
+                //            MemoryMappedFileRights.FullControl, AccessControlType.Allow));
+                //        _map.SetAccessControl(permission);
+                //    }
+                //    catch (Exception ex)
+                //    {
+                //        log.Write(ex.Message + ex.StackTrace);
+                //    }
+                //}
+                return true;
+            }
+            catch (Exception ex)
+            {
+                log.Write(ex.Message + ex.StackTrace);
+                return false;
             }
         }
 
-        public void Close()
+        public override void Close()
         {
-            lock (lockobj)
-            {
-                if (_map == null) return;
-                _map.Dispose();
-            }
+            //lock (lockobj)
+            //{
+            //    if (_map == null) return;
+            //    try
+            //    {
+            //        _map.Dispose();
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        log.Write(ex.Message + ex.StackTrace);
+            //    }
+            //}
         }
 
-        public string GetMessage()
+        public override string GetMessage()
         {
             string msg = "";
 
-            lock (lockobj)
+            try
             {
-                using (MemoryMappedViewAccessor view = _map.CreateViewAccessor())
+                lock (lockobj)
                 {
-                    view.ReadArray(0, mmfBuf, 0, mmfBuf.Length);
-                    msg = Encoding.Unicode.GetString(mmfBuf);
-                    msg = msg.Substring(0, msg.IndexOf('\0'));
-                    Array.Clear(mmfBuf, 0, mmfBuf.Length);
-                    view.WriteArray(0, mmfBuf, 0, mmfBuf.Length);
+                    using (MemoryMappedViewAccessor view = _map.CreateViewAccessor())
+                    {
+                        view.ReadArray(0, mmfBuf, 0, mmfBuf.Length);
+                        msg = Encoding.Unicode.GetString(mmfBuf);
+                        msg = msg.Substring(0, msg.IndexOf('\0'));
+                        Array.Clear(mmfBuf, 0, mmfBuf.Length);
+                        view.WriteArray(0, mmfBuf, 0, mmfBuf.Length);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                log.Write(ex.Message + ex.StackTrace);
             }
 
             return msg;
         }
-
-        public void SendMessage(string msg)
+        public override byte[] GetBytes()
         {
-            byte[] ary = Encoding.Unicode.GetBytes(msg);
-            if (ary.Length > mmfSize) throw new ArgumentOutOfRangeException();
+            try
+            {
+                lock (lockobj)
+                {
+                    using (var map = MemoryMappedFile.OpenExisting(mmfName))
+                    using (MemoryMappedViewAccessor view = map.CreateViewAccessor())
+                    {
+                        mmfBuf = new byte[mmfSize];
+                        view.ReadArray(0, mmfBuf, 0, mmfBuf.Length);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Write(ex.Message + ex.StackTrace);
+            }
 
-            using (var map = MemoryMappedFile.OpenExisting(mmfName))
-            using (var view = map.CreateViewAccessor())
-                view.WriteArray(0, ary, 0, ary.Length);
+            return mmfBuf;
+        }
+
+        public override void SendMessage(string msg)
+        {
+            try
+            {
+                byte[] ary = Encoding.Unicode.GetBytes(msg);
+                if (ary.Length > mmfSize) throw new ArgumentOutOfRangeException();
+
+                using (var map = MemoryMappedFile.OpenExisting(mmfName))
+                using (var view = map.CreateViewAccessor())
+                    view.WriteArray(0, ary, 0, ary.Length);
+            }
+            catch (Exception ex)
+            {
+                log.Write(ex.Message + ex.StackTrace);
+            }
         }
 
     }

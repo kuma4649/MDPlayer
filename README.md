@@ -141,8 +141,9 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
       RF5C164のDual演奏  
       歌詞表示  
 
-  ・コマンドラインからmdp.batを使用してMDPlayerを操作できるようにした♪  
-        mdp.batのコマンドは以下の通り。  
+  ・コマンドラインからmdc.exeを使用してMDPlayerを操作できるようにした♪  
+  mdc.exeは主にSTREAM DECKやエディタなどからMDPlayerを操作するのに使います。  
+        mdc.exeのコマンドは以下の通り。  
             PLAY [file]  
             STOP  
             NEXT  
