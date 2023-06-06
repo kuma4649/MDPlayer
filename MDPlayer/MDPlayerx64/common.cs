@@ -568,7 +568,12 @@ namespace MDPlayer
 
             try
             {
-                if (!File.Exists(ffn)) return null;
+                if (!File.Exists(ffn))
+                {
+                    log.Write(LogLevel.Trace, "Not found {0}.",ffn);
+                    return null;
+                }
+                log.Write(LogLevel.Trace, "Found {0}.", ffn);
                 FileStream fs = new FileStream(ffn, FileMode.Open, FileAccess.Read, FileShare.Read);
                 return fs;
             }

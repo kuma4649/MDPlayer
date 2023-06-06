@@ -1,7 +1,8 @@
 {
   "profiles": {
     "MDPlayerx64": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Users\\kuma\\Dropbox\\friend\\forKyadon\\aeronaut.zgm"
     }
   }
 }

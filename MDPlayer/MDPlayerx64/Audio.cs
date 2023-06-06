@@ -3958,6 +3958,7 @@ namespace MDPlayer
                 //
                 
                 MDSound.ym2609 ym2609 = null;
+                Func<string, Stream> fn = Common.GetOPNARyhthmStream;
 
                 foreach (Driver.ZGM.ZgmChip.Chip ch in ((Driver.ZGM.zgm)driverVirtual).chips)
                 {
@@ -3976,12 +3977,12 @@ namespace MDPlayer
                         chip.SamplingRate = 55467;// (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = 0;
                         chip.Clock = (uint)ch.defineInfo.clock;
-                        chip.Option = null;
+                        chip.Option = new object[] { fn };
 
                         //hiyorimiDeviceFlag |= 0x2;
 
                         //if (i == 0) 
-                            chipLED.PriOPNA2 = 1;
+                        chipLED.PriOPNA2 = 1;
                         //else chipLED.SecOPNA2 = 1;
 
                         lstChips.Add(chip);
