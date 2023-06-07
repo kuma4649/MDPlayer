@@ -1,4 +1,8 @@
 更新履歴
+STBL305 2023/06/07
+  コア:Information:ラベルからDataGridViewにコントロール変更
+  (きゃどんさん、ありがとう)
+
 STBL304 2023/06/06
   MDSound差し替え
 

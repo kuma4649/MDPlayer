@@ -18,56 +18,45 @@ namespace MDPlayer.form
         public frmMain parent = null;
         public Setting setting = null;
         public List<Tuple<int, int, string>> lyrics = null;
-        public int lyricsIndex=0;
+        public int lyricsIndex = 0;
         private Color culColor = Color.FromArgb(192, 192, 255);
 
         public frmInfo(frmMain frm)
         {
             parent = frm;
             InitializeComponent();
-            rtbLyrics.GotFocus += RichTextBox1_GotFocus;
+            rtbLyric.GotFocus += RichTextBox1_GotFocus;
             update();
         }
 
         private void RichTextBox1_GotFocus(object sender, EventArgs e)
         {
-            lblComposer.Focus();
+            dgvInfo.Focus();
         }
 
         public void update()
         {
 
-            lblTitle.Text = "";
-            lblTitleJ.Text = "";
-            lblGame.Text = "";
-            lblGameJ.Text = "";
-            lblSystem.Text = "";
-            lblSystemJ.Text = "";
-            lblComposer.Text = "";
-            lblComposerJ.Text = "";
-            lblRelease.Text = "";
-            lblVGMBy.Text = "";
-            lblNotes.Text = "";
-            lblVersion.Text = "";
-            lblUsedChips.Text = "";
-            rtbLyrics.Clear();
+            dgvInfo.Rows.Clear();
+            rtbLyric.Clear();
 
             GD3 gd3 = Audio.GetGD3();
             if (gd3 == null) return;
 
-            lblTitle.Text = gd3.TrackName;
-            lblTitleJ.Text = gd3.TrackNameJ;
-            lblGame.Text = gd3.GameName;
-            lblGameJ.Text = gd3.GameNameJ;
-            lblSystem.Text = gd3.SystemName;
-            lblSystemJ.Text = gd3.SystemNameJ;
-            lblComposer.Text = gd3.Composer;
-            lblComposerJ.Text = gd3.ComposerJ;
-            lblRelease.Text = gd3.Converted;
-            lblVGMBy.Text = gd3.VGMBy;
-            lblNotes.Text = gd3.Notes;
-            lblVersion.Text = gd3.Version;
-            lblUsedChips.Text = gd3.UsedChips;
+            dgvInfo.Rows.Add("Title", gd3.TrackName);
+            dgvInfo.Rows.Add("TitleJ", gd3.TrackNameJ);
+            dgvInfo.Rows.Add("Game", gd3.GameName);
+            dgvInfo.Rows.Add("GameJ", gd3.GameNameJ);
+            dgvInfo.Rows.Add("System", gd3.SystemName);
+            dgvInfo.Rows.Add("SystemJ", gd3.SystemNameJ);
+            dgvInfo.Rows.Add("Composer", gd3.Composer);
+            dgvInfo.Rows.Add("ComposerJ", gd3.ComposerJ);
+            dgvInfo.Rows.Add("Release", gd3.Converted);
+            dgvInfo.Rows.Add("VGMBy", gd3.VGMBy);
+            dgvInfo.Rows.Add("Notes", gd3.Notes);
+            dgvInfo.Rows.Add("Version", gd3.Version);
+            dgvInfo.Rows.Add("UsedChips", gd3.UsedChips);
+            dgvInfo.ClearSelection();
 
             if (gd3.Lyrics == null)
             {
@@ -134,11 +123,12 @@ namespace MDPlayer.form
                 if (cnt >= lyrics[lyricsIndex].Item1)
                 {
 
-                    //lblLyrics.Text = lyrics[lyricsIndex].Item3;
-                    rtbLyrics.Clear();
+                    //dgvInfo.Rows[13].Cells[1].Value = "";
+                    rtbLyric.Clear();
 
                     int ind = 0;
-                    rtbLyrics.SelectionColor = culColor;
+                    //dgvInfo.Rows[13].Cells[1].Style.ForeColor = culColor;
+                    rtbLyric.SelectionColor = culColor;
                     while (ind < lyrics[lyricsIndex].Item3.Length)
                     {
                         char c = lyrics[lyricsIndex].Item3[ind];
@@ -155,7 +145,8 @@ namespace MDPlayer.form
                                     ind++;
                                     string n = lyrics[lyricsIndex].Item3[ind++].ToString();
                                     int r, g, b;
-                                    if (n == "s") {
+                                    if (n == "s")
+                                    {
                                         r = 192;
                                         g = 192;
                                         b = 255; //192,192,255 system color
@@ -171,12 +162,12 @@ namespace MDPlayer.form
                                         n += lyrics[lyricsIndex].Item3[ind++].ToString();
                                         b = Int32.Parse(n, System.Globalization.NumberStyles.HexNumber);
                                     }
-                                    culColor= Color.FromArgb(r, g, b);
-                                    rtbLyrics.SelectionColor = culColor;
+                                    culColor = Color.FromArgb(r, g, b);
+                                    rtbLyric.SelectionColor = culColor;
                                     continue;
                             }
                         }
-                        rtbLyrics.SelectedText = c.ToString();
+                        rtbLyric.SelectedText = c.ToString();
                         ind++;
                     }
 
@@ -192,8 +183,8 @@ namespace MDPlayer.form
             {
                 try
                 {
-                    rtbLyrics.Clear();
-                    rtbLyrics.SelectedText = "LYLIC PARSE ERROR";
+                    rtbLyric.Clear();
+                    rtbLyric.SelectedText = "LYLIC PARSE ERROR";
                 }
                 catch { }
             }

@@ -34,8 +34,8 @@
             levelToolStripMenuItem = new ToolStripMenuItem();
             tsmiTrace = new ToolStripMenuItem();
             tsmiDebug = new ToolStripMenuItem();
-            tsmiError = new ToolStripMenuItem();
             tsmiWarning = new ToolStripMenuItem();
+            tsmiError = new ToolStripMenuItem();
             tsmiInformation = new ToolStripMenuItem();
             tsmiClear = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
@@ -73,35 +73,35 @@
             // tsmiTrace
             // 
             tsmiTrace.Name = "tsmiTrace";
-            tsmiTrace.Size = new Size(180, 22);
+            tsmiTrace.Size = new Size(145, 22);
             tsmiTrace.Text = "0:Trace";
             tsmiTrace.Click += tsmiTrace_Click;
             // 
             // tsmiDebug
             // 
             tsmiDebug.Name = "tsmiDebug";
-            tsmiDebug.Size = new Size(180, 22);
+            tsmiDebug.Size = new Size(145, 22);
             tsmiDebug.Text = "1:Debug";
             tsmiDebug.Click += tsmiDebug_Click;
-            // 
-            // tsmiError
-            // 
-            tsmiError.Name = "tsmiError";
-            tsmiError.Size = new Size(180, 22);
-            tsmiError.Text = "3:Error";
-            tsmiError.Click += tsmiError_Click;
             // 
             // tsmiWarning
             // 
             tsmiWarning.Name = "tsmiWarning";
-            tsmiWarning.Size = new Size(180, 22);
+            tsmiWarning.Size = new Size(145, 22);
             tsmiWarning.Text = "2:Warning";
             tsmiWarning.Click += tsmiWarning_Click;
+            // 
+            // tsmiError
+            // 
+            tsmiError.Name = "tsmiError";
+            tsmiError.Size = new Size(145, 22);
+            tsmiError.Text = "3:Error";
+            tsmiError.Click += tsmiError_Click;
             // 
             // tsmiInformation
             // 
             tsmiInformation.Name = "tsmiInformation";
-            tsmiInformation.Size = new Size(180, 22);
+            tsmiInformation.Size = new Size(145, 22);
             tsmiInformation.Text = "4:Information";
             tsmiInformation.Click += tsmiInformation_Click;
             // 
