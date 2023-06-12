@@ -2891,14 +2891,22 @@ namespace MDPlayer
                     }
                 }
 
-                if (dPort == 1 && dAddr == 0x01)
+                if (dPort == 1 && dAddr == 0x00)
                 {
-                    fmVolYM2608AdpcmPan[chipID] = (dData & 0xc0) >> 6;
-                    if (fmVolYM2608AdpcmPan[chipID] > 0)
+                    if ((dData&0x80) != 0)
                     {
                         fmVolYM2608Adpcm[chipID][0] = (int)((256 * 6.0 * fmRegisterYM2608[chipID][1][0x0b] / 64.0) * ((fmVolYM2608AdpcmPan[chipID] & 0x02) > 0 ? 1 : 0));
                         fmVolYM2608Adpcm[chipID][1] = (int)((256 * 6.0 * fmRegisterYM2608[chipID][1][0x0b] / 64.0) * ((fmVolYM2608AdpcmPan[chipID] & 0x01) > 0 ? 1 : 0));
                     }
+                }
+                if (dPort == 1 && dAddr == 0x01)
+                {
+                    fmVolYM2608AdpcmPan[chipID] = (dData & 0xc0) >> 6;
+                    //if (fmVolYM2608AdpcmPan[chipID] > 0)
+                    //{
+                    //    fmVolYM2608Adpcm[chipID][0] = (int)((256 * 6.0 * fmRegisterYM2608[chipID][1][0x0b] / 64.0) * ((fmVolYM2608AdpcmPan[chipID] & 0x02) > 0 ? 1 : 0));
+                    //    fmVolYM2608Adpcm[chipID][1] = (int)((256 * 6.0 * fmRegisterYM2608[chipID][1][0x0b] / 64.0) * ((fmVolYM2608AdpcmPan[chipID] & 0x01) > 0 ? 1 : 0));
+                    //}
                 }
 
                 if (dPort == 0 && dAddr == 0x10)
