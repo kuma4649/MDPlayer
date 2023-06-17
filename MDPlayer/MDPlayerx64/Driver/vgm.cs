@@ -2325,9 +2325,11 @@ namespace MDPlayer
                     if (vgmDataOffset > 0x74)
                     {
                         uint AY8910clock = getLE32(0x74);
+                        byte AY8910flag = vgmBuf[0x79];
                         if (AY8910clock != 0)
                         {
                             AY8910ClockValue = AY8910clock & 0x3fffffff;
+                            if ((AY8910flag & 0x10) != 0) AY8910ClockValue /= 2;//bit 4   YM2149 Pin 26 (additional /2 clock divider)
                             AY8910DualChipFlag = (AY8910clock & 0x40000000) != 0;
                             if (AY8910DualChipFlag) chips.Add("AY8910x2");
                             else chips.Add("AY8910");
