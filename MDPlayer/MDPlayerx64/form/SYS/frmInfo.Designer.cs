@@ -49,7 +49,7 @@ namespace MDPlayer.form
             // timer
             // 
             timer.Interval = 10;
-            timer.Tick += timer_Tick;
+            timer.Tick += Timer_Tick;
             // 
             // dgvInfo
             // 
@@ -124,8 +124,8 @@ namespace MDPlayer.form
             MinimumSize = new Size(370, 320);
             Name = "frmInfo";
             Text = "Information";
-            FormClosed += frmInfo_FormClosed;
-            Load += frmInfo_Load;
+            FormClosed += FrmInfo_FormClosed;
+            Load += FrmInfo_Load;
             ((System.ComponentModel.ISupportInitialize)dgvInfo).EndInit();
             ResumeLayout(false);
         }

@@ -101,7 +101,7 @@ namespace MDPlayer.form
             if (vrc7Register == null) return;
 
             //キーオン(ワンショット)があったかを取得する
-            ChipKeyInfo ki = Audio.getVRC7KeyInfo(chipID);
+            ChipKeyInfo ki = Audio.GetVRC7KeyInfo(chipID);
 
             for (int ch = 0; ch < 6; ch++)
             {
@@ -305,7 +305,7 @@ namespace MDPlayer.form
             if (py < 15 * 8 && px < 16 * 8)
             {
                 //クリップボードに音色をコピーする
-                parent.getInstCh(EnmChip.VRC7, 0, chipID);
+                parent.GetInstCh(EnmChip.VRC7, 0, chipID);
             }
         }
     }

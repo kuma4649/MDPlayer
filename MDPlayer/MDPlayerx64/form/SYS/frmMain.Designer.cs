@@ -210,9 +210,9 @@ namespace MDPlayer.form
             pbScreen.TabStop = false;
             pbScreen.DragDrop += pbScreen_DragDrop;
             pbScreen.DragEnter += pbScreen_DragEnter;
-            pbScreen.MouseClick += pbScreen_MouseClick;
-            pbScreen.MouseLeave += pbScreen_MouseLeave;
-            pbScreen.MouseMove += pbScreen_MouseMove;
+            pbScreen.MouseClick += PbScreen_MouseClick;
+            pbScreen.MouseLeave += PbScreen_MouseLeave;
+            pbScreen.MouseMove += PbScreen_MouseMove;
             // 
             // cmsOpenOtherPanel
             // 
@@ -237,13 +237,13 @@ namespace MDPlayer.form
             // 
             tsmiPAY8910.Name = "tsmiPAY8910";
             resources.ApplyResources(tsmiPAY8910, "tsmiPAY8910");
-            tsmiPAY8910.Click += tsmiPAY8910_Click;
+            tsmiPAY8910.Click += TsmiPAY8910_Click;
             // 
             // tsmiPDCSG
             // 
             tsmiPDCSG.Name = "tsmiPDCSG";
             resources.ApplyResources(tsmiPDCSG, "tsmiPDCSG");
-            tsmiPDCSG.Click += tsmiPDCSG_Click;
+            tsmiPDCSG.Click += TsmiPDCSG_Click;
             // 
             // tsmiCPWF
             // 
@@ -255,13 +255,13 @@ namespace MDPlayer.form
             // 
             tsmiPHuC6280.Name = "tsmiPHuC6280";
             resources.ApplyResources(tsmiPHuC6280, "tsmiPHuC6280");
-            tsmiPHuC6280.Click += tsmiPHuC6280_Click;
+            tsmiPHuC6280.Click += TsmiPHuC6280_Click;
             // 
             // tsmiPK051649
             // 
             tsmiPK051649.Name = "tsmiPK051649";
             resources.ApplyResources(tsmiPK051649, "tsmiPK051649");
-            tsmiPK051649.Click += tsmiPK051649_Click;
+            tsmiPK051649.Click += TsmiPK051649_Click;
             // 
             // toolStripMenuItem2
             // 
@@ -278,37 +278,37 @@ namespace MDPlayer.form
             // 
             tsmiPOPLL.Name = "tsmiPOPLL";
             resources.ApplyResources(tsmiPOPLL, "tsmiPOPLL");
-            tsmiPOPLL.Click += tsmiPOPLL_Click;
+            tsmiPOPLL.Click += TsmiPOPLL_Click;
             // 
             // tsmiPOPL
             // 
             tsmiPOPL.Name = "tsmiPOPL";
             resources.ApplyResources(tsmiPOPL, "tsmiPOPL");
-            tsmiPOPL.Click += tsmiPOPL_Click;
+            tsmiPOPL.Click += TsmiPOPL_Click;
             // 
             // tsmiPY8950
             // 
             tsmiPY8950.Name = "tsmiPY8950";
             resources.ApplyResources(tsmiPY8950, "tsmiPY8950");
-            tsmiPY8950.Click += tsmiPY8950_Click;
+            tsmiPY8950.Click += TsmiPY8950_Click;
             // 
             // tsmiPOPL2
             // 
             tsmiPOPL2.Name = "tsmiPOPL2";
             resources.ApplyResources(tsmiPOPL2, "tsmiPOPL2");
-            tsmiPOPL2.Click += tsmiPOPL2_Click;
+            tsmiPOPL2.Click += TsmiPOPL2_Click;
             // 
             // tsmiPOPL3
             // 
             tsmiPOPL3.Name = "tsmiPOPL3";
             resources.ApplyResources(tsmiPOPL3, "tsmiPOPL3");
-            tsmiPOPL3.Click += tsmiPOPL3_Click;
+            tsmiPOPL3.Click += TsmiPOPL3_Click;
             // 
             // tsmiPOPL4
             // 
             tsmiPOPL4.Name = "tsmiPOPL4";
             resources.ApplyResources(tsmiPOPL4, "tsmiPOPL4");
-            tsmiPOPL4.Click += tsmiPOPL4_Click;
+            tsmiPOPL4.Click += TsmiPOPL4_Click;
             // 
             // tsmiCPOPN
             // 
@@ -332,37 +332,37 @@ namespace MDPlayer.form
             // 
             tsmiPOPNA.Name = "tsmiPOPNA";
             resources.ApplyResources(tsmiPOPNA, "tsmiPOPNA");
-            tsmiPOPNA.Click += tsmiPOPNA_Click;
+            tsmiPOPNA.Click += TsmiPOPNA_Click;
             // 
             // tsmiPOPNB
             // 
             tsmiPOPNB.Name = "tsmiPOPNB";
             resources.ApplyResources(tsmiPOPNB, "tsmiPOPNB");
-            tsmiPOPNB.Click += tsmiPOPNB_Click;
+            tsmiPOPNB.Click += TsmiPOPNB_Click;
             // 
             // tsmiPOPNA2
             // 
             tsmiPOPNA2.Name = "tsmiPOPNA2";
             resources.ApplyResources(tsmiPOPNA2, "tsmiPOPNA2");
-            tsmiPOPNA2.Click += tsmiPOPNA2_Click;
+            tsmiPOPNA2.Click += TsmiPOPNA2_Click;
             // 
             // tsmiPOPM
             // 
             tsmiPOPM.Name = "tsmiPOPM";
             resources.ApplyResources(tsmiPOPM, "tsmiPOPM");
-            tsmiPOPM.Click += tsmiPOPM_Click;
+            tsmiPOPM.Click += TsmiPOPM_Click;
             // 
             // tsmiPOPX
             // 
             tsmiPOPX.Name = "tsmiPOPX";
             resources.ApplyResources(tsmiPOPX, "tsmiPOPX");
-            tsmiPOPX.Click += tsmiPOPX_Click;
+            tsmiPOPX.Click += TsmiPOPX_Click;
             // 
             // tsmiYMZ280B
             // 
             tsmiYMZ280B.Name = "tsmiYMZ280B";
             resources.ApplyResources(tsmiYMZ280B, "tsmiYMZ280B");
-            tsmiYMZ280B.Click += tsmiYMZ280B_Click;
+            tsmiYMZ280B.Click += TsmiYMZ280B_Click;
             // 
             // tsmiCPPCM
             // 
@@ -374,73 +374,73 @@ namespace MDPlayer.form
             // 
             tsmiPC140.Name = "tsmiPC140";
             resources.ApplyResources(tsmiPC140, "tsmiPC140");
-            tsmiPC140.Click += tsmiPC140_Click;
+            tsmiPC140.Click += TsmiPC140_Click;
             // 
             // tsmiPC352
             // 
             tsmiPC352.Name = "tsmiPC352";
             resources.ApplyResources(tsmiPC352, "tsmiPC352");
-            tsmiPC352.Click += tsmiPC352_Click;
+            tsmiPC352.Click += TsmiPC352_Click;
             // 
             // tsmiPOKIM6258
             // 
             tsmiPOKIM6258.Name = "tsmiPOKIM6258";
             resources.ApplyResources(tsmiPOKIM6258, "tsmiPOKIM6258");
-            tsmiPOKIM6258.Click += tsmiPOKIM6258_Click;
+            tsmiPOKIM6258.Click += TsmiPOKIM6258_Click;
             // 
             // tsmiPOKIM6295
             // 
             tsmiPOKIM6295.Name = "tsmiPOKIM6295";
             resources.ApplyResources(tsmiPOKIM6295, "tsmiPOKIM6295");
-            tsmiPOKIM6295.Click += tsmiPOKIM6295_Click;
+            tsmiPOKIM6295.Click += TsmiPOKIM6295_Click;
             // 
             // tsmiPPWM
             // 
             tsmiPPWM.Name = "tsmiPPWM";
             resources.ApplyResources(tsmiPPWM, "tsmiPPWM");
-            tsmiPPWM.Click += tsmiPPWM_Click;
+            tsmiPPWM.Click += TsmiPPWM_Click;
             // 
             // tsmiPQSound
             // 
             tsmiPQSound.Name = "tsmiPQSound";
             resources.ApplyResources(tsmiPQSound, "tsmiPQSound");
-            tsmiPQSound.Click += tsmiPQSound_Click;
+            tsmiPQSound.Click += TsmiPQSound_Click;
             // 
             // tsmiPRF5C164
             // 
             tsmiPRF5C164.Name = "tsmiPRF5C164";
             resources.ApplyResources(tsmiPRF5C164, "tsmiPRF5C164");
-            tsmiPRF5C164.Click += tsmiPRF5C164_Click;
+            tsmiPRF5C164.Click += TsmiPRF5C164_Click;
             // 
             // tsmiPRF5C68
             // 
             tsmiPRF5C68.Name = "tsmiPRF5C68";
             resources.ApplyResources(tsmiPRF5C68, "tsmiPRF5C68");
-            tsmiPRF5C68.Click += tsmiPRF5C68_Click;
+            tsmiPRF5C68.Click += TsmiPRF5C68_Click;
             // 
             // tsmiPMultiPCM
             // 
             tsmiPMultiPCM.Name = "tsmiPMultiPCM";
             resources.ApplyResources(tsmiPMultiPCM, "tsmiPMultiPCM");
-            tsmiPMultiPCM.Click += tsmiPMultiPCM_Click;
+            tsmiPMultiPCM.Click += TsmiPMultiPCM_Click;
             // 
             // tsmiPPPZ8
             // 
             tsmiPPPZ8.Name = "tsmiPPPZ8";
             resources.ApplyResources(tsmiPPPZ8, "tsmiPPPZ8");
-            tsmiPPPZ8.Click += tsmiPPPZ8_Click;
+            tsmiPPPZ8.Click += TsmiPPPZ8_Click;
             // 
             // tsmiPSegaPCM
             // 
             tsmiPSegaPCM.Name = "tsmiPSegaPCM";
             resources.ApplyResources(tsmiPSegaPCM, "tsmiPSegaPCM");
-            tsmiPSegaPCM.Click += tsmiPSegaPCM_Click;
+            tsmiPSegaPCM.Click += TsmiPSegaPCM_Click;
             // 
             // tsmiPMIDI
             // 
             tsmiPMIDI.Name = "tsmiPMIDI";
             resources.ApplyResources(tsmiPMIDI, "tsmiPMIDI");
-            tsmiPMIDI.Click += tsmiPMIDI_Click;
+            tsmiPMIDI.Click += TsmiPMIDI_Click;
             // 
             // tsmiCPNES
             // 
@@ -452,49 +452,49 @@ namespace MDPlayer.form
             // 
             tsmiPNESDMC.Name = "tsmiPNESDMC";
             resources.ApplyResources(tsmiPNESDMC, "tsmiPNESDMC");
-            tsmiPNESDMC.Click += tsmiPNESDMC_Click;
+            tsmiPNESDMC.Click += TsmiPNESDMC_Click;
             // 
             // tsmiPFDS
             // 
             tsmiPFDS.Name = "tsmiPFDS";
             resources.ApplyResources(tsmiPFDS, "tsmiPFDS");
-            tsmiPFDS.Click += tsmiPFDS_Click;
+            tsmiPFDS.Click += TsmiPFDS_Click;
             // 
             // tsmiPMMC5
             // 
             tsmiPMMC5.Name = "tsmiPMMC5";
             resources.ApplyResources(tsmiPMMC5, "tsmiPMMC5");
-            tsmiPMMC5.Click += tsmiPMMC5_Click;
+            tsmiPMMC5.Click += TsmiPMMC5_Click;
             // 
             // tsmiPVRC6
             // 
             tsmiPVRC6.Name = "tsmiPVRC6";
             resources.ApplyResources(tsmiPVRC6, "tsmiPVRC6");
-            tsmiPVRC6.Click += tsmiPVRC6_Click;
+            tsmiPVRC6.Click += TsmiPVRC6_Click;
             // 
             // tsmiPVRC7
             // 
             tsmiPVRC7.Name = "tsmiPVRC7";
             resources.ApplyResources(tsmiPVRC7, "tsmiPVRC7");
-            tsmiPVRC7.Click += tsmiPVRC7_Click;
+            tsmiPVRC7.Click += TsmiPVRC7_Click;
             // 
             // tsmiPN106
             // 
             tsmiPN106.Name = "tsmiPN106";
             resources.ApplyResources(tsmiPN106, "tsmiPN106");
-            tsmiPN106.Click += tsmiPN106_Click;
+            tsmiPN106.Click += TsmiPN106_Click;
             // 
             // tsmiPS5B
             // 
             tsmiPS5B.Name = "tsmiPS5B";
             resources.ApplyResources(tsmiPS5B, "tsmiPS5B");
-            tsmiPS5B.Click += tsmiPS5B_Click;
+            tsmiPS5B.Click += TsmiPS5B_Click;
             // 
             // tsmiPDMG
             // 
             tsmiPDMG.Name = "tsmiPDMG";
             resources.ApplyResources(tsmiPDMG, "tsmiPDMG");
-            tsmiPDMG.Click += tsmiPDMG_Click;
+            tsmiPDMG.Click += TsmiPDMG_Click;
             // 
             // sencondryToolStripMenuItem
             // 
@@ -512,13 +512,13 @@ namespace MDPlayer.form
             // 
             tsmiSAY8910.Name = "tsmiSAY8910";
             resources.ApplyResources(tsmiSAY8910, "tsmiSAY8910");
-            tsmiSAY8910.Click += tsmiSAY8910_Click;
+            tsmiSAY8910.Click += TsmiSAY8910_Click;
             // 
             // tsmiSDCSG
             // 
             tsmiSDCSG.Name = "tsmiSDCSG";
             resources.ApplyResources(tsmiSDCSG, "tsmiSDCSG");
-            tsmiSDCSG.Click += tsmiSDCSG_Click;
+            tsmiSDCSG.Click += TsmiSDCSG_Click;
             // 
             // tsmiCSWF
             // 
@@ -530,13 +530,13 @@ namespace MDPlayer.form
             // 
             tsmiSHuC6280.Name = "tsmiSHuC6280";
             resources.ApplyResources(tsmiSHuC6280, "tsmiSHuC6280");
-            tsmiSHuC6280.Click += tsmiSHuC6280_Click;
+            tsmiSHuC6280.Click += TsmiSHuC6280_Click;
             // 
             // tsmiSK051649
             // 
             tsmiSK051649.Name = "tsmiSK051649";
             resources.ApplyResources(tsmiSK051649, "tsmiSK051649");
-            tsmiSK051649.Click += tsmiSK051649_Click;
+            tsmiSK051649.Click += TsmiSK051649_Click;
             // 
             // tsmiCSOPL
             // 
@@ -548,37 +548,37 @@ namespace MDPlayer.form
             // 
             tsmiSOPLL.Name = "tsmiSOPLL";
             resources.ApplyResources(tsmiSOPLL, "tsmiSOPLL");
-            tsmiSOPLL.Click += tsmiSOPLL_Click;
+            tsmiSOPLL.Click += TsmiSOPLL_Click;
             // 
             // tsmiSOPL
             // 
             tsmiSOPL.Name = "tsmiSOPL";
             resources.ApplyResources(tsmiSOPL, "tsmiSOPL");
-            tsmiSOPL.Click += tsmiSOPL_Click;
+            tsmiSOPL.Click += TsmiSOPL_Click;
             // 
             // tsmiSY8950
             // 
             tsmiSY8950.Name = "tsmiSY8950";
             resources.ApplyResources(tsmiSY8950, "tsmiSY8950");
-            tsmiSY8950.Click += tsmiSY8950_Click;
+            tsmiSY8950.Click += TsmiSY8950_Click;
             // 
             // tsmiSOPL2
             // 
             tsmiSOPL2.Name = "tsmiSOPL2";
             resources.ApplyResources(tsmiSOPL2, "tsmiSOPL2");
-            tsmiSOPL2.Click += tsmiSOPL2_Click;
+            tsmiSOPL2.Click += TsmiSOPL2_Click;
             // 
             // tsmiSOPL3
             // 
             tsmiSOPL3.Name = "tsmiSOPL3";
             resources.ApplyResources(tsmiSOPL3, "tsmiSOPL3");
-            tsmiSOPL3.Click += tsmiSOPL3_Click;
+            tsmiSOPL3.Click += TsmiSOPL3_Click;
             // 
             // tsmiSOPL4
             // 
             tsmiSOPL4.Name = "tsmiSOPL4";
             resources.ApplyResources(tsmiSOPL4, "tsmiSOPL4");
-            tsmiSOPL4.Click += tsmiSOPL4_Click;
+            tsmiSOPL4.Click += TsmiSOPL4_Click;
             // 
             // tsmiCSOPN
             // 
@@ -590,49 +590,49 @@ namespace MDPlayer.form
             // 
             tsmiSOPN.Name = "tsmiSOPN";
             resources.ApplyResources(tsmiSOPN, "tsmiSOPN");
-            tsmiSOPN.Click += tsmiSOPN_Click;
+            tsmiSOPN.Click += TsmiSOPN_Click;
             // 
             // tsmiSOPN2
             // 
             tsmiSOPN2.Name = "tsmiSOPN2";
             resources.ApplyResources(tsmiSOPN2, "tsmiSOPN2");
-            tsmiSOPN2.Click += tsmiSOPN2_Click;
+            tsmiSOPN2.Click += TsmiSOPN2_Click;
             // 
             // tsmiSOPNA
             // 
             tsmiSOPNA.Name = "tsmiSOPNA";
             resources.ApplyResources(tsmiSOPNA, "tsmiSOPNA");
-            tsmiSOPNA.Click += tsmiSOPNA_Click;
+            tsmiSOPNA.Click += TsmiSOPNA_Click;
             // 
             // tsmiSOPNB
             // 
             tsmiSOPNB.Name = "tsmiSOPNB";
             resources.ApplyResources(tsmiSOPNB, "tsmiSOPNB");
-            tsmiSOPNB.Click += tsmiSOPNB_Click;
+            tsmiSOPNB.Click += TsmiSOPNB_Click;
             // 
             // tsmiSOPNA2
             // 
             tsmiSOPNA2.Name = "tsmiSOPNA2";
             resources.ApplyResources(tsmiSOPNA2, "tsmiSOPNA2");
-            tsmiSOPNA2.Click += tsmiSOPNA2_Click;
+            tsmiSOPNA2.Click += TsmiSOPNA2_Click;
             // 
             // tsmiSOPM
             // 
             tsmiSOPM.Name = "tsmiSOPM";
             resources.ApplyResources(tsmiSOPM, "tsmiSOPM");
-            tsmiSOPM.Click += tsmiSOPM_Click;
+            tsmiSOPM.Click += TsmiSOPM_Click;
             // 
             // tsmiSOPX
             // 
             tsmiSOPX.Name = "tsmiSOPX";
             resources.ApplyResources(tsmiSOPX, "tsmiSOPX");
-            tsmiSOPX.Click += tsmiSOPX_Click;
+            tsmiSOPX.Click += TsmiSOPX_Click;
             // 
             // tsmiSYMZ280B
             // 
             tsmiSYMZ280B.Name = "tsmiSYMZ280B";
             resources.ApplyResources(tsmiSYMZ280B, "tsmiSYMZ280B");
-            tsmiSYMZ280B.Click += tsmiSYMZ280B_Click;
+            tsmiSYMZ280B.Click += TsmiSYMZ280B_Click;
             // 
             // tsmiCSPCM
             // 
@@ -644,67 +644,67 @@ namespace MDPlayer.form
             // 
             tsmiSC140.Name = "tsmiSC140";
             resources.ApplyResources(tsmiSC140, "tsmiSC140");
-            tsmiSC140.Click += tsmiSC140_Click;
+            tsmiSC140.Click += TsmiSC140_Click;
             // 
             // tsmiSC352
             // 
             tsmiSC352.Name = "tsmiSC352";
             resources.ApplyResources(tsmiSC352, "tsmiSC352");
-            tsmiSC352.Click += tsmiSC352_Click;
+            tsmiSC352.Click += TsmiSC352_Click;
             // 
             // tsmiSOKIM6258
             // 
             tsmiSOKIM6258.Name = "tsmiSOKIM6258";
             resources.ApplyResources(tsmiSOKIM6258, "tsmiSOKIM6258");
-            tsmiSOKIM6258.Click += tsmiSOKIM6258_Click;
+            tsmiSOKIM6258.Click += TsmiSOKIM6258_Click;
             // 
             // tsmiSOKIM6295
             // 
             tsmiSOKIM6295.Name = "tsmiSOKIM6295";
             resources.ApplyResources(tsmiSOKIM6295, "tsmiSOKIM6295");
-            tsmiSOKIM6295.Click += tsmiSOKIM6295_Click;
+            tsmiSOKIM6295.Click += TsmiSOKIM6295_Click;
             // 
             // tsmiSPWM
             // 
             tsmiSPWM.Name = "tsmiSPWM";
             resources.ApplyResources(tsmiSPWM, "tsmiSPWM");
-            tsmiSPWM.Click += tsmiSPWM_Click;
+            tsmiSPWM.Click += TsmiSPWM_Click;
             // 
             // tsmiSRF5C164
             // 
             tsmiSRF5C164.Name = "tsmiSRF5C164";
             resources.ApplyResources(tsmiSRF5C164, "tsmiSRF5C164");
-            tsmiSRF5C164.Click += tsmiSRF5C164_Click;
+            tsmiSRF5C164.Click += TsmiSRF5C164_Click;
             // 
             // tsmiSRF5C68
             // 
             tsmiSRF5C68.Name = "tsmiSRF5C68";
             resources.ApplyResources(tsmiSRF5C68, "tsmiSRF5C68");
-            tsmiSRF5C68.Click += tsmiSRF5C68_Click;
+            tsmiSRF5C68.Click += TsmiSRF5C68_Click;
             // 
             // tsmiSSegaPCM
             // 
             tsmiSSegaPCM.Name = "tsmiSSegaPCM";
             resources.ApplyResources(tsmiSSegaPCM, "tsmiSSegaPCM");
-            tsmiSSegaPCM.Click += tsmiSSegaPCM_Click;
+            tsmiSSegaPCM.Click += TsmiSSegaPCM_Click;
             // 
             // tsmiSMultiPCM
             // 
             tsmiSMultiPCM.Name = "tsmiSMultiPCM";
             resources.ApplyResources(tsmiSMultiPCM, "tsmiSMultiPCM");
-            tsmiSMultiPCM.Click += tsmiSMultiPCM_Click;
+            tsmiSMultiPCM.Click += TsmiSMultiPCM_Click;
             // 
             // tsmiSPPZ8
             // 
             tsmiSPPZ8.Name = "tsmiSPPZ8";
             resources.ApplyResources(tsmiSPPZ8, "tsmiSPPZ8");
-            tsmiSPPZ8.Click += tsmiSPPZ8_Click;
+            tsmiSPPZ8.Click += TsmiSPPZ8_Click;
             // 
             // tsmiSMIDI
             // 
             tsmiSMIDI.Name = "tsmiSMIDI";
             resources.ApplyResources(tsmiSMIDI, "tsmiSMIDI");
-            tsmiSMIDI.Click += tsmiSMIDI_Click;
+            tsmiSMIDI.Click += TsmiSMIDI_Click;
             // 
             // tsmiCSNES
             // 
@@ -716,37 +716,37 @@ namespace MDPlayer.form
             // 
             tsmiSFDS.Name = "tsmiSFDS";
             resources.ApplyResources(tsmiSFDS, "tsmiSFDS");
-            tsmiSFDS.Click += tsmiSFDS_Click;
+            tsmiSFDS.Click += TsmiSFDS_Click;
             // 
             // tsmiSMMC5
             // 
             tsmiSMMC5.Name = "tsmiSMMC5";
             resources.ApplyResources(tsmiSMMC5, "tsmiSMMC5");
-            tsmiSMMC5.Click += tsmiSMMC5_Click;
+            tsmiSMMC5.Click += TsmiSMMC5_Click;
             // 
             // tsmiSNESDMC
             // 
             tsmiSNESDMC.Name = "tsmiSNESDMC";
             resources.ApplyResources(tsmiSNESDMC, "tsmiSNESDMC");
-            tsmiSNESDMC.Click += tsmiSNESDMC_Click;
+            tsmiSNESDMC.Click += TsmiSNESDMC_Click;
             // 
             // tsmiSVRC6
             // 
             tsmiSVRC6.Name = "tsmiSVRC6";
             resources.ApplyResources(tsmiSVRC6, "tsmiSVRC6");
-            tsmiSVRC6.Click += tsmiSVRC6_Click;
+            tsmiSVRC6.Click += TsmiSVRC6_Click;
             // 
             // tsmiSVRC7
             // 
             tsmiSVRC7.Name = "tsmiSVRC7";
             resources.ApplyResources(tsmiSVRC7, "tsmiSVRC7");
-            tsmiSVRC7.Click += tsmiSVRC7_Click;
+            tsmiSVRC7.Click += TsmiSVRC7_Click;
             // 
             // tsmiSN106
             // 
             tsmiSN106.Name = "tsmiSN106";
             resources.ApplyResources(tsmiSN106, "tsmiSN106");
-            tsmiSN106.Click += tsmiSN106_Click;
+            tsmiSN106.Click += TsmiSN106_Click;
             // 
             // tsmiSS5B
             // 
@@ -758,7 +758,7 @@ namespace MDPlayer.form
             // 
             tsmiSDMG.Name = "tsmiSDMG";
             resources.ApplyResources(tsmiSDMG, "tsmiSDMG");
-            tsmiSDMG.Click += tsmiSDMG_Click;
+            tsmiSDMG.Click += TsmiSDMG_Click;
             // 
             // cmsMenu
             // 
@@ -784,7 +784,7 @@ namespace MDPlayer.form
             // 
             tsmiExit.Name = "tsmiExit";
             resources.ApplyResources(tsmiExit, "tsmiExit");
-            tsmiExit.Click += tsmiExit_Click;
+            tsmiExit.Click += TsmiExit_Click;
             // 
             // 操作ToolStripMenuItem
             // 
@@ -797,84 +797,84 @@ namespace MDPlayer.form
             tsmiPlay.Image = ResMng.imgDic["ccPlay"];
             tsmiPlay.Name = "tsmiPlay";
             resources.ApplyResources(tsmiPlay, "tsmiPlay");
-            tsmiPlay.Click += tsmiPlay_Click;
+            tsmiPlay.Click += TsmiPlay_Click;
             // 
             // tsmiStop
             // 
             tsmiStop.Image = ResMng.imgDic["ccStop"];
             tsmiStop.Name = "tsmiStop";
             resources.ApplyResources(tsmiStop, "tsmiStop");
-            tsmiStop.Click += tsmiStop_Click;
+            tsmiStop.Click += TsmiStop_Click;
             // 
             // tsmiPause
             // 
             tsmiPause.Image = ResMng.imgDic["ccPause"];
             tsmiPause.Name = "tsmiPause";
             resources.ApplyResources(tsmiPause, "tsmiPause");
-            tsmiPause.Click += tsmiPause_Click;
+            tsmiPause.Click += TsmiPause_Click;
             // 
             // tsmiFadeOut
             // 
             tsmiFadeOut.Image = ResMng.imgDic["ccFadeout"];
             tsmiFadeOut.Name = "tsmiFadeOut";
             resources.ApplyResources(tsmiFadeOut, "tsmiFadeOut");
-            tsmiFadeOut.Click += tsmiFadeOut_Click;
+            tsmiFadeOut.Click += TsmiFadeOut_Click;
             // 
             // tsmiSlow
             // 
             tsmiSlow.Image = ResMng.imgDic["ccSlow"];
             tsmiSlow.Name = "tsmiSlow";
             resources.ApplyResources(tsmiSlow, "tsmiSlow");
-            tsmiSlow.Click += tsmiSlow_Click;
+            tsmiSlow.Click += TsmiSlow_Click;
             // 
             // tsmiFf
             // 
             tsmiFf.Image = ResMng.imgDic["ccFast"];
             tsmiFf.Name = "tsmiFf";
             resources.ApplyResources(tsmiFf, "tsmiFf");
-            tsmiFf.Click += tsmiFf_Click;
+            tsmiFf.Click += TsmiFf_Click;
             // 
             // tsmiNext
             // 
             tsmiNext.Image = ResMng.imgDic["ccNext"];
             tsmiNext.Name = "tsmiNext";
             resources.ApplyResources(tsmiNext, "tsmiNext");
-            tsmiNext.Click += tsmiNext_Click;
+            tsmiNext.Click += TsmiNext_Click;
             // 
             // tsmiPlayMode
             // 
             tsmiPlayMode.Image = ResMng.imgDic["ccStep"];
             tsmiPlayMode.Name = "tsmiPlayMode";
             resources.ApplyResources(tsmiPlayMode, "tsmiPlayMode");
-            tsmiPlayMode.Click += tsmiPlayMode_Click;
+            tsmiPlayMode.Click += TsmiPlayMode_Click;
             // 
             // tsmiOption
             // 
             tsmiOption.Image = ResMng.imgDic["ccSetting"];
             tsmiOption.Name = "tsmiOption";
             resources.ApplyResources(tsmiOption, "tsmiOption");
-            tsmiOption.Click += tsmiOption_Click;
+            tsmiOption.Click += TsmiOption_Click;
             // 
             // tsmiPlayList
             // 
             tsmiPlayList.Image = ResMng.imgDic["ccPlayList"];
             tsmiPlayList.Name = "tsmiPlayList";
             resources.ApplyResources(tsmiPlayList, "tsmiPlayList");
-            tsmiPlayList.Click += tsmiPlayList_Click;
+            tsmiPlayList.Click += TsmiPlayList_Click;
             // 
             // tsmiOpenInfo
             // 
             tsmiOpenInfo.Image = ResMng.imgDic["ccInformation"];
             tsmiOpenInfo.Name = "tsmiOpenInfo";
             resources.ApplyResources(tsmiOpenInfo, "tsmiOpenInfo");
-            tsmiOpenInfo.Click += tsmiOpenInfo_Click;
+            tsmiOpenInfo.Click += TsmiOpenInfo_Click;
             // 
             // tsmiOpenMixer
             // 
             tsmiOpenMixer.Image = ResMng.imgDic["ccMixer"];
             tsmiOpenMixer.Name = "tsmiOpenMixer";
             resources.ApplyResources(tsmiOpenMixer, "tsmiOpenMixer");
-            tsmiOpenMixer.Click += tsmiOpenMixer_Click;
+            tsmiOpenMixer.Click += TsmiOpenMixer_Click;
             // 
             // その他ウィンドウ表示ToolStripMenuItem
             // 
@@ -887,21 +887,21 @@ namespace MDPlayer.form
             tsmiKBrd.Image = ResMng.imgDic["ccKBD"];
             tsmiKBrd.Name = "tsmiKBrd";
             resources.ApplyResources(tsmiKBrd, "tsmiKBrd");
-            tsmiKBrd.Click += tsmiKBrd_Click;
+            tsmiKBrd.Click += TsmiKBrd_Click;
             // 
             // tsmiVST
             // 
             tsmiVST.Image = ResMng.imgDic["ccVST"];
             tsmiVST.Name = "tsmiVST";
             resources.ApplyResources(tsmiVST, "tsmiVST");
-            tsmiVST.Click += tsmiVST_Click;
+            tsmiVST.Click += TsmiVST_Click;
             // 
             // tsmiMIDIkbd
             // 
             tsmiMIDIkbd.Image = ResMng.imgDic["ccMIDIKBD"];
             tsmiMIDIkbd.Name = "tsmiMIDIkbd";
             resources.ApplyResources(tsmiMIDIkbd, "tsmiMIDIkbd");
-            tsmiMIDIkbd.Click += tsmiMIDIkbd_Click;
+            tsmiMIDIkbd.Click += TsmiMIDIkbd_Click;
             // 
             // tsmiChangeZoom
             // 
@@ -909,31 +909,31 @@ namespace MDPlayer.form
             tsmiChangeZoom.Image = ResMng.imgDic["ccZoom"];
             tsmiChangeZoom.Name = "tsmiChangeZoom";
             resources.ApplyResources(tsmiChangeZoom, "tsmiChangeZoom");
-            tsmiChangeZoom.Click += tsmiChangeZoom_Click;
+            tsmiChangeZoom.Click += TsmiChangeZoom_Click;
             // 
             // tsmiChangeZoomX1
             // 
             tsmiChangeZoomX1.Name = "tsmiChangeZoomX1";
             resources.ApplyResources(tsmiChangeZoomX1, "tsmiChangeZoomX1");
-            tsmiChangeZoomX1.Click += tsmiChangeZoom_Click;
+            tsmiChangeZoomX1.Click += TsmiChangeZoom_Click;
             // 
             // tsmiChangeZoomX2
             // 
             tsmiChangeZoomX2.Name = "tsmiChangeZoomX2";
             resources.ApplyResources(tsmiChangeZoomX2, "tsmiChangeZoomX2");
-            tsmiChangeZoomX2.Click += tsmiChangeZoom_Click;
+            tsmiChangeZoomX2.Click += TsmiChangeZoom_Click;
             // 
             // tsmiChangeZoomX3
             // 
             tsmiChangeZoomX3.Name = "tsmiChangeZoomX3";
             resources.ApplyResources(tsmiChangeZoomX3, "tsmiChangeZoomX3");
-            tsmiChangeZoomX3.Click += tsmiChangeZoom_Click;
+            tsmiChangeZoomX3.Click += TsmiChangeZoom_Click;
             // 
             // tsmiChangeZoomX4
             // 
             tsmiChangeZoomX4.Name = "tsmiChangeZoomX4";
             resources.ApplyResources(tsmiChangeZoomX4, "tsmiChangeZoomX4");
-            tsmiChangeZoomX4.Click += tsmiChangeZoom_Click;
+            tsmiChangeZoomX4.Click += TsmiChangeZoom_Click;
             // 
             // レジスタダンプ表示ToolStripMenuItem
             // 
@@ -1047,7 +1047,7 @@ namespace MDPlayer.form
             // 
             tsmiVisualizer.Name = "tsmiVisualizer";
             resources.ApplyResources(tsmiVisualizer, "tsmiVisualizer");
-            tsmiVisualizer.Click += tsmiVisWave_Click;
+            tsmiVisualizer.Click += TsmiVisWave_Click;
             // 
             // tsmiOutputwavFile
             // 
@@ -1424,13 +1424,13 @@ namespace MDPlayer.form
             // 
             tsmiPK053260.Name = "tsmiPK053260";
             resources.ApplyResources(tsmiPK053260, "tsmiPK053260");
-            tsmiPK053260.Click += tsmiPK053260_Click;
+            tsmiPK053260.Click += TsmiPK053260_Click;
             // 
             // tsmiSK053260
             // 
             tsmiSK053260.Name = "tsmiSK053260";
             resources.ApplyResources(tsmiSK053260, "tsmiSK053260");
-            tsmiSK053260.Click += tsmiSK053260_Click;
+            tsmiSK053260.Click += TsmiSK053260_Click;
             // 
             // frmMain
             // 

@@ -141,7 +141,7 @@ namespace MDPlayer.form
             if (m != 0)
             {
                 //クリップボードに音色をコピーする
-                parent.getInstCh(EnmChip.N163, vch, chipID);
+                parent.GetInstCh(EnmChip.N163, vch, chipID);
             }
             else
             {

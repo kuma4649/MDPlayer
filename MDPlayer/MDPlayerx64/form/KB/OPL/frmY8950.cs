@@ -161,7 +161,7 @@ namespace MDPlayer.form
             int[] Y8950Register = Audio.GetY8950Register(chipID);
             MDChipParams.Channel nyc;
             int slot = 0;
-            ChipKeyInfo ki = Audio.getY8950KeyInfo(chipID);
+            ChipKeyInfo ki = Audio.GetY8950KeyInfo(chipID);
             MDSound.MDSound.Chip chipInfo = Audio.GetMDSChipInfo(MDSound.MDSound.enmInstrumentType.Y8950);
             uint masterClock = chipInfo == null ? 3579545 : chipInfo.Clock; //3579545 -> Default master clock
 

@@ -47,7 +47,7 @@ namespace MDPlayer.form
             this.pbScreen.Size = new System.Drawing.Size(320, 40);
             this.pbScreen.TabIndex = 1;
             this.pbScreen.TabStop = false;
-            this.pbScreen.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbScreen_MouseClick);
+            this.pbScreen.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PbScreen_MouseClick);
             // 
             // frmSN76489
             // 
@@ -61,8 +61,8 @@ namespace MDPlayer.form
             this.MaximizeBox = false;
             this.Name = "frmSN76489";
             this.Text = "SN76489";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmSN76489_FormClosed);
-            this.Load += new System.EventHandler(this.frmSN76489_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmSN76489_FormClosed);
+            this.Load += new System.EventHandler(this.FrmSN76489_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).EndInit();
             this.ResumeLayout(false);
 

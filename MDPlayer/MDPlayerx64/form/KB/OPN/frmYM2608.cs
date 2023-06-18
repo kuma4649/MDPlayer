@@ -506,7 +506,7 @@ namespace MDPlayer.form
             if (instCh < 6)
             {
                 //クリップボードに音色をコピーする
-                parent.getInstCh(EnmChip.YM2608, instCh, chipID);
+                parent.GetInstCh(EnmChip.YM2608, instCh, chipID);
             }
         }
 

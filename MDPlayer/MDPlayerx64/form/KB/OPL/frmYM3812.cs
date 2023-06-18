@@ -117,7 +117,7 @@ namespace MDPlayer.form
             int[] ym3812Register = Audio.GetYM3812Register(chipID);
             MDChipParams.Channel nyc;
             int slot = 0;
-            ChipKeyInfo ki = Audio.getYM3812KeyInfo(chipID);
+            ChipKeyInfo ki = Audio.GetYM3812KeyInfo(chipID);
 
             MDSound.MDSound.Chip chipInfo = Audio.GetMDSChipInfo(MDSound.MDSound.enmInstrumentType.YM3812);
             uint masterClock = chipInfo == null ? 3579545 : chipInfo.Clock; //3579545 -> Default master clock
@@ -323,7 +323,7 @@ namespace MDPlayer.form
 
             if (e.Button == MouseButtons.Left && ch > 10 && ch < 20)
             {
-                parent.getInstCh(EnmChip.YM3812, ch - 11, chipID);
+                parent.GetInstCh(EnmChip.YM3812, ch - 11, chipID);
             }
 
             if (e.Button == MouseButtons.Left)

@@ -125,7 +125,7 @@ namespace MDPlayer
 
         internal void AdditionalUpdate(MDSound.MDSound.Chip sender, byte ChipID, int[][] Buffer, int Length)
         {
-            if (Audio.isStopped)
+            if (Audio.IsStopped)
             {
                 return;
             }

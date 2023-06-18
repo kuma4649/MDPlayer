@@ -106,7 +106,7 @@ namespace MDPlayer.form
         {
             int[] ym2413Register = Audio.GetYM2413Register(chipID);
             MDChipParams.Channel nyc;
-            ChipKeyInfo ki = Audio.getYM2413KeyInfo(chipID);
+            ChipKeyInfo ki = Audio.GetYM2413KeyInfo(chipID);
 
             for (int ch = 0; ch < 9; ch++)
             {
@@ -425,7 +425,7 @@ namespace MDPlayer.form
             if (py < 15 * 8 && px < 16 * 8)
             {
                 //クリップボードに音色をコピーする
-                parent.getInstCh(EnmChip.YM2413, 0, chipID);
+                parent.GetInstCh(EnmChip.YM2413, 0, chipID);
             }
         }
     }

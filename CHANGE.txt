@@ -1,4 +1,8 @@
 更新履歴
+STBL308 2023/06/18
+  鍵盤:SN76489(T6W28):T6W28(NGPmode)使用時に左右のボリューム値が表示されるよう修正。
+  (Thanks brickblock369!)
+
 STBL307 2023/06/17
   コア:AY8910(YM2149):YM2149のPin26に未対応だったので、対応。
   (Thanks denjhang!)

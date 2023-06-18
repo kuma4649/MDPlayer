@@ -121,7 +121,7 @@ namespace MDPlayer.form
         {
             if (frmMain != null)
             {
-                frmMain.windowsMessage(ref m);
+                frmMain.WindowsMessage(ref m);
             }
 
             base.WndProc(ref m);
@@ -914,8 +914,8 @@ namespace MDPlayer.form
 
                 //曲を停止
                 Stop();
-                frmMain.stop();
-                while (!Audio.isStopped)
+                frmMain.Stop();
+                while (!Audio.IsStopped)
                     Application.DoEvents();
 
                 int buIndex = i;
@@ -1016,7 +1016,7 @@ namespace MDPlayer.form
                 string fn = "";
                 string arcFn = "";
 
-                Audio.getPlayingFileName(out fn, out arcFn);
+                Audio.GetPlayingFileName(out fn, out arcFn);
 
                 if (fn == ofn && arcFn == oafn) return;
                 ofn = fn;

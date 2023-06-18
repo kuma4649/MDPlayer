@@ -214,7 +214,7 @@ namespace MDPlayer.form
                 }
             }
 
-            int ko = Audio.getYMF278BFMKeyON(chipID);
+            int ko = Audio.GetYMF278BFMKeyON(chipID);
 
             for (int c = 0; c < 18; c++)
             {
@@ -317,7 +317,7 @@ namespace MDPlayer.form
 
             //Audio.resetYMF278BFMKeyON(chipID);
 
-            int r = Audio.getYMF278BRyhthmKeyON(chipID);
+            int r = Audio.GetYMF278BRyhthmKeyON(chipID);
 
             //slot14 TL 0x51 HH
             //slot15 TL 0x52 TOM
@@ -380,10 +380,10 @@ namespace MDPlayer.form
                 if (newParam.channels[22].volume < 0) newParam.channels[22].volume = 0;
             }
 
-            Audio.resetYMF278BRyhthmKeyON(chipID);
+            Audio.ResetYMF278BRyhthmKeyON(chipID);
 
             //PCM
-            int[] pcmKey = Audio.getYMF278BPCMKeyON(chipID);
+            int[] pcmKey = Audio.GetYMF278BPCMKeyON(chipID);
             int[] mdPCMKey = Audio.GetMoonDriverPCMKeyOn();
             for (int c = 23; c < 23 + 24; c++)
             {
@@ -470,7 +470,7 @@ namespace MDPlayer.form
                 //Wav
                 nyc.inst[12] = (ymf278bRegister[2][0x08 + (c - 23)]) + ((ymf278bRegister[2][0x20 + (c - 23)] & 0x1) << 8);
             }
-            Audio.resetYMF278BPCMKeyON(chipID);
+            Audio.ResetYMF278BPCMKeyON(chipID);
         }
 
         public void screenDrawParams()
@@ -625,7 +625,7 @@ namespace MDPlayer.form
             {
                 if (ch < 18)
                 {
-                    parent.getInstCh(EnmChip.YMF278B, ch, chipID);
+                    parent.GetInstCh(EnmChip.YMF278B, ch, chipID);
                 }
 
                 //マスク

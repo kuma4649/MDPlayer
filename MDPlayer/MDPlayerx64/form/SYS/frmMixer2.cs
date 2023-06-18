@@ -110,7 +110,7 @@ namespace MDPlayer.form
         {
             if (parent != null)
             {
-                parent.windowsMessage(ref m);
+                parent.WindowsMessage(ref m);
             }
 
             try { base.WndProc(ref m); }

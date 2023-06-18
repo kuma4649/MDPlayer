@@ -689,21 +689,21 @@ namespace MDPlayer.form
             rbWaveOut.Name = "rbWaveOut";
             rbWaveOut.TabStop = true;
             rbWaveOut.UseVisualStyleBackColor = true;
-            rbWaveOut.CheckedChanged += rbWaveOut_CheckedChanged;
+            rbWaveOut.CheckedChanged += RbWaveOut_CheckedChanged;
             // 
             // rbAsioOut
             // 
             resources.ApplyResources(rbAsioOut, "rbAsioOut");
             rbAsioOut.Name = "rbAsioOut";
             rbAsioOut.UseVisualStyleBackColor = true;
-            rbAsioOut.CheckedChanged += rbAsioOut_CheckedChanged;
+            rbAsioOut.CheckedChanged += RbAsioOut_CheckedChanged;
             // 
             // rbWasapiOut
             // 
             resources.ApplyResources(rbWasapiOut, "rbWasapiOut");
             rbWasapiOut.Name = "rbWasapiOut";
             rbWasapiOut.UseVisualStyleBackColor = true;
-            rbWasapiOut.CheckedChanged += rbWasapiOut_CheckedChanged;
+            rbWasapiOut.CheckedChanged += RbWasapiOut_CheckedChanged;
             // 
             // gbAsioOut
             // 
@@ -732,7 +732,7 @@ namespace MDPlayer.form
             resources.ApplyResources(rbDirectSoundOut, "rbDirectSoundOut");
             rbDirectSoundOut.Name = "rbDirectSoundOut";
             rbDirectSoundOut.UseVisualStyleBackColor = true;
-            rbDirectSoundOut.CheckedChanged += rbDirectSoundOut_CheckedChanged;
+            rbDirectSoundOut.CheckedChanged += RbDirectSoundOut_CheckedChanged;
             // 
             // gbWasapiOut
             // 
@@ -834,7 +834,7 @@ namespace MDPlayer.form
             resources.ApplyResources(rbNullDevice, "rbNullDevice");
             rbNullDevice.Name = "rbNullDevice";
             rbNullDevice.UseVisualStyleBackColor = true;
-            rbNullDevice.CheckedChanged += rbDirectSoundOut_CheckedChanged;
+            rbNullDevice.CheckedChanged += RbDirectSoundOut_CheckedChanged;
             // 
             // label36
             // 
@@ -900,7 +900,7 @@ namespace MDPlayer.form
             resources.ApplyResources(rbSPPCM, "rbSPPCM");
             rbSPPCM.Name = "rbSPPCM";
             rbSPPCM.UseVisualStyleBackColor = true;
-            rbSPPCM.CheckedChanged += rbDirectSoundOut_CheckedChanged;
+            rbSPPCM.CheckedChanged += RbDirectSoundOut_CheckedChanged;
             // 
             // groupBox16
             // 
@@ -1438,21 +1438,21 @@ namespace MDPlayer.form
             resources.ApplyResources(btnSIDBasic, "btnSIDBasic");
             btnSIDBasic.Name = "btnSIDBasic";
             btnSIDBasic.UseVisualStyleBackColor = true;
-            btnSIDBasic.Click += btnSIDBasic_Click;
+            btnSIDBasic.Click += BtnSIDBasic_Click;
             // 
             // btnSIDCharacter
             // 
             resources.ApplyResources(btnSIDCharacter, "btnSIDCharacter");
             btnSIDCharacter.Name = "btnSIDCharacter";
             btnSIDCharacter.UseVisualStyleBackColor = true;
-            btnSIDCharacter.Click += btnSIDCharacter_Click;
+            btnSIDCharacter.Click += BtnSIDCharacter_Click;
             // 
             // btnSIDKernal
             // 
             resources.ApplyResources(btnSIDKernal, "btnSIDKernal");
             btnSIDKernal.Name = "btnSIDKernal";
             btnSIDKernal.UseVisualStyleBackColor = true;
-            btnSIDKernal.Click += btnSIDKernal_Click;
+            btnSIDKernal.Click += BtnSIDKernal_Click;
             // 
             // tbSIDCharacter
             // 
@@ -1520,7 +1520,7 @@ namespace MDPlayer.form
             rbPMDManual.Name = "rbPMDManual";
             rbPMDManual.TabStop = true;
             rbPMDManual.UseVisualStyleBackColor = true;
-            rbPMDManual.CheckedChanged += rbPMDManual_CheckedChanged;
+            rbPMDManual.CheckedChanged += RbPMDManual_CheckedChanged;
             // 
             // rbPMDAuto
             // 
@@ -1534,7 +1534,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btnPMDResetDriverArguments, "btnPMDResetDriverArguments");
             btnPMDResetDriverArguments.Name = "btnPMDResetDriverArguments";
             btnPMDResetDriverArguments.UseVisualStyleBackColor = true;
-            btnPMDResetDriverArguments.Click += btnPMDResetDriverArguments_Click;
+            btnPMDResetDriverArguments.Click += BtnPMDResetDriverArguments_Click;
             // 
             // label54
             // 
@@ -1546,7 +1546,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btnPMDResetCompilerArhguments, "btnPMDResetCompilerArhguments");
             btnPMDResetCompilerArhguments.Name = "btnPMDResetCompilerArhguments";
             btnPMDResetCompilerArhguments.UseVisualStyleBackColor = true;
-            btnPMDResetCompilerArhguments.Click += btnPMDResetCompilerArhguments_Click;
+            btnPMDResetCompilerArhguments.Click += BtnPMDResetCompilerArhguments_Click;
             // 
             // tbPMDDriverArguments
             // 
@@ -1580,7 +1580,7 @@ namespace MDPlayer.form
             resources.ApplyResources(cbPMDSetManualVolume, "cbPMDSetManualVolume");
             cbPMDSetManualVolume.Name = "cbPMDSetManualVolume";
             cbPMDSetManualVolume.UseVisualStyleBackColor = true;
-            cbPMDSetManualVolume.CheckedChanged += cbPMDSetManualVolume_CheckedChanged;
+            cbPMDSetManualVolume.CheckedChanged += CbPMDSetManualVolume_CheckedChanged;
             // 
             // cbPMDUsePPZ8
             // 
@@ -1623,7 +1623,7 @@ namespace MDPlayer.form
             resources.ApplyResources(cbPMDUsePPSDRV, "cbPMDUsePPSDRV");
             cbPMDUsePPSDRV.Name = "cbPMDUsePPSDRV";
             cbPMDUsePPSDRV.UseVisualStyleBackColor = true;
-            cbPMDUsePPSDRV.CheckedChanged += cbPMDUsePPSDRV_CheckedChanged;
+            cbPMDUsePPSDRV.CheckedChanged += CbPMDUsePPSDRV_CheckedChanged;
             // 
             // gbPPSDRV
             // 
@@ -1652,7 +1652,7 @@ namespace MDPlayer.form
             rbPMDUsePPSDRVManualFreq.Name = "rbPMDUsePPSDRVManualFreq";
             rbPMDUsePPSDRVManualFreq.TabStop = true;
             rbPMDUsePPSDRVManualFreq.UseVisualStyleBackColor = true;
-            rbPMDUsePPSDRVManualFreq.CheckedChanged += rbPMDUsePPSDRVManualFreq_CheckedChanged;
+            rbPMDUsePPSDRVManualFreq.CheckedChanged += RbPMDUsePPSDRVManualFreq_CheckedChanged;
             // 
             // label56
             // 
@@ -1671,7 +1671,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btnPMDPPSDRVManualWait, "btnPMDPPSDRVManualWait");
             btnPMDPPSDRVManualWait.Name = "btnPMDPPSDRVManualWait";
             btnPMDPPSDRVManualWait.UseVisualStyleBackColor = true;
-            btnPMDPPSDRVManualWait.Click += btnPMDPPSDRVManualWait_Click;
+            btnPMDPPSDRVManualWait.Click += BtnPMDPPSDRVManualWait_Click;
             // 
             // label57
             // 
@@ -1682,8 +1682,8 @@ namespace MDPlayer.form
             // 
             resources.ApplyResources(tbPMDPPSDRVFreq, "tbPMDPPSDRVFreq");
             tbPMDPPSDRVFreq.Name = "tbPMDPPSDRVFreq";
-            tbPMDPPSDRVFreq.Click += tbPMDPPSDRVFreq_Click;
-            tbPMDPPSDRVFreq.MouseClick += tbPMDPPSDRVFreq_MouseClick;
+            tbPMDPPSDRVFreq.Click += TbPMDPPSDRVFreq_Click;
+            tbPMDPPSDRVFreq.MouseClick += TbPMDPPSDRVFreq_MouseClick;
             // 
             // label58
             // 
@@ -1785,7 +1785,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btnAddVST, "btnAddVST");
             btnAddVST.Name = "btnAddVST";
             btnAddVST.UseVisualStyleBackColor = true;
-            btnAddVST.Click += btnAddVST_Click;
+            btnAddVST.Click += BtnAddVST_Click;
             // 
             // tbcMIDIoutList
             // 
@@ -1889,14 +1889,14 @@ namespace MDPlayer.form
             resources.ApplyResources(btnUP_A, "btnUP_A");
             btnUP_A.Name = "btnUP_A";
             btnUP_A.UseVisualStyleBackColor = true;
-            btnUP_A.Click += btnUP_Click;
+            btnUP_A.Click += BtnUP_Click;
             // 
             // btnDOWN_A
             // 
             resources.ApplyResources(btnDOWN_A, "btnDOWN_A");
             btnDOWN_A.Name = "btnDOWN_A";
             btnDOWN_A.UseVisualStyleBackColor = true;
-            btnDOWN_A.Click += btnDOWN_Click;
+            btnDOWN_A.Click += BtnDOWN_Click;
             // 
             // tabPage2
             // 
@@ -1926,14 +1926,14 @@ namespace MDPlayer.form
             resources.ApplyResources(btnUP_B, "btnUP_B");
             btnUP_B.Name = "btnUP_B";
             btnUP_B.UseVisualStyleBackColor = true;
-            btnUP_B.Click += btnUP_Click;
+            btnUP_B.Click += BtnUP_Click;
             // 
             // btnDOWN_B
             // 
             resources.ApplyResources(btnDOWN_B, "btnDOWN_B");
             btnDOWN_B.Name = "btnDOWN_B";
             btnDOWN_B.UseVisualStyleBackColor = true;
-            btnDOWN_B.Click += btnDOWN_Click;
+            btnDOWN_B.Click += BtnDOWN_Click;
             // 
             // tabPage3
             // 
@@ -1963,14 +1963,14 @@ namespace MDPlayer.form
             resources.ApplyResources(btnUP_C, "btnUP_C");
             btnUP_C.Name = "btnUP_C";
             btnUP_C.UseVisualStyleBackColor = true;
-            btnUP_C.Click += btnUP_Click;
+            btnUP_C.Click += BtnUP_Click;
             // 
             // btnDOWN_C
             // 
             resources.ApplyResources(btnDOWN_C, "btnDOWN_C");
             btnDOWN_C.Name = "btnDOWN_C";
             btnDOWN_C.UseVisualStyleBackColor = true;
-            btnDOWN_C.Click += btnDOWN_Click;
+            btnDOWN_C.Click += BtnDOWN_Click;
             // 
             // tabPage4
             // 
@@ -2000,14 +2000,14 @@ namespace MDPlayer.form
             resources.ApplyResources(btnUP_D, "btnUP_D");
             btnUP_D.Name = "btnUP_D";
             btnUP_D.UseVisualStyleBackColor = true;
-            btnUP_D.Click += btnUP_Click;
+            btnUP_D.Click += BtnUP_Click;
             // 
             // btnDOWN_D
             // 
             resources.ApplyResources(btnDOWN_D, "btnDOWN_D");
             btnDOWN_D.Name = "btnDOWN_D";
             btnDOWN_D.UseVisualStyleBackColor = true;
-            btnDOWN_D.Click += btnDOWN_Click;
+            btnDOWN_D.Click += BtnDOWN_Click;
             // 
             // tabPage5
             // 
@@ -2037,14 +2037,14 @@ namespace MDPlayer.form
             resources.ApplyResources(btnUP_E, "btnUP_E");
             btnUP_E.Name = "btnUP_E";
             btnUP_E.UseVisualStyleBackColor = true;
-            btnUP_E.Click += btnUP_Click;
+            btnUP_E.Click += BtnUP_Click;
             // 
             // btnDOWN_E
             // 
             resources.ApplyResources(btnDOWN_E, "btnDOWN_E");
             btnDOWN_E.Name = "btnDOWN_E";
             btnDOWN_E.UseVisualStyleBackColor = true;
-            btnDOWN_E.Click += btnDOWN_Click;
+            btnDOWN_E.Click += BtnDOWN_Click;
             // 
             // tabPage6
             // 
@@ -2074,14 +2074,14 @@ namespace MDPlayer.form
             resources.ApplyResources(btnUP_F, "btnUP_F");
             btnUP_F.Name = "btnUP_F";
             btnUP_F.UseVisualStyleBackColor = true;
-            btnUP_F.Click += btnUP_Click;
+            btnUP_F.Click += BtnUP_Click;
             // 
             // btnDOWN_F
             // 
             resources.ApplyResources(btnDOWN_F, "btnDOWN_F");
             btnDOWN_F.Name = "btnDOWN_F";
             btnDOWN_F.UseVisualStyleBackColor = true;
-            btnDOWN_F.Click += btnDOWN_Click;
+            btnDOWN_F.Click += BtnDOWN_Click;
             // 
             // tabPage7
             // 
@@ -2111,14 +2111,14 @@ namespace MDPlayer.form
             resources.ApplyResources(btnUP_G, "btnUP_G");
             btnUP_G.Name = "btnUP_G";
             btnUP_G.UseVisualStyleBackColor = true;
-            btnUP_G.Click += btnUP_Click;
+            btnUP_G.Click += BtnUP_Click;
             // 
             // btnDOWN_G
             // 
             resources.ApplyResources(btnDOWN_G, "btnDOWN_G");
             btnDOWN_G.Name = "btnDOWN_G";
             btnDOWN_G.UseVisualStyleBackColor = true;
-            btnDOWN_G.Click += btnDOWN_Click;
+            btnDOWN_G.Click += BtnDOWN_Click;
             // 
             // tabPage8
             // 
@@ -2148,14 +2148,14 @@ namespace MDPlayer.form
             resources.ApplyResources(btnUP_H, "btnUP_H");
             btnUP_H.Name = "btnUP_H";
             btnUP_H.UseVisualStyleBackColor = true;
-            btnUP_H.Click += btnUP_Click;
+            btnUP_H.Click += BtnUP_Click;
             // 
             // btnDOWN_H
             // 
             resources.ApplyResources(btnDOWN_H, "btnDOWN_H");
             btnDOWN_H.Name = "btnDOWN_H";
             btnDOWN_H.UseVisualStyleBackColor = true;
-            btnDOWN_H.Click += btnDOWN_Click;
+            btnDOWN_H.Click += BtnDOWN_Click;
             // 
             // tabPage9
             // 
@@ -2185,14 +2185,14 @@ namespace MDPlayer.form
             resources.ApplyResources(btnUP_I, "btnUP_I");
             btnUP_I.Name = "btnUP_I";
             btnUP_I.UseVisualStyleBackColor = true;
-            btnUP_I.Click += btnUP_Click;
+            btnUP_I.Click += BtnUP_Click;
             // 
             // btnDOWN_I
             // 
             resources.ApplyResources(btnDOWN_I, "btnDOWN_I");
             btnDOWN_I.Name = "btnDOWN_I";
             btnDOWN_I.UseVisualStyleBackColor = true;
-            btnDOWN_I.Click += btnDOWN_Click;
+            btnDOWN_I.Click += BtnDOWN_Click;
             // 
             // tabPage10
             // 
@@ -2222,28 +2222,28 @@ namespace MDPlayer.form
             resources.ApplyResources(button17, "button17");
             button17.Name = "button17";
             button17.UseVisualStyleBackColor = true;
-            button17.Click += btnUP_Click;
+            button17.Click += BtnUP_Click;
             // 
             // btnDOWN_J
             // 
             resources.ApplyResources(btnDOWN_J, "btnDOWN_J");
             btnDOWN_J.Name = "btnDOWN_J";
             btnDOWN_J.UseVisualStyleBackColor = true;
-            btnDOWN_J.Click += btnDOWN_Click;
+            btnDOWN_J.Click += BtnDOWN_Click;
             // 
             // btnSubMIDIout
             // 
             resources.ApplyResources(btnSubMIDIout, "btnSubMIDIout");
             btnSubMIDIout.Name = "btnSubMIDIout";
             btnSubMIDIout.UseVisualStyleBackColor = true;
-            btnSubMIDIout.Click += btnSubMIDIout_Click;
+            btnSubMIDIout.Click += BtnSubMIDIout_Click;
             // 
             // btnAddMIDIout
             // 
             resources.ApplyResources(btnAddMIDIout, "btnAddMIDIout");
             btnAddMIDIout.Name = "btnAddMIDIout";
             btnAddMIDIout.UseVisualStyleBackColor = true;
-            btnAddMIDIout.Click += btnAddMIDIout_Click;
+            btnAddMIDIout.Click += BtnAddMIDIout_Click;
             // 
             // label18
             // 
@@ -2328,7 +2328,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btnBeforeSend_Default, "btnBeforeSend_Default");
             btnBeforeSend_Default.Name = "btnBeforeSend_Default";
             btnBeforeSend_Default.UseVisualStyleBackColor = true;
-            btnBeforeSend_Default.Click += btnBeforeSend_Default_Click;
+            btnBeforeSend_Default.Click += BtnBeforeSend_Default_Click;
             // 
             // tbBeforeSend_Custom
             // 
@@ -2388,7 +2388,7 @@ namespace MDPlayer.form
             resources.ApplyResources(cbUseMIDIExport, "cbUseMIDIExport");
             cbUseMIDIExport.Name = "cbUseMIDIExport";
             cbUseMIDIExport.UseVisualStyleBackColor = true;
-            cbUseMIDIExport.CheckedChanged += cbUseMIDIExport_CheckedChanged;
+            cbUseMIDIExport.CheckedChanged += CbUseMIDIExport_CheckedChanged;
             // 
             // gbMIDIExport
             // 
@@ -2518,7 +2518,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btnMIDIOutputPath, "btnMIDIOutputPath");
             btnMIDIOutputPath.Name = "btnMIDIOutputPath";
             btnMIDIOutputPath.UseVisualStyleBackColor = true;
-            btnMIDIOutputPath.Click += btnMIDIOutputPath_Click;
+            btnMIDIOutputPath.Click += BtnMIDIOutputPath_Click;
             // 
             // lblOutputPath
             // 
@@ -2543,7 +2543,7 @@ namespace MDPlayer.form
             resources.ApplyResources(cbUseMIDIKeyboard, "cbUseMIDIKeyboard");
             cbUseMIDIKeyboard.Name = "cbUseMIDIKeyboard";
             cbUseMIDIKeyboard.UseVisualStyleBackColor = true;
-            cbUseMIDIKeyboard.CheckedChanged += cbUseMIDIKeyboard_CheckedChanged;
+            cbUseMIDIKeyboard.CheckedChanged += CbUseMIDIKeyboard_CheckedChanged;
             // 
             // gbMIDIKeyboard
             // 
@@ -2868,7 +2868,7 @@ namespace MDPlayer.form
             resources.ApplyResources(cbUseKeyBoardHook, "cbUseKeyBoardHook");
             cbUseKeyBoardHook.Name = "cbUseKeyBoardHook";
             cbUseKeyBoardHook.UseVisualStyleBackColor = true;
-            cbUseKeyBoardHook.CheckedChanged += cbUseKeyBoardHook_CheckedChanged;
+            cbUseKeyBoardHook.CheckedChanged += CbUseKeyBoardHook_CheckedChanged;
             // 
             // gbUseKeyBoardHook
             // 
@@ -2998,7 +2998,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btPpcClr, "btPpcClr");
             btPpcClr.Name = "btPpcClr";
             btPpcClr.UseVisualStyleBackColor = true;
-            btPpcClr.Click += btPpcClr_Click;
+            btPpcClr.Click += BtPpcClr_Click;
             // 
             // cbPpcShift
             // 
@@ -3011,7 +3011,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btPpcSet, "btPpcSet");
             btPpcSet.Name = "btPpcSet";
             btPpcSet.UseVisualStyleBackColor = true;
-            btPpcSet.Click += btPpcSet_Click;
+            btPpcSet.Click += BtPpcSet_Click;
             // 
             // label76
             // 
@@ -3040,7 +3040,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btDpcClr, "btDpcClr");
             btDpcClr.Name = "btDpcClr";
             btDpcClr.UseVisualStyleBackColor = true;
-            btDpcClr.Click += btDpcClr_Click;
+            btDpcClr.Click += BtDpcClr_Click;
             // 
             // cbDpcShift
             // 
@@ -3053,7 +3053,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btDpcSet, "btDpcSet");
             btDpcSet.Name = "btDpcSet";
             btDpcSet.UseVisualStyleBackColor = true;
-            btDpcSet.Click += btDpcSet_Click;
+            btDpcSet.Click += BtDpcSet_Click;
             // 
             // label74
             // 
@@ -3082,14 +3082,14 @@ namespace MDPlayer.form
             resources.ApplyResources(btUpcClr, "btUpcClr");
             btUpcClr.Name = "btUpcClr";
             btUpcClr.UseVisualStyleBackColor = true;
-            btUpcClr.Click += btUpcClr_Click;
+            btUpcClr.Click += BtUpcClr_Click;
             // 
             // btRmvClr
             // 
             resources.ApplyResources(btRmvClr, "btRmvClr");
             btRmvClr.Name = "btRmvClr";
             btRmvClr.UseVisualStyleBackColor = true;
-            btRmvClr.Click += btRmvClr_Click;
+            btRmvClr.Click += BtRmvClr_Click;
             // 
             // cbUpcShift
             // 
@@ -3114,7 +3114,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btUpcSet, "btUpcSet");
             btUpcSet.Name = "btUpcSet";
             btUpcSet.UseVisualStyleBackColor = true;
-            btUpcSet.Click += btUpcSet_Click;
+            btUpcSet.Click += BtUpcSet_Click;
             // 
             // cbFastShift
             // 
@@ -3132,7 +3132,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btDmvClr, "btDmvClr");
             btDmvClr.Name = "btDmvClr";
             btDmvClr.UseVisualStyleBackColor = true;
-            btDmvClr.Click += btDmvClr_Click;
+            btDmvClr.Click += BtDmvClr_Click;
             // 
             // lblUpcKey
             // 
@@ -3144,7 +3144,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btRmvSet, "btRmvSet");
             btRmvSet.Name = "btRmvSet";
             btRmvSet.UseVisualStyleBackColor = true;
-            btRmvSet.Click += btRmvSet_Click;
+            btRmvSet.Click += BtRmvSet_Click;
             // 
             // cbUpcAlt
             // 
@@ -3174,7 +3174,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btUmvClr, "btUmvClr");
             btUmvClr.Name = "btUmvClr";
             btUmvClr.UseVisualStyleBackColor = true;
-            btUmvClr.Click += btUmvClr_Click;
+            btUmvClr.Click += BtUmvClr_Click;
             // 
             // cbRmvAlt
             // 
@@ -3199,7 +3199,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btNextClr, "btNextClr");
             btNextClr.Name = "btNextClr";
             btNextClr.UseVisualStyleBackColor = true;
-            btNextClr.Click += btNextClr_Click;
+            btNextClr.Click += BtNextClr_Click;
             // 
             // lblRmvKey
             // 
@@ -3217,7 +3217,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btPrevClr, "btPrevClr");
             btPrevClr.Name = "btPrevClr";
             btPrevClr.UseVisualStyleBackColor = true;
-            btPrevClr.Click += btPrevClr_Click;
+            btPrevClr.Click += BtPrevClr_Click;
             // 
             // cbPlayShift
             // 
@@ -3230,7 +3230,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btPlayClr, "btPlayClr");
             btPlayClr.Name = "btPlayClr";
             btPlayClr.UseVisualStyleBackColor = true;
-            btPlayClr.Click += btPlayClr_Click;
+            btPlayClr.Click += BtPlayClr_Click;
             // 
             // cbStopCtrl
             // 
@@ -3243,7 +3243,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btPauseClr, "btPauseClr");
             btPauseClr.Name = "btPauseClr";
             btPauseClr.UseVisualStyleBackColor = true;
-            btPauseClr.Click += btPauseClr_Click;
+            btPauseClr.Click += BtPauseClr_Click;
             // 
             // cbSlowShift
             // 
@@ -3256,7 +3256,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btFastClr, "btFastClr");
             btFastClr.Name = "btFastClr";
             btFastClr.UseVisualStyleBackColor = true;
-            btFastClr.Click += btFastClr_Click;
+            btFastClr.Click += BtFastClr_Click;
             // 
             // cbPauseCtrl
             // 
@@ -3269,7 +3269,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btFadeoutClr, "btFadeoutClr");
             btFadeoutClr.Name = "btFadeoutClr";
             btFadeoutClr.UseVisualStyleBackColor = true;
-            btFadeoutClr.Click += btFadeoutClr_Click;
+            btFadeoutClr.Click += BtFadeoutClr_Click;
             // 
             // cbPrevShift
             // 
@@ -3282,7 +3282,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btSlowClr, "btSlowClr");
             btSlowClr.Name = "btSlowClr";
             btSlowClr.UseVisualStyleBackColor = true;
-            btSlowClr.Click += btSlowClr_Click;
+            btSlowClr.Click += BtSlowClr_Click;
             // 
             // cbFadeoutCtrl
             // 
@@ -3295,21 +3295,21 @@ namespace MDPlayer.form
             resources.ApplyResources(btDmvSet, "btDmvSet");
             btDmvSet.Name = "btDmvSet";
             btDmvSet.UseVisualStyleBackColor = true;
-            btDmvSet.Click += btDmvSet_Click;
+            btDmvSet.Click += BtDmvSet_Click;
             // 
             // btStopClr
             // 
             resources.ApplyResources(btStopClr, "btStopClr");
             btStopClr.Name = "btStopClr";
             btStopClr.UseVisualStyleBackColor = true;
-            btStopClr.Click += btStopClr_Click;
+            btStopClr.Click += BtStopClr_Click;
             // 
             // btUmvSet
             // 
             resources.ApplyResources(btUmvSet, "btUmvSet");
             btUmvSet.Name = "btUmvSet";
             btUmvSet.UseVisualStyleBackColor = true;
-            btUmvSet.Click += btUmvSet_Click;
+            btUmvSet.Click += BtUmvSet_Click;
             // 
             // cbFadeoutShift
             // 
@@ -3322,7 +3322,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btNextSet, "btNextSet");
             btNextSet.Name = "btNextSet";
             btNextSet.UseVisualStyleBackColor = true;
-            btNextSet.Click += btNextSet_Click;
+            btNextSet.Click += BtNextSet_Click;
             // 
             // cbPrevCtrl
             // 
@@ -3335,7 +3335,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btPrevSet, "btPrevSet");
             btPrevSet.Name = "btPrevSet";
             btPrevSet.UseVisualStyleBackColor = true;
-            btPrevSet.Click += btPrevSet_Click;
+            btPrevSet.Click += BtPrevSet_Click;
             // 
             // cbPauseShift
             // 
@@ -3348,7 +3348,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btPlaySet, "btPlaySet");
             btPlaySet.Name = "btPlaySet";
             btPlaySet.UseVisualStyleBackColor = true;
-            btPlaySet.Click += btPlaySet_Click;
+            btPlaySet.Click += BtPlaySet_Click;
             // 
             // cbSlowCtrl
             // 
@@ -3361,7 +3361,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btPauseSet, "btPauseSet");
             btPauseSet.Name = "btPauseSet";
             btPauseSet.UseVisualStyleBackColor = true;
-            btPauseSet.Click += btPauseSet_Click;
+            btPauseSet.Click += BtPauseSet_Click;
             // 
             // cbStopShift
             // 
@@ -3374,7 +3374,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btFastSet, "btFastSet");
             btFastSet.Name = "btFastSet";
             btFastSet.UseVisualStyleBackColor = true;
-            btFastSet.Click += btFastSet_Click;
+            btFastSet.Click += BtFastSet_Click;
             // 
             // label71
             // 
@@ -3397,7 +3397,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btFadeoutSet, "btFadeoutSet");
             btFadeoutSet.Name = "btFadeoutSet";
             btFadeoutSet.UseVisualStyleBackColor = true;
-            btFadeoutSet.Click += btFadeoutSet_Click;
+            btFadeoutSet.Click += BtFadeoutSet_Click;
             // 
             // label44
             // 
@@ -3409,7 +3409,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btSlowSet, "btSlowSet");
             btSlowSet.Name = "btSlowSet";
             btSlowSet.UseVisualStyleBackColor = true;
-            btSlowSet.Click += btSlowSet_Click;
+            btSlowSet.Click += BtSlowSet_Click;
             // 
             // cbFastCtrl
             // 
@@ -3422,7 +3422,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btStopSet, "btStopSet");
             btStopSet.Name = "btStopSet";
             btStopSet.UseVisualStyleBackColor = true;
-            btStopSet.Click += btStopSet_Click;
+            btStopSet.Click += BtStopSet_Click;
             // 
             // cbDmvCtrl
             // 
@@ -3878,7 +3878,7 @@ namespace MDPlayer.form
             resources.ApplyResources(cbAutoOpenImg, "cbAutoOpenImg");
             cbAutoOpenImg.Name = "cbAutoOpenImg";
             cbAutoOpenImg.UseVisualStyleBackColor = true;
-            cbAutoOpenImg.CheckedChanged += cbUseLoopTimes_CheckedChanged;
+            cbAutoOpenImg.CheckedChanged += CbUseLoopTimes_CheckedChanged;
             // 
             // tbImageExt
             // 
@@ -3890,7 +3890,7 @@ namespace MDPlayer.form
             resources.ApplyResources(cbAutoOpenMML, "cbAutoOpenMML");
             cbAutoOpenMML.Name = "cbAutoOpenMML";
             cbAutoOpenMML.UseVisualStyleBackColor = true;
-            cbAutoOpenMML.CheckedChanged += cbUseLoopTimes_CheckedChanged;
+            cbAutoOpenMML.CheckedChanged += CbUseLoopTimes_CheckedChanged;
             // 
             // tbMMLExt
             // 
@@ -3907,7 +3907,7 @@ namespace MDPlayer.form
             resources.ApplyResources(cbAutoOpenText, "cbAutoOpenText");
             cbAutoOpenText.Name = "cbAutoOpenText";
             cbAutoOpenText.UseVisualStyleBackColor = true;
-            cbAutoOpenText.CheckedChanged += cbUseLoopTimes_CheckedChanged;
+            cbAutoOpenText.CheckedChanged += CbUseLoopTimes_CheckedChanged;
             // 
             // label1
             // 
@@ -3929,7 +3929,7 @@ namespace MDPlayer.form
             resources.ApplyResources(cbEmptyPlayList, "cbEmptyPlayList");
             cbEmptyPlayList.Name = "cbEmptyPlayList";
             cbEmptyPlayList.UseVisualStyleBackColor = true;
-            cbEmptyPlayList.CheckedChanged += cbUseLoopTimes_CheckedChanged;
+            cbEmptyPlayList.CheckedChanged += CbUseLoopTimes_CheckedChanged;
             // 
             // tpOther
             // 
@@ -3969,7 +3969,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btnImageResourceFile, "btnImageResourceFile");
             btnImageResourceFile.Name = "btnImageResourceFile";
             btnImageResourceFile.UseVisualStyleBackColor = true;
-            btnImageResourceFile.Click += btnImageResourcePath_Click;
+            btnImageResourceFile.Click += BtnImageResourcePath_Click;
             // 
             // tbResourceFile
             // 
@@ -3986,7 +3986,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btnSearchPath, "btnSearchPath");
             btnSearchPath.Name = "btnSearchPath";
             btnSearchPath.UseVisualStyleBackColor = true;
-            btnSearchPath.Click += btnSearchPath_Click;
+            btnSearchPath.Click += BtnSearchPath_Click;
             // 
             // tbSearchPath
             // 
@@ -4009,14 +4009,14 @@ namespace MDPlayer.form
             resources.ApplyResources(cbWavSwitch, "cbWavSwitch");
             cbWavSwitch.Name = "cbWavSwitch";
             cbWavSwitch.UseVisualStyleBackColor = true;
-            cbWavSwitch.CheckedChanged += cbWavSwitch_CheckedChanged;
+            cbWavSwitch.CheckedChanged += CbWavSwitch_CheckedChanged;
             // 
             // cbUseGetInst
             // 
             resources.ApplyResources(cbUseGetInst, "cbUseGetInst");
             cbUseGetInst.Name = "cbUseGetInst";
             cbUseGetInst.UseVisualStyleBackColor = true;
-            cbUseGetInst.CheckedChanged += cbUseGetInst_CheckedChanged;
+            cbUseGetInst.CheckedChanged += CbUseGetInst_CheckedChanged;
             // 
             // groupBox4
             // 
@@ -4051,7 +4051,7 @@ namespace MDPlayer.form
             resources.ApplyResources(cbDumpSwitch, "cbDumpSwitch");
             cbDumpSwitch.Name = "cbDumpSwitch";
             cbDumpSwitch.UseVisualStyleBackColor = true;
-            cbDumpSwitch.CheckedChanged += cbDumpSwitch_CheckedChanged;
+            cbDumpSwitch.CheckedChanged += CbDumpSwitch_CheckedChanged;
             // 
             // gbWav
             // 
@@ -4067,7 +4067,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btnWavPath, "btnWavPath");
             btnWavPath.Name = "btnWavPath";
             btnWavPath.UseVisualStyleBackColor = true;
-            btnWavPath.Click += btnWavPath_Click;
+            btnWavPath.Click += BtnWavPath_Click;
             // 
             // label7
             // 
@@ -4093,7 +4093,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btnDumpPath, "btnDumpPath");
             btnDumpPath.Name = "btnDumpPath";
             btnDumpPath.UseVisualStyleBackColor = true;
-            btnDumpPath.Click += btnDumpPath_Click;
+            btnDumpPath.Click += BtnDumpPath_Click;
             // 
             // label6
             // 
@@ -4130,7 +4130,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btnDataPath, "btnDataPath");
             btnDataPath.Name = "btnDataPath";
             btnDataPath.UseVisualStyleBackColor = true;
-            btnDataPath.Click += btnDataPath_Click;
+            btnDataPath.Click += BtnDataPath_Click;
             // 
             // tbLoopTimes
             // 
@@ -4152,42 +4152,42 @@ namespace MDPlayer.form
             resources.ApplyResources(btnResetPosition, "btnResetPosition");
             btnResetPosition.Name = "btnResetPosition";
             btnResetPosition.UseVisualStyleBackColor = true;
-            btnResetPosition.Click += btnResetPosition_Click;
+            btnResetPosition.Click += BtnResetPosition_Click;
             // 
             // btnOpenSettingFolder
             // 
             resources.ApplyResources(btnOpenSettingFolder, "btnOpenSettingFolder");
             btnOpenSettingFolder.Name = "btnOpenSettingFolder";
             btnOpenSettingFolder.UseVisualStyleBackColor = true;
-            btnOpenSettingFolder.Click += btnOpenSettingFolder_Click;
+            btnOpenSettingFolder.Click += BtnOpenSettingFolder_Click;
             // 
             // cbExALL
             // 
             resources.ApplyResources(cbExALL, "cbExALL");
             cbExALL.Name = "cbExALL";
             cbExALL.UseVisualStyleBackColor = true;
-            cbExALL.CheckedChanged += cbUseLoopTimes_CheckedChanged;
+            cbExALL.CheckedChanged += CbUseLoopTimes_CheckedChanged;
             // 
             // cbInitAlways
             // 
             resources.ApplyResources(cbInitAlways, "cbInitAlways");
             cbInitAlways.Name = "cbInitAlways";
             cbInitAlways.UseVisualStyleBackColor = true;
-            cbInitAlways.CheckedChanged += cbUseLoopTimes_CheckedChanged;
+            cbInitAlways.CheckedChanged += CbUseLoopTimes_CheckedChanged;
             // 
             // cbAutoOpen
             // 
             resources.ApplyResources(cbAutoOpen, "cbAutoOpen");
             cbAutoOpen.Name = "cbAutoOpen";
             cbAutoOpen.UseVisualStyleBackColor = true;
-            cbAutoOpen.CheckedChanged += cbUseLoopTimes_CheckedChanged;
+            cbAutoOpen.CheckedChanged += CbUseLoopTimes_CheckedChanged;
             // 
             // cbUseLoopTimes
             // 
             resources.ApplyResources(cbUseLoopTimes, "cbUseLoopTimes");
             cbUseLoopTimes.Name = "cbUseLoopTimes";
             cbUseLoopTimes.UseVisualStyleBackColor = true;
-            cbUseLoopTimes.CheckedChanged += cbUseLoopTimes_CheckedChanged;
+            cbUseLoopTimes.CheckedChanged += CbUseLoopTimes_CheckedChanged;
             // 
             // tpOmake
             // 
@@ -4216,7 +4216,7 @@ namespace MDPlayer.form
             resources.ApplyResources(btVST, "btVST");
             btVST.Name = "btVST";
             btVST.UseVisualStyleBackColor = true;
-            btVST.Click += btVST_Click;
+            btVST.Click += BtVST_Click;
             // 
             // tbSCCbaseAddress
             // 
@@ -4354,7 +4354,7 @@ namespace MDPlayer.form
             resources.ApplyResources(llOpenGithub, "llOpenGithub");
             llOpenGithub.Name = "llOpenGithub";
             llOpenGithub.TabStop = true;
-            llOpenGithub.LinkClicked += llOpenGithub_LinkClicked;
+            llOpenGithub.LinkClicked += LlOpenGithub_LinkClicked;
             // 
             // frmSetting
             // 
@@ -4367,8 +4367,8 @@ namespace MDPlayer.form
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "frmSetting";
-            FormClosed += frmSetting_FormClosed;
-            Load += frmSetting_Load;
+            FormClosed += FrmSetting_FormClosed;
+            Load += FrmSetting_Load;
             gbWaveOut.ResumeLayout(false);
             gbAsioOut.ResumeLayout(false);
             gbWasapiOut.ResumeLayout(false);

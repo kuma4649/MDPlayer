@@ -219,7 +219,7 @@ namespace MDPlayer.form
                 }
             }
 
-            int ko = Audio.getYMF262FMKeyON(chipID);
+            int ko = Audio.GetYMF262FMKeyON(chipID);
 
             for (int c = 0; c < 18; c++)
             {
@@ -287,7 +287,7 @@ namespace MDPlayer.form
 
             #region リズム情報の取得
 
-            int r = Audio.getYMF262RyhthmKeyON(chipID);
+            int r = Audio.GetYMF262RyhthmKeyON(chipID);
 
             //slot14 TL 0x51 HH
             //slot15 TL 0x52 TOM
@@ -460,7 +460,7 @@ namespace MDPlayer.form
                     //音色欄をクリック
                     //クリップボードに音色をコピーする
                     if (e.Button == MouseButtons.Left)
-                        parent.getInstCh(EnmChip.YMF262, ch - 20, chipID);
+                        parent.GetInstCh(EnmChip.YMF262, ch - 20, chipID);
                 }
                 return;
             }

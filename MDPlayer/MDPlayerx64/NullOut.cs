@@ -82,14 +82,14 @@ namespace MDPlayer
             }
 
             reqStop = false;
-            trdMain = new Thread(new ThreadStart(trdFunction));
+            trdMain = new Thread(new ThreadStart(TrdFunction));
             trdMain.Priority = ThreadPriority.Highest;
             trdMain.IsBackground = true;
             trdMain.Name = "trdNullOutFunction";
             trdMain.Start();
         }
 
-        private void trdFunction()
+        private void TrdFunction()
         {
             pbState = PlaybackState.Playing;
 

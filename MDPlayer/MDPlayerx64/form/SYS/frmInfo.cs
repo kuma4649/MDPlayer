@@ -26,7 +26,7 @@ namespace MDPlayer.form
             parent = frm;
             InitializeComponent();
             rtbLyric.GotFocus += RichTextBox1_GotFocus;
-            update();
+            UpdateInfo();
         }
 
         private void RichTextBox1_GotFocus(object sender, EventArgs e)
@@ -34,7 +34,7 @@ namespace MDPlayer.form
             dgvInfo.Focus();
         }
 
-        public void update()
+        public void UpdateInfo()
         {
 
             dgvInfo.Rows.Clear();
@@ -69,7 +69,7 @@ namespace MDPlayer.form
             }
         }
 
-        public void screenInit()
+        public void ScreenInit()
         {
             lyricsIndex = 0;
             culColor = Color.FromArgb(192, 192, 255);
@@ -83,7 +83,7 @@ namespace MDPlayer.form
         //    }
         //}
 
-        private void frmInfo_FormClosed(object sender, FormClosedEventArgs e)
+        private void FrmInfo_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (WindowState == FormWindowState.Normal)
             {
@@ -97,7 +97,7 @@ namespace MDPlayer.form
             isClosed = true;
         }
 
-        private void frmInfo_Load(object sender, EventArgs e)
+        private void FrmInfo_Load(object sender, EventArgs e)
         {
             this.Location = new Point(x, y);
         }
@@ -106,13 +106,13 @@ namespace MDPlayer.form
         {
             if (parent != null)
             {
-                parent.windowsMessage(ref m);
+                parent.WindowsMessage(ref m);
             }
 
             base.WndProc(ref m);
         }
 
-        private void timer_Tick(object sender, EventArgs e)
+        private void Timer_Tick(object sender, EventArgs e)
         {
             if (lyrics == null || lyrics.Count < 1) return;
 

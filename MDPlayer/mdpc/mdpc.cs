@@ -140,7 +140,7 @@ namespace mdpc
             finally
             {
                 Audio.Stop();
-                Audio.closeWaveWriter();
+                Audio.CloseWaveWriter();
             }
 
             log.Write("End");
@@ -256,7 +256,7 @@ namespace mdpc
             Common.settingFilePath = Common.GetApplicationDataFolder(true);
             vgmBuf = getAllBytes(srcFn, out format);
             //Audio.isCommandLine = true;
-            Audio.emuOnly = emuOnly;
+            Audio.EmuOnly = emuOnly;
             Audio.Init(setting);
             Audio.SetVGMBuffer(format, vgmBuf, srcFn, "", 0, 0, null);
             Audio.Play(setting);

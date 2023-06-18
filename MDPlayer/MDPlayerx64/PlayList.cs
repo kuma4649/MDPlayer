@@ -503,8 +503,8 @@ namespace MDPlayer
                 }
 
                 List<PlayList.music> musics;
-                if (entry == null) musics = Audio.getMusic(mc.fileName, buf);
-                else musics = Audio.getMusic(mc.fileName, buf, mc.arcFileName, entry);
+                if (entry == null) musics = Audio.GetMusic(mc.fileName, buf);
+                else musics = Audio.GetMusic(mc.fileName, buf, mc.arcFileName, entry);
                 List<DataGridViewRow> rows = makeRow(musics);
 
                 dgvList.Rows.AddRange(rows.ToArray());
@@ -578,8 +578,8 @@ namespace MDPlayer
                 }
 
                 List<PlayList.music> musics;
-                if (entry == null) musics = Audio.getMusic(mc.fileName, buf);
-                else musics = Audio.getMusic(mc.fileName, buf, mc.arcFileName, entry);
+                if (entry == null) musics = Audio.GetMusic(mc.fileName, buf);
+                else musics = Audio.GetMusic(mc.fileName, buf, mc.arcFileName, entry);
                 List<DataGridViewRow> rows = makeRow(musics);
 
                 dgvList.Rows.InsertRange(index, rows.ToArray());
@@ -1171,8 +1171,8 @@ namespace MDPlayer
                 }
 
                 List<PlayList.music> musics;
-                if (entry == null) musics = Audio.getMusic(mc.fileName, buf);
-                else musics = Audio.getMusic(mc.fileName, buf, mc.arcFileName, entry);
+                if (entry == null) musics = Audio.GetMusic(mc.fileName, buf);
+                else musics = Audio.GetMusic(mc.fileName, buf, mc.arcFileName, entry);
 
                 if (mc.songNo != -1)
                 {
@@ -1231,8 +1231,8 @@ namespace MDPlayer
                 }
 
                 List<PlayList.music> musics;
-                if (entry == null) musics = Audio.getMusic(mc.fileName, buf);
-                else musics = Audio.getMusic(mc.fileName, buf, mc.arcFileName, entry);
+                if (entry == null) musics = Audio.GetMusic(mc.fileName, buf);
+                else musics = Audio.GetMusic(mc.fileName, buf, mc.arcFileName, entry);
 
                 if (mc.songNo != -1)
                 {
@@ -1291,8 +1291,8 @@ namespace MDPlayer
                 }
 
                 List<PlayList.music> musics;
-                if (entry == null) musics = Audio.getMusic(mc.fileName, buf);
-                else musics = Audio.getMusic(mc.fileName, buf, mc.arcFileName, entry);
+                if (entry == null) musics = Audio.GetMusic(mc.fileName, buf);
+                else musics = Audio.GetMusic(mc.fileName, buf, mc.arcFileName, entry);
 
                 if (mc.songNo != -1)
                 {
@@ -1350,8 +1350,8 @@ namespace MDPlayer
                 }
 
                 List<PlayList.music> musics;
-                if (entry == null) musics = Audio.getMusic(mc.fileName, buf);
-                else musics = Audio.getMusic(mc.fileName, buf, mc.arcFileName, entry);
+                if (entry == null) musics = Audio.GetMusic(mc.fileName, buf);
+                else musics = Audio.GetMusic(mc.fileName, buf, mc.arcFileName, entry);
 
                 if (mc.songNo != -1)
                 {
@@ -1410,8 +1410,8 @@ namespace MDPlayer
                 }
 
                 List<PlayList.music> musics;
-                if (entry == null) musics = Audio.getMusic(mc.fileName, buf);
-                else musics = Audio.getMusic(mc.fileName, buf, mc.arcFileName, entry);
+                if (entry == null) musics = Audio.GetMusic(mc.fileName, buf);
+                else musics = Audio.GetMusic(mc.fileName, buf, mc.arcFileName, entry);
 
                 if (mc.songNo != -1)
                 {
@@ -1469,8 +1469,8 @@ namespace MDPlayer
                 }
 
                 List<PlayList.music> musics;
-                if (entry == null) musics = Audio.getMusic(mc.fileName, buf);
-                else musics = Audio.getMusic(mc.fileName, buf, mc.arcFileName, entry);
+                if (entry == null) musics = Audio.GetMusic(mc.fileName, buf);
+                else musics = Audio.GetMusic(mc.fileName, buf, mc.arcFileName, entry);
 
                 if (mc.songNo != -1)
                 {

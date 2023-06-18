@@ -630,35 +630,35 @@ namespace MDPlayer
                     }
                     if (cc == mk.MidiCtrl_Fadeout)
                     {
-                        parent.fadeout();
+                        parent.Fadeout();
                     }
                     if (cc == mk.MidiCtrl_Fast)
                     {
-                        parent.ff();
+                        parent.Ff();
                     }
                     if (cc == mk.MidiCtrl_Next)
                     {
-                        parent.next();
+                        parent.Next();
                     }
                     if (cc == mk.MidiCtrl_Pause)
                     {
-                        parent.pause();
+                        parent.Pause();
                     }
                     if (cc == mk.MidiCtrl_Play)
                     {
-                        parent.play();
+                        parent.Play();
                     }
                     if (cc == mk.MidiCtrl_Previous)
                     {
-                        parent.prev();
+                        parent.Prev();
                     }
                     if (cc == mk.MidiCtrl_Slow)
                     {
-                        parent.slow();
+                        parent.Slow();
                     }
                     if (cc == mk.MidiCtrl_Stop)
                     {
-                        parent.stop();
+                        parent.Stop();
                     }
                 }
             }

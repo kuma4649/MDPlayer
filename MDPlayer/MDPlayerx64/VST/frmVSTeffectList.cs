@@ -45,9 +45,9 @@ namespace MDPlayer.form
             }
 
             setting.vst.DefaultPath = Path.GetDirectoryName(ofd.FileName);
-            parent.stop();
-            while (!Audio.trdStopped) { System.Threading.Thread.Sleep(1); }
-            Audio.addVSTeffect(ofd.FileName);
+            parent.Stop();
+            while (!Audio.TrdStopped) { System.Threading.Thread.Sleep(1); }
+            Audio.AddVSTeffect(ofd.FileName);
             dispPluginList();
 
         }
@@ -63,7 +63,7 @@ namespace MDPlayer.form
         {
             dgvList.Rows.Clear();
 
-            vstInfos =Audio.getVSTInfos();
+            vstInfos =Audio.GetVSTInfos();
 
             foreach (vstInfo vi in vstInfos)
             {
@@ -94,10 +94,10 @@ namespace MDPlayer.form
         {
             if (dgvList.SelectedRows.Count < 0) return;
 
-            parent.stop();
-            while (!Audio.trdStopped) { System.Threading.Thread.Sleep(1); }
+            parent.Stop();
+            while (!Audio.TrdStopped) { System.Threading.Thread.Sleep(1); }
             //Audio.delVSTeffect((string)dgvList.Rows[dgvList.SelectedRows[0].Index].Cells["clmFileName"].Value);
-            Audio.delVSTeffect((string)dgvList.Rows[dgvList.SelectedRows[0].Index].Cells["clmKey"].Value);
+            Audio.DelVSTeffect((string)dgvList.Rows[dgvList.SelectedRows[0].Index].Cells["clmKey"].Value);
             dispPluginList();
 
         }
@@ -107,10 +107,10 @@ namespace MDPlayer.form
             DialogResult res = MessageBox.Show("VSTリストの全てのVSTが除去されます。よろしいですか。", "PlayList", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
             if (res != DialogResult.OK) return;
 
-            parent.stop();
+            parent.Stop();
             //while (!Audio.trdStopped) { System.Threading.Thread.Sleep(1); }
             while (!Audio.trdClosed) { System.Threading.Thread.Sleep(1); }
-            Audio.delVSTeffect("");
+            Audio.DelVSTeffect("");
             dispPluginList();
         }
 
