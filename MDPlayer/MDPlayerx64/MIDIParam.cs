@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MDPlayer
+﻿namespace MDPlayer
 {
     public class MIDIParam
     {
@@ -73,11 +67,11 @@ namespace MDPlayer
         public int EFXType_MSB = 0;
         public int EFXType_LSB = 0;
 
-        private byte[] msg = null;
+        private readonly byte[] msg = null;
         private int msgInd = 0;
         private bool NowSystemMsg = false;
 
-        private int[] tblRevTypeXG = new int[] {
+        private readonly int[] tblRevTypeXG = new int[] {
             0x0000
             ,0x0100,0x0101,0x0106,0x0107
             ,0x0200,0x0201,0x0202,0x0205,0x0206,0x0207
@@ -89,7 +83,7 @@ namespace MDPlayer
             ,0x1300
         };
 
-        private int[] tblChoTypeXG = new int[] {
+        private readonly int[] tblChoTypeXG = new int[] {
             0x0000
             ,0x4100,0x4101,0x4102,0x4103,0x4104,0x4105,0x4106,0x4107,0x4108
             ,0x4200,0x4201,0x4202,0x4208
@@ -99,7 +93,7 @@ namespace MDPlayer
             ,0x5700
         };
 
-        private int[] tblVarInsTypeXG = new int[] {
+        private readonly int[] tblVarInsTypeXG = new int[] {
 0x0000
 ,0x0100,0x0101,0x0106,0x0107
 ,0x0200,0x0201,0x0202,0x0205,0x0206,0x0207
@@ -149,7 +143,7 @@ namespace MDPlayer
 ,0x6300,0x6301
         };
 
-        private int[] tblIns1TypeFromEFX = new int[] {
+        private readonly int[] tblIns1TypeFromEFX = new int[] {
             0x0000,0x0100,0x0101,0x0102,0x0103,0x0110,0x0111,0x0120
             ,0x0121,0x0122,0x0123,0x0124,0x0125,0x0126,0x0130,0x0131
             ,0x0140,0x0141,0x0142,0x0143,0x0144,0x0150,0x0151,0x0152
@@ -241,7 +235,7 @@ namespace MDPlayer
                     if (d == 0xf7 && NowSystemMsg)
                     {
                         if (msgInd < msg.Length) msg[msgInd] = 0xf7;
-                        analyzeSystemMsg();
+                        AnalyzeSystemMsg();
                         NowSystemMsg = false;
                     }
                     msgInd = 0;
@@ -254,12 +248,12 @@ namespace MDPlayer
                     msgInd++;
                 }
 
-                analyze();
+                Analyze();
 
             }
         }
 
-        private void analyze()
+        private void Analyze()
         {
             if (msgInd == 2)
             {
@@ -304,7 +298,7 @@ namespace MDPlayer
                         break;
                     case 0xb0://Control Change
                         cc[ch][msg[1]] = msg[2];
-                        analyzeControlChange(ch);
+                        AnalyzeControlChange(ch);
                         break;
                     case 0xd0://Ch Press
                         cPress[ch] = msg[1];
@@ -316,19 +310,19 @@ namespace MDPlayer
             }
         }
 
-        private void analyzeControlChange(byte ch)
+        private void AnalyzeControlChange(byte ch)
         {
             switch (msg[1])
             {
                 case 0x06://Data Entry MSB
-                    analyzeDataEntryMSB(ch);
+                    AnalyzeDataEntryMSB(ch);
                     break;
                 case 0x26://Data Entry LSB
                     break;
             }
         }
 
-        private void analyzeDataEntryMSB(byte ch)
+        private void AnalyzeDataEntryMSB(byte ch)
         {
             switch (cc[ch][0x63])//NRPN MSB
             {
@@ -379,7 +373,7 @@ namespace MDPlayer
             }
         }
 
-        private void analyzeSystemMsg()
+        private void AnalyzeSystemMsg()
         {
 
             if (msg[0] != 0xf0) return;
@@ -423,49 +417,49 @@ namespace MDPlayer
                         //REVERB TYPE MSB/LSB
                         if (adr == 0x020100) RevType_MSB = dat & 0xff;
                         else RevType_LSB = dat & 0xff;
-                        ReverbXG = getRevTypeXG();
+                        ReverbXG = GetRevTypeXG();
                     }
                     else if (adr == 0x020120 || adr == 0x020121)
                     {
                         //CHORUS TYPE MSB/LSB
                         if (adr == 0x020120) ChoType_MSB = dat & 0xff;
                         else ChoType_LSB = dat & 0xff;
-                        ChorusXG = getChoTypeXG();
+                        ChorusXG = GetChoTypeXG();
                     }
                     else if (adr == 0x020140 || adr == 0x020141)
                     {
                         //VARIATION TYPE MSB/LSB
                         if (adr == 0x020140) VarType_MSB = dat & 0xff;
                         else VarType_LSB = dat & 0xff;
-                        VariationXG = getVarTypeXG();
+                        VariationXG = GetVarTypeXG();
                     }
                     else if (adr == 0x030000 || adr == 0x030001)
                     {
                         //INSERTION EFFECT1 TYPE MSB/LSB
                         if (adr == 0x030000) Ins1Type_MSB = dat & 0xff;
                         else Ins1Type_LSB = dat & 0xff;
-                        Insertion1XG = getIns1TypeXG();
+                        Insertion1XG = GetIns1TypeXG();
                     }
                     else if (adr == 0x030100 || adr == 0x030101)
                     {
                         //INSERTION EFFECT2 TYPE MSB/LSB
                         if (adr == 0x030100) Ins2Type_MSB = dat & 0xff;
                         else Ins2Type_LSB = dat & 0xff;
-                        Insertion2XG = getIns2TypeXG();
+                        Insertion2XG = GetIns2TypeXG();
                     }
                     else if (adr == 0x030200 || adr == 0x030201)
                     {
                         //INSERTION EFFECT3 TYPE MSB/LSB
                         if (adr == 0x030200) Ins3Type_MSB = dat & 0xff;
                         else Ins3Type_LSB = dat & 0xff;
-                        Insertion3XG = getIns3TypeXG();
+                        Insertion3XG = GetIns3TypeXG();
                     }
                     else if (adr == 0x030300 || adr == 0x030301)
                     {
                         //INSERTION EFFECT4 TYPE MSB/LSB
                         if (adr == 0x030300) Ins4Type_MSB = dat & 0xff;
                         else Ins4Type_LSB = dat & 0xff;
-                        Insertion4XG = getIns4TypeXG();
+                        Insertion4XG = GetIns4TypeXG();
                     }
                     else if (adr >= 0x060000 && adr <= 0x06001f)
                     {
@@ -510,14 +504,14 @@ namespace MDPlayer
                             LCDDisplayTime = 400;
                         }
                     }
-                    else if (adr >= 0x200000 && adr <0x201000)
+                    else if (adr >= 0x200000 && adr < 0x201000)
                     {
                         //8850Display Dot Data(160px x 64 px) ((27byte x 4row) x 16set)
                         if ((adr & 0x7f) < 108)
                         {
                             LCD8850Display[((adr & 0xf00) >> 8) * 108 + (adr & 0x7f)] = dat;// % (27*4)] = dat;
                         }
-                        if (adr == 0x200000 + 0xf00 + 108-1)
+                        if (adr == 0x200000 + 0xf00 + 108 - 1)
                         {
                             LCD8850DisplayTime = 400;
                         }
@@ -541,13 +535,13 @@ namespace MDPlayer
                     {
                         //EFX Type
                         EFXType_MSB = dat & 0xff;
-                        EFXGS = getIns1TypeFromEFX();
+                        EFXGS = GetIns1TypeFromEFX();
                     }
                     else if (adr == 0x400301)
                     {
                         //EFX Type
                         EFXType_LSB = dat & 0xff;
-                        EFXGS = getIns1TypeFromEFX();
+                        EFXGS = GetIns1TypeFromEFX();
                     }
                 }
 
@@ -558,7 +552,7 @@ namespace MDPlayer
 
         }
 
-        private int getRevTypeXG()
+        private int GetRevTypeXG()
         {
             int ret = 0;
 
@@ -575,7 +569,7 @@ namespace MDPlayer
             return ret;
         }
 
-        private int getChoTypeXG()
+        private int GetChoTypeXG()
         {
             int ret = 0;
 
@@ -592,7 +586,7 @@ namespace MDPlayer
             return ret;
         }
 
-        private int getVarTypeXG()
+        private int GetVarTypeXG()
         {
             int ret = 0;
 
@@ -609,7 +603,7 @@ namespace MDPlayer
             return ret;
         }
 
-        private int getIns1TypeXG()
+        private int GetIns1TypeXG()
         {
             int ret = 0;
 
@@ -626,7 +620,7 @@ namespace MDPlayer
             return ret;
         }
 
-        private int getIns2TypeXG()
+        private int GetIns2TypeXG()
         {
             int ret = 0;
 
@@ -643,7 +637,7 @@ namespace MDPlayer
             return ret;
         }
 
-        private int getIns3TypeXG()
+        private int GetIns3TypeXG()
         {
             int ret = 0;
 
@@ -660,7 +654,7 @@ namespace MDPlayer
             return ret;
         }
 
-        private int getIns4TypeXG()
+        private int GetIns4TypeXG()
         {
             int ret = 0;
 
@@ -677,7 +671,7 @@ namespace MDPlayer
             return ret;
         }
 
-        private int getIns1TypeFromEFX()
+        private int GetIns1TypeFromEFX()
         {
             int ret = 0;
 

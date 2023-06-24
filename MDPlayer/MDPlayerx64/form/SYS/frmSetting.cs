@@ -3,16 +3,11 @@ using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Windows.Forms;
 using NAudio.Wave;
 using NAudio.CoreAudioApi;
 using System.Reflection;
-using System.IO;
 using System.Diagnostics;
-using System.Security.Policy;
 
 namespace MDPlayer.form
 {
@@ -622,7 +617,7 @@ namespace MDPlayer.form
                     {
                         for (int j = 0; j < setting.midiOut.lstMidiOutInfo[i].Length; j++)
                         {
-                            midiOutInfo moi = setting.midiOut.lstMidiOutInfo[i][j];
+                            MidiOutInfo moi = setting.midiOut.lstMidiOutInfo[i][j];
                             int found = -999;
                             for (int k = 0; k < NAudio.Midi.MidiOut.NumberOfDevices; k++)
                             {
@@ -1643,16 +1638,16 @@ namespace MDPlayer.form
             setting.midiExport.UseYM2151Export = cbMIDIYM2151.Checked;
             setting.midiExport.UseYM2612Export = cbMIDIYM2612.Checked;
 
-            setting.midiOut.lstMidiOutInfo = new List<midiOutInfo[]>();
+            setting.midiOut.lstMidiOutInfo = new List<MidiOutInfo[]>();
 
             foreach (DataGridView d in dgv)
             {
                 if (d.Rows.Count > 0)
                 {
-                    List<midiOutInfo> lstMoi = new List<midiOutInfo>();
+                    List<MidiOutInfo> lstMoi = new List<MidiOutInfo>();
                     for (i = 0; i < d.Rows.Count; i++)
                     {
-                        midiOutInfo moi = new midiOutInfo();
+                        MidiOutInfo moi = new MidiOutInfo();
                         moi.id = (int)d.Rows[i].Cells[0].Value;
                         moi.isVST = (bool)d.Rows[i].Cells[1].Value;
                         moi.fileName = (string)d.Rows[i].Cells[2].Value;

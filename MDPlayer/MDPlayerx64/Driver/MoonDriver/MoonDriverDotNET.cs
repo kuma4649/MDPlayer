@@ -1,11 +1,4 @@
 ﻿using musicDriverInterface;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace MDPlayer.Driver
 {
@@ -388,7 +381,7 @@ namespace MDPlayer.Driver
             if (cd.address == -1) return;
             if (cd.data == -1) return;
             if (cd.port == -1) return;
-            if (cd.port >1) return;
+            if (cd.port > 1) return;
 
             chipRegister.setYMF262Register(0, cd.port, cd.address, cd.data, model);
         }

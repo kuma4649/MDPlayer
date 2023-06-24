@@ -18,11 +18,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Driver.libsidplayfp.c64.Banks
 {
@@ -91,12 +86,12 @@ namespace Driver.libsidplayfp.c64.Banks
         /**
          * Writing to ROM is a no-op.
          */
-        public  void poke(UInt16 a, byte b) { }
+        public void poke(UInt16 a, byte b) { }
 
         /**
          * Read from ROM.
          */
-        public  byte peek(UInt16 address)
+        public byte peek(UInt16 address)
         {
             return rom[address & (N - 1)];
         }
@@ -203,7 +198,7 @@ namespace Driver.libsidplayfp.c64.Banks
             for (int i = 0; i < trap.Length; i++) setVal((UInt16)(0xa7ae + i), trap[i]);
 
             //memcpy(getPtr(0xbf53), subTune, sizeof(subTune));
-            for (int i = 0; i < subTune.Length; i++) setVal((UInt16)(0xbf53 + i),  subTune[i]);
+            for (int i = 0; i < subTune.Length; i++) setVal((UInt16)(0xbf53 + i), subTune[i]);
         }
 
         /**

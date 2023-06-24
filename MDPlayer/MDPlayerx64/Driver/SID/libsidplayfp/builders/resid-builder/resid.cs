@@ -19,11 +19,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Driver.libsidplayfp.builders.resid_builder
 {
@@ -39,7 +34,7 @@ namespace Driver.libsidplayfp.builders.resid_builder
         //# include "sidplayfp/siddefs.h"
         private MDPlayer.Setting setting;
 
-        public ReSIDBuilder(string name,MDPlayer.Setting setting) : base(name)
+        public ReSIDBuilder(string name, MDPlayer.Setting setting) : base(name)
         {
             this.setting = setting;
         }
@@ -145,7 +140,7 @@ namespace Driver.libsidplayfp.builders.resid_builder
         public override void filter(bool enable)
         {
             //std::for_each(sidobjs.begin(), sidobjs.end(), applyParameter<libsidplayfp::ReSID, bool>(&libsidplayfp::ReSID::filter, enable));
-            foreach(sidemu o in sidobjs)
+            foreach (sidemu o in sidobjs)
             {
                 //applyParameter_LibsidplayfpReSID_bool ap = new applyParameter_LibsidplayfpReSID_bool(((ReSID)o).filter, enable);
                 ((ReSID)o).filter(enable);//ようはこういうこと？

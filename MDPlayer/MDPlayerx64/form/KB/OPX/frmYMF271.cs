@@ -1,15 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using MDPlayerx64;
+﻿using MDPlayerx64;
 #if X64
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
@@ -57,7 +47,7 @@ namespace MDPlayer.form
 
             this.newParam = newParam;
             this.oldParam = oldParam;
-            frameBuffer.Add(pbScreen, ResMng.imgDic["planeYMF271"], null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.ImgDic["planeYMF271"], null, zoom);
             screenInitYMF271(frameBuffer);
             update();
         }
@@ -100,9 +90,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYMF271"].Width * zoom, frameSizeH + ResMng.imgDic["planeYMF271"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYMF271"].Width * zoom, frameSizeH + ResMng.imgDic["planeYMF271"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYMF271"].Width * zoom, frameSizeH + ResMng.imgDic["planeYMF271"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeYMF271"].Width * zoom, frameSizeH + ResMng.ImgDic["planeYMF271"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeYMF271"].Width * zoom, frameSizeH + ResMng.ImgDic["planeYMF271"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeYMF271"].Width * zoom, frameSizeH + ResMng.ImgDic["planeYMF271"].Height * zoom);
             frmYMF271_Resize(null, null);
 
         }
@@ -111,7 +101,7 @@ namespace MDPlayer.form
         {
         }
 
-   
+
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
 
@@ -142,12 +132,12 @@ namespace MDPlayer.form
                 for (int i = 0; i < 48; i++)
                 {
                     int slot = slotTbl[i];
-                    
+
                     MDChipParams.Channel nrc = newParam.channels[slot];
                     MDSound.ymf271.YMF271Slot slt = reg.slots[slot];
                     nrc.volumeL = Math.Min(Math.Max((slt.volume * slt.ch0_level) >> 23, 0), 19);
                     nrc.volumeR = Math.Min(Math.Max((slt.volume * slt.ch1_level) >> 23, 0), 19);
-                    nrc.pan = (slt.ch1_level << 4) | (slt.ch0_level  & 0xf);
+                    nrc.pan = (slt.ch1_level << 4) | (slt.ch0_level & 0xf);
                     nrc.pantp = (slt.ch3_level & 0xf0) | ((slt.ch2_level >> 4) & 0xf);
                     nrc.inst[0] = slt.ar;//AR (&0x1f)
                     nrc.inst[1] = slt.decay1rate;//DR (&0x1f)
@@ -214,7 +204,7 @@ namespace MDPlayer.form
 
                 DrawBuff.Volume(frameBuffer, 273, 8 + i * 8, 1, ref orc.volumeL, nrc.volumeL, 0);
                 DrawBuff.Volume(frameBuffer, 273, 12 + i * 8, 1, ref orc.volumeR, nrc.volumeR, 0);
-                DrawBuff.font4Int2(frameBuffer, 25, 8 + i * 8, 0, 2, ref orc.echo, slot+1);//slotnum
+                DrawBuff.font4Int2(frameBuffer, 25, 8 + i * 8, 0, 2, ref orc.echo, slot + 1);//slotnum
                 DrawBuff.PanType2(frameBuffer, 33, 8 + i * 8, ref orc.pan, nrc.pan, 0);
                 DrawBuff.PanType2(frameBuffer, 41, 8 + i * 8, ref orc.pantp, nrc.pantp, 0);
 
@@ -229,8 +219,8 @@ namespace MDPlayer.form
                 DrawBuff.font4Int1(frameBuffer, 413, 8 + i * 8, 0, ref orc.inst[6], nrc.inst[6]);//KS
                 DrawBuff.font4Int2(frameBuffer, 417, 8 + i * 8, 0, 2, ref orc.inst[7], nrc.inst[7]);//ML
                 DrawBuff.font4Int1(frameBuffer, 429, 8 + i * 8, 0, ref orc.inst[8], nrc.inst[8]);//DT
-                DrawBuff.font4Int1(frameBuffer, 437, 8 + i * 8, 0,  ref orc.inst[9], nrc.inst[9]);//WF
-                DrawBuff.font4Int1(frameBuffer, 445, 8 + i * 8, 0,  ref orc.inst[10], nrc.inst[10]);//FB
+                DrawBuff.font4Int1(frameBuffer, 437, 8 + i * 8, 0, ref orc.inst[9], nrc.inst[9]);//WF
+                DrawBuff.font4Int1(frameBuffer, 445, 8 + i * 8, 0, ref orc.inst[10], nrc.inst[10]);//FB
                 DrawBuff.font4Int1(frameBuffer, 449, 8 + i * 8, 0, ref orc.inst[11], nrc.inst[11]);//accon
                 DrawBuff.font4Int2(frameBuffer, 453, 8 + i * 8, 0, 2, ref orc.inst[12], nrc.inst[12]);//algorithm
                 DrawBuff.font4Int2(frameBuffer, 465, 8 + i * 8, 0, 2, ref orc.inst[13], nrc.inst[13]);//algorithm
@@ -250,7 +240,7 @@ namespace MDPlayer.form
 
                 if (i % 4 == 0)
                 {
-                    DrawBuff.OpxOP(frameBuffer, 17, 8 + i * 8, 0, ref orc.tn, nrc.tn&3);//sync
+                    DrawBuff.OpxOP(frameBuffer, 17, 8 + i * 8, 0, ref orc.tn, nrc.tn & 3);//sync
                 }
             }
         }

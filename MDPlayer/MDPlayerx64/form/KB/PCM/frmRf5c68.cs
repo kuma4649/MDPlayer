@@ -1,15 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using MDPlayerx64;
+﻿using MDPlayerx64;
 #if X64
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
@@ -30,7 +20,7 @@ namespace MDPlayer.form
         private MDChipParams.RF5C68 oldParam = new MDChipParams.RF5C68();
         private FrameBuffer frameBuffer = new FrameBuffer();
 
-        public frmRf5c68(frmMain frm, int chipID, int zoom, MDChipParams.RF5C68 newParam, MDChipParams.RF5C68 oldParam):base(frm)
+        public frmRf5c68(frmMain frm, int chipID, int zoom, MDChipParams.RF5C68 newParam, MDChipParams.RF5C68 oldParam) : base(frm)
         {
             this.chipID = chipID;
             this.zoom = zoom;
@@ -39,7 +29,7 @@ namespace MDPlayer.form
 
             this.newParam = newParam;
             this.oldParam = oldParam;
-            frameBuffer.Add(pbScreen, ResMng.imgDic["planeC"], null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.ImgDic["planeC"], null, zoom);
             DrawBuff.screenInitRF5C68(frameBuffer);
             update();
         }
@@ -82,9 +72,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeC"].Width * zoom, frameSizeH + ResMng.imgDic["planeC"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeC"].Width * zoom, frameSizeH + ResMng.imgDic["planeC"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeC"].Width * zoom, frameSizeH + ResMng.imgDic["planeC"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeC"].Width * zoom, frameSizeH + ResMng.ImgDic["planeC"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeC"].Width * zoom, frameSizeH + ResMng.ImgDic["planeC"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeC"].Width * zoom, frameSizeH + ResMng.ImgDic["planeC"].Height * zoom);
             frmRf5c68_Resize(null, null);
 
         }

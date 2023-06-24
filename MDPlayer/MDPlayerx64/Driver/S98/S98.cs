@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace MDPlayer
 {
@@ -66,7 +62,7 @@ namespace MDPlayer
                         TAGAdr += 3;
                     }
 
-                    while (buf.Length>TAGAdr && buf[TAGAdr] != 0x00)
+                    while (buf.Length > TAGAdr && buf[TAGAdr] != 0x00)
                     {
                         List<byte> strLst = new List<byte>();
                         string str;
@@ -151,7 +147,7 @@ namespace MDPlayer
 
                 this.vgmBuf = buf;
                 getInformationHeader();
-                if (chips.Count>0)
+                if (chips.Count > 0)
                 {
                     gd3.UsedChips = String.Join(",", chips);
                 }
@@ -231,7 +227,7 @@ namespace MDPlayer
 
         private bool getInformationHeader()
         {
-           
+
             s98Info.FormatVersion = (uint)(vgmBuf[3] - '0');
             s98Info.DeviceCount = uint.MaxValue;
             switch (s98Info.FormatVersion)
@@ -387,7 +383,7 @@ namespace MDPlayer
 
         public class S98Info
         {
-            public uint FormatVersion = 0; 
+            public uint FormatVersion = 0;
             public uint SyncNumerator = 0;
             public uint SyncDnumerator = 0;
             public uint Compressing = 0;
@@ -557,7 +553,7 @@ namespace MDPlayer
 
                 }
             }
-            catch (System.IndexOutOfRangeException )
+            catch (System.IndexOutOfRangeException)
             {
                 Stopped = true;
             }

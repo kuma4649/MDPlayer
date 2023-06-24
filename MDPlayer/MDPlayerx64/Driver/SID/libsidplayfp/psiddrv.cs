@@ -17,11 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Driver.libsidplayfp
 {
@@ -394,7 +389,7 @@ namespace Driver.libsidplayfp
             else
             {
                 // Only install irq handle for RSID tunes
-                mem.fillRam(0x0314,new Ptr<byte>(reloc_driver,2), (UInt32)(m_tuneInfo.compatibility() == sidplayfp.SidTuneInfo.compatibility_t.COMPATIBILITY_R64 ? 2 : 6));
+                mem.fillRam(0x0314, new Ptr<byte>(reloc_driver, 2), (UInt32)(m_tuneInfo.compatibility() == sidplayfp.SidTuneInfo.compatibility_t.COMPATIBILITY_R64 ? 2 : 6));
 
                 // Experimental restart basic trap
                 UInt16 addr = sidendian.endian_little16(new Ptr<byte>(reloc_driver, 8));
@@ -405,7 +400,7 @@ namespace Driver.libsidplayfp
             Int32 pos = m_driverAddr;
 
             // Install driver to ram
-            mem.fillRam((UInt16)pos,new Ptr<byte>(reloc_driver,10), (UInt32)reloc_size);
+            mem.fillRam((UInt16)pos, new Ptr<byte>(reloc_driver, 10), (UInt32)reloc_size);
 
             // Set song number
             mem.writeMemByte((UInt16)pos, (byte)(m_tuneInfo.currentSong() - 1));

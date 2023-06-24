@@ -19,11 +19,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Driver.libsidplayfp
 {
@@ -58,13 +53,13 @@ namespace Driver.libsidplayfp
         /// Maximum allowed volume, must be a power of 2.
         public const Int32 VOLUME_MAX = 1024;
 
-        private List<sidemu> m_chips=new List<sidemu>(); //std::vector<sidemu*> m_chips;
-        private List<Int16[]> m_buffers=new List<Int16[]>();//std::vector<short*> m_buffers;
+        private List<sidemu> m_chips = new List<sidemu>(); //std::vector<sidemu*> m_chips;
+        private List<Int16[]> m_buffers = new List<Int16[]>();//std::vector<short*> m_buffers;
 
-        private List<Int32> m_iSamples=new List<int>();//std::vector<Int32> m_iSamples;
-        private List<Int32> m_volume=new List<int>();//std::vector<Int32> m_volume;
+        private List<Int32> m_iSamples = new List<int>();//std::vector<Int32> m_iSamples;
+        private List<Int32> m_volume = new List<int>();//std::vector<Int32> m_volume;
 
-        private mixer_func_t[] m_mix=new mixer_func_t[1];//std::vector<mixer_func_t> m_mix;
+        private mixer_func_t[] m_mix = new mixer_func_t[1];//std::vector<mixer_func_t> m_mix;
 
         System.Random r = new System.Random((int)DateTime.Now.Ticks);
         private Int32 oldRandomValue;
@@ -82,7 +77,7 @@ namespace Driver.libsidplayfp
         private int triangularDithering()
         {
             Int32 prevValue = oldRandomValue;
-            oldRandomValue = r.Next(0,1024) & (VOLUME_MAX - 1);
+            oldRandomValue = r.Next(0, 1024) & (VOLUME_MAX - 1);
             return oldRandomValue - prevValue;
         }
 
@@ -132,7 +127,7 @@ namespace Driver.libsidplayfp
             //for (int i = 0; i < 3; i++)
             //    res += m_iSamples[i];
             //return res /= 3;
-            return (m_iSamples[0] + m_iSamples[1] + m_iSamples[2]) /3;
+            return (m_iSamples[0] + m_iSamples[1] + m_iSamples[2]) / 3;
         }
 
         // Stereo mixing
@@ -155,7 +150,7 @@ namespace Driver.libsidplayfp
             m_sampleCount = 0;
             m_stereo = false;
 
-            m_mix[0]=mono1;
+            m_mix[0] = mono1;
         }
 
         /**
@@ -302,7 +297,7 @@ namespace Driver.libsidplayfp
             {
                 for (int j = 0; j < samples; j++)
                 {
-                    dest[i][j] = dest[i][j+pos];
+                    dest[i][j] = dest[i][j + pos];
                 }
             }
 

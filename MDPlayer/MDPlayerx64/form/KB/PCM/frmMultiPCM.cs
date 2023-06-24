@@ -1,18 +1,8 @@
 ﻿#if X64
 using MDPlayerx64;
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
@@ -38,7 +28,7 @@ namespace MDPlayer.form
             this.newParam = newParam;
             this.oldParam = oldParam;
 
-            frameBuffer.Add(pbScreen, ResMng.imgDic["planeMultiPCM"], null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.ImgDic["planeMultiPCM"], null, zoom);
             screenInit();
             update();
         }
@@ -81,9 +71,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeMultiPCM"].Width * zoom, frameSizeH + ResMng.imgDic["planeMultiPCM"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeMultiPCM"].Width * zoom, frameSizeH + ResMng.imgDic["planeMultiPCM"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeMultiPCM"].Width * zoom, frameSizeH + ResMng.imgDic["planeMultiPCM"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeMultiPCM"].Width * zoom, frameSizeH + ResMng.ImgDic["planeMultiPCM"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeMultiPCM"].Width * zoom, frameSizeH + ResMng.ImgDic["planeMultiPCM"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeMultiPCM"].Width * zoom, frameSizeH + ResMng.ImgDic["planeMultiPCM"].Height * zoom);
             frmMultiPCM_Resize(null, null);
 
         }
@@ -195,7 +185,7 @@ namespace MDPlayer.form
                 newParam.channels[ch].note = nt;
 
                 int d = (int)(MultiPCMRegister.slots[ch].pan);
-                d = (d == 0) ? 0xf:d;
+                d = (d == 0) ? 0xf : d;
                 newParam.channels[ch].pan = (int)(((((d & 0xc) >> 2) * 4) << 4) | (((d & 0x3) * 4) << 0));
 
                 newParam.channels[ch].bit[0] = (bool)((MultiPCMRegister.slots[ch].regs[4] & 0x80) != 0);
@@ -224,11 +214,11 @@ namespace MDPlayer.form
 
                 if (newParam.channels[ch].bit[0])
                 {
-                    newParam.channels[ch].volumeL = 
+                    newParam.channels[ch].volumeL =
                         Math.Min(
                             (int)(((0x7f - newParam.channels[ch].inst[1]) * ((newParam.channels[ch].pan >> 4) & 0xf) / 0xf) / 4.5)
                             , 19);
-                    newParam.channels[ch].volumeR = 
+                    newParam.channels[ch].volumeR =
                         Math.Min(
                             (int)(((0x7f - newParam.channels[ch].inst[1]) * ((newParam.channels[ch].pan) & 0xf) / 0xf) / 4.5)
                             , 19);
@@ -254,7 +244,7 @@ namespace MDPlayer.form
 
                 DrawBuff.PanType2(frameBuffer, ch, ref oyc.pan, nyc.pan, 0);
 
-                DrawBuff.drawNESSw(frameBuffer, 64 * 4 , ch * 8 + 8, ref oldParam.channels[ch].bit[0], newParam.channels[ch].bit[0]);
+                DrawBuff.drawNESSw(frameBuffer, 64 * 4, ch * 8 + 8, ref oldParam.channels[ch].bit[0], newParam.channels[ch].bit[0]);
                 DrawBuff.font4HexByte(frameBuffer, 4 * 66, ch * 8 + 8, 0, ref oyc.inst[0], nyc.inst[0]);
                 DrawBuff.font4Hex12Bit(frameBuffer, 4 * 69, ch * 8 + 8, 0, ref oyc.freq, nyc.freq);
                 DrawBuff.drawNESSw(frameBuffer, 72 * 4, ch * 8 + 8, ref oldParam.channels[ch].bit[1], newParam.channels[ch].bit[1]);//TL Interpolation

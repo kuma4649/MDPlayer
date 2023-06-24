@@ -1,9 +1,7 @@
-﻿using Driver.libsidplayfp.builders.resid_builder;
+﻿using Driver.libsidplayfp;
+using Driver.libsidplayfp.builders.resid_builder;
 using Driver.libsidplayfp.sidplayfp;
-using System;
 using System.Text;
-using System.IO;
-using Driver.libsidplayfp;
 
 namespace MDPlayer.Driver.SID
 {
@@ -114,7 +112,7 @@ namespace MDPlayer.Driver.SID
             }
             if (vgmFrameCounter < 0)
             {
-                vgmFrameCounter += length/2;
+                vgmFrameCounter += length / 2;
                 return length;
             }
 
@@ -160,7 +158,7 @@ namespace MDPlayer.Driver.SID
             m_engine.debug(false, null);
             m_engine.setRoms(aryKernal, aryBasic, aryCharacter);
 
-            ReSIDBuilder rs = new ReSIDBuilder("ReSID",setting);
+            ReSIDBuilder rs = new ReSIDBuilder("ReSID", setting);
 
             uint maxsids = (m_engine.info()).maxsids();
             rs.create(maxsids);
@@ -198,7 +196,7 @@ namespace MDPlayer.Driver.SID
             cfg.forceSidModel = setting.sid.sidmodelForce;//強制的にdefaultSidModelを使用するか
 
             cfg.sidEmulation = rs;
-            
+
             if (!m_engine.config(ref cfg))
             {
                 System.Console.WriteLine("Error: " + m_engine.error());

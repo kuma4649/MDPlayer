@@ -1,13 +1,11 @@
-﻿using MDSound;
-
-namespace MDPlayer
+﻿namespace MDPlayer
 {
     public class VRC7 : MDSound.ym2413
     {
-        public override string Name { get => "VRC7";  set => throw new System.NotImplementedException(); }
+        public override string Name { get => "VRC7"; set => throw new System.NotImplementedException(); }
         public override string ShortName { get => "VRC7"; set => throw new System.NotImplementedException(); }
 
-        private MDSound.np.chip.nes_vrc7 nv;
+        private readonly MDSound.np.chip.nes_vrc7 nv;
         private double apu_clock_rest;
         private double rate;
 
@@ -27,7 +25,7 @@ namespace MDPlayer
 
         public override uint Start(byte ChipID, uint clock, uint ClockValue, params object[] option)
         {
-            nv.SetClock(ClockValue/2);//masterclock(NES:1789773)
+            nv.SetClock(ClockValue / 2);//masterclock(NES:1789773)
             nv.SetRate(clock);//samplerate
             nv.Reset();
             rate = (double)clock;
@@ -39,7 +37,7 @@ namespace MDPlayer
             ;
         }
 
-        private int[] b = new int[2];
+        private readonly int[] b = new int[2];
 
         public override void Update(byte ChipID, int[][] outputs, int samples)
         {
@@ -58,8 +56,8 @@ namespace MDPlayer
                 nv.Tick((uint)apu_clocks);
                 nv.Render(b);
                 //if(b[0]!=0)System.Console.WriteLine("{0}",b[0]);
-                outputs[0][i] += b[0]<<2;
-                outputs[1][i] += b[1]<<2;
+                outputs[0][i] += b[0] << 2;
+                outputs[1][i] += b[1] << 2;
             }
         }
 

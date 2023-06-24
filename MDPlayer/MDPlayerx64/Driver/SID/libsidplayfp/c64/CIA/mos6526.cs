@@ -20,7 +20,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-using System;
 
 namespace Driver.libsidplayfp.c64.CIA
 {
@@ -303,7 +302,8 @@ namespace Driver.libsidplayfp.c64.CIA
          * - PHI1 a.event()
          * - PHI1 b.event()
          */
-        private void bTick() {
+        private void bTick()
+        {
             timerB.cascade();
         }
 
@@ -334,7 +334,7 @@ namespace Driver.libsidplayfp.c64.CIA
          */
         public void handleSerialPort()
         {
-            if ((regs[(int)Reg.CRA] & 0x40)!=0)
+            if ((regs[(int)Reg.CRA] & 0x40) != 0)
             {
                 serialPort.handle(regs[(int)Reg.SDR]);
             }
@@ -357,7 +357,7 @@ namespace Driver.libsidplayfp.c64.CIA
             interruptSource = new InterruptSource6526(scheduler, this);
             tod = new Tod(scheduler, this, regs);
             serialPort = new SerialPort(interruptSource);
-            bTickEvent=new EventCallback<MOS6526>("CIA B counts A", this, bTick);
+            bTickEvent = new EventCallback<MOS6526>("CIA B counts A", this, bTick);
 
             reset();
         }
@@ -446,7 +446,8 @@ namespace Driver.libsidplayfp.c64.CIA
          * @param data
          *            value to write
          */
-        protected void write(byte addr, byte data) {
+        protected void write(byte addr, byte data)
+        {
             addr &= 0x0f;
 
             timerA.syncWithCpu();
@@ -484,14 +485,14 @@ namespace Driver.libsidplayfp.c64.CIA
                     tod.write((byte)(addr - (int)Reg.TOD_TEN), data);
                     break;
                 case (int)Reg.SDR:
-                    if ((regs[(int)Reg.CRA] & 0x40)!=0)
+                    if ((regs[(int)Reg.CRA] & 0x40) != 0)
                         serialPort.setBuffered();
                     break;
                 case (int)Reg.ICR:
                     interruptSource.set(data);
                     break;
                 case (int)Reg.CRA:
-                    if ((data & 1)!=0 && (oldData & 1)==0)
+                    if ((data & 1) != 0 && (oldData & 1) == 0)
                     {
                         // Reset the underflow flipflop for the data port
                         timerA.setPbToggle(true);
@@ -499,7 +500,7 @@ namespace Driver.libsidplayfp.c64.CIA
                     timerA.setControlRegister(data);
                     break;
                 case (int)Reg.CRB:
-                    if ((data & 1)!=0 && (oldData & 1)==0)
+                    if ((data & 1) != 0 && (oldData & 1) == 0)
                     {
                         // Reset the underflow flipflop for the data port
                         timerB.setPbToggle(true);

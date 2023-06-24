@@ -1,19 +1,9 @@
 ﻿#if X64
 using MDPlayerx64;
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
 using MDSound.np.chip;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
@@ -43,7 +33,7 @@ namespace MDPlayer.form
             this.newParam = newParam;
             this.oldParam = oldParam;
 
-            frameBuffer.Add(pbScreen, ResMng.imgDic["planeN106"], null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.ImgDic["planeN106"], null, zoom);
             screenInit();
             update();
         }
@@ -86,9 +76,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeN106"].Width * zoom, frameSizeH + ResMng.imgDic["planeN106"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeN106"].Width * zoom, frameSizeH + ResMng.imgDic["planeN106"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeN106"].Width * zoom, frameSizeH + ResMng.imgDic["planeN106"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeN106"].Width * zoom, frameSizeH + ResMng.ImgDic["planeN106"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeN106"].Width * zoom, frameSizeH + ResMng.ImgDic["planeN106"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeN106"].Width * zoom, frameSizeH + ResMng.ImgDic["planeN106"].Height * zoom);
             frmN106_Resize(null, null);
 
         }
@@ -98,7 +88,7 @@ namespace MDPlayer.form
 
         }
 
-    
+
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
             int px = e.Location.X / zoom;
@@ -241,7 +231,7 @@ namespace MDPlayer.form
                 //Note
                 DrawBuff.KeyBoard(frameBuffer, ch * 3, ref oyc.note, nyc.note, 0);
 
-                if (oyc.aryWave16bit == null && nyc.aryWave16bit!=null) oyc.aryWave16bit = new short[nyc.aryWave16bit.Length];
+                if (oyc.aryWave16bit == null && nyc.aryWave16bit != null) oyc.aryWave16bit = new short[nyc.aryWave16bit.Length];
                 DrawBuff.WaveFormToN106(frameBuffer, 10 * 4, ch * 24 + 16, ref oyc.aryWave16bit, nyc.aryWave16bit);
                 DrawBuff.ChN163(frameBuffer, ch, ref oyc.mask, nyc.mask, 0);
 

@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MDPlayer
+﻿namespace MDPlayer
 {
     public static class OpeManager
     {
 
-        private static List<Request> reqToAudio = new List<Request>();
-        private static object reqLock = new object();
+        private static readonly List<Request> reqToAudio = new();
+        private static readonly object reqLock = new();
 
-        public static enmAudioStatus GetAudioStatus()
+        public static EnmAudioStatus GetAudioStatus()
         {
-            return enmAudioStatus.Unknown;
+            return EnmAudioStatus.Unknown;
         }
 
         public static void RequestToAudio(Request req)
@@ -34,7 +28,7 @@ namespace MDPlayer
             {
                 if (reqToAudio.Count < 1) return null;
 
-                Request req = reqToAudio[reqToAudio.Count - 1];
+                Request req = reqToAudio[^1];
                 reqToAudio.Remove(req);//.Clear();
 
                 return req;
@@ -49,31 +43,33 @@ namespace MDPlayer
         {
             lock (reqLock)
             {
-                trdCallback cb = new trdCallback(req);
-                System.Threading.Thread trd = new System.Threading.Thread(cb.callBack);
-                trd.Priority = System.Threading.ThreadPriority.BelowNormal;
+                TrdCallback cb = new(req);
+                System.Threading.Thread trd = new(cb.CallBack)
+                {
+                    Priority = System.Threading.ThreadPriority.BelowNormal
+                };
                 trd.Start();
             }
         }
 
     }
 
-    public class trdCallback
+    public class TrdCallback
     {
-        private Request request;
+        private readonly Request request;
 
-        public trdCallback(Request req)
+        public TrdCallback(Request req)
         {
             request = req;
         }
 
-        public void callBack()
+        public void CallBack()
         {
             request.callBack?.Invoke(request.results);
         }
     }
 
-    public enum enmAudioStatus
+    public enum EnmAudioStatus
     {
         Unknown,
         Stop,

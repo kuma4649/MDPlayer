@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MDPlayer.Driver.MNDRV
+﻿namespace MDPlayer.Driver.MNDRV
 {
     public class devopm
     {
@@ -1699,7 +1693,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D0_W = mm.ReadUInt16(reg.a6 + dw.USE_TRACK);
             reg.a0 = reg.a6 + dw.TRACKWORKADR;
 
-            L1:
+        L1:
             if ((mm.ReadByte(reg.a0 + w.flag2) & 0x01) == 0)
             {
                 reg.a0 = reg.a0 + w._track_work_size;
@@ -1813,7 +1807,7 @@ namespace MDPlayer.Driver.MNDRV
             if (reg.D0_W != 0)
             {
                 reg.D0_W += (UInt32)(Int16)reg.D0_W;
-                switch (reg.D0_W/2)
+                switch (reg.D0_W / 2)
                 {
                     case 1:
                         _ch_opm_alfo_1();
@@ -2485,7 +2479,7 @@ namespace MDPlayer.Driver.MNDRV
         public void _ch_opm_mx_bend()
         {
             mm.Write(reg.a4 + w_l.count, (byte)(mm.ReadByte(reg.a4 + w_l.count) - 1));
-            if(mm.ReadByte(reg.a4 + w_l.count) == 0)
+            if (mm.ReadByte(reg.a4 + w_l.count) == 0)
             {
                 _ch_opm_mx_bend_end();
                 return;
@@ -2529,7 +2523,7 @@ namespace MDPlayer.Driver.MNDRV
                 reg.D1_L = (UInt32)((Int32)reg.D1_L >> 1);
                 uint cf = reg.D3_B & 0x80;
                 reg.D3_B <<= 1;
-                if (cf!=0)
+                if (cf != 0)
                 {
                     reg.D2_L += (UInt32)(Int32)reg.D1_L;
                 }
@@ -2598,7 +2592,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D2_L = 0;
             reg.D0_W = mm.ReadUInt16(reg.a4 + w_l.mokuhyou);
             bool cf = (Int16)reg.D0_W - (Int16)mm.ReadUInt16(reg.a5 + w.keycode3) < 0;
-            reg.D0_W =(UInt16)((Int16)reg.D0_W- (Int16)mm.ReadUInt16(reg.a5 + w.keycode3));
+            reg.D0_W = (UInt16)((Int16)reg.D0_W - (Int16)mm.ReadUInt16(reg.a5 + w.keycode3));
             if (reg.D0_W == 0)
             {
                 _ch_opm_lw_porta_end();

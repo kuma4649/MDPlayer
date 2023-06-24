@@ -1,13 +1,7 @@
 ﻿using Konamiman.Z80dotNet;
-using MDSound.np;
-using System;
-using System.Collections.Generic;
-using System.IO;
 using System.IO.Compression;
-using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MDPlayer
 {
@@ -208,7 +202,7 @@ namespace MDPlayer
             try
             {
                 List<byte> lst = new List<byte>();
-                for (int index=(int)adr; memory[index] != 0; index++)
+                for (int index = (int)adr; memory[index] != 0; index++)
                 {
                     if (memory.Size > index + 1 && memory[index] == 0x1a && memory[index + 1] == 0x00)
                         break;
@@ -570,7 +564,7 @@ namespace MDPlayer
             {
                 if (!File.Exists(ffn))
                 {
-                    log.Write(LogLevel.Trace, "Not found {0}.",ffn);
+                    log.Write(LogLevel.Trace, "Not found {0}.", ffn);
                     return null;
                 }
                 log.Write(LogLevel.Trace, "Found {0}.", ffn);
@@ -587,7 +581,7 @@ namespace MDPlayer
 
 
 
-        public static byte[] unzipFile(string filename, ZipArchiveEntry entry=null)
+        public static byte[] unzipFile(string filename, ZipArchiveEntry entry = null)
         {
             int xnum;
             byte[] buf = new byte[1024]; // 1Kbytesずつ処理する
@@ -814,10 +808,10 @@ namespace MDPlayer
         MP3 = 22,
         AIFF = 23,
         MGS = 24,
-        MDL=25,
-        XGZ=26,
-        MuSICA=27,
-        MuSICA_src=28
+        MDL = 25,
+        XGZ = 26,
+        MuSICA = 27,
+        MuSICA_src = 28
     }
 
     public enum EnmArcType : int

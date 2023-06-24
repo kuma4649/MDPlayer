@@ -1,18 +1,8 @@
 ﻿#if X64
 using MDPlayerx64;
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
@@ -38,7 +28,7 @@ namespace MDPlayer.form
 
             this.newParam = newParam;
             this.oldParam = oldParam;
-            frameBuffer.Add(pbScreen, ResMng.imgDic["planeYM3526"], null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.ImgDic["planeYM3526"], null, zoom);
             bool YM3526Type = (chipID == 0)
                 ? parent.setting.YM3526Type[0].UseReal[0]
                 : parent.setting.YM3526Type[1].UseReal[0];
@@ -89,9 +79,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYM3526"].Width * zoom, frameSizeH + ResMng.imgDic["planeYM3526"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYM3526"].Width * zoom, frameSizeH + ResMng.imgDic["planeYM3526"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYM3526"].Width * zoom, frameSizeH + ResMng.imgDic["planeYM3526"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeYM3526"].Width * zoom, frameSizeH + ResMng.ImgDic["planeYM3526"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeYM3526"].Width * zoom, frameSizeH + ResMng.ImgDic["planeYM3526"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeYM3526"].Width * zoom, frameSizeH + ResMng.ImgDic["planeYM3526"].Height * zoom);
             frmYM3526_Resize(null, null);
         }
 
@@ -292,7 +282,7 @@ namespace MDPlayer.form
                 //但しchをクリックした場合はマスク反転
                 if (px < 8)
                 {
-                    for ( ch = 0; ch < 9+5; ch++)
+                    for (ch = 0; ch < 9 + 5; ch++)
                     {
                         if (newParam.channels[ch].mask == true)
                             parent.ResetChannelMask(EnmChip.YM3526, chipID, ch);
@@ -304,7 +294,7 @@ namespace MDPlayer.form
             }
 
             //鍵盤 FM & RHM
-             ch = (py / 8) - 1;
+            ch = (py / 8) - 1;
             if (ch < 0) return;
 
             if (ch == 9)

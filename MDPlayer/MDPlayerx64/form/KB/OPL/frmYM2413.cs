@@ -1,18 +1,8 @@
 ﻿#if X64
 using MDPlayerx64;
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
@@ -38,13 +28,13 @@ namespace MDPlayer.form
 
             this.newParam = newParam;
             this.oldParam = oldParam;
-            frameBuffer.Add(pbScreen, ResMng.imgDic["planeYM2413"], null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.ImgDic["planeYM2413"], null, zoom);
 
-            bool YM2413Type = (chipID == 0) 
+            bool YM2413Type = (chipID == 0)
                 ? parent.setting.YM2413Type[0].UseReal[0]
                 : parent.setting.YM2413Type[1].UseReal[0];
-            int YM2413SoundLocation = (chipID == 0) 
-                ? parent.setting.YM2413Type[0].realChipInfo[0].SoundLocation 
+            int YM2413SoundLocation = (chipID == 0)
+                ? parent.setting.YM2413Type[0].realChipInfo[0].SoundLocation
                 : parent.setting.YM2413Type[1].realChipInfo[0].SoundLocation;
             int tp = !YM2413Type ? 0 : (YM2413SoundLocation < 0 ? 2 : 1);
 
@@ -90,9 +80,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYM2413"].Width * zoom, frameSizeH + ResMng.imgDic["planeYM2413"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYM2413"].Width * zoom, frameSizeH + ResMng.imgDic["planeYM2413"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYM2413"].Width * zoom, frameSizeH + ResMng.imgDic["planeYM2413"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeYM2413"].Width * zoom, frameSizeH + ResMng.ImgDic["planeYM2413"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeYM2413"].Width * zoom, frameSizeH + ResMng.ImgDic["planeYM2413"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeYM2413"].Width * zoom, frameSizeH + ResMng.ImgDic["planeYM2413"].Height * zoom);
             frmYM2413_Resize(null, null);
 
         }
@@ -262,11 +252,11 @@ namespace MDPlayer.form
 
         public void screenDrawParams()
         {
-            bool YM2413Type = (chipID == 0) 
+            bool YM2413Type = (chipID == 0)
                 ? parent.setting.YM2413Type[0].UseReal[0]
                 : parent.setting.YM2413Type[1].UseReal[0];
-            int YM2413SoundLocation = (chipID == 0) 
-                ? parent.setting.YM2413Type[0].realChipInfo[0].SoundLocation 
+            int YM2413SoundLocation = (chipID == 0)
+                ? parent.setting.YM2413Type[0].realChipInfo[0].SoundLocation
                 : parent.setting.YM2413Type[1].realChipInfo[0].SoundLocation;
             int tp = !YM2413Type ? 0 : (YM2413SoundLocation < 0 ? 2 : 1);
 
@@ -283,8 +273,8 @@ namespace MDPlayer.form
                 DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
 
                 DrawBuff.drawInstNumber(frameBuffer, (c % 3) * 16 + 37, (c / 3) * 2 + 24, ref oyc.inst[0], nyc.inst[0]);
-                DrawBuff.SUSFlag(frameBuffer, (c % 3) * 16 + 41, (c / 3) * 2 + 24,0, ref oyc.inst[1], nyc.inst[1]);
-                DrawBuff.SUSFlag(frameBuffer, (c % 3) * 16 + 44, (c / 3) * 2 + 24,0, ref oyc.inst[2], nyc.inst[2]);
+                DrawBuff.SUSFlag(frameBuffer, (c % 3) * 16 + 41, (c / 3) * 2 + 24, 0, ref oyc.inst[1], nyc.inst[1]);
+                DrawBuff.SUSFlag(frameBuffer, (c % 3) * 16 + 44, (c / 3) * 2 + 24, 0, ref oyc.inst[2], nyc.inst[2]);
                 DrawBuff.drawInstNumber(frameBuffer, (c % 3) * 16 + 46, (c / 3) * 2 + 24, ref oyc.inst[3], nyc.inst[3]);
 
                 DrawBuff.ChYM2413(frameBuffer, c, ref oyc.mask, nyc.mask, tp);

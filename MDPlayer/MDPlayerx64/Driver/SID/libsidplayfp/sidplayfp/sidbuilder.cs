@@ -19,11 +19,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Driver.libsidplayfp.sidplayfp
 {
@@ -253,7 +248,7 @@ namespace Driver.libsidplayfp.sidplayfp
         public void unlock(sidemu device)
         {
             libsidplayfp.sidemu oldSe = null;
-            foreach(libsidplayfp.sidemu se in sidobjs)
+            foreach (libsidplayfp.sidemu se in sidobjs)
             {
                 if (oldSe != se)
                 {
@@ -275,7 +270,7 @@ namespace Driver.libsidplayfp.sidplayfp
         {
             //foreach (libsidplayfp.sidemu it in sidobjs)
             //{
-                //Delete<emuset_t>(it);
+            //Delete<emuset_t>(it);
             //}
             //sidobjs.clear();
             sidobjs.Clear();

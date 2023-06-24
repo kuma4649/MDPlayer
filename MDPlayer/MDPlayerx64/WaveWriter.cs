@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MDPlayer
+﻿namespace MDPlayer
 {
     public class WaveWriter
     {
-        private Setting setting = null;
+        private readonly Setting setting = null;
         private FileStream dest = null;
         private int len = 0;
 
@@ -32,13 +25,13 @@ namespace MDPlayer
 
             dest = new FileStream(fn, FileMode.Create, FileAccess.Write);
 
-            List<byte> des = new List<byte>();
+            List<byte> des = new();
             len = 0;
 
             // 'RIFF'
             des.Add((byte)'R'); des.Add((byte)'I'); des.Add((byte)'F'); des.Add((byte)'F');
             // サイズ
-            int fsize = len+36;
+            int fsize = len + 36;
             des.Add((byte)((fsize & 0xff) >> 0));
             des.Add((byte)((fsize & 0xff00) >> 8));
             des.Add((byte)((fsize & 0xff0000) >> 16));

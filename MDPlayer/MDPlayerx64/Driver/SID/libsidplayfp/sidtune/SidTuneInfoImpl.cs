@@ -19,11 +19,6 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Driver.libsidplayfp.sidplayfp;
 
 namespace Driver.libsidplayfp.sidtune
@@ -76,7 +71,7 @@ namespace Driver.libsidplayfp.sidtune
 
         public List<UInt16> m_sidChipAddresses;//vector
 
-        public List<string> m_infoString=new List<string>();//vector
+        public List<string> m_infoString = new List<string>();//vector
 
         public List<string> m_commentString;//vector
 

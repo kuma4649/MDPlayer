@@ -1,7 +1,4 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
-
-namespace MDPlayer.form
+﻿namespace MDPlayer.form
 {
     public partial class frmVST : Form
     {

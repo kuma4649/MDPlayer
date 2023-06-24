@@ -46,7 +46,7 @@ namespace MDPlayer
             lock (logLock)
             {
                 string timefmt = DateTime.Now.ToString(Resources.cntTimeFormat).Trim();
-                string mmsg=string.Format(msg, prm);
+                string mmsg = string.Format(msg, prm);
                 string tmsg = string.Format("[{0}][{1}]{2}", timefmt, logLvl, mmsg);
                 logger?.Invoke(tmsg);
                 if (consoleEchoBack) Console.WriteLine(tmsg);
@@ -85,7 +85,7 @@ namespace MDPlayer
             }
         }
 
-        public static void Write(string msg,params object[] prm)
+        public static void Write(string msg, params object[] prm)
         {
             try
             {
@@ -97,7 +97,7 @@ namespace MDPlayer
             }
         }
 
-        public static void Write(LogLevel logLevel, string msg,params object[] prm)
+        public static void Write(LogLevel logLevel, string msg, params object[] prm)
         {
             try
             {

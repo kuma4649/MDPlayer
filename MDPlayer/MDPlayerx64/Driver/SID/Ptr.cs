@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace Driver
 {
@@ -25,10 +21,12 @@ namespace Driver
 
         public T this[int i]
         {
-            set {
+            set
+            {
                 buf[ptr + i] = value;
             }
-            get {
+            get
+            {
                 return buf[ptr + i];
             }
         }
@@ -41,7 +39,7 @@ namespace Driver
         public string ToString(int len)
         {
             string ret = "";
-            for(int i = 0; i < len; i++)
+            for (int i = 0; i < len; i++)
             {
                 if (ptr + i < buf.Length) ret += buf[ptr + i];
             }

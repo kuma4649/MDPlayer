@@ -1,18 +1,8 @@
 ﻿#if X64
 using MDPlayerx64;
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
@@ -39,7 +29,7 @@ namespace MDPlayer.form
 
             this.newParam = newParam;
             this.oldParam = oldParam;
-            frameBuffer.Add(pbScreen, ResMng.imgDic["planeSEGAPCM"], null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.ImgDic["planeSEGAPCM"], null, zoom);
             screenInit();
             update();
         }
@@ -82,9 +72,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeSEGAPCM"].Width * zoom, frameSizeH + ResMng.imgDic["planeSEGAPCM"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeSEGAPCM"].Width * zoom, frameSizeH + ResMng.imgDic["planeSEGAPCM"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeSEGAPCM"].Width * zoom, frameSizeH + ResMng.imgDic["planeSEGAPCM"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeSEGAPCM"].Width * zoom, frameSizeH + ResMng.ImgDic["planeSEGAPCM"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeSEGAPCM"].Width * zoom, frameSizeH + ResMng.ImgDic["planeSEGAPCM"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeSEGAPCM"].Width * zoom, frameSizeH + ResMng.ImgDic["planeSEGAPCM"].Height * zoom);
             frmSegaPCM_Resize(null, null);
 
         }
@@ -219,7 +209,7 @@ namespace MDPlayer.form
                         newParam.channels[ch].volumeL -= newParam.channels[ch].volumeL > 0 ? 1 : 0;
                         newParam.channels[ch].volumeR -= newParam.channels[ch].volumeR > 0 ? 1 : 0;
 
-                        if(newParam.channels[ch].volumeL==0 && newParam.channels[ch].volumeR == 0)
+                        if (newParam.channels[ch].volumeL == 0 && newParam.channels[ch].volumeR == 0)
                         {
                             newParam.channels[ch].note = -1;
                         }

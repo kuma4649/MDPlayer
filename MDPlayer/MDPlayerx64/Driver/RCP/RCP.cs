@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace MDPlayer
 {
@@ -114,8 +110,8 @@ namespace MDPlayer
         private Tick tick = new RCP.Tick();
 
         public List<Tuple<string, byte[]>> ExtendFile = null;
-        
-        public static void getControlFileName(byte[] buf,out string CM6,out string GSD,out string GSD2)
+
+        public static void getControlFileName(byte[] buf, out string CM6, out string GSD, out string GSD2)
         {
             CM6 = null;
             GSD = null;
@@ -593,7 +589,7 @@ namespace MDPlayer
                 }
                 else
                 {
-                    trkNumber = i;ptr++;// vgmBuf[ptr++] - 1;
+                    trkNumber = i; ptr++;// vgmBuf[ptr++] - 1;
                     if (trkNumber < 0)
                         trkNumber = i;
                 }
@@ -1086,7 +1082,7 @@ namespace MDPlayer
             }
             minSt = (minSt < 0 ? -minSt : 0);
 
-                //トラック毎の初期化
+            //トラック毎の初期化
             foreach (MIDITrack tk in trk)
             {
                 tk.NowPart = tk.getStartPart();
@@ -1194,7 +1190,7 @@ namespace MDPlayer
             }
 
             bool endMark = true;
-            foreach(MIDITrack tk in trk)
+            foreach (MIDITrack tk in trk)
             {
                 if (!tk.EndMark)
                 {
@@ -1302,7 +1298,7 @@ namespace MDPlayer
             for (int i = 0; i < len; i++)
             {
                 dat.Add(pMIDIMessage[i]);
-//                chipRegister.sendMIDIout(model, n, vv, vstDelta);
+                //                chipRegister.sendMIDIout(model, n, vv, vstDelta);
             }
             chipRegister.sendMIDIout(model, n, dat.ToArray(), vstDelta);
         }
@@ -1801,7 +1797,7 @@ namespace MDPlayer
             sf = vv > 0x07 ? (0x100 - vv) % 0x100 : vv;
             mi = v > 0x0f ? 1 : 0;
 
-            trk.KeySIG_SF= sf; //Sharp Flat -7:7flats -1:1flat 0:Key of C 1:1sharp 7:7sharp
+            trk.KeySIG_SF = sf; //Sharp Flat -7:7flats -1:1flat 0:Key of C 1:1sharp 7:7sharp
             trk.KeySIG_MI = mi; // Is minor Key
         }
 
@@ -2052,7 +2048,7 @@ namespace MDPlayer
             GetGSDBuf(ref DBuf, buf);
         }
 
-        private void GetGSDBuf(ref List<CtlSysex> DBuf ,byte[] buf)
+        private void GetGSDBuf(ref List<CtlSysex> DBuf, byte[] buf)
         {
             if (buf == null || buf.Length < 1 || buf.Length != 0xa71) return;
 
@@ -2151,9 +2147,9 @@ namespace MDPlayer
             }
 
             adr = 0x7d6;
-            makeGSDBufPtn_3(DBuf, buf, adr,0x00);
+            makeGSDBufPtn_3(DBuf, buf, adr, 0x00);
             adr = 0x922;
-            makeGSDBufPtn_3(DBuf, buf, adr,0x10);
+            makeGSDBufPtn_3(DBuf, buf, adr, 0x10);
 
         }
 
@@ -2172,7 +2168,7 @@ namespace MDPlayer
             DBuf.Add(new CtlSysex(1, new byte[] { (byte)(0xb0 + ch), 0x0a, buf[adr + 0x1c] })); // Panpot
         }
 
-        private void makeGSDBufPtn_1(List<CtlSysex> DBuf, byte[] buf, int adr, byte iAdrMm,byte iAdrLl)
+        private void makeGSDBufPtn_1(List<CtlSysex> DBuf, byte[] buf, int adr, byte iAdrMm, byte iAdrLl)
         {
             DBuf.Add(new CtlSysex(5, GetSysEx(0x41, 0x10, 0x42, 0x12, 0x83
                 , 0x48, iAdrMm, iAdrLl
@@ -2253,7 +2249,7 @@ namespace MDPlayer
         private void makeGSDBufPtn_2(List<CtlSysex> DBuf, byte[] buf, int adr, byte iAdrMm, byte iAdrLl)
         {
             DBuf.Add(new CtlSysex(4, GetSysEx(0x41, 0x10, 0x42, 0x12, 0x83
-                , 0x48, iAdrMm,iAdrLl
+                , 0x48, iAdrMm, iAdrLl
                 , (byte)(buf[adr + 0x4d] >> 4), (byte)(buf[adr + 0x4d] & 0xf) //CAf  PITCH CONTROL      0,1
                 , (byte)(buf[adr + 0x4e] >> 4), (byte)(buf[adr + 0x4e] & 0xf) //CAf  TVF CUTOFF CONTROL 2,3
                 , (byte)(buf[adr + 0x4f] >> 4), (byte)(buf[adr + 0x4f] & 0xf) //CAf  AMPLITUDE CONTROL  4,5
@@ -2380,8 +2376,8 @@ namespace MDPlayer
         private void GetCM6Buf(ref List<CtlSysex> DBuf)
         {
 
-            byte[] buf=null;
-            foreach(Tuple<string,byte[]> trg in ExtendFile)
+            byte[] buf = null;
+            foreach (Tuple<string, byte[]> trg in ExtendFile)
             {
                 if (System.IO.Path.GetExtension(trg.Item1).ToUpper() == ".CM6")
                 {
@@ -2394,7 +2390,7 @@ namespace MDPlayer
             //System Area
             DBuf.Add(new CtlSysex(2, GetSysEx(makeCM6Ptn_0(buf, 0x0080, 0x017, 0x10, 0x00, 0x00))));
             //Timbre Memory #1～ (User 128)
-            for (int adr = 0x0e34, i=0; adr <= 0x4d34; adr += 0x100,i+=2)
+            for (int adr = 0x0e34, i = 0; adr <= 0x4d34; adr += 0x100, i += 2)
             {
                 DBuf.Add(new CtlSysex(9, GetSysEx(makeCM6Ptn_0(buf, adr, 0x100, 0x08, (byte)(0x00 + i), 0x00))));
             }
@@ -2423,7 +2419,7 @@ namespace MDPlayer
             DBuf.Add(new CtlSysex(6, GetSysEx(makeCM6Ptn_0(buf, 0x5832, 0x11, 0x52, 0x00, 0x00))));
         }
 
-        private byte[] makeCM6Ptn_0(byte[] buf, int adr,int len, byte hh, byte mm, byte ll)
+        private byte[] makeCM6Ptn_0(byte[] buf, int adr, int len, byte hh, byte mm, byte ll)
         {
             List<byte> lst;
 
@@ -2450,7 +2446,7 @@ namespace MDPlayer
 
             int endFlg = 0;
 
-            for(int i = 0; i < beforeSend.Length; i++)
+            for (int i = 0; i < beforeSend.Length; i++)
             {
                 if (beforeSend[i] != null)
                 {
@@ -2496,7 +2492,7 @@ namespace MDPlayer
         {
             try
             {
-                midiOutInfo[] infos = chipRegister.GetMIDIoutInfo();
+                MidiOutInfo[] infos = chipRegister.GetMIDIoutInfo();
                 if (infos == null || infos.Length < 1) return true;
 
                 beforeSend = new List<CtlSysex>[infos.Length];
@@ -2528,7 +2524,7 @@ namespace MDPlayer
                     //ファイルパスが設定されている場合はコントロールファイルを読み込む処理を実施
                     if (ExtendFile != null)
                     {
-                        GetControlFile(beforeSend[i],infos[i].type);
+                        GetControlFile(beforeSend[i], infos[i].type);
                     }
 
                 }
@@ -2546,14 +2542,14 @@ namespace MDPlayer
             if (text == null || text.Length < 1) return;
 
             string[] cmds = text.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
-            
-            foreach(string cmd in cmds)
+
+            foreach (string cmd in cmds)
             {
                 string[] com = cmd.Split(new string[] { ":" }, StringSplitOptions.None);
                 int delay = int.Parse(com[0]);
                 string[] dats = com[1].Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
                 byte[] dat = new byte[dats.Length];
-                for(int i=0;i<dats.Length;i++)
+                for (int i = 0; i < dats.Length; i++)
                 {
                     dat[i] = (byte)Convert.ToInt16(dats[i], 16);
                 }
@@ -2561,7 +2557,7 @@ namespace MDPlayer
             }
         }
 
-        private void GetControlFile(List<CtlSysex> buf,int instType)
+        private void GetControlFile(List<CtlSysex> buf, int instType)
         {
 
             //GM / XG / GS / LA / GS(SC - 55_1) / GS(SC - 55_2)

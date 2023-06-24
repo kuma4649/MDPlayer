@@ -1,9 +1,5 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-using MDPlayerx64;
+﻿using MDPlayerx64;
 #if X64
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
@@ -23,7 +19,7 @@ namespace MDPlayer.form
         private MDChipParams.C140 oldParam = new MDChipParams.C140();
         private FrameBuffer frameBuffer = new FrameBuffer();
 
-        public frmC140(frmMain frm,int chipID,int zoom, MDChipParams.C140 newParam,MDChipParams.C140 oldParam):base(frm)
+        public frmC140(frmMain frm, int chipID, int zoom, MDChipParams.C140 newParam, MDChipParams.C140 oldParam) : base(frm)
         {
             InitializeComponent();
 
@@ -33,7 +29,7 @@ namespace MDPlayer.form
             this.newParam = newParam;
             this.oldParam = oldParam;
 
-            frameBuffer.Add(pbScreen, ResMng.imgDic["planeF"], null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.ImgDic["planeF"], null, zoom);
             screenInit();
             update();
         }
@@ -76,9 +72,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeF"].Width * zoom, frameSizeH + ResMng.imgDic["planeF"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeF"].Width * zoom, frameSizeH + ResMng.imgDic["planeF"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeF"].Width * zoom, frameSizeH + ResMng.imgDic["planeF"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeF"].Width * zoom, frameSizeH + ResMng.ImgDic["planeF"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeF"].Width * zoom, frameSizeH + ResMng.ImgDic["planeF"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeF"].Width * zoom, frameSizeH + ResMng.ImgDic["planeF"].Height * zoom);
             frmC140_Resize(null, null);
 
         }
@@ -119,7 +115,7 @@ namespace MDPlayer.form
             {
                 if (e.Button == MouseButtons.Left)
                 {
-                    parent.SetChannelMask( EnmChip.C140, chipID, ch);
+                    parent.SetChannelMask(EnmChip.C140, chipID, ch);
                     return;
                 }
 
@@ -134,7 +130,7 @@ namespace MDPlayer.form
         {
             double m = double.MaxValue;
 
-            int clock = Audio.clockC140;
+            int clock = Audio.ClockC140;
             if (clock >= 1000000)
                 clock = (int)clock / 384;
 
@@ -143,9 +139,9 @@ namespace MDPlayer.form
             {
                 //double a = Math.Abs(freq - ((0x0800 << 2) * Tables.pcmMulTbl[i % 12 + 12] * Math.Pow(2, ((int)(i / 12) - 4))));
                 int a = (int)(
-                    65536.0 
-                    / 2.0 
-                    / clock 
+                    65536.0
+                    / 2.0
+                    / clock
                     * 8000.0
                     * Tables.pcmMulTbl[i % 12 + 12]
                     * Math.Pow(2, (i / 12 - 3))
@@ -176,9 +172,9 @@ namespace MDPlayer.form
                 DrawBuff.drawPanType2P(frameBuffer, 24, ch * 8 + 8, 0, tp);
                 DrawBuff.ChC140_P(frameBuffer, 0, 8 + ch * 8, ch, false, tp);
                 int d = 99;
-                DrawBuff.VolumeToC140(frameBuffer, ch, 1, ref d,0, tp);
+                DrawBuff.VolumeToC140(frameBuffer, ch, 1, ref d, 0, tp);
                 d = 99;
-                DrawBuff.VolumeToC140(frameBuffer, ch, 2, ref d,0, tp);
+                DrawBuff.VolumeToC140(frameBuffer, ch, 2, ref d, 0, tp);
             }
         }
 

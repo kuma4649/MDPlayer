@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MDPlayer.Driver.MoonDriver
+﻿namespace MDPlayer.Driver.MoonDriver
 {
     public class MoonDriver : baseDriver
     {
@@ -56,7 +50,7 @@ namespace MDPlayer.Driver.MoonDriver
             try
             {
                 a = 0;
-                for (int i = 0; i < vgmBuf.Length;i++)
+                for (int i = 0; i < vgmBuf.Length; i++)
                 {
                     if (i % 0x4000 == 0)
                     {
@@ -97,7 +91,7 @@ namespace MDPlayer.Driver.MoonDriver
                     e = 0x00;
                     moon_wave_out();
 
-                    foreach(byte dat in ExtendFile.Item2)
+                    foreach (byte dat in ExtendFile.Item2)
                     {
                         d = 0x06;
                         e = dat;
@@ -224,7 +218,7 @@ namespace MDPlayer.Driver.MoonDriver
 
         public int[] GetPCMKeyOn()
         {
-            for(int i = 0; i < pcmKeyonB.Length; i++)
+            for (int i = 0; i < pcmKeyonB.Length; i++)
             {
                 pcmKeyonB[i] = pcmKeyon[i];
                 pcmKeyon[i] = -2;
@@ -946,7 +940,7 @@ namespace MDPlayer.Driver.MoonDriver
 
             d = 0x00;
             e = 0x18;//24channels; OPL4
-            bool cry = (b & 1)!=0;
+            bool cry = (b & 1) != 0;
             b >>= 1;
             b |= (byte)(cry ? 0x80 : 0);
             if (cry)
@@ -1850,9 +1844,9 @@ namespace MDPlayer.Driver.MoonDriver
             if (work.ch[ix].cnt == 255)
             {
                 byte vee = ReadMemory(hl);
-                byte v00 = ReadMemory((UInt16)(hl+1));
+                byte v00 = ReadMemory((UInt16)(hl + 1));
                 UInt16 adr = (UInt16)(ReadMemory((UInt16)(hl + 2)) + ReadMemory((UInt16)(hl + 3)) * 0x100);
-                if (vee==0xee && v00==0x00 && hl - 2 == adr)
+                if (vee == 0xee && v00 == 0x00 && hl - 2 == adr)
                 {
                     work.ch[ix].endFlg = true;
                 }
@@ -1920,7 +1914,8 @@ namespace MDPlayer.Driver.MoonDriver
             }
 
             a--;
-            if (a == 0) {
+            if (a == 0)
+            {
                 write_data_wave();// (a >> 8) == 3
                 return;
             }
@@ -1966,7 +1961,8 @@ namespace MDPlayer.Driver.MoonDriver
             moon_fm2_out();
         }
 
-        private void write_data_wave() {
+        private void write_data_wave()
+        {
             hl++;
 
             a = ReadMemory(hl);
@@ -2282,7 +2278,7 @@ namespace MDPlayer.Driver.MoonDriver
             hl++;
             hl = (UInt16)(ReadMemory(hl) * 0x100 + a);
 
-            a=0;
+            a = 0;
             change_page3();
             UInt16 ltbl = (UInt16)(ReadMemory(S_LOOP_TABLE) + ReadMemory(S_LOOP_TABLE + 1) * 0x100 + ix * 2);
             ltbl = (UInt16)(ReadMemory(ltbl) + ReadMemory((UInt16)(ltbl + 1)) * 0x100);
@@ -2957,7 +2953,7 @@ namespace MDPlayer.Driver.MoonDriver
             hl = (UInt16)((hl & 0xff) + (a << 8));
             byte l = (byte)(hl & 0xff);
             bool cry2 = (l & 0x1) != 0;
-            l =(byte)((l >> 1) + (cry ? 0x80 : 0));
+            l = (byte)((l >> 1) + (cry ? 0x80 : 0));
             if (cry2) l |= 0x80;
             hl = (UInt16)((hl & 0xff00) + l);
 
@@ -3265,7 +3261,7 @@ namespace MDPlayer.Driver.MoonDriver
             //Console.WriteLine("wave out:{0:x02}:{1:x02}:", d, e);
         }
 
-        private byte backDat=0;
+        private byte backDat = 0;
 
         private byte moon_wave_in()
         {
@@ -3375,7 +3371,7 @@ namespace MDPlayer.Driver.MoonDriver
             work.seq_opsel = a;
 
             b = work.ch[ix].vol;
-            hl = (UInt16)((hl & 0xff)+ (UInt16)(work.ch[ix].reverb * 0x100));//.volop;
+            hl = (UInt16)((hl & 0xff) + (UInt16)(work.ch[ix].reverb * 0x100));//.volop;
 
             c = 0x02;
             a = work.ch[ix].synth;
@@ -3700,7 +3696,7 @@ namespace MDPlayer.Driver.MoonDriver
             return;
 
         }
-        
+
         //********************************************
         // moon_key_write_fmfreq
         // calculates and writes related FM frequency
@@ -4176,7 +4172,7 @@ namespace MDPlayer.Driver.MoonDriver
                         extMem[(byte)seg0x4000] = new byte[1024 * 16];
                     return extMem[(byte)seg0x4000][adr & 0x3fff];
                 case 2://0x8000 - 0xbfff
-                    if (seg0x8000 == null || seg0x8000==0)
+                    if (seg0x8000 == null || seg0x8000 == 0)
                         return mem[adr];
                     if (extMem[(byte)seg0x8000] == null)
                         extMem[(byte)seg0x8000] = new byte[1024 * 16];
@@ -4190,7 +4186,7 @@ namespace MDPlayer.Driver.MoonDriver
             }
         }
 
-        private void WriteMemory(UInt16 adr,byte dat)
+        private void WriteMemory(UInt16 adr, byte dat)
         {
             switch (adr >> 14)
             {
@@ -4240,7 +4236,7 @@ namespace MDPlayer.Driver.MoonDriver
                     {
                         if (extMem[(byte)seg0xc000] == null)
                             extMem[(byte)seg0xc000] = new byte[1024 * 16];
-                        extMem[(byte)seg0xc000][adr & 0x3fff]=dat;
+                        extMem[(byte)seg0xc000][adr & 0x3fff] = dat;
                     }
                     break;
             }

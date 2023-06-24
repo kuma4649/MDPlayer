@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MDPlayer.UnlhaWrap
 {
@@ -64,14 +60,14 @@ namespace MDPlayer.UnlhaWrap
                 funcAddr = UnlhaAPI.GetProcAddress(hmod, "UnlhaCheckArchive");
                 if (funcAddr == IntPtr.Zero)
                 {
-                    throw new ApplicationException(                       "UnlhaCheckArchiveのアドレスを取得できませんでした。");
+                    throw new ApplicationException("UnlhaCheckArchiveのアドレスを取得できませんでした。");
                 }
                 UnlhaAPI.CheckArchiveDelegate checkArchive =
                     (UnlhaAPI.CheckArchiveDelegate)Marshal.GetDelegateForFunctionPointer(
                     funcAddr, typeof(UnlhaAPI.CheckArchiveDelegate));
                 if (!checkArchive(archiveFile, 0))
                 {
-                    throw new ApplicationException(                         "unlha32.dllでは展開できません。");
+                    throw new ApplicationException("unlha32.dllでは展開できません。");
                 }
 
             }
@@ -85,7 +81,7 @@ namespace MDPlayer.UnlhaWrap
             return hmod;
         }
 
-        public List<Tuple<string,UInt64>> GetFileList(string archiveFile,string wildCard)
+        public List<Tuple<string, UInt64>> GetFileList(string archiveFile, string wildCard)
         {
 
             IntPtr hmod = LoadDll(archiveFile);
@@ -297,7 +293,7 @@ namespace MDPlayer.UnlhaWrap
                 byte[] buf = new byte[item.Item2];
                 ret = extractMem(IntPtr.Zero,
                     //string.Format(command, archiveFile, baseDir),
-                    string.Format("-l1 -n1 {0} c: {1}", archiveFile,fileName),
+                    string.Format("-l1 -n1 {0} c: {1}", archiveFile, fileName),
                     buf,
                     (uint)buf.Length,
                     IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);

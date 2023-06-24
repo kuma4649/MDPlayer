@@ -1,13 +1,8 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-using MDPlayerx64;
+﻿using MDPlayerx64;
 #if X64
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
-using static MDPlayer.Setting;
 
 namespace MDPlayer.form
 {
@@ -24,13 +19,13 @@ namespace MDPlayer.form
             this.newParam = newParam;
             this.oldParam = oldParam;
 
-            frameBuffer.Add(this.pbScreen, ResMng.imgDic["planeAY8910"], null, zoom);
+            frameBuffer.Add(this.pbScreen, ResMng.ImgDic["planeAY8910"], null, zoom);
 
-            bool AY8910Type = (chipID == 0) 
-                ? parent.setting.AY8910Type[0].UseReal[0] 
+            bool AY8910Type = (chipID == 0)
+                ? parent.setting.AY8910Type[0].UseReal[0]
                 : parent.setting.AY8910Type[1].UseReal[0];
-            int AY8910SoundLocation = (chipID == 0) 
-                ? parent.setting.AY8910Type[0].realChipInfo[0].SoundLocation 
+            int AY8910SoundLocation = (chipID == 0)
+                ? parent.setting.AY8910Type[0].realChipInfo[0].SoundLocation
                 : parent.setting.AY8910Type[1].realChipInfo[0].SoundLocation;
             int tp = !AY8910Type ? 0 : (AY8910SoundLocation < 0 ? 2 : 1);
 
@@ -63,9 +58,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeAY8910"].Width * zoom, frameSizeH + ResMng.imgDic["planeAY8910"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeAY8910"].Width * zoom, frameSizeH + ResMng.imgDic["planeAY8910"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeAY8910"].Width * zoom, frameSizeH + ResMng.imgDic["planeAY8910"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeAY8910"].Width * zoom, frameSizeH + ResMng.ImgDic["planeAY8910"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeAY8910"].Width * zoom, frameSizeH + ResMng.ImgDic["planeAY8910"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeAY8910"].Width * zoom, frameSizeH + ResMng.ImgDic["planeAY8910"].Height * zoom);
             frmAY8910_Resize(null, null);
 
         }
@@ -112,7 +107,7 @@ namespace MDPlayer.form
                 }
                 else
                 {
-                    float ftone = Audio.clockAY8910 / (8.0f * (float)tp); 
+                    float ftone = Audio.ClockAY8910 / (8.0f * (float)tp);
                     channel.note = searchSSGNote(ftone);
                 }
 

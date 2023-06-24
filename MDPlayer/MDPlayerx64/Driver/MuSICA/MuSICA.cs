@@ -1,11 +1,6 @@
 ﻿using Konamiman.Z80dotNet;
 using MDPlayer.Driver.MGSDRV;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MDPlayer.Driver.MuSICA
 {
@@ -14,7 +9,7 @@ namespace MDPlayer.Driver.MuSICA
 
         public override GD3 getGD3Info(byte[] buf, uint vgmGd3)
         {
-            GD3 ret = new GD3();
+            GD3 ret = new();
             if (buf != null && buf.Length > 8)
             {
                 Run(buf);
@@ -61,7 +56,7 @@ namespace MDPlayer.Driver.MuSICA
                     vgmSpeedCounter -= 1.0;
                     if (vgmFrameCounter > -1)
                     {
-                        oneFrameMain();
+                        OneFrameMain();
                     }
                     else
                     {
@@ -78,7 +73,7 @@ namespace MDPlayer.Driver.MuSICA
 
         }
 
-        private void oneFrameMain()
+        private void OneFrameMain()
         {
             try
             {
@@ -87,7 +82,7 @@ namespace MDPlayer.Driver.MuSICA
 
                 if (vgmFrameCounter % (Common.VGMProcSampleRate / 60) == 0)
                 {
-                    interrupt();
+                    Interrupt();
                 }
             }
             catch (Exception ex)
@@ -97,7 +92,7 @@ namespace MDPlayer.Driver.MuSICA
             }
         }
 
-        private void interrupt()
+        private void Interrupt()
         {
             //log.Write("\r\n_INTER(001FH)");
             z80.Registers.PC = 0x6029;
@@ -127,10 +122,12 @@ namespace MDPlayer.Driver.MuSICA
             var fileName = "KINROU5.DRV";
             DollarCode = Encoding.ASCII.GetBytes(new[] { '$' })[0];
 
-            z80 = new Z80Processor();
-            z80.ClockSynchronizer = null;
-            z80.AutoStopOnRetWithStackEmpty = true;
-            z80.Memory = new MsxMemory(chipRegister, model);
+            z80 = new Z80Processor
+            {
+                ClockSynchronizer = null,
+                AutoStopOnRetWithStackEmpty = true,
+                Memory = new MsxMemory(chipRegister, model)
+            };
             z80.PortsSpace = new MsxPort(((MsxMemory)z80.Memory).slot, chipRegister, null, model);
             z80.BeforeInstructionFetch += Z80OnBeforeInstructionFetch;
 
@@ -143,11 +140,11 @@ namespace MDPlayer.Driver.MuSICA
 
 
             //プログラムの読み込みとメモリへのセット
-            if (program == null) program = File.ReadAllBytes(fileName);
+            program ??= File.ReadAllBytes(fileName);
             z80.Memory.SetContents(0x6000 - 7, program);
             z80.Registers.PC = 0x6000;
 
-            log.Write(LogLevel.Trace,"\r\n_INITAL(6020H)");
+            log.Write(LogLevel.Trace, "\r\n_INITAL(6020H)");
             z80.Registers.PC = 0x6020;
             z80.Registers.SP = unchecked((short)0xf380);
             z80.Continue();
@@ -157,7 +154,7 @@ namespace MDPlayer.Driver.MuSICA
 
             byte[] mgsdata = vgmBuf;
             ushort dataAdr = (ushort)(vgmBuf[1] + vgmBuf[2] * 0x100);
-            z80.Memory.SetContents(dataAdr-7, vgmBuf);
+            z80.Memory.SetContents(dataAdr - 7, vgmBuf);
 
             log.Write(LogLevel.Trace, "\r\n_MPLAY2(6026H)");
             z80.Registers.PC = 0x6026;
@@ -340,7 +337,7 @@ namespace MDPlayer.Driver.MuSICA
             z80.ExecuteRet();
         }
 
-        private void EXTBIO_MemoryMapper(BeforeInstructionFetchEventArgs args, IZ80Processor z80, byte function)
+        private void EXTBIO_MemoryMapper(BeforeInstructionFetchEventArgs _, IZ80Processor z80, byte function)
         {
             switch (function)
             {
@@ -417,12 +414,10 @@ namespace MDPlayer.Driver.MuSICA
             {
                 //_SENV
                 //log.Write("_SENV HL:{0:x04} DE:{1:x04}", z80.Registers.HL, z80.Registers.DE);
-                string msg = GetASCIIZ(z80, (ushort)z80.Registers.HL);
+                //string msg = GetASCIIZ(z80, (ushort)z80.Registers.HL);
                 //log.Write("(HL)={0}", msg);
-
-                msg = GetASCIIZ(z80, (ushort)z80.Registers.DE);
+                //msg = GetASCIIZ(z80, (ushort)z80.Registers.DE);
                 //log.Write("(DE)={0}", msg);
-
                 z80.Registers.A = 0x00;//Error number
             }
             else if (function == 0x6f)

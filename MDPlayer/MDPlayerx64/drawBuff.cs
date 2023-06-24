@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using MDPlayerx64;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MDPlayerx64;
 #if X64
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
@@ -16,7 +9,7 @@ namespace MDPlayer
 {
     public static class DrawBuff
     {
-        
+
         private static byte[][] rChipName;
         private static byte[][] rFont1;
         private static byte[][] rFont2;
@@ -45,104 +38,104 @@ namespace MDPlayer
         private static Bitmap[] bitmapMIDILyric = null;
         private static Graphics[] gMIDILyric = null;
         private static Font[] fntMIDILyric = null;
-        
+
 
 
         public static void Init()
         {
             rChipName = new byte[3][];
-            rChipName[0] = getByteArray(ResMng.imgDic["rChipName_01"]);
-            rChipName[1] = getByteArray(ResMng.imgDic["rChipName_02"]);
-            rChipName[2] = getByteArray(ResMng.imgDic["rChipName_03"]);
+            rChipName[0] = getByteArray(ResMng.ImgDic["rChipName_01"]);
+            rChipName[1] = getByteArray(ResMng.ImgDic["rChipName_02"]);
+            rChipName[2] = getByteArray(ResMng.ImgDic["rChipName_03"]);
 
             rFont1 = new byte[2][];
-            rFont1[0] = getByteArray(ResMng.imgDic["rFont_01"]);
-            rFont1[1] = getByteArray(ResMng.imgDic["rFont_02"]);
+            rFont1[0] = getByteArray(ResMng.ImgDic["rFont_01"]);
+            rFont1[1] = getByteArray(ResMng.ImgDic["rFont_02"]);
             rFont2 = new byte[5][];
-            rFont2[0] = getByteArray(ResMng.imgDic["rFont_03"]);
-            rFont2[1] = getByteArray(ResMng.imgDic["rFont_04"]);
-            rFont2[2] = getByteArray(ResMng.imgDic["rMIDILCD_Font_04"]);
-            rFont2[3] = getByteArray(ResMng.imgDic["rMIDILCD_Font_05"]);
-            rFont2[4] = getByteArray(ResMng.imgDic["rMIDILCD_Font_06"]);
+            rFont2[0] = getByteArray(ResMng.ImgDic["rFont_03"]);
+            rFont2[1] = getByteArray(ResMng.ImgDic["rFont_04"]);
+            rFont2[2] = getByteArray(ResMng.ImgDic["rMIDILCD_Font_04"]);
+            rFont2[3] = getByteArray(ResMng.ImgDic["rMIDILCD_Font_05"]);
+            rFont2[4] = getByteArray(ResMng.ImgDic["rMIDILCD_Font_06"]);
             rFont3 = new byte[2][];
-            rFont3[0] = getByteArray(ResMng.imgDic["rFont_05"]);
-            rFont3[1] = getByteArray(ResMng.imgDic["rFont_06"]);
+            rFont3[0] = getByteArray(ResMng.ImgDic["rFont_05"]);
+            rFont3[1] = getByteArray(ResMng.ImgDic["rFont_06"]);
 
             rKBD = new byte[3][];
-            rKBD[0] = getByteArray(ResMng.imgDic["rKBD_01"]);
-            rKBD[1] = getByteArray(ResMng.imgDic["rKBD_02"]);
-            rKBD[2] = getByteArray(ResMng.imgDic["rKBD_03"]);
+            rKBD[0] = getByteArray(ResMng.ImgDic["rKBD_01"]);
+            rKBD[1] = getByteArray(ResMng.ImgDic["rKBD_02"]);
+            rKBD[2] = getByteArray(ResMng.ImgDic["rKBD_03"]);
 
             rMenuButtons = new byte[2][];
-            rMenuButtons[0] = getByteArray(ResMng.imgDic["rMenuButtons_01"]);
-            rMenuButtons[1] = getByteArray(ResMng.imgDic["rMenuButtons_02"]);
+            rMenuButtons[0] = getByteArray(ResMng.ImgDic["rMenuButtons_01"]);
+            rMenuButtons[1] = getByteArray(ResMng.ImgDic["rMenuButtons_02"]);
             rPan = new byte[3][];
-            rPan[0] = getByteArray(ResMng.imgDic["rPan_01"]);
-            rPan[1] = getByteArray(ResMng.imgDic["rPan_02"]);
-            rPan[2] = getByteArray(ResMng.imgDic["rPan_03"]);
+            rPan[0] = getByteArray(ResMng.ImgDic["rPan_01"]);
+            rPan[1] = getByteArray(ResMng.ImgDic["rPan_02"]);
+            rPan[2] = getByteArray(ResMng.ImgDic["rPan_03"]);
 
             rPan2 = new byte[2][];
-            rPan2[0] = getByteArray(ResMng.imgDic["rPan2_01"]);
-            rPan2[1] = getByteArray(ResMng.imgDic["rPan2_02"]);
+            rPan2[0] = getByteArray(ResMng.ImgDic["rPan2_01"]);
+            rPan2[1] = getByteArray(ResMng.ImgDic["rPan2_02"]);
 
-            rPSGEnv = getByteArray(ResMng.imgDic["rPSGEnv"]);
+            rPSGEnv = getByteArray(ResMng.ImgDic["rPSGEnv"]);
 
             rPSGMode = new byte[6][];
-            rPSGMode[0] = getByteArray(ResMng.imgDic["rPSGMode_01"]);
-            rPSGMode[1] = getByteArray(ResMng.imgDic["rPSGMode_02"]);
-            rPSGMode[2] = getByteArray(ResMng.imgDic["rPSGMode_03"]);
-            rPSGMode[3] = getByteArray(ResMng.imgDic["rPSGMode_04"]);
-            rPSGMode[4] = getByteArray(ResMng.imgDic["rPSGMode_05"]);
-            rPSGMode[5] = getByteArray(ResMng.imgDic["rPSGMode_06"]);
+            rPSGMode[0] = getByteArray(ResMng.ImgDic["rPSGMode_01"]);
+            rPSGMode[1] = getByteArray(ResMng.ImgDic["rPSGMode_02"]);
+            rPSGMode[2] = getByteArray(ResMng.ImgDic["rPSGMode_03"]);
+            rPSGMode[3] = getByteArray(ResMng.ImgDic["rPSGMode_04"]);
+            rPSGMode[4] = getByteArray(ResMng.ImgDic["rPSGMode_05"]);
+            rPSGMode[5] = getByteArray(ResMng.ImgDic["rPSGMode_06"]);
 
-            rPSG2 = getByteArray(ResMng.imgDic["rPSG2"]);
+            rPSG2 = getByteArray(ResMng.ImgDic["rPSG2"]);
 
             rType = new byte[6][];
-            rType[0] = getByteArray(ResMng.imgDic["rType_01"]);
-            rType[1] = getByteArray(ResMng.imgDic["rType_02"]);
-            rType[2] = getByteArray(ResMng.imgDic["rType_03"]);
-            rType[3] = getByteArray(ResMng.imgDic["rType_04"]);
-            rType[4] = getByteArray(ResMng.imgDic["rType_05"]);
-            rType[5] = getByteArray(ResMng.imgDic["rType_06"]);
+            rType[0] = getByteArray(ResMng.ImgDic["rType_01"]);
+            rType[1] = getByteArray(ResMng.ImgDic["rType_02"]);
+            rType[2] = getByteArray(ResMng.ImgDic["rType_03"]);
+            rType[3] = getByteArray(ResMng.ImgDic["rType_04"]);
+            rType[4] = getByteArray(ResMng.ImgDic["rType_05"]);
+            rType[5] = getByteArray(ResMng.ImgDic["rType_06"]);
 
             rVol = new byte[3][];
-            rVol[0] = getByteArray(ResMng.imgDic["rVol_01"]);
-            rVol[1] = getByteArray(ResMng.imgDic["rVol_02"]);
-            rVol[2] = getByteArray(ResMng.imgDic["rVol_03"]);
+            rVol[0] = getByteArray(ResMng.ImgDic["rVol_01"]);
+            rVol[1] = getByteArray(ResMng.ImgDic["rVol_02"]);
+            rVol[2] = getByteArray(ResMng.ImgDic["rVol_03"]);
 
-            rWavGraph = getByteArray(ResMng.imgDic["rWavGraph"]);
-            rWavGraph2 = getByteArray(ResMng.imgDic["rWavGraph2"]);
-            rFader = getByteArray(ResMng.imgDic["rFader"]);
-            rNESDMC = getByteArray(ResMng.imgDic["rNESDMC"]);
+            rWavGraph = getByteArray(ResMng.ImgDic["rWavGraph"]);
+            rWavGraph2 = getByteArray(ResMng.ImgDic["rWavGraph2"]);
+            rFader = getByteArray(ResMng.ImgDic["rFader"]);
+            rNESDMC = getByteArray(ResMng.ImgDic["rNESDMC"]);
 
-            rKakko = getByteArray(ResMng.imgDic["rKakko_00"]);
+            rKakko = getByteArray(ResMng.ImgDic["rKakko_00"]);
 
             rMIDILCD_Fader = new byte[3][];
-            rMIDILCD_Fader[0] = getByteArray(ResMng.imgDic["rMIDILCD_Fader_01"]);
-            rMIDILCD_Fader[1] = getByteArray(ResMng.imgDic["rMIDILCD_Fader_02"]);
-            rMIDILCD_Fader[2] = getByteArray(ResMng.imgDic["rMIDILCD_Fader_03"]);
+            rMIDILCD_Fader[0] = getByteArray(ResMng.ImgDic["rMIDILCD_Fader_01"]);
+            rMIDILCD_Fader[1] = getByteArray(ResMng.ImgDic["rMIDILCD_Fader_02"]);
+            rMIDILCD_Fader[2] = getByteArray(ResMng.ImgDic["rMIDILCD_Fader_03"]);
 
-            rMIDILCD_KBD = getByteArray(ResMng.imgDic["rMIDILCD_KBD_01"]);
+            rMIDILCD_KBD = getByteArray(ResMng.ImgDic["rMIDILCD_KBD_01"]);
 
             rMIDILCD_Vol = new byte[3][];
-            rMIDILCD_Vol[0] = getByteArray(ResMng.imgDic["rMIDILCD_Vol_01"]);
-            rMIDILCD_Vol[1] = getByteArray(ResMng.imgDic["rMIDILCD_Vol_02"]);
-            rMIDILCD_Vol[2] = getByteArray(ResMng.imgDic["rMIDILCD_Vol_03"]);
+            rMIDILCD_Vol[0] = getByteArray(ResMng.ImgDic["rMIDILCD_Vol_01"]);
+            rMIDILCD_Vol[1] = getByteArray(ResMng.ImgDic["rMIDILCD_Vol_02"]);
+            rMIDILCD_Vol[2] = getByteArray(ResMng.ImgDic["rMIDILCD_Vol_03"]);
 
             rMIDILCD = new byte[3][];
-            rMIDILCD[0] = getByteArray(ResMng.imgDic["rMIDILCD_01"]);
-            rMIDILCD[1] = getByteArray(ResMng.imgDic["rMIDILCD_02"]);
-            rMIDILCD[2] = getByteArray(ResMng.imgDic["rMIDILCD_03"]);
+            rMIDILCD[0] = getByteArray(ResMng.ImgDic["rMIDILCD_01"]);
+            rMIDILCD[1] = getByteArray(ResMng.ImgDic["rMIDILCD_02"]);
+            rMIDILCD[2] = getByteArray(ResMng.ImgDic["rMIDILCD_03"]);
 
             rMIDILCD_Font = new byte[3][];
-            rMIDILCD_Font[0] = getByteArray(ResMng.imgDic["rMIDILCD_Font_01"]);
-            rMIDILCD_Font[1] = getByteArray(ResMng.imgDic["rMIDILCD_Font_02"]);
-            rMIDILCD_Font[2] = getByteArray(ResMng.imgDic["rMIDILCD_Font_03"]);
+            rMIDILCD_Font[0] = getByteArray(ResMng.ImgDic["rMIDILCD_Font_01"]);
+            rMIDILCD_Font[1] = getByteArray(ResMng.ImgDic["rMIDILCD_Font_02"]);
+            rMIDILCD_Font[2] = getByteArray(ResMng.ImgDic["rMIDILCD_Font_03"]);
 
             rPlane_MIDI = new byte[3][];
-            rPlane_MIDI[0] = getByteArray(ResMng.imgDic["planeMIDI_GM"]);
-            rPlane_MIDI[1] = getByteArray(ResMng.imgDic["planeMIDI_XG"]);
-            rPlane_MIDI[2] = getByteArray(ResMng.imgDic["planeMIDI_GS"]);
+            rPlane_MIDI[0] = getByteArray(ResMng.ImgDic["planeMIDI_GM"]);
+            rPlane_MIDI[1] = getByteArray(ResMng.ImgDic["planeMIDI_XG"]);
+            rPlane_MIDI[2] = getByteArray(ResMng.ImgDic["planeMIDI_GS"]);
 
             bitmapMIDILyric = new Bitmap[2];
             bitmapMIDILyric[0] = new Bitmap(200, 24);
@@ -154,7 +147,7 @@ namespace MDPlayer
             fntMIDILyric[0] = new Font("MS UI Gothic", 8);//, FontStyle.Bold);
             fntMIDILyric[1] = new Font("MS UI Gothic", 8);//, FontStyle.Bold);
 
-            rType_YMF271 = getByteArray(ResMng.imgDic["rType_YMF271"]);
+            rType_YMF271 = getByteArray(ResMng.ImgDic["rType_YMF271"]);
         }
 
 
@@ -199,7 +192,7 @@ namespace MDPlayer
                     drawKbn(screen, 32 + kx, ch * 8 + 8, kt, 0);
                 }
                 drawFont8(screen, 296, ch * 8 + 8, 1, "   ");
-                drawPanType2P(screen, 24, ch * 8 + 8, 0,0);
+                drawPanType2P(screen, 24, ch * 8 + 8, 0, 0);
             }
         }
 
@@ -309,7 +302,7 @@ namespace MDPlayer
             for (int y = 0; y < 6 + 3 + 3 + 1; y++)
             {
 
-                drawFont8(screen, 328+1, y * 8 + 8, 1, "   ");
+                drawFont8(screen, 328 + 1, y * 8 + 8, 1, "   ");
                 for (int i = 0; i < 96; i++)
                 {
                     int kx = Tables.kbl[(i % 12) * 2] + i / 12 * 28;
@@ -330,13 +323,13 @@ namespace MDPlayer
                 int d = 99;
                 if (y > 5 && y < 9)
                 {
-                    Volume(screen, 272+1, 8 + y * 8, 0, ref d, 0, tp);
+                    Volume(screen, 272 + 1, 8 + y * 8, 0, ref d, 0, tp);
                 }
                 else
                 {
-                    Volume(screen, 272+1, 8 + y * 8, 1, ref d, 0, tp);
+                    Volume(screen, 272 + 1, 8 + y * 8, 1, ref d, 0, tp);
                     d = 99;
-                    Volume(screen, 272+1, 8 + y * 8, 2, ref d, 0, tp);
+                    Volume(screen, 272 + 1, 8 + y * 8, 2, ref d, 0, tp);
                 }
             }
 
@@ -450,7 +443,7 @@ namespace MDPlayer
                     Slot(screen, 257, 8 + y * 8, ref b, 0);
                 }
                 d = 1;
-                font4Hex16Bit(screen, 273, 8 + y * 8,0, ref d, 0);
+                font4Hex16Bit(screen, 273, 8 + y * 8, 0, ref d, 0);
 
                 if (y != 5)
                 {
@@ -682,7 +675,7 @@ namespace MDPlayer
 
         public static void InstOPN2(FrameBuffer screen, int x, int y, int c, int[] oi, int[] ni)
         {
-            int sx = (c % 3) * 4 * 29 + x ;
+            int sx = (c % 3) * 4 * 29 + x;
             int sy = (c / 3) * 8 * 6 + y;
 
             for (int j = 0; j < 4; j++)
@@ -905,7 +898,7 @@ namespace MDPlayer
         /// <param name="ov">前回の値(ref)</param>
         /// <param name="nv">今回の値</param>
         /// <param name="tp">0:EMU 1:Real </param>
-        public static void Volume(FrameBuffer screen, int x,int y,int c, ref int ov, int nv, int tp)
+        public static void Volume(FrameBuffer screen, int x, int y, int c, ref int ov, int nv, int tp)
         {
             if (ov == nv) return;
 
@@ -1009,7 +1002,7 @@ namespace MDPlayer
 
         }
 
-        public static void VolumeSt(FrameBuffer screen,int x, int y, int c, ref int ov, int nv)
+        public static void VolumeSt(FrameBuffer screen, int x, int y, int c, ref int ov, int nv)
         {
             if (ov == nv) return;
 
@@ -1057,7 +1050,7 @@ namespace MDPlayer
             ov = nv;
 
         }
-        
+
         public static void VolumeToOKIM6295(FrameBuffer screen, int y, ref int ov, int nv)
         {
             if (ov == nv) return;
@@ -1222,12 +1215,12 @@ namespace MDPlayer
 
             for (int i = 0; i <= 19; i++)
             {
-                VolumeP(screen, x + i * 2, y , (1 + t), tp);
+                VolumeP(screen, x + i * 2, y, (1 + t), tp);
             }
 
             for (int i = 0; i <= nv; i++)
             {
-                VolumeP(screen, x + i * 2, y , i > 17 ? (2 + t) : (0 + t), tp);
+                VolumeP(screen, x + i * 2, y, i > 17 ? (2 + t) : (0 + t), tp);
             }
 
             ov = nv;
@@ -1331,7 +1324,7 @@ namespace MDPlayer
             ot = nt;
         }
 
-        public static void KeyBoardXYFX(FrameBuffer screen, int x,int fx, int y, ref int ot, int nt, int tp)
+        public static void KeyBoardXYFX(FrameBuffer screen, int x, int fx, int y, ref int ot, int nt, int tp)
         {
             if (ot == nt) return;
 
@@ -1510,7 +1503,7 @@ namespace MDPlayer
             ot = nt;
         }
 
-        public static void KeyBoardToC140(FrameBuffer screen, int y, ref int ot, int nt,int tp)
+        public static void KeyBoardToC140(FrameBuffer screen, int y, ref int ot, int nt, int tp)
         {
             if (ot == nt) return;
 
@@ -1566,7 +1559,7 @@ namespace MDPlayer
                 kx = Tables.kbl[(nt % 12) * 2] + nt / 12 * 28;
                 kt = Tables.kbl[(nt % 12) * 2 + 1] + 4;
                 drawKbn(screen, 32 + kx, y, kt, tp);
-                drawFont8(screen, 500 , y, 1, Tables.kbn[nt % 12]);
+                drawFont8(screen, 500, y, 1, Tables.kbn[nt % 12]);
                 if (nt / 12 < 8)
                 {
                     drawFont8(screen, 516, y, 1, Tables.kbo[nt / 12]);
@@ -1601,15 +1594,15 @@ namespace MDPlayer
                 kx = Tables.kbl[(nt % 12) * 2] + nt / 12 * 28;
                 kt = Tables.kbl[(nt % 12) * 2 + 1] + 4;
                 drawKbn(screen, 32 + kx, y, kt, tp);
-                drawFont8(screen, 63*8+4, y, 1, Tables.kbn[nt % 12]);
+                drawFont8(screen, 63 * 8 + 4, y, 1, Tables.kbn[nt % 12]);
                 if (nt / 12 < 8)
                 {
-                    drawFont8(screen, 65*8+4, y, 1, Tables.kbo[nt / 12]);
+                    drawFont8(screen, 65 * 8 + 4, y, 1, Tables.kbo[nt / 12]);
                 }
             }
             else
             {
-                drawFont8(screen, 63*8+4, y, 1, "   ");
+                drawFont8(screen, 63 * 8 + 4, y, 1, "   ");
             }
 
             ot = nt;
@@ -1638,14 +1631,14 @@ namespace MDPlayer
                 drawKbn(screen, 32 + kx, y, kt, tp);
             }
 
-            drawFont8(screen, 300+8*24, y, 1, "   ");
+            drawFont8(screen, 300 + 8 * 24, y, 1, "   ");
 
             if (nt >= 0)
             {
-                drawFont8(screen, 300+8*24, y, 1, Tables.kbn[nt % 12]);
+                drawFont8(screen, 300 + 8 * 24, y, 1, Tables.kbn[nt % 12]);
                 if (nt / 12 < 15)
                 {
-                    drawFont8(screen, 300+8*26, y, 1, Tables.kbo[nt / 12]);
+                    drawFont8(screen, 300 + 8 * 26, y, 1, Tables.kbo[nt / 12]);
                 }
             }
 
@@ -1674,10 +1667,10 @@ namespace MDPlayer
                 kx = Tables.kbl[(nt % 12) * 2] + nt / 12 * 28;
                 kt = Tables.kbl[(nt % 12) * 2 + 1] + 4;
                 drawKbn(screen, 32 + kx, y, kt, tp);
-                drawFont8(screen, x * 8 , y, 1, Tables.kbn[nt % 12]);
+                drawFont8(screen, x * 8, y, 1, Tables.kbn[nt % 12]);
                 if (nt / 12 < 8)
                 {
-                    drawFont8(screen, (x+2) * 8 , y, 1, Tables.kbo[nt / 12]);
+                    drawFont8(screen, (x + 2) * 8, y, 1, Tables.kbo[nt / 12]);
                 }
             }
             else
@@ -1688,7 +1681,7 @@ namespace MDPlayer
             ot = nt;
         }
 
-        public static void Pan(FrameBuffer screen,int x, int y, ref int ot, int nt, ref int otp, int ntp)
+        public static void Pan(FrameBuffer screen, int x, int y, ref int ot, int nt, ref int otp, int ntp)
         {
 
             if (ot == nt && otp == ntp)
@@ -1761,7 +1754,7 @@ namespace MDPlayer
             ot = nt;
         }
 
-        public static void PanType2(FrameBuffer screen, int x,int y, ref int ot, int nt, int tp)
+        public static void PanType2(FrameBuffer screen, int x, int y, ref int ot, int nt, int tp)
         {
 
             if (ot == nt)
@@ -1799,7 +1792,7 @@ namespace MDPlayer
             otp = ntp;
         }
 
-        public static void PanYM2609Rhythm(FrameBuffer screen, int x,int y, ref int ot, int nt, ref int otp, int ntp)
+        public static void PanYM2609Rhythm(FrameBuffer screen, int x, int y, ref int ot, int nt, ref int otp, int ntp)
         {
 
             if (ot == nt && otp == ntp)
@@ -1876,7 +1869,7 @@ namespace MDPlayer
             }
             else
             {
-                ChQSoundAdpcm_P(screen, 224, 8 + ch * 8, ch-16, nm == null ? false : (bool)nm, tp);
+                ChQSoundAdpcm_P(screen, 224, 8 + ch * 8, ch - 16, nm == null ? false : (bool)nm, tp);
             }
             om = nm;
         }
@@ -2251,7 +2244,7 @@ namespace MDPlayer
             otp = ntp;
         }
 
-        public static void Ch6YM2612XGM(FrameBuffer screen,int buff, ref int ot, int nt, ref bool? om, bool? nm, ref int otp, int ntp)
+        public static void Ch6YM2612XGM(FrameBuffer screen, int buff, ref int ot, int nt, ref bool? om, bool? nm, ref int otp, int ntp)
         {
             if (buff == 0)
             {
@@ -2303,7 +2296,7 @@ namespace MDPlayer
             om = nm;
         }
 
-        public static void ChDMG(FrameBuffer screen, int ch, ref bool? om, bool? nm,int tp)
+        public static void ChDMG(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
         {
             if (om == nm) return;
 
@@ -2425,7 +2418,7 @@ namespace MDPlayer
 
                 int n = (ni[i] / 8) + 16;
                 int x = c % 3;
-                x = x * 104 + i+4;
+                x = x * 104 + i + 4;
                 int y = c / 3;
                 y = y * 48 + 80;
 
@@ -2475,7 +2468,7 @@ namespace MDPlayer
             {
                 if (oi[i] == ni[i]) continue;
 
-                screen.drawByteArray(x+i, y, rWavGraph2, 33, ni[i] % 33, 0, 1, 16);
+                screen.drawByteArray(x + i, y, rWavGraph2, 33, ni[i] % 33, 0, 1, 16);
 
                 oi[i] = ni[i];
             }
@@ -2502,7 +2495,7 @@ namespace MDPlayer
                 oi[i] = ni[i];
             }
         }
-        
+
         public static void WaveFormYM2609User(FrameBuffer screen, int x, int y, ref byte[] oi, byte[] ni)
         {
             if (oi == null) oi = new byte[64];
@@ -2658,7 +2651,7 @@ namespace MDPlayer
             return;
         }
 
-        public static void drawMIDI_Lyric(FrameBuffer screen,int chipID, int x, int y, ref string oldValue1, string value1)
+        public static void drawMIDI_Lyric(FrameBuffer screen, int chipID, int x, int y, ref string oldValue1, string value1)
         {
             //if (oldValue1 == value1) return;
 
@@ -3007,12 +3000,12 @@ namespace MDPlayer
             }
         }
 
-        public static void Kakko(FrameBuffer screen,int x,int y,int t,ref int ot,int nt)
+        public static void Kakko(FrameBuffer screen, int x, int y, int t, ref int ot, int nt)
         {
             if (ot != nt)
             {
                 screen.drawByteArray(x, y, rKakko, 16, nt * 4, 0, 4, 8);
-                for(int n = 0; n < t; n++)
+                for (int n = 0; n < t; n++)
                 {
                     screen.drawByteArray(x, y + n * 8 + 8, rKakko, 16, nt * 4, 8, 4, 8);
                 }
@@ -3120,18 +3113,18 @@ namespace MDPlayer
             if (ot1 != nt1)
             {
                 //drawFont4Int2(mainScreen, 4 * 30 + c * 4 * 11, 0, 0, 3, nt1);
-                DrawBuff.drawFont8Int2(screen, 8 * 3-16 + c * 8 * 11+1, 1, 0, 3, nt1);
+                DrawBuff.drawFont8Int2(screen, 8 * 3 - 16 + c * 8 * 11 + 1, 1, 0, 3, nt1);
                 ot1 = nt1;
             }
             if (ot2 != nt2)
             {
-                DrawBuff.drawFont8Int2(screen, 8 * 7-16 + c * 8 * 11+1, 1, 0, 2, nt2);
+                DrawBuff.drawFont8Int2(screen, 8 * 7 - 16 + c * 8 * 11 + 1, 1, 0, 2, nt2);
                 //drawFont4Int2(mainScreen, 4 * 34 + c * 4 * 11, 0, 0, 2, nt2);
                 ot2 = nt2;
             }
             if (ot3 != nt3)
             {
-                DrawBuff.drawFont8Int2(screen, 8 * 10-16 + c * 8 * 11+1, 1, 0, 2, nt3);
+                DrawBuff.drawFont8Int2(screen, 8 * 10 - 16 + c * 8 * 11 + 1, 1, 0, 2, nt3);
                 //drawFont4Int2(mainScreen, 4 * 37 + c * 4 * 11, 0, 0, 2, nt3);
                 ot3 = nt3;
             }
@@ -3220,7 +3213,7 @@ namespace MDPlayer
             }
         }
 
-        public static void drawButton(FrameBuffer mainScreen,int c, ref int ot, int nt, ref int om, int nm)
+        public static void drawButton(FrameBuffer mainScreen, int c, ref int ot, int nt, ref int om, int nm)
         {
             if (ot == nt && om == nm)
             {
@@ -3229,7 +3222,7 @@ namespace MDPlayer
 
             drawFont8(mainScreen, 17 + c * 16, 9, 0, "  ");
             drawFont8(mainScreen, 17 + c * 16, 17, 0, "  ");
-            drawButtonP(mainScreen,17 + c * 16, 9, nt * 18 + c, nm);
+            drawButtonP(mainScreen, 17 + c * 16, 9, nt * 18 + c, nm);
 
             ot = nt;
             om = nm;
@@ -3245,7 +3238,7 @@ namespace MDPlayer
 
         }
 
-        public static void drawDuty(FrameBuffer screen, int x, int y, ref int op,int np)
+        public static void drawDuty(FrameBuffer screen, int x, int y, ref int op, int np)
         {
             if (op == np) return;
 
@@ -3318,7 +3311,7 @@ namespace MDPlayer
             drawFont4Hex16Bit(screen, x, y, t, nn);
             on = nn;
         }
-        
+
         public static void font4YM2609Duty(FrameBuffer screen, int x, int y, int t, ref int on, int nn)
         {
             if (on == nn) return;
@@ -4000,7 +3993,7 @@ namespace MDPlayer
         {
             if (screen == null) return;
             screen.drawByteArray(x, y, rPSGEnv, 128, 8 * t, 0, 8, 8);
-            drawFont4Int2(screen, x+12, y, 0, 2, t);
+            drawFont4Int2(screen, x + 12, y, 0, 2, t);
         }
 
         public static void drawPanP(FrameBuffer screen, int x, int y, int t, int tp)
@@ -4062,7 +4055,7 @@ namespace MDPlayer
                 return;
             }
 
-            int p = t ;
+            int p = t;
             screen.drawByteArray(x, y, rPan2[tp], 32, p * 4, 0, 4, 8);
         }
 
@@ -4073,7 +4066,7 @@ namespace MDPlayer
                 return;
             }
 
-            int p=0;
+            int p = 0;
             if ((t & 0x20) != 0)
             {
                 p = 4 - ((t & 0x18) >> 3);
@@ -4236,7 +4229,7 @@ namespace MDPlayer
             }
             else if (ch < 9)
             {
-                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 32*(ch-5), 24, 32, 8);
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 32 * (ch - 5), 24, 32, 8);
             }
             else
             {
@@ -4552,7 +4545,7 @@ namespace MDPlayer
             }
         }
 
-        private static void Ch3YM2612_P(FrameBuffer screen, int x, int y, int ch, bool mask,bool ex, int tp)
+        private static void Ch3YM2612_P(FrameBuffer screen, int x, int y, int ch, bool mask, bool ex, int tp)
         {
             if (!ex)
             {
@@ -4620,7 +4613,7 @@ namespace MDPlayer
         {
             if (screen == null) return;
 
-            screen.drawByteArray(0, 8, rType[tp * 2 + (mask ? 1 : 0)], 128,14*8, 0 * 8, 16, 8);
+            screen.drawByteArray(0, 8, rType[tp * 2 + (mask ? 1 : 0)], 128, 14 * 8, 0 * 8, 16, 8);
         }
 
         private static void ChMMC5_P(FrameBuffer screen, int ch, bool mask, int tp)

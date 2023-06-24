@@ -19,11 +19,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Driver.libsidplayfp.c64
 {
@@ -47,13 +42,13 @@ namespace Driver.libsidplayfp.c64
     //# include "c64/mmu.h"
     //# include "sidcxx11.h"
 
-//#if PC64_TESTSUITE
-        public class testEnv
-        {
-            ~testEnv() { }
-            public virtual void load(string a) { }
-        };
-//#endif
+    //#if PC64_TESTSUITE
+    public class testEnv
+    {
+        ~testEnv() { }
+        public virtual void load(string a) { }
+    };
+    //#endif
 
     /**
      * Commodore 64 emulation core.
@@ -108,19 +103,19 @@ namespace Driver.libsidplayfp.c64
         private c64vic vic;
 
         /// Color RAM
-        private Banks.ColorRAMBank colorRAMBank=new Banks.ColorRAMBank();
+        private Banks.ColorRAMBank colorRAMBank = new Banks.ColorRAMBank();
 
         /// SID
-        private Banks.SidBank sidBank=new Banks.SidBank();
+        private Banks.SidBank sidBank = new Banks.SidBank();
 
         /// Extra SIDs
-        private List<Tuple<int, Banks.ExtraSidBank>> extraSidBanks=new List<Tuple<int, Banks.ExtraSidBank>>();
+        private List<Tuple<int, Banks.ExtraSidBank>> extraSidBanks = new List<Tuple<int, Banks.ExtraSidBank>>();
 
         /// I/O Area #1 and #2
-        private Banks.DisconnectedBusBank disconnectedBusBank=new Banks.DisconnectedBusBank();
+        private Banks.DisconnectedBusBank disconnectedBusBank = new Banks.DisconnectedBusBank();
 
         /// I/O Area
-        private Banks.IOBank ioBank=new Banks.IOBank();
+        private Banks.IOBank ioBank = new Banks.IOBank();
 
         /// MMU chip
         private MMU mmu;
@@ -175,26 +170,26 @@ namespace Driver.libsidplayfp.c64
 
         //public override void lightpen(bool state) { }
 
-//#if PC64_TESTSUITE
+        //#if PC64_TESTSUITE
         public testEnv m_env;
 
         public void loadFile(string file)
         {
             m_env.load(file);
         }
-//#endif
+        //#endif
 
         //public void resetIoBank() { }
 
         //public c64() : base(null) { }
         ~c64() { }
 
-//#if PC64_TESTSUITE
+        //#if PC64_TESTSUITE
         public void setTestEnv(testEnv env)
         {
             m_env = env;
         }
-//#endif
+        //#endif
 
         /**
          * Get C64's event scheduler
@@ -224,12 +219,12 @@ namespace Driver.libsidplayfp.c64
 
         public void setRoms(byte[] kernal, byte[] basic, byte[] character)
         {
-            Ptr<byte> k=null, b=null, c=null;
+            Ptr<byte> k = null, b = null, c = null;
             if (kernal != null) k = new Ptr<byte>(kernal, 0);
             if (basic != null) b = new Ptr<byte>(basic, 0);
             if (character != null) c = new Ptr<byte>(character, 0);
 
-            mmu.setRoms(k,b,c);
+            mmu.setRoms(k, b, c);
         }
 
         /**
@@ -367,7 +362,7 @@ namespace Driver.libsidplayfp.c64
          * PAL-N - 3.58205625 MHz
          */
 
-        public model_data_t[] modelData ;
+        public model_data_t[] modelData;
 
         public double getCpuFreq(model_t model)
         {
@@ -382,7 +377,7 @@ namespace Driver.libsidplayfp.c64
 
         public c64() : base(new EventScheduler())
         {
-            eventScheduler=base.eventScheduler;
+            eventScheduler = base.eventScheduler;
             modelData = new model_data_t[]
             {
                 new model_data_t(4433618.75,  18.0, 50.0, VIC_II.MOS656X.model_t.MOS6569),      // PAL-B
@@ -442,7 +437,8 @@ namespace Driver.libsidplayfp.c64
             colorRAMBank.reset();
             mmu.reset();
 
-            foreach (Tuple<int, Banks.ExtraSidBank> b in extraSidBanks) {
+            foreach (Tuple<int, Banks.ExtraSidBank> b in extraSidBanks)
+            {
                 resetSID(b.Item2);
             }
 
@@ -483,7 +479,7 @@ namespace Driver.libsidplayfp.c64
             //for (int i = 0; i < 16; i++) extraSidBanks.Add(new Tuple<int, Banks.ExtraSidBank>(i, new Banks.ExtraSidBank()));
 
             bool fnd = false;
-            foreach(Tuple<int, Banks.ExtraSidBank> ite in extraSidBanks)
+            foreach (Tuple<int, Banks.ExtraSidBank> ite in extraSidBanks)
             {
                 if (ite.Item1 == idx)
                 {
@@ -533,7 +529,8 @@ namespace Driver.libsidplayfp.c64
             resetIoBank();
 
             //std::for_each(extraSidBanks.begin(), extraSidBanks.end(), Delete<sidBankMap_t::value_type>);
-            for (int i = 0; i < extraSidBanks.Count; i++) {
+            for (int i = 0; i < extraSidBanks.Count; i++)
+            {
                 {
                     extraSidBanks[i] = new Tuple<int, Banks.ExtraSidBank>(extraSidBanks[i].Item1, null);
                 }

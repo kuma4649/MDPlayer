@@ -1,18 +1,8 @@
 ﻿#if X64
 using MDPlayerx64;
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
@@ -38,7 +28,7 @@ namespace MDPlayer.form
 
             this.newParam = newParam;
             this.oldParam = oldParam;
-            frameBuffer.Add(pbScreen, ResMng.imgDic["planeYM2203"], null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.ImgDic["planeYM2203"], null, zoom);
             bool YM2203Type = (chipID == 0)
                 ? parent.setting.YM2203Type[0].UseReal[0]
                 : parent.setting.YM2203Type[1].UseReal[0];
@@ -88,9 +78,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYM2203"].Width * zoom, frameSizeH + ResMng.imgDic["planeYM2203"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYM2203"].Width * zoom, frameSizeH + ResMng.imgDic["planeYM2203"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYM2203"].Width * zoom, frameSizeH + ResMng.imgDic["planeYM2203"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeYM2203"].Width * zoom, frameSizeH + ResMng.ImgDic["planeYM2203"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeYM2203"].Width * zoom, frameSizeH + ResMng.ImgDic["planeYM2203"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeYM2203"].Width * zoom, frameSizeH + ResMng.ImgDic["planeYM2203"].Height * zoom);
             frmYM2203_Resize(null, null);
 
         }
@@ -129,10 +119,10 @@ namespace MDPlayer.form
             int defaultMasterClock = 7987200 / 2;
             double ssgMul = 1.0;
             int masterClock = defaultMasterClock;
-            if (Audio.clockYM2203 != 0)
+            if (Audio.ClockYM2203 != 0)
             {
-                ssgMul = Audio.clockYM2203 / (float)defaultMasterClock;
-                masterClock = Audio.clockYM2203;
+                ssgMul = Audio.ClockYM2203 / (float)defaultMasterClock;
+                masterClock = Audio.ClockYM2203;
             }
 
             int divInd = ym2203Register[0x2d];
@@ -201,7 +191,7 @@ namespace MDPlayer.form
                     float ff = freq / ((2 << 20) / (masterClock / (12 * fmDiv))) * (2 << (octav + 2));
                     ff /= 1038f;
 
-                    if ((fmKeyYM2203[2] & 0x10) != 0 && ((m & 0x10) != 0)) 
+                    if ((fmKeyYM2203[2] & 0x10) != 0 && ((m & 0x10) != 0))
                         n = Math.Min(Math.Max(Common.searchYM2608Adpcm(ff) - 1, 0), 95);
 
                     int v = ((m & 0x10) != 0) ? ym2203Register[0x40 + c] : 127;
@@ -315,7 +305,7 @@ namespace MDPlayer.form
                 }
                 else
                 {
-                    DrawBuff.Volume(frameBuffer, 256, 8 + (c+3) * 8, 0, ref oyc.volumeL, nyc.volumeL, tp);
+                    DrawBuff.Volume(frameBuffer, 256, 8 + (c + 3) * 8, 0, ref oyc.volumeL, nyc.volumeL, tp);
                     DrawBuff.KeyBoard(frameBuffer, c + 3, ref oyc.note, nyc.note, tp);
                     DrawBuff.ChYM2203(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
                 }
@@ -328,9 +318,9 @@ namespace MDPlayer.form
                 MDChipParams.Channel oyc = oldParam.channels[c + 6];
                 MDChipParams.Channel nyc = newParam.channels[c + 6];
 
-                DrawBuff.Volume(frameBuffer, 256, 8 + (c+3) * 8, 0, ref oyc.volume, nyc.volume, tp);
+                DrawBuff.Volume(frameBuffer, 256, 8 + (c + 3) * 8, 0, ref oyc.volume, nyc.volume, tp);
                 DrawBuff.KeyBoard(frameBuffer, c + 3, ref oyc.note, nyc.note, tp);
-                DrawBuff.Tn(frameBuffer, 6, 2, c + 3, ref oyc.tn, nyc.tn, ref oyc.tntp, tp*2);
+                DrawBuff.Tn(frameBuffer, 6, 2, c + 3, ref oyc.tn, nyc.tn, ref oyc.tntp, tp * 2);
 
                 DrawBuff.ChYM2203(frameBuffer, c + 6, ref oyc.mask, nyc.mask, tp);
 
@@ -397,7 +387,7 @@ namespace MDPlayer.form
             newParam.efrq = 0;
             newParam.etype = 0;
 
-            DrawBuff.screenInitYM2203(frameBuffer,tp);
+            DrawBuff.screenInitYM2203(frameBuffer, tp);
         }
 
 

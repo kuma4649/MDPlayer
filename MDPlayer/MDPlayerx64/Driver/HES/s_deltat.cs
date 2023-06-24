@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MDPlayer.Driver
+﻿namespace MDPlayer.Driver
 {
     public delegate void dlgRelease(object ctx);
     public delegate void dlgReset(object ctx, UInt32 clock, UInt32 freq);
@@ -163,10 +157,10 @@ namespace MDPlayer.Driver
             {
                 //while (log_tables_mutex != 1)
                 //{
-                    //XSLEEP(0);
+                //XSLEEP(0);
                 //}
                 log_tables_refcount--;
-                if (log_tables_refcount==0)
+                if (log_tables_refcount == 0)
                 {
                     //XFREE(ctx);
                     log_tables = null;
@@ -201,11 +195,11 @@ namespace MDPlayer.Driver
                 //{
                 //    XSLEEP(0);
                 //}
-                if (log_tables_refcount==0)
+                if (log_tables_refcount == 0)
                 {
                     //log_tables = XMALLOC(sizeof(KMIF_LOGTABLE));
                     log_tables = new KMIF_LOGTABLE();
-                    if (log_tables!=null)
+                    if (log_tables != null)
                     {
                         //XMEMSET(log_tables, 0, sizeof(KMIF_LOGTABLE));
                         log_tables.ctx = log_tables;
@@ -213,7 +207,7 @@ namespace MDPlayer.Driver
                         LogTableCalc(log_tables);
                     }
                 }
-                if (log_tables!=null) log_tables_refcount++;
+                if (log_tables != null) log_tables_refcount++;
             }
             return log_tables;
         }
@@ -235,7 +229,8 @@ namespace MDPlayer.Driver
         private const Int32 CPS_SHIFT = 16;
         private const Int32 PHASE_SHIFT = 16; /* 16(fix) */
 
-        public class YMDELTATPCMSOUND_ {
+        public class YMDELTATPCMSOUND_
+        {
 
             public KMIF_SOUND_DEVICE kmif;
             public KMIF_LOGTABLE logtbl;
@@ -260,7 +255,7 @@ namespace MDPlayer.Driver
                 public byte pad4_3;
                 public byte[] regs = new byte[0x10];
             }
-            public YMDELTATPCMSOUND_COMMON_TAG common=new YMDELTATPCMSOUND_COMMON_TAG();
+            public YMDELTATPCMSOUND_COMMON_TAG common = new YMDELTATPCMSOUND_COMMON_TAG();
             public byte[] romrambuf;
             public UInt32 romrammask;
             public byte[] rambuf;
@@ -404,7 +399,8 @@ namespace MDPlayer.Driver
         }
 
         //#if (((-1) >> 1) == -1)
-        public Int32 SSR(Int32 x, Int32 y) {
+        public Int32 SSR(Int32 x, Int32 y)
+        {
             return (((Int32)x) >> (y));
         }
         //#else
@@ -531,8 +527,8 @@ namespace MDPlayer.Driver
             //XMEMSET(&sndp.common, 0, sizeof(sndp.common));
             s.common = new YMDELTATPCMSOUND_.YMDELTATPCMSOUND_COMMON_TAG();
             s.common.cps = DivFix(clock, 72 * freq, CPS_SHIFT);
-            s.romrambuf = (s.common.regs[1] & 1)!=0 ? s.rombuf : s.rambuf;
-            s.romrammask = (s.common.regs[1] & 1)!=0 ? s.rommask : s.rammask;
+            s.romrambuf = (s.common.regs[1] & 1) != 0 ? s.rombuf : s.rambuf;
+            s.romrammask = (s.common.regs[1] & 1) != 0 ? s.rommask : s.rammask;
             s.common.granuality = 4;
         }
 
@@ -551,7 +547,7 @@ namespace MDPlayer.Driver
             if (sndp != null)
             {
                 YMDELTATPCMSOUND_ s = (YMDELTATPCMSOUND_)sndp;
-                if (s.logtbl!=null) s.logtbl.release(s.logtbl.ctx);
+                if (s.logtbl != null) s.logtbl.release(s.logtbl.ctx);
                 sndp = null;
                 //XFREE(sndp);
             }
@@ -651,7 +647,7 @@ namespace MDPlayer.Driver
             sndp.rombuf = null;
             sndp.rommask = 0;
             sndp.logtbl = LogTableAddRef();
-            if (sndp.logtbl==null)
+            if (sndp.logtbl == null)
             {
                 sndrelease(sndp);
                 return null;

@@ -19,11 +19,6 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Driver.libsidplayfp
 {
@@ -55,7 +50,7 @@ namespace Driver.libsidplayfp
 
         public string m_name;
         public string m_version;
-        public List<string> m_credits=new List<string>();
+        public List<string> m_credits = new List<string>();
 
         public string m_speedString;
 

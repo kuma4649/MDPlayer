@@ -1,9 +1,4 @@
 ﻿using Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MDPlayer.Driver.MXDRV
 {
@@ -14,9 +9,10 @@ namespace MDPlayer.Driver.MXDRV
 
         public const int SET = 255;
         public const int CLR = 0;
-        public static UInt16 GETBWORD(xMemory mm, UInt32 a) {
+        public static UInt16 GETBWORD(xMemory mm, UInt32 a)
+        {
             return (UInt16)(
-                (mm.ReadByte((UInt32)(a + 0)) * 256) 
+                (mm.ReadByte((UInt32)(a + 0)) * 256)
                 + mm.ReadByte((UInt32)(a + 1))
                 );
         }
@@ -29,11 +25,13 @@ namespace MDPlayer.Driver.MXDRV
                 + mm.ReadByte((UInt32)(a + 3)));
         }
 
-        public static void PUTBWORD(Ptr<byte> a, UInt16 b) {
+        public static void PUTBWORD(Ptr<byte> a, UInt16 b)
+        {
             a[0] = (byte)(b >> 8);
             a[1] = (byte)(b >> 0);
         }
-        public static void PUTBLONG(xMemory mm,UInt32 a, UInt32 b) {
+        public static void PUTBLONG(xMemory mm, UInt32 a, UInt32 b)
+        {
             mm.Write((UInt32)(a + 0), (byte)(b >> 24));
             mm.Write((UInt32)(a + 1), (byte)(b >> 16));
             mm.Write((UInt32)(a + 2), (byte)(b >> 8));
@@ -42,7 +40,7 @@ namespace MDPlayer.Driver.MXDRV
 
     }
 
-    
+
     public class X68REG
     {
         public UInt32 d0;

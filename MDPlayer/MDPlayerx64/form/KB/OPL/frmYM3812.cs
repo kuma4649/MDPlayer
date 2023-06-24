@@ -1,18 +1,8 @@
 ﻿#if X64
 using MDPlayerx64;
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
@@ -38,7 +28,7 @@ namespace MDPlayer.form
 
             this.newParam = newParam;
             this.oldParam = oldParam;
-            frameBuffer.Add(pbScreen, ResMng.imgDic["planeYM3812"], null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.ImgDic["planeYM3812"], null, zoom);
             bool YM3812Type = (chipID == 0)
                 ? parent.setting.YM3812Type[0].UseReal[0]
                 : parent.setting.YM3812Type[1].UseReal[0];
@@ -89,9 +79,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYM3812"].Width * zoom, frameSizeH + ResMng.imgDic["planeYM3812"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYM3812"].Width * zoom, frameSizeH + ResMng.imgDic["planeYM3812"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYM3812"].Width * zoom, frameSizeH + ResMng.imgDic["planeYM3812"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeYM3812"].Width * zoom, frameSizeH + ResMng.ImgDic["planeYM3812"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeYM3812"].Width * zoom, frameSizeH + ResMng.ImgDic["planeYM3812"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeYM3812"].Width * zoom, frameSizeH + ResMng.ImgDic["planeYM3812"].Height * zoom);
             frmYM3812_Resize(null, null);
         }
 
@@ -278,7 +268,7 @@ namespace MDPlayer.form
 
             DrawBuff.drawNESSw(frameBuffer, 76 * 4, 10 * 8, ref oldParam.channels[9].dda, newParam.channels[9].dda);//DA
             DrawBuff.drawNESSw(frameBuffer, 80 * 4, 10 * 8, ref oldParam.channels[10].dda, newParam.channels[10].dda);//DV
-            
+
             for (int c = 9; c < 14; c++)
             {
                 DrawBuff.ChYM3812(frameBuffer, c, ref oldParam.channels[c].mask, newParam.channels[c].mask, tp);

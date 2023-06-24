@@ -18,7 +18,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-using System;
 
 namespace Driver.libsidplayfp.c64.Banks
 {
@@ -47,12 +46,12 @@ namespace Driver.libsidplayfp.c64.Banks
             for (int i = 0; i < ram.Length; i++) ram[i] = 0;
         }
 
-        public  void poke(UInt16 address, byte value)
+        public void poke(UInt16 address, byte value)
         {
             ram[address & 0x3ff] = (byte)(value & 0xf);
         }
 
-        public  byte peek(UInt16 address)
+        public byte peek(UInt16 address)
         {
             return ram[address & 0x3ff];
         }

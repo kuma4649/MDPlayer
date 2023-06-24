@@ -1,18 +1,8 @@
 ﻿#if X64
 using MDPlayerx64;
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
@@ -37,7 +27,7 @@ namespace MDPlayer.form
             InitializeComponent();
 
             this.newParam = newParam;
-            frameBuffer.Add(pbScreen, ResMng.imgDic["planeY8950"], null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.ImgDic["planeY8950"], null, zoom);
             bool Y8950Type = false;// (chipID == 0) ? parent.setting.Y8950Type.UseScci : parent.setting.Y8950Type.UseScci;
             int tp = Y8950Type ? 1 : 0;
             DrawBuff.screenInitY8950(frameBuffer, tp);
@@ -95,7 +85,7 @@ namespace MDPlayer.form
             }
 
             //鍵盤 FM & RHM
-             ch = (py / 8) - 1;
+            ch = (py / 8) - 1;
             if (ch < 0) return;
 
             if (ch == 9)
@@ -138,9 +128,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeY8950"].Width * zoom, frameSizeH + ResMng.imgDic["planeY8950"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeY8950"].Width * zoom, frameSizeH + ResMng.imgDic["planeY8950"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeY8950"].Width * zoom, frameSizeH + ResMng.imgDic["planeY8950"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeY8950"].Width * zoom, frameSizeH + ResMng.ImgDic["planeY8950"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeY8950"].Width * zoom, frameSizeH + ResMng.ImgDic["planeY8950"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeY8950"].Width * zoom, frameSizeH + ResMng.ImgDic["planeY8950"].Height * zoom);
             frmY8950_Resize(null, null);
         }
 
@@ -219,7 +209,7 @@ namespace MDPlayer.form
 
                 // FNUM / (2^19) * (mClock/72) * (2 ^ (block - 1)) 
                 double fmus = (double)nyc.inst[12] / (1 << 19) * (masterClock / 72.0) * (1 << nyc.inst[11]);
-                nyc.note = Common.searchSegaPCMNote(fmus/523.3);//523.3 -> c4
+                nyc.note = Common.searchSegaPCMNote(fmus / 523.3);//523.3 -> c4
 
                 if (ki.On[c])
                 {

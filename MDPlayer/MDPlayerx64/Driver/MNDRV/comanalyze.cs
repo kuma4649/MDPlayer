@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MDPlayer.Driver.MNDRV
+﻿namespace MDPlayer.Driver.MNDRV
 {
     public class comanalyze
     {
@@ -79,7 +73,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.a0 = mm.ReadUInt32(reg.a5 + w.echo_adrs);
             ab.hlw_echo_adrs[reg.a5]();
             reg.D0_L = 0xffffffff;// -1;
-            L2:
+        L2:
             mm.Write(reg.a5 + w.at_q_work, (byte)reg.D0_B);
             _track_echo_next();
         }
@@ -150,10 +144,10 @@ namespace MDPlayer.Driver.MNDRV
             reg.D0_B -= 1;
             if (reg.D0_B != 0) goto L2;
             L1:
-            reg.a0 =mm.ReadUInt32(reg.a5 + w.keyoff_adrs);
+            reg.a0 = mm.ReadUInt32(reg.a5 + w.keyoff_adrs);
             ab.hlw_keyoff_adrs[reg.a5]();
             reg.D0_L = 0xffffffff;// -1;
-            L2:
+        L2:
             mm.Write(reg.a5 + w.at_q_work, (byte)reg.D0_B);
             _track_ana_next();
         }
@@ -176,7 +170,7 @@ namespace MDPlayer.Driver.MNDRV
             _track_ana_fetch();
             return;
 
-            L1:
+        L1:
             if ((mm.ReadByte(reg.a5 + w.flag) & 0x40) != 0)
             {
                 _track_ana_fetch();
@@ -196,7 +190,7 @@ namespace MDPlayer.Driver.MNDRV
             //goto _track_ana_fetch_L1;
             bool dmyFlg = true;
 
-            _track_loop:
+        _track_loop:
 
             do
             {
@@ -225,10 +219,10 @@ namespace MDPlayer.Driver.MNDRV
                 reg.a0 = mm.ReadUInt32(reg.a5 + w.subcmd_adrs);
                 ab.hlw_subcmd_adrs[reg.a5]();
             } while (true);
-            //_track_loop();
+        //_track_loop();
 
 
-            _track_ana_mml:
+        _track_ana_mml:
 
             if ((byte)(mm.ReadByte(reg.a6 + dw.DRV_STATUS) & 0x8) != 0) goto _track_ana_exit_jump;
 
@@ -241,14 +235,14 @@ namespace MDPlayer.Driver.MNDRV
             goto _track_ana_mml_;
 
 
-            _track_ana_mml_plus:
+        _track_ana_mml_plus:
 
             reg.D0_B += (UInt32)(sbyte)reg.D1_B;
             if ((sbyte)reg.D0_B >= 0) goto _track_ana_mml_;
             reg.D0_L = 0x7f;
 
 
-            _track_ana_mml_:
+        _track_ana_mml_:
 
             if ((byte)(mm.ReadByte(reg.a5 + w.flag3) & 0x40) != 0) goto _track_ana_mml1;
             reg.D1_B = mm.ReadByte(reg.a5 + w.flag);
@@ -257,18 +251,18 @@ namespace MDPlayer.Driver.MNDRV
             if (reg.D0_B - mm.ReadByte(reg.a5 + w.key) == 0) goto _track_ana_exit;
             mm.Write(reg.a5 + w.flag, (byte)(mm.ReadByte(reg.a5 + w.flag) | 0x1));
 
-            _track_ana_mml1:
+        _track_ana_mml1:
             reg.a0 = mm.ReadUInt32(reg.a5 + w.setnote_adrs);
             ab.hlw_setnote_adrs[reg.a5]();
 
-            _track_ana_exit:
+        _track_ana_exit:
 
 
             reg.a0 = mm.ReadUInt32(reg.a5 + w.inithlfo_adrs);
             ab.hlw_inithlfo_adrs[reg.a5]();
 
 
-            _track_ana_exit_jump:
+        _track_ana_exit_jump:
 
             reg.D0_L = 0;
             reg.D0_B = mm.ReadByte(reg.a1++);
@@ -290,14 +284,14 @@ namespace MDPlayer.Driver.MNDRV
             return;
 
 
-            _track_ana_rest_exit:
+        _track_ana_rest_exit:
 
             reg.D0_B = mm.ReadByte(reg.a6 + dw.DRV_FLAG2);
             if ((sbyte)reg.D0_B < 0) goto L1;
             if ((reg.D0_L & 0x40) != 0) goto L1;
             reg.a0 = mm.ReadUInt32(reg.a5 + w.keyoff_adrs);
             ab.hlw_keyoff_adrs[reg.a5]();
-            L1:
+        L1:
             reg.D0_B = mm.ReadByte(reg.a1++);
             if (reg.D0_B == 0) goto _track_loop;
             mm.Write(reg.a5 + w.len, (byte)reg.D0_B);

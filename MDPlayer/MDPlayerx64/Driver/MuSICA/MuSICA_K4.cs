@@ -1,12 +1,6 @@
 ﻿using Konamiman.Z80dotNet;
 using MDPlayer.Driver.MGSDRV;
-using MDSound;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MDPlayer.Driver.MuSICA
 {
@@ -18,9 +12,9 @@ namespace MDPlayer.Driver.MuSICA
             throw new NotImplementedException();
         }
 
-        public GD3 getGD3Info(byte[] buf, byte[] vcdBuf)
+        public GD3 GetGD3Info(byte[] buf, byte[] vcdBuf)
         {
-            GD3 ret = new GD3();
+            GD3 ret = new();
             if (buf != null && buf.Length > 8)
             {
                 Run(buf, vcdBuf);
@@ -34,7 +28,7 @@ namespace MDPlayer.Driver.MuSICA
             return ret;
         }
 
-        public bool compile(byte[] vgmBuf, byte[] vcdBuf)
+        public bool Compile(byte[] vgmBuf, byte[] vcdBuf)
         {
 
             try
@@ -73,25 +67,27 @@ namespace MDPlayer.Driver.MuSICA
         private MSXVDP vdp;
         private static ushort DTAAddress = 0x0080;
         private static ushort FCBAddress = 0x0080;
-        private static byte[] msdBin = null;
-        private static byte[] vcdBin = null;
-        public static byte[] bgmBin = null;
-        private static List<char> consoleBuf = new List<char>();
+        private byte[] msdBin = null;
+        private byte[] vcdBin = null;
+        private byte[] bgmBin = null;
+        private static readonly List<char> consoleBuf = new();
 
         private void Run(byte[] msdBin, byte[] vcdBin)
         {
-            MuSICA_K4.msdBin = msdBin;
-            MuSICA_K4.vcdBin = vcdBin;
-            MuSICA_K4.bgmBin = null;
+            this.msdBin = msdBin;
+            this.vcdBin = vcdBin;
+            this.bgmBin = null;
 
             var fileName = "KINROU4.COM";
             DollarCode = Encoding.ASCII.GetBytes(new[] { '$' })[0];
 
             vdp = new MSXVDP();
-            z80 = new Z80Processor();
-            z80.ClockSynchronizer = null;
-            z80.AutoStopOnRetWithStackEmpty = true;
-            z80.Memory = new MsxMemory(chipRegister, model);
+            z80 = new Z80Processor
+            {
+                ClockSynchronizer = null,
+                AutoStopOnRetWithStackEmpty = true,
+                Memory = new MsxMemory(chipRegister, model)
+            };
             z80.PortsSpace = new MsxPort(((MsxMemory)z80.Memory).slot, chipRegister, vdp, model);
             z80.BeforeInstructionFetch += Z80OnBeforeInstructionFetch;
             mapper = new Mapper((MapperRAMCartridge)((MsxMemory)z80.Memory).slot.slots[3][1], (MsxMemory)z80.Memory);
@@ -99,7 +95,7 @@ namespace MDPlayer.Driver.MuSICA
 
 
             //プログラムの読み込みとメモリへのセット
-            if (kinrou4 == null) kinrou4 = File.ReadAllBytes(fileName);
+            kinrou4 ??= File.ReadAllBytes(fileName);
             z80.Memory.SetContents(0x100, kinrou4);
             z80.Registers.PC = 0x100;
             z80.Registers.SP = unchecked((short)0xf380);
@@ -124,7 +120,7 @@ namespace MDPlayer.Driver.MuSICA
             z80.Memory[0x07] = vdp.n;//V9938 base Address n port0/1/3 write   port2 read
 
             z80.Continue();
-            conFlash();
+            ConFlash();
 
             if (bgmBin == null)
             {
@@ -156,7 +152,7 @@ namespace MDPlayer.Driver.MuSICA
             }
             else if (z80.Registers.PC == 0x000c)
             {
-                log.Write(LogLevel.Trace,"Call RDSLT(0x000c) Reg.A={0:x02} Reg.HL={1:x04}", z80.Registers.A, z80.Registers.HL);
+                log.Write(LogLevel.Trace, "Call RDSLT(0x000c) Reg.A={0:x02} Reg.HL={1:x04}", z80.Registers.A, z80.Registers.HL);
 
                 int slot = z80.Registers.A & ((z80.Registers.A & 0x80) != 0 ? 0xf : 0x3);
                 z80.Registers.A = ((MsxMemory)z80.Memory).ReadSlotMemoryAdr(
@@ -289,7 +285,7 @@ namespace MDPlayer.Driver.MuSICA
             z80.ExecuteRet();
         }
 
-        private void EXTBIO_MemoryMapper(BeforeInstructionFetchEventArgs args, IZ80Processor z80, byte function)
+        private void EXTBIO_MemoryMapper(BeforeInstructionFetchEventArgs _, IZ80Processor z80, byte function)
         {
             switch (function)
             {
@@ -301,207 +297,188 @@ namespace MDPlayer.Driver.MuSICA
             }
         }
 
-        private static void CallBIOS(BeforeInstructionFetchEventArgs args, IZ80Processor z80)
+        private void CallBIOS(BeforeInstructionFetchEventArgs args, IZ80Processor z80)
         {
             byte function = z80.Registers.C;
-
-            if (function == 9)
+            byte byteToPrint;
+            string msg;
+            switch (function)
             {
-                var messageAddress = z80.Registers.DE;
-                var bytesToPrint = new List<byte>();
-                byte byteToPrint;
-                while ((byteToPrint = z80.Memory[messageAddress]) != DollarCode)
-                {
-                    bytesToPrint.Add(byteToPrint);
-                    messageAddress++;
-                }
-
-                var stringToPrint = Encoding.ASCII.GetString(bytesToPrint.ToArray());
-                conWrite(stringToPrint);
-            }
-            else if (function == 2)
-            {
-                var byteToPrint = z80.Registers.E;
-                var charToPrint = Encoding.ASCII.GetString(new[] { byteToPrint })[0];
-                conWrite(charToPrint.ToString());
-            }
-            else if (function == 0x0f)
-            {
-                log.Write(LogLevel.Trace, "Call BDOS(0x0005) Reg.C={0:x02}", z80.Registers.C);
-                log.Write(LogLevel.Trace, "File Open FCB Address:{0:x04}", z80.Registers.DE);
-                z80.Registers.A = 0x00;//success
-                FCBAddress = (ushort)z80.Registers.DE;
-                //var bytesToPrint = new List<byte>();
-                //for (int i = 0; i < 11; i++)
-                //{
-                //    bytesToPrint.Add(z80.Memory[FCBAddress + 1 + i]);//filename ST Adr
-                //}
-                //var stringToPrint = Encoding.ASCII.GetString(bytesToPrint.ToArray());
-                //log.Write(stringToPrint);
-            }
-            else if (function == 0x10)
-            {
-                log.Write(LogLevel.Trace, "Call BDOS(0x0005) Reg.C={0:x02}", z80.Registers.C);
-                log.Write(LogLevel.Trace, "File Close FCB Address:{0:x04}", z80.Registers.DE);
-                z80.Registers.A = 0x00;//success
-            }
-            else if (function == 0x16)
-            {
-                log.Write(LogLevel.Trace, "Call BDOS(0x0005) Reg.C={0:x02}", z80.Registers.C);
-                log.Write(LogLevel.Trace, "File Create FCB Address:{0:x04}", z80.Registers.DE);
-                z80.Registers.A = 0x00;//success
-                FCBAddress = (ushort)z80.Registers.DE;
-            }
-            else if (function == 0x1a)
-            {
-                log.Write(LogLevel.Trace, "Call BDOS(0x0005) Reg.C={0:x02}", z80.Registers.C);
-                log.Write(LogLevel.Trace, "DTA Address:{0:x04}", z80.Registers.DE);
-                DTAAddress = (ushort)z80.Registers.DE;
-            }
-            else if (function == 0x26)
-            {
-                log.Write(LogLevel.Trace, "Call BDOS(0x0005) Reg.C={0:x02}", z80.Registers.C);
-                log.Write(LogLevel.Trace, "Write random block: FCB Adr(DE):{0:x04} Write Record(HL):{1:x04}", z80.Registers.DE, z80.Registers.HL);
-                z80.Registers.A = 0x00;//success
-                FCBAddress = (ushort)z80.Registers.DE;
-                ushort currentBlock = (ushort)(z80.Memory[FCBAddress + 12] + z80.Memory[FCBAddress + 13] * 0x100);
-                ushort recordSize = (ushort)(z80.Memory[FCBAddress + 14] + z80.Memory[FCBAddress + 15] * 0x100);
-                ushort fileSize = (ushort)(z80.Memory[FCBAddress + 16]
-                    + z80.Memory[FCBAddress + 17] * 0x100
-                    + z80.Memory[FCBAddress + 18] * 0x100_00
-                    + z80.Memory[FCBAddress + 19] * 0x100_00_00
-                    );
-                bgmBin = z80.Memory.GetContents(DTAAddress, z80.Registers.HL * recordSize);
-            }
-            else if (function == 0x27)
-            {
-                log.Write(LogLevel.Trace, "Call BDOS(0x0005) Reg.C={0:x02}", z80.Registers.C);
-                log.Write(LogLevel.Trace, "Read random block: FCB Adr(DE):{0:x04} Read Record(HL):{1:x04}", z80.Registers.DE, z80.Registers.HL);
-
-                ushort recordSize = (ushort)(z80.Memory[FCBAddress + 14] + z80.Memory[FCBAddress + 15] * 0x100);
-                ushort randomRecord = (ushort)(z80.Memory[FCBAddress + 33]
-                    + z80.Memory[FCBAddress + 34] * 0x100
-                    + z80.Memory[FCBAddress + 35] * 0x100_00
-                    + (recordSize < 64 ? (z80.Memory[FCBAddress + 36] * 0x100_00_00):0)
-                    );
-
-                if (DTAAddress == 0x4000)
-                {
-                    if (msdBin == null)
+                case 2:
+                    byteToPrint = z80.Registers.E;
+                    var charToPrint = Encoding.ASCII.GetString(new[] { byteToPrint })[0];
+                    ConWrite(charToPrint.ToString());
+                    break;
+                case 9:
+                    var messageAddress = z80.Registers.DE;
+                    var bytesToPrint = new List<byte>();
+                    while ((byteToPrint = z80.Memory[messageAddress]) != DollarCode)
                     {
-                        z80.Registers.A = 0xFF;//fail
-                        z80.Registers.HL = 0x00;//読み出せたレコードの個数
+                        bytesToPrint.Add(byteToPrint);
+                        messageAddress++;
+                    }
+                    var stringToPrint = Encoding.ASCII.GetString(bytesToPrint.ToArray());
+                    ConWrite(stringToPrint);
+                    break;
+                case 0x0f:
+                    log.Write(LogLevel.Trace, "Call BDOS(0x0005) Reg.C={0:x02}", z80.Registers.C);
+                    log.Write(LogLevel.Trace, "File Open FCB Address:{0:x04}", z80.Registers.DE);
+                    z80.Registers.A = 0x00;//success
+                    FCBAddress = (ushort)z80.Registers.DE;
+                    break;
+                case 0x10:
+                    log.Write(LogLevel.Trace, "Call BDOS(0x0005) Reg.C={0:x02}", z80.Registers.C);
+                    log.Write(LogLevel.Trace, "File Close FCB Address:{0:x04}", z80.Registers.DE);
+                    z80.Registers.A = 0x00;//success
+                    break;
+                case 0x16:
+                    log.Write(LogLevel.Trace, "Call BDOS(0x0005) Reg.C={0:x02}", z80.Registers.C);
+                    log.Write(LogLevel.Trace, "File Create FCB Address:{0:x04}", z80.Registers.DE);
+                    z80.Registers.A = 0x00;//success
+                    FCBAddress = (ushort)z80.Registers.DE;
+                    break;
+                case 0x1a:
+                    log.Write(LogLevel.Trace, "Call BDOS(0x0005) Reg.C={0:x02}", z80.Registers.C);
+                    log.Write(LogLevel.Trace, "DTA Address:{0:x04}", z80.Registers.DE);
+                    DTAAddress = (ushort)z80.Registers.DE;
+                    break;
+                case 0x26:
+                    log.Write(LogLevel.Trace, "Call BDOS(0x0005) Reg.C={0:x02}", z80.Registers.C);
+                    log.Write(LogLevel.Trace, "Write random block: FCB Adr(DE):{0:x04} Write Record(HL):{1:x04}", z80.Registers.DE, z80.Registers.HL);
+                    z80.Registers.A = 0x00;//success
+                    FCBAddress = (ushort)z80.Registers.DE;
+                    _ = (ushort)(z80.Memory[FCBAddress + 12] + z80.Memory[FCBAddress + 13] * 0x100);//currentBlock
+                    ushort recordSize = (ushort)(z80.Memory[FCBAddress + 14] + z80.Memory[FCBAddress + 15] * 0x100);
+                    _ = (ushort)(z80.Memory[FCBAddress + 16]
+                        + z80.Memory[FCBAddress + 17] * 0x100
+                        + z80.Memory[FCBAddress + 18] * 0x100_00
+                        + z80.Memory[FCBAddress + 19] * 0x100_00_00
+                        );//fileSize
+                    bgmBin = z80.Memory.GetContents(DTAAddress, z80.Registers.HL * recordSize);
+                    break;
+                case 0x27:
+                    log.Write(LogLevel.Trace, "Call BDOS(0x0005) Reg.C={0:x02}", z80.Registers.C);
+                    log.Write(LogLevel.Trace, "Read random block: FCB Adr(DE):{0:x04} Read Record(HL):{1:x04}", z80.Registers.DE, z80.Registers.HL);
+                    ReadRandomBlock(z80);
+                    break;
+                case 0x62:
+                    log.Write(LogLevel.Trace, "Call BDOS(0x0005) Reg.C={0:x02}", z80.Registers.C);
+                    log.Write(LogLevel.Trace, "_TERM ErrorCode:{0:x02}", z80.Registers.B);
+                    args.ExecutionStopper.Stop();
+                    return;
+                case 0x6b:
+                    log.Write(LogLevel.Trace, "Call BDOS(0x0005) Reg.C={0:x02}", z80.Registers.C);
+                    //_GENV
+                    //log.Write("_GENV HL:{0:x04} DE:{1:x04} B:{2:x02}", z80.Registers.HL, z80.Registers.DE, z80.Registers.B);
+                    msg = GetASCIIZ(z80, (ushort)z80.Registers.HL);
+                    //log.Write("(HL)={0}", msg);
+
+                    if (msg == "PARAMETERS")
+                    {
+                        byte[] option = Encoding.ASCII.GetBytes("/z");
+                        for (int i = 0; i < option.Length; i++) z80.Memory[z80.Registers.DE + i] = option[i];
+                        z80.Memory[z80.Registers.DE + option.Length] = 0;
+                    }
+                    else if (msg == "SHELL")
+                    {
+                        //byte[] option = Encoding.ASCII.GetBytes("c:\\dummy");
+                        //for (int i = 0; i < option.Length; i++) z80.Memory[z80.Registers.DE + i] = option[i];
+                        //z80.Memory[z80.Registers.DE + option.Length] = 0;
+                        z80.Memory[z80.Registers.DE] = 0;
                     }
                     else
                     {
-                        z80.Memory.SetContents(DTAAddress, msdBin, recordSize * randomRecord, msdBin.Length - recordSize * randomRecord);
-                        z80.Registers.A = 0x00;//success
-                        z80.Registers.HL = 0x00;//読み出せたレコードの個数
+                        z80.Memory[z80.Registers.DE] = 0;
                     }
-                }
-                else if (DTAAddress == 0x8000)
-                {
-                    if (vcdBin == null)
-                    {
-                        z80.Registers.A = 0xFF;//fail
-                        z80.Registers.HL = 0x00;//読み出せたレコードの個数
-                    }
-                    else
-                    {
-                        z80.Memory.SetContents(DTAAddress, vcdBin, recordSize * randomRecord, vcdBin.Length - recordSize * randomRecord);
-                        z80.Registers.A = 0x00;//success
-                        z80.Registers.HL = 0x00;//読み出せたレコードの個数
-                    }
-                }
-            }
-            else if (function == 0x62)
-            {
-                //_TERM
-                log.Write(LogLevel.Trace, "Call BDOS(0x0005) Reg.C={0:x02}", z80.Registers.C);
-                log.Write(LogLevel.Trace, "_TERM ErrorCode:{0:x02}", z80.Registers.B);
-                args.ExecutionStopper.Stop();
-                return;
 
-            }
-            else if (function == 0x6b)
-            {
-                log.Write(LogLevel.Trace, "Call BDOS(0x0005) Reg.C={0:x02}", z80.Registers.C);
-                //_GENV
-                //log.Write("_GENV HL:{0:x04} DE:{1:x04} B:{2:x02}", z80.Registers.HL, z80.Registers.DE, z80.Registers.B);
-                string msg = GetASCIIZ(z80, (ushort)z80.Registers.HL);
-                //log.Write("(HL)={0}", msg);
+                    z80.Registers.A = 0x00;//Error number
+                    z80.Registers.DE = 0x00;//value
+                    break;
+                case 0x6c:
+                    log.Write(LogLevel.Trace, "Call BDOS(0x0005) Reg.C={0:x02}", z80.Registers.C);
+                    //_SENV
+                    //log.Write("_SENV HL:{0:x04} DE:{1:x04}", z80.Registers.HL, z80.Registers.DE);
+                    //msg = GetASCIIZ(z80, (ushort)z80.Registers.HL);
+                    //log.Write("(HL)={0}", msg);
+                    //msg = GetASCIIZ(z80, (ushort)z80.Registers.DE);
+                    //log.Write("(DE)={0}", msg);
 
-                if (msg == "PARAMETERS")
-                {
-                    byte[] option = Encoding.ASCII.GetBytes("/z");
-                    for (int i = 0; i < option.Length; i++) z80.Memory[z80.Registers.DE + i] = option[i];
-                    z80.Memory[z80.Registers.DE + option.Length] = 0;
-                }
-                else if (msg == "SHELL")
-                {
-                    //byte[] option = Encoding.ASCII.GetBytes("c:\\dummy");
-                    //for (int i = 0; i < option.Length; i++) z80.Memory[z80.Registers.DE + i] = option[i];
-                    //z80.Memory[z80.Registers.DE + option.Length] = 0;
-                    z80.Memory[z80.Registers.DE] = 0;
-                }
-                else
-                {
-                    z80.Memory[z80.Registers.DE] = 0;
-                }
-
-                z80.Registers.A = 0x00;//Error number
-                z80.Registers.DE = 0x00;//value
-
-            }
-            else if (function == 0x6c)
-            {
-                log.Write(LogLevel.Trace, "Call BDOS(0x0005) Reg.C={0:x02}", z80.Registers.C);
-                //_SENV
-                //log.Write("_SENV HL:{0:x04} DE:{1:x04}", z80.Registers.HL, z80.Registers.DE);
-                string msg = GetASCIIZ(z80, (ushort)z80.Registers.HL);
-                //log.Write("(HL)={0}", msg);
-
-                msg = GetASCIIZ(z80, (ushort)z80.Registers.DE);
-                //log.Write("(DE)={0}", msg);
-
-                z80.Registers.A = 0x00;//Error number
-            }
-            else if (function == 0x6f)
-            {
-                log.Write(LogLevel.Trace, "Call BDOS(0x0005) Reg.C={0:x02}", z80.Registers.C);
-                //_DOSVER
-                z80.Registers.BC = 0x0231;//ROM version
-                z80.Registers.DE = 0x0210;//DISK version
-                //log.Write("_DOSVER ret BC(ROMVer):{0:x04} DE(DISKVer):{1:x04}", z80.Registers.BC, z80.Registers.DE);
-            }
-            else
-            {
-                log.Write(LogLevel.Trace, "Call BDOS(0x0005) Reg.C={0:x02}", z80.Registers.C);
-                log.ForcedWrite("unknown 0x{0:x02}", function);
-                DebugRegisters(z80);
+                    z80.Registers.A = 0x00;//Error number
+                    break;
+                case 0x6f:
+                    log.Write(LogLevel.Trace, "Call BDOS(0x0005) Reg.C={0:x02}", z80.Registers.C);
+                    //_DOSVER
+                    z80.Registers.BC = 0x0231;//ROM version
+                    z80.Registers.DE = 0x0210;//DISK version
+                                              //log.Write("_DOSVER ret BC(ROMVer):{0:x04} DE(DISKVer):{1:x04}", z80.Registers.BC, z80.Registers.DE);
+                    break;
+                default:
+                    log.Write(LogLevel.Trace, "Call BDOS(0x0005) Reg.C={0:x02}", z80.Registers.C);
+                    log.ForcedWrite("unknown 0x{0:x02}", function);
+                    DebugRegisters(z80);
+                    break;
             }
 
             z80.ExecuteRet();
         }
 
-        private static void conWrite(string v)
+        private void ReadRandomBlock(IZ80Processor z80)
+        {
+            ushort recordSize = (ushort)(z80.Memory[FCBAddress + 14] + z80.Memory[FCBAddress + 15] * 0x100);
+            ushort randomRecord = (ushort)(z80.Memory[FCBAddress + 33]
+                + z80.Memory[FCBAddress + 34] * 0x100
+                + z80.Memory[FCBAddress + 35] * 0x100_00
+                + (recordSize < 64 ? (z80.Memory[FCBAddress + 36] * 0x100_00_00) : 0)
+                );
+
+            if (DTAAddress == 0x4000)
+            {
+                if (msdBin == null)
+                {
+                    z80.Registers.A = 0xFF;//fail
+                    z80.Registers.HL = 0x00;//読み出せたレコードの個数
+                }
+                else
+                {
+                    z80.Memory.SetContents(DTAAddress, msdBin, recordSize * randomRecord, msdBin.Length - recordSize * randomRecord);
+                    z80.Registers.A = 0x00;//success
+                    z80.Registers.HL = 0x00;//読み出せたレコードの個数
+                }
+            }
+            else if (DTAAddress == 0x8000)
+            {
+                if (vcdBin == null)
+                {
+                    z80.Registers.A = 0xFF;//fail
+                    z80.Registers.HL = 0x00;//読み出せたレコードの個数
+                }
+                else
+                {
+                    z80.Memory.SetContents(DTAAddress, vcdBin, recordSize * randomRecord, vcdBin.Length - recordSize * randomRecord);
+                    z80.Registers.A = 0x00;//success
+                    z80.Registers.HL = 0x00;//読み出せたレコードの個数
+                }
+            }
+        }
+
+        private static void ConWrite(string v)
         {
             foreach (char c in v)
             {
                 if (c == '\n')
                 {
-                    conFlash();
+                    ConFlash();
                     continue;
                 }
                 consoleBuf.Add(c);
             }
         }
 
-        private static void conFlash()
+        private static void ConFlash()
         {
             if (consoleBuf.Count <= 0) return;
-            string msg = new string(consoleBuf.ToArray());
-               
+            string msg = new(consoleBuf.ToArray());
+
             log.Write("[MuSICA]{0}", msg);
             consoleBuf.Clear();
         }
@@ -519,7 +496,7 @@ namespace MDPlayer.Driver.MuSICA
             return Encoding.ASCII.GetString(bytesToPrint.ToArray());
         }
 
-        public byte[] getBgmBin()
+        public byte[] GetBgmBin()
         {
             return bgmBin;
         }

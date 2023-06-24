@@ -1,18 +1,8 @@
 ﻿#if X64
 using MDPlayerx64;
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
@@ -38,7 +28,7 @@ namespace MDPlayer.form
             this.newParam = newParam;
             this.oldParam = oldParam;
 
-            frameBuffer.Add(pbScreen, ResMng.imgDic["planeQSound"], null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.ImgDic["planeQSound"], null, zoom);
             screenInit();
             update();
         }
@@ -81,9 +71,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeQSound"].Width * zoom, frameSizeH + ResMng.imgDic["planeQSound"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeQSound"].Width * zoom, frameSizeH + ResMng.imgDic["planeQSound"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeQSound"].Width * zoom, frameSizeH + ResMng.imgDic["planeQSound"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeQSound"].Width * zoom, frameSizeH + ResMng.ImgDic["planeQSound"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeQSound"].Width * zoom, frameSizeH + ResMng.ImgDic["planeQSound"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeQSound"].Width * zoom, frameSizeH + ResMng.ImgDic["planeQSound"].Height * zoom);
             frmQSound_Resize(null, null);
 
         }
@@ -169,7 +159,7 @@ namespace MDPlayer.form
                 newParam.channels[ch].volumeL = Math.Min(Math.Max(vol * panL / 256 / 16, 0), 19);
                 newParam.channels[ch].volumeR = Math.Min(Math.Max(vol * panR / 256 / 16, 0), 19);
 
-                newParam.channels[ch].note = Math.Max(Math.Min(Common.searchSegaPCMNote(newParam.channels[ch].freq /16.0/ 166.0), 7 * 12), 0);
+                newParam.channels[ch].note = Math.Max(Math.Min(Common.searchSegaPCMNote(newParam.channels[ch].freq / 16.0 / 166.0), 7 * 12), 0);
                 if (vol == 0) newParam.channels[ch].note = -1;
             }
             //ADPCM 3ch
@@ -225,7 +215,7 @@ namespace MDPlayer.form
                 DrawBuff.PanType2(frameBuffer, ch, ref oyc.pan, nyc.pan, 0);
                 DrawBuff.VolumeXY(frameBuffer, 94, ch * 2 + 2, 1, ref oyc.volumeL, nyc.volumeL, 0);
                 DrawBuff.VolumeXY(frameBuffer, 94, ch * 2 + 3, 1, ref oyc.volumeR, nyc.volumeR, 0);
-                DrawBuff.KeyBoardToQSound(frameBuffer, ch , ref oyc.note, nyc.note, 0);
+                DrawBuff.KeyBoardToQSound(frameBuffer, ch, ref oyc.note, nyc.note, 0);
 
                 DrawBuff.ChQSound(frameBuffer, ch, ref oyc.mask, nyc.mask, 0);
             }

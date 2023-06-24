@@ -17,11 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Driver.libsidplayfp.utils
 {
@@ -36,7 +31,7 @@ namespace Driver.libsidplayfp.utils
         //# include "sidcxx11.h"
 
 
-        private MD5.MD5 hd=new MD5.MD5();
+        private MD5.MD5 hd = new MD5.MD5();
 
         public override void append(byte[] data, int nbytes) { hd.append(data, nbytes); }
 

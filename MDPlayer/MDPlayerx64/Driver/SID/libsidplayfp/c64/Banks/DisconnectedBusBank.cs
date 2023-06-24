@@ -18,11 +18,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Driver.libsidplayfp.c64.Banks
 {
@@ -47,14 +42,14 @@ namespace Driver.libsidplayfp.c64.Banks
         /**
          * No device is connected so this is a no-op.
          */
-        public  void poke(UInt16 a, byte b) { }
+        public void poke(UInt16 a, byte b) { }
 
         /**
          * This should actually return last byte read from VIC
          * but since the VIC emulation currently does not fetch
          * any value from memory we return zero.
          */
-        public  byte peek(UInt16 a) { return 0; }
+        public byte peek(UInt16 a) { return 0; }
 
 
 

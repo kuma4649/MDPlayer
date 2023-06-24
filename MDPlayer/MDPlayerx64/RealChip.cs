@@ -1,11 +1,5 @@
-﻿using NScci;
-using Nc86ctl;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
+﻿using Nc86ctl;
+using NScci;
 
 namespace MDPlayer
 {
@@ -16,7 +10,7 @@ namespace MDPlayer
 
         #region IDisposable Support
 
-        private bool disposedValue = false; 
+        private bool disposedValue = false;
 
         protected virtual void Dispose(bool disposing)
         {
@@ -33,12 +27,13 @@ namespace MDPlayer
 
         public void Dispose()
         {
+            GC.SuppressFinalize(this);
             Dispose(true);
         }
 
         #endregion
 
-        public RealChip(bool sw) 
+        public RealChip(bool sw)
         {
             log.ForcedWrite("RealChip:Ctr:STEP 00(Start)");
             if (!sw)
@@ -48,21 +43,21 @@ namespace MDPlayer
             }
 
             //SCCIの存在確認
-            int n = 0;
+            int n;
             try
             {
                 nScci = new NScci.NScci();
                 n = nScci.NSoundInterfaceManager_ == null ? 0 : nScci.NSoundInterfaceManager_.getInterfaceCount();
                 if (n == 0)
                 {
-                    if (nScci != null) nScci.Dispose();
+                    nScci?.Dispose();
                     nScci = null;
                     log.ForcedWrite("RealChip:Ctr:Not found SCCI.");
                 }
                 else
                 {
                     log.ForcedWrite("RealChip:Ctr:Found SCCI.(Interface count={0})", n);
-                    getScciInstances();
+                    GetScciInstances();
                     nScci.NSoundInterfaceManager_.setLevelDisp(false);
                 }
             }
@@ -78,7 +73,7 @@ namespace MDPlayer
                 nc86ctl = new Nc86ctl.Nc86ctl();
                 nc86ctl.initialize();
                 n = nc86ctl.getNumberOfChip();
-                
+
                 if (n == 0)
                 {
                     nc86ctl.deinitialize();
@@ -121,7 +116,7 @@ namespace MDPlayer
             }
         }
 
-        public void getScciInstances()
+        public void GetScciInstances()
         {
             int ifc = nScci.NSoundInterfaceManager_.getInterfaceCount();
 
@@ -133,13 +128,13 @@ namespace MDPlayer
                 for (int j = 0; j < scc; j++)
                 {
                     NSoundChip sc = sif.getSoundChip(j);
-                    NSCCI_SOUND_CHIP_INFO info = sc.getSoundChipInfo();
+                    _ = sc.getSoundChipInfo();
                 }
             }
 
         }
 
-        public void setLevelDisp(bool v)
+        public void SetLevelDisp(bool v)
         {
             if (nScci == null) return;
             nScci.NSoundInterfaceManager_.setLevelDisp(v);
@@ -157,16 +152,16 @@ namespace MDPlayer
         //    }
         //}
 
-        public void reset()
+        public void Reset()
         {
-            if (nScci != null) nScci.NSoundInterfaceManager_.reset();
+            nScci?.NSoundInterfaceManager_.reset();
             if (nc86ctl != null)
             {
                 //nc86ctl.initialize();
-                int n=nc86ctl.getNumberOfChip();
-                for(int i = 0; i < n; i++)
+                int n = nc86ctl.getNumberOfChip();
+                for (int i = 0; i < n; i++)
                 {
-                    NIRealChip rc= nc86ctl.getChipInterface(i);
+                    NIRealChip rc = nc86ctl.getChipInterface(i);
                     rc.reset();
                 }
             }
@@ -174,7 +169,7 @@ namespace MDPlayer
 
         public void SendData()
         {
-            if (nScci != null) nScci.NSoundInterfaceManager_.sendData();
+            nScci?.NSoundInterfaceManager_.sendData();
             if (nc86ctl != null)
             {
                 //int n = nc86ctl.getNumberOfChip();
@@ -192,7 +187,7 @@ namespace MDPlayer
 
         public void WaitOPNADPCMData(bool isGIMIC)
         {
-            if (nScci != null) nScci.NSoundInterfaceManager_.sendData();
+            nScci?.NSoundInterfaceManager_.sendData();
             if (nc86ctl != null && isGIMIC)
             {
                 //int n = nc86ctl.getNumberOfChip();
@@ -242,18 +237,20 @@ namespace MDPlayer
                 for (int i = 0; i < iCount; i++)
                 {
                     NSoundInterface iIntfc = nScci.NSoundInterfaceManager_.getInterface(i);
-                    NSCCI_INTERFACE_INFO iInfo = nScci.NSoundInterfaceManager_.getInterfaceInfo(i);
+                    _ = nScci.NSoundInterfaceManager_.getInterfaceInfo(i);
                     int sCount = iIntfc.getSoundChipCount();
                     for (int s = 0; s < sCount; s++)
                     {
-                        NSoundChip sc = iIntfc.getSoundChip(s);
+                        _ = iIntfc.getSoundChip(s);
 
                         if (0 == ChipType2.realChipInfo[ind].SoundLocation
                             && i == ChipType2.realChipInfo[ind].BusID
                             && s == ChipType2.realChipInfo[ind].SoundChip)
                         {
-                            RScciSoundChip rsc = new RScciSoundChip(0, i, s);
-                            rsc.scci = nScci;
+                            RScciSoundChip rsc = new(0, i, s)
+                            {
+                                scci = nScci
+                            };
                             return rsc;
                         }
 
@@ -269,17 +266,18 @@ namespace MDPlayer
                     NIRealChip rc = nc86ctl.getChipInterface(i);
                     rc.reset();
                     NIGimic2 gm = rc.QueryInterface();
-                    ChipType cct = gm.getModuleType();
-                    int o = -1;
+                    _ = gm.getModuleType();
                     string seri = gm.getModuleInfo().Serial;
-                    if (!int.TryParse(seri, out o)) o = -1;
+                    if (!int.TryParse(seri, out int o)) o = -1;
 
                     if (-1 == ChipType2.realChipInfo[ind].SoundLocation
                         && i == ChipType2.realChipInfo[ind].BusID
                         && o == ChipType2.realChipInfo[ind].SoundChip)
                     {
-                        RC86ctlSoundChip rsc = new RC86ctlSoundChip(-1, i, o);
-                        rsc.c86ctl = nc86ctl;
+                        RC86ctlSoundChip rsc = new(-1, i, o)
+                        {
+                            c86ctl = nc86ctl
+                        };
                         return rsc;
                     }
 
@@ -291,7 +289,7 @@ namespace MDPlayer
 
         public List<Setting.ChipType2> GetRealChipList(EnmRealChipType realChipType2)
         {
-            List<Setting.ChipType2> ret = new List<Setting.ChipType2>();
+            List<Setting.ChipType2> ret = new();
 
             if (nScci != null)
             {
@@ -307,8 +305,10 @@ namespace MDPlayer
                         int t = sc.getSoundChipType();
                         if (t == (int)realChipType2)
                         {
-                            Setting.ChipType2 ct = new Setting.ChipType2();
-                            ct.realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
+                            Setting.ChipType2 ct = new()
+                            {
+                                realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() }
+                            };
                             ct.realChipInfo[0].SoundLocation = 0;
                             ct.realChipInfo[0].BusID = i;
                             ct.realChipInfo[0].SoundChip = s;
@@ -318,8 +318,10 @@ namespace MDPlayer
                         }
                         else if (realChipType2 == EnmRealChipType.K051649 && (t == 12 || t == 13))
                         {
-                            Setting.ChipType2 ct = new Setting.ChipType2();
-                            ct.realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
+                            Setting.ChipType2 ct = new()
+                            {
+                                realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() }
+                            };
                             ct.realChipInfo[0].SoundLocation = 0;
                             ct.realChipInfo[0].BusID = i;
                             ct.realChipInfo[0].SoundChip = s;
@@ -335,8 +337,10 @@ namespace MDPlayer
                             {
                                 if ((int)realChipType2 != chipInfo.iCompatibleSoundChip[n]) continue;
 
-                                Setting.ChipType2 ct = new Setting.ChipType2();
-                                ct.realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
+                                Setting.ChipType2 ct = new()
+                                {
+                                    realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() }
+                                };
                                 ct.realChipInfo[0].SoundLocation = 0;
                                 ct.realChipInfo[0].BusID = i;
                                 ct.realChipInfo[0].SoundChip = s;
@@ -366,15 +370,17 @@ namespace MDPlayer
                         else if (di.Devname == "GMC-S2413") cct = ChipType.CHIP_YM2413;
                     }
                     Setting.ChipType2 ct = null;
-                    int o = -1;
+                    int o;
                     switch (realChipType2)
                     {
                         case EnmRealChipType.YM2203:
                         case EnmRealChipType.YM2608:
                             if (cct == ChipType.CHIP_YM2608 || cct == ChipType.CHIP_YMF288 || cct == ChipType.CHIP_YM2203)
                             {
-                                ct = new Setting.ChipType2();
-                                ct.realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
+                                ct = new Setting.ChipType2
+                                {
+                                    realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() }
+                                };
                                 ct.realChipInfo[0].SoundLocation = -1;
                                 ct.realChipInfo[0].BusID = i;
                                 string seri = gm.getModuleInfo().Serial;
@@ -386,14 +392,16 @@ namespace MDPlayer
                             }
                             break;
                         case EnmRealChipType.AY8910:
-                            if (   cct == ChipType.CHIP_YM2149
+                            if (cct == ChipType.CHIP_YM2149
                                 || cct == ChipType.CHIP_AY38910
-                                || cct == ChipType.CHIP_YM2608 
-                                || cct == ChipType.CHIP_YMF288 
+                                || cct == ChipType.CHIP_YM2608
+                                || cct == ChipType.CHIP_YMF288
                                 || cct == ChipType.CHIP_YM2203)
                             {
-                                ct = new Setting.ChipType2();
-                                ct.realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
+                                ct = new Setting.ChipType2
+                                {
+                                    realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() }
+                                };
                                 ct.realChipInfo[0].SoundLocation = -1;
                                 ct.realChipInfo[0].BusID = i;
                                 string seri = gm.getModuleInfo().Serial;
@@ -407,8 +415,10 @@ namespace MDPlayer
                         case EnmRealChipType.YM2413:
                             if (cct == ChipType.CHIP_YM2413)
                             {
-                                ct = new Setting.ChipType2();
-                                ct.realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
+                                ct = new Setting.ChipType2
+                                {
+                                    realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() }
+                                };
                                 ct.realChipInfo[0].SoundLocation = -1;
                                 ct.realChipInfo[0].BusID = i;
                                 string seri = gm.getModuleInfo().Serial;
@@ -422,8 +432,10 @@ namespace MDPlayer
                         case EnmRealChipType.YM2610:
                             if (cct == ChipType.CHIP_YM2608 || cct == ChipType.CHIP_YMF288)
                             {
-                                ct = new Setting.ChipType2();
-                                ct.realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
+                                ct = new Setting.ChipType2
+                                {
+                                    realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() }
+                                };
                                 ct.realChipInfo[0].SoundLocation = -1;
                                 ct.realChipInfo[0].BusID = i;
                                 string seri = gm.getModuleInfo().Serial;
@@ -437,8 +449,10 @@ namespace MDPlayer
                         case EnmRealChipType.YM2151:
                             if (cct == ChipType.CHIP_YM2151)
                             {
-                                ct = new Setting.ChipType2();
-                                ct.realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
+                                ct = new Setting.ChipType2
+                                {
+                                    realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() }
+                                };
                                 ct.realChipInfo[0].SoundLocation = -1;
                                 ct.realChipInfo[0].BusID = i;
                                 string seri = gm.getModuleInfo().Serial;
@@ -454,8 +468,10 @@ namespace MDPlayer
                         case EnmRealChipType.YMF262:
                             if (cct == ChipType.CHIP_OPL3)
                             {
-                                ct = new Setting.ChipType2();
-                                ct.realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
+                                ct = new Setting.ChipType2
+                                {
+                                    realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() }
+                                };
                                 ct.realChipInfo[0].SoundLocation = -1;
                                 ct.realChipInfo[0].BusID = i;
                                 string seri = gm.getModuleInfo().Serial;
@@ -484,29 +500,29 @@ namespace MDPlayer
 
         public uint dClock = 3579545;
 
-        public RSoundChip(int soundLocation,int busID,int soundChip)
+        public RSoundChip(int soundLocation, int busID, int soundChip)
         {
             SoundLocation = soundLocation;
             BusID = busID;
             SoundChip = soundChip;
         }
 
-        virtual public void init()
+        virtual public void Init()
         {
             throw new NotImplementedException();
         }
 
-        virtual public void setRegister(int adr, int dat)
+        virtual public void SetRegister(int adr, int dat)
         {
             throw new NotImplementedException();
         }
 
-        virtual public int getRegister(int adr)
+        virtual public int GetRegister(int adr)
         {
             throw new NotImplementedException();
         }
 
-        virtual public bool isBufferEmpty()
+        virtual public bool IsBufferEmpty()
         {
             throw new NotImplementedException();
         }
@@ -516,7 +532,7 @@ namespace MDPlayer
             throw new NotImplementedException();
         }
 
-        virtual public void setSSGVolume(byte vol)
+        virtual public void SetSSGVolume(byte vol)
         {
             throw new NotImplementedException();
         }
@@ -532,7 +548,7 @@ namespace MDPlayer
         {
         }
 
-        override public void init()
+        override public void Init()
         {
             realChip = null;
             int n = scci.NSoundInterfaceManager_.getInterfaceCount();
@@ -542,7 +558,7 @@ namespace MDPlayer
             }
 
             NSoundInterface nsif = scci.NSoundInterfaceManager_.getInterface(BusID);
-            
+
 
             int c = nsif.getSoundChipCount();
             if (SoundChip >= c)
@@ -564,19 +580,19 @@ namespace MDPlayer
             }
         }
 
-        override public void setRegister(int adr, int dat)
+        override public void SetRegister(int adr, int dat)
         {
             if (realChip == null) return;
             realChip.setRegister(adr, dat);
         }
 
-        override public int getRegister(int adr)
+        override public int GetRegister(int adr)
         {
             if (realChip == null) return -1;
             return realChip.getRegister(adr);
         }
 
-        override public bool isBufferEmpty()
+        override public bool IsBufferEmpty()
         {
             if (realChip == null) return false;
             return realChip.isBufferEmpty();
@@ -595,7 +611,7 @@ namespace MDPlayer
             return (uint)realChip.getSoundChipClock();
         }
 
-        override public void setSSGVolume(byte vol)
+        override public void SetSSGVolume(byte vol)
         {
             //SCCIはSSG音量の変更不可
             if (realChip == null) return;
@@ -613,7 +629,7 @@ namespace MDPlayer
         {
         }
 
-        override public void init()
+        override public void Init()
         {
             NIRealChip rc = c86ctl.getChipInterface(BusID);
             rc.reset();
@@ -642,22 +658,22 @@ namespace MDPlayer
             }
         }
 
-        override public void setRegister(int adr, int dat)
+        override public void SetRegister(int adr, int dat)
         {
-            if (adr < 0) 
+            if (adr < 0)
                 return;
             realChip.@out((ushort)adr, (byte)dat);
-            log.Write("Out Register C86Ctl(Adr:{0:x04} Dat:{1:x02})",(ushort)adr,(byte)dat);
+            log.Write("Out Register C86Ctl(Adr:{0:x04} Dat:{1:x02})", (ushort)adr, (byte)dat);
             //realChip.directOut((ushort)adr, (byte)dat);
         }
 
-        override public int getRegister(int adr)
+        override public int GetRegister(int adr)
         {
             log.Write("In  Register C86Ctl(Adr:{0:x04}", (ushort)adr);
             return realChip.@in((ushort)adr);
         }
 
-        override public bool isBufferEmpty()
+        override public bool IsBufferEmpty()
         {
             return true;
         }
@@ -670,7 +686,7 @@ namespace MDPlayer
         override public uint SetMasterClock(uint mClock)
         {
             NIGimic2 gm = realChip.QueryInterface();
-            uint nowClock= gm.getPLLClock();
+            uint nowClock = gm.getPLLClock();
             if (nowClock != mClock)
             {
                 gm.setPLLClock(mClock);
@@ -688,7 +704,7 @@ namespace MDPlayer
             return nowClock;
         }
 
-        override public void setSSGVolume(byte vol)
+        override public void SetSSGVolume(byte vol)
         {
             NIGimic2 gm = realChip.QueryInterface();
             gm.setSSGVolume(vol);
@@ -701,21 +717,21 @@ namespace MDPlayer
 
         private void OPZReset2()
         {
-            setRegister(0x09, 0x00);
-            setRegister(0x0f, 0x00);
-            setRegister(0x1c, 0x00);
-            setRegister(0x1e, 0x00);
+            SetRegister(0x09, 0x00);
+            SetRegister(0x0f, 0x00);
+            SetRegister(0x1c, 0x00);
+            SetRegister(0x1e, 0x00);
 
-            setRegister(0x0a, 0x04);
-            setRegister(0x14, 0x70);
-            setRegister(0x15, 0x01);
+            SetRegister(0x0a, 0x04);
+            SetRegister(0x14, 0x70);
+            SetRegister(0x15, 0x01);
 
-            setRegister(0x16, 0x00);
-            setRegister(0x17, 0x00);
-            setRegister(0x18, 0x00);
+            SetRegister(0x16, 0x00);
+            SetRegister(0x17, 0x00);
+            SetRegister(0x18, 0x00);
             //setRegister(0x19, 0x80);
-            setRegister(0x19, 0x00);
-            setRegister(0x1b, 0x00);
+            SetRegister(0x19, 0x00);
+            SetRegister(0x1b, 0x00);
             //setRegister(0x0f, 0x00);
         }
 

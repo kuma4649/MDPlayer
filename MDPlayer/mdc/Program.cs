@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace mdc
 {
@@ -17,7 +13,7 @@ namespace mdc
                 return;
             }
 
-            KumaCom mmf = new fileCom(true, "MDPlayer", "MDPlayer", 1024 * 4);
+            KumaCom mmf = new FileCom(true, "MDPlayer", "MDPlayer", 1024 * 4);
             try
             {
                 mmf.SendMessage(string.Join(" ", args));

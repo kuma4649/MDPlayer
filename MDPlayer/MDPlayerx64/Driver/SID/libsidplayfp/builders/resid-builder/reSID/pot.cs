@@ -16,11 +16,6 @@
 //  along with this program; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //  ---------------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Driver.libsidplayfp.builders.resid_builder.reSID
 {
@@ -56,7 +51,7 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
         //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         //  ---------------------------------------------------------------------------
 
-//# include "pot.h"
+        //# include "pot.h"
 
         public UInt32 readPOT()
         {
@@ -64,5 +59,5 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
             return 0xff;
         }
 
-}
+    }
 }

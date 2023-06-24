@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
+﻿using System.Globalization;
 using System.IO.Compression;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MDPlayer
 {
@@ -27,9 +22,9 @@ namespace MDPlayer
                         if (line == "") continue;
                         if (line[0] == '#') continue;
 
-                        PlayList.music ms = analyzeLine(line, rootPath);
+                        PlayList.Music ms = analyzeLine(line, rootPath);
                         ms.format = Common.CheckExt(ms.fileName);
-                        if (ms != null) pl.lstMusic.Add(ms);
+                        if (ms != null) pl.LstMusic.Add(ms);
 
                     }
                 }
@@ -66,10 +61,10 @@ namespace MDPlayer
                         if (line == "") continue;
                         if (line[0] == '#') continue;
 
-                        PlayList.music ms = analyzeLine(line, "");
+                        PlayList.Music ms = analyzeLine(line, "");
                         ms.format = Common.CheckExt(ms.fileName);
                         ms.arcFileName = zipFileName;
-                        if (ms != null) pl.lstMusic.Add(ms);
+                        if (ms != null) pl.LstMusic.Add(ms);
 
                     }
                 }
@@ -91,7 +86,7 @@ namespace MDPlayer
                 PlayList pl = new PlayList();
                 UnlhaWrap.UnlhaCmd cmd = new UnlhaWrap.UnlhaCmd();
                 byte[] buf = cmd.GetFileByte(archiveFile, fileName);
-                string[] text=Encoding.GetEncoding(932).GetString(buf).Split(new string[] { "\r\n" }, StringSplitOptions.None);
+                string[] text = Encoding.GetEncoding(932).GetString(buf).Split(new string[] { "\r\n" }, StringSplitOptions.None);
 
                 foreach (string txt in text)
                 {
@@ -99,10 +94,10 @@ namespace MDPlayer
                     if (line == "") continue;
                     if (line[0] == '#') continue;
 
-                    PlayList.music ms = analyzeLine(line, "");
+                    PlayList.Music ms = analyzeLine(line, "");
                     ms.format = Common.CheckExt(ms.fileName);
                     ms.arcFileName = zipFileName;
-                    if (ms != null) pl.lstMusic.Add(ms);
+                    if (ms != null) pl.LstMusic.Add(ms);
 
                 }
 
@@ -116,9 +111,9 @@ namespace MDPlayer
             }
         }
 
-        private static PlayList.music analyzeLine(string line,string rootPath)
+        private static PlayList.Music analyzeLine(string line, string rootPath)
         {
-            PlayList.music ms = new PlayList.music();
+            PlayList.Music ms = new PlayList.Music();
 
             try
             {
@@ -126,7 +121,7 @@ namespace MDPlayer
                 if (line.IndexOf("::") < 0)
                 {
                     ms.fileName = line;
-                    if (!Path.IsPathRooted(ms.fileName) && rootPath!="")
+                    if (!Path.IsPathRooted(ms.fileName) && rootPath != "")
                     {
                         ms.fileName = Path.Combine(rootPath, ms.fileName);
                     }

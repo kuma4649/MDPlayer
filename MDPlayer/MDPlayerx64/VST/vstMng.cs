@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Jacobi.Vst.Host.Interop;
-using System.Diagnostics;
-using System.Threading;
-using MDPlayer.form;
-using Jacobi.Vst.Core;
+﻿using Jacobi.Vst.Core;
 using Jacobi.Vst.Core.Host;
+using Jacobi.Vst.Host.Interop;
+using MDPlayer.form;
+using System.Diagnostics;
 
 namespace MDPlayer
 {
@@ -65,7 +59,7 @@ namespace MDPlayer
             }
         }
 
-        public void SetUpVstInstrument(KeyValuePair<string,int> kv)
+        public void SetUpVstInstrument(KeyValuePair<string, int> kv)
         {
             VstPluginContext ctx = OpenPlugin(kv.Key);
             if (ctx == null) return;
@@ -138,7 +132,7 @@ namespace MDPlayer
             }
         }
 
-        public void SetupVstMidiOut(midiOutInfo mi)
+        public void SetupVstMidiOut(MidiOutInfo mi)
         {
             int vn = -1;
             int vt = 0;

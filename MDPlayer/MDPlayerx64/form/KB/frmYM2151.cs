@@ -1,18 +1,8 @@
 ﻿#if X64
 using MDPlayerx64;
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
@@ -39,7 +29,7 @@ namespace MDPlayer.form
 
             this.newParam = newParam;
             this.oldParam = oldParam;
-            frameBuffer.Add(pbScreen, ResMng.imgDic["planeE"], null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.ImgDic["planeE"], null, zoom);
             screenInit();
             update();
         }
@@ -81,12 +71,12 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeE"].Width * zoom, frameSizeH + ResMng.imgDic["planeE"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeE"].Width * zoom, frameSizeH + ResMng.imgDic["planeE"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeE"].Width * zoom, frameSizeH + ResMng.imgDic["planeE"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeE"].Width * zoom, frameSizeH + ResMng.ImgDic["planeE"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeE"].Width * zoom, frameSizeH + ResMng.ImgDic["planeE"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeE"].Width * zoom, frameSizeH + ResMng.ImgDic["planeE"].Height * zoom);
             frmYM2151_Resize(null, null);
         }
-        
+
         private void frmYM2151_Resize(object sender, EventArgs e)
         {
 
@@ -149,11 +139,11 @@ namespace MDPlayer.form
 
         public void screenInit()
         {
-            bool YM2151Type = (chipID == 0) 
-                ? parent.setting.YM2151Type[0].UseReal[0] 
+            bool YM2151Type = (chipID == 0)
+                ? parent.setting.YM2151Type[0].UseReal[0]
                 : parent.setting.YM2151Type[1].UseReal[0];
-            int YM2151SoundLocation = (chipID == 0) 
-                ? parent.setting.YM2151Type[0].realChipInfo[0].SoundLocation 
+            int YM2151SoundLocation = (chipID == 0)
+                ? parent.setting.YM2151Type[0].realChipInfo[0].SoundLocation
                 : parent.setting.YM2151Type[1].realChipInfo[0].SoundLocation;
             int tp = !YM2151Type ? 0 : (YM2151SoundLocation < 0 ? 2 : 1);
 
@@ -230,9 +220,9 @@ namespace MDPlayer.form
                 int oct = ((ym2151Register[0x28 + ch] & 0x70) >> 4);
                 //newParam.ym2151[chipID].channels[ch].note = (fmKeyYM2151[ch] > 0) ? (oct * 12 + note + Audio.vgmReal.YM2151Hosei + 1 + 9) : -1;
                 int hosei = 0;
-                if (Audio.driverVirtual != null)//is vgm)
+                if (Audio.DriverVirtual != null)//is vgm)
                 {
-                    hosei = (Audio.driverVirtual).YM2151Hosei[chipID];
+                    hosei = (Audio.DriverVirtual).YM2151Hosei[chipID];
                 }
                 newParam.channels[ch].note = ((fmKeyYM2151[ch] & 1) != 0) ? (oct * 12 + note + hosei) : -1;
 
@@ -274,11 +264,11 @@ namespace MDPlayer.form
                 MDChipParams.Channel oyc = oldParam.channels[c];
                 MDChipParams.Channel nyc = newParam.channels[c];
 
-                bool YM2151Type = (chipID == 0) 
+                bool YM2151Type = (chipID == 0)
                     ? parent.setting.YM2151Type[0].UseReal[0]
                     : parent.setting.YM2151Type[1].UseReal[0];
-                int YM2151SoundLocation = (chipID == 0) 
-                    ? parent.setting.YM2151Type[0].realChipInfo[0].SoundLocation 
+                int YM2151SoundLocation = (chipID == 0)
+                    ? parent.setting.YM2151Type[0].realChipInfo[0].SoundLocation
                     : parent.setting.YM2151Type[1].realChipInfo[0].SoundLocation;
                 int tp = !YM2151Type ? 0 : (YM2151SoundLocation < 0 ? 2 : 1);
 

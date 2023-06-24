@@ -341,7 +341,7 @@ namespace MDPlayer.form
             // tsbOpenPlayList
             // 
             this.tsbOpenPlayList.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbOpenPlayList.Image = ResMng.imgDic["openPL"];
+            this.tsbOpenPlayList.Image = ResMng.ImgDic["openPL"];
             resources.ApplyResources(this.tsbOpenPlayList, "tsbOpenPlayList");
             this.tsbOpenPlayList.Name = "tsbOpenPlayList";
             this.tsbOpenPlayList.Click += new System.EventHandler(this.tsbOpenPlayList_Click);
@@ -349,7 +349,7 @@ namespace MDPlayer.form
             // tsbSavePlayList
             // 
             this.tsbSavePlayList.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbSavePlayList.Image = ResMng.imgDic["savePL"];
+            this.tsbSavePlayList.Image = ResMng.ImgDic["savePL"];
             resources.ApplyResources(this.tsbSavePlayList, "tsbSavePlayList");
             this.tsbSavePlayList.Name = "tsbSavePlayList";
             this.tsbSavePlayList.Click += new System.EventHandler(this.tsbSavePlayList_Click);
@@ -362,7 +362,7 @@ namespace MDPlayer.form
             // tsbAddMusic
             // 
             this.tsbAddMusic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbAddMusic.Image = ResMng.imgDic["addPL"];
+            this.tsbAddMusic.Image = ResMng.ImgDic["addPL"];
             resources.ApplyResources(this.tsbAddMusic, "tsbAddMusic");
             this.tsbAddMusic.Name = "tsbAddMusic";
             this.tsbAddMusic.Click += new System.EventHandler(this.tsbAddMusic_Click);
@@ -370,7 +370,7 @@ namespace MDPlayer.form
             // tsbAddFolder
             // 
             this.tsbAddFolder.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbAddFolder.Image = ResMng.imgDic["addFolderPL"];
+            this.tsbAddFolder.Image = ResMng.ImgDic["addFolderPL"];
             resources.ApplyResources(this.tsbAddFolder, "tsbAddFolder");
             this.tsbAddFolder.Name = "tsbAddFolder";
             this.tsbAddFolder.Click += new System.EventHandler(this.tsbAddFolder_Click);
@@ -383,7 +383,7 @@ namespace MDPlayer.form
             // tsbUp
             // 
             this.tsbUp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbUp.Image = ResMng.imgDic["upPL"];
+            this.tsbUp.Image = ResMng.ImgDic["upPL"];
             resources.ApplyResources(this.tsbUp, "tsbUp");
             this.tsbUp.Name = "tsbUp";
             this.tsbUp.Click += new System.EventHandler(this.tsbUp_Click);
@@ -391,7 +391,7 @@ namespace MDPlayer.form
             // tsbDown
             // 
             this.tsbDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbDown.Image = ResMng.imgDic["downPL"];
+            this.tsbDown.Image = ResMng.ImgDic["downPL"];
             resources.ApplyResources(this.tsbDown, "tsbDown");
             this.tsbDown.Name = "tsbDown";
             this.tsbDown.Click += new System.EventHandler(this.tsbDown_Click);
@@ -405,7 +405,7 @@ namespace MDPlayer.form
             // 
             this.tsbJapanese.CheckOnClick = true;
             this.tsbJapanese.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbJapanese.Image = ResMng.imgDic["japPL"];
+            this.tsbJapanese.Image = ResMng.ImgDic["japPL"];
             resources.ApplyResources(this.tsbJapanese, "tsbJapanese");
             this.tsbJapanese.Name = "tsbJapanese";
             this.tsbJapanese.Click += new System.EventHandler(this.toolStripButton1_Click);
@@ -419,7 +419,7 @@ namespace MDPlayer.form
             // 
             this.tsbTextExt.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             resources.ApplyResources(this.tsbTextExt, "tsbTextExt");
-            this.tsbTextExt.Image = ResMng.imgDic["txtPL"];
+            this.tsbTextExt.Image = ResMng.ImgDic["txtPL"];
             this.tsbTextExt.Name = "tsbTextExt";
             this.tsbTextExt.Click += new System.EventHandler(this.tsbTextExt_Click);
             // 
@@ -427,7 +427,7 @@ namespace MDPlayer.form
             // 
             this.tsbMMLExt.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             resources.ApplyResources(this.tsbMMLExt, "tsbMMLExt");
-            this.tsbMMLExt.Image = ResMng.imgDic["mmlPL"];
+            this.tsbMMLExt.Image = ResMng.ImgDic["mmlPL"];
             this.tsbMMLExt.Name = "tsbMMLExt";
             this.tsbMMLExt.Click += new System.EventHandler(this.tsbMMLExt_Click);
             // 
@@ -435,7 +435,7 @@ namespace MDPlayer.form
             // 
             this.tsbImgExt.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             resources.ApplyResources(this.tsbImgExt, "tsbImgExt");
-            this.tsbImgExt.Image = ResMng.imgDic["imgPL"];
+            this.tsbImgExt.Image = ResMng.ImgDic["imgPL"];
             this.tsbImgExt.Name = "tsbImgExt";
             this.tsbImgExt.Click += new System.EventHandler(this.tsbImgExt_Click);
             // 

@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Security.Cryptography;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Text;
 using System.Xml.Serialization;
 #if X64
 using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
+
+//今となってはなおせないので
+#pragma warning disable IDE1006
 
 namespace MDPlayer
 {
@@ -27,7 +24,7 @@ namespace MDPlayer
             set;
         }
 
-        private OutputDevice _outputDevice = new OutputDevice();
+        private OutputDevice _outputDevice = new();
         public OutputDevice outputDevice
         {
             get
@@ -615,7 +612,7 @@ namespace MDPlayer
             }
         }
 
-        private Other _other = new Other();
+        private Other _other = new();
         public Other other
         {
             get
@@ -629,7 +626,7 @@ namespace MDPlayer
             }
         }
 
-        private Debug _debug = new Debug();
+        private Debug _debug = new();
         public Debug debug
         {
             get
@@ -643,7 +640,7 @@ namespace MDPlayer
             }
         }
 
-        private Balance _balance = new Balance();
+        private Balance _balance = new();
         public Balance balance
         {
             get
@@ -657,7 +654,7 @@ namespace MDPlayer
             }
         }
 
-        private Location _location = new Location();
+        private Location _location = new();
         public Location location
         {
             get
@@ -671,7 +668,7 @@ namespace MDPlayer
             }
         }
 
-        private MidiExport _midiExport = new MidiExport();
+        private MidiExport _midiExport = new();
         public MidiExport midiExport
         {
             get
@@ -685,7 +682,7 @@ namespace MDPlayer
             }
         }
 
-        private MidiKbd _midiKbd = new MidiKbd();
+        private MidiKbd _midiKbd = new();
         public MidiKbd midiKbd
         {
             get
@@ -699,7 +696,7 @@ namespace MDPlayer
             }
         }
 
-        private Vst _vst = new Vst();
+        private Vst _vst = new();
         public Vst vst
         {
             get
@@ -713,7 +710,7 @@ namespace MDPlayer
             }
         }
 
-        private MidiOut _midiOut = new MidiOut();
+        private MidiOut _midiOut = new();
         public MidiOut midiOut
         {
             get
@@ -727,7 +724,7 @@ namespace MDPlayer
             }
         }
 
-        private NSF _nsf = new NSF();
+        private NSF _nsf = new();
         public NSF nsf
         {
             get
@@ -741,7 +738,7 @@ namespace MDPlayer
             }
         }
 
-        private SID _sid = new SID();
+        private SID _sid = new();
         public SID sid
         {
             get
@@ -755,7 +752,7 @@ namespace MDPlayer
             }
         }
 
-        private NukedOPN2 _NukedOPN2 = new NukedOPN2();
+        private NukedOPN2 _NukedOPN2 = new();
         public NukedOPN2 nukedOPN2
         {
             get
@@ -769,12 +766,13 @@ namespace MDPlayer
             }
         }
 
-        private AutoBalance _autoBalance = new AutoBalance();
-        public AutoBalance autoBalance {
+        private AutoBalance _autoBalance = new();
+        public AutoBalance autoBalance
+        {
             get => _autoBalance; set => _autoBalance = value;
         }
 
-        private PMDDotNET _PMDDotNET = new PMDDotNET();
+        private PMDDotNET _PMDDotNET = new();
         public PMDDotNET pmdDotNET
         {
             get
@@ -791,7 +789,7 @@ namespace MDPlayer
         public KeyBoardHook keyBoardHook { get => _keyBoardHook; set => _keyBoardHook = value; }
         public bool unuseRealChip { get; set; }
 
-        private KeyBoardHook _keyBoardHook = new KeyBoardHook();
+        private KeyBoardHook _keyBoardHook = new();
 
         [Serializable]
         public class OutputDevice
@@ -925,16 +923,18 @@ namespace MDPlayer
 
             public OutputDevice Copy()
             {
-                OutputDevice outputDevice = new OutputDevice();
-                outputDevice.DeviceType = this.DeviceType;
-                outputDevice.Latency = this.Latency;
-                outputDevice.WaitTime = this.WaitTime;
-                outputDevice.WaveOutDeviceName = this.WaveOutDeviceName;
-                outputDevice.DirectSoundDeviceName = this.DirectSoundDeviceName;
-                outputDevice.WasapiDeviceName = this.WasapiDeviceName;
-                outputDevice.WasapiShareMode = this.WasapiShareMode;
-                outputDevice.AsioDeviceName = this.AsioDeviceName;
-                outputDevice.SampleRate = this.SampleRate;
+                OutputDevice outputDevice = new()
+                {
+                    DeviceType = this.DeviceType,
+                    Latency = this.Latency,
+                    WaitTime = this.WaitTime,
+                    WaveOutDeviceName = this.WaveOutDeviceName,
+                    DirectSoundDeviceName = this.DirectSoundDeviceName,
+                    WasapiDeviceName = this.WasapiDeviceName,
+                    WasapiShareMode = this.WasapiShareMode,
+                    AsioDeviceName = this.AsioDeviceName,
+                    SampleRate = this.SampleRate
+                };
 
                 return outputDevice;
             }
@@ -1563,32 +1563,34 @@ namespace MDPlayer
 
             public Other Copy()
             {
-                Other other = new Other();
-                other.UseLoopTimes = this.UseLoopTimes;
-                other.LoopTimes = this.LoopTimes;
-                other.UseGetInst = this.UseGetInst;
-                other.DefaultDataPath = this.DefaultDataPath;
-                other.InstFormat = this.InstFormat;
-                other.Zoom = this.Zoom;
-                other.ScreenFrameRate = this.ScreenFrameRate;
-                other.AutoOpen = this.AutoOpen;
-                other.DumpSwitch = this.DumpSwitch;
-                other.DumpPath = this.DumpPath;
-                other.WavSwitch = this.WavSwitch;
-                other.WavPath = this.WavPath;
-                other.FilterIndex = this.FilterIndex;
-                other.TextExt = this.TextExt;
-                other.MMLExt = this.MMLExt;
-                other.ImageExt = this.ImageExt;
-                other.AutoOpenText = this.AutoOpenText;
-                other.AutoOpenMML = this.AutoOpenMML;
-                other.AutoOpenImg = this.AutoOpenImg;
-                other.InitAlways = this.InitAlways;
-                other.EmptyPlayList = this.EmptyPlayList;
-                other.ExAll = this.ExAll;
-                other.NonRenderingForPause = this.NonRenderingForPause;
-                other.AdjustTLParam = this.AdjustTLParam;
-                other.ResourceFile = this.ResourceFile;
+                Other other = new()
+                {
+                    UseLoopTimes = this.UseLoopTimes,
+                    LoopTimes = this.LoopTimes,
+                    UseGetInst = this.UseGetInst,
+                    DefaultDataPath = this.DefaultDataPath,
+                    InstFormat = this.InstFormat,
+                    Zoom = this.Zoom,
+                    ScreenFrameRate = this.ScreenFrameRate,
+                    AutoOpen = this.AutoOpen,
+                    DumpSwitch = this.DumpSwitch,
+                    DumpPath = this.DumpPath,
+                    WavSwitch = this.WavSwitch,
+                    WavPath = this.WavPath,
+                    FilterIndex = this.FilterIndex,
+                    TextExt = this.TextExt,
+                    MMLExt = this.MMLExt,
+                    ImageExt = this.ImageExt,
+                    AutoOpenText = this.AutoOpenText,
+                    AutoOpenMML = this.AutoOpenMML,
+                    AutoOpenImg = this.AutoOpenImg,
+                    InitAlways = this.InitAlways,
+                    EmptyPlayList = this.EmptyPlayList,
+                    ExAll = this.ExAll,
+                    NonRenderingForPause = this.NonRenderingForPause,
+                    AdjustTLParam = this.AdjustTLParam,
+                    ResourceFile = this.ResourceFile
+                };
 
                 return other;
             }
@@ -1607,14 +1609,16 @@ namespace MDPlayer
 
             public Debug Copy()
             {
-                Debug dbg = new Debug();
-                dbg.LogLevel = this.LogLevel;
-                dbg.debugOPZ = this.debugOPZ;
-                dbg.DispFrameCounter = this.DispFrameCounter;
-                dbg.SCCbaseAddress = this.SCCbaseAddress;
-                dbg.logDebug = this.logDebug;
-                dbg.logLevel= this.logLevel;
-                dbg.ShowConsole = this.ShowConsole;
+                Debug dbg = new()
+                {
+                    LogLevel = this.LogLevel,
+                    debugOPZ = this.debugOPZ,
+                    DispFrameCounter = this.DispFrameCounter,
+                    SCCbaseAddress = this.SCCbaseAddress,
+                    logDebug = this.logDebug,
+                    logLevel = this.logLevel,
+                    ShowConsole = this.ShowConsole
+                };
 
                 return dbg;
             }
@@ -2571,77 +2575,77 @@ namespace MDPlayer
 
             public Balance Copy()
             {
-                Balance Balance = new Balance();
-                Balance.MasterVolume = this.MasterVolume;
-                Balance.YM2151Volume = this.YM2151Volume;
-                Balance.YM2203Volume = this.YM2203Volume;
-                Balance.YM2203FMVolume = this.YM2203FMVolume;
-                Balance.YM2203PSGVolume = this.YM2203PSGVolume;
-                Balance.YM2413Volume = this.YM2413Volume;
-                Balance.YM2608Volume = this.YM2608Volume;
-                Balance.YM2608FMVolume = this.YM2608FMVolume;
-                Balance.YM2608PSGVolume = this.YM2608PSGVolume;
-                Balance.YM2608RhythmVolume = this.YM2608RhythmVolume;
-                Balance.YM2608AdpcmVolume = this.YM2608AdpcmVolume;
-                Balance.YM2610Volume = this.YM2610Volume;
-                Balance.YM2610FMVolume = this.YM2610FMVolume;
-                Balance.YM2610PSGVolume = this.YM2610PSGVolume;
-                Balance.YM2610AdpcmAVolume = this.YM2610AdpcmAVolume;
-                Balance.YM2610AdpcmBVolume = this.YM2610AdpcmBVolume;
+                Balance Balance = new()
+                {
+                    MasterVolume = this.MasterVolume,
+                    YM2151Volume = this.YM2151Volume,
+                    YM2203Volume = this.YM2203Volume,
+                    YM2203FMVolume = this.YM2203FMVolume,
+                    YM2203PSGVolume = this.YM2203PSGVolume,
+                    YM2413Volume = this.YM2413Volume,
+                    YM2608Volume = this.YM2608Volume,
+                    YM2608FMVolume = this.YM2608FMVolume,
+                    YM2608PSGVolume = this.YM2608PSGVolume,
+                    YM2608RhythmVolume = this.YM2608RhythmVolume,
+                    YM2608AdpcmVolume = this.YM2608AdpcmVolume,
+                    YM2610Volume = this.YM2610Volume,
+                    YM2610FMVolume = this.YM2610FMVolume,
+                    YM2610PSGVolume = this.YM2610PSGVolume,
+                    YM2610AdpcmAVolume = this.YM2610AdpcmAVolume,
+                    YM2610AdpcmBVolume = this.YM2610AdpcmBVolume,
 
-                Balance.YM2612Volume = this.YM2612Volume;
-                Balance.AY8910Volume = this.AY8910Volume;
-                Balance.SN76489Volume = this.SN76489Volume;
-                Balance.HuC6280Volume = this.HuC6280Volume;
-                Balance.SAA1099Volume = this.SAA1099Volume;
-                Balance.ES5503Volume = this.ES5503Volume;
+                    YM2612Volume = this.YM2612Volume,
+                    AY8910Volume = this.AY8910Volume,
+                    SN76489Volume = this.SN76489Volume,
+                    HuC6280Volume = this.HuC6280Volume,
+                    SAA1099Volume = this.SAA1099Volume,
+                    ES5503Volume = this.ES5503Volume,
 
-                Balance.RF5C164Volume = this.RF5C164Volume;
-                Balance.RF5C68Volume = this.RF5C68Volume;
-                Balance.PWMVolume = this.PWMVolume;
-                Balance.OKIM6258Volume = this.OKIM6258Volume;
-                Balance.OKIM6295Volume = this.OKIM6295Volume;
-                Balance.C140Volume = this.C140Volume;
-                Balance.SEGAPCMVolume = this.SEGAPCMVolume;
-                Balance.C352Volume = this.C352Volume;
-                Balance.K051649Volume = this.K051649Volume;
-                Balance.K053260Volume = this.K053260Volume;
-                Balance.K054539Volume = this.K054539Volume;
-                Balance.QSoundVolume = this.QSoundVolume;
-                Balance.MultiPCMVolume = this.MultiPCMVolume;
+                    RF5C164Volume = this.RF5C164Volume,
+                    RF5C68Volume = this.RF5C68Volume,
+                    PWMVolume = this.PWMVolume,
+                    OKIM6258Volume = this.OKIM6258Volume,
+                    OKIM6295Volume = this.OKIM6295Volume,
+                    C140Volume = this.C140Volume,
+                    SEGAPCMVolume = this.SEGAPCMVolume,
+                    C352Volume = this.C352Volume,
+                    K051649Volume = this.K051649Volume,
+                    K053260Volume = this.K053260Volume,
+                    K054539Volume = this.K054539Volume,
+                    QSoundVolume = this.QSoundVolume,
+                    MultiPCMVolume = this.MultiPCMVolume,
 
-                Balance.APUVolume = this.APUVolume;
-                Balance.DMCVolume = this.DMCVolume;
-                Balance.FDSVolume = this.FDSVolume;
-                Balance.MMC5Volume = this.MMC5Volume;
-                Balance.N160Volume = this.N160Volume;
-                Balance.VRC6Volume = this.VRC6Volume;
-                Balance.VRC7Volume = this.VRC7Volume;
-                Balance.FME7Volume = this.FME7Volume;
-                Balance.DMGVolume = this.DMGVolume;
-                Balance.GA20Volume = this.GA20Volume;
-                Balance.YMZ280BVolume = this.YMZ280BVolume;
-                Balance.YMF271Volume = this.YMF271Volume;
-                Balance.YMF262Volume = this.YMF262Volume;
-                Balance.YMF278BVolume = this.YMF278BVolume;
-                Balance.YM3526Volume = this.YM3526Volume;
-                Balance.Y8950Volume = this.Y8950Volume;
-                Balance.YM3812Volume = this.YM3812Volume;
+                    APUVolume = this.APUVolume,
+                    DMCVolume = this.DMCVolume,
+                    FDSVolume = this.FDSVolume,
+                    MMC5Volume = this.MMC5Volume,
+                    N160Volume = this.N160Volume,
+                    VRC6Volume = this.VRC6Volume,
+                    VRC7Volume = this.VRC7Volume,
+                    FME7Volume = this.FME7Volume,
+                    DMGVolume = this.DMGVolume,
+                    GA20Volume = this.GA20Volume,
+                    YMZ280BVolume = this.YMZ280BVolume,
+                    YMF271Volume = this.YMF271Volume,
+                    YMF262Volume = this.YMF262Volume,
+                    YMF278BVolume = this.YMF278BVolume,
+                    YM3526Volume = this.YM3526Volume,
+                    Y8950Volume = this.Y8950Volume,
+                    YM3812Volume = this.YM3812Volume,
 
-                Balance.PPZ8Volume = this.PPZ8Volume;
-                Balance.GimicOPNVolume = this.GimicOPNVolume;
-                Balance.GimicOPNAVolume = this.GimicOPNAVolume;
+                    PPZ8Volume = this.PPZ8Volume,
+                    GimicOPNVolume = this.GimicOPNVolume,
+                    GimicOPNAVolume = this.GimicOPNAVolume
+                };
 
                 return Balance;
             }
 
             public void Save(string fullPath)
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(Balance), typeof(Balance).GetNestedTypes());
-                using (StreamWriter sw = new StreamWriter(fullPath, false, new UTF8Encoding(false)))
-                {
-                    serializer.Serialize(sw, this);
-                }
+                XmlSerializer serializer = new(typeof(Balance), typeof(Balance).GetNestedTypes());
+                using StreamWriter sw = new(fullPath, false, new UTF8Encoding(false));
+                serializer.Serialize(sw, this);
             }
 
             public static Balance Load(string fullPath)
@@ -2649,11 +2653,9 @@ namespace MDPlayer
                 try
                 {
                     if (!File.Exists(fullPath)) return null;
-                    XmlSerializer serializer = new XmlSerializer(typeof(Balance), typeof(Balance).GetNestedTypes());
-                    using (StreamReader sr = new StreamReader(fullPath, new UTF8Encoding(false)))
-                    {
-                        return (Balance)serializer.Deserialize(sr);
-                    }
+                    XmlSerializer serializer = new(typeof(Balance), typeof(Balance).GetNestedTypes());
+                    using StreamReader sr = new(fullPath, new UTF8Encoding(false));
+                    return (Balance)serializer.Deserialize(sr);
                 }
                 catch (Exception ex)
                 {
@@ -2693,17 +2695,19 @@ namespace MDPlayer
 
                 public Form Copy()
                 {
-                    Form n = new Form();
-                    n.Point = this.Point;
-                    n.IsOpen = this.IsOpen;
-                    n.State = this.State;
-                    n.Size = this.Size;
+                    Form n = new()
+                    {
+                        Point = this.Point,
+                        IsOpen = this.IsOpen,
+                        State = this.State,
+                        Size = this.Size
+                    };
 
                     return n;
                 }
             }
 
-            public Form Main = new Form();
+            public Form Main = new();
 
             private Point _PInfo = Point.Empty;
             public Point PInfo
@@ -3664,17 +3668,17 @@ namespace MDPlayer
                 }
             }
 
-            private Point[] _PosYmf2762 = new Point[2] { Point.Empty, Point.Empty };
+            private Point[] _PosYmf262 = new Point[2] { Point.Empty, Point.Empty };
             public Point[] PosYmf262
             {
                 get
                 {
-                    return _PosYmf278b;
+                    return _PosYmf262;
                 }
 
                 set
                 {
-                    _PosYmf278b = value;
+                    _PosYmf262 = value;
                 }
             }
 
@@ -4033,90 +4037,91 @@ namespace MDPlayer
 
             public Location Copy()
             {
-                Location Location = new Location();
-
-                Location.Main = this.Main.Copy();
-                Location.PInfo = this.PInfo;
-                Location.OInfo = this.OInfo;
-                Location.PPlayList = this.PPlayList;
-                Location.OPlayList = this.OPlayList;
-                Location.PPlayListWH = this.PPlayListWH;
-                Location.PMixer = this.PMixer;
-                Location.OMixer = this.OMixer;
-                Location.PMixerWH = this.PMixerWH;
-                Location.PosMixer = this.PosMixer;
-                Location.OpenMixer = this.OpenMixer;
-                Location.PosRf5c164 = this.PosRf5c164;
-                Location.OpenRf5c164 = this.OpenRf5c164;
-                Location.PosRf5c68 = this.PosRf5c68;
-                Location.OpenRf5c68 = this.OpenRf5c68;
-                Location.PosC140 = this.PosC140;
-                Location.OpenC140 = this.OpenC140;
-                Location.PosPPZ8 = this.PosPPZ8;
-                Location.OpenPPZ8 = this.OpenPPZ8;
-                Location.PosS5B = this.PosS5B;
-                Location.OpenS5B = this.OpenS5B;
-                Location.PosDMG = this.PosDMG;
-                Location.OpenDMG = this.OpenDMG;
-                Location.PosYMZ280B = this.PosYMZ280B;
-                Location.OpenYMZ280B = this.OpenYMZ280B;
-                Location.PosC352 = this.PosC352;
-                Location.OpenC352 = this.OpenC352;
-                Location.PosQSound = this.PosQSound;
-                Location.OpenQSound = this.OpenQSound;
-                Location.PosYm2151 = this.PosYm2151;
-                Location.OpenYm2151 = this.OpenYm2151;
-                Location.PosYm2608 = this.PosYm2608;
-                Location.OpenYm2608 = this.OpenYm2608;
-                Location.PosYm2609 = this.PosYm2609;
-                Location.OpenYm2609 = this.OpenYm2609;
-                Location.PosYm2203 = this.PosYm2203;
-                Location.OpenYm2203 = this.OpenYm2203;
-                Location.PosYm2610 = this.PosYm2610;
-                Location.OpenYm2610 = this.OpenYm2610;
-                Location.PosYm2612 = this.PosYm2612;
-                Location.OpenYm2612 = this.OpenYm2612;
-                Location.PosYm3526 = this.PosYm3526;
-                Location.OpenYm3526 = this.OpenYm3526;
-                Location.PosY8950 = this.PosY8950;
-                Location.OpenY8950 = this.OpenY8950;
-                Location.PosYm3812 = this.PosYm3812;
-                Location.OpenYm3812 = this.OpenYm3812;
-                Location.PosYmf262 = this.PosYmf262;
-                Location.OpenYmf262 = this.OpenYmf262;
-                Location.PosYMF271 = this.PosYMF271;
-                Location.OpenYMF271 = this.OpenYMF271;
-                Location.PosYmf278b = this.PosYmf278b;
-                Location.OpenYmf278b = this.OpenYmf278b;
-                Location.PosOKIM6258 = this.PosOKIM6258;
-                Location.OpenOKIM6258 = this.OpenOKIM6258;
-                Location.PosOKIM6295 = this.PosOKIM6295;
-                Location.OpenOKIM6295 = this.OpenOKIM6295;
-                Location.PosSN76489 = this.PosSN76489;
-                Location.OpenSN76489 = this.OpenSN76489;
-                Location.PosSegaPCM = this.PosSegaPCM;
-                Location.OpenSegaPCM = this.OpenSegaPCM;
-                Location.PosAY8910 = this.PosAY8910;
-                Location.OpenAY8910 = this.OpenAY8910;
-                Location.PosHuC6280 = this.PosHuC6280;
-                Location.OpenHuC6280 = this.OpenHuC6280;
-                Location.PosK051649 = this.PosK051649;
-                Location.OpenK051649 = this.OpenK051649;
-                Location.PosK053260 = this.PosK053260;
-                Location.OpenK053260 = this.OpenK053260;
-                Location.PosYm2612MIDI = this.PosYm2612MIDI;
-                Location.OpenYm2612MIDI = this.OpenYm2612MIDI;
-                Location.PosVSTeffectList = this.PosVSTeffectList;
-                Location.OpenVSTeffectList = this.OpenVSTeffectList;
-                Location.PosVrc7 = this.PosVrc7;
-                Location.OpenVrc7 = this.OpenVrc7;
-                Location.PosMIDI = this.PosMIDI;
-                Location.OpenMIDI = this.OpenMIDI;
-                Location.PosRegTest = this.PosRegTest;
-                Location.OpenRegTest = this.OpenRegTest;
-                Location.PosVisWave = this.PosVisWave;
-                Location.OpenVisWave = this.OpenVisWave;
-                Location.ChipSelect = this.ChipSelect;
+                Location Location = new()
+                {
+                    Main = this.Main.Copy(),
+                    PInfo = this.PInfo,
+                    OInfo = this.OInfo,
+                    PPlayList = this.PPlayList,
+                    OPlayList = this.OPlayList,
+                    PPlayListWH = this.PPlayListWH,
+                    PMixer = this.PMixer,
+                    OMixer = this.OMixer,
+                    PMixerWH = this.PMixerWH,
+                    PosMixer = this.PosMixer,
+                    OpenMixer = this.OpenMixer,
+                    PosRf5c164 = this.PosRf5c164,
+                    OpenRf5c164 = this.OpenRf5c164,
+                    PosRf5c68 = this.PosRf5c68,
+                    OpenRf5c68 = this.OpenRf5c68,
+                    PosC140 = this.PosC140,
+                    OpenC140 = this.OpenC140,
+                    PosPPZ8 = this.PosPPZ8,
+                    OpenPPZ8 = this.OpenPPZ8,
+                    PosS5B = this.PosS5B,
+                    OpenS5B = this.OpenS5B,
+                    PosDMG = this.PosDMG,
+                    OpenDMG = this.OpenDMG,
+                    PosYMZ280B = this.PosYMZ280B,
+                    OpenYMZ280B = this.OpenYMZ280B,
+                    PosC352 = this.PosC352,
+                    OpenC352 = this.OpenC352,
+                    PosQSound = this.PosQSound,
+                    OpenQSound = this.OpenQSound,
+                    PosYm2151 = this.PosYm2151,
+                    OpenYm2151 = this.OpenYm2151,
+                    PosYm2608 = this.PosYm2608,
+                    OpenYm2608 = this.OpenYm2608,
+                    PosYm2609 = this.PosYm2609,
+                    OpenYm2609 = this.OpenYm2609,
+                    PosYm2203 = this.PosYm2203,
+                    OpenYm2203 = this.OpenYm2203,
+                    PosYm2610 = this.PosYm2610,
+                    OpenYm2610 = this.OpenYm2610,
+                    PosYm2612 = this.PosYm2612,
+                    OpenYm2612 = this.OpenYm2612,
+                    PosYm3526 = this.PosYm3526,
+                    OpenYm3526 = this.OpenYm3526,
+                    PosY8950 = this.PosY8950,
+                    OpenY8950 = this.OpenY8950,
+                    PosYm3812 = this.PosYm3812,
+                    OpenYm3812 = this.OpenYm3812,
+                    PosYmf262 = this.PosYmf262,
+                    OpenYmf262 = this.OpenYmf262,
+                    PosYMF271 = this.PosYMF271,
+                    OpenYMF271 = this.OpenYMF271,
+                    PosYmf278b = this.PosYmf278b,
+                    OpenYmf278b = this.OpenYmf278b,
+                    PosOKIM6258 = this.PosOKIM6258,
+                    OpenOKIM6258 = this.OpenOKIM6258,
+                    PosOKIM6295 = this.PosOKIM6295,
+                    OpenOKIM6295 = this.OpenOKIM6295,
+                    PosSN76489 = this.PosSN76489,
+                    OpenSN76489 = this.OpenSN76489,
+                    PosSegaPCM = this.PosSegaPCM,
+                    OpenSegaPCM = this.OpenSegaPCM,
+                    PosAY8910 = this.PosAY8910,
+                    OpenAY8910 = this.OpenAY8910,
+                    PosHuC6280 = this.PosHuC6280,
+                    OpenHuC6280 = this.OpenHuC6280,
+                    PosK051649 = this.PosK051649,
+                    OpenK051649 = this.OpenK051649,
+                    PosK053260 = this.PosK053260,
+                    OpenK053260 = this.OpenK053260,
+                    PosYm2612MIDI = this.PosYm2612MIDI,
+                    OpenYm2612MIDI = this.OpenYm2612MIDI,
+                    PosVSTeffectList = this.PosVSTeffectList,
+                    OpenVSTeffectList = this.OpenVSTeffectList,
+                    PosVrc7 = this.PosVrc7,
+                    OpenVrc7 = this.OpenVrc7,
+                    PosMIDI = this.PosMIDI,
+                    OpenMIDI = this.OpenMIDI,
+                    PosRegTest = this.PosRegTest,
+                    OpenRegTest = this.OpenRegTest,
+                    PosVisWave = this.PosVisWave,
+                    OpenVisWave = this.OpenVisWave,
+                    ChipSelect = this.ChipSelect
+                };
 
                 return Location;
             }
@@ -4213,14 +4218,15 @@ namespace MDPlayer
 
             public MidiExport Copy()
             {
-                MidiExport MidiExport = new MidiExport();
-
-                MidiExport.UseMIDIExport = this.UseMIDIExport;
-                MidiExport.UseYM2151Export = this.UseYM2151Export;
-                MidiExport.UseYM2612Export = this.UseYM2612Export;
-                MidiExport.ExportPath = this.ExportPath;
-                MidiExport.UseVOPMex = this.UseVOPMex;
-                MidiExport.KeyOnFnum = this.KeyOnFnum;
+                MidiExport MidiExport = new()
+                {
+                    UseMIDIExport = this.UseMIDIExport,
+                    UseYM2151Export = this.UseYM2151Export,
+                    UseYM2612Export = this.UseYM2612Export,
+                    ExportPath = this.ExportPath,
+                    UseVOPMex = this.UseVOPMex,
+                    KeyOnFnum = this.KeyOnFnum
+                };
 
                 return MidiExport;
             }
@@ -4485,10 +4491,11 @@ namespace MDPlayer
 
             public MidiKbd Copy()
             {
-                MidiKbd midiKbd = new MidiKbd();
-
-                midiKbd.MidiInDeviceName = this.MidiInDeviceName;
-                midiKbd.UseMIDIKeyboard = this.UseMIDIKeyboard;
+                MidiKbd midiKbd = new()
+                {
+                    MidiInDeviceName = this.MidiInDeviceName,
+                    UseMIDIKeyboard = this.UseMIDIKeyboard
+                };
                 for (int i = 0; i < midiKbd.UseChannel.Length; i++)
                 {
                     midiKbd.UseChannel[i] = this.UseChannel[i];
@@ -4532,12 +4539,14 @@ namespace MDPlayer
 
                 public HookKeyInfo Copy()
                 {
-                    HookKeyInfo hookKeyInfo = new HookKeyInfo();
-                    hookKeyInfo.Shift = this.Shift;
-                    hookKeyInfo.Ctrl = this.Ctrl;
-                    hookKeyInfo.Win = this.Win;
-                    hookKeyInfo.Alt = this.Alt;
-                    hookKeyInfo.Key = this.Key;
+                    HookKeyInfo hookKeyInfo = new()
+                    {
+                        Shift = this.Shift,
+                        Ctrl = this.Ctrl,
+                        Win = this.Win,
+                        Alt = this.Alt,
+                        Key = this.Key
+                    };
 
                     return hookKeyInfo;
                 }
@@ -4571,39 +4580,41 @@ namespace MDPlayer
             public HookKeyInfo Upc { get => _Upc; set => _Upc = value; }
             public HookKeyInfo Dpc { get => _Dpc; set => _Dpc = value; }
             public HookKeyInfo Ppc { get => _Ppc; set => _Ppc = value; }
-            private HookKeyInfo _Stop = new HookKeyInfo();
-            private HookKeyInfo _Pause = new HookKeyInfo();
-            private HookKeyInfo _Fadeout = new HookKeyInfo();
-            private HookKeyInfo _Prev = new HookKeyInfo();
-            private HookKeyInfo _Slow = new HookKeyInfo();
-            private HookKeyInfo _Play = new HookKeyInfo();
-            private HookKeyInfo _Next = new HookKeyInfo();
-            private HookKeyInfo _Fast = new HookKeyInfo();
-            private HookKeyInfo _Umv = new HookKeyInfo();
-            private HookKeyInfo _Dmv = new HookKeyInfo();
-            private HookKeyInfo _Rmv = new HookKeyInfo();
-            private HookKeyInfo _Upc = new HookKeyInfo();
-            private HookKeyInfo _Dpc = new HookKeyInfo();
-            private HookKeyInfo _Ppc = new HookKeyInfo();
+            private HookKeyInfo _Stop = new();
+            private HookKeyInfo _Pause = new();
+            private HookKeyInfo _Fadeout = new();
+            private HookKeyInfo _Prev = new();
+            private HookKeyInfo _Slow = new();
+            private HookKeyInfo _Play = new();
+            private HookKeyInfo _Next = new();
+            private HookKeyInfo _Fast = new();
+            private HookKeyInfo _Umv = new();
+            private HookKeyInfo _Dmv = new();
+            private HookKeyInfo _Rmv = new();
+            private HookKeyInfo _Upc = new();
+            private HookKeyInfo _Dpc = new();
+            private HookKeyInfo _Ppc = new();
 
             public KeyBoardHook Copy()
             {
-                KeyBoardHook keyBoard = new KeyBoardHook();
-                keyBoard.UseKeyBoardHook = this.UseKeyBoardHook;
-                keyBoard.Stop = this.Stop.Copy();
-                keyBoard.Pause = this.Pause.Copy();
-                keyBoard.Fadeout = this.Fadeout.Copy();
-                keyBoard.Prev = this.Prev.Copy();
-                keyBoard.Slow = this.Slow.Copy();
-                keyBoard.Play = this.Play.Copy();
-                keyBoard.Next = this.Next.Copy();
-                keyBoard.Fast = this.Fast.Copy();
-                keyBoard.Umv = this.Umv.Copy();
-                keyBoard.Dmv = this.Dmv.Copy();
-                keyBoard.Rmv = this.Rmv.Copy();
-                keyBoard.Upc = this.Upc.Copy();
-                keyBoard.Dpc = this.Dpc.Copy();
-                keyBoard.Ppc = this.Ppc.Copy();
+                KeyBoardHook keyBoard = new()
+                {
+                    UseKeyBoardHook = this.UseKeyBoardHook,
+                    Stop = this.Stop.Copy(),
+                    Pause = this.Pause.Copy(),
+                    Fadeout = this.Fadeout.Copy(),
+                    Prev = this.Prev.Copy(),
+                    Slow = this.Slow.Copy(),
+                    Play = this.Play.Copy(),
+                    Next = this.Next.Copy(),
+                    Fast = this.Fast.Copy(),
+                    Umv = this.Umv.Copy(),
+                    Dmv = this.Dmv.Copy(),
+                    Rmv = this.Rmv.Copy(),
+                    Upc = this.Upc.Copy(),
+                    Dpc = this.Dpc.Copy(),
+                    Ppc = this.Ppc.Copy()
+                };
 
                 return keyBoard;
             }
@@ -4658,10 +4669,11 @@ namespace MDPlayer
 
             public Vst Copy()
             {
-                Vst vst = new Vst();
-
-                vst.VSTInfo = this.VSTInfo;
-                vst.DefaultPath = this.DefaultPath;
+                Vst vst = new()
+                {
+                    VSTInfo = this.VSTInfo,
+                    DefaultPath = this.DefaultPath
+                };
 
                 return vst;
             }
@@ -4683,8 +4695,8 @@ namespace MDPlayer
             private string _Custom = "";
             public string Custom { get => _Custom; set => _Custom = value; }
 
-            private List<midiOutInfo[]> _lstMidiOutInfo = null;
-            public List<midiOutInfo[]> lstMidiOutInfo
+            private List<MidiOutInfo[]> _lstMidiOutInfo = null;
+            public List<MidiOutInfo[]> lstMidiOutInfo
             {
                 get
                 {
@@ -4698,13 +4710,14 @@ namespace MDPlayer
 
             public MidiOut Copy()
             {
-                MidiOut MidiOut = new MidiOut();
-
-                MidiOut.GMReset = this.GMReset;
-                MidiOut.XGReset = this.XGReset;
-                MidiOut.GSReset = this.GSReset;
-                MidiOut.Custom = this.Custom;
-                MidiOut.lstMidiOutInfo = this.lstMidiOutInfo;
+                MidiOut MidiOut = new()
+                {
+                    GMReset = this.GMReset,
+                    XGReset = this.XGReset,
+                    GSReset = this.GSReset,
+                    Custom = this.Custom,
+                    lstMidiOutInfo = this.lstMidiOutInfo
+                };
 
                 return MidiOut;
             }
@@ -4958,7 +4971,8 @@ namespace MDPlayer
             }
 
             public int _HPF = 92;
-            public int HPF {
+            public int HPF
+            {
                 get
                 {
                     return _HPF;
@@ -4971,7 +4985,8 @@ namespace MDPlayer
             }
 
             public int _LPF = 112;
-            public int LPF {
+            public int LPF
+            {
                 get
                 {
                     return _LPF;
@@ -4998,7 +5013,7 @@ namespace MDPlayer
             }
 
             public bool _DMCDPCMReverse = false;
-            public bool DMCDPCMReverse 
+            public bool DMCDPCMReverse
             {
                 get
                 {
@@ -5013,35 +5028,36 @@ namespace MDPlayer
 
             public NSF Copy()
             {
-                NSF NSF = new NSF();
+                NSF NSF = new()
+                {
+                    NESUnmuteOnReset = this.NESUnmuteOnReset,
+                    NESNonLinearMixer = this.NESNonLinearMixer,
+                    NESPhaseRefresh = this.NESPhaseRefresh,
+                    NESDutySwap = this.NESDutySwap,
 
-                NSF.NESUnmuteOnReset = this.NESUnmuteOnReset;
-                NSF.NESNonLinearMixer = this.NESNonLinearMixer;
-                NSF.NESPhaseRefresh = this.NESPhaseRefresh;
-                NSF.NESDutySwap = this.NESDutySwap;
+                    FDSLpf = this.FDSLpf,
+                    FDS4085Reset = this.FDS4085Reset,
+                    FDSWriteDisable8000 = this.FDSWriteDisable8000,
 
-                NSF.FDSLpf = this.FDSLpf;
-                NSF.FDS4085Reset = this.FDS4085Reset;
-                NSF.FDSWriteDisable8000 = this.FDSWriteDisable8000;
+                    DMCUnmuteOnReset = this.DMCUnmuteOnReset,
+                    DMCNonLinearMixer = this.DMCNonLinearMixer,
+                    DMCEnable4011 = this.DMCEnable4011,
+                    DMCEnablePnoise = this.DMCEnablePnoise,
+                    DMCDPCMAntiClick = this.DMCDPCMAntiClick,
+                    DMCRandomizeNoise = this.DMCRandomizeNoise,
+                    DMCTRImute = this.DMCTRImute,
+                    DMCRandomizeTRI = this.DMCRandomizeTRI,
+                    DMCDPCMReverse = this.DMCDPCMReverse,
+                    //NSF.DMCTRINull = this.DMCTRINull;
 
-                NSF.DMCUnmuteOnReset = this.DMCUnmuteOnReset;
-                NSF.DMCNonLinearMixer = this.DMCNonLinearMixer;
-                NSF.DMCEnable4011 = this.DMCEnable4011;
-                NSF.DMCEnablePnoise = this.DMCEnablePnoise;
-                NSF.DMCDPCMAntiClick = this.DMCDPCMAntiClick;
-                NSF.DMCRandomizeNoise = this.DMCRandomizeNoise;
-                NSF.DMCTRImute = this.DMCTRImute;
-                NSF.DMCRandomizeTRI = this.DMCRandomizeTRI;
-                NSF.DMCDPCMReverse = this.DMCDPCMReverse;
-                //NSF.DMCTRINull = this.DMCTRINull;
+                    MMC5NonLinearMixer = this.MMC5NonLinearMixer,
+                    MMC5PhaseRefresh = this.MMC5PhaseRefresh,
 
-                NSF.MMC5NonLinearMixer = this.MMC5NonLinearMixer;
-                NSF.MMC5PhaseRefresh = this.MMC5PhaseRefresh;
+                    N160Serial = this.N160Serial,
 
-                NSF.N160Serial = this.N160Serial;
-
-                NSF.HPF = this.HPF;
-                NSF.LPF = this.LPF;
+                    HPF = this.HPF,
+                    LPF = this.LPF
+                };
 
                 return NSF;
             }
@@ -5063,17 +5079,18 @@ namespace MDPlayer
 
             public SID Copy()
             {
-                SID SID = new SID();
-
-                SID.RomKernalPath = this.RomKernalPath;
-                SID.RomBasicPath = this.RomBasicPath;
-                SID.RomCharacterPath = this.RomCharacterPath;
-                SID.Quality = this.Quality;
-                SID.OutputBufferSize = this.OutputBufferSize;
-                SID.c64model = this.c64model;
-                SID.c64modelForce = this.c64modelForce;
-                SID.sidmodel = this.sidmodel;
-                SID.sidmodelForce = this.sidmodelForce;
+                SID SID = new()
+                {
+                    RomKernalPath = this.RomKernalPath,
+                    RomBasicPath = this.RomBasicPath,
+                    RomCharacterPath = this.RomCharacterPath,
+                    Quality = this.Quality,
+                    OutputBufferSize = this.OutputBufferSize,
+                    c64model = this.c64model,
+                    c64modelForce = this.c64modelForce,
+                    sidmodel = this.sidmodel,
+                    sidmodelForce = this.sidmodelForce
+                };
 
                 return SID;
             }
@@ -5089,10 +5106,12 @@ namespace MDPlayer
 
             public NukedOPN2 Copy()
             {
-                NukedOPN2 no = new NukedOPN2();
-                no.EmuType = this.EmuType;
-                no.GensDACHPF = this.GensDACHPF;
-                no.GensSSGEG = this.GensSSGEG;
+                NukedOPN2 no = new()
+                {
+                    EmuType = this.EmuType,
+                    GensDACHPF = this.GensDACHPF,
+                    GensSSGEG = this.GensSSGEG
+                };
 
                 return no;
             }
@@ -5115,12 +5134,14 @@ namespace MDPlayer
 
             public AutoBalance Copy()
             {
-                AutoBalance AutoBalance = new AutoBalance();
-                AutoBalance.UseThis = this.UseThis;
-                AutoBalance.LoadSongBalance = this.LoadSongBalance;
-                AutoBalance.LoadDriverBalance = this.LoadDriverBalance;
-                AutoBalance.SaveSongBalance = this.SaveSongBalance;
-                AutoBalance.SamePositionAsSongData = this.SamePositionAsSongData;
+                AutoBalance AutoBalance = new()
+                {
+                    UseThis = this.UseThis,
+                    LoadSongBalance = this.LoadSongBalance,
+                    LoadDriverBalance = this.LoadDriverBalance,
+                    SaveSongBalance = this.SaveSongBalance,
+                    SamePositionAsSongData = this.SamePositionAsSongData
+                };
 
                 return AutoBalance;
             }
@@ -5147,22 +5168,24 @@ namespace MDPlayer
 
             public PMDDotNET Copy()
             {
-                PMDDotNET p = new PMDDotNET();
-                p.compilerArguments = this.compilerArguments;
-                p.isAuto = this.isAuto;
-                p.soundBoard = this.soundBoard;
-                p.usePPSDRV = this.usePPSDRV;
-                p.usePPZ8 = this.usePPZ8;
-                p.driverArguments = this.driverArguments;
-                p.setManualVolume = this.setManualVolume;
-                p.usePPSDRVUseInterfaceDefaultFreq = this.usePPSDRVUseInterfaceDefaultFreq;
-                p.PPSDRVManualFreq = this.PPSDRVManualFreq;
-                p.PPSDRVManualWait = this.PPSDRVManualWait;
-                p.volumeFM = this.volumeFM;
-                p.volumeSSG = this.volumeSSG;
-                p.volumeRhythm = this.volumeRhythm;
-                p.volumeAdpcm = this.volumeAdpcm;
-                p.volumeGIMICSSG = this.volumeGIMICSSG;
+                PMDDotNET p = new()
+                {
+                    compilerArguments = this.compilerArguments,
+                    isAuto = this.isAuto,
+                    soundBoard = this.soundBoard,
+                    usePPSDRV = this.usePPSDRV,
+                    usePPZ8 = this.usePPZ8,
+                    driverArguments = this.driverArguments,
+                    setManualVolume = this.setManualVolume,
+                    usePPSDRVUseInterfaceDefaultFreq = this.usePPSDRVUseInterfaceDefaultFreq,
+                    PPSDRVManualFreq = this.PPSDRVManualFreq,
+                    PPSDRVManualWait = this.PPSDRVManualWait,
+                    volumeFM = this.volumeFM,
+                    volumeSSG = this.volumeSSG,
+                    volumeRhythm = this.volumeRhythm,
+                    volumeAdpcm = this.volumeAdpcm,
+                    volumeGIMICSSG = this.volumeGIMICSSG
+                };
 
                 return p;
             }
@@ -5368,20 +5391,21 @@ namespace MDPlayer
 
                 public RealChipInfo Copy()
                 {
-                    RealChipInfo ret = new RealChipInfo();
+                    RealChipInfo ret = new()
+                    {
+                        InterfaceType = this.InterfaceType,
+                        SoundLocation = this.SoundLocation,
+                        BusID = this.BusID,
+                        SoundChip = this.SoundChip,
+                        ChipType = this.ChipType,
+                        InterfaceName = this.InterfaceName,
+                        ChipName = this.ChipName,
 
-                    ret.InterfaceType = this.InterfaceType;
-                    ret.SoundLocation = this.SoundLocation;
-                    ret.BusID = this.BusID;
-                    ret.SoundChip = this.SoundChip;
-                    ret.ChipType = this.ChipType;
-                    ret.InterfaceName = this.InterfaceName;
-                    ret.ChipName = this.ChipName;
+                        UseWait = this.UseWait,
+                        UseWaitBoost = this.UseWaitBoost,
+                        OnlyPCMEmulation = this.OnlyPCMEmulation
+                    };
 
-                    ret.UseWait = this.UseWait;
-                    ret.UseWaitBoost = this.UseWaitBoost;
-                    ret.OnlyPCMEmulation = this.OnlyPCMEmulation;
-             
                     return ret;
                 }
             }
@@ -5427,9 +5451,10 @@ namespace MDPlayer
 
             public ChipType2 Copy()
             {
-                ChipType2 ct = new ChipType2();
-
-                ct.UseEmu = null;
+                ChipType2 ct = new()
+                {
+                    UseEmu = null
+                };
                 if (this.UseEmu != null)
                 {
                     ct.UseEmu = new bool[this.UseEmu.Length];
@@ -5463,10 +5488,12 @@ namespace MDPlayer
 
         public Setting Copy()
         {
-            Setting setting = new Setting();
-            setting.outputDevice = this.outputDevice.Copy();
+            Setting setting = new()
+            {
+                outputDevice = this.outputDevice.Copy(),
 
-            setting.AY8910Type = null;
+                AY8910Type = null
+            };
             if (this.AY8910Type != null)
             {
                 setting.AY8910Type = new ChipType2[this.AY8910Type.Length];
@@ -5615,11 +5642,9 @@ namespace MDPlayer
             string fullPath = Common.settingFilePath;
             fullPath = Path.Combine(fullPath, Resources.cntSettingFileName);
 
-            XmlSerializer serializer = new XmlSerializer(typeof(Setting), typeof(Setting).GetNestedTypes());
-            using (StreamWriter sw = new StreamWriter(fullPath, false, new UTF8Encoding(false)))
-            {
-                serializer.Serialize(sw, this);
-            }
+            XmlSerializer serializer = new(typeof(Setting), typeof(Setting).GetNestedTypes());
+            using StreamWriter sw = new(fullPath, false, new UTF8Encoding(false));
+            serializer.Serialize(sw, this);
         }
 
         public static Setting Load()
@@ -5642,11 +5667,9 @@ namespace MDPlayer
                 fullPath = Path.Combine(fullPath, Resources.cntSettingFileName);
 
                 if (!File.Exists(fullPath)) { return new Setting(); }
-                XmlSerializer serializer = new XmlSerializer(typeof(Setting), typeof(Setting).GetNestedTypes());
-                using (StreamReader sr = new StreamReader(fullPath, new UTF8Encoding(false)))
-                {
-                    return (Setting)serializer.Deserialize(sr);
-                }
+                XmlSerializer serializer = new(typeof(Setting), typeof(Setting).GetNestedTypes());
+                using StreamReader sr = new(fullPath, new UTF8Encoding(false));
+                return (Setting)serializer.Deserialize(sr);
             }
             catch (Exception ex)
             {

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml.Serialization;
-using System.Drawing;
-
-namespace MDPlayer
+﻿namespace MDPlayer
 {
     [Serializable]
     public class MIDIEvent
@@ -179,7 +172,7 @@ namespace MDPlayer
         OutSideProc = 0x99,
         BankProgram = 0xE2,
         KeyScan = 0xE5,
-        MIDICh =0xE6,
+        MIDICh = 0xE6,
         TempoChange = 0xE7,
         RolandBase = 0xDD,
         RolandPara = 0xDE,

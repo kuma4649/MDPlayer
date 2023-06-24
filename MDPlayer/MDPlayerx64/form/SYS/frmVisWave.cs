@@ -1,13 +1,4 @@
 ﻿using NAudio.Dsp;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
@@ -20,15 +11,15 @@ namespace MDPlayer.form
         private short[][] buf = new short[2][] { new short[2048], new short[2048] };
         private Graphics g;
         private Bitmap bmp;
-        private int dispType=1;
-        private double dispHeight=1.0;
+        private int dispType = 1;
+        private double dispHeight = 1.0;
         private bool fft = false;
 
         public frmVisWave(frmMain frm)
         {
             parent = frm;
             InitializeComponent();
-            bmp = new Bitmap(400,400);
+            bmp = new Bitmap(400, 400);
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -59,7 +50,7 @@ namespace MDPlayer.form
                     for (int i = 0; i < 2048; i++)
                     {
                         int x = (i * bmp.Width) / 2048;
-                        int y = (int)(buf[ch][i]*dispHeight) * bmp.Height / 65536 + hPos;
+                        int y = (int)(buf[ch][i] * dispHeight) * bmp.Height / 65536 + hPos;
                         g.DrawLine(Pens.SteelBlue, ox, oy, x, y);
                         ox = x;
                         oy = y;
@@ -85,7 +76,7 @@ namespace MDPlayer.form
             g = Graphics.FromImage(bmp);
             g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            
+
         }
 
         private void frmVisWave_FormClosed(object sender, FormClosedEventArgs e)
@@ -153,19 +144,19 @@ namespace MDPlayer.form
 
         public short[] ConvertTo(float[] src)
         {
-            for (int i = 0; i < src.Length/2; i++)
+            for (int i = 0; i < src.Length / 2; i++)
             {
-                destS[i*2] = (short)(Math.Min(Math.Max(-src[i] * 150.0f * 32768.0f*0.6, short.MinValue), short.MaxValue));
-                destS[i*2+1] = (short)(Math.Min(Math.Max(-src[i] * 150.0f * 32768.0f*0.6, short.MinValue), short.MaxValue));
+                destS[i * 2] = (short)(Math.Min(Math.Max(-src[i] * 150.0f * 32768.0f * 0.6, short.MinValue), short.MaxValue));
+                destS[i * 2 + 1] = (short)(Math.Min(Math.Max(-src[i] * 150.0f * 32768.0f * 0.6, short.MinValue), short.MaxValue));
             }
             return destS;
         }
         public short[] ConvertTo2(float[] src)
         {
-            for (int i = 0; i < src.Length/2; i++)
+            for (int i = 0; i < src.Length / 2; i++)
             {
-                destS2[i * 2] = (short)(Math.Min(Math.Max(-src[i] * 150.0f * 32768.0f*0.6, short.MinValue), short.MaxValue));
-                destS2[i * 2+1] = (short)(Math.Min(Math.Max(-src[i] * 150.0f * 32768.0f*0.6, short.MinValue), short.MaxValue));
+                destS2[i * 2] = (short)(Math.Min(Math.Max(-src[i] * 150.0f * 32768.0f * 0.6, short.MinValue), short.MaxValue));
+                destS2[i * 2 + 1] = (short)(Math.Min(Math.Max(-src[i] * 150.0f * 32768.0f * 0.6, short.MinValue), short.MaxValue));
             }
             return destS2;
         }
@@ -200,7 +191,7 @@ namespace MDPlayer.form
 
         private void tsbFFT_Click(object sender, EventArgs e)
         {
-            fft= tsbFFT.Checked;
+            fft = tsbFFT.Checked;
         }
     }
 }

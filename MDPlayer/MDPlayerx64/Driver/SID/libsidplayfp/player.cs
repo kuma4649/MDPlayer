@@ -19,11 +19,6 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Driver.libsidplayfp.c64;
 
 namespace Driver.libsidplayfp
@@ -72,16 +67,16 @@ namespace Driver.libsidplayfp
 
 
         /// Commodore 64 emulator
-        private c64.c64 m_c64=new c64.c64();
+        private c64.c64 m_c64 = new c64.c64();
 
         /// Mixer
-        private Mixer m_mixer=new Mixer();
+        private Mixer m_mixer = new Mixer();
 
         /// Emulator info
         private sidplayfp.SidTune m_tune;
 
         /// User Configuration Settings
-        private SidInfoImpl m_info=new SidInfoImpl();
+        private SidInfoImpl m_info = new SidInfoImpl();
 
         /// User Configuration Settings
         private sidplayfp.SidConfig m_cfg = null;

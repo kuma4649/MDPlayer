@@ -17,8 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-using System;
-using System.Collections.Generic;
 
 namespace Driver.libsidplayfp.c64.Banks
 {
@@ -51,7 +49,7 @@ namespace Driver.libsidplayfp.c64.Banks
          */
         private IBank[] mapper = new IBank[MAPPER_SIZE];
 
-        private List<c64sid> sids=new List<c64sid>();
+        private List<c64sid> sids = new List<c64sid>();
 
         private static void resetSID(c64sid e)
         {

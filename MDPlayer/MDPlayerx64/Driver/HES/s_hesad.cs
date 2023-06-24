@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MDPlayer.Driver
+﻿namespace MDPlayer.Driver
 {
     public class s_hesad : KMIF_SOUND_DEVICE
     {
@@ -27,7 +21,7 @@ namespace MDPlayer.Driver
                 public Int32 cps;
                 public Int32 pt;
             }
-            public common_ common=new common_();
+            public common_ common = new common_();
 
             public byte[] pcmbuf = new byte[0x10000];
             public byte[] port = new byte[0x10];
@@ -293,7 +287,7 @@ namespace MDPlayer.Driver
         {
             HESADPCM sndp;
             //sndp = XMALLOC(sizeof(HESADPCM));
-            sndp =  new HESADPCM();
+            sndp = new HESADPCM();
             if (sndp == null) return null;
             //XMEMSET(sndp, 0, sizeof(HESADPCM));
             sndp.kmif = new s_hesad();

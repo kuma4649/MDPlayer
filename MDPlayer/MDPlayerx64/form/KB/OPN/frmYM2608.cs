@@ -1,18 +1,8 @@
 ﻿#if X64
 using MDPlayerx64;
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
@@ -38,7 +28,7 @@ namespace MDPlayer.form
 
             this.newParam = newParam;
             this.oldParam = oldParam;
-            frameBuffer.Add(pbScreen, ResMng.imgDic["planeD"], null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.ImgDic["planeD"], null, zoom);
             bool YM2608Type = (chipID == 0)
                 ? parent.setting.YM2608Type[0].UseReal[0]
                 : parent.setting.YM2608Type[1].UseReal[0];
@@ -87,9 +77,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeD"].Width * zoom, frameSizeH + ResMng.imgDic["planeD"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeD"].Width * zoom, frameSizeH + ResMng.imgDic["planeD"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeD"].Width * zoom, frameSizeH + ResMng.imgDic["planeD"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeD"].Width * zoom, frameSizeH + ResMng.ImgDic["planeD"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeD"].Width * zoom, frameSizeH + ResMng.ImgDic["planeD"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeD"].Width * zoom, frameSizeH + ResMng.ImgDic["planeD"].Height * zoom);
             frmYM2608_Resize(null, null);
 
         }
@@ -156,10 +146,10 @@ namespace MDPlayer.form
             int defaultMasterClock = 7987200;
             float ssgMul = 1.0f;
             int masterClock = defaultMasterClock;
-            if (Audio.clockYM2608 != 0)
+            if (Audio.ClockYM2608 != 0)
             {
-                ssgMul = Audio.clockYM2608 / (float)defaultMasterClock;
-                masterClock = Audio.clockYM2608;
+                ssgMul = Audio.ClockYM2608 / (float)defaultMasterClock;
+                masterClock = Audio.ClockYM2608;
             }
 
             int divInd = ym2608Register[0][0x2d];
@@ -198,8 +188,8 @@ namespace MDPlayer.form
                 newParam.channels[ch].pan = (ym2608Register[p][0xb4 + c] & 0xc0) >> 6;
                 newParam.channels[ch].slot = (byte)(fmKeyYM2608[ch] >> 4);
 
-                int freq ;
-                int octav ;
+                int freq;
+                int octav;
                 int n = -1;
                 if (ch != 2 || !isFmEx)
                 {
@@ -209,7 +199,7 @@ namespace MDPlayer.form
                     float ff = freq / ((2 << 20) / (masterClock / (24 * fmDiv))) * (2 << (octav + 2));
                     ff /= 1038f;
 
-                    if ((fmKeyYM2608[ch]&1) != 0)
+                    if ((fmKeyYM2608[ch] & 1) != 0)
                         n = Math.Min(Math.Max(Common.searchYM2608Adpcm(ff) - 1, 0), 95);
 
                     byte con = (byte)(fmKeyYM2608[ch]);
@@ -294,22 +284,19 @@ namespace MDPlayer.form
                 channel.tn = (t ? 1 : 0) + (n ? 2 : 0);
 
                 channel.volumeL = ym2608Register[0][0x08 + ch] & 0xf;
-                channel.volume = (int)(((t || n) ? 1 : 0) * (ym2608Register[0][0x08 + ch] & 0xf) * (15.0 / 16.0));
-                if (!t && !n && channel.volume > 0)
-                {
-                    channel.volume--;
-                }
+                channel.volume = (int)(((t || n) ? 1 : 0) * (ym2608Register[0][0x08 + ch] & 0xf));
 
-                if (channel.volume == 0)
+                int ft = ym2608Register[0][0x00 + ch * 2];
+                int ct = ym2608Register[0][0x01 + ch * 2];
+                int tp = (ct << 8) | ft;
+                channel.freq = tp;
+
+                if (channel.volumeL == 0)
                 {
                     channel.note = -1;
                 }
                 else
                 {
-                    int ft = ym2608Register[0][0x00 + ch * 2];
-                    int ct = ym2608Register[0][0x01 + ch * 2];
-                    int tp = (ct << 8) | ft;
-                    channel.freq = tp;
                     if (tp == 0)
                     {
                         channel.note = -1;
@@ -336,7 +323,7 @@ namespace MDPlayer.form
             int delta = (ym2608Register[1][0x0a] << 8) | ym2608Register[1][0x09];
             newParam.channels[12].freq = delta;
             float frq = (float)(delta / 9447.0f);
-            newParam.channels[12].note = (ym2608Register[1][0x00] & 0x80) != 0 ? (Common.searchYM2608Adpcm(frq)-1) : -1;
+            newParam.channels[12].note = (ym2608Register[1][0x00] & 0x80) != 0 ? (Common.searchYM2608Adpcm(frq) - 1) : -1;
             if ((ym2608Register[1][0x01] & 0xc0) == 0)
             {
                 newParam.channels[12].note = -1;
@@ -416,10 +403,10 @@ namespace MDPlayer.form
             }
 
             //ADPCM
-            DrawBuff.VolumeShort(frameBuffer, 280+1, 8 + 12 * 8, 1, ref oldParam.channels[12].volumeL, newParam.channels[12].volumeL, tp);
-            DrawBuff.VolumeShort(frameBuffer, 280+1, 8 + 12 * 8, 2, ref oldParam.channels[12].volumeR, newParam.channels[12].volumeR, tp);
+            DrawBuff.VolumeShort(frameBuffer, 280 + 1, 8 + 12 * 8, 1, ref oldParam.channels[12].volumeL, newParam.channels[12].volumeL, tp);
+            DrawBuff.VolumeShort(frameBuffer, 280 + 1, 8 + 12 * 8, 2, ref oldParam.channels[12].volumeR, newParam.channels[12].volumeR, tp);
             DrawBuff.Pan(frameBuffer, 25, 8 + 12 * 8, ref oldParam.channels[12].pan, newParam.channels[12].pan, ref oldParam.channels[12].pantp, tp);
-            DrawBuff.KeyBoardOPNA(frameBuffer, 33,8+12*8, ref oldParam.channels[12].note, newParam.channels[12].note, tp);
+            DrawBuff.KeyBoardOPNA(frameBuffer, 33, 8 + 12 * 8, ref oldParam.channels[12].note, newParam.channels[12].note, tp);
             DrawBuff.ChYM2608(frameBuffer, 12, ref oldParam.channels[12].mask, newParam.channels[12].mask, tp);
             DrawBuff.font4Hex16Bit(frameBuffer, 1 + 4 * 78, 8 + 12 * 8, 0, ref oldParam.channels[12].freq, newParam.channels[12].freq);
             DrawBuff.font4HexByte(frameBuffer, 272 + 1, 8 + 12 * 8, 0, ref oldParam.channels[12].volume, newParam.channels[12].volume);
@@ -433,19 +420,19 @@ namespace MDPlayer.form
                 DrawBuff.VolumeYM2608Rhythm(frameBuffer, c, 1, ref oyc.volumeL, nyc.volumeL, tp);
                 DrawBuff.VolumeYM2608Rhythm(frameBuffer, c, 2, ref oyc.volumeR, nyc.volumeR, tp);
                 DrawBuff.PanYM2608Rhythm(frameBuffer, c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
-                DrawBuff.font4Int2(frameBuffer, c * 4*15+4, 28 * 4, 0, 0, ref oyc.volumeRL, nyc.volumeRL);
+                DrawBuff.font4Int2(frameBuffer, c * 4 * 15 + 4, 28 * 4, 0, 0, ref oyc.volumeRL, nyc.volumeRL);
             }
             DrawBuff.ChYM2608Rhythm(frameBuffer, 0, ref oldParam.channels[13].mask, newParam.channels[13].mask, tp);
 
             DrawBuff.font4Hex12Bit(frameBuffer, 85 * 4, 30 * 4, 0, ref oldParam.timerA, newParam.timerA);
             DrawBuff.font4HexByte(frameBuffer, 85 * 4, 32 * 4, 0, ref oldParam.timerB, newParam.timerB);
 
-            DrawBuff.LfoSw(frameBuffer, 84*4, 18*8, ref oldParam.lfoSw, newParam.lfoSw);
-            DrawBuff.LfoFrq(frameBuffer, 84*4, 19*8, ref oldParam.lfoFrq, newParam.lfoFrq);
+            DrawBuff.LfoSw(frameBuffer, 84 * 4, 18 * 8, ref oldParam.lfoSw, newParam.lfoSw);
+            DrawBuff.LfoFrq(frameBuffer, 84 * 4, 19 * 8, ref oldParam.lfoFrq, newParam.lfoFrq);
 
-            DrawBuff.Nfrq(frameBuffer, 84, 42 , ref oldParam.nfrq, newParam.nfrq);
-            DrawBuff.Efrq(frameBuffer, 84 , 44 , ref oldParam.efrq, newParam.efrq);
-            DrawBuff.Etype(frameBuffer, 84 , 46, ref oldParam.etype, newParam.etype);
+            DrawBuff.Nfrq(frameBuffer, 84, 42, ref oldParam.nfrq, newParam.nfrq);
+            DrawBuff.Efrq(frameBuffer, 84, 44, ref oldParam.efrq, newParam.efrq);
+            DrawBuff.Etype(frameBuffer, 84, 46, ref oldParam.etype, newParam.etype);
 
             DrawBuff.font4Int2(frameBuffer, 84 * 4, 50 * 4, 0, 0, ref oldParam.rhythmTotalLevel, newParam.rhythmTotalLevel);
             DrawBuff.font4Int3(frameBuffer, 84 * 4, 52 * 4, 0, 3, ref oldParam.adpcmLevel, newParam.adpcmLevel);

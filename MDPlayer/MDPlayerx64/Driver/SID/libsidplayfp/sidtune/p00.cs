@@ -18,11 +18,7 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 using Driver.libsidplayfp.sidplayfp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Driver.libsidplayfp.sidtune
 {
@@ -138,7 +134,7 @@ namespace Driver.libsidplayfp.sidtune
                 return null;
 
             //if (!isdigit(ext[2]) || !isdigit(ext[3]))
-                //return null;
+            //return null;
             if ("0123456789".IndexOf(ext[2]) < 0 || "0123456789".IndexOf(ext[3]) < 0)
                 return null;
 
@@ -189,7 +185,7 @@ namespace Driver.libsidplayfp.sidtune
             if (type != X00Format.X00_PRG)
                 throw new loadError("Not a PRG inside X00");
 
-            if (bufLen < 26+2)//sizeof(X00Header) + 2)
+            if (bufLen < 26 + 2)//sizeof(X00Header) + 2)
                 throw new loadError(ERR_TRUNCATED);
 
             p00 tune = new p00();

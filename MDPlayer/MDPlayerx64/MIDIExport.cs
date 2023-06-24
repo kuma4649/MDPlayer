@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-
-namespace MDPlayer
+﻿namespace MDPlayer
 {
     public class MIDIExport
     {
 
-        private Setting setting = null;
+        private readonly Setting setting = null;
 
-        private midiChip midi2151 = new midiChip();
-        private midiChip midi2612 = new midiChip();
+        private MidiChip midi2151 = new();
+        private MidiChip midi2612 = new();
 
         private List<byte> cData = null;
 
@@ -23,7 +19,7 @@ namespace MDPlayer
             this.setting = setting;
         }
 
-        public void outMIDIData(EnmChip chip, int chipID, int dPort, int dAddr, int dData,int hosei, long vgmFrameCounter)
+        public void OutMIDIData(EnmChip chip, int chipID, int dPort, int dAddr, int dData, int hosei, long vgmFrameCounter)
         {
             if (!setting.midiExport.UseMIDIExport) return;
             if (setting.midiExport.ExportPath == "") return;
@@ -37,13 +33,13 @@ namespace MDPlayer
                 case EnmChip.YM2151:
                     if (setting.midiExport.UseYM2151Export)
                     {
-                        outMIDIData_YM2151(chipID, dPort, dAddr, dData, hosei, vgmFrameCounter);
+                        OutMIDIData_YM2151(chipID, dPort, dAddr, dData, hosei, vgmFrameCounter);
                     }
                     break;
                 case EnmChip.YM2612:
                     if (setting.midiExport.UseYM2612Export)
                     {
-                        outMIDIData_YM2612(chipID, dPort, dAddr, dData, vgmFrameCounter);
+                        OutMIDIData_YM2612(chipID, dPort, dAddr, dData, vgmFrameCounter);
                     }
                     break;
             }
@@ -126,7 +122,7 @@ namespace MDPlayer
                     midi2612.data[ch][PortAdr + 4] = (byte)portNum;
                 }
 
-                portNum++;
+                //portNum++;
                 trkNum += midi2612.maxTrk;
             }
 
@@ -135,7 +131,7 @@ namespace MDPlayer
             try
             {
                 string fn = PlayingFileName == "" ? "Temp.mid" : PlayingFileName;
-                List<byte> buf = new List<byte>();
+                List<byte> buf = new();
 
                 foreach (byte d in cData) buf.Add(d);
 
@@ -153,7 +149,7 @@ namespace MDPlayer
             midi2612 = null;
         }
 
-        private void outMIDIData_YM2151(int chipID, int dPort, int dAddr, int dData,int hosei, long vgmFrameCounter)
+        private void OutMIDIData_YM2151(int chipID, int _, int dAddr, int dData, int hosei, long vgmFrameCounter)
         {
             if (cData == null)
             {
@@ -169,7 +165,7 @@ namespace MDPlayer
                 int octNote = fmRegisterYM2151[chipID][0x28 + ch] & 0x7f;
                 if (octNote == 0) return;
                 int octav = (octNote & 0x70) >> 4;
-                int note = searchOPMNote(octNote) + hosei;
+                int note = SearchOPMNote(octNote) + hosei;
                 byte code = (byte)(octav * 12 + note);
                 byte vel = (byte)(127 - fmRegisterYM2151[chipID][0x78 + ch]);
 
@@ -224,7 +220,7 @@ namespace MDPlayer
                         int freq2nd = freq & 0x007f;
                         //if (freq2nd == 0) return;
                         int octav = (freq & 0x0070) >> 4;
-                        int note = searchOPMNote(freq2nd) + hosei;
+                        int note = SearchOPMNote(freq2nd) + hosei;
                         byte code = (byte)(octav * 12 + note);
 
                         if (midi2151.oldCode[ch] != -1 && midi2151.oldCode[ch] != code)
@@ -276,7 +272,7 @@ namespace MDPlayer
             }
 
             //DT/ML
-            if (dAddr >= 0x40 && dAddr<0x60)
+            if (dAddr >= 0x40 && dAddr < 0x60)
             {
                 int ch = dAddr & 0x7;
                 int op = (dAddr & 0x18) >> 3;
@@ -450,7 +446,7 @@ namespace MDPlayer
 
         }
 
-        private void outMIDIData_YM2612(int chipID, int dPort, int dAddr, int dData, long vgmFrameCounter)
+        private void OutMIDIData_YM2612(int chipID, int dPort, int dAddr, int dData, long vgmFrameCounter)
         {
             if (cData == null)
             {
@@ -474,7 +470,7 @@ namespace MDPlayer
                 int freq = midi2612.oldFreq[ch] & 0x7ff;
                 if (freq == 0) return;
                 int octav = (midi2612.oldFreq[ch] & 0x3800) >> 11;
-                int note = searchFMNote(freq);
+                int note = SearchFMNote(freq);
                 byte code = (byte)(octav * 12 + note);
 
                 //オペレータ4のトータルレベルのみ取得(音量として使う)
@@ -543,7 +539,7 @@ namespace MDPlayer
                         int freq2nd = freq & 0x07ff;
                         if (freq2nd == 0) return;
                         int octav = (freq & 0x3800) >> 11;
-                        int note = searchFMNote(freq2nd);
+                        int note = SearchFMNote(freq2nd);
                         byte code = (byte)(octav * 12 + note);
 
                         //現在発音中で、更に前回と音階が異なっているか調べる
@@ -776,7 +772,7 @@ namespace MDPlayer
 
         }
 
-        private int searchFMNote(int freq)
+        private static int SearchFMNote(int freq)
         {
             int m = int.MaxValue;
             int n = 0;
@@ -792,7 +788,7 @@ namespace MDPlayer
             return n - 12 * 3;
         }
 
-        private int searchOPMNote(int freq)
+        private static int SearchOPMNote(int freq)
         {
             int note = freq & 0xf;
             note = (note < 3) ? note : (note < 7 ? note - 1 : (note < 11 ? note - 2 : note - 3));
@@ -800,7 +796,7 @@ namespace MDPlayer
             return note;
         }
 
-        private void SetDelta(int ch,midiChip chip, long NewFrameCounter)
+        private void SetDelta(int ch, MidiChip chip, long NewFrameCounter)
         {
             if (ch >= chip.oldFrameCounter.Length) return;
 
@@ -822,63 +818,64 @@ namespace MDPlayer
 
         private void MakeHeader()
         {
-            cData = new List<byte>();
+            cData = new List<byte>
+            {
+                0x4d, //チャンクタイプ'MThd'
+                0x54,
+                0x68,
+                0x64,
 
-            cData.Add(0x4d); //チャンクタイプ'MThd'
-            cData.Add(0x54);
-            cData.Add(0x68);
-            cData.Add(0x64);
+                0x00, //データ長
+                0x00,
+                0x00,
+                0x06,
 
-            cData.Add(0x00); //データ長
-            cData.Add(0x00);
-            cData.Add(0x00);
-            cData.Add(0x06);
+                0x00, //フォーマット
+                0x01,
 
-            cData.Add(0x00); //フォーマット
-            cData.Add(0x01);
+                0x00, //トラック数
+                0x01,
 
-            cData.Add(0x00); //トラック数
-            cData.Add(0x01);
+                0x01, //分解能
+                0xe0,
 
-            cData.Add(0x01); //分解能
-            cData.Add(0xe0);
+                0x4d, //チャンクタイプ'MTrk'
+                0x54,
+                0x72,
+                0x6b,
 
-            cData.Add(0x4d); //チャンクタイプ'MTrk'
-            cData.Add(0x54);
-            cData.Add(0x72);
-            cData.Add(0x6b);
+                0x00, //データ長 0x17
+                0x00,
+                0x00,
+                0x17,
 
-            cData.Add(0x00); //データ長 0x17
-            cData.Add(0x00);
-            cData.Add(0x00);
-            cData.Add(0x17);
+                0x00, //Delta 0
+                0xff, //メタイベント
+                0x03,
+                0x00,
 
-            cData.Add(0x00); //Delta 0
-            cData.Add(0xff); //メタイベント
-            cData.Add(0x03);
-            cData.Add(0x00);
+                0x00, //Delta 0
+                0xff, //メタイベント　拍子 4/4(固定)
+                0x58,
+                0x04,
+                0x04,
+                0x02,
+                0x18,
+                0x08,
 
-            cData.Add(0x00); //Delta 0
-            cData.Add(0xff); //メタイベント　拍子 4/4(固定)
-            cData.Add(0x58);
-            cData.Add(0x04);
-            cData.Add(0x04);
-            cData.Add(0x02);
-            cData.Add(0x18);
-            cData.Add(0x08);
+                0x00, //Delta 0
+                0xff, //メタイベント　テンポ設定 BPM = 120(固定)
+                0x51,
+                0x03,
+                0x07,
+                0xa1,
+                0x20,
 
-            cData.Add(0x00); //Delta 0
-            cData.Add(0xff); //メタイベント　テンポ設定 BPM = 120(固定)
-            cData.Add(0x51);
-            cData.Add(0x03);
-            cData.Add(0x07);
-            cData.Add(0xa1);
-            cData.Add(0x20);
-
-            cData.Add(0x00); //Delta 0
-            cData.Add(0xff); //メタイベント　終端
-            cData.Add(0x2f);
-            cData.Add(0x00);
+                0x00, //Delta 0
+                0xff, //メタイベント　終端
+                0x2f,
+                0x00
+            };
 
             // 実 Track
             if (setting.midiExport.UseYM2151Export) InitYM2151();
@@ -888,8 +885,10 @@ namespace MDPlayer
 
         private void InitYM2151()
         {
-            midi2151 = new midiChip();
-            midi2151.maxTrk = 8;
+            midi2151 = new MidiChip
+            {
+                maxTrk = 8
+            };
             midi2151.oldCode = new int[midi2151.maxTrk];
             midi2151.oldFreq = new int[midi2151.maxTrk];
             midi2151.data = new List<byte>[midi2151.maxTrk];
@@ -969,8 +968,10 @@ namespace MDPlayer
 
         private void InitYM2612()
         {
-            midi2612 = new midiChip();
-            midi2612.maxTrk = 6;
+            midi2612 = new MidiChip
+            {
+                maxTrk = 6
+            };
             midi2612.oldCode = new int[midi2612.maxTrk];
             midi2612.oldFreq = new int[midi2612.maxTrk];
             midi2612.data = new List<byte>[midi2612.maxTrk];
@@ -1050,7 +1051,7 @@ namespace MDPlayer
 
     }
 
-    public class midiChip
+    public class MidiChip
     {
         public List<byte>[] data = null;
         public long[] oldFrameCounter = null;

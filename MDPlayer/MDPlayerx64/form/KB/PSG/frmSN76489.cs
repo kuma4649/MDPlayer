@@ -1,18 +1,8 @@
 ﻿#if X64
 using MDPlayerx64;
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
@@ -39,7 +29,7 @@ namespace MDPlayer.form
 
             this.newParam = newParam;
             this.oldParam = oldParam;
-            frameBuffer.Add(pbScreen, ResMng.imgDic["planeSN76489"], null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.ImgDic["planeSN76489"], null, zoom);
             bool SN76489Type = (chipID == 0) ? parent.setting.SN76489Type[0].UseReal[0] : parent.setting.SN76489Type[1].UseReal[0];
             int tp = SN76489Type ? 1 : 0;
             DrawBuff.screenInitSN76489(frameBuffer, tp);
@@ -84,9 +74,9 @@ namespace MDPlayer.form
 
         public void ChangeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeSN76489"].Width * zoom, frameSizeH + ResMng.imgDic["planeSN76489"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeSN76489"].Width * zoom, frameSizeH + ResMng.imgDic["planeSN76489"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeSN76489"].Width * zoom, frameSizeH + ResMng.imgDic["planeSN76489"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeSN76489"].Width * zoom, frameSizeH + ResMng.ImgDic["planeSN76489"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeSN76489"].Width * zoom, frameSizeH + ResMng.ImgDic["planeSN76489"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeSN76489"].Width * zoom, frameSizeH + ResMng.ImgDic["planeSN76489"].Height * zoom);
             FrmSN76489_Resize(null, null);
 
         }
@@ -106,11 +96,11 @@ namespace MDPlayer.form
             int[][] psgVol1 = null;
             bool NGPFlag = Audio.SN76489NGPFlag;
 
-            if (NGPFlag && chipID==1)
+            if (NGPFlag && chipID == 1)
             {
                 for (int ch = 0; ch < 4; ch++)
                 {
-                        newParam.channels[ch].note = -1;
+                    newParam.channels[ch].note = -1;
 
                     newParam.channels[ch].volumeL = 0;
                     newParam.channels[ch].volumeR = 0;
@@ -136,7 +126,7 @@ namespace MDPlayer.form
                             newParam.channels[ch].freq = psgRegister[ch * 2];
                             if (psgRegister[ch * 2 + 1] != 15 && newParam.channels[ch].freq != 0)
                             {
-                                float ftone = Audio.clockSN76489 / (2.0f * psgRegister[ch * 2] * 16.0f);
+                                float ftone = Audio.ClockSN76489 / (2.0f * psgRegister[ch * 2] * 16.0f);
 
                                 newParam.channels[ch].note = SearchSSGNote(ftone);// searchPSGNote(psgRegister[ch * 2]);
                             }
@@ -148,7 +138,7 @@ namespace MDPlayer.form
                             newParam.channels[ch].volumeL = Math.Min(Math.Max((int)((psgVol[ch][0]) / (15.0 / 16.0)), 0), 16);
                             newParam.channels[ch].volumeR = Math.Min(Math.Max((int)((psgVol1[ch][0]) / (15.0 / 16.0)), 0), 16);
                             newParam.channels[ch].volume = Math.Max(psgVol[ch][0], psgVol1[ch][0]);
-                            newParam.channels[ch].pan = Math.Min(Math.Max(newParam.channels[ch].volumeR,0),15)*0x10 
+                            newParam.channels[ch].pan = Math.Min(Math.Max(newParam.channels[ch].volumeR, 0), 15) * 0x10
                                 + Math.Min(Math.Max(newParam.channels[ch].volumeL, 0), 15);
                         }
 
@@ -158,7 +148,7 @@ namespace MDPlayer.form
                         newParam.channels[3].volumeL = Math.Min(Math.Max((int)((psgVol[3][0]) / (15.0 / 16.0)), 0), 16);
                         newParam.channels[3].volumeR = Math.Min(Math.Max((int)((psgVol1[3][0]) / (15.0 / 16.0)), 0), 16);
                         newParam.channels[3].volume = Math.Max(psgVol[3][0], psgVol1[3][0]);
-                        newParam.channels[3].pan = Math.Min(Math.Max(newParam.channels[3].volumeR, 0), 15) * 0x10 
+                        newParam.channels[3].pan = Math.Min(Math.Max(newParam.channels[3].volumeR, 0), 15) * 0x10
                             + Math.Min(Math.Max(newParam.channels[3].volumeL, 0), 15);
                     }
                     else
@@ -167,7 +157,7 @@ namespace MDPlayer.form
                         for (int ch = 0; ch < 3; ch++)
                         {
                             newParam.channels[ch].freq = psgRegister[ch * 2];
-                            if (psgRegister[ch * 2 + 1] != 15 && newParam.channels[ch].freq !=0)
+                            if (psgRegister[ch * 2 + 1] != 15 && newParam.channels[ch].freq != 0)
                             {
                                 newParam.channels[ch].note = SearchPSGNote(psgRegister[ch * 2]);
                             }
@@ -326,14 +316,14 @@ namespace MDPlayer.form
             {
                 int ch = (py / 8) - 1;
                 if (ch < 0) return;
-                
+
                 bool NGPFlag = Audio.SN76489NGPFlag;
 
                 if (e.Button == MouseButtons.Left)
                 {
                     //マスク
                     parent.SetChannelMask(EnmChip.SN76489, chipID, ch);
-                    if(NGPFlag && chipID==0) parent.SetChannelMask(EnmChip.SN76489, 1, ch);
+                    if (NGPFlag && chipID == 0) parent.SetChannelMask(EnmChip.SN76489, 1, ch);
                     return;
                 }
 

@@ -19,15 +19,6 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //  ---------------------------------------------------------------------------
 using MDPlayer;
-using MDPlayer.Driver.MNDRV;
-using MDSound;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Driver.libsidplayfp.builders.resid_builder.reSID
 {
@@ -157,10 +148,10 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
 
         protected siddefs.chip_model sid_model;
         protected Voice[] voice = new Voice[3] { new Voice(), new Voice(), new Voice() };
-        protected Filter filter=new Filter();
-        protected ExternalFilter extfilt=new ExternalFilter();
-        protected Potentiometer potx=new Potentiometer();
-        protected Potentiometer poty=new Potentiometer();
+        protected Filter filter = new Filter();
+        protected ExternalFilter extfilt = new ExternalFilter();
+        protected Potentiometer potx = new Potentiometer();
+        protected Potentiometer poty = new Potentiometer();
 
         protected UInt32 bus_value;
         protected Int32 bus_value_ttl;
@@ -348,7 +339,7 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
             voice[1].set_sync_source(voice[0]);
             voice[2].set_sync_source(voice[1]);
 
-            set_sampling_parameters(985248, siddefs.sampling_method.SAMPLE_FAST,setting.outputDevice.SampleRate);
+            set_sampling_parameters(985248, siddefs.sampling_method.SAMPLE_FAST, setting.outputDevice.SampleRate);
 
             bus_value = 0;
             bus_value_ttl = 0;
@@ -499,7 +490,7 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
         {
             //Console.WriteLine("adr:{0} val:{1}", write_address, bus_value);
 
-            if(write_address<reg.Length) reg[write_address] = bus_value;
+            if (write_address < reg.Length) reg[write_address] = bus_value;
 
             switch (write_address)
             {
@@ -592,7 +583,7 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
         // ----------------------------------------------------------------------------
         public State read_state()
         {
-            State state=new State();
+            State state = new State();
             int i, j;
 
             for (i = 0, j = 0; i < 3; i++, j += 7)
@@ -990,7 +981,7 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
             // Clock and synchronize oscillators.
             // Loop until we reach the current cycle.
             Int32 delta_t_osc = delta_t;
-            while (delta_t_osc!=0)
+            while (delta_t_osc != 0)
             {
                 Int32 delta_t_min = delta_t_osc;
 
@@ -1003,7 +994,7 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
 
                     // It is only necessary to clock on the MSB of an oscillator that is
                     // a sync source and has freq != 0.
-                    if (!(wave.sync_dest.sync!=0 && wave.freq!=0))
+                    if (!(wave.sync_dest.sync != 0 && wave.freq != 0))
                     {
                         continue;
                     }
@@ -1087,13 +1078,13 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
             }
         }
 
-        public UInt32 clock(ref Int32 delta_t, Int16[] buf,Int32 ptrBuf, UInt32 n, UInt32 interleave = 1)
+        public UInt32 clock(ref Int32 delta_t, Int16[] buf, Int32 ptrBuf, UInt32 n, UInt32 interleave = 1)
         {
             switch (sampling)
             {
                 default:
                 case siddefs.sampling_method.SAMPLE_FAST:
-                    return (UInt32)clock_fast(ref delta_t, buf,ptrBuf, (Int32)n, (Int32)interleave);
+                    return (UInt32)clock_fast(ref delta_t, buf, ptrBuf, (Int32)n, (Int32)interleave);
                 case siddefs.sampling_method.SAMPLE_INTERPOLATE:
                     return (UInt32)clock_interpolate(ref delta_t, buf, ptrBuf, (Int32)n, (Int32)interleave);
                 case siddefs.sampling_method.SAMPLE_RESAMPLE:
@@ -1261,7 +1252,7 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
                 sample_offset = next_sample_offset & (Int32)enmSID.FIXP_MASK;
 
                 buf[s * interleave + ptrBuf] = sample_now;
-                  //(Int16)(sample_prev + ((sample_offset * (sample_now - sample_prev)) >> (Int32)enmSID.FIXP_SHIFT));
+                //(Int16)(sample_prev + ((sample_offset * (sample_now - sample_prev)) >> (Int32)enmSID.FIXP_SHIFT));
 
                 //if (gsample < 10000)
                 //{
@@ -1348,8 +1339,8 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
 
                 int fir_offset = sample_offset * fir_RES >> (Int32)enmSID.FIXP_SHIFT;
                 int fir_offset_rmd = sample_offset * fir_RES & (Int32)enmSID.FIXP_MASK;
-                Ptr<Int16> fir_start = new Ptr<short>(fir , fir_offset * fir_N);
-                Ptr<Int16> sample_start = new Ptr<short>(sample , sample_index - fir_N - 1 + (Int32)enmSID.RINGSIZE);
+                Ptr<Int16> fir_start = new Ptr<short>(fir, fir_offset * fir_N);
+                Ptr<Int16> sample_start = new Ptr<short>(sample, sample_index - fir_N - 1 + (Int32)enmSID.RINGSIZE);
 
                 // Convolution with filter impulse response.
                 int v1 = 0;
@@ -1365,7 +1356,7 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
                     fir_offset = 0;
                     sample_start.AddPtr(1);
                 }
-                fir_start = new Ptr<short>(fir , fir_offset * fir_N);
+                fir_start = new Ptr<short>(fir, fir_offset * fir_N);
 
                 // Convolution with filter impulse response.
                 int v2 = 0;
@@ -1423,7 +1414,7 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
                 {
                     clock();
                     //sample[sample_index] = sample[sample_index + (Int32)enmSID.RINGSIZE] = output();
-                    sample[sample_index] = sample[sample_index + (Int32)enmSID.RINGSIZE] =extfilt.output();
+                    sample[sample_index] = sample[sample_index + (Int32)enmSID.RINGSIZE] = extfilt.output();
                     ++sample_index;
                     sample_index &= (Int32)enmSID.RINGMASK;
                 }
@@ -1526,8 +1517,8 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
                 sample_offset = next_sample_offset & (Int32)enmSID.FIXP_MASK;
 
                 int fir_offset = sample_offset * fir_RES >> (Int32)enmSID.FIXP_SHIFT;
-                Ptr<Int16> fir_start = new Ptr<short>( fir , fir_offset * fir_N);
-                Ptr<Int16> sample_start =new Ptr<short>(sample , sample_index - fir_N + (Int32)enmSID.RINGSIZE);
+                Ptr<Int16> fir_start = new Ptr<short>(fir, fir_offset * fir_N);
+                Ptr<Int16> sample_start = new Ptr<short>(sample, sample_index - fir_N + (Int32)enmSID.RINGSIZE);
 
                 // Convolution with filter impulse response.
                 int v = 0;

@@ -1,10 +1,5 @@
 ﻿using Konamiman.Z80dotNet;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MDPlayer.Driver.MGSDRV
 {
@@ -158,7 +153,7 @@ namespace MDPlayer.Driver.MGSDRV
             //((MsxMemory)z80.Memory).ChangePage(3, 1, 2);
             //((MapperRAMCartridge)((MsxMemory)z80.Memory).slot.slots[3][1]).SetSegmentToPage(0x1a, 2);
 
-            log.Write(LogLevel.Trace,"\r\n_SYSCK(0010H)");
+            log.Write(LogLevel.Trace, "\r\n_SYSCK(0010H)");
             z80.Registers.PC = 0x6010;
             z80.Continue();
             //DebugRegisters(z80);

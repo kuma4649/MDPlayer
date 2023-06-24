@@ -1,12 +1,8 @@
 ﻿#if X64
 using MDPlayerx64;
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
-using System;
-using System.Drawing;
-using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
@@ -32,7 +28,7 @@ namespace MDPlayer.form
 
             this.newParam = newParam;
             this.oldParam = oldParam;
-            frameBuffer.Add(pbScreen, ResMng.imgDic["planeYM2610"], null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.ImgDic["planeYM2610"], null, zoom);
             screenInit();
             update();
         }
@@ -75,9 +71,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYM2610"].Width * zoom, frameSizeH + ResMng.imgDic["planeYM2610"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYM2610"].Width * zoom, frameSizeH + ResMng.imgDic["planeYM2610"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYM2610"].Width * zoom, frameSizeH + ResMng.imgDic["planeYM2610"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeYM2610"].Width * zoom, frameSizeH + ResMng.ImgDic["planeYM2610"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeYM2610"].Width * zoom, frameSizeH + ResMng.ImgDic["planeYM2610"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeYM2610"].Width * zoom, frameSizeH + ResMng.ImgDic["planeYM2610"].Height * zoom);
             frmYM2610_Resize(null, null);
 
         }
@@ -166,7 +162,7 @@ namespace MDPlayer.form
 
             for (int y = 0; y < 14; y++)
             {
-                DrawBuff.drawFont8(frameBuffer, 328+1, y * 8 + 8, 1, "   ");
+                DrawBuff.drawFont8(frameBuffer, 328 + 1, y * 8 + 8, 1, "   ");
 
                 if (y != 12)
                 {
@@ -191,13 +187,13 @@ namespace MDPlayer.form
                 int d = 99;
                 if (y > 5 && y < 9)
                 {
-                    DrawBuff.VolumeShort(frameBuffer, 280+1, 8 + y * 8, 0, ref d, 0, tp);
+                    DrawBuff.VolumeShort(frameBuffer, 280 + 1, 8 + y * 8, 0, ref d, 0, tp);
                 }
                 else
                 {
-                    DrawBuff.Volume(frameBuffer, 272+1, 8 + y * 8, 1, ref d, 0, tp);
+                    DrawBuff.Volume(frameBuffer, 272 + 1, 8 + y * 8, 1, ref d, 0, tp);
                     d = 99;
-                    DrawBuff.Volume(frameBuffer, 272+1, 8 + y * 8, 2, ref d, 0, tp);
+                    DrawBuff.Volume(frameBuffer, 272 + 1, 8 + y * 8, 2, ref d, 0, tp);
                 }
             }
 
@@ -247,10 +243,10 @@ namespace MDPlayer.form
             int defaultMasterClock = 8000000;
             float ssgMul = 1.0f;
             int masterClock = defaultMasterClock;
-            if (Audio.clockYM2610 != 0)
+            if (Audio.ClockYM2610 != 0)
             {
-                ssgMul = Audio.clockYM2610 / (float)defaultMasterClock;
-                masterClock = Audio.clockYM2610;
+                ssgMul = Audio.ClockYM2610 / (float)defaultMasterClock;
+                masterClock = Audio.ClockYM2610;
             }
 
             int divInd = YM2610Register[0][0x2d];
@@ -311,7 +307,7 @@ namespace MDPlayer.form
                     float ff = freq / ((2 << 20) / (masterClock / (24 * fmDiv))) * (2 << (octav + 2));
                     ff /= 1038f;
 
-                    if ((fmKeyYM2610[ch]&1) != 0)
+                    if ((fmKeyYM2610[ch] & 1) != 0)
                         n = Math.Min(Math.Max(Common.searchYM2608Adpcm(ff) - 1, 0), 95);
 
                     byte con = (byte)(fmKeyYM2610[ch]);
@@ -394,22 +390,20 @@ namespace MDPlayer.form
                 bool n = (YM2610Register[0][0x07] & (0x8 << ch)) == 0;
                 channel.tn = (t ? 1 : 0) + (n ? 2 : 0);
 
-                channel.volume = (int)(((t || n) ? 1 : 0) * (YM2610Register[0][0x08 + ch] & 0xf) * (15.0 / 16.0));
-                if (!t && !n && channel.volume > 0)
-                {
-                    channel.volume--;
-                }
+                channel.volumeL = YM2610Register[0][0x08 + ch] & 0xf;
+                channel.volume = (int)(((t || n) ? 1 : 0) * (YM2610Register[0][0x08 + ch] & 0xf));
 
-                if (channel.volume == 0)
+                int ft = YM2610Register[0][0x00 + ch * 2];
+                int ct = YM2610Register[0][0x01 + ch * 2];
+                int tp = (ct << 8) | ft;
+                channel.freq = tp;
+
+                if (channel.volumeL == 0)
                 {
                     channel.note = -1;
                 }
                 else
                 {
-                    int ft = YM2610Register[0][0x00 + ch * 2];
-                    int ct = YM2610Register[0][0x01 + ch * 2];
-                    int tp = (ct << 8) | ft;
-                    channel.freq = tp;
                     if (tp == 0)
                     {
                         channel.note = -1;

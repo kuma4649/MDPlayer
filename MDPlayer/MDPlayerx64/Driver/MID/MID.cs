@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace MDPlayer
 {
@@ -14,7 +10,7 @@ namespace MDPlayer
             musicStep = Common.VGMProcSampleRate / 60.0;// setting.outputDevice.SampleRate / 60.0;
         }
 
-    public const int FCC_MID = 0x6468544d;
+        public const int FCC_MID = 0x6468544d;
         public const int FCC_TRK = 0x6b72544d;
         public uint format = 0;
         public uint trkCount = 0;
@@ -59,7 +55,7 @@ namespace MDPlayer
             try
             {
                 if (Common.getLE32(buf, 0) != FCC_MID) return null;
-                uint format = (uint)(buf[8]*0x100+buf[9]);
+                uint format = (uint)(buf[8] * 0x100 + buf[9]);
                 uint trkCount = (uint)(buf[10] * 0x100 + buf[11]);
                 uint adr = 14;
                 byte midiEventBackup = 0;
@@ -360,7 +356,7 @@ namespace MDPlayer
 #endif
                             }
 
-                            chipRegister.sendMIDIout(model, trkPort[trk], eventData.ToArray(),vstDelta);
+                            chipRegister.sendMIDIout(model, trkPort[trk], eventData.ToArray(), vstDelta);
 
                             ptr = ptr + eventLen;
 
@@ -504,7 +500,7 @@ namespace MDPlayer
                                     chipRegister.sendMIDIout(model, trkPort[trk], cmd, vgmBuf[ptr], vgmBuf[ptr + 1], vstDelta);
 #if DEBUG
                                     //Console.Write("V1:{0:X2} V2:{1:X2} ", vgmBuf[ptr], vgmBuf[ptr + 1]);
-                                    Console.Write("{0:X2} {1:X2} {2:X2}",cmd, vgmBuf[ptr], vgmBuf[ptr + 1]);
+                                    Console.Write("{0:X2} {1:X2} {2:X2}", cmd, vgmBuf[ptr], vgmBuf[ptr + 1]);
 #endif
                                     ptr += 2;
                                 }
@@ -617,7 +613,7 @@ namespace MDPlayer
         {
             try
             {
-                midiOutInfo[] infos = chipRegister.GetMIDIoutInfo();
+                MidiOutInfo[] infos = chipRegister.GetMIDIoutInfo();
                 if (infos == null || infos.Length < 1) return true;
 
                 beforeSend = new List<RCP.CtlSysex>[infos.Length];

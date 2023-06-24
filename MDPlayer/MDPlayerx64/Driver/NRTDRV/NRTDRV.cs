@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-
-namespace MDPlayer
+﻿namespace MDPlayer
 {
     public class NRTDRV : baseDriver
     {
@@ -191,7 +184,7 @@ namespace MDPlayer
             }
 
 
-            if ( (((buf[2] & 0x80) != 0) && buf[41] != 2) || (buf[2] & 0x80) == 0)
+            if ((((buf[2] & 0x80) != 0) && buf[41] != 2) || (buf[2] & 0x80) == 0)
             {
                 gd3.Notes = "!!Warning!! This data version is older/newer.";
             }
@@ -534,8 +527,8 @@ namespace MDPlayer
                 //}
                 //else
                 //{
-                    ////CounterMode 無し
-                    //;
+                ////CounterMode 無し
+                //;
                 //}
 
                 if (CTC0DownCounter <= 0.0f)
@@ -543,7 +536,7 @@ namespace MDPlayer
                     CTC0Paluse = true;
                     //if ((work.ctc0 & 0x80) != 0)
                     //{
-                        //Parse();
+                    //Parse();
                     //}
                     CTC0DownCounter += CTC0DownCounterMAX;
                 }
@@ -553,13 +546,13 @@ namespace MDPlayer
                 //ctc1
                 //if ((work.ctc1 & 0x40) == 0)
                 //{
-                    //Timer Mode
-                    CTC1DownCounter -= CTC1Step;
+                //Timer Mode
+                CTC1DownCounter -= CTC1Step;
                 //}
                 //else
                 //{
-                    //CounterMode 無し
-                    //;
+                //CounterMode 無し
+                //;
                 //}
 
                 if (CTC1DownCounter <= 0.0f)
@@ -680,7 +673,7 @@ namespace MDPlayer
             }
 
             work.KEYON_LightMode = false;
-            work.PKEYON_LightMode = false; 
+            work.PKEYON_LightMode = false;
             if ((ram[hl] & 4) != 0)
             {
                 work.KEYON_LightMode = true;
@@ -942,7 +935,7 @@ namespace MDPlayer
 
         public class Work
         {
-            public ushort ctcflg=0;
+            public ushort ctcflg = 0;
             public ushort ctc3io = 0;
             public byte ctc0 = 0;
             public byte ctc1 = 0;
@@ -965,9 +958,9 @@ namespace MDPlayer
             public byte FSPEED = 5;
             public byte VER = 2;
 
-            public Ch[] OPM1Chs = new Ch[8] { new Ch(), new Ch(), new Ch(), new Ch(), new Ch(), new Ch(), new Ch(), new Ch()};
+            public Ch[] OPM1Chs = new Ch[8] { new Ch(), new Ch(), new Ch(), new Ch(), new Ch(), new Ch(), new Ch(), new Ch() };
             public Ch[] OPM2Chs = new Ch[8] { new Ch(), new Ch(), new Ch(), new Ch(), new Ch(), new Ch(), new Ch(), new Ch() };
-            public Ch[] PSGChs = new Ch[3] { new Ch(), new Ch(), new Ch()};
+            public Ch[] PSGChs = new Ch[3] { new Ch(), new Ch(), new Ch() };
 
             public byte[] OPM1vreg = new byte[256];
             public byte[] OPM2vreg = new byte[256];
@@ -1056,9 +1049,9 @@ namespace MDPlayer
 
         public class repBuf
         {
-            public byte count=0;
-            public ushort startAdr=0;
-            public ushort endAdr=0;
+            public byte count = 0;
+            public ushort startAdr = 0;
+            public ushort endAdr = 0;
         }
 
         private void imain()
@@ -1139,7 +1132,7 @@ namespace MDPlayer
                     {
                         if (wch.isCountNext == 0)
                         {
-                            comchk(wch,e);
+                            comchk(wch, e);
                             goto MAINL;
                         }
                         byte d = ram[wch.ptrData];
@@ -1148,7 +1141,7 @@ namespace MDPlayer
                         {
                             if (d == 0)
                             {
-                                comchk(wch,e);
+                                comchk(wch, e);
                                 goto MAINL;
                             }
                             wch.isCountNext = 0;
@@ -1169,15 +1162,15 @@ namespace MDPlayer
                     }
 
                 }
-                MAINL:
+            MAINL:
                 if ((work.PLYFLG & 0x3) > 1)
                 {
-                    mvset(wch,e);
+                    mvset(wch, e);
                 }
             }
         }
 
-        private void comchk(Ch wch,byte e)
+        private void comchk(Ch wch, byte e)
         {
             while (true)
             {
@@ -1227,7 +1220,7 @@ namespace MDPlayer
             }
         }
 
-        private int comck0(Ch wch, byte e,byte cmdno)
+        private int comck0(Ch wch, byte e, byte cmdno)
         {
             int r = 0;
             switch (cmdno)
@@ -1336,14 +1329,14 @@ namespace MDPlayer
 
         private int VSETL(Ch wch, byte e)
         {
-            byte a = (byte)(0x20+e);
+            byte a = (byte)(0x20 + e);
             byte d = a;
             a = ram[wch.ptrData];
             wch.PanAlgFb = a;
             wopm(d, a);
             wch.ptrData++;
             ushort bc = (ushort)(ram[wch.ptrData] + ram[wch.ptrData + 1] * 0x100);
-            wch.ptrData+=2;
+            wch.ptrData += 2;
             ushort hl = (ushort)(work.bgmadr + bc);
 
             VSETJ(wch, e, hl);
@@ -1351,7 +1344,7 @@ namespace MDPlayer
             return 0;
         }
 
-        private void VSETJ(Ch wch, byte e,ushort hl)
+        private void VSETJ(Ch wch, byte e, ushort hl)
         {
             byte d = (byte)(0x40 + e);
             byte a = e;
@@ -1659,7 +1652,7 @@ namespace MDPlayer
             return 0;
         }
 
-        private void WOPMBC(byte a,byte b,byte c,byte d)
+        private void WOPMBC(byte a, byte b, byte c, byte d)
         {
             if (c == 1)
             {
@@ -1848,13 +1841,13 @@ namespace MDPlayer
             work.ctc0 = 0x25;
             work.ctc0timeconstant = ram[wch.ptrData];
             work.ctc3 = 0xc5;
-            work.ctc3timeconstant = ram[wch.ptrData+1];
+            work.ctc3timeconstant = ram[wch.ptrData + 1];
 
             work.KEYONF_OPMMASK = 0x78;
             work.PENVF_VOL0 = false;
             work.FFFLG = 0;
 
-            wch.ptrData+=2; //CCRET
+            wch.ptrData += 2; //CCRET
 
             return 0;
         }
@@ -1971,7 +1964,7 @@ namespace MDPlayer
             work.PLYFLG = a;
         }
 
-        private void volops(Ch wch,byte a,byte e)
+        private void volops(Ch wch, byte a, byte e)
         {
             if ((a & 1) != 0)
             {
@@ -2026,7 +2019,7 @@ namespace MDPlayer
             mvwr(wch, e, 0);//OP1
         }
 
-        private void mvwr(Ch wch,byte e,int op)
+        private void mvwr(Ch wch, byte e, int op)
         {
             byte d = (byte)(0x60 + e + op * 8);
             byte a = (byte)(wch.Volume ^ 127);
@@ -2058,7 +2051,7 @@ namespace MDPlayer
             wopm(d, a);
         }
 
-        private void keyon(Ch wch,byte e, byte cmdno)
+        private void keyon(Ch wch, byte e, byte cmdno)
         {
             byte a = (byte)(cmdno & 0x7f);
             byte ks = (byte)(wch.Transpose);
@@ -2093,7 +2086,7 @@ namespace MDPlayer
             }
             else
             {
-                a = (byte)(((8-a) * bc) / 0x100);
+                a = (byte)(((8 - a) * bc) / 0x100);
             }
             a += wch.Q;
             a++;
@@ -2152,7 +2145,7 @@ namespace MDPlayer
             a = KTABLE[wch.NoteNumber];
             wopm(d, a);
 
-            KEYONE:
+        KEYONE:
             a = wch.LegartDelayFlg;
             c = a;
             wch.LegartDelayFlg = wch.LegartFlg;
@@ -2211,7 +2204,7 @@ namespace MDPlayer
             }
         }
 
-        private void tlrst(Ch wch,byte e)
+        private void tlrst(Ch wch, byte e)
         {
             byte a = (byte)(wch.PanAlgFb & 7);
             byte l = a;
@@ -2265,14 +2258,14 @@ namespace MDPlayer
             c = wch.OP4TL;
             wch.OP4TLs = c;
 
-            volsub(wch,e);
+            volsub(wch, e);
         }
 
         private void volsub(Ch wch, byte e)
         {
             byte a = 0x78;
             byte c = 11;
-            volwr(wch,a, c, e);
+            volwr(wch, a, c, e);
 
             a = (byte)(wch.PanAlgFb & 7);
             byte l = a;
@@ -2298,9 +2291,9 @@ namespace MDPlayer
             }
         }
 
-        private void volwr(Ch wch, byte a,byte c,byte e)
+        private void volwr(Ch wch, byte a, byte c, byte e)
         {
-            a+=e;
+            a += e;
             byte d = a;
 
             byte op = c;
@@ -2310,7 +2303,8 @@ namespace MDPlayer
             a = work.MVOL;
             byte b = a;
 
-            switch (op) {
+            switch (op)
+            {
                 case 8:
                     a = wch.OP1TL;
                     break;
@@ -2390,7 +2384,7 @@ namespace MDPlayer
                     //PMAIN1:
                     wch.Counter--;
 
-                    if (wch.Counter- wch.gatetime < 0)
+                    if (wch.Counter - wch.gatetime < 0)
                     {
                         if (wch.LegartFlg == 0)
                         {
@@ -2404,7 +2398,7 @@ namespace MDPlayer
 
                 }
 
-                PMAINL:
+            PMAINL:
                 if (wch.PSGToneAdr != 0)
                 {
                     PENV(wch, e);
@@ -2694,8 +2688,8 @@ namespace MDPlayer
                 c = 0;
             }
             a = wch.Detune;
-            a = (byte)(~a+1); //NEG
-            if (a-129 < 0)
+            a = (byte)(~a + 1); //NEG
+            if (a - 129 < 0)
             {
                 //PKON6
                 if (a + c <= 255)
@@ -2757,13 +2751,13 @@ namespace MDPlayer
                     goto PKON9;
                 }
             }
-            PKON8:
+        PKON8:
             wch.PSGTone = (ushort)(b * 0x100 + c);
             wpsg(d, c);
             d++;
             wpsg(d, b);
 
-            PKON9:
+        PKON9:
             a = wch.LegartDelayFlg;
             c = a;
             wch.LegartDelayFlg = wch.LegartFlg;
@@ -2805,7 +2799,7 @@ namespace MDPlayer
             wch.PSGRRVolOffset = a;
             wch.PSGToneAdr = wch.PSGToneStartAdr;
 
-            PKONE:
+        PKONE:
             a = wch.softPMType;
             if ((a & 0x80) != 0)
             {
@@ -2882,7 +2876,7 @@ namespace MDPlayer
             ushort hl = e;
             hl = (ushort)(hl * 8);
             hl += bc;
-            a=work.PFLG;
+            a = work.PFLG;
             a &= PMTBL[hl];
             a |= PMTBL[hl + 1];
             work.PFLG = a;
@@ -2922,7 +2916,7 @@ namespace MDPlayer
         private int PERIOD(Ch wch, byte e)
         {
             wpsg(11, ram[wch.ptrData]);
-            wpsg(12, ram[wch.ptrData+1]);
+            wpsg(12, ram[wch.ptrData + 1]);
 
             wch.ptrData += 2;//CCRET
             return 0;
@@ -2958,11 +2952,11 @@ namespace MDPlayer
             {
                 Ch wch = chs[e];
 
-                if (wch.PortaFlg != 0) EPOR(wch,e);
+                if (wch.PortaFlg != 0) EPOR(wch, e);
 
-                if (wch.softPMStep != 0) EPM(wch,e);
+                if (wch.softPMStep != 0) EPM(wch, e);
 
-                if (wch.softAMStep != 0) EAM(wch,e);
+                if (wch.softAMStep != 0) EAM(wch, e);
             }
         }
 
@@ -3088,7 +3082,7 @@ namespace MDPlayer
             wch.softPMStepCount = a;
 
             a = wch.softPMProcCount;
-            if (a -8<0)
+            if (a - 8 < 0)
             {
                 //EPMS0:
                 if (a >= 4)
@@ -3341,7 +3335,7 @@ namespace MDPlayer
             wch.PSGTone = (ushort)((h * 0x100) + l);
 
             wpsg((byte)(e * 2), l);
-            wpsg((byte)(e * 2+1), h);
+            wpsg((byte)(e * 2 + 1), h);
 
         }
 
@@ -3438,7 +3432,7 @@ namespace MDPlayer
 
         }
 
-        private void PEPMH1(Ch wch, byte a, byte h,byte l, byte e)
+        private void PEPMH1(Ch wch, byte a, byte h, byte l, byte e)
         {
             byte b = e;
             //byte c = 0;
@@ -3465,7 +3459,7 @@ namespace MDPlayer
                 hl = (ushort)(wch.softPMPitch * 64);
                 int x = (h * 0x100 + l) + hl;
 
-                if ((ushort)(x>>8) >= 16)
+                if ((ushort)(x >> 8) >= 16)
                 {
                     hl = 4095;
                 }
@@ -3496,13 +3490,13 @@ namespace MDPlayer
 
             wch.PSGTone = (ushort)(h * 0x100 + l);
 
-            wpsg((byte)(e*2), l);
-            wpsg((byte)(e*2+1), h);
+            wpsg((byte)(e * 2), l);
+            wpsg((byte)(e * 2 + 1), h);
         }
 
         private void PEPMP(Ch wch, byte a, byte h, byte l, byte e)
         {
-            ushort p = (ushort)(wch.softPMPitch );
+            ushort p = (ushort)(wch.softPMPitch);
             ushort hl = (ushort)(h * 0x100 + l);
             if ((byte)((hl + p) >> 8) >= 16)
             {

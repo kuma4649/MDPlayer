@@ -1,15 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using MDPlayerx64;
+﻿using MDPlayerx64;
 #if X64
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
@@ -39,7 +29,7 @@ namespace MDPlayer.form
             this.newParam = newParam;
             this.oldParam = oldParam;
 
-            frameBuffer.Add(pbScreen, ResMng.imgDic["planePPZ8"], null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.ImgDic["planePPZ8"], null, zoom);
             screenInit();
             update();
         }
@@ -81,9 +71,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planePPZ8"].Width * zoom, frameSizeH + ResMng.imgDic["planePPZ8"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planePPZ8"].Width * zoom, frameSizeH + ResMng.imgDic["planePPZ8"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planePPZ8"].Width * zoom, frameSizeH + ResMng.imgDic["planePPZ8"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planePPZ8"].Width * zoom, frameSizeH + ResMng.ImgDic["planePPZ8"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planePPZ8"].Width * zoom, frameSizeH + ResMng.ImgDic["planePPZ8"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planePPZ8"].Width * zoom, frameSizeH + ResMng.ImgDic["planePPZ8"].Height * zoom);
             frmPPZ8_Resize(null, null);
 
         }
@@ -120,7 +110,7 @@ namespace MDPlayer.form
         {
             double m = double.MaxValue;
 
-            int clock = Audio.clockPPZ8;
+            int clock = Audio.ClockPPZ8;
             if (clock >= 1000000)
                 clock = (int)clock / 384;
 
@@ -158,7 +148,7 @@ namespace MDPlayer.form
                     int kt = Tables.kbl[(ot % 12) * 2 + 1];
                     DrawBuff.drawKbn(frameBuffer, 32 + kx, ch * 8 + 8, kt, tp);
                 }
-                DrawBuff.drawFont8(frameBuffer, 4*754, ch * 8 + 8, 1, "   ");
+                DrawBuff.drawFont8(frameBuffer, 4 * 754, ch * 8 + 8, 1, "   ");
                 DrawBuff.drawPanType2P(frameBuffer, 24, ch * 8 + 8, 0, tp);
                 //DrawBuff.ChPPZ8_P(frameBuffer, 0, 8 + ch * 8, ch, false, tp);
                 //int d = 99;
@@ -173,7 +163,7 @@ namespace MDPlayer.form
             PPZ8.PPZChannelWork[] ppz8State = Audio.GetPPZ8Register(chipID);
             if (ppz8State == null) return;
 
-            for(int ch = 0; ch < 8; ch++)
+            for (int ch = 0; ch < 8; ch++)
             {
                 if (ppz8State.Length < ch + 1) continue;
                 if (ppz8State[ch] == null) continue;
@@ -225,14 +215,14 @@ namespace MDPlayer.form
                 MDChipParams.Channel orc = oldParam.channels[c];
                 MDChipParams.Channel nrc = newParam.channels[c];
 
-                DrawBuff.VolumeXY(frameBuffer, 64, c * 2+2, 1, ref orc.volumeL, nrc.volumeL, tp);
-                DrawBuff.VolumeXY(frameBuffer, 64, c * 2+3, 1, ref orc.volumeR, nrc.volumeR, tp);
+                DrawBuff.VolumeXY(frameBuffer, 64, c * 2 + 2, 1, ref orc.volumeL, nrc.volumeL, tp);
+                DrawBuff.VolumeXY(frameBuffer, 64, c * 2 + 3, 1, ref orc.volumeR, nrc.volumeR, tp);
                 DrawBuff.KeyBoard(frameBuffer, c, ref orc.note, nrc.note, tp);
                 DrawBuff.PanType3(frameBuffer, c, ref orc.pan, nrc.pan, tp);
 
                 //DrawBuff.ChC140(frameBuffer, c, ref orc.mask, nrc.mask, tp);
 
-                DrawBuff.drawNESSw(frameBuffer, 4 * 4, c * 8 + 8*10, ref oldParam.channels[c].dda, newParam.channels[c].dda);
+                DrawBuff.drawNESSw(frameBuffer, 4 * 4, c * 8 + 8 * 10, ref oldParam.channels[c].dda, newParam.channels[c].dda);
 
                 uint dmy;
 

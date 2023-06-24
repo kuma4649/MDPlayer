@@ -28,11 +28,7 @@
   L. Peter Deutsch
   ghost@aladdin.com
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Driver.libsidplayfp.utils.MD5
 {
@@ -203,7 +199,7 @@ namespace Driver.libsidplayfp.utils.MD5
                 myMD5.finish();
                 //Console.Write("MD5 (\"" + test[i] + "\") = ");
                 //for (int di = 0; di < 16; ++di)
-                    //Console.Write("{0:X02}", (int)(myMD5.getDigest()[di]));
+                //Console.Write("{0:X02}", (int)(myMD5.getDigest()[di]));
                 //Console.WriteLine("");
             }
             return 0;
@@ -452,7 +448,7 @@ namespace Driver.libsidplayfp.utils.MD5
                 count[1]++;
 
             /* Process an initial partial block. */
-            Ptr<byte> pBuf = new Ptr<byte>(buf,0);
+            Ptr<byte> pBuf = new Ptr<byte>(buf, 0);
             if (offset != 0)
             {
                 int copy = (offset + nbytes > 64) ? (64 - offset) : nbytes;
@@ -461,7 +457,7 @@ namespace Driver.libsidplayfp.utils.MD5
                 pBuf.AddPtr(-offset);
                 if (offset + copy < 64)
                     return;
-                p .AddPtr(copy);
+                p.AddPtr(copy);
                 left -= copy;
                 process(pBuf);
             }

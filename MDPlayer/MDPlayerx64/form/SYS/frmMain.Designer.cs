@@ -205,7 +205,7 @@ namespace MDPlayer.form
             // 
             pbScreen.BackColor = Color.Black;
             resources.ApplyResources(pbScreen, "pbScreen");
-            pbScreen.Image = ResMng.imgDic["planeControl"];
+            pbScreen.Image = ResMng.ImgDic["planeControl"];
             pbScreen.Name = "pbScreen";
             pbScreen.TabStop = false;
             pbScreen.DragDrop += pbScreen_DragDrop;
@@ -770,7 +770,7 @@ namespace MDPlayer.form
             // ファイルToolStripMenuItem
             // 
             ファイルToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { tsmiOpenFile, tsmiExit });
-            ファイルToolStripMenuItem.Image = ResMng.imgDic["ccOpenFolder"];
+            ファイルToolStripMenuItem.Image = ResMng.ImgDic["ccOpenFolder"];
             ファイルToolStripMenuItem.Name = "ファイルToolStripMenuItem";
             resources.ApplyResources(ファイルToolStripMenuItem, "ファイルToolStripMenuItem");
             // 
@@ -794,84 +794,84 @@ namespace MDPlayer.form
             // 
             // tsmiPlay
             // 
-            tsmiPlay.Image = ResMng.imgDic["ccPlay"];
+            tsmiPlay.Image = ResMng.ImgDic["ccPlay"];
             tsmiPlay.Name = "tsmiPlay";
             resources.ApplyResources(tsmiPlay, "tsmiPlay");
             tsmiPlay.Click += TsmiPlay_Click;
             // 
             // tsmiStop
             // 
-            tsmiStop.Image = ResMng.imgDic["ccStop"];
+            tsmiStop.Image = ResMng.ImgDic["ccStop"];
             tsmiStop.Name = "tsmiStop";
             resources.ApplyResources(tsmiStop, "tsmiStop");
             tsmiStop.Click += TsmiStop_Click;
             // 
             // tsmiPause
             // 
-            tsmiPause.Image = ResMng.imgDic["ccPause"];
+            tsmiPause.Image = ResMng.ImgDic["ccPause"];
             tsmiPause.Name = "tsmiPause";
             resources.ApplyResources(tsmiPause, "tsmiPause");
             tsmiPause.Click += TsmiPause_Click;
             // 
             // tsmiFadeOut
             // 
-            tsmiFadeOut.Image = ResMng.imgDic["ccFadeout"];
+            tsmiFadeOut.Image = ResMng.ImgDic["ccFadeout"];
             tsmiFadeOut.Name = "tsmiFadeOut";
             resources.ApplyResources(tsmiFadeOut, "tsmiFadeOut");
             tsmiFadeOut.Click += TsmiFadeOut_Click;
             // 
             // tsmiSlow
             // 
-            tsmiSlow.Image = ResMng.imgDic["ccSlow"];
+            tsmiSlow.Image = ResMng.ImgDic["ccSlow"];
             tsmiSlow.Name = "tsmiSlow";
             resources.ApplyResources(tsmiSlow, "tsmiSlow");
             tsmiSlow.Click += TsmiSlow_Click;
             // 
             // tsmiFf
             // 
-            tsmiFf.Image = ResMng.imgDic["ccFast"];
+            tsmiFf.Image = ResMng.ImgDic["ccFast"];
             tsmiFf.Name = "tsmiFf";
             resources.ApplyResources(tsmiFf, "tsmiFf");
             tsmiFf.Click += TsmiFf_Click;
             // 
             // tsmiNext
             // 
-            tsmiNext.Image = ResMng.imgDic["ccNext"];
+            tsmiNext.Image = ResMng.ImgDic["ccNext"];
             tsmiNext.Name = "tsmiNext";
             resources.ApplyResources(tsmiNext, "tsmiNext");
             tsmiNext.Click += TsmiNext_Click;
             // 
             // tsmiPlayMode
             // 
-            tsmiPlayMode.Image = ResMng.imgDic["ccStep"];
+            tsmiPlayMode.Image = ResMng.ImgDic["ccStep"];
             tsmiPlayMode.Name = "tsmiPlayMode";
             resources.ApplyResources(tsmiPlayMode, "tsmiPlayMode");
             tsmiPlayMode.Click += TsmiPlayMode_Click;
             // 
             // tsmiOption
             // 
-            tsmiOption.Image = ResMng.imgDic["ccSetting"];
+            tsmiOption.Image = ResMng.ImgDic["ccSetting"];
             tsmiOption.Name = "tsmiOption";
             resources.ApplyResources(tsmiOption, "tsmiOption");
             tsmiOption.Click += TsmiOption_Click;
             // 
             // tsmiPlayList
             // 
-            tsmiPlayList.Image = ResMng.imgDic["ccPlayList"];
+            tsmiPlayList.Image = ResMng.ImgDic["ccPlayList"];
             tsmiPlayList.Name = "tsmiPlayList";
             resources.ApplyResources(tsmiPlayList, "tsmiPlayList");
             tsmiPlayList.Click += TsmiPlayList_Click;
             // 
             // tsmiOpenInfo
             // 
-            tsmiOpenInfo.Image = ResMng.imgDic["ccInformation"];
+            tsmiOpenInfo.Image = ResMng.ImgDic["ccInformation"];
             tsmiOpenInfo.Name = "tsmiOpenInfo";
             resources.ApplyResources(tsmiOpenInfo, "tsmiOpenInfo");
             tsmiOpenInfo.Click += TsmiOpenInfo_Click;
             // 
             // tsmiOpenMixer
             // 
-            tsmiOpenMixer.Image = ResMng.imgDic["ccMixer"];
+            tsmiOpenMixer.Image = ResMng.ImgDic["ccMixer"];
             tsmiOpenMixer.Name = "tsmiOpenMixer";
             resources.ApplyResources(tsmiOpenMixer, "tsmiOpenMixer");
             tsmiOpenMixer.Click += TsmiOpenMixer_Click;
@@ -884,21 +884,21 @@ namespace MDPlayer.form
             // 
             // tsmiKBrd
             // 
-            tsmiKBrd.Image = ResMng.imgDic["ccKBD"];
+            tsmiKBrd.Image = ResMng.ImgDic["ccKBD"];
             tsmiKBrd.Name = "tsmiKBrd";
             resources.ApplyResources(tsmiKBrd, "tsmiKBrd");
             tsmiKBrd.Click += TsmiKBrd_Click;
             // 
             // tsmiVST
             // 
-            tsmiVST.Image = ResMng.imgDic["ccVST"];
+            tsmiVST.Image = ResMng.ImgDic["ccVST"];
             tsmiVST.Name = "tsmiVST";
             resources.ApplyResources(tsmiVST, "tsmiVST");
             tsmiVST.Click += TsmiVST_Click;
             // 
             // tsmiMIDIkbd
             // 
-            tsmiMIDIkbd.Image = ResMng.imgDic["ccMIDIKBD"];
+            tsmiMIDIkbd.Image = ResMng.ImgDic["ccMIDIKBD"];
             tsmiMIDIkbd.Name = "tsmiMIDIkbd";
             resources.ApplyResources(tsmiMIDIkbd, "tsmiMIDIkbd");
             tsmiMIDIkbd.Click += TsmiMIDIkbd_Click;
@@ -906,7 +906,7 @@ namespace MDPlayer.form
             // tsmiChangeZoom
             // 
             tsmiChangeZoom.DropDownItems.AddRange(new ToolStripItem[] { tsmiChangeZoomX1, tsmiChangeZoomX2, tsmiChangeZoomX3, tsmiChangeZoomX4 });
-            tsmiChangeZoom.Image = ResMng.imgDic["ccZoom"];
+            tsmiChangeZoom.Image = ResMng.ImgDic["ccZoom"];
             tsmiChangeZoom.Name = "tsmiChangeZoom";
             resources.ApplyResources(tsmiChangeZoom, "tsmiChangeZoom");
             tsmiChangeZoom.Click += TsmiChangeZoom_Click;
@@ -1060,7 +1060,7 @@ namespace MDPlayer.form
             // 
             opeButtonSetting.AllowDrop = true;
             opeButtonSetting.BackColor = Color.Black;
-            opeButtonSetting.BackgroundImage = ResMng.imgDic["ccFadeout"];
+            opeButtonSetting.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonSetting, "opeButtonSetting");
             opeButtonSetting.FlatAppearance.BorderColor = Color.Black;
             opeButtonSetting.FlatAppearance.BorderSize = 0;
@@ -1080,7 +1080,7 @@ namespace MDPlayer.form
             // 
             opeButtonStop.AllowDrop = true;
             opeButtonStop.BackColor = Color.Black;
-            opeButtonStop.BackgroundImage = ResMng.imgDic["ccFadeout"];
+            opeButtonStop.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonStop, "opeButtonStop");
             opeButtonStop.FlatAppearance.BorderColor = Color.Black;
             opeButtonStop.FlatAppearance.BorderSize = 0;
@@ -1100,7 +1100,7 @@ namespace MDPlayer.form
             // 
             opeButtonPause.AllowDrop = true;
             opeButtonPause.BackColor = Color.Black;
-            opeButtonPause.BackgroundImage = ResMng.imgDic["ccFadeout"];
+            opeButtonPause.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonPause, "opeButtonPause");
             opeButtonPause.FlatAppearance.BorderColor = Color.Black;
             opeButtonPause.FlatAppearance.BorderSize = 0;
@@ -1120,7 +1120,7 @@ namespace MDPlayer.form
             // 
             opeButtonFadeout.AllowDrop = true;
             opeButtonFadeout.BackColor = Color.Black;
-            opeButtonFadeout.BackgroundImage = ResMng.imgDic["ccFadeout"];
+            opeButtonFadeout.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonFadeout, "opeButtonFadeout");
             opeButtonFadeout.FlatAppearance.BorderColor = Color.Black;
             opeButtonFadeout.FlatAppearance.BorderSize = 0;
@@ -1140,7 +1140,7 @@ namespace MDPlayer.form
             // 
             opeButtonPrevious.AllowDrop = true;
             opeButtonPrevious.BackColor = Color.Black;
-            opeButtonPrevious.BackgroundImage = ResMng.imgDic["ccFadeout"];
+            opeButtonPrevious.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonPrevious, "opeButtonPrevious");
             opeButtonPrevious.FlatAppearance.BorderColor = Color.Black;
             opeButtonPrevious.FlatAppearance.BorderSize = 0;
@@ -1160,7 +1160,7 @@ namespace MDPlayer.form
             // 
             opeButtonSlow.AllowDrop = true;
             opeButtonSlow.BackColor = Color.Black;
-            opeButtonSlow.BackgroundImage = ResMng.imgDic["ccFadeout"];
+            opeButtonSlow.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonSlow, "opeButtonSlow");
             opeButtonSlow.FlatAppearance.BorderColor = Color.Black;
             opeButtonSlow.FlatAppearance.BorderSize = 0;
@@ -1180,7 +1180,7 @@ namespace MDPlayer.form
             // 
             opeButtonPlay.AllowDrop = true;
             opeButtonPlay.BackColor = Color.Black;
-            opeButtonPlay.BackgroundImage = ResMng.imgDic["ccFadeout"];
+            opeButtonPlay.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonPlay, "opeButtonPlay");
             opeButtonPlay.FlatAppearance.BorderColor = Color.Black;
             opeButtonPlay.FlatAppearance.BorderSize = 0;
@@ -1200,7 +1200,7 @@ namespace MDPlayer.form
             // 
             opeButtonFast.AllowDrop = true;
             opeButtonFast.BackColor = Color.Black;
-            opeButtonFast.BackgroundImage = ResMng.imgDic["ccFadeout"];
+            opeButtonFast.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonFast, "opeButtonFast");
             opeButtonFast.FlatAppearance.BorderColor = Color.Black;
             opeButtonFast.FlatAppearance.BorderSize = 0;
@@ -1220,7 +1220,7 @@ namespace MDPlayer.form
             // 
             opeButtonNext.AllowDrop = true;
             opeButtonNext.BackColor = Color.Black;
-            opeButtonNext.BackgroundImage = ResMng.imgDic["ccFadeout"];
+            opeButtonNext.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonNext, "opeButtonNext");
             opeButtonNext.FlatAppearance.BorderColor = Color.Black;
             opeButtonNext.FlatAppearance.BorderSize = 0;
@@ -1240,7 +1240,7 @@ namespace MDPlayer.form
             // 
             opeButtonZoom.AllowDrop = true;
             opeButtonZoom.BackColor = Color.Black;
-            opeButtonZoom.BackgroundImage = ResMng.imgDic["ccFadeout"];
+            opeButtonZoom.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonZoom, "opeButtonZoom");
             opeButtonZoom.FlatAppearance.BorderColor = Color.Black;
             opeButtonZoom.FlatAppearance.BorderSize = 0;
@@ -1260,7 +1260,7 @@ namespace MDPlayer.form
             // 
             opeButtonMIDIKBD.AllowDrop = true;
             opeButtonMIDIKBD.BackColor = Color.Black;
-            opeButtonMIDIKBD.BackgroundImage = ResMng.imgDic["ccFadeout"];
+            opeButtonMIDIKBD.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonMIDIKBD, "opeButtonMIDIKBD");
             opeButtonMIDIKBD.FlatAppearance.BorderColor = Color.Black;
             opeButtonMIDIKBD.FlatAppearance.BorderSize = 0;
@@ -1280,7 +1280,7 @@ namespace MDPlayer.form
             // 
             opeButtonVST.AllowDrop = true;
             opeButtonVST.BackColor = Color.Black;
-            opeButtonVST.BackgroundImage = ResMng.imgDic["ccFadeout"];
+            opeButtonVST.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonVST, "opeButtonVST");
             opeButtonVST.FlatAppearance.BorderColor = Color.Black;
             opeButtonVST.FlatAppearance.BorderSize = 0;
@@ -1300,7 +1300,7 @@ namespace MDPlayer.form
             // 
             opeButtonKBD.AllowDrop = true;
             opeButtonKBD.BackColor = Color.Black;
-            opeButtonKBD.BackgroundImage = ResMng.imgDic["ccFadeout"];
+            opeButtonKBD.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonKBD, "opeButtonKBD");
             opeButtonKBD.FlatAppearance.BorderColor = Color.Black;
             opeButtonKBD.FlatAppearance.BorderSize = 0;
@@ -1320,7 +1320,7 @@ namespace MDPlayer.form
             // 
             opeButtonMixer.AllowDrop = true;
             opeButtonMixer.BackColor = Color.Black;
-            opeButtonMixer.BackgroundImage = ResMng.imgDic["ccFadeout"];
+            opeButtonMixer.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonMixer, "opeButtonMixer");
             opeButtonMixer.FlatAppearance.BorderColor = Color.Black;
             opeButtonMixer.FlatAppearance.BorderSize = 0;
@@ -1340,7 +1340,7 @@ namespace MDPlayer.form
             // 
             opeButtonInformation.AllowDrop = true;
             opeButtonInformation.BackColor = Color.Black;
-            opeButtonInformation.BackgroundImage = ResMng.imgDic["ccFadeout"];
+            opeButtonInformation.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonInformation, "opeButtonInformation");
             opeButtonInformation.FlatAppearance.BorderColor = Color.Black;
             opeButtonInformation.FlatAppearance.BorderSize = 0;
@@ -1360,7 +1360,7 @@ namespace MDPlayer.form
             // 
             opeButtonPlayList.AllowDrop = true;
             opeButtonPlayList.BackColor = Color.Black;
-            opeButtonPlayList.BackgroundImage = ResMng.imgDic["ccFadeout"];
+            opeButtonPlayList.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonPlayList, "opeButtonPlayList");
             opeButtonPlayList.FlatAppearance.BorderColor = Color.Black;
             opeButtonPlayList.FlatAppearance.BorderSize = 0;
@@ -1380,7 +1380,7 @@ namespace MDPlayer.form
             // 
             opeButtonOpen.AllowDrop = true;
             opeButtonOpen.BackColor = Color.Black;
-            opeButtonOpen.BackgroundImage = ResMng.imgDic["ccFadeout"];
+            opeButtonOpen.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonOpen, "opeButtonOpen");
             opeButtonOpen.FlatAppearance.BorderColor = Color.Black;
             opeButtonOpen.FlatAppearance.BorderSize = 0;
@@ -1400,7 +1400,7 @@ namespace MDPlayer.form
             // 
             opeButtonMode.AllowDrop = true;
             opeButtonMode.BackColor = Color.Black;
-            opeButtonMode.BackgroundImage = ResMng.imgDic["ccFadeout"];
+            opeButtonMode.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonMode, "opeButtonMode");
             opeButtonMode.FlatAppearance.BorderColor = Color.Black;
             opeButtonMode.FlatAppearance.BorderSize = 0;

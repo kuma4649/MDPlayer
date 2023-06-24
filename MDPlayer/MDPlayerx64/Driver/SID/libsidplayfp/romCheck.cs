@@ -17,11 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Driver.libsidplayfp
 {
@@ -45,7 +40,7 @@ namespace Driver.libsidplayfp
          * Maps checksums to respective ROM description.
          * Must be filled by derived class.
          */
-        private Dictionary<string, string> m_checksums=new Dictionary<string, string>();
+        private Dictionary<string, string> m_checksums = new Dictionary<string, string>();
 
         /**
          * Pointer to the ROM buffer

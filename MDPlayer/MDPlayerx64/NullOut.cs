@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using NAudio.Wave;
+﻿using NAudio.Wave;
+
+#pragma warning disable CS0067
 
 namespace MDPlayer
 {
     public class NullOut : IWavePlayer, IDisposable
     {
-        private bool isNoWaitMode;
+        //private bool isNoWaitMode;
 
-        public NullOut(bool isNoWaitMode)
+        public NullOut(bool _)
         {
-            this.isNoWaitMode = isNoWaitMode;
+            //this.isNoWaitMode = isNoWaitMode;
         }
 
         public PlaybackState PlaybackState
@@ -27,7 +23,8 @@ namespace MDPlayer
 
         public float Volume
         {
-            get {
+            get
+            {
                 return 0f;
             }
             set
@@ -40,8 +37,9 @@ namespace MDPlayer
 
         public event EventHandler<StoppedEventArgs> PlaybackStopped;
 
-        public void Dispose()
+        void IDisposable.Dispose()
         {
+            GC.SuppressFinalize(this);
         }
 
         public void Init(IWaveProvider waveProvider)
@@ -70,7 +68,7 @@ namespace MDPlayer
 
         private Thread trdMain;
         private IWaveProvider wP;
-        private byte[] buf = new byte[4000];
+        private readonly byte[] buf = new byte[4000];
         private PlaybackState pbState = PlaybackState.Stopped;
         private bool reqStop = false;
 
@@ -82,10 +80,12 @@ namespace MDPlayer
             }
 
             reqStop = false;
-            trdMain = new Thread(new ThreadStart(TrdFunction));
-            trdMain.Priority = ThreadPriority.Highest;
-            trdMain.IsBackground = true;
-            trdMain.Name = "trdNullOutFunction";
+            trdMain = new Thread(new ThreadStart(TrdFunction))
+            {
+                Priority = ThreadPriority.Highest,
+                IsBackground = true,
+                Name = "trdNullOutFunction"
+            };
             trdMain.Start();
         }
 

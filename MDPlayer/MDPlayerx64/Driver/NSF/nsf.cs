@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MDSound.np;
-using MDSound.np.memory;
-using MDSound.np.cpu;
+﻿using MDSound.np;
 using MDSound.np.chip;
+using MDSound.np.cpu;
+using MDSound.np.memory;
+using System.Text;
 
 namespace MDPlayer
 {
@@ -478,17 +474,17 @@ namespace MDPlayer
             return Render(b, length, 0);
         }
 
-        public UInt32 Render(Int16[] b, UInt32 length,Int32 offset)
+        public UInt32 Render(Int16[] b, UInt32 length, Int32 offset)
         {
             if (model == EnmModel.RealModel) return length;
             if (chipRegister == null) return length;
 
             if (vgmFrameCounter < 0)
             {
-                vgmFrameCounter+=length;
+                vgmFrameCounter += length;
                 return length;
             }
- 
+
             Int32[] buf = new Int32[2];
             Int32[] _out = new Int32[2];
             Int32 outm;
@@ -510,7 +506,7 @@ namespace MDPlayer
             {
                 //total_render++;
                 vgmSpeedCounter += vgmSpeed;
-                Counter=(Int32)vgmSpeedCounter;
+                Counter = (Int32)vgmSpeedCounter;
                 vgmFrameCounter++;
 
                 // tick CPU
@@ -683,13 +679,13 @@ namespace MDPlayer
                 playtime_detected = true;
                 TotalCounter = (long)(ld.GetLoopEnd() * setting.outputDevice.SampleRate / 1000L);
                 if (TotalCounter == 0) TotalCounter = Counter;
-                LoopCounter = (long)((ld.GetLoopEnd()- ld.GetLoopStart()) * setting.outputDevice.SampleRate / 1000L);
+                LoopCounter = (long)((ld.GetLoopEnd() - ld.GetLoopStart()) * setting.outputDevice.SampleRate / 1000L);
             }
         }
 
         public void DetectSilent()
         {
-            if (silent_length> setting.outputDevice.SampleRate * 3 && !playtime_detected)
+            if (silent_length > setting.outputDevice.SampleRate * 3 && !playtime_detected)
             {
                 playtime_detected = true;
                 TotalCounter = (long)(ld.GetLoopEnd() * setting.outputDevice.SampleRate / 1000L);

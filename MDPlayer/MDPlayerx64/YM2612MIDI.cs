@@ -1,22 +1,16 @@
-﻿using NAudio.Midi;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using MDPlayer.form;
+using NAudio.Midi;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using MDPlayer.form;
 
 namespace MDPlayer
 {
     public class YM2612MIDI
     {
         private int latestNoteNumberMONO = -1;
-        private int[] latestNoteNumber = new int[6] { -1, -1, -1, -1, -1, -1 };
+        private readonly int[] latestNoteNumber = new int[6] { -1, -1, -1, -1, -1, -1 };
 
-        private form.frmMain parent = null;
-        private MDSound.MDSound mdsMIDI = null;
+        private readonly form.frmMain parent;
+        private readonly MDSound.MDSound mdsMIDI;
         public MDChipParams newParam = null;
 
 
@@ -259,7 +253,7 @@ namespace MDPlayer
 
         private Tone VoiceCopyChToTone(int des, string name)
         {
-            Tone tone = new Tone();
+            Tone tone = new();
             int[][] reg = mdsMIDI.ReadYM2612Register(0);
 
             for (int i = 0; i < 4; i++)
@@ -288,33 +282,33 @@ namespace MDPlayer
             return tone;
         }
 
-        private Tone VoiceCopyToneToTone(Tone src, string name)
-        {
-            Tone des = new Tone();
+        //private static Tone VoiceCopyToneToTone(Tone src, string name)
+        //{
+        //    Tone des = new();
 
-            for (int i = 0; i < 4; i++)
-            {
-                des.OPs[i].AR = src.OPs[i].AR;//AR
-                des.OPs[i].KS = src.OPs[i].KS;//KS
-                des.OPs[i].DR = src.OPs[i].DR;//DR
-                des.OPs[i].AM = src.OPs[i].AM;//AM
-                des.OPs[i].SR = src.OPs[i].SR;//SR
-                des.OPs[i].RR = src.OPs[i].RR;//RR
-                des.OPs[i].SL = src.OPs[i].SL;//SL
-                des.OPs[i].TL = src.OPs[i].TL;//TL
-                des.OPs[i].ML = src.OPs[i].ML;//ML
-                des.OPs[i].DT = src.OPs[i].DT;//DT
-                des.OPs[i].DT2 = 0;
-            }
+        //    for (int i = 0; i < 4; i++)
+        //    {
+        //        des.OPs[i].AR = src.OPs[i].AR;//AR
+        //        des.OPs[i].KS = src.OPs[i].KS;//KS
+        //        des.OPs[i].DR = src.OPs[i].DR;//DR
+        //        des.OPs[i].AM = src.OPs[i].AM;//AM
+        //        des.OPs[i].SR = src.OPs[i].SR;//SR
+        //        des.OPs[i].RR = src.OPs[i].RR;//RR
+        //        des.OPs[i].SL = src.OPs[i].SL;//SL
+        //        des.OPs[i].TL = src.OPs[i].TL;//TL
+        //        des.OPs[i].ML = src.OPs[i].ML;//ML
+        //        des.OPs[i].DT = src.OPs[i].DT;//DT
+        //        des.OPs[i].DT2 = 0;
+        //    }
 
-            des.AL = src.AL;//AL
-            des.FB = src.FB;//FB
-            des.AMS = 0;
-            des.PMS = 0;
-            des.name = name;
+        //    des.AL = src.AL;//AL
+        //    des.FB = src.FB;//FB
+        //    des.AMS = 0;
+        //    des.PMS = 0;
+        //    des.name = name;
 
-            return des;
-        }
+        //    return des;
+        //}
 
         public void SetVoiceFromChipRegister(EnmChip chip, int chipID, int ch)
         {
@@ -428,7 +422,7 @@ namespace MDPlayer
             if (NoteLog[ch][ptr] == -1) return;
 
             //解析開始
-            StringBuilder mml = new StringBuilder("o");
+            StringBuilder mml = new("o");
 
             //オクターブコマンド
             int oct = NoteLog[ch][ptr] / 12;
@@ -445,7 +439,7 @@ namespace MDPlayer
                 {
                     do
                     {
-                        mml.Append(">");
+                        mml.Append('>');
                         oct++;
                     } while (oct != o);
                 }
@@ -453,7 +447,7 @@ namespace MDPlayer
                 {
                     do
                     {
-                        mml.Append("<");
+                        mml.Append('<');
                         oct--;
                     } while (oct != o);
                 }
@@ -493,7 +487,7 @@ namespace MDPlayer
             if (ptr == NoteLogPtr[ch]) return;
 
             //解析開始
-            StringBuilder mml = new StringBuilder("");
+            StringBuilder mml = new("");
 
             //オクターブのみ取得
             int oct = NoteLog[ch][ptr] / 12;
@@ -509,7 +503,7 @@ namespace MDPlayer
                 {
                     do
                     {
-                        mml.Append(">");
+                        mml.Append('>');
                         oct++;
                     } while (oct != o);
                 }
@@ -517,7 +511,7 @@ namespace MDPlayer
                 {
                     do
                     {
-                        mml.Append("<");
+                        mml.Append('<');
                         oct--;
                     } while (oct != o);
                 }
@@ -558,7 +552,7 @@ namespace MDPlayer
             NoteLogPtr[ch] = 0;
         }
 
-        public void midiIn_MessageReceived(MidiInMessageEventArgs e)
+        public void MidiInMessageReceived(MidiInMessageEventArgs e)
         {
             try
             {
@@ -662,10 +656,11 @@ namespace MDPlayer
                     }
                 }
             }
-            catch(Exception ex) {
+            catch (Exception ex)
+            {
                 MessageBox.Show(
                     string.Format("Exception:\r\n{0}\r\nStackTrace:\r\n{1}\r\n", ex.Message, ex.StackTrace)
-                    ,"ERROR"
+                    , "ERROR"
                     , MessageBoxButtons.OK
                     , MessageBoxIcon.Error
                     );
@@ -689,7 +684,7 @@ namespace MDPlayer
             }
         }
 
-        public void SaveTonePallet(string fn, int tp, TonePallet tonePallet)
+        public static void SaveTonePallet(string fn, int tp, TonePallet tonePallet)
         {
             if (tp == 1)
             {
@@ -700,58 +695,58 @@ namespace MDPlayer
             Encoding enc = Encoding.GetEncoding("shift_jis");
             if (tp == 2) enc = Encoding.Default;
 
-            using (StreamWriter sw = new StreamWriter(fn, false,enc))
+            using StreamWriter sw = new(fn, false, enc);
+            int n = 0;
+            int row = 10;
+            foreach (Tone t in tonePallet.LstTone)
             {
-                int n = 0;
-                int row = 10;
-                foreach (Tone t in tonePallet.lstTone)
+                string[] toneText = null;
+                switch (tp)
                 {
-                    string[] toneText = null;
-                    switch (tp)
-                    {
-                        case 2:
-                            toneText = makeToneTextForMml2vgm(t, n++);
-                            break;
-                        case 3:
-                            toneText = makeToneTextForFMP7(t, n++);
-                            break;
-                        case 4:
-                            toneText = makeToneTextForNRTDRV(t, n++);
-                            break;
-                        case 5:
-                            toneText = makeToneTextForMXDRV(t, n++);
-                            break;
-                        case 6:
-                            toneText = makeToneTextForMUSICLALF(t, n++);
-                            break;
-                    }
+                    case 2:
+                        toneText = MakeToneTextForMml2vgm(t, n++);
+                        break;
+                    case 3:
+                        toneText = MakeToneTextForFMP7(t, n++);
+                        break;
+                    case 4:
+                        toneText = MakeToneTextForNRTDRV(t, n++);
+                        break;
+                    case 5:
+                        toneText = MakeToneTextForMXDRV(t, n++);
+                        break;
+                    case 6:
+                        toneText = MakeToneTextForMUSICLALF(t, n++);
+                        break;
+                }
 
-                    if (tp != 6)
+                if (tp != 6)
+                {
+                    foreach (string text in toneText)
                     {
-                        foreach (string text in toneText)
-                        {
-                            sw.WriteLine(text);
-                        }
+                        sw.WriteLine(text);
                     }
-                    else
+                }
+                else
+                {
+                    foreach (string text in toneText)
                     {
-                        foreach (string text in toneText)
-                        {
-                            sw.WriteLine(text.Replace("[ROW]", row.ToString()));
-                            row += 10;
-                        }
+                        sw.WriteLine(text.Replace("[ROW]", row.ToString()));
+                        row += 10;
                     }
                 }
             }
 
         }
 
-        private string[] makeToneTextForMml2vgm(Tone t,int n)
+        private static string[] MakeToneTextForMml2vgm(Tone t, int n)
         {
-            List<string> tt = new List<string>();
-            tt.Add(string.Format("{0}", t.name));
-            tt.Add(string.Format("'@ N {0:D3}", n));
-            tt.Add("   AR  DR  SR  RR  SL  TL  KS  ML  DT  AM  SSG - EG");
+            List<string> tt = new()
+            {
+                string.Format("{0}", t.name),
+                string.Format("'@ N {0:D3}", n),
+                "   AR  DR  SR  RR  SL  TL  KS  ML  DT  AM  SSG - EG"
+            };
             foreach (Tone.Op op in t.OPs)
             {
                 tt.Add(string.Format("'@ {0:D3} {1:D3} {2:D3} {3:D3} {4:D3} {5:D3} {6:D3} {7:D3} {8:D3} {9:D3} {10:D3}"
@@ -765,13 +760,14 @@ namespace MDPlayer
             return tt.ToArray();
         }
 
-        private string[] makeToneTextForFMP7(Tone t, int n)
+        private static string[] MakeToneTextForFMP7(Tone t, int n)
         {
-            List<string> tt = new List<string>();
-
-            tt.Add(string.Format("{0}", t.name));
-            tt.Add(string.Format("'@ FA {0:D3}", n));
-            tt.Add("   AR  DR  SR  RR  SL  TL  KS  ML  DT  AM");
+            List<string> tt = new()
+            {
+                string.Format("{0}", t.name),
+                string.Format("'@ FA {0:D3}", n),
+                "   AR  DR  SR  RR  SL  TL  KS  ML  DT  AM"
+            };
             foreach (Tone.Op op in t.OPs)
             {
                 tt.Add(string.Format("'@ {0:D3} {1:D3} {2:D3} {3:D3} {4:D3} {5:D3} {6:D3} {7:D3} {8:D3} {9:D3} "
@@ -785,13 +781,15 @@ namespace MDPlayer
             return tt.ToArray();
         }
 
-        private string[] makeToneTextForNRTDRV(Tone t, int n)
+        private static string[] MakeToneTextForNRTDRV(Tone t, int n)
         {
-            List<string> tt = new List<string>();
-            tt.Add(string.Format("@{0:D3} {{ ;{1}", n, t.name));
-            tt.Add(";PAN ALG FB  OP");
-            tt.Add(string.Format(" 003,{0:D3},{1:D3},015", t.AL, t.FB));
-            tt.Add("; AR  DR  SR  RR  SL  TL  KS  ML  DT1 DT2 AME");
+            List<string> tt = new()
+            {
+                string.Format("@{0:D3} {{ ;{1}", n, t.name),
+                ";PAN ALG FB  OP",
+                string.Format(" 003,{0:D3},{1:D3},015", t.AL, t.FB),
+                "; AR  DR  SR  RR  SL  TL  KS  ML  DT1 DT2 AME"
+            };
             foreach (Tone.Op op in t.OPs)
             {
                 tt.Add(string.Format("  {0:D3},{1:D3},{2:D3},{3:D3},{4:D3},{5:D3},{6:D3},{7:D3},{8:D3},{9:D3},{10:D3}"
@@ -804,13 +802,14 @@ namespace MDPlayer
             return tt.ToArray();
         }
 
-        private string[] makeToneTextForMXDRV(Tone t, int n)
+        private static string[] MakeToneTextForMXDRV(Tone t, int n)
         {
-            List<string> tt = new List<string>();
-
-            tt.Add(string.Format("/* {0} */", t.name));
-            tt.Add(string.Format("@{0}= {{ ", n));
-            tt.Add("/* AR  D1R D2R RR  D1L TL  KS  MUL DT1 DT2 AME */");
+            List<string> tt = new()
+            {
+                string.Format("/* {0} */", t.name),
+                string.Format("@{0}= {{ ", n),
+                "/* AR  D1R D2R RR  D1L TL  KS  MUL DT1 DT2 AME */"
+            };
             foreach (Tone.Op op in t.OPs)
             {
                 tt.Add(string.Format("   {0:d3},{1:d3},{2:d3},{3:d3},{4:d3},{5:d3},{6:d3},{7:d3},{8:d3},{9:d3},{10:d3}"
@@ -825,12 +824,13 @@ namespace MDPlayer
             return tt.ToArray();
         }
 
-        private string[] makeToneTextForMUSICLALF(Tone t, int n)
+        private static string[] MakeToneTextForMUSICLALF(Tone t, int n)
         {
-            List<string> tt = new List<string>();
-
-            tt.Add(string.Format("[ROW] ' @{0}:{{", n));
-            tt.Add(string.Format("[ROW] ' {0,3},{1,3}", t.AL, t.FB));
+            List<string> tt = new()
+            {
+                string.Format("[ROW] ' @{0}:{{", n),
+                string.Format("[ROW] ' {0,3},{1,3}", t.AL, t.FB)
+            };
 
             int o = 0;
             foreach (Tone.Op op in t.OPs)
@@ -855,18 +855,18 @@ namespace MDPlayer
             return tt.ToArray();
         }
 
-        public void LoadTonePallet(string fn, int tp, TonePallet tonePallet)
+        public static void LoadTonePallet(string fn, int tp, TonePallet tonePallet)
         {
             if (tp == 1)
             {
                 TonePallet tP = TonePallet.Load(fn);
-                tonePallet.lstTone = tP.lstTone;
+                tonePallet.LstTone = tP.LstTone;
                 return;
             }
 
-            List<string> tnt = new List<string>();
+            List<string> tnt = new();
 
-            using (StreamReader sr = new StreamReader(fn))
+            using (StreamReader sr = new(fn))
             {
                 string line;
                 while ((line = sr.ReadLine()) != null)
@@ -895,11 +895,11 @@ namespace MDPlayer
             }
         }
 
-        public void LoadTonePalletFromMml2vgm(string[] tnt, TonePallet tonePallet)
+        public static void LoadTonePalletFromMml2vgm(string[] tnt, TonePallet tonePallet)
         {
             string line;
             int stage = 0;
-            List<int> toneBuf = new List<int>();
+            List<int> toneBuf = new();
             int index = 0;
 
             while ((line = index == tnt.Length ? null : tnt[index++]) != null)
@@ -914,13 +914,13 @@ namespace MDPlayer
                     stage = 1;
                     if (line.Length < 2) continue;
 
-                    line = line.Substring(1).Trim();
+                    line = line[1..].Trim();
                 }
 
                 if (stage > 0)
                 {
-                    int[] nums = numSplit(line);
-                    if(nums.Length==0 && line == "xx")
+                    int[] nums = NumSplit(line);
+                    if (nums.Length == 0 && line == "xx")
                     {
                         nums = new int[] { 0 };
                     }
@@ -933,29 +933,33 @@ namespace MDPlayer
                     {
                         if (stage == 48)
                         {
-                            Tone t = new Tone();
-                            t.name = string.Format("No.{0}(From MML2VGM)", toneBuf[0]);
-                            t.OPs = new Tone.Op[4];
+                            Tone t = new()
+                            {
+                                name = string.Format("No.{0}(From MML2VGM)", toneBuf[0]),
+                                OPs = new Tone.Op[4]
+                            };
                             for (int i = 0; i < 4; i++)
                             {
-                                t.OPs[i] = new Tone.Op();
-                                t.OPs[i].AR = toneBuf[i * 11 + 1];
-                                t.OPs[i].DR = toneBuf[i * 11 + 2];
-                                t.OPs[i].SR = toneBuf[i * 11 + 3];
-                                t.OPs[i].RR = toneBuf[i * 11 + 4];
-                                t.OPs[i].SL = toneBuf[i * 11 + 5];
-                                t.OPs[i].TL = toneBuf[i * 11 + 6];
-                                t.OPs[i].KS = toneBuf[i * 11 + 7];
-                                t.OPs[i].ML = toneBuf[i * 11 + 8];
-                                t.OPs[i].DT = toneBuf[i * 11 + 9];
-                                t.OPs[i].AM = toneBuf[i * 11 + 10];
-                                t.OPs[i].SG = toneBuf[i * 11 + 11];
-                                t.OPs[i].DT2 = 0;
+                                t.OPs[i] = new Tone.Op
+                                {
+                                    AR = toneBuf[i * 11 + 1],
+                                    DR = toneBuf[i * 11 + 2],
+                                    SR = toneBuf[i * 11 + 3],
+                                    RR = toneBuf[i * 11 + 4],
+                                    SL = toneBuf[i * 11 + 5],
+                                    TL = toneBuf[i * 11 + 6],
+                                    KS = toneBuf[i * 11 + 7],
+                                    ML = toneBuf[i * 11 + 8],
+                                    DT = toneBuf[i * 11 + 9],
+                                    AM = toneBuf[i * 11 + 10],
+                                    SG = toneBuf[i * 11 + 11],
+                                    DT2 = 0
+                                };
                             }
                             t.AL = toneBuf[45];
                             t.FB = toneBuf[46];
 
-                            tonePallet.lstTone[toneBuf[0]] = t;
+                            tonePallet.LstTone[toneBuf[0]] = t;
                         }
 
                         stage = 0;
@@ -966,11 +970,11 @@ namespace MDPlayer
             }
         }
 
-        public void LoadTonePalletFromFMP7(string[] tnt, TonePallet tonePallet)
+        public static void LoadTonePalletFromFMP7(string[] tnt, TonePallet tonePallet)
         {
             string line;
             int stage = 0;
-            List<int> toneBuf = new List<int>();
+            List<int> toneBuf = new();
             int m = 0;
             int index = 0;
 
@@ -986,25 +990,25 @@ namespace MDPlayer
                     stage = 1;
                     if (line.Length < 2) continue;
 
-                    line = line.Substring(1).Trim();
+                    line = line[1..].Trim();
                     c = line[0].ToString().ToUpper();
                     m = 0;//互換モード
 
                     if (c == "A")
                     {
                         m = 1;//OPNAモード
-                        line = line.Substring(1).Trim();
+                        line = line[1..].Trim();
                     }
                     else if (c == "C")
                     {
                         m = 2;//OPMモード
-                        line = line.Substring(1).Trim();
+                        line = line[1..].Trim();
                     }
                 }
 
                 if (stage > 0)
                 {
-                    int[] nums = numSplit(line);
+                    int[] nums = NumSplit(line);
                     foreach (int n in nums)
                     {
                         stage++;
@@ -1016,29 +1020,33 @@ namespace MDPlayer
                         if (stage == 40)
                         {
                             //互換
-                            Tone t = new Tone();
-                            t.name = string.Format("No.{0}(From FMP7 compatible)", toneBuf[0]);
-                            t.OPs = new Tone.Op[4];
+                            Tone t = new()
+                            {
+                                name = string.Format("No.{0}(From FMP7 compatible)", toneBuf[0]),
+                                OPs = new Tone.Op[4]
+                            };
                             for (int i = 0; i < 4; i++)
                             {
-                                t.OPs[i] = new Tone.Op();
-                                t.OPs[i].AR = toneBuf[i * 9 + 1];
-                                t.OPs[i].DR = toneBuf[i * 9 + 2];
-                                t.OPs[i].SR = toneBuf[i * 9 + 3];
-                                t.OPs[i].RR = toneBuf[i * 9 + 4];
-                                t.OPs[i].SL = toneBuf[i * 9 + 5];
-                                t.OPs[i].TL = toneBuf[i * 9 + 6];
-                                t.OPs[i].KS = toneBuf[i * 9 + 7];
-                                t.OPs[i].ML = toneBuf[i * 9 + 8];
-                                t.OPs[i].DT = toneBuf[i * 9 + 9];
-                                t.OPs[i].AM = 0;
-                                t.OPs[i].SG = 0;
-                                t.OPs[i].DT2 = 0;
+                                t.OPs[i] = new Tone.Op
+                                {
+                                    AR = toneBuf[i * 9 + 1],
+                                    DR = toneBuf[i * 9 + 2],
+                                    SR = toneBuf[i * 9 + 3],
+                                    RR = toneBuf[i * 9 + 4],
+                                    SL = toneBuf[i * 9 + 5],
+                                    TL = toneBuf[i * 9 + 6],
+                                    KS = toneBuf[i * 9 + 7],
+                                    ML = toneBuf[i * 9 + 8],
+                                    DT = toneBuf[i * 9 + 9],
+                                    AM = 0,
+                                    SG = 0,
+                                    DT2 = 0
+                                };
                             }
                             t.AL = toneBuf[37];
                             t.FB = toneBuf[38];
 
-                            tonePallet.lstTone[toneBuf[0]] = t;
+                            tonePallet.LstTone[toneBuf[0]] = t;
                         }
 
                         stage = 0;
@@ -1050,29 +1058,33 @@ namespace MDPlayer
                         if (stage == 44)
                         {
                             //OPNA
-                            Tone t = new Tone();
-                            t.name = string.Format("No.{0}(From FMP7 OPNA)", toneBuf[0]);
-                            t.OPs = new Tone.Op[4];
+                            Tone t = new()
+                            {
+                                name = string.Format("No.{0}(From FMP7 OPNA)", toneBuf[0]),
+                                OPs = new Tone.Op[4]
+                            };
                             for (int i = 0; i < 4; i++)
                             {
-                                t.OPs[i] = new Tone.Op();
-                                t.OPs[i].AR = toneBuf[i * 10 + 1];
-                                t.OPs[i].DR = toneBuf[i * 10 + 2];
-                                t.OPs[i].SR = toneBuf[i * 10 + 3];
-                                t.OPs[i].RR = toneBuf[i * 10 + 4];
-                                t.OPs[i].SL = toneBuf[i * 10 + 5];
-                                t.OPs[i].TL = toneBuf[i * 10 + 6];
-                                t.OPs[i].KS = toneBuf[i * 10 + 7];
-                                t.OPs[i].ML = toneBuf[i * 10 + 8];
-                                t.OPs[i].DT = toneBuf[i * 10 + 9];
-                                t.OPs[i].AM = toneBuf[i * 10 + 10];
-                                t.OPs[i].SG = 0;
-                                t.OPs[i].DT2 = 0;
+                                t.OPs[i] = new Tone.Op
+                                {
+                                    AR = toneBuf[i * 10 + 1],
+                                    DR = toneBuf[i * 10 + 2],
+                                    SR = toneBuf[i * 10 + 3],
+                                    RR = toneBuf[i * 10 + 4],
+                                    SL = toneBuf[i * 10 + 5],
+                                    TL = toneBuf[i * 10 + 6],
+                                    KS = toneBuf[i * 10 + 7],
+                                    ML = toneBuf[i * 10 + 8],
+                                    DT = toneBuf[i * 10 + 9],
+                                    AM = toneBuf[i * 10 + 10],
+                                    SG = 0,
+                                    DT2 = 0
+                                };
                             }
                             t.AL = toneBuf[41];
                             t.FB = toneBuf[42];
 
-                            tonePallet.lstTone[toneBuf[0]] = t;
+                            tonePallet.LstTone[toneBuf[0]] = t;
                         }
 
                         stage = 0;
@@ -1084,29 +1096,33 @@ namespace MDPlayer
                         if (stage == 48)
                         {
                             //OPM
-                            Tone t = new Tone();
-                            t.name = string.Format("No.{0}(From FMP7 OPM)", toneBuf[0]);
-                            t.OPs = new Tone.Op[4];
+                            Tone t = new()
+                            {
+                                name = string.Format("No.{0}(From FMP7 OPM)", toneBuf[0]),
+                                OPs = new Tone.Op[4]
+                            };
                             for (int i = 0; i < 4; i++)
                             {
-                                t.OPs[i] = new Tone.Op();
-                                t.OPs[i].AR = toneBuf[i * 11 + 1];
-                                t.OPs[i].DR = toneBuf[i * 11 + 2];
-                                t.OPs[i].SR = toneBuf[i * 11 + 3];
-                                t.OPs[i].RR = toneBuf[i * 11 + 4];
-                                t.OPs[i].SL = toneBuf[i * 11 + 5];
-                                t.OPs[i].TL = toneBuf[i * 11 + 6];
-                                t.OPs[i].KS = toneBuf[i * 11 + 7];
-                                t.OPs[i].ML = toneBuf[i * 11 + 8];
-                                t.OPs[i].DT = toneBuf[i * 11 + 9];
-                                t.OPs[i].DT2 = toneBuf[i * 11 + 10];
-                                t.OPs[i].AM = toneBuf[i * 11 + 11];
-                                t.OPs[i].SG = 0;
+                                t.OPs[i] = new Tone.Op
+                                {
+                                    AR = toneBuf[i * 11 + 1],
+                                    DR = toneBuf[i * 11 + 2],
+                                    SR = toneBuf[i * 11 + 3],
+                                    RR = toneBuf[i * 11 + 4],
+                                    SL = toneBuf[i * 11 + 5],
+                                    TL = toneBuf[i * 11 + 6],
+                                    KS = toneBuf[i * 11 + 7],
+                                    ML = toneBuf[i * 11 + 8],
+                                    DT = toneBuf[i * 11 + 9],
+                                    DT2 = toneBuf[i * 11 + 10],
+                                    AM = toneBuf[i * 11 + 11],
+                                    SG = 0
+                                };
                             }
                             t.AL = toneBuf[45];
                             t.FB = toneBuf[46];
 
-                            tonePallet.lstTone[toneBuf[0]] = t;
+                            tonePallet.LstTone[toneBuf[0]] = t;
                         }
 
                         stage = 0;
@@ -1117,7 +1133,7 @@ namespace MDPlayer
             }
         }
 
-        public void LoadTonePalletFromNRTDRV(string[] tnt, TonePallet tonePallet)
+        public static void LoadTonePalletFromNRTDRV(string[] tnt, TonePallet tonePallet)
         {
             int voiceMode = 0;
 
@@ -1143,7 +1159,7 @@ namespace MDPlayer
                             line = index == tnt.Length ? null : tnt[index++];
                             continue;
                         }
-                        line = line.Substring(ind + 2);
+                        line = line[(ind + 2)..];
                         continue;
                     }
 
@@ -1159,7 +1175,7 @@ namespace MDPlayer
                         line = index == tnt.Length ? null : tnt[index++];
                         continue;
                     }
-                    line = line.Substring(0, ind);
+                    line = line[..ind];
                     continue;
                 }
 
@@ -1167,11 +1183,11 @@ namespace MDPlayer
                 if (ind >= 0)
                 {
                     cm = true;
-                    line = line.Substring(0, ind);
+                    line = line[..ind];
                 }
 
                 string cmd = line.Trim().ToUpper();
-                if (cmd.IndexOf("#VOICE_MODE") >= 0)
+                if (cmd.Contains("#VOICE_MODE", StringComparison.CurrentCulture))
                 {
                     try
                     {
@@ -1185,13 +1201,9 @@ namespace MDPlayer
 
                 line = index == tnt.Length ? null : tnt[index++];
             } while (line != null);
-
-
-            line="";
             cm = false;
-            ind=0;
             int stage = 0;
-            List<int> toneBuf = new List<int>();
+            List<int> toneBuf = new();
             index = 0;
 
             line = index == tnt.Length ? null : tnt[index++];
@@ -1211,7 +1223,7 @@ namespace MDPlayer
                             line = index == tnt.Length ? null : tnt[index++];
                             continue;
                         }
-                        line = line.Substring(ind + 2);
+                        line = line[(ind + 2)..];
                         continue;
                     }
 
@@ -1227,7 +1239,7 @@ namespace MDPlayer
                         line = index == tnt.Length ? null : tnt[index++];
                         continue;
                     }
-                    line = line.Substring(0, ind);
+                    line = line[..ind];
                     continue;
                 }
 
@@ -1235,7 +1247,7 @@ namespace MDPlayer
                 if (ind >= 0)
                 {
                     cm = true;
-                    line = line.Substring(0, ind);
+                    line = line[..ind];
                 }
 
                 string cmd = line.Trim();
@@ -1248,17 +1260,17 @@ namespace MDPlayer
                 if (stage == 0 && cmd[0] == '@')
                 {
                     stage++;
-                    line = line.Substring(1);
+                    line = line[1..];
 
                     char c = line[0];
                     int? n = null;
                     while (c >= '0' && c <= '9')
                     {
-                        if (n == null) n = 0;
+                        n ??= 0;
 
                         n = n * 10 + (c - '0');
 
-                        line = line.Substring(1);
+                        line = line[1..];
                         if (line.Length < 1) break;
 
                         c = line[0];
@@ -1270,9 +1282,9 @@ namespace MDPlayer
                 else if (stage == 1 && cmd[0] == '{')
                 {
                     stage++;
-                    line = line.Substring(1);
+                    line = line[1..];
 
-                    int[] nums = numSplit(line);
+                    int[] nums = NumSplit(line);
                     foreach (int n in nums)
                     {
                         toneBuf.Add(n);
@@ -1284,19 +1296,19 @@ namespace MDPlayer
                 else if (stage == 2)
                 {
 
-                    int[] nums = numSplit(line);
+                    int[] nums = NumSplit(line);
                     foreach (int n in nums)
                     {
                         toneBuf.Add(n);
                     }
 
-                    if (line.IndexOf('}') >= 0)
+                    if (line.Contains('}'))
                     {
-
                         //
-                        Tone t = null;
-                        t = new Tone();
-                        t.name = string.Format("No.{0}(From NRTDRV)", toneBuf[0]);
+                        Tone t = new()
+                        {
+                            name = string.Format("No.{0}(From NRTDRV)", toneBuf[0])
+                        };
 
                         switch (voiceMode)
                         {
@@ -1304,144 +1316,156 @@ namespace MDPlayer
                                 t.OPs = new Tone.Op[4];
                                 for (int i = 0; i < 4; i++)
                                 {
-                                    t.OPs[i] = new Tone.Op();
-                                    t.OPs[i].AR = toneBuf[i * 11 + 5];
-                                    t.OPs[i].DR = toneBuf[i * 11 + 6];
-                                    t.OPs[i].SR = toneBuf[i * 11 + 7];
-                                    t.OPs[i].RR = toneBuf[i * 11 + 8];
-                                    t.OPs[i].SL = toneBuf[i * 11 + 9];
-                                    t.OPs[i].TL = toneBuf[i * 11 + 10];
-                                    t.OPs[i].KS = toneBuf[i * 11 + 11];
-                                    t.OPs[i].ML = toneBuf[i * 11 + 12];
-                                    t.OPs[i].DT = toneBuf[i * 11 + 13];
-                                    t.OPs[i].DT2 = toneBuf[i * 11 + 14];
-                                    t.OPs[i].AM = toneBuf[i * 11 + 15];
-                                    t.OPs[i].SG = 0;
+                                    t.OPs[i] = new Tone.Op
+                                    {
+                                        AR = toneBuf[i * 11 + 5],
+                                        DR = toneBuf[i * 11 + 6],
+                                        SR = toneBuf[i * 11 + 7],
+                                        RR = toneBuf[i * 11 + 8],
+                                        SL = toneBuf[i * 11 + 9],
+                                        TL = toneBuf[i * 11 + 10],
+                                        KS = toneBuf[i * 11 + 11],
+                                        ML = toneBuf[i * 11 + 12],
+                                        DT = toneBuf[i * 11 + 13],
+                                        DT2 = toneBuf[i * 11 + 14],
+                                        AM = toneBuf[i * 11 + 15],
+                                        SG = 0
+                                    };
                                 }
                                 t.AL = toneBuf[2];
                                 t.FB = toneBuf[3];
 
-                                tonePallet.lstTone[toneBuf[0]] = t;
+                                tonePallet.LstTone[toneBuf[0]] = t;
                                 break;
                             case 1:
                                 t.OPs = new Tone.Op[4];
                                 for (int i = 0; i < 4; i++)
                                 {
-                                    t.OPs[i] = new Tone.Op();
-                                    t.OPs[i].AR = toneBuf[i * 11 + 1];
-                                    t.OPs[i].DR = toneBuf[i * 11 + 2];
-                                    t.OPs[i].SR = toneBuf[i * 11 + 3];
-                                    t.OPs[i].RR = toneBuf[i * 11 + 4];
-                                    t.OPs[i].SL = toneBuf[i * 11 + 5];
-                                    t.OPs[i].TL = toneBuf[i * 11 + 6];
-                                    t.OPs[i].KS = toneBuf[i * 11 + 7];
-                                    t.OPs[i].ML = toneBuf[i * 11 + 8];
-                                    t.OPs[i].DT = toneBuf[i * 11 + 9];
-                                    t.OPs[i].DT2 = toneBuf[i * 11 + 10];
-                                    t.OPs[i].AM = toneBuf[i * 11 + 11];
-                                    t.OPs[i].SG = 0;
+                                    t.OPs[i] = new Tone.Op
+                                    {
+                                        AR = toneBuf[i * 11 + 1],
+                                        DR = toneBuf[i * 11 + 2],
+                                        SR = toneBuf[i * 11 + 3],
+                                        RR = toneBuf[i * 11 + 4],
+                                        SL = toneBuf[i * 11 + 5],
+                                        TL = toneBuf[i * 11 + 6],
+                                        KS = toneBuf[i * 11 + 7],
+                                        ML = toneBuf[i * 11 + 8],
+                                        DT = toneBuf[i * 11 + 9],
+                                        DT2 = toneBuf[i * 11 + 10],
+                                        AM = toneBuf[i * 11 + 11],
+                                        SG = 0
+                                    };
                                 }
                                 t.AL = toneBuf[46];
                                 t.FB = toneBuf[47];
 
-                                tonePallet.lstTone[toneBuf[0]] = t;
+                                tonePallet.LstTone[toneBuf[0]] = t;
                                 break;
                             case 2:
                                 t.OPs = new Tone.Op[4];
                                 for (int i = 0; i < 4; i++)
                                 {
-                                    t.OPs[i] = new Tone.Op();
-                                    t.OPs[i].AR = toneBuf[i * 11 + 4];
-                                    t.OPs[i].DR = toneBuf[i * 11 + 5];
-                                    t.OPs[i].SR = toneBuf[i * 11 + 6];
-                                    t.OPs[i].RR = toneBuf[i * 11 + 7];
-                                    t.OPs[i].SL = toneBuf[i * 11 + 8];
-                                    t.OPs[i].TL = toneBuf[i * 11 + 9];
-                                    t.OPs[i].KS = toneBuf[i * 11 + 10];
-                                    t.OPs[i].ML = toneBuf[i * 11 + 11];
-                                    t.OPs[i].DT = toneBuf[i * 11 + 12];
-                                    t.OPs[i].DT2 = toneBuf[i * 11 + 13];
-                                    t.OPs[i].AM = toneBuf[i * 11 + 14];
-                                    t.OPs[i].SG = 0;
+                                    t.OPs[i] = new Tone.Op
+                                    {
+                                        AR = toneBuf[i * 11 + 4],
+                                        DR = toneBuf[i * 11 + 5],
+                                        SR = toneBuf[i * 11 + 6],
+                                        RR = toneBuf[i * 11 + 7],
+                                        SL = toneBuf[i * 11 + 8],
+                                        TL = toneBuf[i * 11 + 9],
+                                        KS = toneBuf[i * 11 + 10],
+                                        ML = toneBuf[i * 11 + 11],
+                                        DT = toneBuf[i * 11 + 12],
+                                        DT2 = toneBuf[i * 11 + 13],
+                                        AM = toneBuf[i * 11 + 14],
+                                        SG = 0
+                                    };
                                 }
                                 t.AL = toneBuf[1];
                                 t.FB = toneBuf[2];
 
-                                tonePallet.lstTone[toneBuf[0]] = t;
+                                tonePallet.LstTone[toneBuf[0]] = t;
                                 break;
                             case 3:
                                 t.OPs = new Tone.Op[4];
                                 for (int i = 0; i < 4; i++)
                                 {
-                                    t.OPs[i] = new Tone.Op();
-                                    t.OPs[i].AR = toneBuf[i * 11 + 1];
-                                    t.OPs[i].DR = toneBuf[i * 11 + 2];
-                                    t.OPs[i].SR = toneBuf[i * 11 + 3];
-                                    t.OPs[i].RR = toneBuf[i * 11 + 4];
-                                    t.OPs[i].SL = toneBuf[i * 11 + 5];
-                                    t.OPs[i].TL = toneBuf[i * 11 + 6];
-                                    t.OPs[i].KS = toneBuf[i * 11 + 7];
-                                    t.OPs[i].ML = toneBuf[i * 11 + 8];
-                                    t.OPs[i].DT = toneBuf[i * 11 + 9];
-                                    t.OPs[i].DT2 = toneBuf[i * 11 + 10];
-                                    t.OPs[i].AM = toneBuf[i * 11 + 11];
-                                    t.OPs[i].SG = 0;
+                                    t.OPs[i] = new Tone.Op
+                                    {
+                                        AR = toneBuf[i * 11 + 1],
+                                        DR = toneBuf[i * 11 + 2],
+                                        SR = toneBuf[i * 11 + 3],
+                                        RR = toneBuf[i * 11 + 4],
+                                        SL = toneBuf[i * 11 + 5],
+                                        TL = toneBuf[i * 11 + 6],
+                                        KS = toneBuf[i * 11 + 7],
+                                        ML = toneBuf[i * 11 + 8],
+                                        DT = toneBuf[i * 11 + 9],
+                                        DT2 = toneBuf[i * 11 + 10],
+                                        AM = toneBuf[i * 11 + 11],
+                                        SG = 0
+                                    };
                                 }
                                 t.AL = toneBuf[45];
                                 t.FB = toneBuf[46];
 
-                                tonePallet.lstTone[toneBuf[0]] = t;
+                                tonePallet.LstTone[toneBuf[0]] = t;
                                 break;
                             case 4:
                                 t.OPs = new Tone.Op[4];
                                 for (int i = 0; i < 4; i++)
                                 {
-                                    t.OPs[i] = new Tone.Op();
-                                    t.OPs[i].AR = toneBuf[i * 11 + 4];
-                                    t.OPs[i].DR = toneBuf[i * 11 + 5];
-                                    t.OPs[i].SR = toneBuf[i * 11 + 6];
-                                    t.OPs[i].RR = toneBuf[i * 11 + 7];
-                                    t.OPs[i].SL = toneBuf[i * 11 + 8];
-                                    t.OPs[i].TL = toneBuf[i * 11 + 9];
-                                    t.OPs[i].KS = toneBuf[i * 11 + 10];
-                                    t.OPs[i].ML = toneBuf[i * 11 + 11];
-                                    t.OPs[i].DT = toneBuf[i * 11 + 12];
-                                    t.OPs[i].DT2 = toneBuf[i * 11 + 13];
-                                    t.OPs[i].AM = toneBuf[i * 11 + 14];
-                                    t.OPs[i].SG = 0;
+                                    t.OPs[i] = new Tone.Op
+                                    {
+                                        AR = toneBuf[i * 11 + 4],
+                                        DR = toneBuf[i * 11 + 5],
+                                        SR = toneBuf[i * 11 + 6],
+                                        RR = toneBuf[i * 11 + 7],
+                                        SL = toneBuf[i * 11 + 8],
+                                        TL = toneBuf[i * 11 + 9],
+                                        KS = toneBuf[i * 11 + 10],
+                                        ML = toneBuf[i * 11 + 11],
+                                        DT = toneBuf[i * 11 + 12],
+                                        DT2 = toneBuf[i * 11 + 13],
+                                        AM = toneBuf[i * 11 + 14],
+                                        SG = 0
+                                    };
                                 }
                                 t.AL = toneBuf[1] & 0x7;
                                 t.FB = (toneBuf[1] & 0x38) >> 3;
 
-                                tonePallet.lstTone[toneBuf[0]] = t;
+                                tonePallet.LstTone[toneBuf[0]] = t;
                                 break;
                             case 5:
                                 t.OPs = new Tone.Op[4];
                                 for (int i = 0; i < 4; i++)
                                 {
-                                    t.OPs[i] = new Tone.Op();
-                                    t.OPs[i].AR = toneBuf[i * 11 + 12];
-                                    t.OPs[i].DR = toneBuf[i * 11 + 13];
-                                    t.OPs[i].SR = toneBuf[i * 11 + 14];
-                                    t.OPs[i].RR = toneBuf[i * 11 + 15];
-                                    t.OPs[i].SL = toneBuf[i * 11 + 16];
-                                    t.OPs[i].TL = toneBuf[i * 11 + 17];
-                                    t.OPs[i].KS = toneBuf[i * 11 + 18];
-                                    t.OPs[i].ML = toneBuf[i * 11 + 19];
-                                    t.OPs[i].DT = toneBuf[i * 11 + 20];
-                                    t.OPs[i].DT2 = toneBuf[i * 11 + 21];
-                                    t.OPs[i].AM = toneBuf[i * 11 + 22];
-                                    t.OPs[i].SG = 0;
+                                    t.OPs[i] = new Tone.Op
+                                    {
+                                        AR = toneBuf[i * 11 + 12],
+                                        DR = toneBuf[i * 11 + 13],
+                                        SR = toneBuf[i * 11 + 14],
+                                        RR = toneBuf[i * 11 + 15],
+                                        SL = toneBuf[i * 11 + 16],
+                                        TL = toneBuf[i * 11 + 17],
+                                        KS = toneBuf[i * 11 + 18],
+                                        ML = toneBuf[i * 11 + 19],
+                                        DT = toneBuf[i * 11 + 20],
+                                        DT2 = toneBuf[i * 11 + 21],
+                                        AM = toneBuf[i * 11 + 22],
+                                        SG = 0
+                                    };
                                 }
                                 t.AL = toneBuf[1] & 0x7;
                                 t.FB = (toneBuf[1] & 0x38) >> 3;
 
-                                tonePallet.lstTone[toneBuf[0]] = t;
+                                tonePallet.LstTone[toneBuf[0]] = t;
                                 break;
                         }
 
                         stage = 0;
-                        line = line.Substring(1);
+                        line = line[1..];
                         toneBuf.Clear();
                         continue;
                     }
@@ -1453,11 +1477,11 @@ namespace MDPlayer
 
         }
 
-        public void LoadTonePalletFromMXDRV(string[] tnt, TonePallet tonePallet)
+        public static void LoadTonePalletFromMXDRV(string[] tnt, TonePallet tonePallet)
         {
             string line;
             int stage = 0;
-            List<int> toneBuf = new List<int>();
+            List<int> toneBuf = new();
             int index = 0;
 
             line = index == tnt.Length ? null : tnt[index++];
@@ -1485,17 +1509,17 @@ namespace MDPlayer
                 if (stage == 0 && line[0] == '@')
                 {
                     stage++;
-                    line = line.Substring(1);
+                    line = line[1..];
 
                     char c = line[0];
                     int? n = null;
                     while (c >= '0' && c <= '9')
                     {
-                        if (n == null) n = 0;
+                        n ??= 0;
 
                         n = n * 10 + (c - '0');
 
-                        line = line.Substring(1);
+                        line = line[1..];
                         if (line.Length < 1) break;
 
                         c = line[0];
@@ -1510,7 +1534,7 @@ namespace MDPlayer
 
                     if (line.Length > 1)
                     {
-                        line = line.Substring(1);
+                        line = line[1..];
                     }
                     else
                     {
@@ -1525,7 +1549,7 @@ namespace MDPlayer
 
                     if (line.Length > 1)
                     {
-                        line = line.Substring(1);
+                        line = line[1..];
                     }
                     else
                     {
@@ -1534,7 +1558,7 @@ namespace MDPlayer
                         continue;
                     }
 
-                    int[] nums = numSplit(line);
+                    int[] nums = NumSplit(line);
                     foreach (int n in nums)
                     {
                         toneBuf.Add(n);
@@ -1547,45 +1571,48 @@ namespace MDPlayer
                 else if (stage == 3)
                 {
 
-                    int[] nums = numSplit(line);
+                    int[] nums = NumSplit(line);
                     foreach (int n in nums)
                     {
                         toneBuf.Add(n);
                     }
 
-                    if (line.IndexOf('}') >= 0)
+                    if (line.Contains('}'))
                     {
 
                         if (toneBuf.Count == 48)
                         {
-                            Tone t = null;
-                            t = new Tone();
-                            t.name = string.Format("No.{0}(From MXDRV)", toneBuf[0]);
+                            Tone t = new()
+                            {
+                                name = string.Format("No.{0}(From MXDRV)", toneBuf[0]),
 
-                            t.OPs = new Tone.Op[4];
+                                OPs = new Tone.Op[4]
+                            };
                             for (int i = 0; i < 4; i++)
                             {
-                                t.OPs[i] = new Tone.Op();
-                                t.OPs[i].AR = toneBuf[i * 11 + 1];
-                                t.OPs[i].DR = toneBuf[i * 11 + 2];
-                                t.OPs[i].SR = toneBuf[i * 11 + 3];
-                                t.OPs[i].RR = toneBuf[i * 11 + 4];
-                                t.OPs[i].SL = toneBuf[i * 11 + 5];
-                                t.OPs[i].TL = toneBuf[i * 11 + 6];
-                                t.OPs[i].KS = toneBuf[i * 11 + 7];
-                                t.OPs[i].ML = toneBuf[i * 11 + 8];
-                                t.OPs[i].DT = toneBuf[i * 11 + 9];
-                                t.OPs[i].DT2 = toneBuf[i * 11 + 10];
-                                t.OPs[i].AM = toneBuf[i * 11 + 11];
-                                t.OPs[i].SG = 0;
+                                t.OPs[i] = new Tone.Op
+                                {
+                                    AR = toneBuf[i * 11 + 1],
+                                    DR = toneBuf[i * 11 + 2],
+                                    SR = toneBuf[i * 11 + 3],
+                                    RR = toneBuf[i * 11 + 4],
+                                    SL = toneBuf[i * 11 + 5],
+                                    TL = toneBuf[i * 11 + 6],
+                                    KS = toneBuf[i * 11 + 7],
+                                    ML = toneBuf[i * 11 + 8],
+                                    DT = toneBuf[i * 11 + 9],
+                                    DT2 = toneBuf[i * 11 + 10],
+                                    AM = toneBuf[i * 11 + 11],
+                                    SG = 0
+                                };
                             }
                             t.AL = toneBuf[45];
                             t.FB = toneBuf[46];
 
-                            tonePallet.lstTone[toneBuf[0]] = t;
+                            tonePallet.LstTone[toneBuf[0]] = t;
                         }
                         stage = 0;
-                        line = line.Substring(1);
+                        line = line[1..];
                         toneBuf.Clear();
                         continue;
                     }
@@ -1595,17 +1622,17 @@ namespace MDPlayer
             } while (line != null);
         }
 
-        public void LoadTonePalletFromMUSICLALF(string[] tnt, TonePallet tonePallet)
+        public static void LoadTonePalletFromMUSICLALF(string[] tnt, TonePallet tonePallet)
         {
             string line;
             int stage = 0;
-            List<int> toneBuf = new List<int>();
+            List<int> toneBuf = new();
             string nm = "";
             int index = 0;
 
             line = index == tnt.Length ? null : tnt[index++];
             if (line == null) return;
-            line = line.Substring(line.IndexOf("'") + 1).Trim();
+            line = line[(line.IndexOf("'") + 1)..].Trim();
 
             do
             {
@@ -1616,7 +1643,7 @@ namespace MDPlayer
                 {
                     line = index == tnt.Length ? null : tnt[index++];
                     if (line == null) return;
-                    line = line.Substring(line.IndexOf("'") + 1).Trim();
+                    line = line[(line.IndexOf("'") + 1)..].Trim();
                     continue;
                 }
 
@@ -1624,24 +1651,24 @@ namespace MDPlayer
                 {
                     line = index == tnt.Length ? null : tnt[index++];
                     if (line == null) return;
-                    line = line.Substring(line.IndexOf("'") + 1).Trim();
+                    line = line[(line.IndexOf("'") + 1)..].Trim();
                     continue;
                 }
 
                 if (stage == 0 && line[0] == '@')
                 {
                     stage++;
-                    line = line.Substring(1);
+                    line = line[1..];
 
                     char c = line[0];
                     int? n = null;
                     while (c >= '0' && c <= '9')
                     {
-                        if (n == null) n = 0;
+                        n ??= 0;
 
                         n = n * 10 + (c - '0');
 
-                        line = line.Substring(1);
+                        line = line[1..];
                         if (line.Length < 1) break;
 
                         c = line[0];
@@ -1656,13 +1683,13 @@ namespace MDPlayer
 
                     if (line.Length > 1)
                     {
-                        line = line.Substring(1);
+                        line = line[1..];
                     }
                     else
                     {
                         line = index == tnt.Length ? null : tnt[index++];
                         if (line == null) return;
-                        line = line.Substring(line.IndexOf("'") + 1).Trim();
+                        line = line[(line.IndexOf("'") + 1)..].Trim();
                     }
                     continue;
                 }
@@ -1672,17 +1699,17 @@ namespace MDPlayer
 
                     if (line.Length > 1)
                     {
-                        line = line.Substring(1);
+                        line = line[1..];
                     }
                     else
                     {
                         line = index == tnt.Length ? null : tnt[index++];
                         if (line == null) return;
-                        line = line.Substring(line.IndexOf("'") + 1).Trim();
+                        line = line[(line.IndexOf("'") + 1)..].Trim();
                         continue;
                     }
 
-                    int[] nums = numSplit(line);
+                    int[] nums = NumSplit(line);
                     foreach (int n in nums)
                     {
                         toneBuf.Add(n);
@@ -1690,13 +1717,13 @@ namespace MDPlayer
 
                     line = index == tnt.Length ? null : tnt[index++];
                     if (line == null) return;
-                    line = line.Substring(line.IndexOf("'") + 1).Trim();
+                    line = line[(line.IndexOf("'") + 1)..].Trim();
                     continue;
                 }
                 else if (stage == 3)
                 {
 
-                    int[] nums = numSplit(line);
+                    int[] nums = NumSplit(line);
                     foreach (int n in nums)
                     {
                         toneBuf.Add(n);
@@ -1710,52 +1737,55 @@ namespace MDPlayer
                 }
                 else if (stage == 4)
                 {
-                    if (line.IndexOf('"') >= 0)
+                    if (line.Contains('"'))
                     {
                         try
                         {
-                            string n = line.Substring(line.IndexOf('"') + 1);
-                            nm = n.Substring(0, n.IndexOf('"'));
+                            string n = line[(line.IndexOf('"') + 1)..];
+                            nm = n[..n.IndexOf('"')];
                         }
                         catch
                         {
                         }
                     }
 
-                    if (line.IndexOf('}') >= 0)
+                    if (line.Contains('}'))
                     {
 
                         if (toneBuf.Count == 39)
                         {
-                            Tone t = null;
-                            t = new Tone();
-                            t.name = nm == "" ? string.Format("No.{0}(From MusicLALF)", toneBuf[0]) : nm;
+                            Tone t = new()
+                            {
+                                name = nm == "" ? string.Format("No.{0}(From MusicLALF)", toneBuf[0]) : nm,
 
-                            t.OPs = new Tone.Op[4];
+                                OPs = new Tone.Op[4]
+                            };
                             for (int i = 0; i < 4; i++)
                             {
-                                t.OPs[i] = new Tone.Op();
-                                t.OPs[i].AR = toneBuf[i * 9 + 3];
-                                t.OPs[i].DR = toneBuf[i * 9 + 4];
-                                t.OPs[i].SR = toneBuf[i * 9 + 5];
-                                t.OPs[i].RR = toneBuf[i * 9 + 6];
-                                t.OPs[i].SL = toneBuf[i * 9 + 7];
-                                t.OPs[i].TL = toneBuf[i * 9 + 8];
-                                t.OPs[i].KS = toneBuf[i * 9 + 9];
-                                t.OPs[i].ML = toneBuf[i * 9 + 10];
-                                t.OPs[i].DT = toneBuf[i * 9 + 11];
-                                t.OPs[i].DT2 = 0;
-                                t.OPs[i].AM = 0;
-                                t.OPs[i].SG = 0;
+                                t.OPs[i] = new Tone.Op
+                                {
+                                    AR = toneBuf[i * 9 + 3],
+                                    DR = toneBuf[i * 9 + 4],
+                                    SR = toneBuf[i * 9 + 5],
+                                    RR = toneBuf[i * 9 + 6],
+                                    SL = toneBuf[i * 9 + 7],
+                                    TL = toneBuf[i * 9 + 8],
+                                    KS = toneBuf[i * 9 + 9],
+                                    ML = toneBuf[i * 9 + 10],
+                                    DT = toneBuf[i * 9 + 11],
+                                    DT2 = 0,
+                                    AM = 0,
+                                    SG = 0
+                                };
                             }
                             t.AL = toneBuf[1];
                             t.FB = toneBuf[2];
 
-                            tonePallet.lstTone[toneBuf[0]] = t;
+                            tonePallet.LstTone[toneBuf[0]] = t;
                         }
                         stage = 0;
                         nm = "";
-                        line = line.Substring(1);
+                        line = line[1..];
                         toneBuf.Clear();
                         continue;
                     }
@@ -1763,13 +1793,13 @@ namespace MDPlayer
 
                 line = index == tnt.Length ? null : tnt[index++];
                 if (line == null) return;
-                line = line.Substring(line.IndexOf("'") + 1).Trim();
+                line = line[(line.IndexOf("'") + 1)..].Trim();
             } while (line != null);
         }
 
-        private int[] numSplit(string line)
+        private static int[] NumSplit(string line)
         {
-            List<int> ret = new List<int>();
+            List<int> ret = new();
 
             line = line.Trim();
             while (line.Length > 0)
@@ -1778,11 +1808,11 @@ namespace MDPlayer
                 int? n = null;
                 while (c >= '0' && c <= '9')
                 {
-                    if (n == null) n = 0;
+                    n ??= 0;
 
                     n = n * 10 + (c - '0');
 
-                    line = line.Substring(1);
+                    line = line[1..];
                     if (line.Length < 1) break;
 
                     c = line[0];
@@ -1791,7 +1821,7 @@ namespace MDPlayer
                 if (n != null) ret.Add((int)n);
 
                 if (line.Length < 1) break;
-                line = line.Substring(1);
+                line = line[1..];
 
                 line = line.Trim();
             }
@@ -1803,7 +1833,7 @@ namespace MDPlayer
         {
             if (chs == null || chs.Length < 1) return;
 
-            List<string> des = new List<string>();
+            List<string> des = new();
 
             foreach (int ch in chs)
             {
@@ -1811,19 +1841,19 @@ namespace MDPlayer
                 switch (parent.setting.midiKbd.UseFormat)
                 {
                     case 0:
-                        tt = makeToneTextForMml2vgm(parent.setting.midiKbd.Tones[ch], ch + 1);
+                        tt = MakeToneTextForMml2vgm(parent.setting.midiKbd.Tones[ch], ch + 1);
                         break;
                     case 2:
-                        tt = makeToneTextForFMP7(parent.setting.midiKbd.Tones[ch], ch + 1);
+                        tt = MakeToneTextForFMP7(parent.setting.midiKbd.Tones[ch], ch + 1);
                         break;
                     case 4:
-                        tt = makeToneTextForMXDRV(parent.setting.midiKbd.Tones[ch], ch + 1);
+                        tt = MakeToneTextForMXDRV(parent.setting.midiKbd.Tones[ch], ch + 1);
                         break;
                     case 3:
-                        tt = makeToneTextForMUSICLALF(parent.setting.midiKbd.Tones[ch], ch + 1);
+                        tt = MakeToneTextForMUSICLALF(parent.setting.midiKbd.Tones[ch], ch + 1);
                         break;
                     case 1:
-                        tt = makeToneTextForNRTDRV(parent.setting.midiKbd.Tones[ch], ch + 1);
+                        tt = MakeToneTextForNRTDRV(parent.setting.midiKbd.Tones[ch], ch + 1);
                         break;
                 }
 
@@ -1859,11 +1889,13 @@ namespace MDPlayer
         {
             string cbt = Clipboard.GetText();
             if (cbt == string.Empty) return;
-            string[] tnt = cbt.Split(new string[] { "\r\n" },  StringSplitOptions.None);
+            string[] tnt = cbt.Split(new string[] { "\r\n" }, StringSplitOptions.None);
 
-            TonePallet tp = new TonePallet();
-            tp.lstTone = new List<Tone>(256);
-            for (int i = 0; i < 256; i++) tp.lstTone.Add(null);
+            TonePallet tp = new()
+            {
+                LstTone = new List<Tone>(256)
+            };
+            for (int i = 0; i < 256; i++) tp.LstTone.Add(null);
 
             switch (parent.setting.midiKbd.UseFormat)
             {
@@ -1890,7 +1922,7 @@ namespace MDPlayer
                 Tone t = null;
                 while (t == null && j < 256)
                 {
-                    t = tp.lstTone[j];
+                    t = tp.LstTone[j];
                     j++;
                 }
 
@@ -1927,7 +1959,7 @@ namespace MDPlayer
             else
             {
                 int op = p / 11;
-                switch (p%11)
+                switch (p % 11)
                 {
                     case 0:
                         parent.setting.midiKbd.Tones[ch].OPs[op].AR += n;

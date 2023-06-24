@@ -1,19 +1,9 @@
 ﻿#if X64
 using MDPlayerx64;
-using MDPlayerx64.Properties;
 using MDSound;
 #else
 using MDPlayer.Properties;
 #endif
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
@@ -41,7 +31,7 @@ namespace MDPlayer.form
 
             this.newParam = newParam;
             this.oldParam = oldParam;
-            frameBuffer.Add(pbScreen, ResMng.imgDic["planeK053260"], null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.ImgDic["planeK053260"], null, zoom);
             screenInit();
             update();
         }
@@ -84,9 +74,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeK053260"].Width * zoom, frameSizeH + ResMng.imgDic["planeK053260"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeK053260"].Width * zoom, frameSizeH + ResMng.imgDic["planeK053260"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeK053260"].Width * zoom, frameSizeH + ResMng.imgDic["planeK053260"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeK053260"].Width * zoom, frameSizeH + ResMng.ImgDic["planeK053260"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeK053260"].Width * zoom, frameSizeH + ResMng.ImgDic["planeK053260"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeK053260"].Width * zoom, frameSizeH + ResMng.ImgDic["planeK053260"].Height * zoom);
             frmK053260_Resize(null, null);
 
         }
@@ -162,7 +152,7 @@ namespace MDPlayer.form
                 newParam.channels[ch].sadr = (int)regs.channels[ch].start;
                 newParam.channels[ch].bank = (int)regs.channels[ch].bank;
                 newParam.channels[ch].pan = (int)regs.channels[ch].pan;
-                newParam.channels[ch].panL = (int)(8-regs.channels[ch].pan);
+                newParam.channels[ch].panL = (int)(8 - regs.channels[ch].pan);
                 newParam.channels[ch].panR = (int)regs.channels[ch].pan;
                 newParam.channels[ch].volume = (int)regs.channels[ch].volume / 2;
                 newParam.channels[ch].bit[0] = (regs.channels[ch].play != 0);
@@ -195,7 +185,7 @@ namespace MDPlayer.form
         {
             double m = double.MaxValue;
 
-            int clock = Audio.clockK053260;
+            int clock = Audio.ClockK053260;
 
             int n = 0;
             for (int i = 0; i < 12 * 8; i++)
@@ -206,8 +196,8 @@ namespace MDPlayer.form
                     * Tables.pcmMulTbl[i % 12 + 12]
                     * Math.Pow(2, (i / 12 - 3 + 2))
                     / clock
-                    *6
-                    *2
+                    * 6
+                    * 2
                     );
 
                 if (freq > a)
@@ -238,14 +228,14 @@ namespace MDPlayer.form
 
                 for (int b = 0; b < 4; b++)
                 {
-                    DrawBuff.drawNESSw(frameBuffer, 64 * 4 + b * 4+1, ch * 8 + 8
+                    DrawBuff.drawNESSw(frameBuffer, 64 * 4 + b * 4 + 1, ch * 8 + 8
                         , ref oldParam.channels[ch].bit[b], newParam.channels[ch].bit[b]);
                 }
 
                 DrawBuff.PanType5(frameBuffer, 4 * 6 + 1, ch * 8 + 8, ref oyc.panL, nyc.panL, 0);
                 DrawBuff.PanType5(frameBuffer, 4 * 7 + 1, ch * 8 + 8, ref oyc.panR, nyc.panR, 0);
-                DrawBuff.VolumeXY1(frameBuffer, 4*92+1, ch * 8 + 8, 1, ref oyc.volumeL, nyc.volumeL, 0);
-                DrawBuff.VolumeXY1(frameBuffer, 4*92+1, ch * 8 + 12, 1, ref oyc.volumeR, nyc.volumeR, 0);
+                DrawBuff.VolumeXY1(frameBuffer, 4 * 92 + 1, ch * 8 + 8, 1, ref oyc.volumeL, nyc.volumeL, 0);
+                DrawBuff.VolumeXY1(frameBuffer, 4 * 92 + 1, ch * 8 + 12, 1, ref oyc.volumeR, nyc.volumeR, 0);
 
                 DrawBuff.KeyBoardXYFX(frameBuffer, 4 * 8 + 1, 4 * 103 + 1, ch * 8 + 8, ref oyc.note, nyc.note, 0);
                 DrawBuff.ChK053260(frameBuffer, ch, ref oyc.mask, nyc.mask, 0);

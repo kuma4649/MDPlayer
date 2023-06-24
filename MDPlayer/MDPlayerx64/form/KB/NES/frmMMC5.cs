@@ -1,18 +1,8 @@
 ﻿#if X64
 using MDPlayerx64;
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
@@ -39,7 +29,7 @@ namespace MDPlayer.form
             InitializeComponent();
 
             this.newParam = newParam;
-            frameBuffer.Add(pbScreen, ResMng.imgDic["planeMMC5"], null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.ImgDic["planeMMC5"], null, zoom);
             DrawBuff.screenInitNESDMC(frameBuffer);
             update();
         }
@@ -82,9 +72,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeMMC5"].Width * zoom, frameSizeH + ResMng.imgDic["planeMMC5"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeMMC5"].Width * zoom, frameSizeH + ResMng.imgDic["planeMMC5"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeMMC5"].Width * zoom, frameSizeH + ResMng.imgDic["planeMMC5"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeMMC5"].Width * zoom, frameSizeH + ResMng.ImgDic["planeMMC5"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeMMC5"].Width * zoom, frameSizeH + ResMng.ImgDic["planeMMC5"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeMMC5"].Width * zoom, frameSizeH + ResMng.ImgDic["planeMMC5"].Height * zoom);
             frmMMC5_Resize(null, null);
 
         }
@@ -94,7 +84,7 @@ namespace MDPlayer.form
 
         }
 
-     
+
         public void screenChangeParams()
         {
             const double LOG2_440 = 8.7813597135246596040696824762152;
@@ -135,7 +125,7 @@ namespace MDPlayer.form
             for (int i = 0; i < 2; i++)
             {
                 DrawBuff.KeyBoard(frameBuffer, i * 2, ref oldParam.sqrChannels[i].note, newParam.sqrChannels[i].note, 0);
-                DrawBuff.Volume(frameBuffer, 256, 8 + i*2 * 8, 0, ref oldParam.sqrChannels[i].volume, newParam.sqrChannels[i].volume, 0);
+                DrawBuff.Volume(frameBuffer, 256, 8 + i * 2 * 8, 0, ref oldParam.sqrChannels[i].volume, newParam.sqrChannels[i].volume, 0);
                 DrawBuff.font4Int2(frameBuffer, 22 * 4, (2 + i * 2) * 8, 0, 2, ref oldParam.sqrChannels[i].pantp, newParam.sqrChannels[i].pantp);
                 DrawBuff.drawDuty(frameBuffer, 24, (1 + i * 2) * 8, ref oldParam.sqrChannels[i].kf, newParam.sqrChannels[i].kf);
                 DrawBuff.drawNESSw(frameBuffer, 32, (2 + i * 2) * 8, ref oldParam.sqrChannels[i].dda, newParam.sqrChannels[i].dda);
@@ -187,7 +177,7 @@ namespace MDPlayer.form
                         else
                             parent.SetChannelMask(EnmChip.MMC5, chipID, ch);
                     }
-                    
+
                     if (newParam.pcmChannel.mask == true)
                         parent.ResetChannelMask(EnmChip.MMC5, chipID, 0);
                     else

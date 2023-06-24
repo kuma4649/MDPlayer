@@ -1,7 +1,5 @@
 ﻿using NAudio.CoreAudioApi;
 using NAudio.Wave;
-using System;
-using System.Threading;
 
 namespace MDPlayer
 {
@@ -36,7 +34,7 @@ namespace MDPlayer
             waveProvider.SetWaveFormat(sampleRate, 2);
 
             callBack = nCallBack;
-            
+
         }
 
         public void Start(Setting setting)
@@ -50,7 +48,7 @@ namespace MDPlayer
             dsOut = null;
             if (asioOut != null) asioOut.Dispose();
             asioOut = null;
-            if (nullOut != null) nullOut.Dispose();
+            if (nullOut != null) ((IDisposable)nullOut).Dispose();
             nullOut = null;
 
             try
@@ -89,7 +87,7 @@ namespace MDPlayer
                         }
                         else
                         {
-                            dsOut = new DirectSoundOut(g,setting.outputDevice.Latency);
+                            dsOut = new DirectSoundOut(g, setting.outputDevice.Latency);
                         }
                         dsOut.PlaybackStopped += DeviceOut_PlaybackStopped;
                         dsOut.Init(waveProvider);
@@ -169,7 +167,7 @@ namespace MDPlayer
                 }
                 else
                 {
-                    syncContext.Post(state => handler(this,e), null);
+                    syncContext.Post(state => handler(this, e), null);
                 }
             }
         }
@@ -237,7 +235,7 @@ namespace MDPlayer
                 {
                     nullOut.Stop();
                     while (nullOut.PlaybackState != PlaybackState.Stopped) { Thread.Sleep(1); }
-                    nullOut.Dispose();
+                    ((IDisposable)nullOut).Dispose();
                 }
                 catch { }
                 nullOut = null;
@@ -259,7 +257,7 @@ namespace MDPlayer
 
             public override int Read(short[] buffer, int offset, int count)
             {
-                return callBack(buffer,offset, count);
+                return callBack(buffer, offset, count);
             }
 
         }

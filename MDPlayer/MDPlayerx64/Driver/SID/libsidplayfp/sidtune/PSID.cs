@@ -18,11 +18,7 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 using Driver.libsidplayfp.sidplayfp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Driver.libsidplayfp.sidtune
 {
@@ -435,9 +431,9 @@ namespace Driver.libsidplayfp.sidtune
             try
             {
                 // Include C64 data.
-                sidmd5 myMD5=new sidmd5();
+                sidmd5 myMD5 = new sidmd5();
                 byte[] bcache = new byte[(int)info.m_c64dataLen];
-                for(int i = 0; i < info.m_c64dataLen; i++)
+                for (int i = 0; i < info.m_c64dataLen; i++)
                 {
                     bcache[i] = cache[(int)fileOffset + i];
                 }

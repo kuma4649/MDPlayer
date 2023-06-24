@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace mdpc
 {
@@ -56,7 +51,7 @@ namespace mdpc
                 string timefmt = dtNow.ToString("yyyy/MM/dd HH:mm:ss\t");
 
                 Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
-                string msg="";
+                string msg = "";
                 Open();
                 try
                 {

@@ -1,10 +1,4 @@
 ﻿using Konamiman.Z80dotNet;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Intrinsics.Arm;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MDPlayer.Driver.MGSDRV
 {
@@ -17,10 +11,10 @@ namespace MDPlayer.Driver.MGSDRV
         private byte opllAdr;
         private byte ay8910Adr;
 
-        public MsxPort(MSXSlot slot, ChipRegister chipRegister,MSXVDP vdp,EnmModel model)
+        public MsxPort(MSXSlot slot, ChipRegister chipRegister, MSXVDP vdp, EnmModel model)
         {
             this.slot = slot;
-            this.chipRegister= chipRegister;
+            this.chipRegister = chipRegister;
             this.vdp = vdp;
             this.model = model;
         }
@@ -91,7 +85,7 @@ namespace MDPlayer.Driver.MGSDRV
         private byte InPort(int address)
         {
 
-            switch(address)
+            switch (address)
             {
                 case 0x00:
                 case 0x01:

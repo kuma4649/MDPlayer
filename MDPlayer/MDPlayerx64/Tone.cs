@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MDPlayer
+﻿namespace MDPlayer
 {
     public class Tone
     {
@@ -14,7 +8,7 @@ namespace MDPlayer
         private int _AMS = 0;
         private int _PMS = 0;
 
-        public string name="(NO NAME)";
+        public string name = "(NO NAME)";
 
         public int AL
         {

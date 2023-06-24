@@ -19,11 +19,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Driver.libsidplayfp.c64.CPU
 {
@@ -124,7 +119,7 @@ namespace Driver.libsidplayfp.c64.CPU
 #endif
 
         /// Status register
-        private Flags flags=new Flags();
+        private Flags flags = new Flags();
 
         // Data regarding current instruction
         private UInt16 Register_ProgramCounter;
@@ -1908,47 +1903,116 @@ void MOS6510::hlt_instr() {}
                 switch (i)
                 {
                     // Accumulator or Implied addressing
-                    case opcodes.ASLn: case opcodes.CLCn: case opcodes.CLDn: case opcodes.CLIn: case opcodes.CLVn: case opcodes.DEXn:
-                    case opcodes.DEYn: case opcodes.INXn: case opcodes.INYn: case opcodes.LSRn: case opcodes.NOPn:
+                    case opcodes.ASLn:
+                    case opcodes.CLCn:
+                    case opcodes.CLDn:
+                    case opcodes.CLIn:
+                    case opcodes.CLVn:
+                    case opcodes.DEXn:
+                    case opcodes.DEYn:
+                    case opcodes.INXn:
+                    case opcodes.INYn:
+                    case opcodes.LSRn:
+                    case opcodes.NOPn:
                     case 0x1A:
                     case 0x3A:
                     case 0x5A:
                     case 0x7A:
                     case 0xDA:
-                    case 0xFA: case opcodes.PHAn:
-                    case opcodes.PHPn: case opcodes.PLAn: case opcodes.PLPn: case opcodes.ROLn: case opcodes.RORn:
-                    case opcodes.SECn: case opcodes.SEDn: case opcodes.SEIn: case opcodes.TAXn: case opcodes.TAYn:
-                    case opcodes.TSXn: case opcodes.TXAn: case opcodes.TXSn: case opcodes.TYAn:
+                    case 0xFA:
+                    case opcodes.PHAn:
+                    case opcodes.PHPn:
+                    case opcodes.PLAn:
+                    case opcodes.PLPn:
+                    case opcodes.ROLn:
+                    case opcodes.RORn:
+                    case opcodes.SECn:
+                    case opcodes.SEDn:
+                    case opcodes.SEIn:
+                    case opcodes.TAXn:
+                    case opcodes.TAYn:
+                    case opcodes.TSXn:
+                    case opcodes.TXAn:
+                    case opcodes.TXSn:
+                    case opcodes.TYAn:
                         instrTable[buildCycle++].func = throwAwayFetch;
                         break;
 
                     // Immediate and Relative Addressing Mode Handler
-                    case opcodes.ADCb: case opcodes.ANDb: case opcodes.ANCb:
-                    case 0x2B: case opcodes.ANEb: case opcodes.ASRb: case opcodes.ARRb:
-                    case opcodes.BCCr: case opcodes.BCSr: case opcodes.BEQr: case opcodes.BMIr: case opcodes.BNEr: case opcodes.BPLr:
-                    case opcodes.BRKn: case opcodes.BVCr: case opcodes.BVSr: case opcodes.CMPb: case opcodes.CPXb: case opcodes.CPYb:
-                    case opcodes.EORb: case opcodes.LDAb: case opcodes.LDXb: case opcodes.LDYb: case opcodes.LXAb: case opcodes.NOPb:
+                    case opcodes.ADCb:
+                    case opcodes.ANDb:
+                    case opcodes.ANCb:
+                    case 0x2B:
+                    case opcodes.ANEb:
+                    case opcodes.ASRb:
+                    case opcodes.ARRb:
+                    case opcodes.BCCr:
+                    case opcodes.BCSr:
+                    case opcodes.BEQr:
+                    case opcodes.BMIr:
+                    case opcodes.BNEr:
+                    case opcodes.BPLr:
+                    case opcodes.BRKn:
+                    case opcodes.BVCr:
+                    case opcodes.BVSr:
+                    case opcodes.CMPb:
+                    case opcodes.CPXb:
+                    case opcodes.CPYb:
+                    case opcodes.EORb:
+                    case opcodes.LDAb:
+                    case opcodes.LDXb:
+                    case opcodes.LDYb:
+                    case opcodes.LXAb:
+                    case opcodes.NOPb:
                     case 0x82:
                     case 0xC2:
                     case 0xE2:
                     case 0x89:
-                    case opcodes.ORAb: case opcodes.SBCb:
-                    case 0XEB: case opcodes.SBXb: case opcodes.RTIn: case opcodes.RTSn:
+                    case opcodes.ORAb:
+                    case opcodes.SBCb:
+                    case 0XEB:
+                    case opcodes.SBXb:
+                    case opcodes.RTIn:
+                    case opcodes.RTSn:
                         instrTable[buildCycle++].func = FetchDataByte;
                         break;
 
                     // Zero Page Addressing Mode Handler - Read & RMW
-                    case opcodes.ADCz: case opcodes.ANDz: case opcodes.BITz: case opcodes.CMPz: case opcodes.CPXz: case opcodes.CPYz:
-                    case opcodes.EORz: case opcodes.LAXz: case opcodes.LDAz: case opcodes.LDXz: case opcodes.LDYz: case opcodes.ORAz:
+                    case opcodes.ADCz:
+                    case opcodes.ANDz:
+                    case opcodes.BITz:
+                    case opcodes.CMPz:
+                    case opcodes.CPXz:
+                    case opcodes.CPYz:
+                    case opcodes.EORz:
+                    case opcodes.LAXz:
+                    case opcodes.LDAz:
+                    case opcodes.LDXz:
+                    case opcodes.LDYz:
+                    case opcodes.ORAz:
                     case opcodes.NOPz:
                     case 0x44:
-                    case 0x64: case opcodes.SBCz:
-                    case opcodes.ASLz: case opcodes.DCPz: case opcodes.DECz: case opcodes.INCz: case opcodes.ISBz: case opcodes.LSRz:
-                    case opcodes.ROLz: case opcodes.RORz: case opcodes.SREz: case opcodes.SLOz: case opcodes.RLAz: case opcodes.RRAz:
+                    case 0x64:
+                    case opcodes.SBCz:
+                    case opcodes.ASLz:
+                    case opcodes.DCPz:
+                    case opcodes.DECz:
+                    case opcodes.INCz:
+                    case opcodes.ISBz:
+                    case opcodes.LSRz:
+                    case opcodes.ROLz:
+                    case opcodes.RORz:
+                    case opcodes.SREz:
+                    case opcodes.SLOz:
+                    case opcodes.RLAz:
+                    case opcodes.RRAz:
                         access = AccessMode.READ;
                         instrTable[buildCycle++].func = FetchLowAddr;
                         break;
-                    case opcodes.SAXz: case opcodes.STAz: case opcodes.STXz: case opcodes.STYz:
+                    case opcodes.SAXz:
+                    case opcodes.STAz:
+                    case opcodes.STXz:
+                    case opcodes.STYz:
                         instrTable[buildCycle++].func = FetchLowAddr;
                         break;
 
@@ -1956,50 +2020,95 @@ void MOS6510::hlt_instr() {}
                     // these issue extra reads on the 0 page, but we don't care about it
                     // because there are no detectable effects from them. These reads
                     // occur during the "wasted" cycle.
-                    case opcodes.ADCzx: case opcodes.ANDzx: case opcodes.CMPzx: case opcodes.EORzx: case opcodes.LDAzx: case opcodes.LDYzx:
+                    case opcodes.ADCzx:
+                    case opcodes.ANDzx:
+                    case opcodes.CMPzx:
+                    case opcodes.EORzx:
+                    case opcodes.LDAzx:
+                    case opcodes.LDYzx:
                     case opcodes.NOPzx:
                     case 0x34:
                     case 0x54:
                     case 0x74:
                     case 0xD4:
-                    case 0xF4: case opcodes.ORAzx: case opcodes.SBCzx:
-                    case opcodes.ASLzx: case opcodes.DCPzx: case opcodes.DECzx: case opcodes.INCzx: case opcodes.ISBzx: case opcodes.LSRzx:
-                    case opcodes.RLAzx: case opcodes.ROLzx: case opcodes.RORzx: case opcodes.RRAzx: case opcodes.SLOzx: case opcodes.SREzx:
+                    case 0xF4:
+                    case opcodes.ORAzx:
+                    case opcodes.SBCzx:
+                    case opcodes.ASLzx:
+                    case opcodes.DCPzx:
+                    case opcodes.DECzx:
+                    case opcodes.INCzx:
+                    case opcodes.ISBzx:
+                    case opcodes.LSRzx:
+                    case opcodes.RLAzx:
+                    case opcodes.ROLzx:
+                    case opcodes.RORzx:
+                    case opcodes.RRAzx:
+                    case opcodes.SLOzx:
+                    case opcodes.SREzx:
                         access = AccessMode.READ;
                         instrTable[buildCycle++].func = FetchLowAddrX;
                         // operates on 0 page in read mode. Truly side-effect free.
                         instrTable[buildCycle++].func = WasteCycle;
                         break;
-                    case opcodes.STAzx: case opcodes.STYzx:
+                    case opcodes.STAzx:
+                    case opcodes.STYzx:
                         instrTable[buildCycle++].func = FetchLowAddrX;
                         // operates on 0 page in read mode. Truly side-effect free.
                         instrTable[buildCycle++].func = WasteCycle;
                         break;
 
                     // Zero Page with Y Offset Addressing Mode Handler
-                    case opcodes.LDXzy: case opcodes.LAXzy:
+                    case opcodes.LDXzy:
+                    case opcodes.LAXzy:
                         access = AccessMode.READ;
                         instrTable[buildCycle++].func = FetchLowAddrY;
                         // operates on 0 page in read mode. Truly side-effect free.
                         instrTable[buildCycle++].func = WasteCycle;
                         break;
-                    case opcodes.STXzy: case opcodes.SAXzy:
+                    case opcodes.STXzy:
+                    case opcodes.SAXzy:
                         instrTable[buildCycle++].func = FetchLowAddrY;
                         // operates on 0 page in read mode. Truly side-effect free.
                         instrTable[buildCycle++].func = WasteCycle;
                         break;
 
                     // Absolute Addressing Mode Handler
-                    case opcodes.ADCa: case opcodes.ANDa: case opcodes.BITa: case opcodes.CMPa: case opcodes.CPXa: case opcodes.CPYa:
-                    case opcodes.EORa: case opcodes.LAXa: case opcodes.LDAa: case opcodes.LDXa: case opcodes.LDYa: case opcodes.NOPa:
-                    case opcodes.ORAa: case opcodes.SBCa:
-                    case opcodes.ASLa: case opcodes.DCPa: case opcodes.DECa: case opcodes.INCa: case opcodes.ISBa: case opcodes.LSRa:
-                    case opcodes.ROLa: case opcodes.RORa: case opcodes.SLOa: case opcodes.SREa: case opcodes.RLAa: case opcodes.RRAa:
+                    case opcodes.ADCa:
+                    case opcodes.ANDa:
+                    case opcodes.BITa:
+                    case opcodes.CMPa:
+                    case opcodes.CPXa:
+                    case opcodes.CPYa:
+                    case opcodes.EORa:
+                    case opcodes.LAXa:
+                    case opcodes.LDAa:
+                    case opcodes.LDXa:
+                    case opcodes.LDYa:
+                    case opcodes.NOPa:
+                    case opcodes.ORAa:
+                    case opcodes.SBCa:
+                    case opcodes.ASLa:
+                    case opcodes.DCPa:
+                    case opcodes.DECa:
+                    case opcodes.INCa:
+                    case opcodes.ISBa:
+                    case opcodes.LSRa:
+                    case opcodes.ROLa:
+                    case opcodes.RORa:
+                    case opcodes.SLOa:
+                    case opcodes.SREa:
+                    case opcodes.RLAa:
+                    case opcodes.RRAa:
                         access = AccessMode.READ;
                         instrTable[buildCycle++].func = FetchLowAddr;
                         instrTable[buildCycle++].func = FetchHighAddr;
                         break;
-                    case opcodes.JMPw: case opcodes.SAXa: case opcodes.STAa: case opcodes.STXa: case opcodes.STYa:
+                    case opcodes.JMPw:
+                    case opcodes.SAXa:
+                    case opcodes.STAa:
+                    case opcodes.STXa:
+                    case opcodes.STYa:
                         instrTable[buildCycle++].func = FetchLowAddr;
                         instrTable[buildCycle++].func = FetchHighAddr;
                         break;
@@ -2009,13 +2118,20 @@ void MOS6510::hlt_instr() {}
                         break;
 
                     // Absolute With X Offset Addressing Mode Handler (Read)
-                    case opcodes.ADCax: case opcodes.ANDax: case opcodes.CMPax: case opcodes.EORax: case opcodes.LDAax:
-                    case opcodes.LDYax: case opcodes.NOPax:
+                    case opcodes.ADCax:
+                    case opcodes.ANDax:
+                    case opcodes.CMPax:
+                    case opcodes.EORax:
+                    case opcodes.LDAax:
+                    case opcodes.LDYax:
+                    case opcodes.NOPax:
                     case 0x3C:
                     case 0x5C:
                     case 0x7C:
                     case 0xDC:
-                    case 0xFC: case opcodes.ORAax: case opcodes.SBCax:
+                    case 0xFC:
+                    case opcodes.ORAax:
+                    case opcodes.SBCax:
                         access = AccessMode.READ;
                         instrTable[buildCycle++].func = FetchLowAddr;
                         instrTable[buildCycle++].func = FetchHighAddrX2;
@@ -2025,23 +2141,41 @@ void MOS6510::hlt_instr() {}
                         break;
 
                     // Absolute X (RMW; no page crossing handled, always reads before writing)
-                    case opcodes.ASLax: case opcodes.DCPax: case opcodes.DECax: case opcodes.INCax: case opcodes.ISBax:
-                    case opcodes.LSRax: case opcodes.RLAax: case opcodes.ROLax: case opcodes.RORax: case opcodes.RRAax:
-                    case opcodes.SLOax: case opcodes.SREax:
+                    case opcodes.ASLax:
+                    case opcodes.DCPax:
+                    case opcodes.DECax:
+                    case opcodes.INCax:
+                    case opcodes.ISBax:
+                    case opcodes.LSRax:
+                    case opcodes.RLAax:
+                    case opcodes.ROLax:
+                    case opcodes.RORax:
+                    case opcodes.RRAax:
+                    case opcodes.SLOax:
+                    case opcodes.SREax:
                         access = AccessMode.READ;
                         instrTable[buildCycle++].func = FetchLowAddr;
                         instrTable[buildCycle++].func = FetchHighAddrX;
                         instrTable[buildCycle++].func = throwAwayRead;
                         break;
-                    case opcodes.SHYax: case opcodes.STAax:
+                    case opcodes.SHYax:
+                    case opcodes.STAax:
                         instrTable[buildCycle++].func = FetchLowAddr;
                         instrTable[buildCycle++].func = FetchHighAddrX;
                         instrTable[buildCycle++].func = throwAwayRead;
                         break;
 
                     // Absolute With Y Offset Addresing Mode Handler (Read)
-                    case opcodes.ADCay: case opcodes.ANDay: case opcodes.CMPay: case opcodes.EORay: case opcodes.LASay:
-                    case opcodes.LAXay: case opcodes.LDAay: case opcodes.LDXay: case opcodes.ORAay: case opcodes.SBCay:
+                    case opcodes.ADCay:
+                    case opcodes.ANDay:
+                    case opcodes.CMPay:
+                    case opcodes.EORay:
+                    case opcodes.LASay:
+                    case opcodes.LAXay:
+                    case opcodes.LDAay:
+                    case opcodes.LDXay:
+                    case opcodes.ORAay:
+                    case opcodes.SBCay:
                         access = AccessMode.READ;
                         instrTable[buildCycle++].func = FetchLowAddr;
                         instrTable[buildCycle++].func = FetchHighAddrY2;
@@ -2049,14 +2183,21 @@ void MOS6510::hlt_instr() {}
                         break;
 
                     // Absolute Y (No page crossing handled)
-                    case opcodes.DCPay: case opcodes.ISBay: case opcodes.RLAay: case opcodes.RRAay: case opcodes.SLOay:
+                    case opcodes.DCPay:
+                    case opcodes.ISBay:
+                    case opcodes.RLAay:
+                    case opcodes.RRAay:
+                    case opcodes.SLOay:
                     case opcodes.SREay:
                         access = AccessMode.READ;
                         instrTable[buildCycle++].func = FetchLowAddr;
                         instrTable[buildCycle++].func = FetchHighAddrY;
                         instrTable[buildCycle++].func = throwAwayRead;
                         break;
-                    case opcodes.SHAay: case opcodes.SHSay: case opcodes.SHXay: case opcodes.STAay:
+                    case opcodes.SHAay:
+                    case opcodes.SHSay:
+                    case opcodes.SHXay:
+                    case opcodes.STAay:
                         instrTable[buildCycle++].func = FetchLowAddr;
                         instrTable[buildCycle++].func = FetchHighAddrY;
                         instrTable[buildCycle++].func = throwAwayRead;
@@ -2071,16 +2212,28 @@ void MOS6510::hlt_instr() {}
                         break;
 
                     // Indexed with X Preinc Addressing Mode Handler
-                    case opcodes.ADCix: case opcodes.ANDix: case opcodes.CMPix: case opcodes.EORix: case opcodes.LAXix: case opcodes.LDAix:
-                    case opcodes.ORAix: case opcodes.SBCix:
-                    case opcodes.DCPix: case opcodes.ISBix: case opcodes.SLOix: case opcodes.SREix: case opcodes.RLAix: case opcodes.RRAix:
+                    case opcodes.ADCix:
+                    case opcodes.ANDix:
+                    case opcodes.CMPix:
+                    case opcodes.EORix:
+                    case opcodes.LAXix:
+                    case opcodes.LDAix:
+                    case opcodes.ORAix:
+                    case opcodes.SBCix:
+                    case opcodes.DCPix:
+                    case opcodes.ISBix:
+                    case opcodes.SLOix:
+                    case opcodes.SREix:
+                    case opcodes.RLAix:
+                    case opcodes.RRAix:
                         access = AccessMode.READ;
                         instrTable[buildCycle++].func = FetchLowPointer;
                         instrTable[buildCycle++].func = FetchLowPointerX;
                         instrTable[buildCycle++].func = FetchLowEffAddr;
                         instrTable[buildCycle++].func = FetchHighEffAddr;
                         break;
-                    case opcodes.SAXix: case opcodes.STAix:
+                    case opcodes.SAXix:
+                    case opcodes.STAix:
                         instrTable[buildCycle++].func = FetchLowPointer;
                         instrTable[buildCycle++].func = FetchLowPointerX;
                         instrTable[buildCycle++].func = FetchLowEffAddr;
@@ -2088,8 +2241,14 @@ void MOS6510::hlt_instr() {}
                         break;
 
                     // Indexed with Y Postinc Addressing Mode Handler (Read)
-                    case opcodes.ADCiy: case opcodes.ANDiy: case opcodes.CMPiy: case opcodes.EORiy: case opcodes.LAXiy:
-                    case opcodes.LDAiy: case opcodes.ORAiy: case opcodes.SBCiy:
+                    case opcodes.ADCiy:
+                    case opcodes.ANDiy:
+                    case opcodes.CMPiy:
+                    case opcodes.EORiy:
+                    case opcodes.LAXiy:
+                    case opcodes.LDAiy:
+                    case opcodes.ORAiy:
+                    case opcodes.SBCiy:
                         access = AccessMode.READ;
                         instrTable[buildCycle++].func = FetchLowPointer;
                         instrTable[buildCycle++].func = FetchLowEffAddr;
@@ -2098,7 +2257,11 @@ void MOS6510::hlt_instr() {}
                         break;
 
                     // Indexed Y (No page crossing handled)
-                    case opcodes.DCPiy: case opcodes.ISBiy: case opcodes.RLAiy: case opcodes.RRAiy: case opcodes.SLOiy:
+                    case opcodes.DCPiy:
+                    case opcodes.ISBiy:
+                    case opcodes.RLAiy:
+                    case opcodes.RRAiy:
+                    case opcodes.SLOiy:
                     case opcodes.SREiy:
                         access = AccessMode.READ;
                         instrTable[buildCycle++].func = FetchLowPointer;
@@ -2106,7 +2269,8 @@ void MOS6510::hlt_instr() {}
                         instrTable[buildCycle++].func = FetchHighEffAddrY;
                         instrTable[buildCycle++].func = throwAwayRead;
                         break;
-                    case opcodes.SHAiy: case opcodes.STAiy:
+                    case opcodes.SHAiy:
+                    case opcodes.STAiy:
                         instrTable[buildCycle++].func = FetchLowPointer;
                         instrTable[buildCycle++].func = FetchLowEffAddr;
                         instrTable[buildCycle++].func = FetchHighEffAddrY;
@@ -2128,8 +2292,14 @@ void MOS6510::hlt_instr() {}
                 //---------------------------------------------------------------------------------------
                 switch (i)
                 {
-                    case opcodes.ADCz: case opcodes.ADCzx: case opcodes.ADCa: case opcodes.ADCax: case opcodes.ADCay: case opcodes.ADCix:
-                    case opcodes.ADCiy: case opcodes.ADCb:
+                    case opcodes.ADCz:
+                    case opcodes.ADCzx:
+                    case opcodes.ADCa:
+                    case opcodes.ADCax:
+                    case opcodes.ADCay:
+                    case opcodes.ADCix:
+                    case opcodes.ADCiy:
+                    case opcodes.ADCb:
                         instrTable[buildCycle++].func = adc_instr;
                         break;
 
@@ -2138,8 +2308,14 @@ void MOS6510::hlt_instr() {}
                         instrTable[buildCycle++].func = anc_instr;
                         break;
 
-                    case opcodes.ANDz: case opcodes.ANDzx: case opcodes.ANDa: case opcodes.ANDax: case opcodes.ANDay: case opcodes.ANDix:
-                    case opcodes.ANDiy: case opcodes.ANDb:
+                    case opcodes.ANDz:
+                    case opcodes.ANDzx:
+                    case opcodes.ANDa:
+                    case opcodes.ANDax:
+                    case opcodes.ANDay:
+                    case opcodes.ANDix:
+                    case opcodes.ANDiy:
+                    case opcodes.ANDb:
                         instrTable[buildCycle++].func = and_instr;
                         break;
 
@@ -2155,7 +2331,10 @@ void MOS6510::hlt_instr() {}
                         instrTable[buildCycle++].func = asla_instr;
                         break;
 
-                    case opcodes.ASLz: case opcodes.ASLzx: case opcodes.ASLa: case opcodes.ASLax:
+                    case opcodes.ASLz:
+                    case opcodes.ASLzx:
+                    case opcodes.ASLa:
+                    case opcodes.ASLax:
                         instrTable[buildCycle].nosteal = true;
                         instrTable[buildCycle++].func = asl_instr;
                         instrTable[buildCycle].nosteal = true;
@@ -2181,7 +2360,8 @@ void MOS6510::hlt_instr() {}
                         instrTable[buildCycle++].func = fix_branch;
                         break;
 
-                    case opcodes.BITz: case opcodes.BITa:
+                    case opcodes.BITz:
+                    case opcodes.BITa:
                         instrTable[buildCycle++].func = bit_instr;
                         break;
 
@@ -2238,20 +2418,35 @@ void MOS6510::hlt_instr() {}
                         instrTable[buildCycle++].func = clv_instr;
                         break;
 
-                    case opcodes.CMPz: case opcodes.CMPzx: case opcodes.CMPa: case opcodes.CMPax: case opcodes.CMPay: case opcodes.CMPix:
-                    case opcodes.CMPiy: case opcodes.CMPb:
+                    case opcodes.CMPz:
+                    case opcodes.CMPzx:
+                    case opcodes.CMPa:
+                    case opcodes.CMPax:
+                    case opcodes.CMPay:
+                    case opcodes.CMPix:
+                    case opcodes.CMPiy:
+                    case opcodes.CMPb:
                         instrTable[buildCycle++].func = cmp_instr;
                         break;
 
-                    case opcodes.CPXz: case opcodes.CPXa: case opcodes.CPXb:
+                    case opcodes.CPXz:
+                    case opcodes.CPXa:
+                    case opcodes.CPXb:
                         instrTable[buildCycle++].func = cpx_instr;
                         break;
 
-                    case opcodes.CPYz: case opcodes.CPYa: case opcodes.CPYb:
+                    case opcodes.CPYz:
+                    case opcodes.CPYa:
+                    case opcodes.CPYb:
                         instrTable[buildCycle++].func = cpy_instr;
                         break;
 
-                    case opcodes.DCPz: case opcodes.DCPzx: case opcodes.DCPa: case opcodes.DCPax: case opcodes.DCPay: case opcodes.DCPix:
+                    case opcodes.DCPz:
+                    case opcodes.DCPzx:
+                    case opcodes.DCPa:
+                    case opcodes.DCPax:
+                    case opcodes.DCPay:
+                    case opcodes.DCPix:
                     case opcodes.DCPiy: // Also known as DCM
                         instrTable[buildCycle].nosteal = true;
                         instrTable[buildCycle++].func = dcm_instr;
@@ -2259,7 +2454,10 @@ void MOS6510::hlt_instr() {}
                         instrTable[buildCycle++].func = PutEffAddrDataByte;
                         break;
 
-                    case opcodes.DECz: case opcodes.DECzx: case opcodes.DECa: case opcodes.DECax:
+                    case opcodes.DECz:
+                    case opcodes.DECzx:
+                    case opcodes.DECa:
+                    case opcodes.DECax:
                         instrTable[buildCycle].nosteal = true;
                         instrTable[buildCycle++].func = dec_instr;
                         instrTable[buildCycle].nosteal = true;
@@ -2274,8 +2472,14 @@ void MOS6510::hlt_instr() {}
                         instrTable[buildCycle++].func = dey_instr;
                         break;
 
-                    case opcodes.EORz: case opcodes.EORzx: case opcodes.EORa: case opcodes.EORax: case opcodes.EORay: case opcodes.EORix:
-                    case opcodes.EORiy: case opcodes.EORb:
+                    case opcodes.EORz:
+                    case opcodes.EORzx:
+                    case opcodes.EORa:
+                    case opcodes.EORax:
+                    case opcodes.EORay:
+                    case opcodes.EORix:
+                    case opcodes.EORiy:
+                    case opcodes.EORb:
                         instrTable[buildCycle++].func = eor_instr;
                         break;
 #if false
@@ -2287,7 +2491,10 @@ void MOS6510::hlt_instr() {}
             instrTable[buildCycle++].func = hlt_instr;
             break;
 #endif
-                    case opcodes.INCz: case opcodes.INCzx: case opcodes.INCa: case opcodes.INCax:
+                    case opcodes.INCz:
+                    case opcodes.INCzx:
+                    case opcodes.INCa:
+                    case opcodes.INCax:
                         instrTable[buildCycle].nosteal = true;
                         instrTable[buildCycle++].func = inc_instr;
                         instrTable[buildCycle].nosteal = true;
@@ -2302,7 +2509,12 @@ void MOS6510::hlt_instr() {}
                         instrTable[buildCycle++].func = iny_instr;
                         break;
 
-                    case opcodes.ISBz: case opcodes.ISBzx: case opcodes.ISBa: case opcodes.ISBax: case opcodes.ISBay: case opcodes.ISBix:
+                    case opcodes.ISBz:
+                    case opcodes.ISBzx:
+                    case opcodes.ISBa:
+                    case opcodes.ISBax:
+                    case opcodes.ISBay:
+                    case opcodes.ISBix:
                     case opcodes.ISBiy: // Also known as INS
                         instrTable[buildCycle].nosteal = true;
                         instrTable[buildCycle++].func = ins_instr;
@@ -2319,7 +2531,8 @@ void MOS6510::hlt_instr() {}
                         instrTable[buildCycle++].func = FetchHighAddr;
                         instrTable[buildCycle++].func = jmp_instr;
                         break;
-                    case opcodes.JMPw: case opcodes.JMPi:
+                    case opcodes.JMPw:
+                    case opcodes.JMPi:
                         instrTable[buildCycle++].func = jmp_instr;
                         break;
 
@@ -2327,20 +2540,39 @@ void MOS6510::hlt_instr() {}
                         instrTable[buildCycle++].func = las_instr;
                         break;
 
-                    case opcodes.LAXz: case opcodes.LAXzy: case opcodes.LAXa: case opcodes.LAXay: case opcodes.LAXix: case opcodes.LAXiy:
+                    case opcodes.LAXz:
+                    case opcodes.LAXzy:
+                    case opcodes.LAXa:
+                    case opcodes.LAXay:
+                    case opcodes.LAXix:
+                    case opcodes.LAXiy:
                         instrTable[buildCycle++].func = lax_instr;
                         break;
 
-                    case opcodes.LDAz: case opcodes.LDAzx: case opcodes.LDAa: case opcodes.LDAax: case opcodes.LDAay: case opcodes.LDAix:
-                    case opcodes.LDAiy: case opcodes.LDAb:
+                    case opcodes.LDAz:
+                    case opcodes.LDAzx:
+                    case opcodes.LDAa:
+                    case opcodes.LDAax:
+                    case opcodes.LDAay:
+                    case opcodes.LDAix:
+                    case opcodes.LDAiy:
+                    case opcodes.LDAb:
                         instrTable[buildCycle++].func = lda_instr;
                         break;
 
-                    case opcodes.LDXz: case opcodes.LDXzy: case opcodes.LDXa: case opcodes.LDXay: case opcodes.LDXb:
+                    case opcodes.LDXz:
+                    case opcodes.LDXzy:
+                    case opcodes.LDXa:
+                    case opcodes.LDXay:
+                    case opcodes.LDXb:
                         instrTable[buildCycle++].func = ldx_instr;
                         break;
 
-                    case opcodes.LDYz: case opcodes.LDYzx: case opcodes.LDYa: case opcodes.LDYax: case opcodes.LDYb:
+                    case opcodes.LDYz:
+                    case opcodes.LDYzx:
+                    case opcodes.LDYa:
+                    case opcodes.LDYax:
+                    case opcodes.LDYb:
                         instrTable[buildCycle++].func = ldy_instr;
                         break;
 
@@ -2348,7 +2580,10 @@ void MOS6510::hlt_instr() {}
                         instrTable[buildCycle++].func = lsra_instr;
                         break;
 
-                    case opcodes.LSRz: case opcodes.LSRzx: case opcodes.LSRa: case opcodes.LSRax:
+                    case opcodes.LSRz:
+                    case opcodes.LSRzx:
+                    case opcodes.LSRa:
+                    case opcodes.LSRax:
                         instrTable[buildCycle].nosteal = true;
                         instrTable[buildCycle++].func = lsr_instr;
                         instrTable[buildCycle].nosteal = true;
@@ -2361,19 +2596,23 @@ void MOS6510::hlt_instr() {}
                     case 0x5A:
                     case 0x7A:
                     case 0xDA:
-                    case 0xFA: case opcodes.NOPb:
+                    case 0xFA:
+                    case opcodes.NOPb:
                     case 0x82:
                     case 0xC2:
                     case 0xE2:
                     case 0x89:
                     case opcodes.NOPz:
                     case 0x44:
-                    case 0x64: case opcodes.NOPzx:
+                    case 0x64:
+                    case opcodes.NOPzx:
                     case 0x34:
                     case 0x54:
                     case 0x74:
                     case 0xD4:
-                    case 0xF4: case opcodes.NOPa: case opcodes.NOPax:
+                    case 0xF4:
+                    case opcodes.NOPa:
+                    case opcodes.NOPax:
                     case 0x3C:
                     case 0x5C:
                     case 0x7C:
@@ -2387,8 +2626,14 @@ void MOS6510::hlt_instr() {}
                         instrTable[buildCycle++].func = oal_instr;
                         break;
 
-                    case opcodes.ORAz: case opcodes.ORAzx: case opcodes.ORAa: case opcodes.ORAax: case opcodes.ORAay: case opcodes.ORAix:
-                    case opcodes.ORAiy: case opcodes.ORAb:
+                    case opcodes.ORAz:
+                    case opcodes.ORAzx:
+                    case opcodes.ORAa:
+                    case opcodes.ORAax:
+                    case opcodes.ORAay:
+                    case opcodes.ORAix:
+                    case opcodes.ORAiy:
+                    case opcodes.ORAb:
                         instrTable[buildCycle++].func = ora_instr;
                         break;
 
@@ -2417,7 +2662,12 @@ void MOS6510::hlt_instr() {}
                         instrTable[buildCycle++].func = plp_instr;
                         break;
 
-                    case opcodes.RLAz: case opcodes.RLAzx: case opcodes.RLAix: case opcodes.RLAa: case opcodes.RLAax: case opcodes.RLAay:
+                    case opcodes.RLAz:
+                    case opcodes.RLAzx:
+                    case opcodes.RLAix:
+                    case opcodes.RLAa:
+                    case opcodes.RLAax:
+                    case opcodes.RLAay:
                     case opcodes.RLAiy:
                         instrTable[buildCycle].nosteal = true;
                         instrTable[buildCycle++].func = rla_instr;
@@ -2429,7 +2679,10 @@ void MOS6510::hlt_instr() {}
                         instrTable[buildCycle++].func = rola_instr;
                         break;
 
-                    case opcodes.ROLz: case opcodes.ROLzx: case opcodes.ROLa: case opcodes.ROLax:
+                    case opcodes.ROLz:
+                    case opcodes.ROLzx:
+                    case opcodes.ROLa:
+                    case opcodes.ROLax:
                         instrTable[buildCycle].nosteal = true;
                         instrTable[buildCycle++].func = rol_instr;
                         instrTable[buildCycle].nosteal = true;
@@ -2440,14 +2693,22 @@ void MOS6510::hlt_instr() {}
                         instrTable[buildCycle++].func = rora_instr;
                         break;
 
-                    case opcodes.RORz: case opcodes.RORzx: case opcodes.RORa: case opcodes.RORax:
+                    case opcodes.RORz:
+                    case opcodes.RORzx:
+                    case opcodes.RORa:
+                    case opcodes.RORax:
                         instrTable[buildCycle].nosteal = true;
                         instrTable[buildCycle++].func = ror_instr;
                         instrTable[buildCycle].nosteal = true;
                         instrTable[buildCycle++].func = PutEffAddrDataByte;
                         break;
 
-                    case opcodes.RRAa: case opcodes.RRAax: case opcodes.RRAay: case opcodes.RRAz: case opcodes.RRAzx: case opcodes.RRAix:
+                    case opcodes.RRAa:
+                    case opcodes.RRAax:
+                    case opcodes.RRAay:
+                    case opcodes.RRAz:
+                    case opcodes.RRAzx:
+                    case opcodes.RRAix:
                     case opcodes.RRAiy:
                         instrTable[buildCycle].nosteal = true;
                         instrTable[buildCycle++].func = rra_instr;
@@ -2474,13 +2735,22 @@ void MOS6510::hlt_instr() {}
                         instrTable[buildCycle++].func = rts_instr;
                         break;
 
-                    case opcodes.SAXz: case opcodes.SAXzy: case opcodes.SAXa: case opcodes.SAXix: // Also known as AXS
+                    case opcodes.SAXz:
+                    case opcodes.SAXzy:
+                    case opcodes.SAXa:
+                    case opcodes.SAXix: // Also known as AXS
                         instrTable[buildCycle].nosteal = true;
                         instrTable[buildCycle++].func = axs_instr;
                         break;
 
-                    case opcodes.SBCz: case opcodes.SBCzx: case opcodes.SBCa: case opcodes.SBCax: case opcodes.SBCay: case opcodes.SBCix:
-                    case opcodes.SBCiy: case opcodes.SBCb:
+                    case opcodes.SBCz:
+                    case opcodes.SBCzx:
+                    case opcodes.SBCa:
+                    case opcodes.SBCax:
+                    case opcodes.SBCay:
+                    case opcodes.SBCix:
+                    case opcodes.SBCiy:
+                    case opcodes.SBCb:
                     case 0XEB:
                         instrTable[buildCycle++].func = sbc_instr;
                         break;
@@ -2501,7 +2771,8 @@ void MOS6510::hlt_instr() {}
                         instrTable[buildCycle++].func = sei_instr;
                         break;
 
-                    case opcodes.SHAay: case opcodes.SHAiy: // Also known as AXA
+                    case opcodes.SHAay:
+                    case opcodes.SHAiy: // Also known as AXA
                         instrTable[buildCycle].nosteal = true;
                         instrTable[buildCycle++].func = axa_instr;
                         break;
@@ -2521,7 +2792,12 @@ void MOS6510::hlt_instr() {}
                         instrTable[buildCycle++].func = say_instr;
                         break;
 
-                    case opcodes.SLOz: case opcodes.SLOzx: case opcodes.SLOa: case opcodes.SLOax: case opcodes.SLOay: case opcodes.SLOix:
+                    case opcodes.SLOz:
+                    case opcodes.SLOzx:
+                    case opcodes.SLOa:
+                    case opcodes.SLOax:
+                    case opcodes.SLOay:
+                    case opcodes.SLOix:
                     case opcodes.SLOiy: // Also known as ASO
                         instrTable[buildCycle].nosteal = true;
                         instrTable[buildCycle++].func = aso_instr;
@@ -2529,7 +2805,12 @@ void MOS6510::hlt_instr() {}
                         instrTable[buildCycle++].func = PutEffAddrDataByte;
                         break;
 
-                    case opcodes.SREz: case opcodes.SREzx: case opcodes.SREa: case opcodes.SREax: case opcodes.SREay: case opcodes.SREix:
+                    case opcodes.SREz:
+                    case opcodes.SREzx:
+                    case opcodes.SREa:
+                    case opcodes.SREax:
+                    case opcodes.SREay:
+                    case opcodes.SREix:
                     case opcodes.SREiy: // Also known as LSE
                         instrTable[buildCycle].nosteal = true;
                         instrTable[buildCycle++].func = lse_instr;
@@ -2537,18 +2818,27 @@ void MOS6510::hlt_instr() {}
                         instrTable[buildCycle++].func = PutEffAddrDataByte;
                         break;
 
-                    case opcodes.STAz: case opcodes.STAzx: case opcodes.STAa: case opcodes.STAax: case opcodes.STAay: case opcodes.STAix:
+                    case opcodes.STAz:
+                    case opcodes.STAzx:
+                    case opcodes.STAa:
+                    case opcodes.STAax:
+                    case opcodes.STAay:
+                    case opcodes.STAix:
                     case opcodes.STAiy:
                         instrTable[buildCycle].nosteal = true;
                         instrTable[buildCycle++].func = sta_instr;
                         break;
 
-                    case opcodes.STXz: case opcodes.STXzy: case opcodes.STXa:
+                    case opcodes.STXz:
+                    case opcodes.STXzy:
+                    case opcodes.STXa:
                         instrTable[buildCycle].nosteal = true;
                         instrTable[buildCycle++].func = stx_instr;
                         break;
 
-                    case opcodes.STYz: case opcodes.STYzx: case opcodes.STYa:
+                    case opcodes.STYz:
+                    case opcodes.STYzx:
+                    case opcodes.STYa:
                         instrTable[buildCycle].nosteal = true;
                         instrTable[buildCycle++].func = sty_instr;
                         break;
@@ -2664,9 +2954,9 @@ void MOS6510::hlt_instr() {}
 #if DEBUG
             dodump = enable;
             //if (!(out_ != null && enable))
-                //m_fdbg = stdout;
+            //m_fdbg = stdout;
             //else
-                //m_fdbg = out_;
+            //m_fdbg = out_;
 #endif
         }
 

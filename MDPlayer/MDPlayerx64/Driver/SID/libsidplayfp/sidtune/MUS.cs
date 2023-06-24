@@ -18,11 +18,6 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 using Driver.libsidplayfp.sidplayfp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Driver.libsidplayfp.sidtune
 {
@@ -960,7 +955,7 @@ namespace Driver.libsidplayfp.sidtune
             // Skip load address and 3x length entry.
             UInt32 voice1Index = 2 + 3 * 2;
             // Add length of voice 1 data.
-            voice1Index += sidendian.endian_little16(new Ptr<byte>(buffer.buf,buffer.ptr+ 2));
+            voice1Index += sidendian.endian_little16(new Ptr<byte>(buffer.buf, buffer.ptr + 2));
             // Add length of voice 2 data.
             UInt32 voice2Index = voice1Index + sidendian.endian_little16(new Ptr<byte>(buffer.buf, buffer.ptr + 4));
             // Add length of voice 3 data.
@@ -1066,7 +1061,7 @@ namespace Driver.libsidplayfp.sidtune
         public SidTuneBase load(byte[] musBuf, byte[] strBuf, UInt32 fileOffset, bool init = false)
         {
             UInt32 voice3Index = 0;
-            if (!detect(new Ptr<byte>(musBuf.ToArray(),(Int32)fileOffset), ref voice3Index))
+            if (!detect(new Ptr<byte>(musBuf.ToArray(), (Int32)fileOffset), ref voice3Index))
                 return null;
 
             MUS tune = new MUS();
@@ -1140,7 +1135,7 @@ namespace Driver.libsidplayfp.sidtune
                 if (spPet.good())
                 {
                     UInt64 pos = spPet.tellPos();
-                    if (detect(spPet.opeDKakko(0),ref voice3Index))
+                    if (detect(spPet.opeDKakko(0), ref voice3Index))
                     {
                         musDataLen = (UInt16)pos;
                         stereo = true;
@@ -1154,7 +1149,7 @@ namespace Driver.libsidplayfp.sidtune
                 spPet.opePlusEquel((UInt64)voice3Index);
 
                 // Extract credits
-                while (spPet.opePtr()!=null)
+                while (spPet.opePtr() != null)
                 {
                     Ptr<byte> p = spPet.opePtr();
                     info.m_commentString.Add(petsciiToAscii(ref p));

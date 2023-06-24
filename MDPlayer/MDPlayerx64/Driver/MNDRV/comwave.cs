@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MDPlayer.Driver.MNDRV
+﻿namespace MDPlayer.Driver.MNDRV
 {
     public class comwave
     {
@@ -530,12 +524,12 @@ namespace MDPlayer.Driver.MNDRV
                 mm.Write(reg.a3 + w_we.exec_flag, (byte)0xff);
             }
 
-            _weffect_10:
+        _weffect_10:
             mm.Write(reg.a3 + w_we.adrs_work, reg.a0);
             reg.a0 = mm.ReadUInt32(reg.a3 + w_we.exec_adrs);
             ab.hlw_we_exec_adrs[reg.a0]();
 
-            _weffect_exit:
+        _weffect_exit:
             reg.D0_W = sp;
         }
 
@@ -712,12 +706,12 @@ namespace MDPlayer.Driver.MNDRV
                 mm.Write(reg.a3 + w_w.exec_flag, (byte)0xff);
             }
 
-            _com_w10:
+        _com_w10:
             mm.Write(reg.a3 + w_w.adrs_work, reg.a0);
             mm.Write(reg.a4 + w_l.bendwork, (UInt16)reg.D0_W);
             return;
 
-            _com_wave_exit:
+        _com_wave_exit:
             reg.D0_W = mm.ReadUInt16(reg.a4 + w_l.bendwork);
         }
 
@@ -728,7 +722,7 @@ namespace MDPlayer.Driver.MNDRV
             if (mm.ReadByte(reg.a4 + w_l.delay_work) != 0) goto _com_wave_k_exit;
 
             reg.a0 = mm.ReadUInt32(reg.a3 + w_w.adrs_work);
-            _com_wave_k_loop:
+        _com_wave_k_loop:
             reg.D0_B = mm.ReadByte(reg.a0++);
             if (reg.D0_B - 0x80 == 0) goto _com_wave_k_loop;
             if (reg.D0_B >= 0xf0) goto _com_wave_k_command;
@@ -748,11 +742,11 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a4 + w_l.bendwork, (UInt16)reg.D0_W);
             return;
 
-            _com_wave_k_exit:
+        _com_wave_k_exit:
             reg.D0_W = mm.ReadUInt16(reg.a4 + w_l.bendwork);
             return;
 
-            _com_wave_k_command:
+        _com_wave_k_command:
             if (reg.D0_B - 0xff == 0) goto _com_wave_k_command_end;
 
             reg.D0_B &= 0xf;
@@ -761,10 +755,10 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a4 + w_l.lfo_sp, (byte)reg.D0_B);
             goto _com_wave_k_loop;
 
-            _com_wave_k_command_end:
+        _com_wave_k_command_end:
             return;
 
-            _com_wave_k_command_go_loop:
+        _com_wave_k_command_go_loop:
             mm.Write(reg.a3 + w_w.lp_cnt_work, mm.ReadUInt32(reg.a3 + w_w.lp_cnt_work) & 1);
             if (mm.ReadUInt32(reg.a3 + w_w.lp_cnt_work) == 0)
             {
@@ -803,7 +797,7 @@ namespace MDPlayer.Driver.MNDRV
                 mm.Write(reg.a3 + w_w.ko_loop_count, (UInt32)(-(Int32)mm.ReadByte(reg.a3 + w_w.ko_loop_count)));
             }
             mm.Write(reg.a4 + w_l.bendwork, mm.ReadUInt16(reg.a3 + w_w.ko_loop_count));
-            _com_wave_saw_exit:
+        _com_wave_saw_exit:
             reg.D0_W = mm.ReadUInt16(reg.a4 + w_l.bendwork);
         }
 
@@ -824,8 +818,8 @@ namespace MDPlayer.Driver.MNDRV
                 mm.Write(reg.a3 + w_w.ko_loop_end, (UInt32)(-(Int32)mm.ReadUInt32(reg.a3 + w_w.ko_loop_end)));
             }
             mm.Write(reg.a4 + w_l.bendwork, mm.ReadUInt16(reg.a3 + w_w.ko_loop_count));
-            _com_wave_square_exit:
-            reg.D0_W= mm.ReadUInt16(reg.a4 + w_l.bendwork);
+        _com_wave_square_exit:
+            reg.D0_W = mm.ReadUInt16(reg.a4 + w_l.bendwork);
         }
 
         //─────────────────────────────────────
@@ -837,7 +831,7 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a4 + w_l.delay_work, mm.ReadByte(reg.a4 + w_l.lfo_sp));
 
             reg.D0_L = mm.ReadUInt32(reg.a3 + w_w.ko_loop_end);
-            mm.Write(reg.a3 + w_w.ko_loop_count, mm.ReadUInt32(reg.a3 + w_w.ko_loop_count) +reg.D0_L);
+            mm.Write(reg.a3 + w_w.ko_loop_count, mm.ReadUInt32(reg.a3 + w_w.ko_loop_count) + reg.D0_L);
             mm.Write(reg.a3 + w_w.ko_loop_start, (UInt16)(mm.ReadUInt16(reg.a3 + w_w.ko_loop_start) - 1));
             if (mm.ReadUInt16(reg.a3 + w_w.ko_loop_start) == 0)
             {
@@ -845,7 +839,7 @@ namespace MDPlayer.Driver.MNDRV
                 mm.Write(reg.a3 + w_w.ko_loop_end, (UInt32)(-(Int32)mm.ReadUInt32(reg.a3 + w_w.ko_loop_end)));
             }
             mm.Write(reg.a4 + w_l.bendwork, mm.ReadUInt16(reg.a3 + w_w.ko_loop_count));
-            _com_wave_triangle_exit:
+        _com_wave_triangle_exit:
             reg.D0_W = mm.ReadUInt16(reg.a4 + w_l.bendwork);
         }
 
@@ -867,7 +861,7 @@ namespace MDPlayer.Driver.MNDRV
                 mm.Write(reg.a3 + w_w.ko_loop_count, reg.D0_L);
             }
             mm.Write(reg.a4 + w_l.bendwork, mm.ReadUInt16(reg.a3 + w_w.ko_loop_count));
-            _com_wave_randome_exit:
+        _com_wave_randome_exit:
             reg.D0_W = mm.ReadUInt16(reg.a4 + w_l.bendwork);
         }
 
@@ -891,7 +885,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D0_W = (UInt16)(sbyte)reg.D0_B;
             mm.Write(reg.a4 + w_l.bendwork, (UInt16)reg.D0_W);
             return;
-            _com_wave_saw_a_exit:
+        _com_wave_saw_a_exit:
             reg.D0_W = mm.ReadUInt16(reg.a4 + w_l.bendwork);
         }
 
@@ -915,7 +909,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D0_W = (UInt16)(sbyte)reg.D0_B;
             mm.Write(reg.a4 + w_l.bendwork, (UInt16)reg.D0_W);
             return;
-            _com_wave_square_a_exit:
+        _com_wave_square_a_exit:
             reg.D0_W = mm.ReadUInt16(reg.a4 + w_l.bendwork);
         }
 
@@ -940,7 +934,7 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a4 + w_l.bendwork, (UInt16)reg.D0_W);
             return;
 
-            _com_wave_triangle_a_exit:
+        _com_wave_triangle_a_exit:
             reg.D0_W = mm.ReadUInt16(reg.a4 + w_l.bendwork);
         }
 
@@ -966,7 +960,7 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a4 + w_l.bendwork, (UInt16)reg.D0_W);
             return;
 
-            _com_wave_randome_a_exit:
+        _com_wave_randome_a_exit:
             reg.D0_W = mm.ReadUInt16(reg.a4 + w_l.bendwork);
         }
 

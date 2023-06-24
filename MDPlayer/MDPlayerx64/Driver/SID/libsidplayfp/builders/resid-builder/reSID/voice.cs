@@ -16,11 +16,6 @@
 //  along with this program; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //  ---------------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Driver.libsidplayfp.builders.resid_builder.reSID
 {
@@ -45,8 +40,8 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
         // Range [-2048*255, 2047*255].
         //public int output() { }
 
-        public WaveformGenerator wave=new WaveformGenerator();
-        public EnvelopeGenerator envelope=new EnvelopeGenerator();
+        public WaveformGenerator wave = new WaveformGenerator();
+        public EnvelopeGenerator envelope = new EnvelopeGenerator();
 
 
         // Waveform D/A zero level.

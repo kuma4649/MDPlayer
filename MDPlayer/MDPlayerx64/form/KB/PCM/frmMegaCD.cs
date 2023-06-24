@@ -1,9 +1,5 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-using MDPlayerx64;
+﻿using MDPlayerx64;
 #if X64
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
@@ -33,7 +29,7 @@ namespace MDPlayer.form
 
             this.newParam = newParam;
             this.oldParam = oldParam;
-            frameBuffer.Add(pbScreen, ResMng.imgDic["planeC"], null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.ImgDic["planeC"], null, zoom);
             DrawBuff.screenInitRF5C164(frameBuffer);
             update();
         }
@@ -76,9 +72,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeC"].Width * zoom, frameSizeH + ResMng.imgDic["planeC"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeC"].Width * zoom, frameSizeH + ResMng.imgDic["planeC"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeC"].Width * zoom, frameSizeH + ResMng.imgDic["planeC"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeC"].Width * zoom, frameSizeH + ResMng.ImgDic["planeC"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeC"].Width * zoom, frameSizeH + ResMng.ImgDic["planeC"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeC"].Width * zoom, frameSizeH + ResMng.ImgDic["planeC"].Height * zoom);
             frmMegaCD_Resize(null, null);
 
         }
@@ -87,7 +83,7 @@ namespace MDPlayer.form
         {
         }
 
-            public void screenChangeParams()
+        public void screenChangeParams()
         {
             MDSound.scd_pcm.pcm_chip_ rf5c164Register = Audio.GetRf5c164Register(chipID);
             if (rf5c164Register != null)
@@ -126,7 +122,7 @@ namespace MDPlayer.form
                 DrawBuff.Volume(frameBuffer, 256, 8 + c * 8, 1, ref orc.volumeL, nrc.volumeL, 0);
                 DrawBuff.Volume(frameBuffer, 256, 8 + c * 8, 2, ref orc.volumeR, nrc.volumeR, 0);
                 DrawBuff.KeyBoard(frameBuffer, c, ref orc.note, nrc.note, 0);
-                DrawBuff.PanType2(frameBuffer, c, ref orc.pan, nrc.pan,0);
+                DrawBuff.PanType2(frameBuffer, c, ref orc.pan, nrc.pan, 0);
                 DrawBuff.ChRF5C164(frameBuffer, c, ref orc.mask, nrc.mask, 0);
 
             }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MDPlayer.Driver
+﻿namespace MDPlayer.Driver
 {
     public class km6280
     {
@@ -442,7 +436,7 @@ namespace MDPlayer.Driver
                 //#else
                 cycle += cycle + cycle; /*    */
                 cycle += cycle;         /* x6 */
-                                        //#endif
+                //#endif
             }
             pc.clock += cycle;
             //#else
@@ -2349,7 +2343,7 @@ namespace MDPlayer.Driver
                     //#if BUILD_HUC6280
                     pc.lowClockMode = 1;
                     K_WRITEMPR(pc, 0x80, 0x00); /* IPL(TOP OF ROM) */
-                                                //#endif
+                    //#endif
                     pc.A = 0;
                     pc.X = 0;
                     pc.Y = 0;

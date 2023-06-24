@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MDPlayer.Driver.MXDRV
+﻿namespace MDPlayer.Driver.MXDRV
 {
     public class xMemory
     {
@@ -35,7 +29,7 @@ namespace MDPlayer.Driver.MXDRV
         public void Write(UInt32 v1, UInt16 v2)
         {
             Write(v1, (byte)(v2 >> 8));
-            Write(v1+1, (byte)(v2 >> 0));
+            Write(v1 + 1, (byte)(v2 >> 0));
         }
 
         public void Write(UInt32 v1, UInt32 v2)

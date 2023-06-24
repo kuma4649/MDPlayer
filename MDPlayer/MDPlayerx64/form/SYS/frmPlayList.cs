@@ -3,14 +3,7 @@ using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Windows.Forms;
-using System.Linq;
-using System.Threading;
 
 namespace MDPlayer.form
 {
@@ -59,7 +52,7 @@ namespace MDPlayer.form
 
         public int getMusicCount()
         {
-            return playList.lstMusic.Count;
+            return playList.LstMusic.Count;
         }
 
         public PlayList getPlayList()
@@ -67,18 +60,18 @@ namespace MDPlayer.form
             return playList;
         }
 
-        public Tuple<int,int,string,string> setStart(int n)
+        public Tuple<int, int, string, string> setStart(int n)
         {
             updatePlayingIndex(n);
 
-            string fn = playList.lstMusic[playIndex].fileName;
-            string zfn = playList.lstMusic[playIndex].arcFileName;
+            string fn = playList.LstMusic[playIndex].fileName;
+            string zfn = playList.LstMusic[playIndex].arcFileName;
             int m = 0;
-            int songNo = playList.lstMusic[playIndex].songNo;
+            int songNo = playList.LstMusic[playIndex].songNo;
 
-            if (playList.lstMusic[playIndex].type != null && playList.lstMusic[playIndex].type != "-")
+            if (playList.LstMusic[playIndex].type != null && playList.LstMusic[playIndex].type != "-")
             {
-                m = playList.lstMusic[playIndex].type[0] - 'A';
+                m = playList.LstMusic[playIndex].type[0] - 'A';
                 if (m < 0 || m > 9) m = 0;
             }
 
@@ -102,7 +95,7 @@ namespace MDPlayer.form
         {
             if (setting.other.EmptyPlayList)
             {
-                playList.lstMusic = new List<PlayList.music>();
+                playList.LstMusic = new List<PlayList.Music>();
             }
             playList.Save(null);
         }
@@ -115,7 +108,7 @@ namespace MDPlayer.form
             }
         }
 
-        public List<Tuple<string,string>> randomStack = new List<Tuple<string,string>>();
+        public List<Tuple<string, string>> randomStack = new List<Tuple<string, string>>();
 
         protected override void WndProc(ref Message m)
         {
@@ -159,7 +152,7 @@ namespace MDPlayer.form
         public new void Refresh()
         {
             dgvList.Rows.Clear();
-            List<DataGridViewRow> rows =playList.makeRow(playList.lstMusic);
+            List<DataGridViewRow> rows = playList.MakeRow(playList.LstMusic);
             foreach (DataGridViewRow row in rows)
             {
                 dgvList.Rows.Add(row);
@@ -256,7 +249,7 @@ namespace MDPlayer.form
                 {
                     playIndex--;
                 }
-                playList.lstMusic.RemoveAt(dgvList.SelectedRows[i].Index);
+                playList.LstMusic.RemoveAt(dgvList.SelectedRows[i].Index);
                 dgvList.Rows.RemoveAt(dgvList.SelectedRows[i].Index);
             }
         }
@@ -290,7 +283,7 @@ namespace MDPlayer.form
             }
 
             frmMain.loadAndPlay(m, songNo, fn, zfn);
-            if (Audio.errMsg != "")
+            if (Audio.ErrMsg != "")
             {
                 playing = false;
                 return;
@@ -307,13 +300,14 @@ namespace MDPlayer.form
 
         public void nextPlayMode(int mode)
         {
-            if (!playing) {
+            if (!playing)
+            {
                 playIndex = -1;
             }
 
             int pi = playIndex;
             playing = false;
-            string fn,zfn;
+            string fn, zfn;
 
             switch (mode)
             {
@@ -371,7 +365,7 @@ namespace MDPlayer.form
                 songNo = 0;
             }
 
-            if(!frmMain.loadAndPlay(m, songNo, fn, zfn))
+            if (!frmMain.loadAndPlay(m, songNo, fn, zfn))
             {
                 playing = false;
                 return;
@@ -536,7 +530,7 @@ namespace MDPlayer.form
 
             playing = false;
             dgvList.Rows.Clear();
-            playList.lstMusic.Clear();
+            playList.LstMusic.Clear();
             playIndex = -1;
             oldPlayIndex = -1;
 
@@ -580,8 +574,8 @@ namespace MDPlayer.form
                 {
                     pl = PlayList.LoadM3U(ofd.FileName);
                     playing = false;
-                    playList.lstMusic.Clear();
-                    foreach (PlayList.music ms in pl.lstMusic)
+                    playList.LstMusic.Clear();
+                    foreach (PlayList.Music ms in pl.LstMusic)
                     {
                         playList.AddFile(ms.fileName);
                         //AddList(ms.fileName);
@@ -724,7 +718,7 @@ namespace MDPlayer.form
                 {
                     string ext = System.IO.Path.GetExtension(fn).ToUpper();
                     if (
-                           ext == ".VGM" || ext == ".VGZ" || ext == ".ZIP" || ext == ".NRD" 
+                           ext == ".VGM" || ext == ".VGZ" || ext == ".ZIP" || ext == ".NRD"
                         || ext == ".XGM" || ext == ".S98" || ext == ".NSF" || ext == ".HES"
                         || ext == ".SID" || ext == ".MID" || ext == ".RCP" || ext == ".M3U"
                         || ext == ".MDR" || ext == ".XGZ"
@@ -753,7 +747,7 @@ namespace MDPlayer.form
             }
 
             int ind = dgvList.SelectedRows[0].Index;
-            PlayList.music mus = playList.lstMusic[ind-1];
+            PlayList.Music mus = playList.LstMusic[ind - 1];
             DataGridViewRow row = dgvList.Rows[ind - 1];
 
             if (ind == playIndex) playIndex--;
@@ -762,10 +756,10 @@ namespace MDPlayer.form
             if (ind == oldPlayIndex) oldPlayIndex--;
             else if (ind == oldPlayIndex + 1) oldPlayIndex++;
 
-            playList.lstMusic.RemoveAt(ind-1);
-            dgvList.Rows.RemoveAt(ind-1);
+            playList.LstMusic.RemoveAt(ind - 1);
+            dgvList.Rows.RemoveAt(ind - 1);
 
-            playList.lstMusic.Insert(ind, mus);
+            playList.LstMusic.Insert(ind, mus);
             dgvList.Rows.Insert(ind, row);
 
         }
@@ -778,7 +772,7 @@ namespace MDPlayer.form
             }
 
             int ind = dgvList.SelectedRows[0].Index;
-            PlayList.music mus = playList.lstMusic[ind + 1];
+            PlayList.Music mus = playList.LstMusic[ind + 1];
             DataGridViewRow row = dgvList.Rows[ind + 1];
 
             if (ind == playIndex) playIndex++;
@@ -787,10 +781,10 @@ namespace MDPlayer.form
             if (ind == oldPlayIndex) oldPlayIndex++;
             else if (ind == oldPlayIndex - 1) oldPlayIndex--;
 
-            playList.lstMusic.RemoveAt(ind + 1);
+            playList.LstMusic.RemoveAt(ind + 1);
             dgvList.Rows.RemoveAt(ind + 1);
 
-            playList.lstMusic.Insert(ind, mus);
+            playList.LstMusic.Insert(ind, mus);
             dgvList.Rows.Insert(ind, row);
 
         }
@@ -859,8 +853,8 @@ namespace MDPlayer.form
         {
             e.Effect = DragDropEffects.All;
             Point cp = dgvList.PointToClient(new Point(e.X, e.Y));
-            DataGridView.HitTestInfo hti = dgvList.HitTest(cp.X,cp.Y);
-            if (hti.Type!= DataGridViewHitTestType.Cell || hti.RowIndex < 0 || hti.RowIndex >= dgvList.Rows.Count) return;
+            DataGridView.HitTestInfo hti = dgvList.HitTest(cp.X, cp.Y);
+            if (hti.Type != DataGridViewHitTestType.Cell || hti.RowIndex < 0 || hti.RowIndex >= dgvList.Rows.Count) return;
             dgvList.MultiSelect = false;
             dgvList.MultiSelect = true;
             dgvList.Rows[hti.RowIndex].Selected = true;
@@ -904,12 +898,12 @@ namespace MDPlayer.form
                 //重複を取り除く
                 filename = result.Distinct().ToArray();
 
-                int i = playList.lstMusic.Count;
+                int i = playList.LstMusic.Count;
                 Point cp = dgvList.PointToClient(new Point(e.X, e.Y));
                 DataGridView.HitTestInfo hti = dgvList.HitTest(cp.X, cp.Y);
                 if (hti.Type == DataGridViewHitTestType.Cell && hti.RowIndex >= 0 && hti.RowIndex < dgvList.Rows.Count)
                 {
-                    if (hti.RowIndex < playList.lstMusic.Count) i = hti.RowIndex;
+                    if (hti.RowIndex < playList.LstMusic.Count) i = hti.RowIndex;
                 }
 
                 //曲を停止
@@ -928,13 +922,13 @@ namespace MDPlayer.form
                 }
                 i = buIndex;
 
-                if (i >= playList.lstMusic.Count) return;
+                if (i >= playList.LstMusic.Count) return;
 
                 //選択位置の曲を再生する
-                string fn = playList.lstMusic[i].fileName;
-                if (playList.lstMusic[i].arcType != EnmArcType.LZH
-                    && playList.lstMusic[i].arcType != EnmArcType.ZIP
-                    && (playList.lstMusic[i].arcFileName == null || playList.lstMusic[i].arcFileName.ToLower().LastIndexOf(".m3u") == -1)
+                string fn = playList.LstMusic[i].fileName;
+                if (playList.LstMusic[i].arcType != EnmArcType.LZH
+                    && playList.LstMusic[i].arcType != EnmArcType.ZIP
+                    && (playList.LstMusic[i].arcFileName == null || playList.LstMusic[i].arcFileName.ToLower().LastIndexOf(".m3u") == -1)
                     && fn.ToLower().LastIndexOf(".lzh") == -1
                     && fn.ToLower().LastIndexOf(".zip") == -1
                     && fn.ToLower().LastIndexOf(".m3u") == -1
@@ -994,7 +988,7 @@ namespace MDPlayer.form
             List<int> sel = new List<int>();
             foreach (DataGridViewRow r in dgvList.SelectedRows)
             {
-                playList.lstMusic[r.Index].type= ((ToolStripMenuItem)sender).Text;
+                playList.LstMusic[r.Index].type = ((ToolStripMenuItem)sender).Text;
                 r.Cells["clmType"].Value = ((ToolStripMenuItem)sender).Text;
             }
         }
@@ -1081,7 +1075,7 @@ namespace MDPlayer.form
                 if (setting.other.AutoOpenMML && mml != "") tsbMMLExt_Click(null, null);
                 if (setting.other.AutoOpenImg && img != "") tsbImgExt_Click(null, null);
             }
-            catch 
+            catch
             {
                 //解析できないファイル名の場合は無視
                 ;
@@ -1106,10 +1100,10 @@ namespace MDPlayer.form
             Process.Start(img);
         }
 
-        public PlayList.music getPlayingSongInfo()
+        public PlayList.Music getPlayingSongInfo()
         {
             if (playIndex < 0 || dgvList.Rows.Count <= playIndex) return null;
-            return (PlayList.music)dgvList.Rows[playIndex].Tag;
+            return (PlayList.Music)dgvList.Rows[playIndex].Tag;
         }
 
         private void tsmiOpenFolder_Click(object sender, EventArgs e)

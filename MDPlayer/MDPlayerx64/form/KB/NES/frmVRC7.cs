@@ -1,18 +1,8 @@
 ﻿#if X64
 using MDPlayerx64;
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
@@ -37,7 +27,7 @@ namespace MDPlayer.form
             InitializeComponent();
 
             this.newParam = newParam;
-            frameBuffer.Add(pbScreen, ResMng.imgDic["planeVRC7"], null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.ImgDic["planeVRC7"], null, zoom);
             bool VRC7Type = false;
             int tp = VRC7Type ? 1 : 0;
             DrawBuff.screenInitVRC7(frameBuffer, tp);
@@ -82,9 +72,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeVRC7"].Width * zoom, frameSizeH + ResMng.imgDic["planeVRC7"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeVRC7"].Width * zoom, frameSizeH + ResMng.imgDic["planeVRC7"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeVRC7"].Width * zoom, frameSizeH + ResMng.imgDic["planeVRC7"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeVRC7"].Width * zoom, frameSizeH + ResMng.ImgDic["planeVRC7"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeVRC7"].Width * zoom, frameSizeH + ResMng.ImgDic["planeVRC7"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeVRC7"].Width * zoom, frameSizeH + ResMng.ImgDic["planeVRC7"].Height * zoom);
             frmVRC7_Resize(null, null);
 
         }
@@ -94,7 +84,7 @@ namespace MDPlayer.form
 
         }
 
- 
+
         public void screenChangeParams()
         {
             byte[] vrc7Register = Audio.GetVRC7Register(chipID);

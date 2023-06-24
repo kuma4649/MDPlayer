@@ -1,12 +1,8 @@
 ﻿#if X64
 using MDPlayerx64;
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
-using System;
-using System.Drawing;
-using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
@@ -32,7 +28,7 @@ namespace MDPlayer.form
             this.newParam = newParam;
             this.oldParam = oldParam;
 
-            frameBuffer.Add(pbScreen, ResMng.imgDic["planeYMZ280B"], null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.ImgDic["planeYMZ280B"], null, zoom);
             screenInit();
             update();
         }
@@ -75,9 +71,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYMZ280B"].Width * zoom, frameSizeH + ResMng.imgDic["planeYMZ280B"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYMZ280B"].Width * zoom, frameSizeH + ResMng.imgDic["planeYMZ280B"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYMZ280B"].Width * zoom, frameSizeH + ResMng.imgDic["planeYMZ280B"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeYMZ280B"].Width * zoom, frameSizeH + ResMng.ImgDic["planeYMZ280B"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeYMZ280B"].Width * zoom, frameSizeH + ResMng.ImgDic["planeYMZ280B"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeYMZ280B"].Width * zoom, frameSizeH + ResMng.ImgDic["planeYMZ280B"].Height * zoom);
             frmYMZ280B_Resize(null, null);
 
         }
@@ -141,7 +137,7 @@ namespace MDPlayer.form
             for (int ch = 0; ch < 8; ch++)
             {
                 newParam.channels[ch].freq = (byte)reg[0x0 + ch * 4]
-                    + ((reg[0x1 + ch * 4]&1) << 8);
+                    + ((reg[0x1 + ch * 4] & 1) << 8);
                 newParam.channels[ch].nfrq = (byte)reg[0x2 + ch * 4];
                 newParam.channels[ch].pan = (byte)(reg[0x3 + ch * 4] & 0xf);
                 newParam.channels[ch].sadr = ((byte)reg[0x20 + ch * 4] << 16)

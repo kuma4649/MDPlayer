@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MDSound;
-
-namespace MDPlayer
+﻿namespace MDPlayer
 {
     public class hes : baseDriver
     {
@@ -139,9 +132,9 @@ namespace MDPlayer
                     else silent_length = 0;
                     last_out = m;
 
-                    if (nez_play != null && nez_play.heshes!=null)
+                    if (nez_play != null && nez_play.heshes != null)
                     {
-                        buf[0] = 0;buf[1] = 0;
+                        buf[0] = 0; buf[1] = 0;
                         m_hes.synth(nez_play.heshes, buf);
                         Buffer[0][i] += buf[0];
                         Buffer[1][i] += buf[1];
@@ -171,7 +164,7 @@ namespace MDPlayer
                     else Stopped = true;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 log.ForcedWrite(ex);
             }
@@ -180,14 +173,14 @@ namespace MDPlayer
 
         public class HESDetector : MDSound.np.BasicDetector
         {
-            public HESDetector(): base(18)
+            public HESDetector() : base(18)
             {
             }
 
             public override bool Write(UInt32 adr, UInt32 val, UInt32 id)
             {
                 if (
-                    adr<0x10
+                    adr < 0x10
                   )
                 {
                     return base.Write(adr, val, id);
@@ -220,8 +213,8 @@ namespace MDPlayer
                 if (match_length < 0)
                     return false;
 
-//                Console.WriteLine("match_length:{0}", match_length);
-//                Console.WriteLine("match_size  :{0}", match_size);
+                //                Console.WriteLine("match_length:{0}", match_length);
+                //                Console.WriteLine("match_size  :{0}", match_size);
                 for (i = 0; i < match_length; i++)
                 {
                     for (j = 0; j < match_size; j++)

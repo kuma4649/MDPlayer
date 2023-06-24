@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MDPlayer.Driver;
+﻿using MDPlayer.Driver;
 
 namespace MDPlayer
 {
@@ -18,7 +13,7 @@ namespace MDPlayer
         public class NEZ_PLAY
         {
             public HESHES heshes;
-            public SONG_INFO song=new SONG_INFO();
+            public SONG_INFO song = new SONG_INFO();
         }
         public class SONG_INFO
         {
@@ -38,7 +33,7 @@ namespace MDPlayer
         }
         private UInt32 GetDwordLE(byte[] p, UInt32 ptr)
         {
-            if (p.Length <= ptr+3) return 0;
+            if (p.Length <= ptr + 3) return 0;
             return (UInt32)p[ptr + 0] | ((UInt32)p[ptr + 1] << 8) | ((UInt32)p[ptr + 2] << 16) | ((UInt32)p[ptr + 3] << 24);
         }
 
@@ -98,7 +93,7 @@ namespace MDPlayer
             public km6280.K6280_Context ctx;
             //public KMIF_SOUND_DEVICE hessnd;
             public KMIF_SOUND_DEVICE hespcm;
-            public kmevent.KMEVENT kme=new kmevent.KMEVENT();
+            public kmevent.KMEVENT kme = new kmevent.KMEVENT();
             public UInt32 vsync;
             public UInt32 timer;
 
@@ -342,8 +337,8 @@ namespace MDPlayer
                     //    (Int32)(a & 0xf),
                     //    (Int32)v
                     //    );
-                    if(!disableSendChip)
-                    chipRegister.setHuC6280Register(0, (Int32)(a & 0xf), (Int32)v, EnmModel.VirtualModel);
+                    if (!disableSendChip)
+                        chipRegister.setHuC6280Register(0, (Int32)(a & 0xf), (Int32)v, EnmModel.VirtualModel);
                     ld.Write((UInt32)(a & 0xf), (UInt32)v, 0);
                     //THIS_.hessnd.write(THIS_.hessnd.ctx, a & 0xf, v);
                     break;
@@ -470,7 +465,7 @@ namespace MDPlayer
 
         //ここからメモリービュアー設定
         public delegate UInt32 memview_memread(UInt32 a);
-        private HESHES memview_context=null;
+        private HESHES memview_context = null;
 
         //private Int32 MEM_MAX, MEM_IO, MEM_RAM, MEM_ROM;
         private UInt32 memview_memread_hes(UInt32 a)
@@ -623,7 +618,7 @@ namespace MDPlayer
 
             /* request execute(5sec) */
             initbreak = 5 << 8;
-            
+
             disableSendChip = true;
 
             while (THIS_.breaked == 0 && --initbreak != 0)
@@ -713,7 +708,7 @@ namespace MDPlayer
             return 1;
         }
 
-        public void copy_physical_address(HESHES THIS_, UInt32 a, UInt32 l, byte[] p,ref UInt32 ptrP)
+        public void copy_physical_address(HESHES THIS_, UInt32 a, UInt32 l, byte[] p, ref UInt32 ptrP)
         {
             byte page = (byte)(a >> 13);
             UInt32 w;
@@ -763,7 +758,7 @@ namespace MDPlayer
             pNezPlay.song.extdevice = (UInt32)0;
             for (i = 0; i < 8; i++) THIS_.firstmpr[i] = pData[8 + i];
             THIS_.playerromaddr = 0x1ff0;
-            THIS_.initaddr = GetWordLE(pData , 0x06);
+            THIS_.initaddr = GetWordLE(pData, 0x06);
             pNezPlay.song.initaddress = THIS_.initaddr;
             pNezPlay.song.playaddress = 0;
 
@@ -800,17 +795,17 @@ First Mapper 7 : {0:X2}"
                 return (UInt32)NESERR.SHORTOFMEMORY;
             if (alloc_physical_address(THIS_, 0x00 << 13, 0x2000) == 0) /* IPL-ROM */
                 return (UInt32)NESERR.SHORTOFMEMORY;
-            for (p = 0x10; p + 0x10 < uSize; p += 0x10 + GetDwordLE(pData,p + 4))
+            for (p = 0x10; p + 0x10 < uSize; p += 0x10 + GetDwordLE(pData, p + 4))
             {
-                if (GetDwordLE(pData , p) == 0x41544144)    /* 'DATA' */
+                if (GetDwordLE(pData, p) == 0x41544144)    /* 'DATA' */
                 {
                     UInt32 a, l;
-                    l = GetDwordLE(pData , p + 4);
-                    a = GetDwordLE(pData , p + 8);
-                    if (alloc_physical_address(THIS_, a, l)==0) return (UInt32)NESERR.SHORTOFMEMORY;
+                    l = GetDwordLE(pData, p + 4);
+                    a = GetDwordLE(pData, p + 8);
+                    if (alloc_physical_address(THIS_, a, l) == 0) return (UInt32)NESERR.SHORTOFMEMORY;
                     if (l > uSize - p - 0x10) l = uSize - p - 0x10;
                     UInt32 q = p + 0x10;
-                    copy_physical_address(THIS_, a, l, pData,ref q);
+                    copy_physical_address(THIS_, a, l, pData, ref q);
                     p = q;
                 }
             }
@@ -910,7 +905,7 @@ First Mapper 7 : {0:X2}"
             return ret;
         }
 
-        public enum NESERR :UInt32
+        public enum NESERR : UInt32
         {
             NOERROR,
             SHORTOFMEMORY,
@@ -924,7 +919,7 @@ First Mapper 7 : {0:X2}"
             UInt32 ret;
             ret = p1 / p2;
             p1 = p1 % p2;/* p1 = p1 - p2 * ret; */
-            while (fix--!=0)
+            while (fix-- != 0)
             {
                 p1 += p1;
                 ret += ret;

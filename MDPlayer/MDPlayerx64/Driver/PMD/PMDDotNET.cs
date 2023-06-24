@@ -1,11 +1,4 @@
 ﻿using musicDriverInterface;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace MDPlayer.Driver
 {
@@ -65,7 +58,7 @@ namespace MDPlayer.Driver
             return g;
         }
 
-        public override bool init(byte[] vgmBuf,int fileType, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime)
+        public override bool init(byte[] vgmBuf, int fileType, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime)
         {
             mtype = fileType == 0 ? enmPMDFileType.MML : enmPMDFileType.M;
             GD3 = getGD3Info(vgmBuf, 0, mtype);
@@ -127,7 +120,7 @@ namespace MDPlayer.Driver
                 {
                     //if (PMDDriver.GetStatus() == 0)
                     //{
-                        //Thread.Sleep((int)(latency * 2.0));//実際の音声が発音しきるまでlatency*2の分だけ待つ
+                    //Thread.Sleep((int)(latency * 2.0));//実際の音声が発音しきるまでlatency*2の分だけ待つ
                     //}
                     Stopped = true;
                 }
@@ -449,11 +442,11 @@ namespace MDPlayer.Driver
 
             if (arg.port == 0x05)
             {
-                chipRegister.PPSDRVLoad(0, (byte[])arg.addtionalData,model);
+                chipRegister.PPSDRVLoad(0, (byte[])arg.addtionalData, model);
             }
             else
             {
-                chipRegister.PPSDRVWrite(0, arg.port, arg.address, arg.data,model);
+                chipRegister.PPSDRVWrite(0, arg.port, arg.address, arg.data, model);
             }
 
             return 0;
@@ -497,7 +490,7 @@ namespace MDPlayer.Driver
         {
             string fn;
             fn = arg;
-            string dir=Path.GetDirectoryName(arg);
+            string dir = Path.GetDirectoryName(arg);
             if (string.IsNullOrEmpty(dir)) fn = Path.Combine(Path.GetDirectoryName(PlayingFileName), fn);
 
             if (envPmd != null)

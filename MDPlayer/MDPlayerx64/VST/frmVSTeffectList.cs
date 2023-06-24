@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Windows.Forms;
-
-namespace MDPlayer.form
+﻿namespace MDPlayer.form
 {
     public partial class frmVSTeffectList : Form
     {
         private frmMain parent = null;
         public bool isClosed = false;
         public Setting setting = null;
-        private bool IsInitialOpenFolder=true;
+        private bool IsInitialOpenFolder = true;
 
-        public frmVSTeffectList(frmMain parent,Setting setting)
+        public frmVSTeffectList(frmMain parent, Setting setting)
         {
             InitializeComponent();
             this.Visible = false;
@@ -63,7 +57,7 @@ namespace MDPlayer.form
         {
             dgvList.Rows.Clear();
 
-            vstInfos =Audio.GetVSTInfos();
+            vstInfos = Audio.GetVSTInfos();
 
             foreach (vstInfo vi in vstInfos)
             {
@@ -109,7 +103,7 @@ namespace MDPlayer.form
 
             parent.Stop();
             //while (!Audio.trdStopped) { System.Threading.Thread.Sleep(1); }
-            while (!Audio.trdClosed) { System.Threading.Thread.Sleep(1); }
+            while (!Audio.TrdClosed) { System.Threading.Thread.Sleep(1); }
             Audio.DelVSTeffect("");
             dispPluginList();
         }

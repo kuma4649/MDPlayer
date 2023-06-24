@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MDPlayer.Driver.MNDRV
+﻿namespace MDPlayer.Driver.MNDRV
 {
     public class reg
     {
@@ -122,7 +116,7 @@ namespace MDPlayer.Driver.MNDRV
         private double step = 0.0;
         private double MasterClock = 3579545.0;
 
-        public FMTimer(bool isOPM,Action CsmKeyOn,double MasterClock)
+        public FMTimer(bool isOPM, Action CsmKeyOn, double MasterClock)
         {
             this.isOPM = isOPM;
             this.CsmKeyOn = CsmKeyOn;
@@ -143,7 +137,7 @@ namespace MDPlayer.Driver.MNDRV
 
             if ((TimerReg & 0x01) != 0)
             {   // TimerA 動作中
-                TimerAcounter+=step;
+                TimerAcounter += step;
                 if (TimerAcounter >= TimerA)
                 {
                     flag_set |= ((TimerReg >> 2) & 0x01);
@@ -154,7 +148,7 @@ namespace MDPlayer.Driver.MNDRV
 
             if ((TimerReg & 0x02) != 0)
             {   // TimerB 動作中
-                TimerBcounter+=step;
+                TimerBcounter += step;
                 if (TimerBcounter >= TimerB)
                 {
                     flag_set |= ((TimerReg >> 2) & 0x02);

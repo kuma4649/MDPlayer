@@ -19,11 +19,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Driver.libsidplayfp.builders.resid_builder
 {
@@ -124,7 +119,7 @@ namespace Driver.libsidplayfp.builders.resid_builder
             return credits;
         }
 
-        public ReSID(libsidplayfp.sidplayfp.sidbuilder builder,MDPlayer.Setting setting) : base(builder)
+        public ReSID(libsidplayfp.sidplayfp.sidbuilder builder, MDPlayer.Setting setting) : base(builder)
         {
             m_sid = new reSID.SID(setting);
             m_voiceMask = 0x07;
@@ -169,7 +164,7 @@ namespace Driver.libsidplayfp.builders.resid_builder
         {
             Int32 cycles = (Int32)eventScheduler.getTime(m_accessClk, event_phase_t.EVENT_CLOCK_PHI1);
             m_accessClk += cycles;
-            m_bufferpos += (int)m_sid.clock(ref cycles, m_buffer , m_bufferpos, (uint)((uint)libsidplayfp.sidemu.output.OUTPUTBUFFERSIZE - m_bufferpos), 1);
+            m_bufferpos += (int)m_sid.clock(ref cycles, m_buffer, m_bufferpos, (uint)((uint)libsidplayfp.sidemu.output.OUTPUTBUFFERSIZE - m_bufferpos), 1);
         }
 
         public void filter(bool enable)

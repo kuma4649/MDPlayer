@@ -4,12 +4,12 @@
     {
         private int port1Flip = 0;
         private byte port1Data = 0;
-        private byte port1RegNo = 0;
-        private byte[] R = new byte[47];
+        //private byte port1RegNo = 0;
+        private readonly byte[] R = new byte[47];
         private bool adrCounterSet = false;
         private int adrCounter = 0;
         private bool adrCounterIsWrite = false;
-        private byte[] memory = new byte[0x2_00_00];
+        private readonly byte[] memory = new byte[0x2_00_00];
 
         public byte m = 0;
         public byte n = 0;

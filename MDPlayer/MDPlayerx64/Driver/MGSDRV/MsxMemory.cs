@@ -1,9 +1,4 @@
 ﻿using Konamiman.Z80dotNet;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MDPlayer.Driver.MGSDRV
 {
@@ -13,11 +8,11 @@ namespace MDPlayer.Driver.MGSDRV
         private EnmModel model;
         public MSXSlot slot;
 
-        public MsxMemory(ChipRegister chipRegister,EnmModel model)
+        public MsxMemory(ChipRegister chipRegister, EnmModel model)
         {
-            this.chipRegister= chipRegister;
+            this.chipRegister = chipRegister;
             this.model = model;
-            this.slot = new MSXSlot(chipRegister,model);
+            this.slot = new MSXSlot(chipRegister, model);
         }
 
         public byte this[int address]

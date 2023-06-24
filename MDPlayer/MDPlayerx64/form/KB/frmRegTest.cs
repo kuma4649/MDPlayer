@@ -1,23 +1,12 @@
-﻿using MDSound;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-using Driver.libsidplayfp.builders.resid_builder;
-using Driver.libsidplayfp.sidplayfp;
+﻿using Driver.libsidplayfp.sidplayfp;
 using MDPlayer.Driver.SID;
 
 namespace MDPlayer.form
 {
     public partial class frmRegTest : frmChipBase
     {
-        class ChipData {
+        class ChipData
+        {
 
             public delegate object GetRegisterDelegate(int Select);
 
@@ -26,7 +15,8 @@ namespace MDPlayer.form
             public GetRegisterDelegate Register;
             public int MaxRegisterSize;
             public int regWind;
-            public ChipData(string chipName, int baseIndex, int maxRegisterSize, int regWindow, GetRegisterDelegate register) {
+            public ChipData(string chipName, int baseIndex, int maxRegisterSize, int regWindow, GetRegisterDelegate register)
+            {
                 ChipName = chipName;
                 BaseIndex = baseIndex;
                 Register = register;
@@ -35,107 +25,132 @@ namespace MDPlayer.form
             }
         }
 
-        class RegisterManager {
+        class RegisterManager
+        {
             int Select;
             public bool needRefresh = false;
-             List<ChipData> ChipList = new List<ChipData>();
+            List<ChipData> ChipList = new List<ChipData>();
 
-            public RegisterManager() { 
+            public RegisterManager()
+            {
                 // コメントはページ番号 (0-index)
-                AddChip("YMF278B", 3, 0x100, (Select) => { // 0
+                AddChip("YMF278B", 3, 0x100, (Select) =>
+                { // 0
                     return Audio.GetYMF278BRegister(0)[Select];
                 });
 
-                AddChip("YMF262", 2, 0x100, (Select) => { // 3
+                AddChip("YMF262", 2, 0x100, (Select) =>
+                { // 3
                     return Audio.GetYMF262Register(0)[Select];
                 });
 
-                AddChip("YM2151", 1, 0x100, (Select) => { // 5
+                AddChip("YM2151", 1, 0x100, (Select) =>
+                { // 5
                     return Audio.GetYM2151Register(0);
                 });
 
-                AddChip("YM2610", 1, 0x200, (Select) => { // 6 
+                AddChip("YM2610", 1, 0x200, (Select) =>
+                { // 6 
                     return Audio.GetYM2610Register(0);
                 });
 
-                AddChip("YM2608", 1, 0x200, (Select) => { // 7
+                AddChip("YM2608", 1, 0x200, (Select) =>
+                { // 7
                     return Audio.GetYM2608Register(0);
                 });
 
-                AddChip("YM2612", 1, 0x200, (Select) => { // 8
+                AddChip("YM2612", 1, 0x200, (Select) =>
+                { // 8
                     return Audio.GetFMRegister(0);
                 });
 
-                AddChip("C140", 1, 0x200, (Select) => { // 9
+                AddChip("C140", 1, 0x200, (Select) =>
+                { // 9
                     return Audio.GetC140Register(0);
                 });
 
-                AddChip("QSOUND", 1, 0x200, (Select) => { // 10
+                AddChip("QSOUND", 1, 0x200, (Select) =>
+                { // 10
                     return Audio.GetQSoundRegister(0);
                 });
 
-                AddChip("SEGAPCM", 1, 0x200, (Select) => { // 11
+                AddChip("SEGAPCM", 1, 0x200, (Select) =>
+                { // 11
                     return Audio.GetSEGAPCMRegister(0);
                 });
 
-                AddChip("YMZ280B", 1, 0x100, (Select) => { // 12
+                AddChip("YMZ280B", 1, 0x100, (Select) =>
+                { // 12
                     return Audio.GetYMZ280BRegister(0);
                 });
 
-                AddChip("SN76489", 1, 8, (Select) => { // 13
+                AddChip("SN76489", 1, 8, (Select) =>
+                { // 13
                     return Audio.GetPSGRegister(0);
                 });
 
-                AddChip("AY", 1, 16, (Select) => { // 14
+                AddChip("AY", 1, 16, (Select) =>
+                { // 14
                     return Audio.GetAY8910Register(0);
                 });
 
-                AddChip("C352", 1, 0x400, (Select) => { // 15
+                AddChip("C352", 1, 0x400, (Select) =>
+                { // 15
                     return Audio.GetC352Register(0);
                 });
 
-                AddChip("YM2203", 1, 0x200, (Select) => { // 16
+                AddChip("YM2203", 1, 0x200, (Select) =>
+                { // 16
                     return Audio.GetYM2203Register(0);
                 });
 
-                AddChip("YM2413", 1, 0x100, (Select) => { // 17
+                AddChip("YM2413", 1, 0x100, (Select) =>
+                { // 17
                     return Audio.GetYM2413Register(0);
                 });
 
-                AddChip("YM3812", 1, 0x100, (Select) => { // 18
+                AddChip("YM3812", 1, 0x100, (Select) =>
+                { // 18
                     return Audio.GetYM3812Register(0);
                 });
 
-                AddChip("NES", 1, 0x30, (Select) => { // 19
+                AddChip("NES", 1, 0x30, (Select) =>
+                { // 19
                     return Audio.GetAPURegister(0);
                 });
 
-                AddChip("SID", 3, 0x19, (Select) => { // 20, 21, 22
+                AddChip("SID", 3, 0x19, (Select) =>
+                { // 20, 21, 22
                     return Audio.GetSIDRegister(Select);
                 });
             }
 
-            private void AddChip(string ChipName, int Max, int regSize, ChipData.GetRegisterDelegate p) {
-                var BaseIndex = ChipList.Count; 
-                for(var i=0; i < Max; i++) {
-                    ChipList.Add(new ChipData(ChipName,BaseIndex, regSize, Max, p));
+            private void AddChip(string ChipName, int Max, int regSize, ChipData.GetRegisterDelegate p)
+            {
+                var BaseIndex = ChipList.Count;
+                for (var i = 0; i < Max; i++)
+                {
+                    ChipList.Add(new ChipData(ChipName, BaseIndex, regSize, Max, p));
                 }
             }
 
-            public void Prev() {
+            public void Prev()
+            {
                 Select--;
                 if (Select < 0) Select = ChipList.Count - 1;
                 needRefresh = true;
             }
 
-            public void Next() {
+            public void Next()
+            {
                 Select++;
                 if (Select > ChipList.Count - 1) Select = 0;
                 needRefresh = true;
                 //if (Select < ChipList.Count-1) Select++;
             }
 
-            public object GetData() {
+            public object GetData()
+            {
                 var x = ChipList[Select];
                 return x.Register(Select - x.BaseIndex);
             }
@@ -152,7 +167,8 @@ namespace MDPlayer.form
                 return $"#{Select - x.BaseIndex} REGISTER ({Select + 1}/{ChipList.Count})  ";
             }
 
-            public int getRegisterSize() {
+            public int getRegisterSize()
+            {
                 return ChipList[Select].MaxRegisterSize;
             }
 
@@ -215,7 +231,7 @@ namespace MDPlayer.form
             { EnmChip.SID, 20 },
         };
 
-        public frmRegTest(frmMain frm, int chipID,EnmChip enmPage, int zoom)
+        public frmRegTest(frmMain frm, int chipID, EnmChip enmPage, int zoom)
         {
             parent = frm;
             this.chipID = chipID;
@@ -332,13 +348,13 @@ namespace MDPlayer.form
                 var a = RegMan.GetData();
                 if (a == null) return;
                 uint[] r = (uint[])a;
-                
+
                 // Voice Registers
 
                 // Regards of TEST bit... it seems to reset OSC to 0 until it clears up.
 
                 ushort voice1f = (ushort)(r[1] << 8 | r[0]); // D401-D400 Voice 1 Freq
-                ushort pwdc1 = (ushort)(((r[3]&0x0F)<<8) | r[2]); // D402-D403 Pulse Wave Duty Cycle
+                ushort pwdc1 = (ushort)(((r[3] & 0x0F) << 8) | r[2]); // D402-D403 Pulse Wave Duty Cycle
                 ushort mode1 = (ushort)r[4]; // MODE Reg D404  NOISE PULSE SAWTOOTH TRIANGLE TEST RING3 SYNC3 GATE(KON)
                 uint attack1 = r[5] >> 4; // D405.4-7 Attack
                 uint decay1 = r[5] & 0x0F; // D405.0-3 Decay
@@ -379,7 +395,7 @@ namespace MDPlayer.form
 
 
                 DrawBuff.drawFont4(frameBuffer, 2, y, 0, $"VOICE1 FREQ {voice1f:X4}");
-                DrawBuff.drawFont4(frameBuffer, 2, y+8, 0, $"VOICE1 PWDC {pwdc1:X4}");
+                DrawBuff.drawFont4(frameBuffer, 2, y + 8, 0, $"VOICE1 PWDC {pwdc1:X4}");
 
                 DrawBuff.drawFont4(frameBuffer, 2, y + 16, 0, $"VOICE1 MODE ");
                 DrawBuff.drawFont4(frameBuffer, 2, y + 24, 0, $"" +
@@ -391,11 +407,11 @@ namespace MDPlayer.form
                     $"{((mode1 & 0b00000100) == 0x04 ? "RING 3" : "------")} " +
                     $"{((mode1 & 0b00000010) == 0x02 ? "SYNC 3" : "------")} " +
                     $"{((mode1 & 0b00000001) == 0x01 ? "GATE" : "----")}"); // Parse this
-                DrawBuff.drawFont4(frameBuffer, 2, y+32, 0, $"VOICE1 ADSR {attack1:X1} {decay1:X1} {sustain1:X1} {release1:X1}");
+                DrawBuff.drawFont4(frameBuffer, 2, y + 32, 0, $"VOICE1 ADSR {attack1:X1} {decay1:X1} {sustain1:X1} {release1:X1}");
 
                 y += 48;
 
-                DrawBuff.drawFont4(frameBuffer, 2, y , 0, $"VOICE2 FREQ {voice2f:X4}");
+                DrawBuff.drawFont4(frameBuffer, 2, y, 0, $"VOICE2 FREQ {voice2f:X4}");
                 DrawBuff.drawFont4(frameBuffer, 2, y + 8, 0, $"VOICE2 PWDC {pwdc2:X4}");
 
                 DrawBuff.drawFont4(frameBuffer, 2, y + 16, 0, $"VOICE2 MODE ");
@@ -465,7 +481,7 @@ namespace MDPlayer.form
             }
 
 
-            
+
             /*
             var y = 8; // 行 0x10毎に変わる・・・
             for(var idx = 0; idx < regSize; idx+=0x10) {
@@ -480,7 +496,7 @@ namespace MDPlayer.form
 
             var Reg = RegMan.GetData();
 
-            if(Reg is byte[])
+            if (Reg is byte[])
             {
                 byte[] r = (byte[])Reg;
                 for (var i = 0; i < r.Length; i++)
@@ -498,7 +514,7 @@ namespace MDPlayer.form
             {
                 int[] r = (int[])Reg;
                 int ms = RegMan.getRegisterSize();
-                for (var i = 0; i < Math.Min(r.Length,ms); i++)
+                for (var i = 0; i < Math.Min(r.Length, ms); i++)
                 {
                     if (i % 16 == 0)
                     {
@@ -536,7 +552,7 @@ namespace MDPlayer.form
                             int n = i + j * r[j].Length;
                             DrawBuff.drawFont4(frameBuffer, 2, y - 8, 0, $"{n:X3}:");
                         }
-                        int m= r[j][i];
+                        int m = r[j][i];
                         byte v = (byte)r[j][i];
                         int c = 0;
                         if (m < 0)
@@ -569,7 +585,7 @@ namespace MDPlayer.form
                 RegMan.Next();
             }*/
             if (e.Button == MouseButtons.Right) RegMan.Prev();
-            else if(e.Button == MouseButtons.Left) RegMan.Next();
+            else if (e.Button == MouseButtons.Left) RegMan.Next();
         }
 
 

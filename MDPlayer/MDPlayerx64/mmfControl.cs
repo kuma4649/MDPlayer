@@ -1,25 +1,22 @@
-﻿using System;
-using System.IO;
-using System.IO.MemoryMappedFiles;
-using System.Security.AccessControl;
+﻿using System.IO.MemoryMappedFiles;
 using System.Text;
 
 
 namespace MDPlayer
 {
-    public class mmfControl : KumaCom
+    public class MmfControl : KumaCom
     {
-        private object lockobj = new object();
-        private MemoryMappedFile _map=null;
+        private readonly object lockobj = new();
+        private readonly MemoryMappedFile _map = null;
         private byte[] mmfBuf;
         public string mmfName = "dummy";
         public int mmfSize = 1024;
 
-        public mmfControl()
+        public MmfControl()
         {
         }
 
-        public mmfControl(bool isClient, string mmfName, int mmfSize)
+        public MmfControl(bool isClient, string mmfName, int mmfSize)
         {
             this.mmfName = mmfName;
             this.mmfSize = mmfSize;
@@ -81,14 +78,12 @@ namespace MDPlayer
             {
                 lock (lockobj)
                 {
-                    using (MemoryMappedViewAccessor view = _map.CreateViewAccessor())
-                    {
-                        view.ReadArray(0, mmfBuf, 0, mmfBuf.Length);
-                        msg = Encoding.Unicode.GetString(mmfBuf);
-                        msg = msg.Substring(0, msg.IndexOf('\0'));
-                        Array.Clear(mmfBuf, 0, mmfBuf.Length);
-                        view.WriteArray(0, mmfBuf, 0, mmfBuf.Length);
-                    }
+                    using MemoryMappedViewAccessor view = _map.CreateViewAccessor();
+                    view.ReadArray(0, mmfBuf, 0, mmfBuf.Length);
+                    msg = Encoding.Unicode.GetString(mmfBuf);
+                    msg = msg[..msg.IndexOf('\0')];
+                    Array.Clear(mmfBuf, 0, mmfBuf.Length);
+                    view.WriteArray(0, mmfBuf, 0, mmfBuf.Length);
                 }
             }
             catch (Exception ex)
@@ -104,12 +99,10 @@ namespace MDPlayer
             {
                 lock (lockobj)
                 {
-                    using (var map = MemoryMappedFile.OpenExisting(mmfName))
-                    using (MemoryMappedViewAccessor view = map.CreateViewAccessor())
-                    {
-                        mmfBuf = new byte[mmfSize];
-                        view.ReadArray(0, mmfBuf, 0, mmfBuf.Length);
-                    }
+                    using var map = MemoryMappedFile.OpenExisting(mmfName);
+                    using MemoryMappedViewAccessor view = map.CreateViewAccessor();
+                    mmfBuf = new byte[mmfSize];
+                    view.ReadArray(0, mmfBuf, 0, mmfBuf.Length);
                 }
             }
             catch (Exception ex)
@@ -125,11 +118,11 @@ namespace MDPlayer
             try
             {
                 byte[] ary = Encoding.Unicode.GetBytes(msg);
-                if (ary.Length > mmfSize) throw new ArgumentOutOfRangeException();
+                if (ary.Length > mmfSize) throw new ArgumentOutOfRangeException(nameof(msg));
 
-                using (var map = MemoryMappedFile.OpenExisting(mmfName))
-                using (var view = map.CreateViewAccessor())
-                    view.WriteArray(0, ary, 0, ary.Length);
+                using var map = MemoryMappedFile.OpenExisting(mmfName);
+                using var view = map.CreateViewAccessor();
+                view.WriteArray(0, ary, 0, ary.Length);
             }
             catch (Exception ex)
             {

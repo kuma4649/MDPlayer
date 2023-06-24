@@ -1,7 +1,4 @@
-﻿using NScci;
-using System;
-
-namespace MDPlayer
+﻿namespace MDPlayer
 {
     public class dacControl
     {
@@ -368,7 +365,7 @@ namespace MDPlayer
             // Should be called to fix the data pointer. (e.g. after a realloc)
             dac_control chip = DACData[ChipID];
 
-            if ((chip.Running & 0x80)!= 0)
+            if ((chip.Running & 0x80) != 0)
                 return;
 
             if (DataLen > 0 && Data != null)
@@ -393,7 +390,7 @@ namespace MDPlayer
             if ((chip.Running & 0x80) != 0)
                 return;
 
-            if (Frequency!=0)
+            if (Frequency != 0)
                 chip.Step = chip.Step * chip.Frequency / Frequency;
             chip.Frequency = Frequency;
 
@@ -529,8 +526,8 @@ namespace MDPlayer
                     chipRegister.setNESRegister(ChipID, Offset, Data, model);
                     break;
                 case 0x17:  // OKIM6258
-                    if(model== EnmModel.VirtualModel) //System.Console.Write("[DAC]");
-                    chipRegister.writeOKIM6258(ChipID, Offset, Data, model);
+                    if (model == EnmModel.VirtualModel) //System.Console.Write("[DAC]");
+                        chipRegister.writeOKIM6258(ChipID, Offset, Data, model);
                     break;
                 case 0x1b:  // HuC6280
                     chipRegister.setHuC6280Register(ChipID, Offset, Data, model);

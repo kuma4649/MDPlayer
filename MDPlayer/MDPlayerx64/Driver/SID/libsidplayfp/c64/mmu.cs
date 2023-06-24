@@ -19,11 +19,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Driver.libsidplayfp.c64
 {
@@ -60,16 +55,16 @@ namespace Driver.libsidplayfp.c64
         private Banks.IOBank ioBank;
 
         /// Kernal ROM
-        private Banks.KernalRomBank kernalRomBank=new Banks.KernalRomBank();
+        private Banks.KernalRomBank kernalRomBank = new Banks.KernalRomBank();
 
         /// BASIC ROM
-        private Banks.BasicRomBank basicRomBank=new Banks.BasicRomBank();
+        private Banks.BasicRomBank basicRomBank = new Banks.BasicRomBank();
 
         /// Character ROM
-        private Banks.CharacterRomBank characterRomBank=new Banks.CharacterRomBank();
+        private Banks.CharacterRomBank characterRomBank = new Banks.CharacterRomBank();
 
         /// RAM
-        private Banks.SystemRAMBank ramBank=new Banks.SystemRAMBank();
+        private Banks.SystemRAMBank ramBank = new Banks.SystemRAMBank();
 
         /// RAM bank 0
         private Banks.ZeroRAMBank zeroRAMBank;

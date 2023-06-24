@@ -1,9 +1,4 @@
 ﻿/* Simple smart pointer class. */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Driver.libsidplayfp.sidtune
 {
@@ -28,7 +23,7 @@ namespace Driver.libsidplayfp.sidtune
 
             if ((buffer != null) && (bufferLen != 0))
             {
-                bufBegin = new Ptr<T>(buffer,0);
+                bufBegin = new Ptr<T>(buffer, 0);
                 pBufCurrent = new Ptr<T>(buffer, 0);
                 bufEnd = new Ptr<T>(bufBegin.buf, bufBegin.ptr + (Int32)bufferLen);
                 bufLen = bufferLen;

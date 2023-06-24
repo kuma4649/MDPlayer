@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MDPlayer.Driver.MXDRV
+﻿namespace MDPlayer.Driver.MXDRV
 {
     public partial class MXDRV
     {
@@ -16,7 +10,7 @@ namespace MDPlayer.Driver.MXDRV
         //#define __MXDRV_H__
 
         //# include "depend.h"
-        
+
         //
         //UWORD UInt16
         //ULONG UInt32
@@ -25,7 +19,7 @@ namespace MDPlayer.Driver.MXDRV
 
         public struct MXWORK_CH
         {
-            public const int S0000= 0; // volatile public byte[] S0000; // Ptr
+            public const int S0000 = 0; // volatile public byte[] S0000; // Ptr
             public const int S0004_b = 4;// public byte S0004_b;  // PCM bank
             public const int S0004 = 5; //byte[] S0004; // voice ptr
             public const int S0008 = 9; //public UInt32 S0008;    // bend delta
@@ -128,13 +122,13 @@ namespace MDPlayer.Driver.MXDRV
 
         public struct MXWORK_KEY
         {
-            public const int OPT1=0;
-            public const int OPT2=1;
-            public const int SHIFT=2;
-            public const int CTRL=3;
-            public const int XF3=4;
-            public const int XF4=5;
-            public const int XF5=6;
+            public const int OPT1 = 0;
+            public const int OPT2 = 1;
+            public const int SHIFT = 2;
+            public const int CTRL = 3;
+            public const int XF3 = 4;
+            public const int XF4 = 5;
+            public const int XF5 = 6;
             public const int Length = 7;
         }
 
@@ -190,7 +184,7 @@ namespace MDPlayer.Driver.MXDRV
 
         private void MXDRV_Call(UInt32 a)
         {
-            X68REG reg=new X68REG();
+            X68REG reg = new X68REG();
 
             reg.d0 = (a);
             reg.d1 = 0x00;
@@ -200,7 +194,7 @@ namespace MDPlayer.Driver.MXDRV
 
         private void MXDRV_Call_2(UInt32 a, UInt32 b)
         {
-            X68REG reg=new X68REG();
+            X68REG reg = new X68REG();
 
             reg.d0 = (a);
             reg.d1 = (b);

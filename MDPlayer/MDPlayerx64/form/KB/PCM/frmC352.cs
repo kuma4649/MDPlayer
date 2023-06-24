@@ -1,9 +1,5 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-using MDPlayerx64;
+﻿using MDPlayerx64;
 #if X64
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
@@ -33,7 +29,7 @@ namespace MDPlayer.form
             this.newParam = newParam;
             this.oldParam = oldParam;
 
-            frameBuffer.Add(pbScreen, ResMng.imgDic["planeC352"], null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.ImgDic["planeC352"], null, zoom);
             screenInit();
             update();
         }
@@ -76,9 +72,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeC352"].Width * zoom, frameSizeH + ResMng.imgDic["planeC352"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeC352"].Width * zoom, frameSizeH + ResMng.imgDic["planeC352"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeC352"].Width * zoom, frameSizeH + ResMng.imgDic["planeC352"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeC352"].Width * zoom, frameSizeH + ResMng.ImgDic["planeC352"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeC352"].Width * zoom, frameSizeH + ResMng.ImgDic["planeC352"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeC352"].Width * zoom, frameSizeH + ResMng.ImgDic["planeC352"].Height * zoom);
             frmC352_Resize(null, null);
 
         }
@@ -88,7 +84,7 @@ namespace MDPlayer.form
 
         }
 
-  
+
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
             int px = e.Location.X / zoom;
@@ -152,7 +148,7 @@ namespace MDPlayer.form
         {
             double m = double.MaxValue;
 
-            int clock = Audio.clockC352;
+            int clock = Audio.ClockC352;
 
             int n = 0;
             for (int i = 0; i < 12 * 8; i++)
@@ -194,7 +190,7 @@ namespace MDPlayer.form
                         newParam.channels[ch].volumeRR = Common.Range((int)(((UInt16)c352Register[ch * 8 + 1] & 0xff) / 11.7), 0, 19);
                     }
 
-                    if (newParam.channels[ch].mask == null || newParam.channels[ch].mask==true)
+                    if (newParam.channels[ch].mask == null || newParam.channels[ch].mask == true)
                     {
                         newParam.channels[ch].pan = 0;
                     }

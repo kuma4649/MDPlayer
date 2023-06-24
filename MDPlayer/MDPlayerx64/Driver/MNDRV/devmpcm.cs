@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MDPlayer.Driver.MNDRV
+﻿namespace MDPlayer.Driver.MNDRV
 {
     public class devmpcm
     {
@@ -615,7 +609,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.a0 = reg.a5 + w.voltable;
             reg.D4_B = mm.ReadByte(reg.a0 + (UInt32)(Int16)reg.D4_W);
 
-            _mpcm_echo_ret_atv:
+        _mpcm_echo_ret_atv:
 
             _MPCM_F2_softenv();
 
@@ -870,11 +864,11 @@ namespace MDPlayer.Driver.MNDRV
             if (reg.D0_B == 0) goto _MPCM_A2_16;
             return;
 
-            _MPCM_A2_8:
+        _MPCM_A2_8:
             mm.Write(reg.a5 + w.pcmmode, 2);
             return;
 
-            _MPCM_A2_16:
+        _MPCM_A2_16:
             mm.Write(reg.a5 + w.pcmmode, 1);
             return;
         }
@@ -915,7 +909,7 @@ namespace MDPlayer.Driver.MNDRV
 
             reg.D4_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
 
-            _mpcm_a7_ana_loop:
+        _mpcm_a7_ana_loop:
             if (reg.D1_B - mm.ReadByte(reg.a2 + 2) == 0)
             {
                 if (reg.D5_B - mm.ReadByte(reg.a2 + 3) == 0) goto _mpcm_a7_set;
@@ -928,7 +922,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.a2 = reg.a2 + (UInt32)(Int16)reg.D0_W;
             goto _mpcm_a7_ana_loop;
 
-            _mpcm_a7_set:
+        _mpcm_a7_set:
             reg.a2 += 4;
             uint e = reg.a1;
             reg.a1 = reg.a2;
@@ -1226,7 +1220,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D0_W = mm.ReadUInt16(reg.a6 + dw.USE_TRACK);
             reg.a0 = reg.a6 + dw.TRACKWORKADR;
 
-            L1:
+        L1:
             if ((mm.ReadByte(reg.a0 + w.flag2) & 0x01) == 0)
             {
                 reg.a0 = reg.a0 + w._track_work_size;
@@ -1335,15 +1329,15 @@ namespace MDPlayer.Driver.MNDRV
             reg.D2_W = 0x1fff;
             goto _ch_mpcm_lfo_end_common;
 
-            _ch_mpcm_lfo_end_minus:
+        _ch_mpcm_lfo_end_minus:
             reg.D2_W += (UInt32)(Int16)reg.D1_W;
             if ((Int16)reg.D2_W >= 0) goto _ch_mpcm_lfo_end_common;
             reg.D2_L = 0;
 
-            _ch_mpcm_lfo_end_common:
+        _ch_mpcm_lfo_end_common:
             _mpcm_freq();
 
-            _ch_mpcm_lfo_a:
+        _ch_mpcm_lfo_a:
             reg.D0_W = mm.ReadUInt16(reg.a5 + w.addvolume);
             if (reg.D0_W - mm.ReadUInt16(reg.a5 + w.addvolume2) == 0) return;
             mm.Write(reg.a5 + w.addvolume2, (UInt16)reg.D0_W);
@@ -1361,7 +1355,7 @@ namespace MDPlayer.Driver.MNDRV
             _MPCM_F2_lfo();
             return;
 
-            _ch_mpcm_lfo_a_minus:
+        _ch_mpcm_lfo_a_minus:
             reg.D4_L = 0;
             reg.D4_B = mm.ReadByte(reg.a5 + w.vol);
             reg.D4_W += (UInt32)(Int16)reg.D0_W;
@@ -1812,7 +1806,7 @@ namespace MDPlayer.Driver.MNDRV
             }
             reg.D0_W = mm.ReadUInt16(reg.a4 + w_l.mokuhyou);
             bool cf = (Int16)reg.D0_W - (Int16)mm.ReadUInt16(reg.a5 + w.keycode) < 0;
-            reg.D0_W = (UInt16)((Int16)reg.D0_W- (Int16)mm.ReadUInt16(reg.a5 + w.keycode));
+            reg.D0_W = (UInt16)((Int16)reg.D0_W - (Int16)mm.ReadUInt16(reg.a5 + w.keycode));
             if (reg.D0_W == 0)
             {
                 _ch_mpcm_lw_porta_end();

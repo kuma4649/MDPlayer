@@ -19,11 +19,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Driver.libsidplayfp.utils
 {
@@ -175,7 +170,7 @@ namespace Driver.libsidplayfp.utils
 
         public bool open(string filename)
         {
-            m_parser=new iniParser();
+            m_parser = new iniParser();
 
             if (!m_parser.open(filename))
             {
@@ -241,7 +236,7 @@ namespace Driver.libsidplayfp.utils
                 {
                     str = parseTime(str, time);
                 }
-                catch (parseError )
+                catch (parseError)
                 {
                     errorString = ERR_DATABASE_CORRUPT;
                     return -1;

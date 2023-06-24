@@ -1,15 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using MDPlayerx64;
+﻿using MDPlayerx64;
 #if X64
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
@@ -38,7 +28,7 @@ namespace MDPlayer.form
             InitializeComponent();
 
             this.newParam = newParam;
-            frameBuffer.Add(pbScreen, ResMng.imgDic["planeFDS"], null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.ImgDic["planeFDS"], null, zoom);
             DrawBuff.screenInitFDS(frameBuffer);
             update();
         }
@@ -81,9 +71,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeFDS"].Width * zoom, frameSizeH + ResMng.imgDic["planeFDS"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeFDS"].Width * zoom, frameSizeH + ResMng.imgDic["planeFDS"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeFDS"].Width * zoom, frameSizeH + ResMng.imgDic["planeFDS"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeFDS"].Width * zoom, frameSizeH + ResMng.ImgDic["planeFDS"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeFDS"].Width * zoom, frameSizeH + ResMng.ImgDic["planeFDS"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeFDS"].Width * zoom, frameSizeH + ResMng.ImgDic["planeFDS"].Height * zoom);
             frmFDS_Resize(null, null);
 
         }

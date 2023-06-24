@@ -1,19 +1,9 @@
 ﻿#if X64
 using MDPlayerx64;
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
 using MDSound.np.chip;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
@@ -39,7 +29,7 @@ namespace MDPlayer.form
             this.newParam = newParam;
             this.oldParam = oldParam;
 
-            frameBuffer.Add(pbScreen, ResMng.imgDic["planeVRC6"], null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.ImgDic["planeVRC6"], null, zoom);
             screenInit();
             update();
         }
@@ -82,9 +72,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeVRC6"].Width * zoom, frameSizeH + ResMng.imgDic["planeVRC6"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeVRC6"].Width * zoom, frameSizeH + ResMng.imgDic["planeVRC6"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeVRC6"].Width * zoom, frameSizeH + ResMng.imgDic["planeVRC6"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeVRC6"].Width * zoom, frameSizeH + ResMng.ImgDic["planeVRC6"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeVRC6"].Width * zoom, frameSizeH + ResMng.ImgDic["planeVRC6"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeVRC6"].Width * zoom, frameSizeH + ResMng.ImgDic["planeVRC6"].Height * zoom);
             frmVRC6_Resize(null, null);
 
         }
@@ -166,7 +156,7 @@ namespace MDPlayer.form
             {
                 nyc = newParam.channels[ch];
                 nyc.kf = info[ch].GetTone();
-                nyc.volumeR = info[ch].GetTone()/4;
+                nyc.volumeR = info[ch].GetTone() / 4;
                 nyc.volumeL = info[ch].GetVolume();
                 int v = info[ch].GetVolume();
                 v = ch < 2 ? v * 2 : v / 3;
@@ -174,7 +164,7 @@ namespace MDPlayer.form
                 nyc.bit[0] = info[ch].GetKeyStatus();
                 nyc.freq = info[ch].GetFreqp();
                 nyc.bit[1] = info[ch].GetHalt();
-                v = info[ch].GetNote(info[ch].GetFreqHz())-4*12;
+                v = info[ch].GetNote(info[ch].GetFreqHz()) - 4 * 12;
                 nyc.note = nyc.volumeL == 0 ? -1 : v;
                 nyc.sadr = info[ch].GetFreqShift();
             }
@@ -210,10 +200,10 @@ namespace MDPlayer.form
                     DrawBuff.ChVRC6(frameBuffer, ch, ref oldParam.channels[ch].mask, newParam.channels[ch].mask, 0);
                 }
 
-                DrawBuff.drawNESSw(frameBuffer, 13 * 4 , ch * 16 + 16
+                DrawBuff.drawNESSw(frameBuffer, 13 * 4, ch * 16 + 16
                     , ref oldParam.channels[ch].bit[0], newParam.channels[ch].bit[0]);
 
-                DrawBuff.font4Hex12Bit(frameBuffer, 16*4 , ch * 16 + 16, 0, ref oyc.freq, nyc.freq);
+                DrawBuff.font4Hex12Bit(frameBuffer, 16 * 4, ch * 16 + 16, 0, ref oyc.freq, nyc.freq);
 
             }
         }

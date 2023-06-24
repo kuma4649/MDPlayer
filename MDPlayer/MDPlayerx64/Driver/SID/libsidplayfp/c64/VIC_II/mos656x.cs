@@ -20,11 +20,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Driver.libsidplayfp.c64.VIC_II
 {
@@ -130,7 +125,7 @@ namespace Driver.libsidplayfp.c64.VIC_II
         private byte irqMask;
 
         /// Light pen
-        private Lightpen lp=new Lightpen();
+        private Lightpen lp = new Lightpen();
 
         /// the 8 sprites data
         private Sprites sprites;

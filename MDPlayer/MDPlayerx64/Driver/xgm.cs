@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MDPlayer
+﻿namespace MDPlayer
 {
     public class xgm : baseDriver
     {
@@ -67,7 +61,7 @@ namespace MDPlayer
 
             //Driverの初期化
             musicPtr = musicDataBlockAddr;
-            xgmpcm= new XGMPCM[] { new XGMPCM(), new XGMPCM(), new XGMPCM(), new XGMPCM() };
+            xgmpcm = new XGMPCM[] { new XGMPCM(), new XGMPCM(), new XGMPCM(), new XGMPCM() };
             DACEnable = 0;
 
             return true;

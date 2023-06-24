@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MDPlayer.Driver.MNDRV
+﻿namespace MDPlayer.Driver.MNDRV
 {
     public class devopn
     {
@@ -1585,7 +1579,7 @@ namespace MDPlayer.Driver.MNDRV
 
         public void _voice_ana_loop()
         {
-            L:
+        L:
             if (reg.D1_B - mm.ReadByte(reg.a2 + 2) == 0)
             {
                 if (reg.D5_B - mm.ReadByte(reg.a2 + 3) == 0)
@@ -2299,7 +2293,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D0_W = mm.ReadUInt16(reg.a6 + dw.USE_TRACK);
             reg.a0 = reg.a6 + dw.TRACKWORKADR;
 
-            L1:
+        L1:
             if ((mm.ReadByte(reg.a0 + w.flag2) & 0x01) != 0) goto L3;
             reg.a0 = reg.a0 + w._track_work_size;
             reg.D0_W--;
@@ -2327,7 +2321,7 @@ namespace MDPlayer.Driver.MNDRV
                 reg.D0_W--;
             } while (reg.D0_W != 0);
 
-            L3:
+        L3:
             reg.D0_W = mm.ReadUInt16(reg.a1); reg.a1 += 2;
             if (reg.D0_W != 0)
             {
@@ -3142,7 +3136,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D5_W = 0x800;
             reg.D0_W = 0x4000;
 
-            L1a:
+        L1a:
             if (reg.D1_W >= reg.D4_W)
             {
                 reg.D1_W -= (UInt32)(Int16)reg.D4_W;
@@ -3166,22 +3160,22 @@ namespace MDPlayer.Driver.MNDRV
             reg.D2_W += mm.ReadUInt16(reg.a5 + w.detune);
             reg.D2_W |= reg.D3_W;
             goto _ex_slot_calc2_exit;
-            //9:
-            //reg.D2_W = 0x3fff;
-            //goto _ex_slot_calc2_exit;
+        //9:
+        //reg.D2_W = 0x3fff;
+        //goto _ex_slot_calc2_exit;
 
-            _ex_slot_calc2_minus:
+        _ex_slot_calc2_minus:
 
             reg.D3_W = reg.D2_W;
             reg.D3_W &= 0x3800;
             reg.D2_W &= 0x7ff;
-            reg.D2_W = (UInt16)((Int16)reg.D2_W-(Int16)mm.ReadUInt16(reg.a5 + w.detune));
+            reg.D2_W = (UInt16)((Int16)reg.D2_W - (Int16)mm.ReadUInt16(reg.a5 + w.detune));
             reg.D4_W = 0x26a;
-            reg.D2_W = (UInt16)((Int16)reg.D2_W-(Int16)reg.D4_W);
+            reg.D2_W = (UInt16)((Int16)reg.D2_W - (Int16)reg.D4_W);
             reg.D5_W = 0x800;
             reg.D1_W = (UInt16)(-(Int16)reg.D1_W);
 
-            L1b:
+        L1b:
             if (reg.D1_W >= reg.D4_W)
             {
                 reg.D1_W = (UInt16)((Int16)reg.D1_W - (Int16)reg.D4_W);
@@ -3206,7 +3200,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D2_W += mm.ReadUInt16(reg.a5 + w.detune);
             reg.D2_W |= reg.D3_W;
 
-            _ex_slot_calc2_exit:
+        _ex_slot_calc2_exit:
 
             reg.D4_L = sp;
         }
@@ -3618,10 +3612,10 @@ namespace MDPlayer.Driver.MNDRV
             }
             goto L2;
 
-            _ch_fm_porta_normal:
+        _ch_fm_porta_normal:
             reg.D1_W = mm.ReadUInt16(reg.a4 + w_l.henka);
             reg.D2_W = mm.ReadUInt16(reg.a5 + w.keycode3);
-            L2:
+        L2:
             mm.Write(reg.a4 + w_l.count, (byte)(mm.ReadByte(reg.a4 + w_l.count) - 1));
             if (mm.ReadByte(reg.a4 + w_l.count) == 0)
             {
@@ -3668,13 +3662,13 @@ namespace MDPlayer.Driver.MNDRV
             reg.D2_W++;
             goto _ch_fm_porta_c;
 
-            _ch_fm_porta_m:
+        _ch_fm_porta_m:
 
             mm.Write(reg.a4 + w_l.henka_work, (UInt16)(mm.ReadUInt16(reg.a4 + w_l.henka_work) + 1));
             mm.Write(reg.a4 + w_l.bendwork, (UInt16)(mm.ReadUInt16(reg.a4 + w_l.bendwork) - 1));
             reg.D2_W--;
 
-            _ch_fm_porta_c:
+        _ch_fm_porta_c:
 
             if ((Int16)reg.D1_W >= 0) goto _ch_fm_porta_calc_plus;
             if (reg.D2_W >= 0x26a) goto _ch_fm_porta_calc_common;
@@ -3686,7 +3680,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D2_W += (UInt32)(Int16)reg.D4_W;
             goto _ch_fm_porta_calc_common;
 
-            _ch_fm_porta_calc_plus:
+        _ch_fm_porta_calc_plus:
 
             if (reg.D2_W < 0x4d4) goto _ch_fm_porta_calc_common;
             if (reg.D3_W >= 0x4000) return;
@@ -3696,7 +3690,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D2_W = 0x26a;
             reg.D2_W += (UInt32)(Int16)reg.D4_W;
 
-            _ch_fm_porta_calc_common:
+        _ch_fm_porta_calc_common:
 
             reg.D2_W |= reg.D3_W;
         }
@@ -3773,13 +3767,13 @@ namespace MDPlayer.Driver.MNDRV
             reg.D2_L = 0;
             goto _ch_fm_p_5_common;
 
-            _ch_fm_p_5_plus:
+        _ch_fm_p_5_plus:
             mm.Write(reg.a4 + w_l.bendwork, (UInt16)(mm.ReadUInt16(reg.a4 + w_l.bendwork) + (Int16)reg.D1_W));
             reg.D2_W += (UInt32)(Int16)reg.D1_W;
             if ((Int16)reg.D2_W >= 0) goto _ch_fm_p_5_common;
             reg.D2_W = 0x3fff;
 
-            _ch_fm_p_5_common:
+        _ch_fm_p_5_common:
             if (mm.ReadByte(reg.a5 + w.ch3) != 0)
             {
                 mm.Write(reg.a5 + w.keycode_s1, (UInt16)(mm.ReadUInt16(reg.a5 + w.keycode_s1) + (Int16)reg.D1_W));

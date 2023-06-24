@@ -1,18 +1,8 @@
 ﻿#if X64
 using MDPlayerx64;
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
@@ -39,7 +29,7 @@ namespace MDPlayer.form
             InitializeComponent();
 
             this.newParam = newParam;
-            frameBuffer.Add(pbScreen, ResMng.imgDic["planeNESDMC"], null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.ImgDic["planeNESDMC"], null, zoom);
             DrawBuff.screenInitNESDMC(frameBuffer);
             update();
         }
@@ -82,9 +72,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeNESDMC"].Width * zoom, frameSizeH + ResMng.imgDic["planeNESDMC"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeNESDMC"].Width * zoom, frameSizeH + ResMng.imgDic["planeNESDMC"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeNESDMC"].Width * zoom, frameSizeH + ResMng.imgDic["planeNESDMC"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeNESDMC"].Width * zoom, frameSizeH + ResMng.ImgDic["planeNESDMC"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeNESDMC"].Width * zoom, frameSizeH + ResMng.ImgDic["planeNESDMC"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeNESDMC"].Width * zoom, frameSizeH + ResMng.ImgDic["planeNESDMC"].Height * zoom);
             frmNESDMC_Resize(null, null);
 
         }
@@ -147,7 +137,7 @@ namespace MDPlayer.form
 
             newParam.dmcChannel.volumeR = (reg2[9] & 0x7f); //Load counter 
             tri = tri == 0 ? 0 : (10 + (128 - newParam.dmcChannel.volumeR) / 128 * 9);
-            newParam.triChannel.volume = newParam.triChannel.note <0 ? 0 : tri;
+            newParam.triChannel.volume = newParam.triChannel.note < 0 ? 0 : tri;
             newParam.triChannel.dda = (reg2[0] & 0x80) != 0;//LengthCounterHalt
             newParam.triChannel.nfrq = (reg2[0] & 0x7f);// linear counter load (R) 
             newParam.triChannel.pantp = (reg2[3] & 0xf8) >> 3;//Length counter load
@@ -175,9 +165,9 @@ namespace MDPlayer.form
             newParam.dmcChannel.volumeL = (reg2[8] & 0x0f); //frequency
             newParam.dmcChannel.nfrq = reg2[10]; //Sample address
             newParam.dmcChannel.pantp = reg2[11]; //Sample length
-            newParam.dmcChannel.volume = 
-                ((reg2[13] & 0x10) == 0) 
-                ? 0 
+            newParam.dmcChannel.volume =
+                ((reg2[13] & 0x10) == 0)
+                ? 0
                 : dpc;
         }
 
@@ -187,7 +177,7 @@ namespace MDPlayer.form
             for (int i = 0; i < 2; i++)
             {
                 DrawBuff.KeyBoard(frameBuffer, i * 2, ref oldParam.sqrChannels[i].note, newParam.sqrChannels[i].note, 0);
-                DrawBuff.Volume(frameBuffer, 256, 8 + i*2 * 8, 0, ref oldParam.sqrChannels[i].volume, newParam.sqrChannels[i].volume, 0);
+                DrawBuff.Volume(frameBuffer, 256, 8 + i * 2 * 8, 0, ref oldParam.sqrChannels[i].volume, newParam.sqrChannels[i].volume, 0);
                 DrawBuff.font4Int2(frameBuffer, 16 * 4, (2 + i * 2) * 8, 0, 2, ref oldParam.sqrChannels[i].nfrq, newParam.sqrChannels[i].nfrq);
                 DrawBuff.font4Int2(frameBuffer, 19 * 4, (2 + i * 2) * 8, 0, 2, ref oldParam.sqrChannels[i].pan, newParam.sqrChannels[i].pan);
                 DrawBuff.font4Int2(frameBuffer, 22 * 4, (2 + i * 2) * 8, 0, 2, ref oldParam.sqrChannels[i].pantp, newParam.sqrChannels[i].pantp);
@@ -200,15 +190,15 @@ namespace MDPlayer.form
                 ob = oldParam.sqrChannels[i].volumeR != 0;
                 DrawBuff.drawNESSw(frameBuffer, 56, (2 + i * 2) * 8, ref ob, newParam.sqrChannels[i].volumeR != 0);
                 oldParam.sqrChannels[i].volumeR = ob ? 1 : 0;
-                DrawBuff.ChNESDMC(frameBuffer, i, ref oldParam.sqrChannels[i].mask, newParam.sqrChannels[i].mask,0);
+                DrawBuff.ChNESDMC(frameBuffer, i, ref oldParam.sqrChannels[i].mask, newParam.sqrChannels[i].mask, 0);
 
             }
 
             DrawBuff.KeyBoard(frameBuffer, 4, ref oldParam.triChannel.note, newParam.triChannel.note, 0);
             DrawBuff.Volume(frameBuffer, 256, 8 + 4 * 8, 0, ref oldParam.triChannel.volume, newParam.triChannel.volume, 0);
             DrawBuff.drawNESSw(frameBuffer, 36, 6 * 8, ref oldParam.triChannel.dda, newParam.triChannel.dda);
-            DrawBuff.font4Int3(frameBuffer, 13 * 4, 6 * 8, 0, 3,ref oldParam.triChannel.nfrq, newParam.triChannel.nfrq);
-            DrawBuff.font4Int2(frameBuffer, 19 * 4, 6 * 8, 0, 2,ref oldParam.triChannel.pantp, newParam.triChannel.pantp);
+            DrawBuff.font4Int3(frameBuffer, 13 * 4, 6 * 8, 0, 3, ref oldParam.triChannel.nfrq, newParam.triChannel.nfrq);
+            DrawBuff.font4Int2(frameBuffer, 19 * 4, 6 * 8, 0, 2, ref oldParam.triChannel.pantp, newParam.triChannel.pantp);
             DrawBuff.ChNESDMC(frameBuffer, 2, ref oldParam.triChannel.mask, newParam.triChannel.mask, 0);
 
             DrawBuff.Volume(frameBuffer, 256, 8 + 3 * 8, 0, ref oldParam.noiseChannel.volume, newParam.noiseChannel.volume, 0);
@@ -217,15 +207,15 @@ namespace MDPlayer.form
             ob = oldParam.noiseChannel.volumeL != 0;
             DrawBuff.drawNESSw(frameBuffer, 160, 32, ref ob, newParam.noiseChannel.volumeL != 0);
             oldParam.noiseChannel.volumeL = ob ? 1 : 0;
-            DrawBuff.font4Int2(frameBuffer, 176, 32, 0, 2,ref oldParam.noiseChannel.volumeR, newParam.noiseChannel.volumeR);
-            DrawBuff.font4Int2(frameBuffer, 196, 32, 0, 2,ref oldParam.noiseChannel.nfrq, newParam.noiseChannel.nfrq);
+            DrawBuff.font4Int2(frameBuffer, 176, 32, 0, 2, ref oldParam.noiseChannel.volumeR, newParam.noiseChannel.volumeR);
+            DrawBuff.font4Int2(frameBuffer, 196, 32, 0, 2, ref oldParam.noiseChannel.nfrq, newParam.noiseChannel.nfrq);
             DrawBuff.ChNESDMC(frameBuffer, 3, ref oldParam.noiseChannel.mask, newParam.noiseChannel.mask, 0);
 
             DrawBuff.Volume(frameBuffer, 256, 8 + 5 * 8, 0, ref oldParam.dmcChannel.volume, newParam.dmcChannel.volume, 0);
             DrawBuff.drawNESSw(frameBuffer, 144, 48, ref oldParam.dmcChannel.dda, newParam.dmcChannel.dda);
             DrawBuff.drawNESSw(frameBuffer, 152, 48, ref oldParam.dmcChannel.dda, newParam.dmcChannel.noise);
-            DrawBuff.font4Int2(frameBuffer, 176, 48, 0, 2,ref oldParam.dmcChannel.volumeL, newParam.dmcChannel.volumeL);
-            DrawBuff.font4Int3(frameBuffer, 192, 48, 0, 3,ref oldParam.dmcChannel.volumeR, newParam.dmcChannel.volumeR);
+            DrawBuff.font4Int2(frameBuffer, 176, 48, 0, 2, ref oldParam.dmcChannel.volumeL, newParam.dmcChannel.volumeL);
+            DrawBuff.font4Int3(frameBuffer, 192, 48, 0, 3, ref oldParam.dmcChannel.volumeR, newParam.dmcChannel.volumeR);
             DrawBuff.font4HexByte(frameBuffer, 220, 48, 0, ref oldParam.dmcChannel.nfrq, newParam.dmcChannel.nfrq);
             DrawBuff.font4HexByte(frameBuffer, 244, 48, 0, ref oldParam.dmcChannel.pantp, newParam.dmcChannel.pantp);
             DrawBuff.ChNESDMC(frameBuffer, 4, ref oldParam.dmcChannel.mask, newParam.dmcChannel.mask, 0);

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml.Serialization;
-using System.Drawing;
-
-namespace MDPlayer
+﻿namespace MDPlayer
 {
     [Serializable]
     public class MIDIPart
@@ -250,7 +243,7 @@ namespace MDPlayer
         /// <param name="EventType">イベントタイプ</param>
         /// <param name="MIDImessage">MIDIメッセージ(Chは0固定であること)</param>
         /// <returns>新たに挿入したイベント</returns>
-        public MIDIEvent insertEvent(MIDIEvent TargetEvent,int Step, MIDIEventType EventType, byte[] MIDImessage)
+        public MIDIEvent insertEvent(MIDIEvent TargetEvent, int Step, MIDIEventType EventType, byte[] MIDImessage)
         {
             if (MIDImessage == null) return null;
             MIDIEvent eve = new MIDIEvent();
@@ -310,14 +303,14 @@ namespace MDPlayer
             return eve;
         }
 
-        private void insertEve(MIDIEvent TargetEvent,int Step, MIDIEvent eve)
+        private void insertEve(MIDIEvent TargetEvent, int Step, MIDIEvent eve)
         {
             //イベントリストを生成
             if (this.Event == null)
             {
                 this.Event = new List<MIDIEvent>();
             }
-            if (TargetEvent==null || this.Event.Count == 0 || this.eStartIndex == null)//初めのイベント
+            if (TargetEvent == null || this.Event.Count == 0 || this.eStartIndex == null)//初めのイベント
             {
                 eve.AfterIndex = null;
                 eve.BeforeIndex = null;

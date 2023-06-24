@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MDPlayer.Driver.ZGM.ZgmChip
+﻿namespace MDPlayer.Driver.ZGM.ZgmChip
 {
     public class YM2609 : ZgmChip
     {
 
-        public YM2609(ChipRegister chipRegister, Setting setting, byte[] vgmBuf):base(12+6+12+6+3)
+        public YM2609(ChipRegister chipRegister, Setting setting, byte[] vgmBuf) : base(12 + 6 + 12 + 6 + 3)
         {
             this.chipRegister = chipRegister;
             this.setting = setting;

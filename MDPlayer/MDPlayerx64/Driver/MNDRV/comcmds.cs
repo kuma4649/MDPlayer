@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MDPlayer.Driver.MNDRV
+﻿namespace MDPlayer.Driver.MNDRV
 {
     //
     //	part of common commands
@@ -1098,7 +1092,7 @@ namespace MDPlayer.Driver.MNDRV
                 return;
             }
 
-            _com_e2_wm10:
+        _com_e2_wm10:
             reg.D2_W = mm.ReadUInt16(reg.a2);
             reg.D2_L = (reg.D2_L << 16) + (reg.D2_L >> 16);
             reg.D2_W = mm.ReadUInt16(reg.a2 + 2);

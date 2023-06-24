@@ -28,12 +28,6 @@
     Ported to c++ by Leandro Nini
 */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Driver.libsidplayfp
 {
     /**
@@ -253,7 +247,7 @@ namespace Driver.libsidplayfp
             m_extract = type;
         }
 
-        public bool reloc(ref byte[] aryBuf,ref Int32 iFsize)
+        public bool reloc(ref byte[] aryBuf, ref Int32 iFsize)
         {
             Ptr<byte> buf = new Ptr<byte>(aryBuf, 0);
             Int32 fsize = iFsize;
@@ -294,7 +288,7 @@ namespace Driver.libsidplayfp
             Ptr<byte> segd = new Ptr<byte>(segt.buf, segt.ptr + tlen);                      // Data segment
             Ptr<byte> utab = new Ptr<byte>(segd.buf, segd.ptr + dlen);                      // Undefined references list
 
-            Ptr<byte> rttab = new Ptr<byte>(utab.buf,utab.ptr+ read_undef(utab));         // Text relocation table
+            Ptr<byte> rttab = new Ptr<byte>(utab.buf, utab.ptr + read_undef(utab));         // Text relocation table
 
             Ptr<byte> rdtab = reloc_seg(segt, tlen, rttab);    // Data relocation table
             Ptr<byte> extab = reloc_seg(segd, dlen, rdtab);    // Exported globals list
@@ -322,17 +316,17 @@ namespace Driver.libsidplayfp
             switch (m_extract)
             {
                 case segment_t.WHOLE:
-                    ret= true;
+                    ret = true;
                     break;
                 case segment_t.TEXT:
                     buf = segt;
                     fsize = tlen;
-                    ret= true;
+                    ret = true;
                     break;
                 case segment_t.DATA:
                     buf = segd;
                     fsize = dlen;
-                    ret= true;
+                    ret = true;
                     break;
                 default:
                     return false;
@@ -360,7 +354,7 @@ namespace Driver.libsidplayfp
         private Ptr<byte> reloc_seg(Ptr<byte> buf, int len, Ptr<byte> rtab)
         {
             Int32 adr = -1;
-            while (rtab[0]!=0)//(rtab.ptr < rtab.Count)
+            while (rtab[0] != 0)//(rtab.ptr < rtab.Count)
             {
                 if ((rtab[0] & 255) == 255)
                 {

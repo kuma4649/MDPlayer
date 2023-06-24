@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MDPlayer
+﻿namespace MDPlayer
 {
     [Serializable]
-    public class midiOutInfo
+    public class MidiOutInfo
     {
 
         public int id = 0;

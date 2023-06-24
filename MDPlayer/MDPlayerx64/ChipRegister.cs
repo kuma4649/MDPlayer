@@ -3,8 +3,6 @@ using MDSound;
 using MDSound.np.chip;
 using MDSound.np.cpu;
 using MDSound.np.memory;
-using System;
-using System.Collections.Generic;
 
 namespace MDPlayer
 {
@@ -13,7 +11,7 @@ namespace MDPlayer
         private vstMng vstMng = null;
         private Setting setting = null;
         private MDSound.MDSound mds = null;
-        private midiOutInfo[] midiOutInfos = null;
+        private MidiOutInfo[] midiOutInfos = null;
         private List<NAudio.Midi.MidiOut> midiOuts = null;
         private List<int> midiOutsType = null;
         //private List<int> vstMidiOutsType = null;
@@ -44,26 +42,26 @@ namespace MDPlayer
         private Setting.ChipType2[] ctES5503 = new Setting.ChipType2[2] { null, null };
 
         private RealChip realChip = null;
-        private RSoundChip[] scSN76489 =  new RSoundChip[2] { null, null };
-        private RSoundChip[] scYM2612 =   new RSoundChip[2] { null, null };
-        private RSoundChip[] scYM2608 =   new RSoundChip[2] { null, null };
+        private RSoundChip[] scSN76489 = new RSoundChip[2] { null, null };
+        private RSoundChip[] scYM2612 = new RSoundChip[2] { null, null };
+        private RSoundChip[] scYM2608 = new RSoundChip[2] { null, null };
         private RSoundChip[] scYM2151 = new RSoundChip[2] { null, null };
         private RSoundChip[] scYM2151_4M = new RSoundChip[2] { null, null };
         private RSoundChip[] scYM2203 = new RSoundChip[2] { null, null };
         private RSoundChip[] scAY8910 = new RSoundChip[2] { null, null };
         private RSoundChip[] scK051649 = new RSoundChip[2] { null, null };
         private RSoundChip[] scYM2413 = new RSoundChip[2] { null, null };
-        private RSoundChip[] scYM2610 =   new RSoundChip[2] { null, null };
+        private RSoundChip[] scYM2610 = new RSoundChip[2] { null, null };
         private RSoundChip[] scYM2610EA = new RSoundChip[2] { null, null };
         private RSoundChip[] scYM2610EB = new RSoundChip[2] { null, null };
         private RSoundChip[] scYM3526 = new RSoundChip[2] { null, null };
         private RSoundChip[] scYM3812 = new RSoundChip[2] { null, null };
         private RSoundChip[] scYMF262 = new RSoundChip[2] { null, null };
-        private RSoundChip[] scYMF271 =   new RSoundChip[2] { null, null };
-        private RSoundChip[] scYMF278B =  new RSoundChip[2] { null, null };
-        private RSoundChip[] scYMZ280B =  new RSoundChip[2] { null, null };
-        private RSoundChip[] scSEGAPCM =  new RSoundChip[2] { null, null };
-        private RSoundChip[] scC140 =     new RSoundChip[2] { null, null };
+        private RSoundChip[] scYMF271 = new RSoundChip[2] { null, null };
+        private RSoundChip[] scYMF278B = new RSoundChip[2] { null, null };
+        private RSoundChip[] scYMZ280B = new RSoundChip[2] { null, null };
+        private RSoundChip[] scSEGAPCM = new RSoundChip[2] { null, null };
+        private RSoundChip[] scC140 = new RSoundChip[2] { null, null };
 
         private byte[] algM = new byte[] { 0x08, 0x08, 0x08, 0x08, 0x0c, 0x0e, 0x0e, 0x0f };
         private int[] opN = new int[] { 0, 2, 1, 3 };
@@ -157,7 +155,7 @@ namespace MDPlayer
 
         public int[][][] fmRegisterYM2609 = new int[][][] {
             new int[][] { null, null },
-            new int[][] { null, null } 
+            new int[][] { null, null }
         };
         public int[][] fmKeyOnYM2609 = new int[][] { null, null, null, null };
         public int[][] fmVolYM2609 = new int[][] {
@@ -171,7 +169,7 @@ namespace MDPlayer
         };
         public int[][][] fmVolYM2609Adpcm = new int[][][] {
             new int[][] { new int[2], new int[2], new int[2] },
-            new int[][] { new int[2], new int[2], new int[2] } 
+            new int[][] { new int[2], new int[2], new int[2] }
         };
         public int[][][] fmVolYM2609AdpcmPan = new int[][][] {
             new int[][] { new int[2], new int[2], new int[2] },
@@ -1016,20 +1014,20 @@ namespace MDPlayer
 
         }
 
-        public midiOutInfo[] GetMIDIoutInfo()
+        public MidiOutInfo[] GetMIDIoutInfo()
         {
             return midiOutInfos;
         }
 
-        public void setMIDIout(midiOutInfo[] midiOutInfos, List<NAudio.Midi.MidiOut> midiOuts, List<int> midiOutsType)
+        public void setMIDIout(MidiOutInfo[] midiOutInfos, List<NAudio.Midi.MidiOut> midiOuts, List<int> midiOutsType)
         {
             this.midiOutInfos = null;
             if (midiOutInfos != null && midiOutInfos.Length > 0)
             {
-                this.midiOutInfos = new midiOutInfo[midiOutInfos.Length];
+                this.midiOutInfos = new MidiOutInfo[midiOutInfos.Length];
                 for (int i = 0; i < midiOutInfos.Length; i++)
                 {
-                    this.midiOutInfos[i] = new midiOutInfo();
+                    this.midiOutInfos[i] = new MidiOutInfo();
                     this.midiOutInfos[i].beforeSendType = midiOutInfos[i].beforeSendType;
                     this.midiOutInfos[i].fileName = midiOutInfos[i].fileName;
                     this.midiOutInfos[i].id = midiOutInfos[i].id;
@@ -1158,7 +1156,7 @@ namespace MDPlayer
                     new byte[8] { 0,0,0,0,0,0,0,0 },
                     new byte[8] { 0,0,0,0,0,0,0,0 }
                 };
-        
+
         public void setYM2151Register(int chipID, int dPort, int dAddr, int dData, EnmModel model, int hosei, long vgmFrameCounter)
         {
             if (setting.debug.debugOPZ)
@@ -1191,7 +1189,7 @@ namespace MDPlayer
                 )
             {
                 fmRegisterYM2151[chipID][dAddr] = dData;
-                midiExport.outMIDIData(EnmChip.YM2151, chipID, dPort, dAddr, dData, hosei, vgmFrameCounter);
+                midiExport.OutMIDIData(EnmChip.YM2151, chipID, dPort, dAddr, dData, hosei, vgmFrameCounter);
             }
 
             if ((model == EnmModel.RealModel && ctYM2151[chipID].UseReal[0])
@@ -1252,7 +1250,7 @@ namespace MDPlayer
                             }
                             else
                             {
-                                if (sc != null) sc.setRegister(0x60 + i * 8 + ch, 127);
+                                if (sc != null) sc.SetRegister(0x60 + i * 8 + ch, 127);
                             }
                         }
                     }
@@ -1286,7 +1284,7 @@ namespace MDPlayer
                 {
                     if (hosei == 0)
                     {
-                        sc.setRegister(dAddr, dData);
+                        sc.SetRegister(dAddr, dData);
                     }
                     else
                     {
@@ -1307,12 +1305,12 @@ namespace MDPlayer
 
                         note = (note < 3) ? note : ((note < 6) ? (note + 1) : ((note < 9) ? (note + 2) : (note + 3)));
                         if (sc != null)
-                            sc.setRegister(dAddr, (oct << 4) | note);
+                            sc.SetRegister(dAddr, (oct << 4) | note);
                     }
                 }
                 else
                 {
-                    sc.setRegister(dAddr, dData);
+                    sc.SetRegister(dAddr, dData);
                 }
             }
 
@@ -1344,7 +1342,7 @@ namespace MDPlayer
                 }
 
                 if (sc != null)
-                    sc.setRegister(dAddr, dData);
+                    sc.SetRegister(dAddr, dData);
             }
         }
 
@@ -1488,7 +1486,7 @@ namespace MDPlayer
                 )
             {
                 fmRegisterYM2151[chipID][dAddr] = dData;
-                midiExport.outMIDIData(EnmChip.YM2151, chipID, dPort, dAddr, dData, hosei, vgmFrameCounter);
+                midiExport.OutMIDIData(EnmChip.YM2151, chipID, dPort, dAddr, dData, hosei, vgmFrameCounter);
             }
 
             if ((model == EnmModel.RealModel && ctYM2151[chipID].UseReal[0])
@@ -1671,7 +1669,7 @@ namespace MDPlayer
             else
             {
                 if (scAY8910[chipID] == null) return;
-                scAY8910[chipID].setRegister(dAddr + 0x000, dData);
+                scAY8910[chipID].SetRegister(dAddr + 0x000, dData);
             }
         }
 
@@ -1943,7 +1941,7 @@ namespace MDPlayer
                 byte tl = (byte)(dData & 0x0f);
                 int ch = dAddr - 0x30;
 
-                if (dAddr<0x36 || !rmYM2413[chipID])
+                if (dAddr < 0x36 || !rmYM2413[chipID])
                 {
                     //dData = Math.Min(tl + nowYM2413FadeoutVol[chipID], 0x0f);
                     //dData = inst | dData;
@@ -1995,7 +1993,7 @@ namespace MDPlayer
             else
             {
                 if (scYM2413[chipID] == null) return;
-                scYM2413[chipID].setRegister(dAddr, dData);
+                scYM2413[chipID].SetRegister(dAddr, dData);
             }
 
         }
@@ -2244,7 +2242,7 @@ namespace MDPlayer
             {
                 if (scYM2203[chipID] == null) return;
 
-                scYM2203[chipID].setRegister(dAddr, dData);
+                scYM2203[chipID].SetRegister(dAddr, dData);
             }
         }
 
@@ -2261,7 +2259,7 @@ namespace MDPlayer
             {
                 if (scYM2203[chipID] == null) return;
 
-                scYM2203[chipID].setRegister(dAddr, dData);
+                scYM2203[chipID].SetRegister(dAddr, dData);
             }
         }
 
@@ -2483,7 +2481,7 @@ namespace MDPlayer
             {
                 if (scYM3526[chipID] == null) return;
 
-                scYM3526[chipID].setRegister(dAddr, dData);
+                scYM3526[chipID].SetRegister(dAddr, dData);
             }
         }
 
@@ -2623,7 +2621,7 @@ namespace MDPlayer
             {
                 if (scYM3812[chipID] == null) return;
 
-                scYM3812[chipID].setRegister(dAddr, dData);
+                scYM3812[chipID].SetRegister(dAddr, dData);
             }
         }
 
@@ -2783,7 +2781,7 @@ namespace MDPlayer
             else
             {
                 if (scYMF262[chipID] == null) return;
-                scYMF262[chipID].setRegister(dPort * 0x100 + dAddr, dData);
+                scYMF262[chipID].SetRegister(dPort * 0x100 + dAddr, dData);
             }
 
         }
@@ -2801,7 +2799,7 @@ namespace MDPlayer
             {
                 if (scYMF262[chipID] == null) return;
 
-                scYMF262[chipID].setRegister(dPort * 0x100 + dAddr, dData);
+                scYMF262[chipID].SetRegister(dPort * 0x100 + dAddr, dData);
             }
         }
 
@@ -2837,7 +2835,7 @@ namespace MDPlayer
         {
             //if (chipID == 0 && dPort == 1 && dAddr == 0x01)
             //{
-                //log.Write(string.Format("FM P1 Out:Adr[{0:x02}] val[{1:x02}]", (int)dAddr, (int)dData));
+            //log.Write(string.Format("FM P1 Out:Adr[{0:x02}] val[{1:x02}]", (int)dAddr, (int)dData));
             //}
 
             if (ctYM2608 == null) return;
@@ -2893,7 +2891,7 @@ namespace MDPlayer
 
                 if (dPort == 1 && dAddr == 0x00)
                 {
-                    if ((dData&0x80) != 0)
+                    if ((dData & 0x80) != 0)
                     {
                         fmVolYM2608Adpcm[chipID][0] = (int)((256 * 6.0 * fmRegisterYM2608[chipID][1][0x0b] / 64.0) * ((fmVolYM2608AdpcmPan[chipID] & 0x02) > 0 ? 1 : 0));
                         fmVolYM2608Adpcm[chipID][1] = (int)((256 * 6.0 * fmRegisterYM2608[chipID][1][0x0b] / 64.0) * ((fmVolYM2608AdpcmPan[chipID] & 0x01) > 0 ? 1 : 0));
@@ -3030,7 +3028,7 @@ namespace MDPlayer
             {
                 if (scYM2608[chipID] == null) return;
 
-                scYM2608[chipID].setRegister(dPort * 0x100 + dAddr, dData);
+                scYM2608[chipID].SetRegister(dPort * 0x100 + dAddr, dData);
             }
 
         }
@@ -3047,7 +3045,7 @@ namespace MDPlayer
             {
                 if (scYM2608[chipID] == null) return 0;
 
-                return (byte)scYM2608[chipID].getRegister(dPort * 0x100 + dAddr);
+                return (byte)scYM2608[chipID].GetRegister(dPort * 0x100 + dAddr);
             }
 
         }
@@ -3065,7 +3063,7 @@ namespace MDPlayer
             {
                 if (scYM2608[chipID] == null) return;
 
-                scYM2608[chipID].setRegister(dPort * 0x100 + dAddr, dData);
+                scYM2608[chipID].SetRegister(dPort * 0x100 + dAddr, dData);
             }
         }
 
@@ -3256,7 +3254,7 @@ namespace MDPlayer
                                 (
                                     (pan & 0x20) == 0
                                     ? 0
-                                    : (4 - ((pan &0x18)>>3))
+                                    : (4 - ((pan & 0x18) >> 3))
                                 );
                             int panR3 =
                                 (
@@ -3264,8 +3262,8 @@ namespace MDPlayer
                                     ? 0
                                     : (4 - ((pan & 0x3) >> 0))
                                 );
-                            fmVolYM2609Rhythm[chipID][i + 6][0] = (int)(256 * 6 * ((tl * il) >> 4) / 127.0 * panL3/4.0);
-                            fmVolYM2609Rhythm[chipID][i + 6][1] = (int)(256 * 6 * ((tl * il) >> 4) / 127.0 * panR3/4.0);
+                            fmVolYM2609Rhythm[chipID][i + 6][0] = (int)(256 * 6 * ((tl * il) >> 4) / 127.0 * panL3 / 4.0);
+                            fmVolYM2609Rhythm[chipID][i + 6][1] = (int)(256 * 6 * ((tl * il) >> 4) / 127.0 * panR3 / 4.0);
                         }
                     }
                 }
@@ -3407,7 +3405,7 @@ namespace MDPlayer
             }
         }
 
-        public void writeYM2609SetOperatorWaveDic(int chipID,int n, byte[] wav, EnmModel model)
+        public void writeYM2609SetOperatorWaveDic(int chipID, int n, byte[] wav, EnmModel model)
         {
             //if (model == EnmModel.VirtualModel)
             {
@@ -3443,7 +3441,7 @@ namespace MDPlayer
 
         }
 
-        public byte[] readYM2609GetUserWave(int chipID,int p,int n,EnmModel model)
+        public byte[] readYM2609GetUserWave(int chipID, int p, int n, EnmModel model)
         {
             return mds.ReadYM2609_GetPSGUserWave((byte)chipID, p, n);
         }
@@ -3488,7 +3486,7 @@ namespace MDPlayer
                         {
                             if ((dData & 0xf0) != 0)
                             {
-                                fmKeyOnYM2610[chipID][ch] = (dData & 0xf0)|1;
+                                fmKeyOnYM2610[chipID][ch] = (dData & 0xf0) | 1;
                                 fmVolYM2610[chipID][ch] = 256 * 6;
                             }
                             else
@@ -3671,7 +3669,7 @@ namespace MDPlayer
             }
             else
             {
-                if (scYM2610[chipID] != null) scYM2610[chipID].setRegister(dPort * 0x100 + dAddr, dData);
+                if (scYM2610[chipID] != null) scYM2610[chipID].SetRegister(dPort * 0x100 + dAddr, dData);
                 if (scYM2610EA[chipID] != null)
                 {
                     int dReg = (dPort << 8) | dAddr;
@@ -3689,12 +3687,12 @@ namespace MDPlayer
                     }
                     if (bSend)
                     {
-                        scYM2610EA[chipID].setRegister((dPort << 8) | dAddr, dData);
+                        scYM2610EA[chipID].SetRegister((dPort << 8) | dAddr, dData);
                     }
                 }
                 if (scYM2610EB[chipID] != null)
                 {
-                    scYM2610EB[chipID].setRegister((dPort << 8) | dAddr | 0x10000, dData);
+                    scYM2610EB[chipID].SetRegister((dPort << 8) | dAddr | 0x10000, dData);
                 }
             }
 
@@ -3712,17 +3710,17 @@ namespace MDPlayer
                 {
                     byte dPort = 2;
                     int startAddr = 0;
-                    scYM2610[chipID].setRegister((dPort << 8) | 0x00, 0x00);
-                    scYM2610[chipID].setRegister((dPort << 8) | 0x01, (startAddr >> 8) & 0xff);
-                    scYM2610[chipID].setRegister((dPort << 8) | 0x02, (startAddr >> 16) & 0xff);
+                    scYM2610[chipID].SetRegister((dPort << 8) | 0x00, 0x00);
+                    scYM2610[chipID].SetRegister((dPort << 8) | 0x01, (startAddr >> 8) & 0xff);
+                    scYM2610[chipID].SetRegister((dPort << 8) | 0x02, (startAddr >> 16) & 0xff);
 
                     // pushReg(CMD_YM2610|0x02,0x03,0x01);
-                    scYM2610[chipID].setRegister((dPort << 8) | 0x03, 0x01);
+                    scYM2610[chipID].SetRegister((dPort << 8) | 0x03, 0x01);
                     // データ転送
                     for (int cnt = 0; cnt < ym2610AdpcmA.Length; cnt++)
                     {
                         // pushReg(CMD_YM2610|0x02,0x04,*m_pDump);
-                        scYM2610[chipID].setRegister((dPort << 8) | 0x04, ym2610AdpcmA[cnt]);
+                        scYM2610[chipID].SetRegister((dPort << 8) | 0x04, ym2610AdpcmA[cnt]);
                     }
 
                     realChip.SendData();
@@ -3731,17 +3729,17 @@ namespace MDPlayer
                 {
                     byte dPort = 2;
                     int startAddr = 0;
-                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10000, 0x00);
-                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10001, (startAddr >> 8) & 0xff);
-                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10002, (startAddr >> 16) & 0xff);
+                    scYM2610EB[chipID].SetRegister((dPort << 8) | 0x10000, 0x00);
+                    scYM2610EB[chipID].SetRegister((dPort << 8) | 0x10001, (startAddr >> 8) & 0xff);
+                    scYM2610EB[chipID].SetRegister((dPort << 8) | 0x10002, (startAddr >> 16) & 0xff);
 
                     // pushReg(CMD_YM2610|0x02,0x03,0x01);
-                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10003, 0x01);
+                    scYM2610EB[chipID].SetRegister((dPort << 8) | 0x10003, 0x01);
                     // データ転送
                     for (int cnt = 0; cnt < ym2610AdpcmA.Length; cnt++)
                     {
                         // pushReg(CMD_YM2610|0x02,0x04,*m_pDump);
-                        scYM2610EB[chipID].setRegister((dPort << 8) | 0x10004, ym2610AdpcmA[cnt]);
+                        scYM2610EB[chipID].SetRegister((dPort << 8) | 0x10004, ym2610AdpcmA[cnt]);
                     }
 
                     realChip.SendData();
@@ -3760,17 +3758,17 @@ namespace MDPlayer
                 if (scYM2610[chipID] != null)
                 {
                     byte dPort = 2;
-                    scYM2610[chipID].setRegister((dPort << 8) | 0x00, 0x00);
-                    scYM2610[chipID].setRegister((dPort << 8) | 0x01, (startAddr >> 8) & 0xff);
-                    scYM2610[chipID].setRegister((dPort << 8) | 0x02, (startAddr >> 16) & 0xff);
+                    scYM2610[chipID].SetRegister((dPort << 8) | 0x00, 0x00);
+                    scYM2610[chipID].SetRegister((dPort << 8) | 0x01, (startAddr >> 8) & 0xff);
+                    scYM2610[chipID].SetRegister((dPort << 8) | 0x02, (startAddr >> 16) & 0xff);
 
                     // pushReg(CMD_YM2610|0x02,0x03,0x01);
-                    scYM2610[chipID].setRegister((dPort << 8) | 0x03, 0x01);
+                    scYM2610[chipID].SetRegister((dPort << 8) | 0x03, 0x01);
                     // データ転送
                     for (int cnt = 0; cnt < length; cnt++)
                     {
                         // pushReg(CMD_YM2610|0x02,0x04,*m_pDump);
-                        scYM2610[chipID].setRegister((dPort << 8) | 0x04, buf[srcStartAddr + cnt]);
+                        scYM2610[chipID].SetRegister((dPort << 8) | 0x04, buf[srcStartAddr + cnt]);
                     }
 
                     realChip.SendData();
@@ -3778,17 +3776,17 @@ namespace MDPlayer
                 if (scYM2610EB[chipID] != null)
                 {
                     byte dPort = 2;
-                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10000, 0x00);
-                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10001, (startAddr >> 8) & 0xff);
-                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10002, (startAddr >> 16) & 0xff);
+                    scYM2610EB[chipID].SetRegister((dPort << 8) | 0x10000, 0x00);
+                    scYM2610EB[chipID].SetRegister((dPort << 8) | 0x10001, (startAddr >> 8) & 0xff);
+                    scYM2610EB[chipID].SetRegister((dPort << 8) | 0x10002, (startAddr >> 16) & 0xff);
 
                     // pushReg(CMD_YM2610|0x02,0x03,0x01);
-                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10003, 0x01);
+                    scYM2610EB[chipID].SetRegister((dPort << 8) | 0x10003, 0x01);
                     // データ転送
                     for (int cnt = 0; cnt < length; cnt++)
                     {
                         // pushReg(CMD_YM2610|0x02,0x04,*m_pDump);
-                        scYM2610EB[chipID].setRegister((dPort << 8) | 0x10004, buf[srcStartAddr + cnt]);
+                        scYM2610EB[chipID].SetRegister((dPort << 8) | 0x10004, buf[srcStartAddr + cnt]);
                     }
 
                     realChip.SendData();
@@ -3808,17 +3806,17 @@ namespace MDPlayer
                 {
                     byte dPort = 2;
                     int startAddr = 0;
-                    scYM2610[chipID].setRegister((dPort << 8) | 0x00, 0x00);
-                    scYM2610[chipID].setRegister((dPort << 8) | 0x01, (startAddr >> 8) & 0xff);
-                    scYM2610[chipID].setRegister((dPort << 8) | 0x02, (startAddr >> 16) & 0xff);
+                    scYM2610[chipID].SetRegister((dPort << 8) | 0x00, 0x00);
+                    scYM2610[chipID].SetRegister((dPort << 8) | 0x01, (startAddr >> 8) & 0xff);
+                    scYM2610[chipID].SetRegister((dPort << 8) | 0x02, (startAddr >> 16) & 0xff);
 
                     // pushReg(CMD_YM2610|0x02,0x03,0x01);
-                    scYM2610[chipID].setRegister((dPort << 8) | 0x03, 0x00);
+                    scYM2610[chipID].SetRegister((dPort << 8) | 0x03, 0x00);
                     // データ転送
                     for (int cnt = 0; cnt < ym2610AdpcmB.Length; cnt++)
                     {
                         // pushReg(CMD_YM2610|0x02,0x04,*m_pDump);
-                        scYM2610[chipID].setRegister((dPort << 8) | 0x04, ym2610AdpcmB[cnt]);
+                        scYM2610[chipID].SetRegister((dPort << 8) | 0x04, ym2610AdpcmB[cnt]);
                     }
 
                     realChip.SendData();
@@ -3827,17 +3825,17 @@ namespace MDPlayer
                 {
                     byte dPort = 2;
                     int startAddr = 0;
-                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10000, 0x00);
-                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10001, (startAddr >> 8) & 0xff);
-                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10002, (startAddr >> 16) & 0xff);
+                    scYM2610EB[chipID].SetRegister((dPort << 8) | 0x10000, 0x00);
+                    scYM2610EB[chipID].SetRegister((dPort << 8) | 0x10001, (startAddr >> 8) & 0xff);
+                    scYM2610EB[chipID].SetRegister((dPort << 8) | 0x10002, (startAddr >> 16) & 0xff);
 
                     // pushReg(CMD_YM2610|0x02,0x03,0x01);
-                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10003, 0x00);
+                    scYM2610EB[chipID].SetRegister((dPort << 8) | 0x10003, 0x00);
                     // データ転送
                     for (int cnt = 0; cnt < ym2610AdpcmB.Length; cnt++)
                     {
                         // pushReg(CMD_YM2610|0x02,0x04,*m_pDump);
-                        scYM2610EB[chipID].setRegister((dPort << 8) | 0x10004, ym2610AdpcmB[cnt]);
+                        scYM2610EB[chipID].SetRegister((dPort << 8) | 0x10004, ym2610AdpcmB[cnt]);
                     }
 
                     realChip.SendData();
@@ -3856,17 +3854,17 @@ namespace MDPlayer
                 if (scYM2610[chipID] != null)
                 {
                     byte dPort = 2;
-                    scYM2610[chipID].setRegister((dPort << 8) | 0x00, 0x00);
-                    scYM2610[chipID].setRegister((dPort << 8) | 0x01, (startAddr >> 8) & 0xff);
-                    scYM2610[chipID].setRegister((dPort << 8) | 0x02, (startAddr >> 16) & 0xff);
+                    scYM2610[chipID].SetRegister((dPort << 8) | 0x00, 0x00);
+                    scYM2610[chipID].SetRegister((dPort << 8) | 0x01, (startAddr >> 8) & 0xff);
+                    scYM2610[chipID].SetRegister((dPort << 8) | 0x02, (startAddr >> 16) & 0xff);
 
                     // pushReg(CMD_YM2610|0x02,0x03,0x01);
-                    scYM2610[chipID].setRegister((dPort << 8) | 0x03, 0x00);
+                    scYM2610[chipID].SetRegister((dPort << 8) | 0x03, 0x00);
                     // データ転送
                     for (int cnt = 0; cnt < length; cnt++)
                     {
                         // pushReg(CMD_YM2610|0x02,0x04,*m_pDump);
-                        scYM2610[chipID].setRegister((dPort << 8) | 0x04, buf[srcStartAddr + cnt]);
+                        scYM2610[chipID].SetRegister((dPort << 8) | 0x04, buf[srcStartAddr + cnt]);
                     }
 
                     realChip.SendData();
@@ -3874,17 +3872,17 @@ namespace MDPlayer
                 if (scYM2610EB[chipID] != null)
                 {
                     byte dPort = 2;
-                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10000, 0x00);
-                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10001, (startAddr >> 8) & 0xff);
-                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10002, (startAddr >> 16) & 0xff);
+                    scYM2610EB[chipID].SetRegister((dPort << 8) | 0x10000, 0x00);
+                    scYM2610EB[chipID].SetRegister((dPort << 8) | 0x10001, (startAddr >> 8) & 0xff);
+                    scYM2610EB[chipID].SetRegister((dPort << 8) | 0x10002, (startAddr >> 16) & 0xff);
 
                     // pushReg(CMD_YM2610|0x02,0x03,0x01);
-                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10003, 0x00);
+                    scYM2610EB[chipID].SetRegister((dPort << 8) | 0x10003, 0x00);
                     // データ転送
                     for (int cnt = 0; cnt < length; cnt++)
                     {
                         // pushReg(CMD_YM2610|0x02,0x04,*m_pDump);
-                        scYM2610EB[chipID].setRegister((dPort << 8) | 0x10004, buf[srcStartAddr + cnt]);
+                        scYM2610EB[chipID].SetRegister((dPort << 8) | 0x10004, buf[srcStartAddr + cnt]);
                     }
 
                     realChip.SendData();
@@ -3911,7 +3909,7 @@ namespace MDPlayer
             else
             {
                 if (scYMF271[chipID] == null) return;
-                scYMF271[chipID].setRegister(dPort * 0x100 + dAddr, dData);
+                scYMF271[chipID].SetRegister(dPort * 0x100 + dAddr, dData);
             }
 
         }
@@ -3990,7 +3988,7 @@ namespace MDPlayer
             else
             {
                 if (scYMF278B[chipID] == null) return;
-                scYMF278B[chipID].setRegister(dPort * 0x100 + dAddr, dData);
+                scYMF278B[chipID].SetRegister(dPort * 0x100 + dAddr, dData);
             }
 
         }
@@ -4096,7 +4094,7 @@ namespace MDPlayer
             else
             {
                 if (scYMZ280B[chipID] == null) return;
-                scYMZ280B[chipID].setRegister(dAddr, dData);
+                scYMZ280B[chipID].SetRegister(dAddr, dData);
             }
 
         }
@@ -4112,7 +4110,7 @@ namespace MDPlayer
             if (model == EnmModel.VirtualModel)
             {
                 fmRegisterYM2612[chipID][dPort][dAddr] = dData;
-                midiExport.outMIDIData(EnmChip.YM2612, chipID, dPort, dAddr, dData, 0, vgmFrameCounter);
+                midiExport.OutMIDIData(EnmChip.YM2612, chipID, dPort, dAddr, dData, 0, vgmFrameCounter);
             }
 
             if ((model == EnmModel.RealModel && ctYM2612[chipID].UseReal[0]) || (model == EnmModel.VirtualModel && !ctYM2612[chipID].UseReal[0]))
@@ -4154,7 +4152,7 @@ namespace MDPlayer
                 {
                     if (fmRegisterYM2612[chipID][0][0x2a] > 0)
                     {
-                        fmVolYM2612[chipID][5] = Math.Abs(fmRegisterYM2612[chipID][0][0x2a]-0x7f) * 20;
+                        fmVolYM2612[chipID][5] = Math.Abs(fmRegisterYM2612[chipID][0][0x2a] - 0x7f) * 20;
                     }
                 }
             }
@@ -4222,21 +4220,21 @@ namespace MDPlayer
                         if (dPort == 0 && dAddr == 0x2b)
                         {
                             //if (ctYM2612[chipID].UseEmu[0]) 
-                                mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                             //if (ctYM2612[chipID].UseEmu[1]) mds.WriteYM3438((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                             //if (ctYM2612[chipID].UseEmu[2]) mds.WriteYM2612mame((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                         }
                         else if (dPort == 0 && dAddr == 0x2a)
                         {
                             //if (ctYM2612[chipID].UseEmu[0])
-                                mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                             //if (ctYM2612[chipID].UseEmu[1]) mds.WriteYM3438((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                             //if (ctYM2612[chipID].UseEmu[2]) mds.WriteYM2612mame((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                         }
                         else if (dPort == 1 && dAddr == 0xb6)
                         {
                             //if (ctYM2612[chipID].UseEmu[0])
-                                mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                             //if (ctYM2612[chipID].UseEmu[1]) mds.WriteYM3438((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                             //if (ctYM2612[chipID].UseEmu[2]) mds.WriteYM2612mame((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                         }
@@ -4266,7 +4264,7 @@ namespace MDPlayer
                     //return;
 #endif
 
-                    if (ctYM2612[chipID].UseEmu[1] && dAddr == 0x21) 
+                    if (ctYM2612[chipID].UseEmu[1] && dAddr == 0x21)
                         return;//TESTレジスタへのデータ送信をキャンセルする
 
                     //エミュを使用する場合のみMDSoundへデータを送る
@@ -4289,20 +4287,20 @@ namespace MDPlayer
                     //アドレスを調べてPCMにはデータを送らない
                     if (dPort == 0 && dAddr == 0x2b)
                     {
-                        scYM2612[chipID].setRegister(dPort * 0x100 + dAddr, dData);
+                        scYM2612[chipID].SetRegister(dPort * 0x100 + dAddr, dData);
                     }
                     else if (dPort == 0 && dAddr == 0x2a)
                     {
                     }
                     else
                     {
-                        scYM2612[chipID].setRegister(dPort * 0x100 + dAddr, dData);
+                        scYM2612[chipID].SetRegister(dPort * 0x100 + dAddr, dData);
                     }
                 }
                 else
                 {
                     //Scciへデータを送る
-                    scYM2612[chipID].setRegister(dPort * 0x100 + dAddr, dData);
+                    scYM2612[chipID].SetRegister(dPort * 0x100 + dAddr, dData);
                 }
             }
 
@@ -4531,7 +4529,7 @@ namespace MDPlayer
             }
         }
 
-        public void setMaskYM2608(int chipID, int ch, bool mask,bool noSend=false)
+        public void setMaskYM2608(int chipID, int ch, bool mask, bool noSend = false)
         {
             maskFMChYM2608[chipID][ch] = mask;
             if (ch >= 9 && ch < 12)
@@ -4660,7 +4658,7 @@ namespace MDPlayer
             writeOKIM6258((byte)chipID, 0, 1, EnmModel.RealModel);
         }
 
-        public void setMaskOKIM6295(int chipID,int ch, bool mask)
+        public void setMaskOKIM6295(int chipID, int ch, bool mask)
         {
             maskOKIM6295[chipID][ch] = mask;
             if (mask) mds.setOKIM6295Mask(0, chipID, 1 << ch);
@@ -4767,7 +4765,7 @@ namespace MDPlayer
             //writeK051649((byte)chipID, (3 << 1) | 1, K051649tKeyOnOff[chipID], EnmModel.VirtualModel);
         }
 
-        public void setK053260Mask(int chipID, int ch,bool mask)
+        public void setK053260Mask(int chipID, int ch, bool mask)
         {
             maskChK053260[chipID][ch] = mask;
             if (dicChipsInfo.ContainsKey(MDSound.MDSound.enmInstrumentType.K053260))
@@ -4982,7 +4980,7 @@ namespace MDPlayer
 
             if (sc != null && ctYM2151[chipID].realChipInfo[0].UseWait)
             {
-                sc.setRegister(-1, (int)(wait * (ctYM2151[chipID].realChipInfo[0].UseWaitBoost ? 2.0 : 1.0)));
+                sc.SetRegister(-1, (int)(wait * (ctYM2151[chipID].realChipInfo[0].UseWaitBoost ? 2.0 : 1.0)));
             }
         }
 
@@ -4990,7 +4988,7 @@ namespace MDPlayer
         {
             if (scYM2608[chipID] != null && ctYM2608[chipID].realChipInfo[0].UseWait)
             {
-                scYM2608[chipID].setRegister(-1, (int)(wait * (ctYM2608[chipID].realChipInfo[0].UseWaitBoost ? 2.0 : 1.0)));
+                scYM2608[chipID].SetRegister(-1, (int)(wait * (ctYM2608[chipID].realChipInfo[0].UseWaitBoost ? 2.0 : 1.0)));
             }
         }
 
@@ -4998,7 +4996,7 @@ namespace MDPlayer
         {
             if (scYM2612[chipID] != null && ctYM2612[chipID].realChipInfo[0].UseWait)
             {
-                scYM2612[chipID].setRegister(-1, (int)(wait * (ctYM2612[chipID].realChipInfo[0].UseWaitBoost ? 2.0 : 1.0)));
+                scYM2612[chipID].SetRegister(-1, (int)(wait * (ctYM2612[chipID].realChipInfo[0].UseWaitBoost ? 2.0 : 1.0)));
             }
         }
 
@@ -5021,7 +5019,7 @@ namespace MDPlayer
             if (sc != null && ctYM2151[chipID].realChipInfo[0].UseWait)
             {
                 realChip.SendData();
-                while (!sc.isBufferEmpty()) { }
+                while (!sc.IsBufferEmpty()) { }
             }
         }
 
@@ -5032,7 +5030,7 @@ namespace MDPlayer
             if (scYM2608[chipID] != null && ctYM2608[chipID].realChipInfo[0].UseWait)
             {
                 realChip.SendData();
-                while (!scYM2608[chipID].isBufferEmpty()) { }
+                while (!scYM2608[chipID].IsBufferEmpty()) { }
             }
         }
 
@@ -5093,7 +5091,7 @@ namespace MDPlayer
 
             SN76489_Write(chipID, dData);
 
-            if ((dData & 0x10) !=0)
+            if ((dData & 0x10) != 0)
             {
                 if (LatchedRegister[chipID] != 0 && LatchedRegister[chipID] != 2 && LatchedRegister[chipID] != 4 && LatchedRegister[chipID] != 6)
                 {
@@ -5113,7 +5111,7 @@ namespace MDPlayer
                 if (ctSN76489[chipID].UseReal[0])
                 {
                     if (scSN76489[chipID] == null) return;
-                    scSN76489[chipID].setRegister(0, dData);
+                    scSN76489[chipID].SetRegister(0, dData);
                 }
             }
             else
@@ -5132,7 +5130,7 @@ namespace MDPlayer
         {
             if (scSN76489 != null && ctSN76489[chipID].realChipInfo[0].UseWait)
             {
-                scSN76489[chipID].setRegister(-1, (int)(wait * (ctSN76489[chipID].realChipInfo[0].UseWaitBoost ? 2.0 : 1.0)));
+                scSN76489[chipID].SetRegister(-1, (int)(wait * (ctSN76489[chipID].realChipInfo[0].UseWaitBoost ? 2.0 : 1.0)));
             }
         }
 
@@ -5174,7 +5172,7 @@ namespace MDPlayer
                 case 2:
                 case 4: /* Tone channels */
                     //if (sn76489Register[chipID][LatchedRegister[chipID]] == 0)
-                        //sn76489Register[chipID][LatchedRegister[chipID]] = 1; /* Zero frequency changed to 1 to avoid div/0 */
+                    //sn76489Register[chipID][LatchedRegister[chipID]] = 1; /* Zero frequency changed to 1 to avoid div/0 */
                     break;
                 case 6: /* Noise */
                     NoiseFreq[chipID] = 0x10 << (sn76489Register[chipID][6] & 0x3); /* set noise signal generator frequency */
@@ -5281,7 +5279,7 @@ namespace MDPlayer
                         K051649_vol[chipid][K051649_curCh[chipid]] = data;
                     }
                     catch { }
-                    data= (byte)(maskChK051649[chipid][K051649_curCh[chipid]] ? 0x00: data);
+                    data = (byte)(maskChK051649[chipid][K051649_curCh[chipid]] ? 0x00 : data);
                     //data &= (byte)(maskChK051649[chipid][0] ? 0xfe : 0xff);
                     //data &= (byte)(maskChK051649[chipid][1] ? 0xfd : 0xff);
                     //data &= (byte)(maskChK051649[chipid][2] ? 0xfb : 0xff);
@@ -5333,7 +5331,7 @@ namespace MDPlayer
                             break;
                     }
 
-                    scK051649[chipid].setRegister(
+                    scK051649[chipid].SetRegister(
                         (int)((uint)setting.debug.SCCbaseAddress | sccR_offset)
                         , (int)sccR_dat);
                 }
@@ -5416,7 +5414,7 @@ namespace MDPlayer
             if (chipid == 0) chipLED.PriC352 = 2;
             else chipLED.SecC352 = 2;
 
-            if (adr < pcmRegisterC352[chipid].Length) 
+            if (adr < pcmRegisterC352[chipid].Length)
                 pcmRegisterC352[chipid][adr] = (ushort)data;
             int c = (int)adr / 8;
             if (adr < 0x100 && (adr % 8) == 3 && maskChC352[chipid][adr / 8])
@@ -5631,7 +5629,7 @@ namespace MDPlayer
             }
             else
             {
-                if (scSEGAPCM != null && scSEGAPCM[chipID] != null) scSEGAPCM[chipID].setRegister(offset, data);
+                if (scSEGAPCM != null && scSEGAPCM[chipID] != null) scSEGAPCM[chipID].SetRegister(offset, data);
             }
         }
 
@@ -5649,15 +5647,15 @@ namespace MDPlayer
                 if (scSEGAPCM != null && scSEGAPCM[chipID] != null)
                 {
                     // スタートアドレス設定
-                    scSEGAPCM[chipID].setRegister(0x10000, (byte)(DataStart));
-                    scSEGAPCM[chipID].setRegister(0x10001, (byte)(DataStart >> 8));
-                    scSEGAPCM[chipID].setRegister(0x10002, (byte)(DataStart >> 16));
+                    scSEGAPCM[chipID].SetRegister(0x10000, (byte)(DataStart));
+                    scSEGAPCM[chipID].SetRegister(0x10001, (byte)(DataStart >> 8));
+                    scSEGAPCM[chipID].SetRegister(0x10002, (byte)(DataStart >> 16));
                     // データ転送
                     for (int cnt = 0; cnt < DataLength; cnt++)
                     {
-                        scSEGAPCM[chipID].setRegister(0x10004, romdata[SrcStartAdr + cnt]);
+                        scSEGAPCM[chipID].SetRegister(0x10004, romdata[SrcStartAdr + cnt]);
                     }
-                    scSEGAPCM[chipID].setRegister(0x10006, (int)ROMSize);
+                    scSEGAPCM[chipID].SetRegister(0x10006, (int)ROMSize);
 
                     realChip.SendData();
                 }
@@ -5698,7 +5696,7 @@ namespace MDPlayer
                 }
                 if (sc != null)
                 {
-                    sc.dClock = sc.SetMasterClock((uint)clock);                    
+                    sc.dClock = sc.SetMasterClock((uint)clock);
                 }
             }
         }
@@ -5712,7 +5710,7 @@ namespace MDPlayer
             {
                 if (scYM2203 != null && scYM2203[chipID] != null)
                 {
-                    if(scYM2203[chipID] is RC86ctlSoundChip)
+                    if (scYM2203[chipID] is RC86ctlSoundChip)
                     {
                         Nc86ctl.ChipType ct = ((RC86ctlSoundChip)scYM2203[chipID]).ChipType;
                         //OPNA/OPN3Lが選ばれている場合は周波数を2倍にする
@@ -5772,7 +5770,7 @@ namespace MDPlayer
             {
                 if (scYM3526 != null && scYM3526[chipID] != null)
                 {
-                    if (scYM3526[chipID] is RC86ctlSoundChip 
+                    if (scYM3526[chipID] is RC86ctlSoundChip
                         && ((RC86ctlSoundChip)scYM3526[chipID]).ChipType == Nc86ctl.ChipType.CHIP_OPL3) clock *= 4;
                     scYM3526[chipID].dClock = scYM3526[chipID].SetMasterClock((uint)clock);
                 }
@@ -5816,7 +5814,7 @@ namespace MDPlayer
             {
                 if (scYM2203 != null && scYM2203[chipID] != null)
                 {
-                    scYM2203[chipID].setSSGVolume((byte)vol);
+                    scYM2203[chipID].SetSSGVolume((byte)vol);
                 }
             }
         }
@@ -5830,7 +5828,7 @@ namespace MDPlayer
             {
                 if (scYM2608 != null && scYM2608[chipID] != null)
                 {
-                    scYM2608[chipID].setSSGVolume((byte)vol);
+                    scYM2608[chipID].SetSSGVolume((byte)vol);
                 }
             }
         }
@@ -5844,7 +5842,7 @@ namespace MDPlayer
             {
                 if (scSEGAPCM != null && scSEGAPCM[chipID] != null)
                 {
-                    scSEGAPCM[chipID].setRegister(0x10005, (int)clock);
+                    scSEGAPCM[chipID].SetRegister(0x10005, (int)clock);
                 }
             }
         }
@@ -5880,7 +5878,7 @@ namespace MDPlayer
             }
             else
             {
-                if (scC140 != null && scC140[chipID] != null) scC140[chipID].setRegister((int)adr, data);
+                if (scC140 != null && scC140[chipID] != null) scC140[chipID].SetRegister((int)adr, data);
             }
         }
 
@@ -5896,13 +5894,13 @@ namespace MDPlayer
                 if (scC140 != null && scC140[chipID] != null)
                 {
                     // スタートアドレス設定
-                    scC140[chipID].setRegister(0x10000, (byte)(DataStart));
-                    scC140[chipID].setRegister(0x10001, (byte)(DataStart >> 8));
-                    scC140[chipID].setRegister(0x10002, (byte)(DataStart >> 16));
+                    scC140[chipID].SetRegister(0x10000, (byte)(DataStart));
+                    scC140[chipID].SetRegister(0x10001, (byte)(DataStart >> 8));
+                    scC140[chipID].SetRegister(0x10002, (byte)(DataStart >> 16));
                     // データ転送
                     for (int cnt = 0; cnt < DataLength; cnt++)
                     {
-                        scC140[chipID].setRegister(0x10004, romdata[SrcStartAdr + cnt]);
+                        scC140[chipID].SetRegister(0x10004, romdata[SrcStartAdr + cnt]);
                     }
                     //scC140[chipID].setRegister(0x10006, (int)ROMSize);
 
@@ -5923,13 +5921,13 @@ namespace MDPlayer
                     switch (type)
                     {
                         case MDSound.c140.C140_TYPE.SYSTEM2:
-                            scC140[chipID].setRegister(0x10008, 0);
+                            scC140[chipID].SetRegister(0x10008, 0);
                             break;
                         case MDSound.c140.C140_TYPE.SYSTEM21:
-                            scC140[chipID].setRegister(0x10008, 1);
+                            scC140[chipID].SetRegister(0x10008, 1);
                             break;
                         case MDSound.c140.C140_TYPE.ASIC219:
-                            scC140[chipID].setRegister(0x10008, 2);
+                            scC140[chipID].SetRegister(0x10008, 2);
                             break;
                     }
                 }

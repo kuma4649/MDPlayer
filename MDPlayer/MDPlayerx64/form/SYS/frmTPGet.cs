@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace MDPlayer.form
+﻿namespace MDPlayer.form
 {
     public partial class frmTPGet : Form
     {
@@ -32,17 +22,17 @@ namespace MDPlayer.form
         {
             dgvTonePallet.Rows.Clear();
             if (tonePallet == null) tonePallet = new TonePallet();
-            if (tonePallet.lstTone == null) tonePallet.lstTone = new List<Tone>(256);
+            if (tonePallet.LstTone == null) tonePallet.LstTone = new List<Tone>(256);
 
             for (int i = 0; i < 256; i++)
             {
                 string toneName = "";
-                if (tonePallet.lstTone.Count < i + 1 || tonePallet.lstTone[i] == null)
+                if (tonePallet.LstTone.Count < i + 1 || tonePallet.LstTone[i] == null)
                 {
-                    tonePallet.lstTone.Add(new Tone());
+                    tonePallet.LstTone.Add(new Tone());
                 }
 
-                toneName = tonePallet.lstTone[i].name;
+                toneName = tonePallet.LstTone[i].name;
 
                 dgvTonePallet.Rows.Add();
                 dgvTonePallet.Rows[i].Cells["clmNo"].Value = i;
@@ -98,23 +88,23 @@ namespace MDPlayer.form
         {
             for (int i = 0; i < 4; i++)
             {
-                setting.midiKbd.Tones[ch].OPs[i].AR = tonePallet.lstTone[ind].OPs[i].AR;//AR
-                setting.midiKbd.Tones[ch].OPs[i].KS = tonePallet.lstTone[ind].OPs[i].KS;//KS
-                setting.midiKbd.Tones[ch].OPs[i].DR = tonePallet.lstTone[ind].OPs[i].DR;//DR
-                setting.midiKbd.Tones[ch].OPs[i].AM = tonePallet.lstTone[ind].OPs[i].AM;//AM
-                setting.midiKbd.Tones[ch].OPs[i].SR = tonePallet.lstTone[ind].OPs[i].SR;//SR
-                setting.midiKbd.Tones[ch].OPs[i].RR = tonePallet.lstTone[ind].OPs[i].RR;//RR
-                setting.midiKbd.Tones[ch].OPs[i].SL = tonePallet.lstTone[ind].OPs[i].SL;//SL
-                setting.midiKbd.Tones[ch].OPs[i].TL = tonePallet.lstTone[ind].OPs[i].TL;//TL
-                setting.midiKbd.Tones[ch].OPs[i].ML = tonePallet.lstTone[ind].OPs[i].ML;//ML
-                setting.midiKbd.Tones[ch].OPs[i].DT = tonePallet.lstTone[ind].OPs[i].DT;//DT
-                setting.midiKbd.Tones[ch].OPs[i].DT2 = tonePallet.lstTone[ind].OPs[i].DT2;//DT2 
+                setting.midiKbd.Tones[ch].OPs[i].AR = tonePallet.LstTone[ind].OPs[i].AR;//AR
+                setting.midiKbd.Tones[ch].OPs[i].KS = tonePallet.LstTone[ind].OPs[i].KS;//KS
+                setting.midiKbd.Tones[ch].OPs[i].DR = tonePallet.LstTone[ind].OPs[i].DR;//DR
+                setting.midiKbd.Tones[ch].OPs[i].AM = tonePallet.LstTone[ind].OPs[i].AM;//AM
+                setting.midiKbd.Tones[ch].OPs[i].SR = tonePallet.LstTone[ind].OPs[i].SR;//SR
+                setting.midiKbd.Tones[ch].OPs[i].RR = tonePallet.LstTone[ind].OPs[i].RR;//RR
+                setting.midiKbd.Tones[ch].OPs[i].SL = tonePallet.LstTone[ind].OPs[i].SL;//SL
+                setting.midiKbd.Tones[ch].OPs[i].TL = tonePallet.LstTone[ind].OPs[i].TL;//TL
+                setting.midiKbd.Tones[ch].OPs[i].ML = tonePallet.LstTone[ind].OPs[i].ML;//ML
+                setting.midiKbd.Tones[ch].OPs[i].DT = tonePallet.LstTone[ind].OPs[i].DT;//DT
+                setting.midiKbd.Tones[ch].OPs[i].DT2 = tonePallet.LstTone[ind].OPs[i].DT2;//DT2 
             }
 
-            setting.midiKbd.Tones[ch].AL = tonePallet.lstTone[ind].AL;//AL
-            setting.midiKbd.Tones[ch].FB = tonePallet.lstTone[ind].FB;//FB
-            setting.midiKbd.Tones[ch].AMS = tonePallet.lstTone[ind].AMS;//AMS
-            setting.midiKbd.Tones[ch].PMS = tonePallet.lstTone[ind].PMS;//PMS
+            setting.midiKbd.Tones[ch].AL = tonePallet.LstTone[ind].AL;//AL
+            setting.midiKbd.Tones[ch].FB = tonePallet.LstTone[ind].FB;//FB
+            setting.midiKbd.Tones[ch].AMS = tonePallet.LstTone[ind].AMS;//AMS
+            setting.midiKbd.Tones[ch].PMS = tonePallet.LstTone[ind].PMS;//PMS
         }
 
     }

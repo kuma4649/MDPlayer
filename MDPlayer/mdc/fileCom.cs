@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.MemoryMappedFiles;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace mdc
 {
-    public class fileCom : KumaCom
+    public class FileCom : KumaCom
     {
-        private bool unuse = true;
+        private readonly bool unuse = true;
         private string comPath = "";
         private FileSystemWatcher watcher = null;
-        private List<string> lstFile = new List<string>();
+        private readonly List<string> lstFile = new List<string>();
 
-        public fileCom(bool isClient, string appName, string mmfName, int mmfSize)
+        public FileCom(bool isClient, string appName, string mmfName, int _)
         {
             if (isClient)
             {
@@ -29,7 +25,7 @@ namespace mdc
             }
         }
 
-        ~fileCom()
+        ~FileCom()
         {
             Close();
         }
@@ -40,34 +36,25 @@ namespace mdc
             {
                 string dataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                 dataFolder = Path.Combine(dataFolder, "KumaApp", appName);
-                if (!Directory.Exists(dataFolder)) System.IO.Directory.CreateDirectory(dataFolder);
-
+                if (!Directory.Exists(dataFolder)) Directory.CreateDirectory(dataFolder);
                 comPath = Path.Combine(dataFolder, pathName);
-                if (!Directory.Exists(comPath))
-                {
-                    Directory.CreateDirectory(comPath);
-                }
-
+                if (!Directory.Exists(comPath)) Directory.CreateDirectory(comPath);
                 string[] fs = Directory.GetFiles(comPath);
                 foreach (string f in fs) File.Delete(f);
-
-                watcher = new System.IO.FileSystemWatcher();
-                watcher.Path = comPath;
-                watcher.NotifyFilter =
+                watcher = new FileSystemWatcher
+                {
+                    Path = comPath,
+                    NotifyFilter =
                     (
-                    System.IO.NotifyFilters.LastAccess
-                    | System.IO.NotifyFilters.LastWrite
-                    | System.IO.NotifyFilters.FileName
-                    | System.IO.NotifyFilters.DirectoryName
-                    );
-                //watcher.Filter = Path.GetFileName();
-                //watcher.SynchronizingObject = this;
-
-                watcher.Changed += new FileSystemEventHandler(watcher_Changed);
-                watcher.Created += new FileSystemEventHandler(watcher_Changed);
-
-                watcher.EnableRaisingEvents = true;
-
+                    NotifyFilters.LastAccess
+                    | NotifyFilters.LastWrite
+                    | NotifyFilters.FileName
+                    | NotifyFilters.DirectoryName
+                    ),
+                    EnableRaisingEvents = true
+                };
+                watcher.Changed += new FileSystemEventHandler(Watcher_Changed);
+                watcher.Created += new FileSystemEventHandler(Watcher_Changed);
 
                 return true;
             }
@@ -176,7 +163,7 @@ namespace mdc
 
 
 
-        private void watcher_Changed(object sender, FileSystemEventArgs e)
+        private void Watcher_Changed(object sender, FileSystemEventArgs e)
         {
             if (lstFile.Contains(e.FullPath)) return;
             lstFile.Add(e.FullPath);

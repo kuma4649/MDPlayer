@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MDPlayer.Driver.ZGM
+﻿namespace MDPlayer.Driver.ZGM
 {
     public class zgm : baseDriver
     {
@@ -629,7 +623,7 @@ namespace MDPlayer.Driver.ZGM
                             {
                                 wav[i] = vgmBuf[vgmAdr + 17 + i + j];
                             }
-                            chipRegister.writeYM2609SetOperatorWaveDic( chip.Index, n, wav,model);
+                            chipRegister.writeYM2609SetOperatorWaveDic(chip.Index, n, wav, model);
                         }
                         vgmAdr += (uint)bLen + 7;
                         break;
@@ -648,14 +642,14 @@ namespace MDPlayer.Driver.ZGM
                     //chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x00, 0x20, model);
                     //chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x00, 0x21, model);
                     //chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x00, 0x00, model);
-                                                         
+
                     //chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x10, 0x00, model);
                     //chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x10, 0x80, model);
-                                                         
+
                     //chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x00, 0x61, model);
                     //chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x00, 0x68, model);
                     //chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x01, 0x00, model);
-                                                         
+
                     //chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x02, (byte)(startAddress >> 2), model);
                     //chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x03, (byte)(startAddress >> 10), model);
                     //chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x04, 0xff, model);

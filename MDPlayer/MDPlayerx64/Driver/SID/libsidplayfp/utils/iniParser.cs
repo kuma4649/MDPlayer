@@ -15,11 +15,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Driver.libsidplayfp.utils
 {
@@ -34,7 +30,7 @@ namespace Driver.libsidplayfp.utils
 
         //private typedef std::map<std::string, std::string> keys_t;
         //private typedef std::map<std::string, keys_t> sections_t;
-        private List<Tuple<string, List<Tuple<string, string>>>> sections=new List<Tuple<string, List<Tuple<string, string>>>>();// sections_t sections;
+        private List<Tuple<string, List<Tuple<string, string>>>> sections = new List<Tuple<string, List<Tuple<string, string>>>>();// sections_t sections;
         private Tuple<string, List<Tuple<string, string>>> curSection;// sections_t::const_iterator curSection;
                                                                       //private string parseSection(ref string buffer) { return null; }
                                                                       //private List<Tuple<string, string>> parseKey(ref string buffer) { return null; }

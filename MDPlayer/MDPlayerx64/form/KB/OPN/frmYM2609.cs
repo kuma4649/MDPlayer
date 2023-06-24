@@ -1,18 +1,8 @@
 ﻿#if X64
 using MDPlayerx64;
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
@@ -38,7 +28,7 @@ namespace MDPlayer.form
 
             this.newParam = newParam;
             this.oldParam = oldParam;
-            frameBuffer.Add(pbScreen, ResMng.imgDic["planeYM2609"], null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.ImgDic["planeYM2609"], null, zoom);
             DrawBuff.screenInitYM2609(frameBuffer, 0);
             update();
         }
@@ -81,9 +71,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYM2609"].Width * zoom, frameSizeH + ResMng.imgDic["planeYM2609"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYM2609"].Width * zoom, frameSizeH + ResMng.imgDic["planeYM2609"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYM2609"].Width * zoom, frameSizeH + ResMng.imgDic["planeYM2609"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeYM2609"].Width * zoom, frameSizeH + ResMng.ImgDic["planeYM2609"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeYM2609"].Width * zoom, frameSizeH + ResMng.ImgDic["planeYM2609"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeYM2609"].Width * zoom, frameSizeH + ResMng.ImgDic["planeYM2609"].Height * zoom);
             frmYM2609_Resize(null, null);
 
         }
@@ -141,10 +131,10 @@ namespace MDPlayer.form
             int defaultMasterClock = 7987200;
             float ssgMul = 1.0f;
             int masterClock = defaultMasterClock;
-            if (Audio.clockYM2609 != 0)
+            if (Audio.ClockYM2609 != 0)
             {
-                ssgMul = Audio.clockYM2609 / (float)defaultMasterClock;
-                masterClock = Audio.clockYM2609;
+                ssgMul = Audio.ClockYM2609 / (float)defaultMasterClock;
+                masterClock = Audio.ClockYM2609;
             }
 
             int divInd = ym2609Register[0][0x2d];
@@ -167,17 +157,17 @@ namespace MDPlayer.form
             newParam.adpcmLevel[1] = ym2609Register[3][0x0b];
             newParam.adpcmLevel[2] = ym2609Register[3][0x1c];
 
-            newParam.eqLowSw = ym2609Register[0][0xc0]!=0;
+            newParam.eqLowSw = ym2609Register[0][0xc0] != 0;
             newParam.eqLow[0] = ym2609Register[0][0xc1];
             newParam.eqLow[1] = ym2609Register[0][0xc2];
             newParam.eqLow[2] = ym2609Register[0][0xc3];
 
-            newParam.eqMidSw = ym2609Register[0][0xc4]!=0;
+            newParam.eqMidSw = ym2609Register[0][0xc4] != 0;
             newParam.eqMid[0] = ym2609Register[0][0xc5];
             newParam.eqMid[1] = ym2609Register[0][0xc6];
             newParam.eqMid[2] = ym2609Register[0][0xc7];
 
-            newParam.eqHiSw = ym2609Register[0][0xc8]!=0;
+            newParam.eqHiSw = ym2609Register[0][0xc8] != 0;
             newParam.eqHi[0] = ym2609Register[0][0xc9];
             newParam.eqHi[1] = ym2609Register[0][0xca];
             newParam.eqHi[2] = ym2609Register[0][0xcb];
@@ -265,10 +255,10 @@ namespace MDPlayer.form
                             : (4 - ((ym2609Register[p][0xb0 + c] & 0xc0) >> 6))
                         );
 
-                    newParam.channels[ch].volumeL = 
-                        Math.Min(Math.Max((int)((127 - v) / 127.0 * panL/4.0 * ym2609Vol[ch] / 80.0), 0), 19);
-                    newParam.channels[ch].volumeR = 
-                        Math.Min(Math.Max((int)((127 - v) / 127.0 * panR/4.0 * ym2609Vol[ch] / 80.0), 0), 19);
+                    newParam.channels[ch].volumeL =
+                        Math.Min(Math.Max((int)((127 - v) / 127.0 * panL / 4.0 * ym2609Vol[ch] / 80.0), 0), 19);
+                    newParam.channels[ch].volumeR =
+                        Math.Min(Math.Max((int)((127 - v) / 127.0 * panR / 4.0 * ym2609Vol[ch] / 80.0), 0), 19);
 
                 }
                 else
@@ -299,12 +289,12 @@ namespace MDPlayer.form
                             : (4 - ((ym2609Register[p][0xb0 + 2] & 0xc0) >> 6))
                         );
 
-                    newParam.channels[ch].volumeL = 
+                    newParam.channels[ch].volumeL =
                         Math.Min(Math.Max(
-                            (int)((127 - v) / 127.0 * panL3/4.0
+                            (int)((127 - v) / 127.0 * panL3 / 4.0
                             * ym2609Ch3SlotVol[0] / 80.0)
                             , 0), 19);
-                    newParam.channels[ch].volumeR = 
+                    newParam.channels[ch].volumeR =
                         Math.Min(Math.Max(
                             (int)((127 - v) / 127.0 * panR3 / 4.0
                             * ym2609Ch3SlotVol[0] / 80.0)
@@ -351,7 +341,7 @@ namespace MDPlayer.form
                     newParam.channels[ch].volumeL = 0;
                 }
             }
-            
+
             //PSG
             for (int ch = 18; ch < 30; ch++) //PSG 1-12
             {
@@ -363,7 +353,7 @@ namespace MDPlayer.form
                 bool t = (ym2609Register[psgPort[p]][psgAdr[p] + 0x07] & (0x1 << c)) == 0;
                 bool n = (ym2609Register[psgPort[p]][psgAdr[p] + 0x07] & (0x8 << c)) == 0;
                 channel.tn = (t ? 1 : 0) + (n ? 2 : 0);
-                channel.volume = (int)(((t || n) ? 1 : 0) 
+                channel.volume = (int)(((t || n) ? 1 : 0)
                     * (ym2609Register[psgPort[p]][psgAdr[p] + 0x08 + c] & 0xf) * (20.0 / 16.0));
                 channel.pan = (ym2609Register[psgPort[p]][psgAdr[p] + 0x08 + c] & 0xc0) >> 6;
                 if (!t && !n && channel.volume > 0)
@@ -401,16 +391,16 @@ namespace MDPlayer.form
 
             }
 
-            for(int ch = 0; ch < 4; ch++)
+            for (int ch = 0; ch < 4; ch++)
             {
                 newParam.nfrq[ch] = ym2609Register[psgPort[ch]][psgAdr[ch] + 0x06] & 0x1f;
-                newParam.efrq[ch] = ym2609Register[psgPort[ch]][psgAdr[ch] + 0x0c] * 0x100 
+                newParam.efrq[ch] = ym2609Register[psgPort[ch]][psgAdr[ch] + 0x0c] * 0x100
                     + ym2609Register[psgPort[ch]][psgAdr[ch] + 0x0b];
                 newParam.etype[ch] = (ym2609Register[psgPort[ch]][psgAdr[ch] + 0x0d] & 0xf);
             }
 
             //RHYTHM
-            for (int ch = 30; ch < 42; ch++) 
+            for (int ch = 30; ch < 42; ch++)
             {
                 if (ch < 36)
                 {
@@ -425,7 +415,7 @@ namespace MDPlayer.form
                     newParam.channels[ch].volumeRL = ym2609AdpcmAVol[ch - 36] & 0x1f;
                 }
 
-                newParam.channels[ch].volumeL = Math.Min(Math.Max(ym2609Rhythm[ch -30][0] / 80, 0), 19);
+                newParam.channels[ch].volumeL = Math.Min(Math.Max(ym2609Rhythm[ch - 30][0] / 80, 0), 19);
                 newParam.channels[ch].volumeR = Math.Min(Math.Max(ym2609Rhythm[ch - 30][1] / 80, 0), 19);
 
             }
@@ -557,7 +547,7 @@ namespace MDPlayer.form
                     0, ref oyc.bank, nyc.bank);
 
                 if (nyc.bank < 0) continue;
-                if (nyc.bank <10)
+                if (nyc.bank < 10)
                 {
                     DrawBuff.WaveFormYM2609Preset(frameBuffer,
                         1 + 4 * 97 + (c % 6) * 4 * 14 + (((c / 3) & 1) == 0 ? 0 : (4 * 16)),
@@ -611,7 +601,7 @@ namespace MDPlayer.form
                 DrawBuff.PanType5(frameBuffer, 29, (31 + c) * 8, ref oyc.panR, nyc.panR, tp);
                 DrawBuff.KeyBoardOPNA(frameBuffer, 33, (31 + c) * 8, ref oyc.note, nyc.note, tp);
                 //DrawBuff.ChYM2608(frameBuffer, 12, ref oyc.mask, nyc.mask, tp);
-                DrawBuff.font4Hex16Bit(frameBuffer, 1 + 4 * 68, (31+c) * 8, 0, ref oyc.freq, nyc.freq);
+                DrawBuff.font4Hex16Bit(frameBuffer, 1 + 4 * 68, (31 + c) * 8, 0, ref oyc.freq, nyc.freq);
             }
         }
     }

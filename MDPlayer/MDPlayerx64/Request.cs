@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MDPlayer
+﻿namespace MDPlayer
 {
     public class Request
     {
-        public enmRequest request;
+        public EnmRequest request;
         public object[] args;
         public object[] results;
         public Action<object> callBack;
 
-        private object objlock = new object();
+        private readonly object objlock = new();
         private bool _end = false;
-        public bool end
+        public bool End
         {
             get
             {
@@ -27,7 +21,7 @@ namespace MDPlayer
             }
         }
 
-        public Request(enmRequest req, object[] args = null, Action<object> callBack = null)
+        public Request(EnmRequest req, object[] args = null, Action<object> callBack = null)
         {
             request = req;
             this.args = args;
@@ -36,7 +30,7 @@ namespace MDPlayer
 
     }
 
-    public enum enmRequest
+    public enum EnmRequest
     {
         Die,
         GetStatus,

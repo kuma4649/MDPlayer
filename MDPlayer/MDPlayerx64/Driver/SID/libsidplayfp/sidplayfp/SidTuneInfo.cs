@@ -19,11 +19,6 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Driver.libsidplayfp.sidplayfp
 {
@@ -43,21 +38,24 @@ namespace Driver.libsidplayfp.sidplayfp
         //# include <stdint.h>
         //# include "sidplayfp/siddefs.h"
 
-        public enum clock_t {
+        public enum clock_t
+        {
             CLOCK_UNKNOWN,
             CLOCK_PAL,
             CLOCK_NTSC,
             CLOCK_ANY
         }
 
-        public enum model_t {
+        public enum model_t
+        {
             SIDMODEL_UNKNOWN,
             SIDMODEL_6581,
             SIDMODEL_8580,
             SIDMODEL_ANY
         }
 
-        public enum compatibility_t {
+        public enum compatibility_t
+        {
             COMPATIBILITY_C64,   ///< File is C64 compatible
             COMPATIBILITY_PSID,  ///< File is PSID specific
             COMPATIBILITY_R64,   ///< File is Real C64 only
@@ -279,11 +277,13 @@ namespace Driver.libsidplayfp.sidplayfp
 
         //# include "SidTuneInfo.h"
 
-        public UInt16 loadAddr() {
+        public UInt16 loadAddr()
+        {
             return getLoadAddr();
         }
 
-        public UInt16 initAddr() {
+        public UInt16 initAddr()
+        {
             return getInitAddr();
         }
 
@@ -317,7 +317,7 @@ namespace Driver.libsidplayfp.sidplayfp
             return getSidChips();
         }
 
-public Int32 songSpeed()
+        public Int32 songSpeed()
         {
             return getSongSpeed();
         }

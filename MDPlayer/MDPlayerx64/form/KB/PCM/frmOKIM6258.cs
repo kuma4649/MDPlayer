@@ -1,18 +1,8 @@
 ﻿#if X64
 using MDPlayerx64;
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
@@ -38,7 +28,7 @@ namespace MDPlayer.form
             InitializeComponent();
 
             this.newParam = newParam;
-            frameBuffer.Add(pbScreen, ResMng.imgDic["planeMSM6258"], null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.ImgDic["planeMSM6258"], null, zoom);
             DrawBuff.screenInitOKIM6258(frameBuffer);
             update();
         }
@@ -81,9 +71,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeMSM6258"].Width * zoom, frameSizeH + ResMng.imgDic["planeMSM6258"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeMSM6258"].Width * zoom, frameSizeH + ResMng.imgDic["planeMSM6258"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeMSM6258"].Width * zoom, frameSizeH + ResMng.imgDic["planeMSM6258"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeMSM6258"].Width * zoom, frameSizeH + ResMng.ImgDic["planeMSM6258"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeMSM6258"].Width * zoom, frameSizeH + ResMng.ImgDic["planeMSM6258"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeMSM6258"].Width * zoom, frameSizeH + ResMng.ImgDic["planeMSM6258"].Height * zoom);
             frmOKIM6258_Resize(null, null);
 
         }
@@ -137,7 +127,7 @@ namespace MDPlayer.form
                 newParam.volumeR--;
             }
         }
-        
+
         public void screenDrawParams()
         {
             MDChipParams.OKIM6258 ost = oldParam;

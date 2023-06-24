@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MDPlayer.Driver.MGSDRV
+﻿namespace MDPlayer.Driver.MGSDRV
 {
     public class MSXSlot : Slot
     {
-        public MSXSlot(ChipRegister chipRegister,EnmModel model)
+        public MSXSlot(ChipRegister chipRegister, EnmModel model)
         {
             slots = new Cartridge[4][]
             {

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MDPlayer
+﻿namespace MDPlayer
 {
     public static class Tables
     {
-        public static int[] FmFNum = new int[] {
+        public static readonly int[] FmFNum = new int[] {
             0x289/8, 0x2af/8, 0x2d8/8, 0x303/8, 0x331/8, 0x362/8, 0x395/8, 0x3cc/8, 0x405/8, 0x443/8, 0x484/8,0x4c8/8,
             0x289/4, 0x2af/4, 0x2d8/4, 0x303/4, 0x331/4, 0x362/4, 0x395/4, 0x3cc/4, 0x405/4, 0x443/4, 0x484/4,0x4c8/4,
             0x289/2, 0x2af/2, 0x2d8/2, 0x303/2, 0x331/2, 0x362/2, 0x395/2, 0x3cc/2, 0x405/2, 0x443/2, 0x484/2,0x4c8/2,
@@ -16,7 +10,7 @@ namespace MDPlayer
             0x289*2, 0x2af*2, 0x2d8*2, 0x303*2, 0x331*2, 0x362*2, 0x395*2, 0x3cc*2, 0x405*2, 0x443*2, 0x484*2,0x4c8*2
         };
 
-        public static int[] PsgFNum = new int[] {
+        public static readonly int[] PsgFNum = new int[] {
             0x6ae,0x64e,0x5f4,0x59e,0x54e,0x502,0x4ba,0x476,0x436,0x3f8,0x3c0,0x38a, // 0
             0x357,0x327,0x2fa,0x2cf,0x2a7,0x281,0x25d,0x23b,0x21b,0x1fc,0x1e0,0x1c5, // 1
             0x1ac,0x194,0x17d,0x168,0x153,0x140,0x12e,0x11d,0x10d,0x0fe,0x0f0,0x0e3, // 2
@@ -27,7 +21,7 @@ namespace MDPlayer
             0x00d,0x00d,0x00c,0x00b,0x00b,0x00a,0x009,0x008,0x007,0x006,0x005,0x004  // 7
         };
 
-        public static float[] freqTbl = new float[] {
+        public static readonly float[] freqTbl = new float[] {
             261.6255653005986f/8.0f , 277.1826309768721f/8.0f , 293.6647679174076f/8.0f , 311.12698372208087f/8.0f , 329.6275569128699f/8.0f , 349.2282314330039f/8.0f , 369.9944227116344f/8.0f , 391.99543598174927f/8.0f , 415.3046975799451f/8.0f , 440f/8.0f , 466.1637615180899f/8.0f,493.8833012561241f/8.0f,
             261.6255653005986f/4.0f , 277.1826309768721f/4.0f , 293.6647679174076f/4.0f , 311.12698372208087f/4.0f , 329.6275569128699f/4.0f , 349.2282314330039f/4.0f , 369.9944227116344f/4.0f , 391.99543598174927f/4.0f , 415.3046975799451f/4.0f , 440f/4.0f , 466.1637615180899f/4.0f,493.8833012561241f/4.0f,
             261.6255653005986f/2.0f , 277.1826309768721f/2.0f , 293.6647679174076f/2.0f , 311.12698372208087f/2.0f , 329.6275569128699f/2.0f , 349.2282314330039f/2.0f , 369.9944227116344f/2.0f , 391.99543598174927f/2.0f , 415.3046975799451f/2.0f , 440f/2.0f , 466.1637615180899f/2.0f,493.8833012561241f/2.0f,
@@ -39,7 +33,7 @@ namespace MDPlayer
             261.6255653005986f*32.0f , 277.1826309768721f*32.0f , 293.6647679174076f*32.0f , 311.12698372208087f*32.0f , 329.6275569128699f*32.0f , 349.2282314330039f*16.0f , 369.9944227116344f*16.0f , 391.99543598174927f*16.0f , 415.3046975799451f*16.0f , 440f*16.0f , 466.1637615180899f*16.0f,493.8833012561241f*32.0f
         };
 
-        public static float[] pcmMulTbl = new float[]
+        public static readonly float[] pcmMulTbl = new float[]
         {
             1.0f/2.0f
             ,1.05947557526183f/2.0f
@@ -67,10 +61,10 @@ namespace MDPlayer
             ,1.887776163901842f
         };
 
-        public static int[] pcmpitchTbl = new int[]
+        public static readonly int[] pcmpitchTbl = new int[]
         {
             //0-1023
-            0 
+            0
             ,61
             ,125
             ,194
@@ -85,7 +79,7 @@ namespace MDPlayer
         };
 
 
-        public static string[][] tblMIDIEffectGS = new string[4][] {
+        public static readonly string[][] tblMIDIEffectGS = new string[4][] {
             new string[] { "Room 1         " , "Room 2         " , "Room 3         " , "Hall 1         "
                          , "Hall 2         " , "Plate          " , "Delay          " , "Panning Delay  " },
             new string[] { "Chorus 1       " , "Chorus 2       " , "Chorus 3       " , "Chorus 4       "
@@ -113,7 +107,7 @@ namespace MDPlayer
             }
         };
 
-        public static string[][] tblMIDIEffectXG = new string[3][] {
+        public static readonly string[][] tblMIDIEffectXG = new string[3][] {
             new string[] {
                            "NO EFFECT                 " , "HALL 1                    " , "HALL 2                    " , "HALL M                    "
                          , "HALL L                    " , "ROOM 1                    " , "ROOM 2                    " , "ROOM 3                    "
@@ -158,7 +152,7 @@ namespace MDPlayer
             }
         };
 
-        public static string[] tblMIDIInstrumentGM = new string[] {
+        public static readonly string[] tblMIDIInstrumentGM = new string[] {
                          "G.Piano  ","B.Piano  ","E.Piano  ","Honkytonk"
                         ,"E.Piano1 ","E.Piano2 ","Harpschrd","Clavi    "
                         ,"Celesta  ","Glocken  ","Music Box","Vibraphon"
@@ -193,20 +187,19 @@ namespace MDPlayer
                         ,"Telephone","Helicoptr","Applause ","Gunshot  "
         };
 
-        public static byte[] spc = new byte[] {
+        public static readonly byte[] spc = new byte[] {
               0x20, 0x3c, 0x3c, 0x20, 0x4d, 0x44, 0x50, 0x6c
             , 0x61, 0x79, 0x65, 0x72, 0x20, 0x3e, 0x3e, 0x20
             , 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20
             , 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 };
 
-        public static int[] kbl = new int[] { 0, 0, 2, 1, 4, 2, 6, 1, 8, 3, 12, 0, 14, 1, 16, 2, 18, 1, 20, 2, 22, 1, 24, 3 };
-        public static string[] kbn = new string[] { "C ", "C#", "D ", "D#", "E ", "F ", "F#", "G ", "G#", "A ", "A#", "B " };
-        public static string[] kbns = new string[] { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
-        public static string[] kbnp = new string[] { "C ", "C+", "D ", "D+", "E ", "F ", "F+", "G ", "G+", "A ", "A+", "B " };
-        public static string[] kbo = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F" };
-        public static int[] kbl2 = new int[] { 0, 12, 4, 12, 8, 0, 12, 4, 12, 4, 12, 8 };
-        public static int[] kbdl = new int[] { 0, 2, 4, 6, 8, 12, 14, 16, 18, 20, 22, 24 };
-
-        public static string[] hexCh = new string[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F" };
+        public static readonly int[] kbl = new int[] { 0, 0, 2, 1, 4, 2, 6, 1, 8, 3, 12, 0, 14, 1, 16, 2, 18, 1, 20, 2, 22, 1, 24, 3 };
+        public static readonly string[] kbn = new string[] { "C ", "C#", "D ", "D#", "E ", "F ", "F#", "G ", "G#", "A ", "A#", "B " };
+        public static readonly string[] kbns = new string[] { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
+        public static readonly string[] kbnp = new string[] { "C ", "C+", "D ", "D+", "E ", "F ", "F+", "G ", "G+", "A ", "A+", "B " };
+        public static readonly string[] kbo = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F" };
+        public static readonly int[] kbl2 = new int[] { 0, 12, 4, 12, 8, 0, 12, 4, 12, 4, 12, 8 };
+        public static readonly int[] kbdl = new int[] { 0, 2, 4, 6, 8, 12, 14, 16, 18, 20, 22, 24 };
+        public static readonly string[] hexCh = new string[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F" };
     }
 }

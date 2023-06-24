@@ -1,12 +1,8 @@
 ﻿#if X64
 using MDPlayerx64;
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
-using System;
-using System.Drawing;
-using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
@@ -32,7 +28,7 @@ namespace MDPlayer.form
             this.newParam = newParam;
             this.oldParam = oldParam;
 
-            frameBuffer.Add(this.pbScreen, ResMng.imgDic["planeS5B"], null, zoom);
+            frameBuffer.Add(this.pbScreen, ResMng.ImgDic["planeS5B"], null, zoom);
             screenInit();
             update();
         }
@@ -75,9 +71,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeS5B"].Width * zoom, frameSizeH + ResMng.imgDic["planeS5B"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeS5B"].Width * zoom, frameSizeH + ResMng.imgDic["planeS5B"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeS5B"].Width * zoom, frameSizeH + ResMng.imgDic["planeS5B"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeS5B"].Width * zoom, frameSizeH + ResMng.ImgDic["planeS5B"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeS5B"].Width * zoom, frameSizeH + ResMng.ImgDic["planeS5B"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeS5B"].Width * zoom, frameSizeH + ResMng.ImgDic["planeS5B"].Height * zoom);
             frmS5B_Resize(null, null);
 
         }
@@ -122,7 +118,7 @@ namespace MDPlayer.form
                     int ct = S5BRegister[0x01 + ch * 2];
                     int tp = (ct << 8) | ft;
                     if (tp == 0) tp = 1;
-                    float ftone = Audio.clockS5B / (8.0f * (float)tp);
+                    float ftone = Audio.ClockS5B / (8.0f * (float)tp);
                     channel.note = searchSSGNote(ftone);
                 }
 

@@ -1,50 +1,59 @@
 ﻿using MDPlayer;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.IO.Compression;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
+#pragma warning disable IDE1006
 
 namespace mdpc
 {
     public class mdpc
     {
-        private string[] args;
-        private bool waveout = false;
-        private string srcFn;
-        private string desFn;
-        public const int FCC_VGM = 0x206D6756;  // "Vgm "
+        private readonly string srcFn;
+        //private readonly string desFn;
+        private const int FCC_VGM = 0x206D6756;  // "Vgm "
         private Setting setting;
-        //private WaveWriter ww;
         private EnmFileFormat format;
         private byte[] vgmBuf;
-        //private double vgmSpeed;
-        //private MDPlayer.baseDriver driver;
-        private bool emuOnly=false;
+        private bool waveout = false;
+        private bool emuOnly = false;
 
         public mdpc(string[] args)
         {
-            this.args = args;
-
             //ファイル、オプションの指定無し
             if (args == null || args.Length < 1)
             {
                 //disp usage
-                Console.WriteLine(msg.get("I00000"));
+                Console.WriteLine(Msg.Get("I00000"));
                 Environment.Exit(0);
             }
-
             //オプションの解析
+            int cnt = AnalyzeOption(args);
+            //ファイルの指定無し
+            if (args.Length < cnt)
+            {
+                //disp usage
+                Console.WriteLine(Msg.Get("I00000"));
+                Environment.Exit(0);
+            }
+            //vgmファイル名の取得
+            srcFn = args[cnt++];
+            if (Path.GetExtension(srcFn) == "") srcFn += ".vgm";
+            //wavファイル名の取得
+            //desFn = Path.Combine(Path.GetDirectoryName(srcFn), Path.GetFileNameWithoutExtension(srcFn) + ".wav");
+            //if (args.Length > cnt) desFn = args[cnt];
+
+            int ret = Start();
+            log.Close();
+            Environment.Exit(ret);
+        }
+
+        private int AnalyzeOption(string[] args)
+        {
             int cnt = 0;
             try
             {
-                List<string> lstOpt = new List<string>();
+                List<string> lstOpt = new();
                 while (args[cnt].Length > 1 && args[cnt][0] == '-')
                 {
-                    lstOpt.Add(args[cnt++].Substring(1));
+                    lstOpt.Add(args[cnt++][1..]);
                 }
 
                 foreach (string opt in lstOpt)
@@ -63,38 +72,11 @@ namespace mdpc
             }
             catch
             {
-                Console.WriteLine(msg.get("E0000"));
+                Console.WriteLine(Msg.Get("E0000"));
                 Environment.Exit(0);
             }
 
-            //ファイルの指定無し
-            if (args == null || args.Length < cnt)
-            {
-                //disp usage
-                Console.WriteLine(msg.get("I00000"));
-                Environment.Exit(0);
-            }
-
-            //vgmファイル名の取得
-            srcFn = args[cnt++];
-            if (Path.GetExtension(srcFn) == "")
-            {
-                srcFn += ".vgm";
-            }
-
-            //wavファイル名の取得
-            if (args.Length > cnt)
-            {
-                desFn = args[cnt];
-            }
-            else
-            {
-                desFn = Path.Combine(Path.GetDirectoryName(srcFn), Path.GetFileNameWithoutExtension(srcFn) + ".wav");
-            }
-
-            int ret = Start();
-            log.Close();
-            Environment.Exit(ret);
+            return cnt;
         }
 
         private int Start()
@@ -116,18 +98,15 @@ namespace mdpc
 
                 setting = new Setting();
                 setting.other.WavSwitch = waveout;
-                procMain();
+                ProcMain();
 
                 while (!Audio.GetVGMStopped())
                 {
-                    System.Threading.Thread.Sleep(1);
+                    Thread.Sleep(1);
                     if (Console.KeyAvailable)
                     {
                         string outChar = Console.ReadKey().Key.ToString();
-                        if (outChar == "Spacebar")
-                        {
-                            break;
-                        }
+                        if (outChar == "Spacebar") break;
                     }
                 }
 
@@ -149,94 +128,54 @@ namespace mdpc
             return ret;
         }
 
-        public byte[] getAllBytes(string filename, out EnmFileFormat format)
+        public static byte[] GetAllBytes(string filename, out EnmFileFormat format)
         {
-            format = EnmFileFormat.unknown;
-
             //先ずは丸ごと読み込む
-            byte[] buf = System.IO.File.ReadAllBytes(filename);
-
+            byte[] buf = File.ReadAllBytes(filename);
             string ext = Path.GetExtension(filename).ToLower();
 
-            //.NRDファイルの場合は拡張子判定
-            if (ext == ".nrd")
+            switch (ext)
             {
-                format = EnmFileFormat.NRT;
-                return buf;
+                case ".nrd":
+                    format = EnmFileFormat.NRT;
+                    return buf;
+                case ".mdr":
+                    format = EnmFileFormat.MDR;
+                    return buf;
+                case ".mdx":
+                    format = EnmFileFormat.MDX;
+                    return buf;
+                case ".mnd":
+                    format = EnmFileFormat.MND;
+                    return buf;
+                case ".mub":
+                    format = EnmFileFormat.MUB;
+                    return buf;
+                case ".muc":
+                    format = EnmFileFormat.MUC;
+                    return buf;
+                case ".xgm":
+                    format = EnmFileFormat.XGM;
+                    return buf;
+                case ".s98":
+                    format = EnmFileFormat.S98;
+                    return buf;
+                case ".nsf":
+                    format = EnmFileFormat.NSF;
+                    return buf;
+                case ".hes":
+                    format = EnmFileFormat.HES;
+                    return buf;
+                case ".sid":
+                    format = EnmFileFormat.SID;
+                    return buf;
+                case ".mid":
+                    format = EnmFileFormat.MID;
+                    return buf;
+                case ".rcp":
+                    format = EnmFileFormat.RCP;
+                    return buf;
             }
-
-            if (ext == ".mdr")
-            {
-                format = EnmFileFormat.MDR;
-                return buf;
-            }
-
-            if (ext == ".mdx")
-            {
-                format = EnmFileFormat.MDX;
-                return buf;
-            }
-
-            if (ext == ".mnd")
-            {
-                format = EnmFileFormat.MND;
-                return buf;
-            }
-
-            if (ext == ".mub")
-            {
-                format = EnmFileFormat.MUB;
-                return buf;
-            }
-
-            if (ext == ".muc")
-            {
-                format = EnmFileFormat.MUC;
-                return buf;
-            }
-
-            if (ext == ".xgm")
-            {
-                format = EnmFileFormat.XGM;
-                return buf;
-            }
-
-            if (ext == ".s98")
-            {
-                format = EnmFileFormat.S98;
-                return buf;
-            }
-
-            if (ext == ".nsf")
-            {
-                format = EnmFileFormat.NSF;
-                return buf;
-            }
-
-            if (ext == ".hes")
-            {
-                format = EnmFileFormat.HES;
-                return buf;
-            }
-
-            if (ext == ".sid")
-            {
-                format = EnmFileFormat.SID;
-                return buf;
-            }
-
-            if (ext == ".mid")
-            {
-                format = EnmFileFormat.MID;
-                return buf;
-            }
-
-            if (ext == ".rcp")
-            {
-                format = EnmFileFormat.RCP;
-                return buf;
-            }
-
 
             //.VGMの場合はヘッダの確認とGzipで解凍後のファイルのヘッダの確認
             uint vgm = (UInt32)buf[0] + (UInt32)buf[1] * 0x100 + (UInt32)buf[2] * 0x10000 + (UInt32)buf[3] * 0x1000000;
@@ -251,10 +190,10 @@ namespace mdpc
             return buf;
         }
 
-        private void procMain()
+        private void ProcMain()
         {
             Common.settingFilePath = Common.GetApplicationDataFolder(true);
-            vgmBuf = getAllBytes(srcFn, out format);
+            vgmBuf = GetAllBytes(srcFn, out format);
             //Audio.isCommandLine = true;
             Audio.EmuOnly = emuOnly;
             Audio.Init(setting);

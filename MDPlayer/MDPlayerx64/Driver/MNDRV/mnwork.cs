@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MDPlayer.Driver.MNDRV
+﻿namespace MDPlayer.Driver.MNDRV
 {
 
     public struct mnwork
@@ -277,7 +271,7 @@ namespace MDPlayer.Driver.MNDRV
                                                                                 //		                * bit1 tone
                                                                                 //		                * bit0 panpot
 
-        　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　//		                * default	volume
+        //		                * default	volume
         public const int reverb_vol = reverb + 1;                               //.ds.b	1			    * 擬似動作用 volume
         public const int reverb_tone = 185;                                     //.ds.b	1			    * 擬似動作用 tone
         public const int reverb_pan = 186;                                      //.ds.b	1			    * 擬似動作用 panpot

@@ -17,11 +17,6 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Driver.libsidplayfp
 {
@@ -114,7 +109,7 @@ namespace Driver.libsidplayfp
                 return false;
 
             Int32 i = 0;
-            while (n--!=0 && ((s1[i] != '\0') || (s2[i] != '\0')))
+            while (n-- != 0 && ((s1[i] != '\0') || (s2[i] != '\0')))
             {
                 if (!casecompare(s1[i], s2[i]))
                     return false;

@@ -1,18 +1,8 @@
 ﻿#if X64
 using MDPlayerx64;
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
@@ -38,7 +28,7 @@ namespace MDPlayer.form
             this.newParam = newParam;
             this.oldParam = oldParam;
 
-            frameBuffer.Add(this.pbScreen, ResMng.imgDic["planeDMG"], null, zoom);
+            frameBuffer.Add(this.pbScreen, ResMng.ImgDic["planeDMG"], null, zoom);
             screenInit();
             update();
         }
@@ -81,9 +71,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new Size(frameSizeW + ResMng.imgDic["planeDMG"].Width * zoom, frameSizeH + ResMng.imgDic["planeDMG"].Height * zoom);
-            this.MinimumSize = new Size(frameSizeW + ResMng.imgDic["planeDMG"].Width * zoom, frameSizeH + ResMng.imgDic["planeDMG"].Height * zoom);
-            this.Size = new Size(frameSizeW + ResMng.imgDic["planeDMG"].Width * zoom, frameSizeH + ResMng.imgDic["planeDMG"].Height * zoom);
+            this.MaximumSize = new Size(frameSizeW + ResMng.ImgDic["planeDMG"].Width * zoom, frameSizeH + ResMng.ImgDic["planeDMG"].Height * zoom);
+            this.MinimumSize = new Size(frameSizeW + ResMng.ImgDic["planeDMG"].Width * zoom, frameSizeH + ResMng.ImgDic["planeDMG"].Height * zoom);
+            this.Size = new Size(frameSizeW + ResMng.ImgDic["planeDMG"].Width * zoom, frameSizeH + ResMng.ImgDic["planeDMG"].Height * zoom);
             frmDMG_Resize(null, null);
 
         }
@@ -193,7 +183,7 @@ namespace MDPlayer.form
                 if (newParam.channels[i].volumeL != 0 || newParam.channels[i].volumeR != 0)
                 {
                     ftone = 4194304.0f / (4 * 2 * (2048.0f - (float)newParam.channels[i].freq));
-                    newParam.channels[i].note = Math.Max(Math.Min(searchSSGNote(ftone) , 8 * 12), 0);
+                    newParam.channels[i].note = Math.Max(Math.Min(searchSSGNote(ftone), 8 * 12), 0);
                 }
             }
         }
@@ -217,7 +207,7 @@ namespace MDPlayer.form
             DrawBuff.font4Int1(frameBuffer, 88, 48, 0, ref oyc.inst[4], nyc.inst[4]);//Sweep time
             DrawBuff.font4Int1(frameBuffer, 88, 64, 0, ref oyc.inst[5], nyc.inst[5]);//Sweep shift
             DrawBuff.KeyBoardDMG(frameBuffer, 0, ref oyc.note, nyc.note, 0);
-            DrawBuff.ChDMG(frameBuffer,  0, ref oyc.mask, nyc.mask,0);
+            DrawBuff.ChDMG(frameBuffer, 0, ref oyc.mask, nyc.mask, 0);
 
             oyc = oldParam.channels[1];
             nyc = newParam.channels[1];
@@ -233,7 +223,7 @@ namespace MDPlayer.form
             DrawBuff.font4Int2(frameBuffer, 148, 64, 0, 1, ref oyc.inst[2], nyc.inst[2]);//Len
             DrawBuff.font4Int1(frameBuffer, 152, 56, 0, ref oyc.inst[3], nyc.inst[3]);//Duty
             DrawBuff.KeyBoardDMG(frameBuffer, 1, ref oyc.note, nyc.note, 0);
-            DrawBuff.ChDMG(frameBuffer,  1, ref oyc.mask, nyc.mask, 0);
+            DrawBuff.ChDMG(frameBuffer, 1, ref oyc.mask, nyc.mask, 0);
 
             oyc = oldParam.channels[2];
             nyc = newParam.channels[2];
@@ -247,7 +237,7 @@ namespace MDPlayer.form
             DrawBuff.font4Int2(frameBuffer, 220, 56, 0, 3, ref oyc.inst[4], nyc.inst[4]);//Len
             DrawBuff.font4Int1(frameBuffer, 228, 64, 0, ref oyc.inst[5], nyc.inst[5]);//Vol
             DrawBuff.KeyBoardDMG(frameBuffer, 2, ref oyc.note, nyc.note, 0);
-            DrawBuff.ChDMG(frameBuffer,  2, ref oyc.mask, nyc.mask, 0);
+            DrawBuff.ChDMG(frameBuffer, 2, ref oyc.mask, nyc.mask, 0);
 
             oyc = oldParam.channels[3];
             nyc = newParam.channels[3];
@@ -263,7 +253,7 @@ namespace MDPlayer.form
             DrawBuff.font4Int1(frameBuffer, 260, 48, 0, ref oyc.inst[0], nyc.inst[0]);//Env. Spd
             DrawBuff.font4Int2(frameBuffer, 256, 56, 0, 1, ref oyc.inst[1], nyc.inst[1]);//Env. Vol
             DrawBuff.font4Int2(frameBuffer, 284, 64, 0, 1, ref oyc.inst[2], nyc.inst[2]);//Len
-            DrawBuff.ChDMG(frameBuffer,  3, ref oyc.mask, nyc.mask, 0);
+            DrawBuff.ChDMG(frameBuffer, 3, ref oyc.mask, nyc.mask, 0);
 
             DrawBuff.WaveFormToDMG(frameBuffer, 168, 58, ref oldParam.wf, newParam.wf);//wave form
         }

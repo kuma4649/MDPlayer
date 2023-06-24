@@ -1,9 +1,4 @@
-﻿using MDSound.NX68Sound;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MDPlayer
+﻿namespace MDPlayer
 {
     public class Vgm : baseDriver
     {
@@ -35,12 +30,12 @@ namespace MDPlayer
         public uint RF5C164ClockValue = 12500000;
         public uint PWMClockValue = 23011361;
         public uint C140ClockValue = 21390;
-        public MDSound.c140.C140_TYPE C140Type= MDSound.c140.C140_TYPE.ASIC219;
+        public MDSound.c140.C140_TYPE C140Type = MDSound.c140.C140_TYPE.ASIC219;
         public uint OKIM6258ClockValue = 4000000;
         public byte OKIM6258Type = 0;
         public uint OKIM6295ClockValue = 4000000;
         public uint SEGAPCMClockValue = 4000000;
-        public int SEGAPCMInterface=0;
+        public int SEGAPCMInterface = 0;
         public uint YM2151ClockValue;
         public uint YM2608ClockValue;
         public uint YM2203ClockValue;
@@ -140,7 +135,7 @@ namespace MDPlayer
         private byte[][] ym2610AdpcmA = new byte[2][] { null, null };
         private byte[][] ym2610AdpcmB = new byte[2][] { null, null };
 
-        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip,uint latency,uint waitTime)
+        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime)
         {
             this.vgmBuf = vgmBuf;
             this.chipRegister = chipRegister;
@@ -227,7 +222,7 @@ namespace MDPlayer
             if (vgmWait > 0)
             {
                 //if (model == enmModel.VirtualModel)
-                    OneFrameVGMStream();
+                OneFrameVGMStream();
                 vgmWait--;
                 Counter++;
                 vgmFrameCounter++;
@@ -272,19 +267,19 @@ namespace MDPlayer
                 else
                 {
                     //わからんコマンド
-                    Console.WriteLine("[{0}]:unknown command: Adr:{1:X} Dat:{2:X}",model, vgmAdr , vgmBuf[vgmAdr]);
+                    Console.WriteLine("[{0}]:unknown command: Adr:{1:X} Dat:{2:X}", model, vgmAdr, vgmBuf[vgmAdr]);
                     vgmAdr++;
                 }
                 countNum++;
                 if (countNum > 100)
                 {
-                    if (model == EnmModel.RealModel && countNum%100==0)
+                    if (model == EnmModel.RealModel && countNum % 100 == 0)
                     {
                         isDataBlock = true;
-                        chipRegister.sendDataYM2608(0,model);
-                        chipRegister.setYM2608SyncWait(0,1);
-                        chipRegister.sendDataYM2151(0,model);
-                        chipRegister.setYM2151SyncWait(0,1);
+                        chipRegister.sendDataYM2608(0, model);
+                        chipRegister.setYM2608SyncWait(0, 1);
+                        chipRegister.sendDataYM2151(0, model);
+                        chipRegister.setYM2151SyncWait(0, 1);
 
                         chipRegister.sendDataYM2608(1, model);
                         chipRegister.setYM2608SyncWait(1, 1);
@@ -316,7 +311,7 @@ namespace MDPlayer
             }
 
             //if (model == enmModel.VirtualModel)
-                //oneFrameVGMStream();
+            //oneFrameVGMStream();
 
             vgmWait--;
             Counter++;
@@ -587,7 +582,7 @@ namespace MDPlayer
 
         private void VcPSG()
         {
-            chipRegister.setSN76489Register(vgmBuf[vgmAdr] == 0x50 ? 0 : 1, vgmBuf[vgmAdr + 1],model);
+            chipRegister.setSN76489Register(vgmBuf[vgmAdr] == 0x50 ? 0 : 1, vgmBuf[vgmAdr + 1], model);
             vgmAdr += 2;
         }
 
@@ -644,13 +639,13 @@ namespace MDPlayer
 
         private void VcYM2413()
         {
-            chipRegister.setYM2413Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, vgmBuf[vgmAdr + 1] , vgmBuf[vgmAdr + 2], model);
+            chipRegister.setYM2413Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
             vgmAdr += 3;
         }
 
         private void VcYM3812()
         {
-            chipRegister.setYM3812Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, vgmBuf[vgmAdr + 1] , vgmBuf[vgmAdr + 2], model);
+            chipRegister.setYM3812Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
             vgmAdr += 3;
         }
 
@@ -777,9 +772,9 @@ namespace MDPlayer
                 , vgmBuf[vgmAdr + 3]
                 , model);
             //Console.WriteLine("fm:{0:x02}:{1:x02}:{2:x02}:", vgmBuf[vgmAdr + 1] & 0x7f
-                //, vgmBuf[vgmAdr + 2]
-                //, vgmBuf[vgmAdr + 3]
-//);
+            //, vgmBuf[vgmAdr + 2]
+            //, vgmBuf[vgmAdr + 3]
+            //);
             vgmAdr += 4;
         }
 
@@ -878,7 +873,7 @@ namespace MDPlayer
             byte bType = vgmBuf[vgmAdr + 2];
             uint bLen = GetLE32(vgmAdr + 3);
             byte chipID = 0;
-            if ((bLen & 0x80000000)!=0)
+            if ((bLen & 0x80000000) != 0)
             {
                 bLen &= 0x7fffffff;
                 chipID = 1;
@@ -961,14 +956,14 @@ namespace MDPlayer
                             //chipRegister.setYM2608Register(0x1, 0x00, 0x00, model);
                             //chipRegister.setYM2608Register(0x1, 0x10, 0x80, model);
 
-                            while((chipRegister.getYM2608Register(chipID, 0x1, 0x00, model) & 0xbf) != 0)
+                            while ((chipRegister.getYM2608Register(chipID, 0x1, 0x00, model) & 0xbf) != 0)
                             {
                                 System.Threading.Thread.Sleep(0);
                             }
-                            if(model== EnmModel.RealModel)
+                            if (model == EnmModel.RealModel)
                             {
                                 if ((chipID == 0 && setting.YM2608Type[0].UseReal[0])
-                                    || (chipID == 1 && setting.YM2608Type[1].UseReal[0]) )
+                                    || (chipID == 1 && setting.YM2608Type[1].UseReal[0]))
                                 {
                                     System.Threading.Thread.Sleep(500);
                                 }
@@ -1175,7 +1170,7 @@ namespace MDPlayer
         private int dumpCounter = 0;
         private int opnaRamType = 0;
 
-        private void dumpData(EnmModel model,string chipName, uint adr, uint len)
+        private void dumpData(EnmModel model, string chipName, uint adr, uint len)
         {
             if (model == EnmModel.RealModel) return;
             if (setting == null) return;
@@ -1184,7 +1179,7 @@ namespace MDPlayer
             try
             {
 
-                string fn = System.IO.Path.Combine(setting.other.DumpPath, string.Format("{1}_{2}_{0:000}.bin", dumpCounter++, chipName, GD3.TrackName.Replace("*","").Replace("?","").Replace(" ","").Replace("\"", "").Replace("/", "")));
+                string fn = System.IO.Path.Combine(setting.other.DumpPath, string.Format("{1}_{2}_{0:000}.bin", dumpCounter++, chipName, GD3.TrackName.Replace("*", "").Replace("?", "").Replace(" ", "").Replace("\"", "").Replace("/", "")));
                 using System.IO.FileStream fs = new(fn, System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write);
                 using System.IO.BinaryWriter bw = new(fs);
                 bw.Write(vgmBuf, (int)adr, (int)len);
@@ -1356,8 +1351,8 @@ namespace MDPlayer
 
             VGM_PCM_BANK TempPCM = PCMBank[DacCtrl[si].Bank];
             //Last95Max = TempPCM->BankCount;
-                dacControl.set_data(si, TempPCM.Data, TempPCM.DataSize,
-                                vgmBuf[vgmAdr + 3], vgmBuf[vgmAdr + 4]);
+            dacControl.set_data(si, TempPCM.Data, TempPCM.DataSize,
+                            vgmBuf[vgmAdr + 3], vgmBuf[vgmAdr + 4]);
 
             vgmAdr += 5;
         }
@@ -1378,7 +1373,7 @@ namespace MDPlayer
             }
             uint TempLng = GetLE32(vgmAdr + 2);
             //Last95Freq = TempLng;
-                dacControl.set_frequency(si, TempLng);
+            dacControl.set_frequency(si, TempLng);
             vgmAdr += 6;
         }
 
@@ -1400,7 +1395,7 @@ namespace MDPlayer
             //Last95Drum = 0xFFFF;
             byte TempByt = vgmBuf[vgmAdr + 6];
             uint DataLen = GetLE32(vgmAdr + 7);
-                dacControl.start(si, DataStart, TempByt, DataLen);
+            dacControl.start(si, DataStart, TempByt, DataLen);
             vgmAdr += 0x0B;
 
         }
@@ -1422,12 +1417,12 @@ namespace MDPlayer
             //Last95Drum = 0xFFFF;
             if (si < 0xFF)
             {
-                    dacControl.stop(si);
+                dacControl.stop(si);
             }
             else
             {
                 for (si = 0x00; si < 0xFF; si++)
-                        dacControl.stop(si);
+                    dacControl.stop(si);
             }
             vgmAdr += 0x02;
         }
@@ -1560,7 +1555,7 @@ namespace MDPlayer
             byte id = (byte)((vgmBuf[vgmAdr + 1] & 0x80) != 0 ? 1 : 0);
             uint adr = (uint)((vgmBuf[vgmAdr + 1] & 0x7f) * 0x100 + (vgmBuf[vgmAdr + 2] & 0xff));
             uint data = (uint)((vgmBuf[vgmAdr + 3] & 0xff) * 0x100 + (vgmBuf[vgmAdr + 4] & 0xff));
-            
+
             chipRegister.writeC352(id, adr, data, model);
             vgmAdr += 5;
         }
@@ -1665,8 +1660,8 @@ namespace MDPlayer
             //if (BankSize != TempBnk.DataSize) Console.Write("Error reading Data Block! Data Size conflict!\n");
             TempPCM.DataSize += BankSize;
 
-            // realloc may've moved the Bank block, so refresh all DAC Streams
-            RefreshDACStrm:
+        // realloc may've moved the Bank block, so refresh all DAC Streams
+        RefreshDACStrm:
             for (CurDAC = 0x00; CurDAC < DacCtrlUsed; CurDAC++)
             {
                 if (DacCtrl[DacCtrlUsg[CurDAC]].Bank == BnkType)
@@ -1798,8 +1793,8 @@ namespace MDPlayer
                                         //#ifndef BIG_ENDIAN
                                         //					OutVal = Ent2B[InVal];
                                         //#else
-                                        OutVal = (uint)(PCMTbl.Entries[Ent2B + InVal*2] + PCMTbl.Entries[Ent2B + InVal*2 + 1] * 0x100);// ReadLE16((UINT8*)&Ent2B[InVal]);
-                                                                                                                                   //#endif
+                                        OutVal = (uint)(PCMTbl.Entries[Ent2B + InVal * 2] + PCMTbl.Entries[Ent2B + InVal * 2 + 1] * 0x100);// ReadLE16((UINT8*)&Ent2B[InVal]);
+                                                                                                                                           //#endif
                                         break;
                                 }
                                 break;
@@ -2762,7 +2757,7 @@ namespace MDPlayer
         public string Version = "";
         public string UsedChips = "";
 
-        public List<Tuple<int,int, string>> Lyrics = null;
+        public List<Tuple<int, int, string>> Lyrics = null;
     }
 
 

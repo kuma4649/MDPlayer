@@ -1,9 +1,4 @@
 ﻿using musicDriverInterface;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading;
 
 namespace MDPlayer.Driver
 {
@@ -373,10 +368,10 @@ namespace MDPlayer.Driver
             MUB,
             MUC
         }
-        
+
         public byte[] Compile(byte[] vgmBuf)
         {
-            if(mucomCompiler==null) mucomCompiler = im.GetCompiler("mucomDotNET.Compiler.Compiler");
+            if (mucomCompiler == null) mucomCompiler = im.GetCompiler("mucomDotNET.Compiler.Compiler");
             mucomCompiler.Init();
 
             MmlDatum[] ret;
@@ -404,9 +399,9 @@ namespace MDPlayer.Driver
                 }
                 return null;
             }
-            
+
             List<byte> dest = new List<byte>();
-            foreach(MmlDatum md in ret)
+            foreach (MmlDatum md in ret)
             {
                 dest.Add(md != null ? (byte)md.dat : (byte)0);
             }
@@ -471,7 +466,7 @@ namespace MDPlayer.Driver
             if (ret == null || info == null) return false;
             if (info.errorList.Count > 0)
             {
-                if(model== EnmModel.VirtualModel)
+                if (model == EnmModel.VirtualModel)
                 {
                     System.Windows.Forms.MessageBox.Show("Compile error");
                 }
@@ -508,7 +503,7 @@ namespace MDPlayer.Driver
                 });
 
             mucomDriver.StartRendering(Common.VGMProcSampleRate
-                ,new Tuple<string, int>[] { new Tuple<string, int>("", OPNAbaseclock) });
+                , new Tuple<string, int>[] { new Tuple<string, int>("", OPNAbaseclock) });
             mucomDriver.MusicSTART(0);
 
             return true;
@@ -522,7 +517,7 @@ namespace MDPlayer.Driver
             bool isLoadADPCM = true;
             bool loadADPCMOnly = false;
             List<MmlDatum> buf = new List<MmlDatum>();
-            foreach(byte b in vgmBuf) buf.Add(new MmlDatum(b));
+            foreach (byte b in vgmBuf) buf.Add(new MmlDatum(b));
             //mucomDriver.Init(PlayingFileName, chipWriteRegister, chipWaitSend, buf.ToArray(), new object[] {
             //          notSoundBoard2
             //        , isLoadADPCM
@@ -539,7 +534,7 @@ namespace MDPlayer.Driver
             mucomDriver.Init(
                 lca,
                 buf.ToArray()
-                ,null
+                , null
                 , new object[] {
                       notSoundBoard2
                     , isLoadADPCM

@@ -1,18 +1,8 @@
 ﻿#if X64
 using MDPlayerx64;
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
@@ -38,7 +28,7 @@ namespace MDPlayer.form
             InitializeComponent();
 
             this.newParam = newParam;
-            frameBuffer.Add(pbScreen, ResMng.imgDic["planeK051649"], null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.ImgDic["planeK051649"], null, zoom);
             DrawBuff.screenInitK051649(frameBuffer);
             update();
         }
@@ -81,9 +71,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeK051649"].Width * zoom, frameSizeH + ResMng.imgDic["planeK051649"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeK051649"].Width * zoom, frameSizeH + ResMng.imgDic["planeK051649"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeK051649"].Width * zoom, frameSizeH + ResMng.imgDic["planeK051649"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeK051649"].Width * zoom, frameSizeH + ResMng.ImgDic["planeK051649"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeK051649"].Width * zoom, frameSizeH + ResMng.ImgDic["planeK051649"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeK051649"].Width * zoom, frameSizeH + ResMng.ImgDic["planeK051649"].Height * zoom);
             frmK051649_Resize(null, null);
 
         }
@@ -107,7 +97,7 @@ namespace MDPlayer.form
 
                 MDChipParams.Channel channel = newParam.channels[ch];
                 for (int i = 0; i < 32; i++) channel.inst[i] = (int)psg.waveram[i];
-                float ftone = Audio.clockK051649 / (8.0f * (float)psg.frequency);
+                float ftone = Audio.ClockK051649 / (8.0f * (float)psg.frequency);
                 channel.freq = psg.frequency;
                 channel.volume = psg.key != 0 ? (int)(psg.volume * 1.33) : 0;
                 channel.volumeL = psg.volume;
@@ -193,7 +183,7 @@ namespace MDPlayer.form
             if (e.Button == MouseButtons.Right) return;
 
             // 音色表示欄の判定
-            int instCh = ((py < 12 * 8) ? 0 : 3) + px / (8*13);
+            int instCh = ((py < 12 * 8) ? 0 : 3) + px / (8 * 13);
 
             if (instCh < 5)
             {

@@ -18,11 +18,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Driver.libsidplayfp.utils.STILview
 {
@@ -36,42 +31,42 @@ namespace Driver.libsidplayfp.utils.STILview
         //
 
         /* DLL building support on win32 hosts */
-//# ifndef STIL_EXTERN
-//# ifdef DLL_EXPORT      /* defined by libtool (if required) */
-//#define STIL_EXTERN __declspec(dllexport)
-//#endif
-//# ifdef STIL_DLL_IMPORT  /* define if linking with this dll */
-//#define STIL_EXTERN __declspec(dllimport)
-//#endif
-//# ifndef STIL_EXTERN     /* static linking or !_WIN32 */
-//#if defined(__GNUC__) && (__GNUC__ >= 4)
-//#define STIL_EXTERN __attribute__ ((visibility("default")))
-//#else
-//#define STIL_EXTERN
-//#endif
-//#endif
-//#endif
+        //# ifndef STIL_EXTERN
+        //# ifdef DLL_EXPORT      /* defined by libtool (if required) */
+        //#define STIL_EXTERN __declspec(dllexport)
+        //#endif
+        //# ifdef STIL_DLL_IMPORT  /* define if linking with this dll */
+        //#define STIL_EXTERN __declspec(dllimport)
+        //#endif
+        //# ifndef STIL_EXTERN     /* static linking or !_WIN32 */
+        //#if defined(__GNUC__) && (__GNUC__ >= 4)
+        //#define STIL_EXTERN __attribute__ ((visibility("default")))
+        //#else
+        //#define STIL_EXTERN
+        //#endif
+        //#endif
+        //#endif
 
         /* Deprecated attributes */
-//#if defined(_MSCVER)
-//#define STIL_DEPRECATED __declspec(deprecated)
-//#elif defined(__GNUC__)
-//#define STIL_DEPRECATED __attribute__ ((deprecated))
-//#else
-//#define STIL_DEPRECATED
-//#endif
+        //#if defined(_MSCVER)
+        //#define STIL_DEPRECATED __declspec(deprecated)
+        //#elif defined(__GNUC__)
+        //#define STIL_DEPRECATED __attribute__ ((deprecated))
+        //#else
+        //#define STIL_DEPRECATED
+        //#endif
 
-//#if defined(__linux__) || defined(__FreeBSD__) || defined(solaris2) || defined(sun) || defined(sparc) || defined(sgi)
-//#define UNIX
-//#endif
+        //#if defined(__linux__) || defined(__FreeBSD__) || defined(solaris2) || defined(sun) || defined(sparc) || defined(sgi)
+        //#define UNIX
+        //#endif
 
-//#if defined(__MACOS__)
-//#define MAC
-//#endif
+        //#if defined(__MACOS__)
+        //#define MAC
+        //#endif
 
-//#if defined(__amigaos__)
-//#define AMIGA
-//#endif
+        //#if defined(__amigaos__)
+        //#define AMIGA
+        //#endif
 
         //
         // Here you should define:
@@ -81,15 +76,15 @@ namespace Driver.libsidplayfp.utils.STILview
         // - what function compares portions of strings case-insensitively.
         //
 
-//# ifdef UNIX
-//#define SLASH '/'
-//#elif defined MAC
-//#define SLASH ':'
-//#elif defined AMIGA
-//#define SLASH '/'
-//#else // WinDoze
-public const char SLASH= '\\';
-//#endif
+        //# ifdef UNIX
+        //#define SLASH '/'
+        //#elif defined MAC
+        //#define SLASH ':'
+        //#elif defined AMIGA
+        //#define SLASH '/'
+        //#else // WinDoze
+        public const char SLASH = '\\';
+        //#endif
 
         // Default HVSC path to STIL.
         public const string DEFAULT_PATH_TO_STIL = "/DOCUMENTS/STIL.txt";

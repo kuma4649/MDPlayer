@@ -19,11 +19,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Driver.libsidplayfp.sidplayfp
 {
@@ -167,7 +162,8 @@ namespace Driver.libsidplayfp.sidplayfp
         //public byte[] c64Data() { return null; }
 
         // prevent copying
-        private SidTune(ref SidTune s) {
+        private SidTune(ref SidTune s)
+        {
         }
         private SidTune opeEquel(ref SidTune s) { return null; }
 
@@ -261,7 +257,7 @@ namespace Driver.libsidplayfp.sidplayfp
         {
             try
             {
-                tune= tune.read(sourceBuffer, bufferLen);
+                tune = tune.read(sourceBuffer, bufferLen);
                 m_status = true;
                 m_statusString = MSG_NO_ERRORS;
             }

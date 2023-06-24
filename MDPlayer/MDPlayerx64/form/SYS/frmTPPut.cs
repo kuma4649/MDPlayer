@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace MDPlayer.form
+﻿namespace MDPlayer.form
 {
     public partial class frmTPPut : Form
     {
@@ -32,17 +22,17 @@ namespace MDPlayer.form
         {
             dgvTonePallet.Rows.Clear();
             if (tonePallet == null) tonePallet = new TonePallet();
-            if (tonePallet.lstTone == null) tonePallet.lstTone = new List<Tone>(256);
+            if (tonePallet.LstTone == null) tonePallet.LstTone = new List<Tone>(256);
 
             for (int i = 0; i < 256; i++)
             {
                 string toneName = "";
-                if (tonePallet.lstTone.Count < i + 1 || tonePallet.lstTone[i] == null)
+                if (tonePallet.LstTone.Count < i + 1 || tonePallet.LstTone[i] == null)
                 {
-                    tonePallet.lstTone.Add(new Tone());
+                    tonePallet.LstTone.Add(new Tone());
                 }
 
-                toneName = tonePallet.lstTone[i].name;
+                toneName = tonePallet.LstTone[i].name;
 
                 dgvTonePallet.Rows.Add();
                 dgvTonePallet.Rows[i].Cells["clmNo"].Value = i;
@@ -65,7 +55,7 @@ namespace MDPlayer.form
             if (row == null) return;
 
             string m = string.Format("from Ch.{0}", ((Button)sender).Tag);
-            string n=row.Cells["clmSpacer"].Value==null ? "" : row.Cells["clmSpacer"].Value.ToString();
+            string n = row.Cells["clmSpacer"].Value == null ? "" : row.Cells["clmSpacer"].Value.ToString();
             row.Cells["clmSpacer"].Value = (m == n) ? "" : m;
 
             btApply.Enabled = true;
@@ -90,7 +80,7 @@ namespace MDPlayer.form
             for (int i = 0; i < 256; i++)
             {
                 dgvTonePallet.Rows[i].Cells["clmNo"].Value = i;
-                tonePallet.lstTone[i].name = dgvTonePallet.Rows[i].Cells["clmName"].Value.ToString();
+                tonePallet.LstTone[i].name = dgvTonePallet.Rows[i].Cells["clmName"].Value.ToString();
             }
         }
 
@@ -104,33 +94,33 @@ namespace MDPlayer.form
 
                 int ch = int.Parse(n.Replace("from Ch.", "")) - 1;
 
-                CopySettingToneToTonePallet(ch,i);
+                CopySettingToneToTonePallet(ch, i);
 
                 dgvTonePallet.Rows[i].Cells["clmSpacer"].Value = "";
             }
         }
 
-        private void CopySettingToneToTonePallet(int ch,int ind)
+        private void CopySettingToneToTonePallet(int ch, int ind)
         {
             for (int i = 0; i < 4; i++)
             {
-                tonePallet.lstTone[ind].OPs[i].AR = setting.midiKbd.Tones[ch].OPs[i].AR;//AR
-                tonePallet.lstTone[ind].OPs[i].KS = setting.midiKbd.Tones[ch].OPs[i].KS;//KS
-                tonePallet.lstTone[ind].OPs[i].DR = setting.midiKbd.Tones[ch].OPs[i].DR;//DR
-                tonePallet.lstTone[ind].OPs[i].AM = setting.midiKbd.Tones[ch].OPs[i].AM;//AM
-                tonePallet.lstTone[ind].OPs[i].SR = setting.midiKbd.Tones[ch].OPs[i].SR;//SR
-                tonePallet.lstTone[ind].OPs[i].RR = setting.midiKbd.Tones[ch].OPs[i].RR;//RR
-                tonePallet.lstTone[ind].OPs[i].SL = setting.midiKbd.Tones[ch].OPs[i].SL;//SL
-                tonePallet.lstTone[ind].OPs[i].TL = setting.midiKbd.Tones[ch].OPs[i].TL;//TL
-                tonePallet.lstTone[ind].OPs[i].ML = setting.midiKbd.Tones[ch].OPs[i].ML;//ML
-                tonePallet.lstTone[ind].OPs[i].DT = setting.midiKbd.Tones[ch].OPs[i].DT;//DT
-                tonePallet.lstTone[ind].OPs[i].DT2 = setting.midiKbd.Tones[ch].OPs[i].DT2;//DT2 
+                tonePallet.LstTone[ind].OPs[i].AR = setting.midiKbd.Tones[ch].OPs[i].AR;//AR
+                tonePallet.LstTone[ind].OPs[i].KS = setting.midiKbd.Tones[ch].OPs[i].KS;//KS
+                tonePallet.LstTone[ind].OPs[i].DR = setting.midiKbd.Tones[ch].OPs[i].DR;//DR
+                tonePallet.LstTone[ind].OPs[i].AM = setting.midiKbd.Tones[ch].OPs[i].AM;//AM
+                tonePallet.LstTone[ind].OPs[i].SR = setting.midiKbd.Tones[ch].OPs[i].SR;//SR
+                tonePallet.LstTone[ind].OPs[i].RR = setting.midiKbd.Tones[ch].OPs[i].RR;//RR
+                tonePallet.LstTone[ind].OPs[i].SL = setting.midiKbd.Tones[ch].OPs[i].SL;//SL
+                tonePallet.LstTone[ind].OPs[i].TL = setting.midiKbd.Tones[ch].OPs[i].TL;//TL
+                tonePallet.LstTone[ind].OPs[i].ML = setting.midiKbd.Tones[ch].OPs[i].ML;//ML
+                tonePallet.LstTone[ind].OPs[i].DT = setting.midiKbd.Tones[ch].OPs[i].DT;//DT
+                tonePallet.LstTone[ind].OPs[i].DT2 = setting.midiKbd.Tones[ch].OPs[i].DT2;//DT2 
             }
 
-            tonePallet.lstTone[ind].AL = setting.midiKbd.Tones[ch].AL;//AL
-            tonePallet.lstTone[ind].FB = setting.midiKbd.Tones[ch].FB;//FB
-            tonePallet.lstTone[ind].AMS = setting.midiKbd.Tones[ch].AMS;
-            tonePallet.lstTone[ind].PMS = setting.midiKbd.Tones[ch].PMS;
+            tonePallet.LstTone[ind].AL = setting.midiKbd.Tones[ch].AL;//AL
+            tonePallet.LstTone[ind].FB = setting.midiKbd.Tones[ch].FB;//FB
+            tonePallet.LstTone[ind].AMS = setting.midiKbd.Tones[ch].AMS;
+            tonePallet.LstTone[ind].PMS = setting.midiKbd.Tones[ch].PMS;
 
         }
 

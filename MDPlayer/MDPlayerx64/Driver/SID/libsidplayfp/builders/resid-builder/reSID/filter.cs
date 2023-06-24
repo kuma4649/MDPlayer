@@ -16,11 +16,6 @@
 //  along with this program; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //  ---------------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Driver.libsidplayfp.builders.resid_builder.reSID
 {
@@ -1305,7 +1300,7 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
                 /* do hard clipping here, else some tunes manage to overflow this
                    (eg /MUSICIANS/L/Linus/64_Forever.sid, starting at 0:44) */
                 int tmp = Vi * (int)vol >> 4;
-                if (tmp < -32768)  tmp = -32768; 
+                if (tmp < -32768) tmp = -32768;
                 else if (tmp > 32767) tmp = 32767;
                 return (short)tmp;
             }
@@ -1367,7 +1362,7 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
             if (b_vi < 0) b_vi = 0;
             Int32 c = n * (Int32)((UInt32)(b_vi) * (UInt32)(b_vi) >> 12);    // Scaled by m^2*2^27
 
-            for (;;)
+            for (; ; )
             {
                 Int32 xk = x;
 
@@ -1799,7 +1794,7 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
 
         //public model_filter_t[] model_filter=new model_filter_t[2];
 
-        private bool class_init=false;
+        private bool class_init = false;
         // ----------------------------------------------------------------------------
         // Constructor.
         // ----------------------------------------------------------------------------
@@ -1808,7 +1803,8 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
             //static bool class_init;
             initModel_filter_init_t();
 
-            if (!class_init) {
+            if (!class_init)
+            {
                 // Temporary table for op-amp transfer function.
                 int[] opamp = new int[1 << 16];
 
@@ -2010,7 +2006,8 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
                 double k = fi.k;
                 double kVddt = N16 * (k * (fi.Vdd - fi.Vth));
 
-                for (int i = 0; i < (1 << 16); i++) {
+                for (int i = 0; i < (1 << 16); i++)
+                {
                     // The table index is right-shifted 16 times in order to fit in
                     // 16 bits; the argument to sqrt is thus multiplied by (1 << 16).
                     //

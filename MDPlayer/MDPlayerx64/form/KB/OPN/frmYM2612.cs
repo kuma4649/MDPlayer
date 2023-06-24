@@ -1,12 +1,8 @@
 ﻿#if X64
 using MDPlayerx64;
-using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
 #endif
-using System;
-using System.Drawing;
-using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
@@ -32,7 +28,7 @@ namespace MDPlayer.form
 
             this.newParam = newParam;
             this.oldParam = oldParam;
-            frameBuffer.Add(pbScreen, ResMng.imgDic["planeYM2612"], null, zoom);
+            frameBuffer.Add(pbScreen, ResMng.ImgDic["planeYM2612"], null, zoom);
             screenInit();
             update();
         }
@@ -41,8 +37,8 @@ namespace MDPlayer.form
         {
             bool YM2612Type = (chipID == 0) ? parent.setting.YM2612Type[0].UseReal[0] : parent.setting.YM2612Type[1].UseReal[0];
             int tp = YM2612Type ? 1 : 0;
-            DrawBuff.screenInitYM2612(frameBuffer, tp, (chipID == 0) 
-                ? parent.setting.YM2612Type[0].realChipInfo[0].OnlyPCMEmulation 
+            DrawBuff.screenInitYM2612(frameBuffer, tp, (chipID == 0)
+                ? parent.setting.YM2612Type[0].realChipInfo[0].OnlyPCMEmulation
                 : parent.setting.YM2612Type[1].realChipInfo[0].OnlyPCMEmulation
                 , newParam.fileFormat == EnmFileFormat.XGM);
             newParam.channels[5].pcmBuff = 100;
@@ -86,9 +82,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYM2612"].Width * zoom, frameSizeH + ResMng.imgDic["planeYM2612"].Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYM2612"].Width * zoom, frameSizeH + ResMng.imgDic["planeYM2612"].Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + ResMng.imgDic["planeYM2612"].Width * zoom, frameSizeH + ResMng.imgDic["planeYM2612"].Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeYM2612"].Width * zoom, frameSizeH + ResMng.ImgDic["planeYM2612"].Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeYM2612"].Width * zoom, frameSizeH + ResMng.ImgDic["planeYM2612"].Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + ResMng.ImgDic["planeYM2612"].Width * zoom, frameSizeH + ResMng.ImgDic["planeYM2612"].Height * zoom);
             frmYM2612_Resize(null, null);
 
         }
@@ -134,10 +130,10 @@ namespace MDPlayer.form
             int defaultMasterClock = 8000000;
             float ssgMul = 1.0f;
             int masterClock = defaultMasterClock;
-            if (Audio.clockYM2612 != 0)
+            if (Audio.ClockYM2612 != 0)
             {
-                ssgMul = Audio.clockYM2612 / (float)defaultMasterClock;
-                masterClock = Audio.clockYM2612;
+                ssgMul = Audio.ClockYM2612 / (float)defaultMasterClock;
+                masterClock = Audio.ClockYM2612;
             }
 
             float fmDiv = 6;
@@ -251,7 +247,7 @@ namespace MDPlayer.form
                     int octav = (fmRegister[0][0xac + c] & 0x38) >> 3;
                     newParam.channels[ch].freq = (freq & 0x7ff) | ((octav & 7) << 11);
                     int n = -1;
-                    if ((fmKey[2] & (0x10 << (ch-5))) != 0 && ((m & (0x10 << op)) != 0))
+                    if ((fmKey[2] & (0x10 << (ch - 5))) != 0 && ((m & (0x10 << op)) != 0))
                     {
                         float ff = freq / ((2 << 20) / (masterClock / (24 * fmDiv))) * (2 << (octav + 2));
                         ff /= 1038f;
@@ -272,23 +268,23 @@ namespace MDPlayer.form
             newParam.channels[5].pcmMode = (fmRegister[0][0x2b] & 0x80) >> 7;
             if (newParam.channels[5].pcmBuff > 0)
                 newParam.channels[5].pcmBuff--;
-            if (newParam.channels[5].pcmMode!=0)
+            if (newParam.channels[5].pcmMode != 0)
             {
                 newParam.channels[5].volumeL = Math.Min(Math.Max(fmVol[5] / 80, 0), 19);
                 newParam.channels[5].volumeR = Math.Min(Math.Max(fmVol[5] / 80, 0), 19);
             }
 
-            if (newParam.fileFormat == EnmFileFormat.XGM && Audio.driverVirtual is xgm)
+            if (newParam.fileFormat == EnmFileFormat.XGM && Audio.DriverVirtual is xgm)
             {
 
-                if (Audio.driverVirtual != null && ((xgm)Audio.driverVirtual).xgmpcm != null)
+                if (Audio.DriverVirtual != null && ((xgm)Audio.DriverVirtual).xgmpcm != null)
                 {
                     for (int i = 0; i < 4; i++)
                     {
-                        if (((xgm)Audio.driverVirtual).xgmpcm[i].isPlaying)
+                        if (((xgm)Audio.DriverVirtual).xgmpcm[i].isPlaying)
                         {
-                            newParam.xpcmInst[i] = (int)(((xgm)Audio.driverVirtual).xgmpcm[i].inst);
-                            int d = (((xgm)Audio.driverVirtual).xgmpcm[i].data / 6);
+                            newParam.xpcmInst[i] = (int)(((xgm)Audio.DriverVirtual).xgmpcm[i].inst);
+                            int d = (((xgm)Audio.DriverVirtual).xgmpcm[i].data / 6);
                             d = Math.Min(d, 19);
                             newParam.xpcmVolL[i] = d;
                             newParam.xpcmVolR[i] = d;
@@ -312,8 +308,8 @@ namespace MDPlayer.form
                 MDChipParams.Channel oyc = oldParam.channels[c];
                 MDChipParams.Channel nyc = newParam.channels[c];
 
-                bool YM2612type = (chipID == 0) 
-                    ? parent.setting.YM2612Type[0].UseReal[0] 
+                bool YM2612type = (chipID == 0)
+                    ? parent.setting.YM2612Type[0].UseReal[0]
                     : parent.setting.YM2612Type[1].UseReal[0];
                 int tp = YM2612type ? 1 : 0;
 
@@ -378,7 +374,7 @@ namespace MDPlayer.form
                             oldParam.fileFormat = newParam.fileFormat;
                         }
 
-                        DrawBuff.Ch6YM2612XGM(frameBuffer,nyc.pcmBuff, ref oyc.pcmMode, nyc.pcmMode, ref oyc.mask, nyc.mask, ref oyc.tp, tp6v);
+                        DrawBuff.Ch6YM2612XGM(frameBuffer, nyc.pcmBuff, ref oyc.pcmMode, nyc.pcmMode, ref oyc.mask, nyc.mask, ref oyc.tp, tp6v);
                         if (newParam.channels[5].pcmMode == 0)
                         {
                             DrawBuff.Volume(frameBuffer, 289, 8 + c * 8, 1, ref oyc.volumeL, nyc.volumeL, tp6v);
@@ -414,7 +410,7 @@ namespace MDPlayer.form
             }
 
             DrawBuff.LfoSw(frameBuffer, 16 + 1, 176, ref oldParam.lfoSw, newParam.lfoSw);
-            DrawBuff.LfoFrq(frameBuffer, 64+1, 176, ref oldParam.lfoFrq, newParam.lfoFrq);
+            DrawBuff.LfoFrq(frameBuffer, 64 + 1, 176, ref oldParam.lfoFrq, newParam.lfoFrq);
             DrawBuff.font4Hex12Bit(frameBuffer, 1 + 29 * 4, 44 * 4, 0, ref oldParam.timerA, newParam.timerA);
             DrawBuff.font4HexByte(frameBuffer, 1 + 43 * 4, 44 * 4, 0, ref oldParam.timerB, newParam.timerB);
         }

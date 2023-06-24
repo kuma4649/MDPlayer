@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MDPlayer.Driver.MNDRV
+﻿namespace MDPlayer.Driver.MNDRV
 {
     public class devrhy
     {
@@ -54,7 +48,7 @@ namespace MDPlayer.Driver.MNDRV
 
             mm.Write(reg.a5 + w.at_q_work, (byte)reg.D0_B);
 
-            _rhythm_next:
+        _rhythm_next:
 
             mm.Write(reg.a5 + w.len, (byte)reg.D4_B);
             if (reg.D4_B != 0) return;
@@ -64,11 +58,11 @@ namespace MDPlayer.Driver.MNDRV
             reg.D1_L = 0x98;
             mm.Write(reg.a5 + w.flag, (byte)(mm.ReadByte(reg.a5 + w.flag) & reg.D1_B));
 
-            _rhythm_fetch:
+        _rhythm_fetch:
             reg.a1 = mm.ReadUInt32(reg.a5 + w.dataptr);
             goto L1;
 
-            _rhythm_loop:
+        _rhythm_loop:
             if ((sbyte)mm.ReadByte(reg.a5 + w.flag4) < 0) return;
             if ((sbyte)mm.ReadByte(reg.a5 + w.flag) >= 0) return;
 
@@ -82,7 +76,7 @@ namespace MDPlayer.Driver.MNDRV
             _rhythm_command();
             goto _rhythm_loop;
 
-            _rhythm_mml:
+        _rhythm_mml:
             mm.Write(reg.a5 + w.key, (byte)reg.D0_B);
             if ((sbyte)mm.ReadByte(reg.a5 + w.flag2) < 0) goto _rhythm_exit;
             mm.Write(reg.a5 + w.flag, (byte)(mm.ReadByte(reg.a5 + w.flag) | 0x20));
@@ -96,9 +90,9 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a5 + w.dataptr, reg.a1);
             return;
 
-            _slave_rhythm:
+        _slave_rhythm:
             mm.Write(reg.a6 + dw.RHY_DAT2, (byte)(mm.ReadByte(reg.a6 + dw.RHY_DAT2) | reg.D0_B));
-            _rhythm_exit:
+        _rhythm_exit:
             mm.Write(reg.a5 + w.len, mm.ReadByte(reg.a1++));
             if (mm.ReadByte(reg.a5 + w.len) == 0) goto _rhythm_loop;
 
@@ -301,7 +295,7 @@ namespace MDPlayer.Driver.MNDRV
             {
                 reg.D0_L = 0x3f;
             }
-            L2:
+        L2:
             reg.D0_B -= mm.ReadByte(reg.a6 + dw.MASTER_VOL_RHY);
             if ((sbyte)reg.D0_B < 0)
             {
@@ -422,7 +416,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D0_B &= 0x1f;
             reg.D3_B &= 0xc0;
             reg.D0_B += (UInt32)(sbyte)reg.D2_B;
-            if (reg.D0_B >= 0x20) 
+            if (reg.D0_B >= 0x20)
             {
                 reg.D0_L = 0x1f;
             }
@@ -500,7 +494,7 @@ namespace MDPlayer.Driver.MNDRV
                 reg.D0_W--;
             } while (reg.D0_W != 0);
 
-            L3:
+        L3:
             reg.D0_W = mm.ReadUInt16(reg.a1); reg.a1 += 2;
             if (reg.D0_W != 0)
             {
@@ -514,7 +508,7 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a5 + w.weffect, 0);
             comcmds._all_end_check();
             return;
-            L2:
+        L2:
             reg.a1 = mm.ReadUInt32(reg.a5 + w.loop);
         }
 

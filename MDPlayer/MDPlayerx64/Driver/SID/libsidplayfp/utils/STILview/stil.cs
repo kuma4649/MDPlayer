@@ -18,11 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Driver.libsidplayfp.utils.STILview
 {
@@ -472,8 +468,10 @@ namespace Driver.libsidplayfp.utils.STILview
 
         public const float VERSION_NO = 3.0f;
 
-        public void CERR_STIL_DEBUG(string str) {
-            if (STIL_DEBUG) {
+        public void CERR_STIL_DEBUG(string str)
+        {
+            if (STIL_DEBUG)
+            {
                 //cerr << "Line #" << __LINE__ << " STIL::"
                 Console.Write("Line #" + str);
             }
@@ -524,7 +522,8 @@ namespace Driver.libsidplayfp.utils.STILview
          * @param
          *      str - what to convert
          */
-        private void convertToSlashes(ref string str) {
+        private void convertToSlashes(ref string str)
+        {
             //std::replace(str.begin(), str.end(), SLASH, '/');
             str = str.Replace(stildefs.SLASH, '/');
         }
@@ -582,7 +581,7 @@ namespace Driver.libsidplayfp.utils.STILview
             float tempSTILVersion = STILVersion;
 
             // Temporary placeholders for lists of sections.
-            List<Tuple<string, int>> tempStilDirs=new List<Tuple<string, int>>();
+            List<Tuple<string, int>> tempStilDirs = new List<Tuple<string, int>>();
             List<Tuple<string, int>> tempBugDirs = new List<Tuple<string, int>>();
 
             lastError = STILerror.NO_STIL_ERROR;
@@ -619,7 +618,8 @@ namespace Driver.libsidplayfp.utils.STILview
             try
             {
                 stilFile = new System.IO.FileStream(tempName, STILopenFlags);
-            }catch
+            }
+            catch
             //if (stilFile.fail())
             {
                 CERR_STIL_DEBUG("setBaseDir() open failed for " + tempName + "\r\n");
@@ -637,7 +637,7 @@ namespace Driver.libsidplayfp.utils.STILview
             convertSlashes(ref tempName);
 
             //ifstream bugFile(tempName.c_str(), STILopenFlags);
-            System.IO.FileStream bugFile=null;
+            System.IO.FileStream bugFile = null;
             try
             {
                 bugFile = new System.IO.FileStream(tempName, STILopenFlags);
@@ -685,7 +685,7 @@ namespace Driver.libsidplayfp.utils.STILview
                 return false;
             }
 
-            if (bugFile!=null)
+            if (bugFile != null)
             {
                 if (getDirs(bugFile, tempBugDirs, false) != true)
                 {
@@ -719,7 +719,7 @@ namespace Driver.libsidplayfp.utils.STILview
             return true;
         }
 
-        private bool stringCmp(string a,string b,int len)
+        private bool stringCmp(string a, string b, int len)
         {
             if (a == null && b == null && len == 0) return true;
             if (a == null || b == null) return false;
@@ -817,7 +817,7 @@ namespace Driver.libsidplayfp.utils.STILview
 
                 //ifstream stilFile(tempName.c_str(), STILopenFlags);
 
-                System.IO.FileStream stilFile=null;
+                System.IO.FileStream stilFile = null;
                 try
                 {
                     stilFile = new System.IO.FileStream(tempName, STILopenFlags);
@@ -833,7 +833,7 @@ namespace Driver.libsidplayfp.utils.STILview
 
                 CERR_STIL_DEBUG("getEntry() open succeeded for stilFile" + "\r\n");
 
-                if (positionToEntry(new Ptr<byte>(Encoding.ASCII.GetBytes(relPathToEntry),0), stilFile, stilDirs) == false)
+                if (positionToEntry(new Ptr<byte>(Encoding.ASCII.GetBytes(relPathToEntry), 0), stilFile, stilDirs) == false)
                 {
                     // Copy the entry's name to the buffer.
                     entrybuf = relPathToEntry + "\n";
@@ -924,11 +924,12 @@ namespace Driver.libsidplayfp.utils.STILview
                 convertSlashes(ref tempName);
 
                 //ifstream bugFile(tempName, STILopenFlags);
-                System.IO.FileStream bugFile=null;
+                System.IO.FileStream bugFile = null;
                 try
                 {
                     bugFile = new System.IO.FileStream(tempName, STILopenFlags);
-                } catch
+                }
+                catch
                 //if (bugFile.fail())
                 {
                     if (bugFile != null) bugFile.Close();
@@ -1036,7 +1037,8 @@ namespace Driver.libsidplayfp.utils.STILview
                 try
                 {
                     stilFile = new System.IO.FileStream(tempName, STILopenFlags);
-                } catch
+                }
+                catch
                 //if (stilFile.fail())
                 {
                     CERR_STIL_DEBUG("getGC() open failed for stilFile" + "\r\n");
@@ -1135,11 +1137,11 @@ namespace Driver.libsidplayfp.utils.STILview
 
             inFile.Seek(0, System.IO.SeekOrigin.Begin);
 
-            while (inFile!=null)
+            while (inFile != null)
             {
-                string line="";
+                string line = "";
 
-                getStilLine(inFile,ref line);
+                getStilLine(inFile, ref line);
 
                 if (!isSTILFile) { CERR_STIL_DEBUG(line + '\n'); }
 
@@ -1183,9 +1185,9 @@ namespace Driver.libsidplayfp.utils.STILview
                     {
                         // Compare it to the stored dirnames
                         newDir = false;
-                        foreach (Tuple<string,int> c in dirs)
+                        foreach (Tuple<string, int> c in dirs)
                         {
-                            if(c.Item1==dirName)
+                            if (c.Item1 == dirName)
                             {
                                 newDir = true;
                                 break;
@@ -1276,7 +1278,7 @@ namespace Driver.libsidplayfp.utils.STILview
             {
                 getStilLine(inFile, ref line);
 
-                if (inFile.Length==inFile.Position)
+                if (inFile.Length == inFile.Position)
                 {
                     break;
                 }
@@ -1328,9 +1330,9 @@ namespace Driver.libsidplayfp.utils.STILview
 
         private void readEntry(System.IO.FileStream inFile, string buffer)
         {
-            string line="";
+            string line = "";
 
-            for (;;)
+            for (; ; )
             {
                 getStilLine(inFile, ref line);
 
@@ -1363,7 +1365,7 @@ namespace Driver.libsidplayfp.utils.STILview
             }
 
             // Is this a multitune entry?
-            Ptr<byte> firstTuneNo =Ptr<byte>.strstr(start, "(#");
+            Ptr<byte> firstTuneNo = Ptr<byte>.strstr(start, "(#");
 
             // This is a tune designation only if the previous char was
             // a newline (ie. if the "(#" is on the beginning of a line).
@@ -1522,7 +1524,7 @@ namespace Driver.libsidplayfp.utils.STILview
                                 return false;
                             }
 
-                            //break;
+                        //break;
 
                         default:
                             // If a specific field other than a comment is
@@ -1726,7 +1728,7 @@ namespace Driver.libsidplayfp.utils.STILview
             return true;
         }
 
-        private void getStilLine(System.IO.FileStream infile,ref string line)
+        private void getStilLine(System.IO.FileStream infile, ref string line)
         {
             if (STIL_EOL2 != '\0')
             {

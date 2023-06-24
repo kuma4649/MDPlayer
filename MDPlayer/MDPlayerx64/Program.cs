@@ -1,5 +1,4 @@
 using MDPlayer.form;
-using System.IO;
 
 namespace MDPlayerx64
 {
@@ -11,19 +10,18 @@ namespace MDPlayerx64
         [STAThread]
         static void Main()
         {
-            string fn = checkFiles();
+            string fn = CheckFiles();
             if (fn != null)
             {
                 MessageBox.Show(string.Format("動作に必要なファイル({0})がみつかりません。", fn), "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            frmMain frm = null;
             try
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                frm = new frmMain();
+                frmMain frm = new();
                 Application.Run(frm);
             }
             catch (InvalidOperationException)
@@ -36,9 +34,9 @@ namespace MDPlayerx64
             }
         }
 
-        static string checkFiles()
+        static string CheckFiles()
         {
-            List<string> chkFn = new List<string>()
+            List<string> chkFn = new()
             {
                 "MDSound.dll"
                 , "NAudio.dll"

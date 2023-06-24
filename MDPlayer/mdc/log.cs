@@ -2,7 +2,6 @@
 using System;
 using System.IO;
 using System.Text;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace mdc
 {
@@ -34,7 +33,7 @@ namespace mdc
         private static void CheckPath()
         {
             if (path != "") return;
-            
+
             string fullPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             path = Path.Combine(fullPath, Resources.cntLogFilename);
             if (File.Exists(path)) File.Delete(path);
@@ -47,7 +46,7 @@ namespace mdc
             lock (logLock)
             {
                 string timefmt = DateTime.Now.ToString(Resources.cntTimeFormat).Trim();
-                string mmsg=string.Format(msg, prm);
+                string mmsg = string.Format(msg, prm);
                 string tmsg = string.Format("[{0}][{1}]{2}", timefmt, logLvl, mmsg);
                 logger?.Invoke(tmsg);
                 if (consoleEchoBack) Console.WriteLine(tmsg);
@@ -86,7 +85,7 @@ namespace mdc
             }
         }
 
-        public static void Write(string msg,params object[] prm)
+        public static void Write(string msg, params object[] prm)
         {
             try
             {
@@ -98,7 +97,7 @@ namespace mdc
             }
         }
 
-        public static void Write(LogLevel logLevel, string msg,params object[] prm)
+        public static void Write(LogLevel logLevel, string msg, params object[] prm)
         {
             try
             {

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MDPlayer.Driver
+﻿namespace MDPlayer.Driver
 {
     public class kmevent
     {
@@ -65,7 +59,7 @@ namespace MDPlayer.Driver
   by Mamiya
 */
 
-//# include "kmevent.h"
+        //# include "kmevent.h"
 
         private enum KMEVENT_FLAG : byte
         {
@@ -132,7 +126,7 @@ namespace MDPlayer.Driver
             prev = kme.item[next.prev];
             cur.next = (byte)baseid;
             cur.prev = next.prev;
-            prev.next =(byte) curid;
+            prev.next = (byte)curid;
             next.prev = (byte)curid;
         }
 
@@ -140,9 +134,9 @@ namespace MDPlayer.Driver
         private void kmevent_iteminsert(KMEVENT kme, UInt32 curid)
         {
             UInt32 baseid;
-            for (baseid = kme.item[0].next; baseid!=0; baseid = kme.item[baseid].next)
+            for (baseid = kme.item[0].next; baseid != 0; baseid = kme.item[baseid].next)
             {
-                if (kme.item[baseid].count!=0)
+                if (kme.item[baseid].count != 0)
                 {
                     if (kme.item[baseid].count > kme.item[curid].count) break;
                 }
@@ -166,10 +160,10 @@ namespace MDPlayer.Driver
         public UInt32 kmevent_gettimer(KMEVENT kme, UInt32 curid, ref UInt32 time)
         {
             UInt32 nextcount;
-            nextcount = kme.item[curid!=0 ? curid : kme.item[0].next].count;
-            if (nextcount==0) return 0;
+            nextcount = kme.item[curid != 0 ? curid : kme.item[0].next].count;
+            if (nextcount == 0) return 0;
             nextcount -= kme.item[0].count;
-            if (time!=0) time = nextcount;
+            if (time != 0) time = nextcount;
             return 1;
         }
 
@@ -193,30 +187,30 @@ namespace MDPlayer.Driver
                 return;
             }
             nextcount = kme.item[kme.item[0].next].count;
-            while (nextcount!=0 && kme.item[0].count >= nextcount)
+            while (nextcount != 0 && kme.item[0].count >= nextcount)
             {
                 /* イベント発生済フラグのリセット */
-                for (id = kme.item[0].next; id!=0; id = kme.item[id].next)
+                for (id = kme.item[0].next; id != 0; id = kme.item[id].next)
                 {
                     kme.item[id].sysflag &= 0xfc;// ~((byte)KMEVENT_FLAG.KMEVENT_FLAG_BREAKED + (byte)KMEVENT_FLAG.KMEVENT_FLAG_DISPATCHED);
                 }
                 /* nextcount分進行 */
                 kme.item[0].count -= nextcount;
-                for (id = kme.item[0].next; id!=0; id = kme.item[id].next)
+                for (id = kme.item[0].next; id != 0; id = kme.item[id].next)
                 {
-                    if (kme.item[id].count==0) continue;
+                    if (kme.item[id].count == 0) continue;
                     kme.item[id].count -= nextcount;
-                    if (kme.item[id].count!=0) continue;
+                    if (kme.item[id].count != 0) continue;
                     /* イベント発生フラグのセット */
                     kme.item[id].sysflag |= (byte)KMEVENT_FLAG.KMEVENT_FLAG_BREAKED;
                 }
-                for (id = kme.item[0].next; id!=0; id = kme.item[id].next)
+                for (id = kme.item[0].next; id != 0; id = kme.item[id].next)
                 {
                     /* イベント発生済フラグの確認 */
-                    if ((kme.item[id].sysflag & (byte)KMEVENT_FLAG.KMEVENT_FLAG_DISPATCHED)!=0) continue;
-                    kme.item[id].sysflag |=(byte)KMEVENT_FLAG.KMEVENT_FLAG_DISPATCHED;
+                    if ((kme.item[id].sysflag & (byte)KMEVENT_FLAG.KMEVENT_FLAG_DISPATCHED) != 0) continue;
+                    kme.item[id].sysflag |= (byte)KMEVENT_FLAG.KMEVENT_FLAG_DISPATCHED;
                     /* イベント発生フラグの確認 */
-                    if ((kme.item[id].sysflag & (byte)KMEVENT_FLAG.KMEVENT_FLAG_BREAKED)==0) continue;
+                    if ((kme.item[id].sysflag & (byte)KMEVENT_FLAG.KMEVENT_FLAG_BREAKED) == 0) continue;
                     /* 対象イベント起動 */
                     kme.item[id].proc(kme, id, kme.item[id].user);
                     /* 先頭から再走査 */

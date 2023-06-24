@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MDPlayer
+﻿namespace MDPlayer
 {
     public class MDChipParams
     {
@@ -20,7 +14,7 @@ namespace MDPlayer
         public int LCsecond = -1;
         public int LCmillisecond = -1;
 
-        public ChipLEDs chipLED = new ChipLEDs();
+        public ChipLEDs chipLED = new();
 
 
 
@@ -190,7 +184,7 @@ namespace MDPlayer
             public int pan = -1;
             public int pantp = -1;
             public int masterFreq = -1;
-            public int divider=-1;
+            public int divider = -1;
             public int pbFreq = -1;
             public int volumeL = -1;
             public int volumeR = -1;
@@ -250,7 +244,7 @@ namespace MDPlayer
             public int amd = -1;
             public int waveform = -1;
             public int lfosync = -1;
-            public Channel[] channels = new Channel[8] { new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel()};
+            public Channel[] channels = new Channel[8] { new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel() };
 
         }
         public YM2151[] ym2151 = new YM2151[] { new YM2151(), new YM2151() };
@@ -266,7 +260,7 @@ namespace MDPlayer
             public int timerB = -1;
             public int rhythmTotalLevel = -1;
             public int adpcmLevel = -1;
-            
+
             public Channel[] channels = new Channel[19] {
                 new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel() //FM 0
                 ,new Channel(), new Channel(), new Channel() //SSG 9
@@ -279,7 +273,7 @@ namespace MDPlayer
 
         public class YM2609
         {
-            public bool[] lfoSw =new bool[] { false, false };
+            public bool[] lfoSw = new bool[] { false, false };
             public int[] lfoFrq = new int[] { -1, -1 };
             public int[] nfrq = new int[] { -1, -1, -1, -1 };
             public int[] efrq = new int[] { -1, -1, -1, -1 };
@@ -291,9 +285,9 @@ namespace MDPlayer
             public bool eqLowSw = false;
             public bool eqMidSw = false;
             public bool eqHiSw = false;
-            public int[] eqLow = new int[] {  -1, -1, -1 };
-            public int[] eqMid = new int[] {  -1, -1, -1 };
-            public int[] eqHi = new int[] {  -1, -1, -1 };
+            public int[] eqLow = new int[] { -1, -1, -1 };
+            public int[] eqMid = new int[] { -1, -1, -1 };
+            public int[] eqHi = new int[] { -1, -1, -1 };
 
             public Channel[] channels = new Channel[] {
                 new Channel(), new Channel(), new Channel(), new Channel(),
@@ -378,7 +372,7 @@ namespace MDPlayer
             public int[][] noteLog = new int[6][] { new int[10], new int[10], new int[10], new int[10], new int[10], new int[10] };
             public bool[] useChannel = new bool[6] { false, false, false, false, false, false };
         }
-        public YM2612MIDI ym2612Midi = new YM2612MIDI();
+        public YM2612MIDI ym2612Midi = new();
 
         public class YM3526
         {
@@ -393,7 +387,7 @@ namespace MDPlayer
 
         public class Y8950
         {
-            public Channel[] channels = new Channel[9 + 5+1] {
+            public Channel[] channels = new Channel[9 + 5 + 1] {
                 new Channel(), new Channel(), new Channel(), new Channel(), new Channel()
                 ,new Channel(), new Channel(), new Channel(), new Channel() //FM 9
                 ,new Channel(), new Channel(), new Channel(), new Channel(), new Channel() //Ryhthm 5
@@ -417,7 +411,7 @@ namespace MDPlayer
         public class YMF262
         {
 
-            public Channel[] channels = new Channel[18 + 5 ] {
+            public Channel[] channels = new Channel[18 + 5] {
                 new Channel(), new Channel(), new Channel(), new Channel(), new Channel()
                 ,new Channel(), new Channel(), new Channel(), new Channel(), new Channel()
                 ,new Channel(), new Channel(), new Channel(), new Channel(), new Channel()
@@ -465,15 +459,15 @@ namespace MDPlayer
         public class NESDMC
         {
             public Channel[] sqrChannels = new Channel[2] { new Channel(), new Channel() };
-            public Channel triChannel = new Channel();
-            public Channel noiseChannel = new Channel();
-            public Channel dmcChannel = new Channel();
+            public Channel triChannel = new();
+            public Channel noiseChannel = new();
+            public Channel dmcChannel = new();
         }
         public NESDMC[] nesdmc = new NESDMC[] { new NESDMC(), new NESDMC() };
 
         public class FDS
         {
-            public Channel channel = new Channel();
+            public Channel channel = new();
             public int[] wave = new int[32];
             public int[] mod = new int[32];
 
@@ -503,7 +497,7 @@ namespace MDPlayer
         public class MMC5
         {
             public Channel[] sqrChannels = new Channel[2] { new Channel(), new Channel() };
-            public Channel pcmChannel = new Channel();
+            public Channel pcmChannel = new();
         }
         public MMC5[] mmc5 = new MMC5[] { new MMC5(), new MMC5() };
 
@@ -570,66 +564,66 @@ namespace MDPlayer
                 public int VisVol2Cnt = 30;
             }
 
-            public VolumeInfo Master = new VolumeInfo();
-            public VolumeInfo YM2151 = new VolumeInfo();
-            public VolumeInfo YM2203 = new VolumeInfo();
-            public VolumeInfo YM2203FM = new VolumeInfo();
-            public VolumeInfo YM2203PSG = new VolumeInfo();
-            public VolumeInfo YM2608Adpcm = new VolumeInfo();
-            public VolumeInfo YM2608FM = new VolumeInfo();
-            public VolumeInfo YM2608PSG = new VolumeInfo();
-            public VolumeInfo YM2608Rhythm = new VolumeInfo();
-            public VolumeInfo YM2608 = new VolumeInfo();
-            public VolumeInfo YM2610AdpcmA = new VolumeInfo();
-            public VolumeInfo YM2610AdpcmB = new VolumeInfo();
-            public VolumeInfo YM2610FM = new VolumeInfo();
-            public VolumeInfo YM2610PSG = new VolumeInfo();
-            public VolumeInfo YM2610 = new VolumeInfo();
-            public VolumeInfo YM2612 = new VolumeInfo();
+            public VolumeInfo Master = new();
+            public VolumeInfo YM2151 = new();
+            public VolumeInfo YM2203 = new();
+            public VolumeInfo YM2203FM = new();
+            public VolumeInfo YM2203PSG = new();
+            public VolumeInfo YM2608Adpcm = new();
+            public VolumeInfo YM2608FM = new();
+            public VolumeInfo YM2608PSG = new();
+            public VolumeInfo YM2608Rhythm = new();
+            public VolumeInfo YM2608 = new();
+            public VolumeInfo YM2610AdpcmA = new();
+            public VolumeInfo YM2610AdpcmB = new();
+            public VolumeInfo YM2610FM = new();
+            public VolumeInfo YM2610PSG = new();
+            public VolumeInfo YM2610 = new();
+            public VolumeInfo YM2612 = new();
 
-            public VolumeInfo YM2413 = new VolumeInfo();
-            public VolumeInfo YM3526 = new VolumeInfo();
-            public VolumeInfo Y8950 = new VolumeInfo();
-            public VolumeInfo YM3812 = new VolumeInfo();
-            public VolumeInfo YMF262 = new VolumeInfo();//OPL3
-            public VolumeInfo YMF278B = new VolumeInfo();//OPL4
-            public VolumeInfo YMF271 = new VolumeInfo();//OPX
-            public VolumeInfo AY8910 = new VolumeInfo();
-            public VolumeInfo SN76489 = new VolumeInfo();
-            public VolumeInfo HuC6280 = new VolumeInfo();
-            public VolumeInfo SAA1099 = new VolumeInfo();
+            public VolumeInfo YM2413 = new();
+            public VolumeInfo YM3526 = new();
+            public VolumeInfo Y8950 = new();
+            public VolumeInfo YM3812 = new();
+            public VolumeInfo YMF262 = new();//OPL3
+            public VolumeInfo YMF278B = new();//OPL4
+            public VolumeInfo YMF271 = new();//OPX
+            public VolumeInfo AY8910 = new();
+            public VolumeInfo SN76489 = new();
+            public VolumeInfo HuC6280 = new();
+            public VolumeInfo SAA1099 = new();
 
-            public VolumeInfo RF5C164 = new VolumeInfo();
-            public VolumeInfo RF5C68 = new VolumeInfo();
-            public VolumeInfo PWM = new VolumeInfo();
-            public VolumeInfo OKIM6258 = new VolumeInfo();
-            public VolumeInfo OKIM6295 = new VolumeInfo();
-            public VolumeInfo C140 = new VolumeInfo();
-            public VolumeInfo C352 = new VolumeInfo();
-            public VolumeInfo SEGAPCM = new VolumeInfo();
-            public VolumeInfo MultiPCM = new VolumeInfo();//MPCM
-            public VolumeInfo YMZ280B = new VolumeInfo();//YMZ
-            public VolumeInfo K051649 = new VolumeInfo();//K051
-            public VolumeInfo K053260 = new VolumeInfo();//K051
-            public VolumeInfo K054539 = new VolumeInfo();
-            public VolumeInfo QSound = new VolumeInfo();//QSND
-            public VolumeInfo GA20 = new VolumeInfo();
+            public VolumeInfo RF5C164 = new();
+            public VolumeInfo RF5C68 = new();
+            public VolumeInfo PWM = new();
+            public VolumeInfo OKIM6258 = new();
+            public VolumeInfo OKIM6295 = new();
+            public VolumeInfo C140 = new();
+            public VolumeInfo C352 = new();
+            public VolumeInfo SEGAPCM = new();
+            public VolumeInfo MultiPCM = new();//MPCM
+            public VolumeInfo YMZ280B = new();//YMZ
+            public VolumeInfo K051649 = new();//K051
+            public VolumeInfo K053260 = new();//K051
+            public VolumeInfo K054539 = new();
+            public VolumeInfo QSound = new();//QSND
+            public VolumeInfo GA20 = new();
 
-            public VolumeInfo APU = new VolumeInfo();
-            public VolumeInfo DMC = new VolumeInfo();
-            public VolumeInfo FDS = new VolumeInfo();
-            public VolumeInfo MMC5 = new VolumeInfo();
-            public VolumeInfo N160 = new VolumeInfo();
-            public VolumeInfo VRC6 = new VolumeInfo();
-            public VolumeInfo VRC7 = new VolumeInfo();
-            public VolumeInfo FME7 = new VolumeInfo();
-            public VolumeInfo DMG = new VolumeInfo();
+            public VolumeInfo APU = new();
+            public VolumeInfo DMC = new();
+            public VolumeInfo FDS = new();
+            public VolumeInfo MMC5 = new();
+            public VolumeInfo N160 = new();
+            public VolumeInfo VRC6 = new();
+            public VolumeInfo VRC7 = new();
+            public VolumeInfo FME7 = new();
+            public VolumeInfo DMG = new();
 
-            public VolumeInfo PPZ8 = new VolumeInfo();
-            public VolumeInfo GimicOPN = new VolumeInfo();
-            public VolumeInfo GimicOPNA = new VolumeInfo();
+            public VolumeInfo PPZ8 = new();
+            public VolumeInfo GimicOPN = new();
+            public VolumeInfo GimicOPNA = new();
         }
-        public Mixer mixer = new Mixer();
+        public Mixer mixer = new();
 
     }
 }

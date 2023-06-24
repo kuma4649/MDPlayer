@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.Linq;
+﻿using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MDPlayer
 {
@@ -104,7 +97,7 @@ namespace MDPlayer
 
         public void clearScreen()
         {
-            for (int i = 0; i < baPlaneBuffer.Length; i+=4)
+            for (int i = 0; i < baPlaneBuffer.Length; i += 4)
             {
                 baPlaneBuffer[i] = 0x00; // R
                 baPlaneBuffer[i + 1] = 0x00; // G

@@ -19,12 +19,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Driver.libsidplayfp.sidplayfp;
+using System.Text;
 
 namespace Driver.libsidplayfp.sidtune
 {
@@ -49,7 +45,8 @@ namespace Driver.libsidplayfp.sidtune
     public class loadError : Exception
     {
         private string m_msg;
-        public loadError(string msg) {
+        public loadError(string msg)
+        {
             m_msg = msg;
         }
         public string message() { return m_msg; }
@@ -411,7 +408,7 @@ namespace Driver.libsidplayfp.sidtune
             mem.writeMemWord(0xae, end);
 
             // Copy data from cache to the correct destination.
-            mem.fillRam(info.m_loadAddr,new Ptr<byte>(cache.ToArray(),(Int32)fileOffset), info.m_c64dataLen);
+            mem.fillRam(info.m_loadAddr, new Ptr<byte>(cache.ToArray(), (Int32)fileOffset), info.m_c64dataLen);
         }
 
         protected void loadFile(string fileName, ref List<byte> bufferRef)
@@ -768,7 +765,7 @@ namespace Driver.libsidplayfp.sidtune
                     throw new loadError(ERR_CORRUPT);
                 }
 
-                info.m_loadAddr = sidendian.endian_16(c64data[ptr+1], c64data[ptr+0]);
+                info.m_loadAddr = sidendian.endian_16(c64data[ptr + 1], c64data[ptr + 0]);
                 fileOffset += 2;
                 info.m_c64dataLen -= 2;
             }
