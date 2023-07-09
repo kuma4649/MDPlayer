@@ -1,4 +1,5 @@
 ﻿#if X64
+using MDPlayer.Driver.MXDRV;
 using MDPlayerx64;
 #else
 using MDPlayer.Properties;
@@ -85,15 +86,34 @@ namespace MDPlayer.form
 
         public void screenChangeParams()
         {
-            //MDSound.okim6258.okim6258_state okim6258State = Audio.GetOKIM6258Register(chipID);
-            //if (okim6258State == null) return;
+            if (Audio.DriverVirtual is not MXDRV) return;
+            MXDRV mdx=Audio.DriverVirtual as MXDRV;
+            MXDRV.Pcm8St[] pcm8St = mdx.pcm8St;
+
+            for (int ch = 0; ch < pcm8St.Length; ch++)
+            {
+                MDChipParams.Channel nyc = newParam.channels[ch];
+                if (pcm8St[ch].Keyon)
+                {
+                    nyc.volume = Math.Min(Math.Max((int)(((pcm8St[ch].mode >> 16) & 0x0f) * 20.0 / 16.0), 0), 19);
+                    nyc.volumeL = (int)((pcm8St[ch].mode >> 16) & 0x0f);
+                    nyc.freq = (int)((pcm8St[ch].mode >> 8) & 0x07);
+                    nyc.pcmMode = (int)((pcm8St[ch].mode >> 0) & 0x03);
+                    nyc.utp = pcm8St[ch].tablePtr;
+                    nyc.utl = pcm8St[ch].length;
+                    pcm8St[ch].Keyon = false;
+                }
+                else
+                {
+                    if (nyc.volume > 0) nyc.volume--;
+                }
+            }
         }
 
         public void screenDrawParams()
         {
             MDChipParams.PCM8 ost = oldParam;
             MDChipParams.PCM8 nst = newParam;
-
             int tp = 0;
 
             for (int c = 0; c < 8; c++)
@@ -102,6 +122,16 @@ namespace MDPlayer.form
                 MDChipParams.Channel nyc = newParam.channels[c];
 
                 DrawBuff.ChPCM8(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
+
+                int x = 10;
+                DrawBuff.font4Hex32Bit(frameBuffer, (x + 0) * 4, c * 8 + 8, 0, ref oyc.utp, nyc.utp);//ptr
+                DrawBuff.font4Hex32Bit(frameBuffer, (x + 10) * 4, c * 8 + 8, 0, ref oyc.utl, nyc.utl);//length
+
+                DrawBuff.font4Int2(frameBuffer, (x + 19) * 4, c * 8 + 8, 0, 2, ref oyc.pcmMode, nyc.pcmMode);//mode
+                DrawBuff.font4Int2(frameBuffer, (x + 22) * 4, c * 8 + 8, 0, 2, ref oyc.freq, nyc.freq);//rate
+                DrawBuff.font4Int2(frameBuffer, (x + 51) * 4, c * 8 + 8, 0, 2, ref oyc.volumeL, nyc.volumeL);//volume
+
+                DrawBuff.Volume(frameBuffer, (x + 54) * 4, c * 8 + 8, 0, ref oyc.volume, nyc.volume, 0);
             }
 
         }

@@ -124,7 +124,8 @@ namespace MDPlayer.form
                 MDChipParams.Channel nyc = newParam.channels[c];
 
                 DrawBuff.ChOKIM6295(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
-                DrawBuff.VolumeToOKIM6295(frameBuffer, c, ref oyc.volume, nyc.volume);
+                //DrawBuff.VolumeToOKIM6295(frameBuffer, c, ref oyc.volume, nyc.volume);
+                DrawBuff.Volume(frameBuffer, 64 * 4, c * 8 + 8, 0, ref oyc.volume, nyc.volume, 0);
                 DrawBuff.font4Hex20Bit(frameBuffer, 36, 8 + c * 8, 0, ref oyc.sadr, nyc.sadr);
                 DrawBuff.font4Hex20Bit(frameBuffer, 60, 8 + c * 8, 0, ref oyc.eadr, nyc.eadr);
 

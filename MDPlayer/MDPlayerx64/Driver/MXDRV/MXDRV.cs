@@ -26,6 +26,16 @@ namespace MDPlayer.Driver.MXDRV
 {
     public partial class MXDRV : baseDriver
     {
+
+        public class Pcm8St
+        {
+            public uint tablePtr = 0;
+            public uint mode = 0;
+            public uint length = 0;
+            public bool Keyon = false;
+        }
+        public Pcm8St[] pcm8St = new Pcm8St[8] { new(), new(), new(), new(), new(), new(), new(), new() };
+
         public override GD3 getGD3Info(byte[] buf, uint vgmGd3)
         {
             GD3 gd3 = new();
@@ -951,20 +961,31 @@ namespace MDPlayer.Driver.MXDRV
         {
             if (MeasurePlayTime) return;
 
+            int ch;
             switch (D0 & 0xfff0)
             {
                 case 0x0000:
                     //x68Sound.Pcm8_Out((int)D0 & 0xff, A1, (int)D1, (int)D2);
-                    mdxPCM?.x68sound[0].X68Sound_Pcm8_Out((int)D0 & 0xff, null, A1, (int)D1, (int)D2);
+                    mdxPCM?.x68sound[0].X68Sound_Pcm8_Out((int)D0 & 0xff, null, A1, (int)D1, (int)D2);//指定チャンネル発音開始
+                    ch = (int)((D0 & 0xff) % 8);
+                    pcm8St[ch].tablePtr = A1;
+                    pcm8St[ch].mode = D1;
+                    pcm8St[ch].length = D2;
+                    pcm8St[ch].Keyon = true;
                     break;
                 case 0x0100:
                     switch (D0 & 0xffff)
                     {
                         case 0x0100:
-                            mdxPCM?.x68sound[0].X68Sound_Pcm8_Out((int)D0 & 0xff, null, 0, 0, 0);
+                            ch = (int)((D0 & 0xff) % 8);
+                            pcm8St[ch].tablePtr = 0;
+                            pcm8St[ch].mode = 0;
+                            pcm8St[ch].length = 0;
+                            pcm8St[ch].Keyon = false;
+                            mdxPCM?.x68sound[0].X68Sound_Pcm8_Out((int)D0 & 0xff, null, 0, 0, 0);//指定チャンネル発音停止
                             break;
                         case 0x0101:
-                            mdxPCM?.x68sound[0].X68Sound_Pcm8_Abort();
+                            mdxPCM?.x68sound[0].X68Sound_Pcm8_Abort();//全チャンネル発音停止
                             break;
                     }
                     break;

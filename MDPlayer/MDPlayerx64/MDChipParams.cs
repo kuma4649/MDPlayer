@@ -55,6 +55,8 @@
             public int nfrq = -1;//HuC6280
             public bool loopFlg = false;//YMZ280B
             public int echo = -1;
+            public uint utp = 0;
+            public uint utl = 0;
 
             public int[] inst = new int[67];
             public int[] typ = new int[67];
