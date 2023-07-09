@@ -1,4 +1,64 @@
-﻿<root>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema 
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing"">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -94,11 +154,305 @@
   <metadata name="cmsOpenOtherPanel.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="tsmiPAY8910.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 22</value>
+  </data>
+  <data name="tsmiPAY8910.Text" xml:space="preserve">
+    <value>AY8910</value>
+  </data>
+  <data name="tsmiPDCSG.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 22</value>
+  </data>
+  <data name="tsmiPDCSG.Text" xml:space="preserve">
+    <value>DCSG</value>
+  </data>
+  <data name="tsmiCPPSG.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiCPPSG.Text" xml:space="preserve">
+    <value>PSG</value>
+  </data>
+  <data name="tsmiPHuC6280.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 22</value>
+  </data>
+  <data name="tsmiPHuC6280.Text" xml:space="preserve">
+    <value>HuC6280</value>
+  </data>
+  <data name="tsmiPK051649.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 22</value>
+  </data>
+  <data name="tsmiPK051649.Text" xml:space="preserve">
+    <value>K051649</value>
+  </data>
+  <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 22</value>
+  </data>
+  <data name="toolStripMenuItem2.Text" xml:space="preserve">
+    <value>123</value>
+  </data>
+  <data name="tsmiCPWF.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiCPWF.Text" xml:space="preserve">
+    <value>WF</value>
+  </data>
+  <data name="tsmiPOPLL.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 22</value>
+  </data>
+  <data name="tsmiPOPLL.Text" xml:space="preserve">
+    <value>OPLL</value>
+  </data>
+  <data name="tsmiPOPL.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 22</value>
+  </data>
+  <data name="tsmiPOPL.Text" xml:space="preserve">
+    <value>OPL</value>
+  </data>
+  <data name="tsmiPY8950.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 22</value>
+  </data>
+  <data name="tsmiPY8950.Text" xml:space="preserve">
+    <value>Y8950</value>
+  </data>
+  <data name="tsmiPOPL2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 22</value>
+  </data>
+  <data name="tsmiPOPL2.Text" xml:space="preserve">
+    <value>OPL2</value>
+  </data>
+  <data name="tsmiPOPL3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 22</value>
+  </data>
+  <data name="tsmiPOPL3.Text" xml:space="preserve">
+    <value>OPL3</value>
+  </data>
+  <data name="tsmiPOPL4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 22</value>
+  </data>
+  <data name="tsmiPOPL4.Text" xml:space="preserve">
+    <value>OPL4</value>
+  </data>
+  <data name="tsmiCPOPL.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiCPOPL.Text" xml:space="preserve">
+    <value>OPL</value>
+  </data>
+  <data name="tsmiPOPN.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 22</value>
+  </data>
+  <data name="tsmiPOPN.Text" xml:space="preserve">
+    <value>OPN</value>
+  </data>
+  <data name="tsmiPOPN2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 22</value>
+  </data>
+  <data name="tsmiPOPN2.Text" xml:space="preserve">
+    <value>OPN2</value>
+  </data>
+  <data name="tsmiPOPNA.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 22</value>
+  </data>
+  <data name="tsmiPOPNA.Text" xml:space="preserve">
+    <value>OPNA</value>
+  </data>
+  <data name="tsmiPOPNB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 22</value>
+  </data>
+  <data name="tsmiPOPNB.Text" xml:space="preserve">
+    <value>OPNB</value>
+  </data>
+  <data name="tsmiPOPNA2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 22</value>
+  </data>
+  <data name="tsmiPOPNA2.Text" xml:space="preserve">
+    <value>OPNA2</value>
+  </data>
+  <data name="tsmiCPOPN.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiCPOPN.Text" xml:space="preserve">
+    <value>OPN</value>
+  </data>
+  <data name="tsmiPOPM.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiPOPM.Text" xml:space="preserve">
+    <value>OPM</value>
+  </data>
+  <data name="tsmiPOPX.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiPOPX.Text" xml:space="preserve">
+    <value>OPX</value>
+  </data>
+  <data name="tsmiYMZ280B.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiYMZ280B.Text" xml:space="preserve">
+    <value>YMZ280B</value>
+  </data>
+  <data name="tsmiPC140.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="tsmiPC140.Text" xml:space="preserve">
+    <value>C140</value>
+  </data>
+  <data name="tsmiPC352.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="tsmiPC352.Text" xml:space="preserve">
+    <value>C352</value>
+  </data>
+  <data name="tsmiPOKIM6258.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="tsmiPOKIM6258.Text" xml:space="preserve">
+    <value>OKIM6258</value>
+  </data>
+  <data name="tsmiPOKIM6295.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="tsmiPOKIM6295.Text" xml:space="preserve">
+    <value>OKIM6295</value>
+  </data>
+  <data name="tsmiPPCM8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="tsmiPPCM8.Text" xml:space="preserve">
+    <value>PCM8</value>
+  </data>
+  <data name="tsmiPPWM.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="tsmiPPWM.Text" xml:space="preserve">
+    <value>PWM</value>
+  </data>
+  <data name="tsmiPQSound.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="tsmiPQSound.Text" xml:space="preserve">
+    <value>QSound</value>
+  </data>
+  <data name="tsmiPRF5C164.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="tsmiPRF5C164.Text" xml:space="preserve">
+    <value>RF5C164</value>
+  </data>
+  <data name="tsmiPRF5C68.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="tsmiPRF5C68.Text" xml:space="preserve">
+    <value>RF5C68</value>
+  </data>
+  <data name="tsmiPMultiPCM.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="tsmiPMultiPCM.Text" xml:space="preserve">
+    <value>MultiPCM</value>
+  </data>
+  <data name="tsmiPPPZ8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="tsmiPPPZ8.Text" xml:space="preserve">
+    <value>PPZ8</value>
+  </data>
+  <data name="tsmiPSegaPCM.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="tsmiPSegaPCM.Text" xml:space="preserve">
+    <value>SEGA PCM</value>
+  </data>
+  <data name="tsmiPK053260.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="tsmiPK053260.Text" xml:space="preserve">
+    <value>K053260</value>
+  </data>
+  <data name="tsmiCPPCM.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiCPPCM.Text" xml:space="preserve">
+    <value>PCM</value>
+  </data>
+  <data name="tsmiPMIDI.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiPMIDI.Text" xml:space="preserve">
+    <value>MIDI</value>
+  </data>
+  <data name="tsmiPNESDMC.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 22</value>
+  </data>
+  <data name="tsmiPNESDMC.Text" xml:space="preserve">
+    <value>NES&amp;&amp;DMC</value>
+  </data>
+  <data name="tsmiPFDS.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 22</value>
+  </data>
+  <data name="tsmiPFDS.Text" xml:space="preserve">
+    <value>FDS</value>
+  </data>
+  <data name="tsmiPMMC5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 22</value>
+  </data>
+  <data name="tsmiPMMC5.Text" xml:space="preserve">
+    <value>MMC5</value>
+  </data>
+  <data name="tsmiPVRC6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 22</value>
+  </data>
+  <data name="tsmiPVRC6.Text" xml:space="preserve">
+    <value>VRC6</value>
+  </data>
+  <data name="tsmiPVRC7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 22</value>
+  </data>
+  <data name="tsmiPVRC7.Text" xml:space="preserve">
+    <value>VRC7</value>
+  </data>
+  <data name="tsmiPN106.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 22</value>
+  </data>
+  <data name="tsmiPN106.Text" xml:space="preserve">
+    <value>N163(N106)</value>
+  </data>
+  <data name="tsmiPS5B.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 22</value>
+  </data>
+  <data name="tsmiPS5B.Text" xml:space="preserve">
+    <value>S5B(FME7)</value>
+  </data>
+  <data name="tsmiCPNES.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiCPNES.Text" xml:space="preserve">
+    <value>NES</value>
+  </data>
+  <data name="tsmiPDMG.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiPDMG.Text" xml:space="preserve">
+    <value>DMG</value>
+  </data>
   <data name="primaryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 22</value>
   </data>
   <data name="primaryToolStripMenuItem.Text" xml:space="preserve">
     <value>Primary</value>
+  </data>
+  <data name="tsmiSAY8910.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 22</value>
+  </data>
+  <data name="tsmiSAY8910.Text" xml:space="preserve">
+    <value>AY8910</value>
+  </data>
+  <data name="tsmiSDCSG.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 22</value>
+  </data>
+  <data name="tsmiSDCSG.Text" xml:space="preserve">
+    <value>DCSG</value>
   </data>
   <data name="tsmiCSPSG.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 22</value>
@@ -106,17 +460,95 @@
   <data name="tsmiCSPSG.Text" xml:space="preserve">
     <value>PSG</value>
   </data>
+  <data name="tsmiSHuC6280.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 22</value>
+  </data>
+  <data name="tsmiSHuC6280.Text" xml:space="preserve">
+    <value>HuC6280</value>
+  </data>
+  <data name="tsmiSK051649.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 22</value>
+  </data>
+  <data name="tsmiSK051649.Text" xml:space="preserve">
+    <value>K051649</value>
+  </data>
   <data name="tsmiCSWF.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 22</value>
   </data>
   <data name="tsmiCSWF.Text" xml:space="preserve">
     <value>WF</value>
   </data>
+  <data name="tsmiSOPLL.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 22</value>
+  </data>
+  <data name="tsmiSOPLL.Text" xml:space="preserve">
+    <value>OPLL</value>
+  </data>
+  <data name="tsmiSOPL.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 22</value>
+  </data>
+  <data name="tsmiSOPL.Text" xml:space="preserve">
+    <value>OPL</value>
+  </data>
+  <data name="tsmiSY8950.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 22</value>
+  </data>
+  <data name="tsmiSY8950.Text" xml:space="preserve">
+    <value>Y8950</value>
+  </data>
+  <data name="tsmiSOPL2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 22</value>
+  </data>
+  <data name="tsmiSOPL2.Text" xml:space="preserve">
+    <value>OPL2</value>
+  </data>
+  <data name="tsmiSOPL3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 22</value>
+  </data>
+  <data name="tsmiSOPL3.Text" xml:space="preserve">
+    <value>OPL3</value>
+  </data>
+  <data name="tsmiSOPL4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 22</value>
+  </data>
+  <data name="tsmiSOPL4.Text" xml:space="preserve">
+    <value>OPL4</value>
+  </data>
   <data name="tsmiCSOPL.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 22</value>
   </data>
   <data name="tsmiCSOPL.Text" xml:space="preserve">
     <value>OPL</value>
+  </data>
+  <data name="tsmiSOPN.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 22</value>
+  </data>
+  <data name="tsmiSOPN.Text" xml:space="preserve">
+    <value>OPN</value>
+  </data>
+  <data name="tsmiSOPN2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 22</value>
+  </data>
+  <data name="tsmiSOPN2.Text" xml:space="preserve">
+    <value>OPN2</value>
+  </data>
+  <data name="tsmiSOPNA.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 22</value>
+  </data>
+  <data name="tsmiSOPNA.Text" xml:space="preserve">
+    <value>OPNA</value>
+  </data>
+  <data name="tsmiSOPNB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 22</value>
+  </data>
+  <data name="tsmiSOPNB.Text" xml:space="preserve">
+    <value>OPNB</value>
+  </data>
+  <data name="tsmiSOPNA2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 22</value>
+  </data>
+  <data name="tsmiSOPNA2.Text" xml:space="preserve">
+    <value>OPNA2</value>
   </data>
   <data name="tsmiCSOPN.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 22</value>
@@ -165,6 +597,12 @@
   </data>
   <data name="tsmiSOKIM6295.Text" xml:space="preserve">
     <value>OKIM6295</value>
+  </data>
+  <data name="tsmiSPCM8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiSPCM8.Text" xml:space="preserve">
+    <value>PCM8</value>
   </data>
   <data name="tsmiSPWM.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 22</value>
@@ -220,393 +658,6 @@
   <data name="tsmiSMIDI.Text" xml:space="preserve">
     <value>MIDI</value>
   </data>
-  <data name="tsmiCSNES.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiCSNES.Text" xml:space="preserve">
-    <value>NES</value>
-  </data>
-  <data name="tsmiSDMG.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiSDMG.Text" xml:space="preserve">
-    <value>DMG</value>
-  </data>
-  <data name="sencondryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="sencondryToolStripMenuItem.Text" xml:space="preserve">
-    <value>Secondary</value>
-  </data>
-  <data name="cmsOpenOtherPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 70</value>
-  </data>
-  <data name="&gt;&gt;cmsOpenOtherPanel.Name" xml:space="preserve">
-    <value>cmsOpenOtherPanel</value>
-  </data>
-  <data name="&gt;&gt;cmsOpenOtherPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="tsmiCPPSG.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiCPPSG.Text" xml:space="preserve">
-    <value>PSG</value>
-  </data>
-  <data name="tsmiPAY8910.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 22</value>
-  </data>
-  <data name="tsmiPAY8910.Text" xml:space="preserve">
-    <value>AY8910</value>
-  </data>
-  <data name="tsmiPDCSG.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 22</value>
-  </data>
-  <data name="tsmiPDCSG.Text" xml:space="preserve">
-    <value>DCSG</value>
-  </data>
-  <data name="tsmiCPWF.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiCPWF.Text" xml:space="preserve">
-    <value>WF</value>
-  </data>
-  <data name="tsmiPHuC6280.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 22</value>
-  </data>
-  <data name="tsmiPHuC6280.Text" xml:space="preserve">
-    <value>HuC6280</value>
-  </data>
-  <data name="tsmiPK051649.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 22</value>
-  </data>
-  <data name="tsmiPK051649.Text" xml:space="preserve">
-    <value>K051649</value>
-  </data>
-  <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 22</value>
-  </data>
-  <data name="toolStripMenuItem2.Text" xml:space="preserve">
-    <value>123</value>
-  </data>
-  <data name="tsmiCPOPL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiCPOPL.Text" xml:space="preserve">
-    <value>OPL</value>
-  </data>
-  <data name="tsmiPOPLL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 22</value>
-  </data>
-  <data name="tsmiPOPLL.Text" xml:space="preserve">
-    <value>OPLL</value>
-  </data>
-  <data name="tsmiPOPL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 22</value>
-  </data>
-  <data name="tsmiPOPL.Text" xml:space="preserve">
-    <value>OPL</value>
-  </data>
-  <data name="tsmiPY8950.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 22</value>
-  </data>
-  <data name="tsmiPY8950.Text" xml:space="preserve">
-    <value>Y8950</value>
-  </data>
-  <data name="tsmiPOPL2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 22</value>
-  </data>
-  <data name="tsmiPOPL2.Text" xml:space="preserve">
-    <value>OPL2</value>
-  </data>
-  <data name="tsmiPOPL3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 22</value>
-  </data>
-  <data name="tsmiPOPL3.Text" xml:space="preserve">
-    <value>OPL3</value>
-  </data>
-  <data name="tsmiPOPL4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 22</value>
-  </data>
-  <data name="tsmiPOPL4.Text" xml:space="preserve">
-    <value>OPL4</value>
-  </data>
-  <data name="tsmiCPOPN.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiCPOPN.Text" xml:space="preserve">
-    <value>OPN</value>
-  </data>
-  <data name="tsmiPOPN.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 22</value>
-  </data>
-  <data name="tsmiPOPN.Text" xml:space="preserve">
-    <value>OPN</value>
-  </data>
-  <data name="tsmiPOPN2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 22</value>
-  </data>
-  <data name="tsmiPOPN2.Text" xml:space="preserve">
-    <value>OPN2</value>
-  </data>
-  <data name="tsmiPOPNA.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 22</value>
-  </data>
-  <data name="tsmiPOPNA.Text" xml:space="preserve">
-    <value>OPNA</value>
-  </data>
-  <data name="tsmiPOPNB.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 22</value>
-  </data>
-  <data name="tsmiPOPNB.Text" xml:space="preserve">
-    <value>OPNB</value>
-  </data>
-  <data name="tsmiPOPNA2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 22</value>
-  </data>
-  <data name="tsmiPOPNA2.Text" xml:space="preserve">
-    <value>OPNA2</value>
-  </data>
-  <data name="tsmiPOPM.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiPOPM.Text" xml:space="preserve">
-    <value>OPM</value>
-  </data>
-  <data name="tsmiPOPX.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiPOPX.Text" xml:space="preserve">
-    <value>OPX</value>
-  </data>
-  <data name="tsmiYMZ280B.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiYMZ280B.Text" xml:space="preserve">
-    <value>YMZ280B</value>
-  </data>
-  <data name="tsmiCPPCM.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiCPPCM.Text" xml:space="preserve">
-    <value>PCM</value>
-  </data>
-  <data name="tsmiPC140.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiPC140.Text" xml:space="preserve">
-    <value>C140</value>
-  </data>
-  <data name="tsmiPC352.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiPC352.Text" xml:space="preserve">
-    <value>C352</value>
-  </data>
-  <data name="tsmiPOKIM6258.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiPOKIM6258.Text" xml:space="preserve">
-    <value>OKIM6258</value>
-  </data>
-  <data name="tsmiPOKIM6295.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiPOKIM6295.Text" xml:space="preserve">
-    <value>OKIM6295</value>
-  </data>
-  <data name="tsmiPPWM.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiPPWM.Text" xml:space="preserve">
-    <value>PWM</value>
-  </data>
-  <data name="tsmiPQSound.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiPQSound.Text" xml:space="preserve">
-    <value>QSound</value>
-  </data>
-  <data name="tsmiPRF5C164.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiPRF5C164.Text" xml:space="preserve">
-    <value>RF5C164</value>
-  </data>
-  <data name="tsmiPRF5C68.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiPRF5C68.Text" xml:space="preserve">
-    <value>RF5C68</value>
-  </data>
-  <data name="tsmiPMultiPCM.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiPMultiPCM.Text" xml:space="preserve">
-    <value>MultiPCM</value>
-  </data>
-  <data name="tsmiPPPZ8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiPPPZ8.Text" xml:space="preserve">
-    <value>PPZ8</value>
-  </data>
-  <data name="tsmiPSegaPCM.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiPSegaPCM.Text" xml:space="preserve">
-    <value>SEGA PCM</value>
-  </data>
-  <data name="tsmiPMIDI.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiPMIDI.Text" xml:space="preserve">
-    <value>MIDI</value>
-  </data>
-  <data name="tsmiCPNES.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiCPNES.Text" xml:space="preserve">
-    <value>NES</value>
-  </data>
-  <data name="tsmiPNESDMC.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 22</value>
-  </data>
-  <data name="tsmiPNESDMC.Text" xml:space="preserve">
-    <value>NES&amp;&amp;DMC</value>
-  </data>
-  <data name="tsmiPFDS.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 22</value>
-  </data>
-  <data name="tsmiPFDS.Text" xml:space="preserve">
-    <value>FDS</value>
-  </data>
-  <data name="tsmiPMMC5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 22</value>
-  </data>
-  <data name="tsmiPMMC5.Text" xml:space="preserve">
-    <value>MMC5</value>
-  </data>
-  <data name="tsmiPVRC6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 22</value>
-  </data>
-  <data name="tsmiPVRC6.Text" xml:space="preserve">
-    <value>VRC6</value>
-  </data>
-  <data name="tsmiPVRC7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 22</value>
-  </data>
-  <data name="tsmiPVRC7.Text" xml:space="preserve">
-    <value>VRC7</value>
-  </data>
-  <data name="tsmiPN106.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 22</value>
-  </data>
-  <data name="tsmiPN106.Text" xml:space="preserve">
-    <value>N163(N106)</value>
-  </data>
-  <data name="tsmiPS5B.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 22</value>
-  </data>
-  <data name="tsmiPS5B.Text" xml:space="preserve">
-    <value>S5B(FME7)</value>
-  </data>
-  <data name="tsmiPDMG.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiPDMG.Text" xml:space="preserve">
-    <value>DMG</value>
-  </data>
-  <data name="tsmiSAY8910.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 22</value>
-  </data>
-  <data name="tsmiSAY8910.Text" xml:space="preserve">
-    <value>AY8910</value>
-  </data>
-  <data name="tsmiSDCSG.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 22</value>
-  </data>
-  <data name="tsmiSDCSG.Text" xml:space="preserve">
-    <value>DCSG</value>
-  </data>
-  <data name="tsmiSHuC6280.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 22</value>
-  </data>
-  <data name="tsmiSHuC6280.Text" xml:space="preserve">
-    <value>HuC6280</value>
-  </data>
-  <data name="tsmiSK051649.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 22</value>
-  </data>
-  <data name="tsmiSK051649.Text" xml:space="preserve">
-    <value>K051649</value>
-  </data>
-  <data name="tsmiSOPLL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 22</value>
-  </data>
-  <data name="tsmiSOPLL.Text" xml:space="preserve">
-    <value>OPLL</value>
-  </data>
-  <data name="tsmiSOPL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 22</value>
-  </data>
-  <data name="tsmiSOPL.Text" xml:space="preserve">
-    <value>OPL</value>
-  </data>
-  <data name="tsmiSY8950.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 22</value>
-  </data>
-  <data name="tsmiSY8950.Text" xml:space="preserve">
-    <value>Y8950</value>
-  </data>
-  <data name="tsmiSOPL2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 22</value>
-  </data>
-  <data name="tsmiSOPL2.Text" xml:space="preserve">
-    <value>OPL2</value>
-  </data>
-  <data name="tsmiSOPL3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 22</value>
-  </data>
-  <data name="tsmiSOPL3.Text" xml:space="preserve">
-    <value>OPL3</value>
-  </data>
-  <data name="tsmiSOPL4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 22</value>
-  </data>
-  <data name="tsmiSOPL4.Text" xml:space="preserve">
-    <value>OPL4</value>
-  </data>
-  <data name="tsmiSOPN.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 22</value>
-  </data>
-  <data name="tsmiSOPN.Text" xml:space="preserve">
-    <value>OPN</value>
-  </data>
-  <data name="tsmiSOPN2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 22</value>
-  </data>
-  <data name="tsmiSOPN2.Text" xml:space="preserve">
-    <value>OPN2</value>
-  </data>
-  <data name="tsmiSOPNA.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 22</value>
-  </data>
-  <data name="tsmiSOPNA.Text" xml:space="preserve">
-    <value>OPNA</value>
-  </data>
-  <data name="tsmiSOPNB.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 22</value>
-  </data>
-  <data name="tsmiSOPNB.Text" xml:space="preserve">
-    <value>OPNB</value>
-  </data>
-  <data name="tsmiSOPNA2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 22</value>
-  </data>
-  <data name="tsmiSOPNA2.Text" xml:space="preserve">
-    <value>OPNA2</value>
-  </data>
   <data name="tsmiSFDS.Size" type="System.Drawing.Size, System.Drawing">
     <value>136, 22</value>
   </data>
@@ -649,24 +700,36 @@
   <data name="tsmiSS5B.Text" xml:space="preserve">
     <value>S5B(FME7)</value>
   </data>
+  <data name="tsmiCSNES.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiCSNES.Text" xml:space="preserve">
+    <value>NES</value>
+  </data>
+  <data name="tsmiSDMG.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiSDMG.Text" xml:space="preserve">
+    <value>DMG</value>
+  </data>
+  <data name="sencondryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="sencondryToolStripMenuItem.Text" xml:space="preserve">
+    <value>Secondary</value>
+  </data>
+  <data name="cmsOpenOtherPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>181, 70</value>
+  </data>
+  <data name="&gt;&gt;cmsOpenOtherPanel.Name" xml:space="preserve">
+    <value>cmsOpenOtherPanel</value>
+  </data>
+  <data name="&gt;&gt;cmsOpenOtherPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <metadata name="cmsMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>206, 21</value>
   </metadata>
-  <data name="cmsMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>176, 290</value>
-  </data>
-  <data name="&gt;&gt;cmsMenu.Name" xml:space="preserve">
-    <value>cmsMenu</value>
-  </data>
-  <data name="&gt;&gt;cmsMenu.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="ファイルToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>175, 26</value>
-  </data>
-  <data name="ファイルToolStripMenuItem.Text" xml:space="preserve">
-    <value>File</value>
-  </data>
   <data name="tsmiOpenFile.Size" type="System.Drawing.Size, System.Drawing">
     <value>103, 22</value>
   </data>
@@ -679,11 +742,11 @@
   <data name="tsmiExit.Text" xml:space="preserve">
     <value>Exit</value>
   </data>
-  <data name="操作ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>175, 26</value>
+  <data name="ファイルToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 22</value>
   </data>
-  <data name="操作ToolStripMenuItem.Text" xml:space="preserve">
-    <value>Operation</value>
+  <data name="ファイルToolStripMenuItem.Text" xml:space="preserve">
+    <value>File</value>
   </data>
   <data name="tsmiPlay.Size" type="System.Drawing.Size, System.Drawing">
     <value>195, 22</value>
@@ -733,59 +796,59 @@
   <data name="tsmiPlayMode.Text" xml:space="preserve">
     <value>Change playback order</value>
   </data>
+  <data name="操作ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 22</value>
+  </data>
+  <data name="操作ToolStripMenuItem.Text" xml:space="preserve">
+    <value>Operation</value>
+  </data>
   <data name="tsmiOption.Size" type="System.Drawing.Size, System.Drawing">
-    <value>175, 26</value>
+    <value>171, 22</value>
   </data>
   <data name="tsmiOption.Text" xml:space="preserve">
     <value>Option</value>
   </data>
   <data name="tsmiPlayList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>175, 26</value>
+    <value>171, 22</value>
   </data>
   <data name="tsmiPlayList.Text" xml:space="preserve">
     <value>Playlist</value>
   </data>
   <data name="tsmiOpenInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>175, 26</value>
+    <value>171, 22</value>
   </data>
   <data name="tsmiOpenInfo.Text" xml:space="preserve">
     <value>Music Information</value>
   </data>
   <data name="tsmiOpenMixer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>175, 26</value>
+    <value>171, 22</value>
   </data>
   <data name="tsmiOpenMixer.Text" xml:space="preserve">
     <value>Mixer</value>
   </data>
-  <data name="その他ウィンドウ表示ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>175, 26</value>
-  </data>
-  <data name="その他ウィンドウ表示ToolStripMenuItem.Text" xml:space="preserve">
-    <value>Other</value>
-  </data>
   <data name="tsmiKBrd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 26</value>
+    <value>169, 22</value>
   </data>
   <data name="tsmiKBrd.Text" xml:space="preserve">
     <value>Various keyboards</value>
   </data>
   <data name="tsmiVST.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 26</value>
+    <value>169, 22</value>
   </data>
   <data name="tsmiVST.Text" xml:space="preserve">
     <value>VST</value>
   </data>
   <data name="tsmiMIDIkbd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 26</value>
+    <value>169, 22</value>
   </data>
   <data name="tsmiMIDIkbd.Text" xml:space="preserve">
     <value>MIDI keyboard</value>
   </data>
-  <data name="tsmiChangeZoom.Size" type="System.Drawing.Size, System.Drawing">
-    <value>175, 26</value>
+  <data name="その他ウィンドウ表示ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 22</value>
   </data>
-  <data name="tsmiChangeZoom.Text" xml:space="preserve">
-    <value>Resize window</value>
+  <data name="その他ウィンドウ表示ToolStripMenuItem.Text" xml:space="preserve">
+    <value>Other</value>
   </data>
   <data name="tsmiChangeZoomX1.Size" type="System.Drawing.Size, System.Drawing">
     <value>86, 22</value>
@@ -811,11 +874,11 @@
   <data name="tsmiChangeZoomX4.Text" xml:space="preserve">
     <value>x4</value>
   </data>
-  <data name="レジスタダンプ表示ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>175, 26</value>
+  <data name="tsmiChangeZoom.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 22</value>
   </data>
-  <data name="レジスタダンプ表示ToolStripMenuItem.Text" xml:space="preserve">
-    <value>Register dump</value>
+  <data name="tsmiChangeZoom.Text" xml:space="preserve">
+    <value>Resize window</value>
   </data>
   <data name="yM2612ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>124, 22</value>
@@ -919,21 +982,33 @@
   <data name="sIDToolStripMenuItem.Text" xml:space="preserve">
     <value>SID</value>
   </data>
+  <data name="レジスタダンプ表示ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 22</value>
+  </data>
+  <data name="レジスタダンプ表示ToolStripMenuItem.Text" xml:space="preserve">
+    <value>Register dump</value>
+  </data>
   <data name="tsmiVisualizer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>175, 26</value>
+    <value>171, 22</value>
   </data>
   <data name="tsmiVisualizer.Text" xml:space="preserve">
     <value>Visualizer</value>
   </data>
   <data name="tsmiOutputwavFile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>175, 26</value>
+    <value>171, 22</value>
   </data>
   <data name="tsmiOutputwavFile.Text" xml:space="preserve">
     <value>Output .wav File.</value>
   </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>475, 17</value>
-  </metadata>
+  <data name="cmsMenu.Size" type="System.Drawing.Size, System.Drawing">
+    <value>172, 246</value>
+  </data>
+  <data name="&gt;&gt;cmsMenu.Name" xml:space="preserve">
+    <value>cmsMenu</value>
+  </data>
+  <data name="&gt;&gt;cmsMenu.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="opeButtonSetting.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
   </data>
@@ -955,6 +1030,9 @@
   <data name="opeButtonSetting.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>475, 17</value>
+  </metadata>
   <data name="opeButtonSetting.ToolTip" xml:space="preserve">
     <value>Open Setting</value>
   </data>
@@ -970,9 +1048,6 @@
   <data name="&gt;&gt;opeButtonSetting.ZOrder" xml:space="preserve">
     <value>19</value>
   </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>475, 17</value>
-  </metadata>
   <data name="opeButtonStop.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
   </data>
@@ -1588,12 +1663,6 @@
   <metadata name="keyboardHook1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>336, 17</value>
   </metadata>
-  <data name="tsmiPK053260.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiPK053260.Text" xml:space="preserve">
-    <value>K053260</value>
-  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -2164,6 +2233,12 @@
   <data name="&gt;&gt;tsmiPSegaPCM.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;tsmiPK053260.Name" xml:space="preserve">
+    <value>tsmiPK053260</value>
+  </data>
+  <data name="&gt;&gt;tsmiPK053260.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;tsmiPMIDI.Name" xml:space="preserve">
     <value>tsmiPMIDI</value>
   </data>
@@ -2426,6 +2501,12 @@
     <value>tsmiSPPZ8</value>
   </data>
   <data name="&gt;&gt;tsmiSPPZ8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiSK053260.Name" xml:space="preserve">
+    <value>tsmiSK053260</value>
+  </data>
+  <data name="&gt;&gt;tsmiSK053260.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tsmiSMIDI.Name" xml:space="preserve">
@@ -2770,16 +2851,16 @@
   <data name="&gt;&gt;keyboardHook1.Type" xml:space="preserve">
     <value>HongliangSoft.Utilities.Gui.KeyboardHook, MDPlayerx64, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;tsmiPK053260.Name" xml:space="preserve">
-    <value>tsmiPK053260</value>
+  <data name="&gt;&gt;tsmiPPCM8.Name" xml:space="preserve">
+    <value>tsmiPPCM8</value>
   </data>
-  <data name="&gt;&gt;tsmiPK053260.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiPPCM8.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tsmiSK053260.Name" xml:space="preserve">
-    <value>tsmiSK053260</value>
+  <data name="&gt;&gt;tsmiSPCM8.Name" xml:space="preserve">
+    <value>tsmiSPCM8</value>
   </data>
-  <data name="&gt;&gt;tsmiSK053260.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiSPCM8.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">

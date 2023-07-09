@@ -2,10 +2,10 @@
 using MDPlayerx64.Properties;
 #else
 using MDPlayer.Properties;
-#endif
+# endif
 namespace MDPlayer.form
 {
-    partial class frmOKIM6258
+    partial class frmPCM8
     {
         /// <summary>
         /// Required designer variable.
@@ -33,7 +33,7 @@ namespace MDPlayer.form
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmOKIM6258));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPCM8));
             pbScreen = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pbScreen).BeginInit();
             SuspendLayout();
@@ -41,28 +41,26 @@ namespace MDPlayer.form
             // pbScreen
             // 
             pbScreen.Location = new Point(0, 0);
-            pbScreen.Margin = new Padding(4, 4, 4, 4);
             pbScreen.Name = "pbScreen";
-            pbScreen.Size = new Size(373, 20);
+            pbScreen.Size = new Size(100, 50);
             pbScreen.TabIndex = 0;
             pbScreen.TabStop = false;
             pbScreen.MouseClick += pbScreen_MouseClick;
             // 
-            // frmOKIM6258
+            // frmPCM8
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlDarkDark;
-            ClientSize = new Size(373, 20);
+            ClientSize = new Size(179, 70);
             Controls.Add(pbScreen);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(5, 5, 5, 5);
             MaximizeBox = false;
-            Name = "frmOKIM6258";
-            Text = "OKIM6258";
-            FormClosed += frmOKIM6258_FormClosed;
-            Load += frmOKIM6258_Load;
+            Name = "frmPCM8";
+            Text = "PCM8";
+            FormClosed += frmPCM8_FormClosed;
+            Load += frmPCM8_Load;
             ((System.ComponentModel.ISupportInitialize)pbScreen).EndInit();
             ResumeLayout(false);
         }

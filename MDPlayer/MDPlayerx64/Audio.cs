@@ -3559,13 +3559,27 @@ namespace MDPlayer
                 MDSound.ym2151_x68sound mdxPCM_V = new();
                 mdxPCM_V.x68sound[0] = new MDSound.NX68Sound.X68Sound();
                 mdxPCM_V.sound_Iocs[0] = new MDSound.NX68Sound.sound_iocs(mdxPCM_V.x68sound[0]);
+                chip = new MDSound.MDSound.Chip
+                {
+                    type = MDSound.MDSound.enmInstrumentType.YM2151x68soundPCM,
+                    ID = (byte)0,
+                    Instrument = mdxPCM_V,
+                    Update = null,
+                    Start = null,
+                    Stop = null,
+                    Reset = null,
+                    Volume = setting.balance.YM2151Volume,
+                    Clock = 4000000
+                };
+                lstChips.Add(chip);
+
                 MDSound.ym2151_x68sound mdxPCM_R = new();
                 mdxPCM_R.x68sound[0] = new MDSound.NX68Sound.X68Sound();
                 mdxPCM_R.sound_Iocs[0] = new MDSound.NX68Sound.sound_iocs(mdxPCM_R.x68sound[0]);
-                UseChip.Add(EnmChip.OKIM6258);
+                UseChip.Add(EnmChip.PCM8);
 
                 ChipLED.PriOPM = 1;
-                ChipLED.PriOKI5 = 1;
+                ChipLED.PriPCM8 = 1;
 
 
                 if (hiyorimiDeviceFlag == 0x3 && hiyorimiNecessary) hiyorimiNecessary = true;
@@ -3608,7 +3622,7 @@ namespace MDPlayer
                     retR = ((MDPlayer.Driver.MXDRV.MXDRV)DriverReal).Init(vgmBuf, chipRegister, EnmModel.RealModel, new EnmChip[] { EnmChip.Unuse }
                         , (uint)(setting.outputDevice.SampleRate * setting.LatencySCCI / 1000)
                         , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000)
-                        , mdxPCM_R);
+                        , null);
                 }
 
                 if (!retV || !retR)
@@ -9253,6 +9267,11 @@ namespace MDPlayer
             chipRegister.setMaskPPZ8(chipID, ch, true);
         }
 
+        public static void SetPCM8Mask(int chipID, int ch)
+        {
+            chipRegister.setMaskX68Sound(chipID, ch, true);
+        }
+
         public static void SetC352Mask(int chipID, int ch)
         {
             chipRegister.setMaskC352(chipID, ch, true);
@@ -9491,6 +9510,15 @@ namespace MDPlayer
             try
             {
                 chipRegister.setMaskPPZ8(chipID, ch, false);
+            }
+            catch { }
+        }
+
+        public static void ResetPCM8Mask(int chipID, int ch)
+        {
+            try
+            {
+                chipRegister.setMaskX68Sound(chipID, ch, false);
             }
             catch { }
         }

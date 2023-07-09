@@ -204,6 +204,15 @@
         }
         public OKIM6295[] okim6295 = new OKIM6295[] { new OKIM6295(), new OKIM6295() };
 
+        public class PCM8
+        {
+            public Channel[] channels = new Channel[8] {
+                new Channel(), new Channel(), new Channel(), new Channel(),
+                new Channel(), new Channel(), new Channel(), new Channel()
+            };
+        }
+        public PCM8[] pcm8 = new PCM8[] { new PCM8(), new PCM8() };
+
         public class SegaPcm
         {
             public Channel[] channels = new Channel[16] { new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel() };

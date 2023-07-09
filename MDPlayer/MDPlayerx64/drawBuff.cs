@@ -243,6 +243,10 @@ namespace MDPlayer
         {
         }
 
+        public static void screenInitPCM8(FrameBuffer screen)
+        {
+        }
+
         public static void screenInitSN76489(FrameBuffer screen, int tp)
         {
 
@@ -1919,6 +1923,18 @@ namespace MDPlayer
             }
 
             ChOKIM6295_P(screen, 0, 8 + ch * 8, ch, nm == null ? false : (bool)nm, tp);
+            om = nm;
+        }
+
+        public static void ChPCM8(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            ChPCM8_P(screen, 0, 8 + ch * 8, ch, nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 
@@ -4157,6 +4173,14 @@ namespace MDPlayer
         }
 
         private static void ChOKIM6295_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
+        {
+            if (screen == null) return;
+
+            screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 64, 0, 24, 8);
+            drawFont8(screen, x + 24, y, mask ? 1 : 0, (1 + ch).ToString());
+        }
+
+        private static void ChPCM8_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
         {
             if (screen == null) return;
 

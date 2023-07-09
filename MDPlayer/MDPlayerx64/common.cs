@@ -685,6 +685,7 @@ namespace MDPlayer
         , WSwan
         , YM2609
         , ES5503
+        , PCM8
 
         , S_SN76489
         , S_YM2612
@@ -737,6 +738,7 @@ namespace MDPlayer
         , S_WSwan
         , S_YM2609
         , S_ES5503
+        , S_PCM8
 
     }
 

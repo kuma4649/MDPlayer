@@ -329,6 +329,10 @@ namespace MDPlayer
             new bool[] { false, false, false, false},
             new bool[] { false, false, false, false}
         };
+        private bool[][] maskX68Sound = new bool[][] {
+            new bool[16] { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false }
+            ,new bool[16] { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false }
+        };
 
         public byte[][] pcmRegisterC140 = new byte[2][] { null, null };
         public bool[][] pcmKeyOnC140 = new bool[2][] { null, null };
@@ -4663,6 +4667,13 @@ namespace MDPlayer
             maskOKIM6295[chipID][ch] = mask;
             if (mask) mds.setOKIM6295Mask(0, chipID, 1 << ch);
             else mds.resetOKIM6295Mask(0, chipID, 1 << ch);
+        }
+
+        public void setMaskX68Sound(int chipID,int ch, bool mask)
+        {
+            maskX68Sound[chipID][ch] = mask;
+            if (mask) mds.setX68SoundPCMMask(0, chipID, ch+8);
+            else mds.resetX68SoundPCMMask(0, chipID, ch+8);
         }
 
         internal okim6295.okim6295Info GetOKIM6295Info(int chipID)

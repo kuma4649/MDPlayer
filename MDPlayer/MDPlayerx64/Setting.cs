@@ -3388,6 +3388,35 @@ namespace MDPlayer
                 }
             }
 
+            private Point[] _PosPCM8 = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosPCM8
+            {
+                get
+                {
+                    return _PosPCM8;
+                }
+
+                set
+                {
+                    _PosPCM8 = value;
+                }
+            }
+
+            private bool[] _OpenPCM8 = new bool[2] { false, false };
+            public bool[] OpenPCM8
+            {
+                get
+                {
+                    return _OpenPCM8;
+                }
+
+                set
+                {
+                    _OpenPCM8 = value;
+                }
+            }
+
+
             private Point[] _PosSN76489 = new Point[2] { Point.Empty, Point.Empty };
             public Point[] PosSN76489
             {
@@ -4096,6 +4125,8 @@ namespace MDPlayer
                     OpenOKIM6258 = this.OpenOKIM6258,
                     PosOKIM6295 = this.PosOKIM6295,
                     OpenOKIM6295 = this.OpenOKIM6295,
+                    PosPCM8 = this.PosPCM8,
+                    OpenPCM8 = this.OpenPCM8,
                     PosSN76489 = this.PosSN76489,
                     OpenSN76489 = this.OpenSN76489,
                     PosSegaPCM = this.PosSegaPCM,

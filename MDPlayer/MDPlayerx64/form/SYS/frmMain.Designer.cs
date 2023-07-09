@@ -74,6 +74,7 @@ namespace MDPlayer.form
             tsmiPMultiPCM = new ToolStripMenuItem();
             tsmiPPPZ8 = new ToolStripMenuItem();
             tsmiPSegaPCM = new ToolStripMenuItem();
+            tsmiPK053260 = new ToolStripMenuItem();
             tsmiPMIDI = new ToolStripMenuItem();
             tsmiCPNES = new ToolStripMenuItem();
             tsmiPNESDMC = new ToolStripMenuItem();
@@ -118,6 +119,7 @@ namespace MDPlayer.form
             tsmiSSegaPCM = new ToolStripMenuItem();
             tsmiSMultiPCM = new ToolStripMenuItem();
             tsmiSPPZ8 = new ToolStripMenuItem();
+            tsmiSK053260 = new ToolStripMenuItem();
             tsmiSMIDI = new ToolStripMenuItem();
             tsmiCSNES = new ToolStripMenuItem();
             tsmiSFDS = new ToolStripMenuItem();
@@ -194,8 +196,8 @@ namespace MDPlayer.form
             opeButtonOpen = new Button();
             opeButtonMode = new Button();
             keyboardHook1 = new HongliangSoft.Utilities.Gui.KeyboardHook();
-            tsmiPK053260 = new ToolStripMenuItem();
-            tsmiSK053260 = new ToolStripMenuItem();
+            tsmiPPCM8 = new ToolStripMenuItem();
+            tsmiSPCM8 = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)pbScreen).BeginInit();
             cmsOpenOtherPanel.SuspendLayout();
             cmsMenu.SuspendLayout();
@@ -205,7 +207,6 @@ namespace MDPlayer.form
             // 
             pbScreen.BackColor = Color.Black;
             resources.ApplyResources(pbScreen, "pbScreen");
-            pbScreen.Image = ResMng.ImgDic["planeControl"];
             pbScreen.Name = "pbScreen";
             pbScreen.TabStop = false;
             pbScreen.DragDrop += pbScreen_DragDrop;
@@ -366,7 +367,7 @@ namespace MDPlayer.form
             // 
             // tsmiCPPCM
             // 
-            tsmiCPPCM.DropDownItems.AddRange(new ToolStripItem[] { tsmiPC140, tsmiPC352, tsmiPOKIM6258, tsmiPOKIM6295, tsmiPPWM, tsmiPQSound, tsmiPRF5C164, tsmiPRF5C68, tsmiPMultiPCM, tsmiPPPZ8, tsmiPSegaPCM, tsmiPK053260 });
+            tsmiCPPCM.DropDownItems.AddRange(new ToolStripItem[] { tsmiPC140, tsmiPC352, tsmiPOKIM6258, tsmiPOKIM6295, tsmiPPCM8, tsmiPPWM, tsmiPQSound, tsmiPRF5C164, tsmiPRF5C68, tsmiPMultiPCM, tsmiPPPZ8, tsmiPSegaPCM, tsmiPK053260 });
             tsmiCPPCM.Name = "tsmiCPPCM";
             resources.ApplyResources(tsmiCPPCM, "tsmiCPPCM");
             // 
@@ -435,6 +436,12 @@ namespace MDPlayer.form
             tsmiPSegaPCM.Name = "tsmiPSegaPCM";
             resources.ApplyResources(tsmiPSegaPCM, "tsmiPSegaPCM");
             tsmiPSegaPCM.Click += TsmiPSegaPCM_Click;
+            // 
+            // tsmiPK053260
+            // 
+            tsmiPK053260.Name = "tsmiPK053260";
+            resources.ApplyResources(tsmiPK053260, "tsmiPK053260");
+            tsmiPK053260.Click += TsmiPK053260_Click;
             // 
             // tsmiPMIDI
             // 
@@ -636,7 +643,7 @@ namespace MDPlayer.form
             // 
             // tsmiCSPCM
             // 
-            tsmiCSPCM.DropDownItems.AddRange(new ToolStripItem[] { tsmiSC140, tsmiSC352, tsmiSOKIM6258, tsmiSOKIM6295, tsmiSPWM, tsmiSRF5C164, tsmiSRF5C68, tsmiSSegaPCM, tsmiSMultiPCM, tsmiSPPZ8, tsmiSK053260 });
+            tsmiCSPCM.DropDownItems.AddRange(new ToolStripItem[] { tsmiSC140, tsmiSC352, tsmiSOKIM6258, tsmiSOKIM6295, tsmiSPCM8, tsmiSPWM, tsmiSRF5C164, tsmiSRF5C68, tsmiSSegaPCM, tsmiSMultiPCM, tsmiSPPZ8, tsmiSK053260 });
             tsmiCSPCM.Name = "tsmiCSPCM";
             resources.ApplyResources(tsmiCSPCM, "tsmiCSPCM");
             // 
@@ -699,6 +706,12 @@ namespace MDPlayer.form
             tsmiSPPZ8.Name = "tsmiSPPZ8";
             resources.ApplyResources(tsmiSPPZ8, "tsmiSPPZ8");
             tsmiSPPZ8.Click += TsmiSPPZ8_Click;
+            // 
+            // tsmiSK053260
+            // 
+            tsmiSK053260.Name = "tsmiSK053260";
+            resources.ApplyResources(tsmiSK053260, "tsmiSK053260");
+            tsmiSK053260.Click += TsmiSK053260_Click;
             // 
             // tsmiSMIDI
             // 
@@ -770,7 +783,6 @@ namespace MDPlayer.form
             // ファイルToolStripMenuItem
             // 
             ファイルToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { tsmiOpenFile, tsmiExit });
-            ファイルToolStripMenuItem.Image = ResMng.ImgDic["ccOpenFolder"];
             ファイルToolStripMenuItem.Name = "ファイルToolStripMenuItem";
             resources.ApplyResources(ファイルToolStripMenuItem, "ファイルToolStripMenuItem");
             // 
@@ -794,84 +806,72 @@ namespace MDPlayer.form
             // 
             // tsmiPlay
             // 
-            tsmiPlay.Image = ResMng.ImgDic["ccPlay"];
             tsmiPlay.Name = "tsmiPlay";
             resources.ApplyResources(tsmiPlay, "tsmiPlay");
             tsmiPlay.Click += TsmiPlay_Click;
             // 
             // tsmiStop
             // 
-            tsmiStop.Image = ResMng.ImgDic["ccStop"];
             tsmiStop.Name = "tsmiStop";
             resources.ApplyResources(tsmiStop, "tsmiStop");
             tsmiStop.Click += TsmiStop_Click;
             // 
             // tsmiPause
             // 
-            tsmiPause.Image = ResMng.ImgDic["ccPause"];
             tsmiPause.Name = "tsmiPause";
             resources.ApplyResources(tsmiPause, "tsmiPause");
             tsmiPause.Click += TsmiPause_Click;
             // 
             // tsmiFadeOut
             // 
-            tsmiFadeOut.Image = ResMng.ImgDic["ccFadeout"];
             tsmiFadeOut.Name = "tsmiFadeOut";
             resources.ApplyResources(tsmiFadeOut, "tsmiFadeOut");
             tsmiFadeOut.Click += TsmiFadeOut_Click;
             // 
             // tsmiSlow
             // 
-            tsmiSlow.Image = ResMng.ImgDic["ccSlow"];
             tsmiSlow.Name = "tsmiSlow";
             resources.ApplyResources(tsmiSlow, "tsmiSlow");
             tsmiSlow.Click += TsmiSlow_Click;
             // 
             // tsmiFf
             // 
-            tsmiFf.Image = ResMng.ImgDic["ccFast"];
             tsmiFf.Name = "tsmiFf";
             resources.ApplyResources(tsmiFf, "tsmiFf");
             tsmiFf.Click += TsmiFf_Click;
             // 
             // tsmiNext
             // 
-            tsmiNext.Image = ResMng.ImgDic["ccNext"];
             tsmiNext.Name = "tsmiNext";
             resources.ApplyResources(tsmiNext, "tsmiNext");
             tsmiNext.Click += TsmiNext_Click;
             // 
             // tsmiPlayMode
             // 
-            tsmiPlayMode.Image = ResMng.ImgDic["ccStep"];
             tsmiPlayMode.Name = "tsmiPlayMode";
             resources.ApplyResources(tsmiPlayMode, "tsmiPlayMode");
             tsmiPlayMode.Click += TsmiPlayMode_Click;
             // 
             // tsmiOption
             // 
-            tsmiOption.Image = ResMng.ImgDic["ccSetting"];
             tsmiOption.Name = "tsmiOption";
             resources.ApplyResources(tsmiOption, "tsmiOption");
             tsmiOption.Click += TsmiOption_Click;
             // 
             // tsmiPlayList
             // 
-            tsmiPlayList.Image = ResMng.ImgDic["ccPlayList"];
             tsmiPlayList.Name = "tsmiPlayList";
             resources.ApplyResources(tsmiPlayList, "tsmiPlayList");
             tsmiPlayList.Click += TsmiPlayList_Click;
             // 
             // tsmiOpenInfo
             // 
-            tsmiOpenInfo.Image = ResMng.ImgDic["ccInformation"];
             tsmiOpenInfo.Name = "tsmiOpenInfo";
             resources.ApplyResources(tsmiOpenInfo, "tsmiOpenInfo");
             tsmiOpenInfo.Click += TsmiOpenInfo_Click;
             // 
             // tsmiOpenMixer
             // 
-            tsmiOpenMixer.Image = ResMng.ImgDic["ccMixer"];
             tsmiOpenMixer.Name = "tsmiOpenMixer";
             resources.ApplyResources(tsmiOpenMixer, "tsmiOpenMixer");
             tsmiOpenMixer.Click += TsmiOpenMixer_Click;
@@ -884,21 +884,18 @@ namespace MDPlayer.form
             // 
             // tsmiKBrd
             // 
-            tsmiKBrd.Image = ResMng.ImgDic["ccKBD"];
             tsmiKBrd.Name = "tsmiKBrd";
             resources.ApplyResources(tsmiKBrd, "tsmiKBrd");
             tsmiKBrd.Click += TsmiKBrd_Click;
             // 
             // tsmiVST
             // 
-            tsmiVST.Image = ResMng.ImgDic["ccVST"];
             tsmiVST.Name = "tsmiVST";
             resources.ApplyResources(tsmiVST, "tsmiVST");
             tsmiVST.Click += TsmiVST_Click;
             // 
             // tsmiMIDIkbd
             // 
-            tsmiMIDIkbd.Image = ResMng.ImgDic["ccMIDIKBD"];
             tsmiMIDIkbd.Name = "tsmiMIDIkbd";
             resources.ApplyResources(tsmiMIDIkbd, "tsmiMIDIkbd");
             tsmiMIDIkbd.Click += TsmiMIDIkbd_Click;
@@ -906,7 +903,6 @@ namespace MDPlayer.form
             // tsmiChangeZoom
             // 
             tsmiChangeZoom.DropDownItems.AddRange(new ToolStripItem[] { tsmiChangeZoomX1, tsmiChangeZoomX2, tsmiChangeZoomX3, tsmiChangeZoomX4 });
-            tsmiChangeZoom.Image = ResMng.ImgDic["ccZoom"];
             tsmiChangeZoom.Name = "tsmiChangeZoom";
             resources.ApplyResources(tsmiChangeZoom, "tsmiChangeZoom");
             tsmiChangeZoom.Click += TsmiChangeZoom_Click;
@@ -1060,7 +1056,6 @@ namespace MDPlayer.form
             // 
             opeButtonSetting.AllowDrop = true;
             opeButtonSetting.BackColor = Color.Black;
-            opeButtonSetting.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonSetting, "opeButtonSetting");
             opeButtonSetting.FlatAppearance.BorderColor = Color.Black;
             opeButtonSetting.FlatAppearance.BorderSize = 0;
@@ -1080,7 +1075,6 @@ namespace MDPlayer.form
             // 
             opeButtonStop.AllowDrop = true;
             opeButtonStop.BackColor = Color.Black;
-            opeButtonStop.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonStop, "opeButtonStop");
             opeButtonStop.FlatAppearance.BorderColor = Color.Black;
             opeButtonStop.FlatAppearance.BorderSize = 0;
@@ -1100,7 +1094,6 @@ namespace MDPlayer.form
             // 
             opeButtonPause.AllowDrop = true;
             opeButtonPause.BackColor = Color.Black;
-            opeButtonPause.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonPause, "opeButtonPause");
             opeButtonPause.FlatAppearance.BorderColor = Color.Black;
             opeButtonPause.FlatAppearance.BorderSize = 0;
@@ -1120,7 +1113,6 @@ namespace MDPlayer.form
             // 
             opeButtonFadeout.AllowDrop = true;
             opeButtonFadeout.BackColor = Color.Black;
-            opeButtonFadeout.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonFadeout, "opeButtonFadeout");
             opeButtonFadeout.FlatAppearance.BorderColor = Color.Black;
             opeButtonFadeout.FlatAppearance.BorderSize = 0;
@@ -1140,7 +1132,6 @@ namespace MDPlayer.form
             // 
             opeButtonPrevious.AllowDrop = true;
             opeButtonPrevious.BackColor = Color.Black;
-            opeButtonPrevious.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonPrevious, "opeButtonPrevious");
             opeButtonPrevious.FlatAppearance.BorderColor = Color.Black;
             opeButtonPrevious.FlatAppearance.BorderSize = 0;
@@ -1160,7 +1151,6 @@ namespace MDPlayer.form
             // 
             opeButtonSlow.AllowDrop = true;
             opeButtonSlow.BackColor = Color.Black;
-            opeButtonSlow.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonSlow, "opeButtonSlow");
             opeButtonSlow.FlatAppearance.BorderColor = Color.Black;
             opeButtonSlow.FlatAppearance.BorderSize = 0;
@@ -1180,7 +1170,6 @@ namespace MDPlayer.form
             // 
             opeButtonPlay.AllowDrop = true;
             opeButtonPlay.BackColor = Color.Black;
-            opeButtonPlay.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonPlay, "opeButtonPlay");
             opeButtonPlay.FlatAppearance.BorderColor = Color.Black;
             opeButtonPlay.FlatAppearance.BorderSize = 0;
@@ -1200,7 +1189,6 @@ namespace MDPlayer.form
             // 
             opeButtonFast.AllowDrop = true;
             opeButtonFast.BackColor = Color.Black;
-            opeButtonFast.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonFast, "opeButtonFast");
             opeButtonFast.FlatAppearance.BorderColor = Color.Black;
             opeButtonFast.FlatAppearance.BorderSize = 0;
@@ -1220,7 +1208,6 @@ namespace MDPlayer.form
             // 
             opeButtonNext.AllowDrop = true;
             opeButtonNext.BackColor = Color.Black;
-            opeButtonNext.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonNext, "opeButtonNext");
             opeButtonNext.FlatAppearance.BorderColor = Color.Black;
             opeButtonNext.FlatAppearance.BorderSize = 0;
@@ -1240,7 +1227,6 @@ namespace MDPlayer.form
             // 
             opeButtonZoom.AllowDrop = true;
             opeButtonZoom.BackColor = Color.Black;
-            opeButtonZoom.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonZoom, "opeButtonZoom");
             opeButtonZoom.FlatAppearance.BorderColor = Color.Black;
             opeButtonZoom.FlatAppearance.BorderSize = 0;
@@ -1260,7 +1246,6 @@ namespace MDPlayer.form
             // 
             opeButtonMIDIKBD.AllowDrop = true;
             opeButtonMIDIKBD.BackColor = Color.Black;
-            opeButtonMIDIKBD.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonMIDIKBD, "opeButtonMIDIKBD");
             opeButtonMIDIKBD.FlatAppearance.BorderColor = Color.Black;
             opeButtonMIDIKBD.FlatAppearance.BorderSize = 0;
@@ -1280,7 +1265,6 @@ namespace MDPlayer.form
             // 
             opeButtonVST.AllowDrop = true;
             opeButtonVST.BackColor = Color.Black;
-            opeButtonVST.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonVST, "opeButtonVST");
             opeButtonVST.FlatAppearance.BorderColor = Color.Black;
             opeButtonVST.FlatAppearance.BorderSize = 0;
@@ -1300,7 +1284,6 @@ namespace MDPlayer.form
             // 
             opeButtonKBD.AllowDrop = true;
             opeButtonKBD.BackColor = Color.Black;
-            opeButtonKBD.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonKBD, "opeButtonKBD");
             opeButtonKBD.FlatAppearance.BorderColor = Color.Black;
             opeButtonKBD.FlatAppearance.BorderSize = 0;
@@ -1320,7 +1303,6 @@ namespace MDPlayer.form
             // 
             opeButtonMixer.AllowDrop = true;
             opeButtonMixer.BackColor = Color.Black;
-            opeButtonMixer.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonMixer, "opeButtonMixer");
             opeButtonMixer.FlatAppearance.BorderColor = Color.Black;
             opeButtonMixer.FlatAppearance.BorderSize = 0;
@@ -1340,7 +1322,6 @@ namespace MDPlayer.form
             // 
             opeButtonInformation.AllowDrop = true;
             opeButtonInformation.BackColor = Color.Black;
-            opeButtonInformation.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonInformation, "opeButtonInformation");
             opeButtonInformation.FlatAppearance.BorderColor = Color.Black;
             opeButtonInformation.FlatAppearance.BorderSize = 0;
@@ -1360,7 +1341,6 @@ namespace MDPlayer.form
             // 
             opeButtonPlayList.AllowDrop = true;
             opeButtonPlayList.BackColor = Color.Black;
-            opeButtonPlayList.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonPlayList, "opeButtonPlayList");
             opeButtonPlayList.FlatAppearance.BorderColor = Color.Black;
             opeButtonPlayList.FlatAppearance.BorderSize = 0;
@@ -1380,7 +1360,6 @@ namespace MDPlayer.form
             // 
             opeButtonOpen.AllowDrop = true;
             opeButtonOpen.BackColor = Color.Black;
-            opeButtonOpen.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonOpen, "opeButtonOpen");
             opeButtonOpen.FlatAppearance.BorderColor = Color.Black;
             opeButtonOpen.FlatAppearance.BorderSize = 0;
@@ -1400,7 +1379,6 @@ namespace MDPlayer.form
             // 
             opeButtonMode.AllowDrop = true;
             opeButtonMode.BackColor = Color.Black;
-            opeButtonMode.BackgroundImage = ResMng.ImgDic["ccFadeout"];
             resources.ApplyResources(opeButtonMode, "opeButtonMode");
             opeButtonMode.FlatAppearance.BorderColor = Color.Black;
             opeButtonMode.FlatAppearance.BorderSize = 0;
@@ -1420,17 +1398,17 @@ namespace MDPlayer.form
             // 
             keyboardHook1.KeyboardHooked += keyboardHook1_KeyboardHooked;
             // 
-            // tsmiPK053260
+            // tsmiPPCM8
             // 
-            tsmiPK053260.Name = "tsmiPK053260";
-            resources.ApplyResources(tsmiPK053260, "tsmiPK053260");
-            tsmiPK053260.Click += TsmiPK053260_Click;
+            tsmiPPCM8.Name = "tsmiPPCM8";
+            resources.ApplyResources(tsmiPPCM8, "tsmiPPCM8");
+            tsmiPPCM8.Click += TsmiPPCM8_Click;
             // 
-            // tsmiSK053260
+            // tsmiSPCM8
             // 
-            tsmiSK053260.Name = "tsmiSK053260";
-            resources.ApplyResources(tsmiSK053260, "tsmiSK053260");
-            tsmiSK053260.Click += TsmiSK053260_Click;
+            tsmiSPCM8.Name = "tsmiSPCM8";
+            resources.ApplyResources(tsmiSPCM8, "tsmiSPCM8");
+            tsmiSPCM8.Click += TsmiSPCM8_Click;
             // 
             // frmMain
             // 
@@ -1472,168 +1450,170 @@ namespace MDPlayer.form
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pbScreen;
-        private System.Windows.Forms.ContextMenuStrip cmsOpenOtherPanel;
-        private System.Windows.Forms.ToolStripMenuItem primaryToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPOPN;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPOPN2;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPOPNA;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPOPNB;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPOPM;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPDCSG;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPRF5C164;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPPWM;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPOKIM6258;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPOKIM6295;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPC140;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPSegaPCM;
-        private System.Windows.Forms.ToolStripMenuItem sencondryToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSOPN;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSOPN2;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSOPNA;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSOPNB;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSOPM;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSDCSG;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSRF5C164;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSPWM;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSOKIM6258;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSOKIM6295;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSC140;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSSegaPCM;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPAY8910;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPOPLL;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSAY8910;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSOPLL;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPHuC6280;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSHuC6280;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPMIDI;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSMIDI;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPNESDMC;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSNESDMC;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPFDS;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSFDS;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPMMC5;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSMMC5;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPOPL4;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSOPL4;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPVRC7;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSVRC7;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPOPL3;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSOPL3;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPC352;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSC352;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPOPL2;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSOPL2;
+        private PictureBox pbScreen;
+        private ContextMenuStrip cmsOpenOtherPanel;
+        private ToolStripMenuItem primaryToolStripMenuItem;
+        private ToolStripMenuItem tsmiPOPN;
+        private ToolStripMenuItem tsmiPOPN2;
+        private ToolStripMenuItem tsmiPOPNA;
+        private ToolStripMenuItem tsmiPOPNB;
+        private ToolStripMenuItem tsmiPOPM;
+        private ToolStripMenuItem tsmiPDCSG;
+        private ToolStripMenuItem tsmiPRF5C164;
+        private ToolStripMenuItem tsmiPPWM;
+        private ToolStripMenuItem tsmiPOKIM6258;
+        private ToolStripMenuItem tsmiPOKIM6295;
+        private ToolStripMenuItem tsmiPC140;
+        private ToolStripMenuItem tsmiPSegaPCM;
+        private ToolStripMenuItem sencondryToolStripMenuItem;
+        private ToolStripMenuItem tsmiSOPN;
+        private ToolStripMenuItem tsmiSOPN2;
+        private ToolStripMenuItem tsmiSOPNA;
+        private ToolStripMenuItem tsmiSOPNB;
+        private ToolStripMenuItem tsmiSOPM;
+        private ToolStripMenuItem tsmiSDCSG;
+        private ToolStripMenuItem tsmiSRF5C164;
+        private ToolStripMenuItem tsmiSPWM;
+        private ToolStripMenuItem tsmiSOKIM6258;
+        private ToolStripMenuItem tsmiSOKIM6295;
+        private ToolStripMenuItem tsmiSC140;
+        private ToolStripMenuItem tsmiSSegaPCM;
+        private ToolStripMenuItem tsmiPAY8910;
+        private ToolStripMenuItem tsmiPOPLL;
+        private ToolStripMenuItem tsmiSAY8910;
+        private ToolStripMenuItem tsmiSOPLL;
+        private ToolStripMenuItem tsmiPHuC6280;
+        private ToolStripMenuItem tsmiSHuC6280;
+        private ToolStripMenuItem tsmiPMIDI;
+        private ToolStripMenuItem tsmiSMIDI;
+        private ToolStripMenuItem tsmiPNESDMC;
+        private ToolStripMenuItem tsmiSNESDMC;
+        private ToolStripMenuItem tsmiPFDS;
+        private ToolStripMenuItem tsmiSFDS;
+        private ToolStripMenuItem tsmiPMMC5;
+        private ToolStripMenuItem tsmiSMMC5;
+        private ToolStripMenuItem tsmiPOPL4;
+        private ToolStripMenuItem tsmiSOPL4;
+        private ToolStripMenuItem tsmiPVRC7;
+        private ToolStripMenuItem tsmiSVRC7;
+        private ToolStripMenuItem tsmiPOPL3;
+        private ToolStripMenuItem tsmiSOPL3;
+        private ToolStripMenuItem tsmiPC352;
+        private ToolStripMenuItem tsmiSC352;
+        private ToolStripMenuItem tsmiPOPL2;
+        private ToolStripMenuItem tsmiSOPL2;
         private HongliangSoft.Utilities.Gui.KeyboardHook keyboardHook1;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPOPL;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSOPL;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPY8950;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSY8950;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPK051649;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSK051649;
-        private System.Windows.Forms.ContextMenuStrip cmsMenu;
-        private System.Windows.Forms.ToolStripMenuItem ファイルToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tsmiOpenFile;
-        private System.Windows.Forms.ToolStripMenuItem tsmiExit;
-        private System.Windows.Forms.ToolStripMenuItem 操作ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPlay;
-        private System.Windows.Forms.ToolStripMenuItem tsmiStop;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPause;
-        private System.Windows.Forms.ToolStripMenuItem tsmiFadeOut;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSlow;
-        private System.Windows.Forms.ToolStripMenuItem tsmiFf;
-        private System.Windows.Forms.ToolStripMenuItem tsmiNext;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPlayMode;
-        private System.Windows.Forms.ToolStripMenuItem tsmiOption;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPlayList;
-        private System.Windows.Forms.ToolStripMenuItem tsmiOpenInfo;
-        private System.Windows.Forms.ToolStripMenuItem tsmiOpenMixer;
-        private System.Windows.Forms.ToolStripMenuItem その他ウィンドウ表示ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tsmiKBrd;
-        private System.Windows.Forms.ToolStripMenuItem tsmiVST;
-        private System.Windows.Forms.ToolStripMenuItem tsmiMIDIkbd;
-        private System.Windows.Forms.ToolStripMenuItem tsmiChangeZoom;
-        private System.Windows.Forms.ToolStripMenuItem レジスタダンプ表示ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPQSound;
-        private System.Windows.Forms.ToolStripMenuItem tsmiChangeZoomX1;
-        private System.Windows.Forms.ToolStripMenuItem tsmiChangeZoomX2;
-        private System.Windows.Forms.ToolStripMenuItem tsmiChangeZoomX3;
-        private System.Windows.Forms.ToolStripMenuItem tsmiChangeZoomX4;
-        private System.Windows.Forms.ToolStripMenuItem tsmiYMZ280B;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSYMZ280B;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPMultiPCM;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSMultiPCM;
+        private ToolStripMenuItem tsmiPOPL;
+        private ToolStripMenuItem tsmiSOPL;
+        private ToolStripMenuItem tsmiPY8950;
+        private ToolStripMenuItem tsmiSY8950;
+        private ToolStripMenuItem tsmiPK051649;
+        private ToolStripMenuItem tsmiSK051649;
+        private ContextMenuStrip cmsMenu;
+        private ToolStripMenuItem ファイルToolStripMenuItem;
+        private ToolStripMenuItem tsmiOpenFile;
+        private ToolStripMenuItem tsmiExit;
+        private ToolStripMenuItem 操作ToolStripMenuItem;
+        private ToolStripMenuItem tsmiPlay;
+        private ToolStripMenuItem tsmiStop;
+        private ToolStripMenuItem tsmiPause;
+        private ToolStripMenuItem tsmiFadeOut;
+        private ToolStripMenuItem tsmiSlow;
+        private ToolStripMenuItem tsmiFf;
+        private ToolStripMenuItem tsmiNext;
+        private ToolStripMenuItem tsmiPlayMode;
+        private ToolStripMenuItem tsmiOption;
+        private ToolStripMenuItem tsmiPlayList;
+        private ToolStripMenuItem tsmiOpenInfo;
+        private ToolStripMenuItem tsmiOpenMixer;
+        private ToolStripMenuItem その他ウィンドウ表示ToolStripMenuItem;
+        private ToolStripMenuItem tsmiKBrd;
+        private ToolStripMenuItem tsmiVST;
+        private ToolStripMenuItem tsmiMIDIkbd;
+        private ToolStripMenuItem tsmiChangeZoom;
+        private ToolStripMenuItem レジスタダンプ表示ToolStripMenuItem;
+        private ToolStripMenuItem tsmiPQSound;
+        private ToolStripMenuItem tsmiChangeZoomX1;
+        private ToolStripMenuItem tsmiChangeZoomX2;
+        private ToolStripMenuItem tsmiChangeZoomX3;
+        private ToolStripMenuItem tsmiChangeZoomX4;
+        private ToolStripMenuItem tsmiYMZ280B;
+        private ToolStripMenuItem tsmiSYMZ280B;
+        private ToolStripMenuItem tsmiPMultiPCM;
+        private ToolStripMenuItem tsmiSMultiPCM;
 
-        private System.Windows.Forms.ToolStripMenuItem yM2612ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem c140ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ym2151ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ym2203ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ym2413ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ym2608ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem yM2610ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem yMF262ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem yMF278BToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem yMZ280BToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem c352ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem qSoundToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem segaPCMToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sN76489ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aY8910ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem yM3812ToolStripMenuItem;
+        private ToolStripMenuItem yM2612ToolStripMenuItem;
+        private ToolStripMenuItem c140ToolStripMenuItem;
+        private ToolStripMenuItem ym2151ToolStripMenuItem;
+        private ToolStripMenuItem ym2203ToolStripMenuItem;
+        private ToolStripMenuItem ym2413ToolStripMenuItem;
+        private ToolStripMenuItem ym2608ToolStripMenuItem;
+        private ToolStripMenuItem yM2610ToolStripMenuItem;
+        private ToolStripMenuItem yMF262ToolStripMenuItem;
+        private ToolStripMenuItem yMF278BToolStripMenuItem;
+        private ToolStripMenuItem yMZ280BToolStripMenuItem;
+        private ToolStripMenuItem c352ToolStripMenuItem;
+        private ToolStripMenuItem qSoundToolStripMenuItem;
+        private ToolStripMenuItem segaPCMToolStripMenuItem;
+        private ToolStripMenuItem sN76489ToolStripMenuItem;
+        private ToolStripMenuItem aY8910ToolStripMenuItem;
+        private ToolStripMenuItem yM3812ToolStripMenuItem;
 
-        private System.Windows.Forms.ToolStripMenuItem tsmiPVRC6;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSVRC6;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPN106;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSN106;
-        private System.Windows.Forms.ToolStripMenuItem sIDToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPPPZ8;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSPPZ8;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPS5B;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSS5B;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPDMG;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSDMG;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPRF5C68;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSRF5C68;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPOPX;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSOPX;
-        private System.Windows.Forms.ToolStripMenuItem tsmiCPNES;
-        private System.Windows.Forms.ToolStripMenuItem tsmiCPPCM;
-        private System.Windows.Forms.ToolStripMenuItem tsmiCPOPN;
-        private System.Windows.Forms.ToolStripMenuItem tsmiCPOPL;
-        private System.Windows.Forms.ToolStripMenuItem tsmiCPPSG;
-        private System.Windows.Forms.ToolStripMenuItem tsmiCPWF;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem tsmiCSPSG;
-        private System.Windows.Forms.ToolStripMenuItem tsmiCSWF;
-        private System.Windows.Forms.ToolStripMenuItem tsmiCSOPL;
-        private System.Windows.Forms.ToolStripMenuItem tsmiCSOPN;
-        private System.Windows.Forms.ToolStripMenuItem tsmiCSPCM;
-        private System.Windows.Forms.ToolStripMenuItem tsmiCSNES;
-        private System.Windows.Forms.Button opeButtonSetting;
-        private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Button opeButtonStop;
-        private System.Windows.Forms.Button opeButtonPause;
-        private System.Windows.Forms.Button opeButtonFadeout;
-        private System.Windows.Forms.Button opeButtonPrevious;
-        private System.Windows.Forms.Button opeButtonSlow;
-        private System.Windows.Forms.Button opeButtonPlay;
-        private System.Windows.Forms.Button opeButtonFast;
-        private System.Windows.Forms.Button opeButtonNext;
-        private System.Windows.Forms.Button opeButtonZoom;
-        private System.Windows.Forms.Button opeButtonMIDIKBD;
-        private System.Windows.Forms.Button opeButtonVST;
-        private System.Windows.Forms.Button opeButtonKBD;
-        private System.Windows.Forms.Button opeButtonMixer;
-        private System.Windows.Forms.Button opeButtonInformation;
-        private System.Windows.Forms.Button opeButtonPlayList;
-        private System.Windows.Forms.Button opeButtonOpen;
-        private System.Windows.Forms.Button opeButtonMode;
-        private System.Windows.Forms.ToolStripMenuItem tsmiVisualizer;
-        private System.Windows.Forms.ToolStripMenuItem tsmiPOPNA2;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSOPNA2;
-        private System.Windows.Forms.ToolStripMenuItem tsmiOutputwavFile;
+        private ToolStripMenuItem tsmiPVRC6;
+        private ToolStripMenuItem tsmiSVRC6;
+        private ToolStripMenuItem tsmiPN106;
+        private ToolStripMenuItem tsmiSN106;
+        private ToolStripMenuItem sIDToolStripMenuItem;
+        private ToolStripMenuItem tsmiPPPZ8;
+        private ToolStripMenuItem tsmiSPPZ8;
+        private ToolStripMenuItem tsmiPS5B;
+        private ToolStripMenuItem tsmiSS5B;
+        private ToolStripMenuItem tsmiPDMG;
+        private ToolStripMenuItem tsmiSDMG;
+        private ToolStripMenuItem tsmiPRF5C68;
+        private ToolStripMenuItem tsmiSRF5C68;
+        private ToolStripMenuItem tsmiPOPX;
+        private ToolStripMenuItem tsmiSOPX;
+        private ToolStripMenuItem tsmiCPNES;
+        private ToolStripMenuItem tsmiCPPCM;
+        private ToolStripMenuItem tsmiCPOPN;
+        private ToolStripMenuItem tsmiCPOPL;
+        private ToolStripMenuItem tsmiCPPSG;
+        private ToolStripMenuItem tsmiCPWF;
+        private ToolStripMenuItem toolStripMenuItem2;
+        private ToolStripMenuItem tsmiCSPSG;
+        private ToolStripMenuItem tsmiCSWF;
+        private ToolStripMenuItem tsmiCSOPL;
+        private ToolStripMenuItem tsmiCSOPN;
+        private ToolStripMenuItem tsmiCSPCM;
+        private ToolStripMenuItem tsmiCSNES;
+        private Button opeButtonSetting;
+        private ToolTip toolTip1;
+        private Button opeButtonStop;
+        private Button opeButtonPause;
+        private Button opeButtonFadeout;
+        private Button opeButtonPrevious;
+        private Button opeButtonSlow;
+        private Button opeButtonPlay;
+        private Button opeButtonFast;
+        private Button opeButtonNext;
+        private Button opeButtonZoom;
+        private Button opeButtonMIDIKBD;
+        private Button opeButtonVST;
+        private Button opeButtonKBD;
+        private Button opeButtonMixer;
+        private Button opeButtonInformation;
+        private Button opeButtonPlayList;
+        private Button opeButtonOpen;
+        private Button opeButtonMode;
+        private ToolStripMenuItem tsmiVisualizer;
+        private ToolStripMenuItem tsmiPOPNA2;
+        private ToolStripMenuItem tsmiSOPNA2;
+        private ToolStripMenuItem tsmiOutputwavFile;
         private ToolStripMenuItem tsmiPK053260;
         private ToolStripMenuItem tsmiSK053260;
+        private ToolStripMenuItem tsmiPPCM8;
+        private ToolStripMenuItem tsmiSPCM8;
     }
 }
 
