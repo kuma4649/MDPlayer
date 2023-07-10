@@ -10122,10 +10122,10 @@ namespace MDPlayer.form
 
         private void TsmiChangeZoom_Click(object sender, EventArgs e)
         {
-            if (sender == tsmiChangeZoomX1) tsmiChangeZoomX1.Checked = true;
-            else if (sender == tsmiChangeZoomX2) tsmiChangeZoomX2.Checked = true;
-            else if (sender == tsmiChangeZoomX3) tsmiChangeZoomX3.Checked = true;
-            else if (sender == tsmiChangeZoomX4) tsmiChangeZoomX4.Checked = true;
+            if (sender == tsmiChangeZoomX1) setting.other.Zoom = 1;
+            else if (sender == tsmiChangeZoomX2) setting.other.Zoom = 2;
+            else if (sender == tsmiChangeZoomX3) setting.other.Zoom = 3;
+            else if (sender == tsmiChangeZoomX4) setting.other.Zoom = 4;
             else
                 setting.other.Zoom = (setting.other.Zoom == 4) ? 1 : (setting.other.Zoom + 1);
             CheckTsmiChangeZoomItem();
