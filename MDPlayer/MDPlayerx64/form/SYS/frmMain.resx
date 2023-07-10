@@ -167,7 +167,7 @@
     <value>DCSG</value>
   </data>
   <data name="tsmiCPPSG.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiCPPSG.Text" xml:space="preserve">
     <value>PSG</value>
@@ -191,7 +191,7 @@
     <value>123</value>
   </data>
   <data name="tsmiCPWF.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiCPWF.Text" xml:space="preserve">
     <value>WF</value>
@@ -233,7 +233,7 @@
     <value>OPL4</value>
   </data>
   <data name="tsmiCPOPL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiCPOPL.Text" xml:space="preserve">
     <value>OPL</value>
@@ -269,25 +269,25 @@
     <value>OPNA2</value>
   </data>
   <data name="tsmiCPOPN.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiCPOPN.Text" xml:space="preserve">
     <value>OPN</value>
   </data>
   <data name="tsmiPOPM.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiPOPM.Text" xml:space="preserve">
     <value>OPM</value>
   </data>
   <data name="tsmiPOPX.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiPOPX.Text" xml:space="preserve">
     <value>OPX</value>
   </data>
   <data name="tsmiYMZ280B.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiYMZ280B.Text" xml:space="preserve">
     <value>YMZ280B</value>
@@ -371,13 +371,13 @@
     <value>K053260</value>
   </data>
   <data name="tsmiCPPCM.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiCPPCM.Text" xml:space="preserve">
     <value>PCM</value>
   </data>
   <data name="tsmiPMIDI.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiPMIDI.Text" xml:space="preserve">
     <value>MIDI</value>
@@ -425,19 +425,19 @@
     <value>S5B(FME7)</value>
   </data>
   <data name="tsmiCPNES.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiCPNES.Text" xml:space="preserve">
     <value>NES</value>
   </data>
   <data name="tsmiPDMG.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiPDMG.Text" xml:space="preserve">
     <value>DMG</value>
   </data>
   <data name="primaryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>129, 22</value>
   </data>
   <data name="primaryToolStripMenuItem.Text" xml:space="preserve">
     <value>Primary</value>
@@ -455,7 +455,7 @@
     <value>DCSG</value>
   </data>
   <data name="tsmiCSPSG.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiCSPSG.Text" xml:space="preserve">
     <value>PSG</value>
@@ -473,7 +473,7 @@
     <value>K051649</value>
   </data>
   <data name="tsmiCSWF.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiCSWF.Text" xml:space="preserve">
     <value>WF</value>
@@ -515,7 +515,7 @@
     <value>OPL4</value>
   </data>
   <data name="tsmiCSOPL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiCSOPL.Text" xml:space="preserve">
     <value>OPL</value>
@@ -551,109 +551,109 @@
     <value>OPNA2</value>
   </data>
   <data name="tsmiCSOPN.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiCSOPN.Text" xml:space="preserve">
     <value>OPN</value>
   </data>
   <data name="tsmiSOPM.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiSOPM.Text" xml:space="preserve">
     <value>OPM</value>
   </data>
   <data name="tsmiSOPX.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiSOPX.Text" xml:space="preserve">
     <value>OPX</value>
   </data>
   <data name="tsmiSYMZ280B.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiSYMZ280B.Text" xml:space="preserve">
     <value>YMZ280B</value>
   </data>
   <data name="tsmiSC140.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>130, 22</value>
   </data>
   <data name="tsmiSC140.Text" xml:space="preserve">
     <value>C140</value>
   </data>
   <data name="tsmiSC352.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>130, 22</value>
   </data>
   <data name="tsmiSC352.Text" xml:space="preserve">
     <value>C352</value>
   </data>
   <data name="tsmiSOKIM6258.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>130, 22</value>
   </data>
   <data name="tsmiSOKIM6258.Text" xml:space="preserve">
     <value>OKIM6258</value>
   </data>
   <data name="tsmiSOKIM6295.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>130, 22</value>
   </data>
   <data name="tsmiSOKIM6295.Text" xml:space="preserve">
     <value>OKIM6295</value>
   </data>
   <data name="tsmiSPCM8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>130, 22</value>
   </data>
   <data name="tsmiSPCM8.Text" xml:space="preserve">
     <value>PCM8</value>
   </data>
   <data name="tsmiSPWM.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>130, 22</value>
   </data>
   <data name="tsmiSPWM.Text" xml:space="preserve">
     <value>PWM</value>
   </data>
   <data name="tsmiSRF5C164.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>130, 22</value>
   </data>
   <data name="tsmiSRF5C164.Text" xml:space="preserve">
     <value>RF5C164</value>
   </data>
   <data name="tsmiSRF5C68.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>130, 22</value>
   </data>
   <data name="tsmiSRF5C68.Text" xml:space="preserve">
     <value>RF5C68</value>
   </data>
   <data name="tsmiSSegaPCM.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>130, 22</value>
   </data>
   <data name="tsmiSSegaPCM.Text" xml:space="preserve">
     <value>SEGA PCM</value>
   </data>
   <data name="tsmiSMultiPCM.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>130, 22</value>
   </data>
   <data name="tsmiSMultiPCM.Text" xml:space="preserve">
     <value>MultiPCM</value>
   </data>
   <data name="tsmiSPPZ8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>130, 22</value>
   </data>
   <data name="tsmiSPPZ8.Text" xml:space="preserve">
     <value>PPZ8</value>
   </data>
   <data name="tsmiSK053260.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>130, 22</value>
   </data>
   <data name="tsmiSK053260.Text" xml:space="preserve">
     <value>K053260</value>
   </data>
   <data name="tsmiCSPCM.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiCSPCM.Text" xml:space="preserve">
     <value>PCM</value>
   </data>
   <data name="tsmiSMIDI.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiSMIDI.Text" xml:space="preserve">
     <value>MIDI</value>
@@ -701,25 +701,25 @@
     <value>S5B(FME7)</value>
   </data>
   <data name="tsmiCSNES.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiCSNES.Text" xml:space="preserve">
     <value>NES</value>
   </data>
   <data name="tsmiSDMG.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiSDMG.Text" xml:space="preserve">
     <value>DMG</value>
   </data>
   <data name="sencondryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>129, 22</value>
   </data>
   <data name="sencondryToolStripMenuItem.Text" xml:space="preserve">
     <value>Secondary</value>
   </data>
   <data name="cmsOpenOtherPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 70</value>
+    <value>130, 48</value>
   </data>
   <data name="&gt;&gt;cmsOpenOtherPanel.Name" xml:space="preserve">
     <value>cmsOpenOtherPanel</value>
@@ -826,20 +826,584 @@
   <data name="tsmiOpenMixer.Text" xml:space="preserve">
     <value>Mixer</value>
   </data>
+  <data name="toolStripMenuItem52.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 22</value>
+  </data>
+  <data name="toolStripMenuItem52.Text" xml:space="preserve">
+    <value>AY8910</value>
+  </data>
+  <data name="toolStripMenuItem53.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 22</value>
+  </data>
+  <data name="toolStripMenuItem53.Text" xml:space="preserve">
+    <value>DCSG</value>
+  </data>
+  <data name="toolStripMenuItem51.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="toolStripMenuItem51.Text" xml:space="preserve">
+    <value>PSG</value>
+  </data>
+  <data name="toolStripMenuItem55.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 22</value>
+  </data>
+  <data name="toolStripMenuItem55.Text" xml:space="preserve">
+    <value>HuC6280</value>
+  </data>
+  <data name="toolStripMenuItem56.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 22</value>
+  </data>
+  <data name="toolStripMenuItem56.Text" xml:space="preserve">
+    <value>K051649</value>
+  </data>
+  <data name="toolStripMenuItem57.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 22</value>
+  </data>
+  <data name="toolStripMenuItem57.Text" xml:space="preserve">
+    <value>123</value>
+  </data>
+  <data name="toolStripMenuItem54.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="toolStripMenuItem54.Text" xml:space="preserve">
+    <value>WF</value>
+  </data>
+  <data name="toolStripMenuItem59.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 22</value>
+  </data>
+  <data name="toolStripMenuItem59.Text" xml:space="preserve">
+    <value>OPLL</value>
+  </data>
+  <data name="toolStripMenuItem60.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 22</value>
+  </data>
+  <data name="toolStripMenuItem60.Text" xml:space="preserve">
+    <value>OPL</value>
+  </data>
+  <data name="toolStripMenuItem61.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 22</value>
+  </data>
+  <data name="toolStripMenuItem61.Text" xml:space="preserve">
+    <value>Y8950</value>
+  </data>
+  <data name="toolStripMenuItem62.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 22</value>
+  </data>
+  <data name="toolStripMenuItem62.Text" xml:space="preserve">
+    <value>OPL2</value>
+  </data>
+  <data name="toolStripMenuItem63.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 22</value>
+  </data>
+  <data name="toolStripMenuItem63.Text" xml:space="preserve">
+    <value>OPL3</value>
+  </data>
+  <data name="toolStripMenuItem64.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 22</value>
+  </data>
+  <data name="toolStripMenuItem64.Text" xml:space="preserve">
+    <value>OPL4</value>
+  </data>
+  <data name="toolStripMenuItem58.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="toolStripMenuItem58.Text" xml:space="preserve">
+    <value>OPL</value>
+  </data>
+  <data name="toolStripMenuItem66.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 22</value>
+  </data>
+  <data name="toolStripMenuItem66.Text" xml:space="preserve">
+    <value>OPN</value>
+  </data>
+  <data name="toolStripMenuItem67.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 22</value>
+  </data>
+  <data name="toolStripMenuItem67.Text" xml:space="preserve">
+    <value>OPN2</value>
+  </data>
+  <data name="toolStripMenuItem68.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 22</value>
+  </data>
+  <data name="toolStripMenuItem68.Text" xml:space="preserve">
+    <value>OPNA</value>
+  </data>
+  <data name="toolStripMenuItem69.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 22</value>
+  </data>
+  <data name="toolStripMenuItem69.Text" xml:space="preserve">
+    <value>OPNB</value>
+  </data>
+  <data name="toolStripMenuItem70.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 22</value>
+  </data>
+  <data name="toolStripMenuItem70.Text" xml:space="preserve">
+    <value>OPNA2</value>
+  </data>
+  <data name="toolStripMenuItem65.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="toolStripMenuItem65.Text" xml:space="preserve">
+    <value>OPN</value>
+  </data>
+  <data name="toolStripMenuItem71.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="toolStripMenuItem71.Text" xml:space="preserve">
+    <value>OPM</value>
+  </data>
+  <data name="toolStripMenuItem72.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="toolStripMenuItem72.Text" xml:space="preserve">
+    <value>OPX</value>
+  </data>
+  <data name="toolStripMenuItem73.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="toolStripMenuItem73.Text" xml:space="preserve">
+    <value>YMZ280B</value>
+  </data>
+  <data name="toolStripMenuItem75.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="toolStripMenuItem75.Text" xml:space="preserve">
+    <value>C140</value>
+  </data>
+  <data name="toolStripMenuItem76.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="toolStripMenuItem76.Text" xml:space="preserve">
+    <value>C352</value>
+  </data>
+  <data name="toolStripMenuItem77.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="toolStripMenuItem77.Text" xml:space="preserve">
+    <value>OKIM6258</value>
+  </data>
+  <data name="toolStripMenuItem78.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="toolStripMenuItem78.Text" xml:space="preserve">
+    <value>OKIM6295</value>
+  </data>
+  <data name="toolStripMenuItem79.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="toolStripMenuItem79.Text" xml:space="preserve">
+    <value>PCM8</value>
+  </data>
+  <data name="toolStripMenuItem80.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="toolStripMenuItem80.Text" xml:space="preserve">
+    <value>PWM</value>
+  </data>
+  <data name="toolStripMenuItem81.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="toolStripMenuItem81.Text" xml:space="preserve">
+    <value>QSound</value>
+  </data>
+  <data name="toolStripMenuItem82.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="toolStripMenuItem82.Text" xml:space="preserve">
+    <value>RF5C164</value>
+  </data>
+  <data name="toolStripMenuItem83.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="toolStripMenuItem83.Text" xml:space="preserve">
+    <value>RF5C68</value>
+  </data>
+  <data name="toolStripMenuItem84.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="toolStripMenuItem84.Text" xml:space="preserve">
+    <value>MultiPCM</value>
+  </data>
+  <data name="toolStripMenuItem85.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="toolStripMenuItem85.Text" xml:space="preserve">
+    <value>PPZ8</value>
+  </data>
+  <data name="toolStripMenuItem86.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="toolStripMenuItem86.Text" xml:space="preserve">
+    <value>SEGA PCM</value>
+  </data>
+  <data name="toolStripMenuItem87.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="toolStripMenuItem87.Text" xml:space="preserve">
+    <value>K053260</value>
+  </data>
+  <data name="toolStripMenuItem74.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="toolStripMenuItem74.Text" xml:space="preserve">
+    <value>PCM</value>
+  </data>
+  <data name="toolStripMenuItem88.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="toolStripMenuItem88.Text" xml:space="preserve">
+    <value>MIDI</value>
+  </data>
+  <data name="toolStripMenuItem90.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 22</value>
+  </data>
+  <data name="toolStripMenuItem90.Text" xml:space="preserve">
+    <value>NES&amp;&amp;DMC</value>
+  </data>
+  <data name="toolStripMenuItem91.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 22</value>
+  </data>
+  <data name="toolStripMenuItem91.Text" xml:space="preserve">
+    <value>FDS</value>
+  </data>
+  <data name="toolStripMenuItem92.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 22</value>
+  </data>
+  <data name="toolStripMenuItem92.Text" xml:space="preserve">
+    <value>MMC5</value>
+  </data>
+  <data name="toolStripMenuItem93.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 22</value>
+  </data>
+  <data name="toolStripMenuItem93.Text" xml:space="preserve">
+    <value>VRC6</value>
+  </data>
+  <data name="toolStripMenuItem94.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 22</value>
+  </data>
+  <data name="toolStripMenuItem94.Text" xml:space="preserve">
+    <value>VRC7</value>
+  </data>
+  <data name="toolStripMenuItem95.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 22</value>
+  </data>
+  <data name="toolStripMenuItem95.Text" xml:space="preserve">
+    <value>N163(N106)</value>
+  </data>
+  <data name="toolStripMenuItem96.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 22</value>
+  </data>
+  <data name="toolStripMenuItem96.Text" xml:space="preserve">
+    <value>S5B(FME7)</value>
+  </data>
+  <data name="toolStripMenuItem89.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="toolStripMenuItem89.Text" xml:space="preserve">
+    <value>NES</value>
+  </data>
+  <data name="toolStripMenuItem97.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="toolStripMenuItem97.Text" xml:space="preserve">
+    <value>DMG</value>
+  </data>
+  <data name="toolStripMenuItem50.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="toolStripMenuItem50.Text" xml:space="preserve">
+    <value>Primary</value>
+  </data>
+  <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 22</value>
+  </data>
+  <data name="toolStripMenuItem4.Text" xml:space="preserve">
+    <value>AY8910</value>
+  </data>
+  <data name="toolStripMenuItem5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 22</value>
+  </data>
+  <data name="toolStripMenuItem5.Text" xml:space="preserve">
+    <value>DCSG</value>
+  </data>
+  <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="toolStripMenuItem3.Text" xml:space="preserve">
+    <value>PSG</value>
+  </data>
+  <data name="toolStripMenuItem7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 22</value>
+  </data>
+  <data name="toolStripMenuItem7.Text" xml:space="preserve">
+    <value>HuC6280</value>
+  </data>
+  <data name="toolStripMenuItem8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 22</value>
+  </data>
+  <data name="toolStripMenuItem8.Text" xml:space="preserve">
+    <value>K051649</value>
+  </data>
+  <data name="toolStripMenuItem6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="toolStripMenuItem6.Text" xml:space="preserve">
+    <value>WF</value>
+  </data>
+  <data name="toolStripMenuItem10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 22</value>
+  </data>
+  <data name="toolStripMenuItem10.Text" xml:space="preserve">
+    <value>OPLL</value>
+  </data>
+  <data name="toolStripMenuItem11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 22</value>
+  </data>
+  <data name="toolStripMenuItem11.Text" xml:space="preserve">
+    <value>OPL</value>
+  </data>
+  <data name="toolStripMenuItem12.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 22</value>
+  </data>
+  <data name="toolStripMenuItem12.Text" xml:space="preserve">
+    <value>Y8950</value>
+  </data>
+  <data name="toolStripMenuItem13.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 22</value>
+  </data>
+  <data name="toolStripMenuItem13.Text" xml:space="preserve">
+    <value>OPL2</value>
+  </data>
+  <data name="toolStripMenuItem14.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 22</value>
+  </data>
+  <data name="toolStripMenuItem14.Text" xml:space="preserve">
+    <value>OPL3</value>
+  </data>
+  <data name="toolStripMenuItem15.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 22</value>
+  </data>
+  <data name="toolStripMenuItem15.Text" xml:space="preserve">
+    <value>OPL4</value>
+  </data>
+  <data name="toolStripMenuItem9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="toolStripMenuItem9.Text" xml:space="preserve">
+    <value>OPL</value>
+  </data>
+  <data name="toolStripMenuItem17.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 22</value>
+  </data>
+  <data name="toolStripMenuItem17.Text" xml:space="preserve">
+    <value>OPN</value>
+  </data>
+  <data name="toolStripMenuItem18.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 22</value>
+  </data>
+  <data name="toolStripMenuItem18.Text" xml:space="preserve">
+    <value>OPN2</value>
+  </data>
+  <data name="toolStripMenuItem19.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 22</value>
+  </data>
+  <data name="toolStripMenuItem19.Text" xml:space="preserve">
+    <value>OPNA</value>
+  </data>
+  <data name="toolStripMenuItem20.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 22</value>
+  </data>
+  <data name="toolStripMenuItem20.Text" xml:space="preserve">
+    <value>OPNB</value>
+  </data>
+  <data name="toolStripMenuItem21.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 22</value>
+  </data>
+  <data name="toolStripMenuItem21.Text" xml:space="preserve">
+    <value>OPNA2</value>
+  </data>
+  <data name="toolStripMenuItem16.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="toolStripMenuItem16.Text" xml:space="preserve">
+    <value>OPN</value>
+  </data>
+  <data name="toolStripMenuItem22.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="toolStripMenuItem22.Text" xml:space="preserve">
+    <value>OPM</value>
+  </data>
+  <data name="toolStripMenuItem23.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="toolStripMenuItem23.Text" xml:space="preserve">
+    <value>OPX</value>
+  </data>
+  <data name="toolStripMenuItem24.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="toolStripMenuItem24.Text" xml:space="preserve">
+    <value>YMZ280B</value>
+  </data>
+  <data name="toolStripMenuItem26.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="toolStripMenuItem26.Text" xml:space="preserve">
+    <value>C140</value>
+  </data>
+  <data name="toolStripMenuItem27.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="toolStripMenuItem27.Text" xml:space="preserve">
+    <value>C352</value>
+  </data>
+  <data name="toolStripMenuItem28.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="toolStripMenuItem28.Text" xml:space="preserve">
+    <value>OKIM6258</value>
+  </data>
+  <data name="toolStripMenuItem29.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="toolStripMenuItem29.Text" xml:space="preserve">
+    <value>OKIM6295</value>
+  </data>
+  <data name="toolStripMenuItem30.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="toolStripMenuItem30.Text" xml:space="preserve">
+    <value>PCM8</value>
+  </data>
+  <data name="toolStripMenuItem31.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="toolStripMenuItem31.Text" xml:space="preserve">
+    <value>PWM</value>
+  </data>
+  <data name="toolStripMenuItem32.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="toolStripMenuItem32.Text" xml:space="preserve">
+    <value>RF5C164</value>
+  </data>
+  <data name="toolStripMenuItem33.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="toolStripMenuItem33.Text" xml:space="preserve">
+    <value>RF5C68</value>
+  </data>
+  <data name="toolStripMenuItem34.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="toolStripMenuItem34.Text" xml:space="preserve">
+    <value>SEGA PCM</value>
+  </data>
+  <data name="toolStripMenuItem35.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="toolStripMenuItem35.Text" xml:space="preserve">
+    <value>MultiPCM</value>
+  </data>
+  <data name="toolStripMenuItem36.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="toolStripMenuItem36.Text" xml:space="preserve">
+    <value>PPZ8</value>
+  </data>
+  <data name="toolStripMenuItem37.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="toolStripMenuItem37.Text" xml:space="preserve">
+    <value>K053260</value>
+  </data>
+  <data name="toolStripMenuItem25.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="toolStripMenuItem25.Text" xml:space="preserve">
+    <value>PCM</value>
+  </data>
+  <data name="toolStripMenuItem38.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="toolStripMenuItem38.Text" xml:space="preserve">
+    <value>MIDI</value>
+  </data>
+  <data name="toolStripMenuItem40.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 22</value>
+  </data>
+  <data name="toolStripMenuItem40.Text" xml:space="preserve">
+    <value>FDS</value>
+  </data>
+  <data name="toolStripMenuItem41.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 22</value>
+  </data>
+  <data name="toolStripMenuItem41.Text" xml:space="preserve">
+    <value>MMC5</value>
+  </data>
+  <data name="toolStripMenuItem42.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 22</value>
+  </data>
+  <data name="toolStripMenuItem42.Text" xml:space="preserve">
+    <value>NES&amp;&amp;DMC</value>
+  </data>
+  <data name="toolStripMenuItem43.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 22</value>
+  </data>
+  <data name="toolStripMenuItem43.Text" xml:space="preserve">
+    <value>VRC6</value>
+  </data>
+  <data name="toolStripMenuItem44.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 22</value>
+  </data>
+  <data name="toolStripMenuItem44.Text" xml:space="preserve">
+    <value>VRC7</value>
+  </data>
+  <data name="toolStripMenuItem45.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 22</value>
+  </data>
+  <data name="toolStripMenuItem45.Text" xml:space="preserve">
+    <value>N163(N106)</value>
+  </data>
+  <data name="toolStripMenuItem46.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 22</value>
+  </data>
+  <data name="toolStripMenuItem46.Text" xml:space="preserve">
+    <value>S5B(FME7)</value>
+  </data>
+  <data name="toolStripMenuItem39.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="toolStripMenuItem39.Text" xml:space="preserve">
+    <value>NES</value>
+  </data>
+  <data name="toolStripMenuItem47.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="toolStripMenuItem47.Text" xml:space="preserve">
+    <value>DMG</value>
+  </data>
+  <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="toolStripMenuItem1.Text" xml:space="preserve">
+    <value>Secondary</value>
+  </data>
   <data name="tsmiKBrd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="tsmiKBrd.Text" xml:space="preserve">
     <value>Various keyboards</value>
   </data>
   <data name="tsmiVST.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="tsmiVST.Text" xml:space="preserve">
     <value>VST</value>
   </data>
   <data name="tsmiMIDIkbd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="tsmiMIDIkbd.Text" xml:space="preserve">
     <value>MIDI keyboard</value>
@@ -2191,6 +2755,12 @@
   <data name="&gt;&gt;tsmiPOKIM6295.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;tsmiPPCM8.Name" xml:space="preserve">
+    <value>tsmiPPCM8</value>
+  </data>
+  <data name="&gt;&gt;tsmiPPCM8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;tsmiPPWM.Name" xml:space="preserve">
     <value>tsmiPPWM</value>
   </data>
@@ -2467,6 +3037,12 @@
   <data name="&gt;&gt;tsmiSOKIM6295.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;tsmiSPCM8.Name" xml:space="preserve">
+    <value>tsmiSPCM8</value>
+  </data>
+  <data name="&gt;&gt;tsmiSPCM8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;tsmiSPWM.Name" xml:space="preserve">
     <value>tsmiSPWM</value>
   </data>
@@ -2677,6 +3253,570 @@
   <data name="&gt;&gt;tsmiKBrd.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;toolStripMenuItem50.Name" xml:space="preserve">
+    <value>toolStripMenuItem50</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem50.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem51.Name" xml:space="preserve">
+    <value>toolStripMenuItem51</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem51.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem52.Name" xml:space="preserve">
+    <value>toolStripMenuItem52</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem52.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem53.Name" xml:space="preserve">
+    <value>toolStripMenuItem53</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem53.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem54.Name" xml:space="preserve">
+    <value>toolStripMenuItem54</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem54.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem55.Name" xml:space="preserve">
+    <value>toolStripMenuItem55</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem55.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem56.Name" xml:space="preserve">
+    <value>toolStripMenuItem56</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem56.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem57.Name" xml:space="preserve">
+    <value>toolStripMenuItem57</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem57.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem58.Name" xml:space="preserve">
+    <value>toolStripMenuItem58</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem58.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem59.Name" xml:space="preserve">
+    <value>toolStripMenuItem59</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem59.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem60.Name" xml:space="preserve">
+    <value>toolStripMenuItem60</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem60.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem61.Name" xml:space="preserve">
+    <value>toolStripMenuItem61</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem61.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem62.Name" xml:space="preserve">
+    <value>toolStripMenuItem62</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem62.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem63.Name" xml:space="preserve">
+    <value>toolStripMenuItem63</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem63.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem64.Name" xml:space="preserve">
+    <value>toolStripMenuItem64</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem64.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem65.Name" xml:space="preserve">
+    <value>toolStripMenuItem65</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem65.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem66.Name" xml:space="preserve">
+    <value>toolStripMenuItem66</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem66.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem67.Name" xml:space="preserve">
+    <value>toolStripMenuItem67</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem67.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem68.Name" xml:space="preserve">
+    <value>toolStripMenuItem68</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem68.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem69.Name" xml:space="preserve">
+    <value>toolStripMenuItem69</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem69.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem70.Name" xml:space="preserve">
+    <value>toolStripMenuItem70</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem70.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem71.Name" xml:space="preserve">
+    <value>toolStripMenuItem71</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem71.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem72.Name" xml:space="preserve">
+    <value>toolStripMenuItem72</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem72.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem73.Name" xml:space="preserve">
+    <value>toolStripMenuItem73</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem73.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem74.Name" xml:space="preserve">
+    <value>toolStripMenuItem74</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem74.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem75.Name" xml:space="preserve">
+    <value>toolStripMenuItem75</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem75.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem76.Name" xml:space="preserve">
+    <value>toolStripMenuItem76</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem76.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem77.Name" xml:space="preserve">
+    <value>toolStripMenuItem77</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem77.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem78.Name" xml:space="preserve">
+    <value>toolStripMenuItem78</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem78.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem79.Name" xml:space="preserve">
+    <value>toolStripMenuItem79</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem79.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem80.Name" xml:space="preserve">
+    <value>toolStripMenuItem80</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem80.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem81.Name" xml:space="preserve">
+    <value>toolStripMenuItem81</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem81.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem82.Name" xml:space="preserve">
+    <value>toolStripMenuItem82</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem82.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem83.Name" xml:space="preserve">
+    <value>toolStripMenuItem83</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem83.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem84.Name" xml:space="preserve">
+    <value>toolStripMenuItem84</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem84.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem85.Name" xml:space="preserve">
+    <value>toolStripMenuItem85</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem85.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem86.Name" xml:space="preserve">
+    <value>toolStripMenuItem86</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem86.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem87.Name" xml:space="preserve">
+    <value>toolStripMenuItem87</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem87.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem88.Name" xml:space="preserve">
+    <value>toolStripMenuItem88</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem88.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem89.Name" xml:space="preserve">
+    <value>toolStripMenuItem89</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem89.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem90.Name" xml:space="preserve">
+    <value>toolStripMenuItem90</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem90.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem91.Name" xml:space="preserve">
+    <value>toolStripMenuItem91</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem91.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem92.Name" xml:space="preserve">
+    <value>toolStripMenuItem92</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem92.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem93.Name" xml:space="preserve">
+    <value>toolStripMenuItem93</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem93.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem94.Name" xml:space="preserve">
+    <value>toolStripMenuItem94</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem94.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem95.Name" xml:space="preserve">
+    <value>toolStripMenuItem95</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem95.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem96.Name" xml:space="preserve">
+    <value>toolStripMenuItem96</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem96.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem97.Name" xml:space="preserve">
+    <value>toolStripMenuItem97</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem97.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem1.Name" xml:space="preserve">
+    <value>toolStripMenuItem1</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem3.Name" xml:space="preserve">
+    <value>toolStripMenuItem3</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem4.Name" xml:space="preserve">
+    <value>toolStripMenuItem4</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem5.Name" xml:space="preserve">
+    <value>toolStripMenuItem5</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem6.Name" xml:space="preserve">
+    <value>toolStripMenuItem6</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem7.Name" xml:space="preserve">
+    <value>toolStripMenuItem7</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem8.Name" xml:space="preserve">
+    <value>toolStripMenuItem8</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem9.Name" xml:space="preserve">
+    <value>toolStripMenuItem9</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem10.Name" xml:space="preserve">
+    <value>toolStripMenuItem10</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem10.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem11.Name" xml:space="preserve">
+    <value>toolStripMenuItem11</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem11.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem12.Name" xml:space="preserve">
+    <value>toolStripMenuItem12</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem12.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem13.Name" xml:space="preserve">
+    <value>toolStripMenuItem13</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem13.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem14.Name" xml:space="preserve">
+    <value>toolStripMenuItem14</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem14.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem15.Name" xml:space="preserve">
+    <value>toolStripMenuItem15</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem15.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem16.Name" xml:space="preserve">
+    <value>toolStripMenuItem16</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem16.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem17.Name" xml:space="preserve">
+    <value>toolStripMenuItem17</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem17.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem18.Name" xml:space="preserve">
+    <value>toolStripMenuItem18</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem18.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem19.Name" xml:space="preserve">
+    <value>toolStripMenuItem19</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem19.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem20.Name" xml:space="preserve">
+    <value>toolStripMenuItem20</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem20.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem21.Name" xml:space="preserve">
+    <value>toolStripMenuItem21</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem21.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem22.Name" xml:space="preserve">
+    <value>toolStripMenuItem22</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem22.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem23.Name" xml:space="preserve">
+    <value>toolStripMenuItem23</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem23.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem24.Name" xml:space="preserve">
+    <value>toolStripMenuItem24</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem24.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem25.Name" xml:space="preserve">
+    <value>toolStripMenuItem25</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem25.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem26.Name" xml:space="preserve">
+    <value>toolStripMenuItem26</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem26.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem27.Name" xml:space="preserve">
+    <value>toolStripMenuItem27</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem27.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem28.Name" xml:space="preserve">
+    <value>toolStripMenuItem28</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem28.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem29.Name" xml:space="preserve">
+    <value>toolStripMenuItem29</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem29.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem30.Name" xml:space="preserve">
+    <value>toolStripMenuItem30</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem30.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem31.Name" xml:space="preserve">
+    <value>toolStripMenuItem31</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem31.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem32.Name" xml:space="preserve">
+    <value>toolStripMenuItem32</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem32.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem33.Name" xml:space="preserve">
+    <value>toolStripMenuItem33</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem33.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem34.Name" xml:space="preserve">
+    <value>toolStripMenuItem34</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem34.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem35.Name" xml:space="preserve">
+    <value>toolStripMenuItem35</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem35.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem36.Name" xml:space="preserve">
+    <value>toolStripMenuItem36</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem36.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem37.Name" xml:space="preserve">
+    <value>toolStripMenuItem37</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem37.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem38.Name" xml:space="preserve">
+    <value>toolStripMenuItem38</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem38.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem39.Name" xml:space="preserve">
+    <value>toolStripMenuItem39</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem39.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem40.Name" xml:space="preserve">
+    <value>toolStripMenuItem40</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem40.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem41.Name" xml:space="preserve">
+    <value>toolStripMenuItem41</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem41.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem42.Name" xml:space="preserve">
+    <value>toolStripMenuItem42</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem42.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem43.Name" xml:space="preserve">
+    <value>toolStripMenuItem43</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem43.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem44.Name" xml:space="preserve">
+    <value>toolStripMenuItem44</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem44.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem45.Name" xml:space="preserve">
+    <value>toolStripMenuItem45</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem45.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem46.Name" xml:space="preserve">
+    <value>toolStripMenuItem46</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem46.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem47.Name" xml:space="preserve">
+    <value>toolStripMenuItem47</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem47.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;tsmiVST.Name" xml:space="preserve">
     <value>tsmiVST</value>
   </data>
@@ -2850,18 +3990,6 @@
   </data>
   <data name="&gt;&gt;keyboardHook1.Type" xml:space="preserve">
     <value>HongliangSoft.Utilities.Gui.KeyboardHook, MDPlayerx64, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;tsmiPPCM8.Name" xml:space="preserve">
-    <value>tsmiPPCM8</value>
-  </data>
-  <data name="&gt;&gt;tsmiPPCM8.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tsmiSPCM8.Name" xml:space="preserve">
-    <value>tsmiSPCM8</value>
-  </data>
-  <data name="&gt;&gt;tsmiSPCM8.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>frmMain</value>

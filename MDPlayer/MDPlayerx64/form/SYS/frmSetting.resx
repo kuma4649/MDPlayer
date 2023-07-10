@@ -13648,13 +13648,13 @@
     <value>4, 0, 4, 0</value>
   </data>
   <data name="label30.Size" type="System.Drawing.Size, System.Drawing">
-    <value>31, 15</value>
+    <value>24, 15</value>
   </data>
   <data name="label30.TabIndex" type="System.Int32, mscorlib">
     <value>21</value>
   </data>
   <data name="label30.Text" xml:space="preserve">
-    <value>Hz/s</value>
+    <value>Fps</value>
   </data>
   <data name="&gt;&gt;label30.Name" xml:space="preserve">
     <value>label30</value>

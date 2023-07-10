@@ -222,9 +222,12 @@ namespace MDPlayer.form
                 }
             }
 
-            log.ForcedWrite("起動時のAudio初期化処理開始");
+            log.ForcedWrite("コントロール初期化処理開始");
 
             tsmiOutputwavFile.Checked = setting.other.WavSwitch;
+            CheckTsmiChangeZoomItem();
+
+            log.ForcedWrite("起動時のAudio初期化処理開始");
 
             Audio.FrmMain = this;
             Audio.Init(setting);
@@ -10119,14 +10122,26 @@ namespace MDPlayer.form
 
         private void TsmiChangeZoom_Click(object sender, EventArgs e)
         {
-            if (sender == tsmiChangeZoomX1) setting.other.Zoom = 1;
-            else if (sender == tsmiChangeZoomX2) setting.other.Zoom = 2;
-            else if (sender == tsmiChangeZoomX3) setting.other.Zoom = 3;
-            else if (sender == tsmiChangeZoomX4) setting.other.Zoom = 4;
+            if (sender == tsmiChangeZoomX1) tsmiChangeZoomX1.Checked = true;
+            else if (sender == tsmiChangeZoomX2) tsmiChangeZoomX2.Checked = true;
+            else if (sender == tsmiChangeZoomX3) tsmiChangeZoomX3.Checked = true;
+            else if (sender == tsmiChangeZoomX4) tsmiChangeZoomX4.Checked = true;
             else
                 setting.other.Zoom = (setting.other.Zoom == 4) ? 1 : (setting.other.Zoom + 1);
-
+            CheckTsmiChangeZoomItem();
             changeZoom();
+        }
+
+        private void CheckTsmiChangeZoomItem()
+        {
+            tsmiChangeZoomX1.Checked = false;
+            tsmiChangeZoomX2.Checked = false;
+            tsmiChangeZoomX3.Checked = false;
+            tsmiChangeZoomX4.Checked = false;
+            if (setting.other.Zoom == 1) tsmiChangeZoomX1.Checked = true;
+            else if (setting.other.Zoom == 2) tsmiChangeZoomX2.Checked = true;
+            else if (setting.other.Zoom == 3) tsmiChangeZoomX3.Checked = true;
+            else if (setting.other.Zoom == 4) tsmiChangeZoomX4.Checked = true;
         }
 
         private void TsmiVST_Click(object sender, EventArgs e)
@@ -10496,6 +10511,5 @@ namespace MDPlayer.form
         {
             setting.other.WavSwitch = tsmiOutputwavFile.Checked;
         }
-
     }
 }

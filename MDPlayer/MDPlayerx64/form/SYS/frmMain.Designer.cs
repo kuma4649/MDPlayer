@@ -67,6 +67,7 @@ namespace MDPlayer.form
             tsmiPC352 = new ToolStripMenuItem();
             tsmiPOKIM6258 = new ToolStripMenuItem();
             tsmiPOKIM6295 = new ToolStripMenuItem();
+            tsmiPPCM8 = new ToolStripMenuItem();
             tsmiPPWM = new ToolStripMenuItem();
             tsmiPQSound = new ToolStripMenuItem();
             tsmiPRF5C164 = new ToolStripMenuItem();
@@ -113,6 +114,7 @@ namespace MDPlayer.form
             tsmiSC352 = new ToolStripMenuItem();
             tsmiSOKIM6258 = new ToolStripMenuItem();
             tsmiSOKIM6295 = new ToolStripMenuItem();
+            tsmiSPCM8 = new ToolStripMenuItem();
             tsmiSPWM = new ToolStripMenuItem();
             tsmiSRF5C164 = new ToolStripMenuItem();
             tsmiSRF5C68 = new ToolStripMenuItem();
@@ -149,6 +151,100 @@ namespace MDPlayer.form
             tsmiOpenMixer = new ToolStripMenuItem();
             その他ウィンドウ表示ToolStripMenuItem = new ToolStripMenuItem();
             tsmiKBrd = new ToolStripMenuItem();
+            toolStripMenuItem50 = new ToolStripMenuItem();
+            toolStripMenuItem51 = new ToolStripMenuItem();
+            toolStripMenuItem52 = new ToolStripMenuItem();
+            toolStripMenuItem53 = new ToolStripMenuItem();
+            toolStripMenuItem54 = new ToolStripMenuItem();
+            toolStripMenuItem55 = new ToolStripMenuItem();
+            toolStripMenuItem56 = new ToolStripMenuItem();
+            toolStripMenuItem57 = new ToolStripMenuItem();
+            toolStripMenuItem58 = new ToolStripMenuItem();
+            toolStripMenuItem59 = new ToolStripMenuItem();
+            toolStripMenuItem60 = new ToolStripMenuItem();
+            toolStripMenuItem61 = new ToolStripMenuItem();
+            toolStripMenuItem62 = new ToolStripMenuItem();
+            toolStripMenuItem63 = new ToolStripMenuItem();
+            toolStripMenuItem64 = new ToolStripMenuItem();
+            toolStripMenuItem65 = new ToolStripMenuItem();
+            toolStripMenuItem66 = new ToolStripMenuItem();
+            toolStripMenuItem67 = new ToolStripMenuItem();
+            toolStripMenuItem68 = new ToolStripMenuItem();
+            toolStripMenuItem69 = new ToolStripMenuItem();
+            toolStripMenuItem70 = new ToolStripMenuItem();
+            toolStripMenuItem71 = new ToolStripMenuItem();
+            toolStripMenuItem72 = new ToolStripMenuItem();
+            toolStripMenuItem73 = new ToolStripMenuItem();
+            toolStripMenuItem74 = new ToolStripMenuItem();
+            toolStripMenuItem75 = new ToolStripMenuItem();
+            toolStripMenuItem76 = new ToolStripMenuItem();
+            toolStripMenuItem77 = new ToolStripMenuItem();
+            toolStripMenuItem78 = new ToolStripMenuItem();
+            toolStripMenuItem79 = new ToolStripMenuItem();
+            toolStripMenuItem80 = new ToolStripMenuItem();
+            toolStripMenuItem81 = new ToolStripMenuItem();
+            toolStripMenuItem82 = new ToolStripMenuItem();
+            toolStripMenuItem83 = new ToolStripMenuItem();
+            toolStripMenuItem84 = new ToolStripMenuItem();
+            toolStripMenuItem85 = new ToolStripMenuItem();
+            toolStripMenuItem86 = new ToolStripMenuItem();
+            toolStripMenuItem87 = new ToolStripMenuItem();
+            toolStripMenuItem88 = new ToolStripMenuItem();
+            toolStripMenuItem89 = new ToolStripMenuItem();
+            toolStripMenuItem90 = new ToolStripMenuItem();
+            toolStripMenuItem91 = new ToolStripMenuItem();
+            toolStripMenuItem92 = new ToolStripMenuItem();
+            toolStripMenuItem93 = new ToolStripMenuItem();
+            toolStripMenuItem94 = new ToolStripMenuItem();
+            toolStripMenuItem95 = new ToolStripMenuItem();
+            toolStripMenuItem96 = new ToolStripMenuItem();
+            toolStripMenuItem97 = new ToolStripMenuItem();
+            toolStripMenuItem1 = new ToolStripMenuItem();
+            toolStripMenuItem3 = new ToolStripMenuItem();
+            toolStripMenuItem4 = new ToolStripMenuItem();
+            toolStripMenuItem5 = new ToolStripMenuItem();
+            toolStripMenuItem6 = new ToolStripMenuItem();
+            toolStripMenuItem7 = new ToolStripMenuItem();
+            toolStripMenuItem8 = new ToolStripMenuItem();
+            toolStripMenuItem9 = new ToolStripMenuItem();
+            toolStripMenuItem10 = new ToolStripMenuItem();
+            toolStripMenuItem11 = new ToolStripMenuItem();
+            toolStripMenuItem12 = new ToolStripMenuItem();
+            toolStripMenuItem13 = new ToolStripMenuItem();
+            toolStripMenuItem14 = new ToolStripMenuItem();
+            toolStripMenuItem15 = new ToolStripMenuItem();
+            toolStripMenuItem16 = new ToolStripMenuItem();
+            toolStripMenuItem17 = new ToolStripMenuItem();
+            toolStripMenuItem18 = new ToolStripMenuItem();
+            toolStripMenuItem19 = new ToolStripMenuItem();
+            toolStripMenuItem20 = new ToolStripMenuItem();
+            toolStripMenuItem21 = new ToolStripMenuItem();
+            toolStripMenuItem22 = new ToolStripMenuItem();
+            toolStripMenuItem23 = new ToolStripMenuItem();
+            toolStripMenuItem24 = new ToolStripMenuItem();
+            toolStripMenuItem25 = new ToolStripMenuItem();
+            toolStripMenuItem26 = new ToolStripMenuItem();
+            toolStripMenuItem27 = new ToolStripMenuItem();
+            toolStripMenuItem28 = new ToolStripMenuItem();
+            toolStripMenuItem29 = new ToolStripMenuItem();
+            toolStripMenuItem30 = new ToolStripMenuItem();
+            toolStripMenuItem31 = new ToolStripMenuItem();
+            toolStripMenuItem32 = new ToolStripMenuItem();
+            toolStripMenuItem33 = new ToolStripMenuItem();
+            toolStripMenuItem34 = new ToolStripMenuItem();
+            toolStripMenuItem35 = new ToolStripMenuItem();
+            toolStripMenuItem36 = new ToolStripMenuItem();
+            toolStripMenuItem37 = new ToolStripMenuItem();
+            toolStripMenuItem38 = new ToolStripMenuItem();
+            toolStripMenuItem39 = new ToolStripMenuItem();
+            toolStripMenuItem40 = new ToolStripMenuItem();
+            toolStripMenuItem41 = new ToolStripMenuItem();
+            toolStripMenuItem42 = new ToolStripMenuItem();
+            toolStripMenuItem43 = new ToolStripMenuItem();
+            toolStripMenuItem44 = new ToolStripMenuItem();
+            toolStripMenuItem45 = new ToolStripMenuItem();
+            toolStripMenuItem46 = new ToolStripMenuItem();
+            toolStripMenuItem47 = new ToolStripMenuItem();
             tsmiVST = new ToolStripMenuItem();
             tsmiMIDIkbd = new ToolStripMenuItem();
             tsmiChangeZoom = new ToolStripMenuItem();
@@ -196,8 +292,6 @@ namespace MDPlayer.form
             opeButtonOpen = new Button();
             opeButtonMode = new Button();
             keyboardHook1 = new HongliangSoft.Utilities.Gui.KeyboardHook();
-            tsmiPPCM8 = new ToolStripMenuItem();
-            tsmiSPCM8 = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)pbScreen).BeginInit();
             cmsOpenOtherPanel.SuspendLayout();
             cmsMenu.SuspendLayout();
@@ -394,6 +488,12 @@ namespace MDPlayer.form
             tsmiPOKIM6295.Name = "tsmiPOKIM6295";
             resources.ApplyResources(tsmiPOKIM6295, "tsmiPOKIM6295");
             tsmiPOKIM6295.Click += TsmiPOKIM6295_Click;
+            // 
+            // tsmiPPCM8
+            // 
+            tsmiPPCM8.Name = "tsmiPPCM8";
+            resources.ApplyResources(tsmiPPCM8, "tsmiPPCM8");
+            tsmiPPCM8.Click += TsmiPPCM8_Click;
             // 
             // tsmiPPWM
             // 
@@ -671,6 +771,12 @@ namespace MDPlayer.form
             resources.ApplyResources(tsmiSOKIM6295, "tsmiSOKIM6295");
             tsmiSOKIM6295.Click += TsmiSOKIM6295_Click;
             // 
+            // tsmiSPCM8
+            // 
+            tsmiSPCM8.Name = "tsmiSPCM8";
+            resources.ApplyResources(tsmiSPCM8, "tsmiSPCM8");
+            tsmiSPCM8.Click += TsmiSPCM8_Click;
+            // 
             // tsmiSPWM
             // 
             tsmiSPWM.Name = "tsmiSPWM";
@@ -884,9 +990,572 @@ namespace MDPlayer.form
             // 
             // tsmiKBrd
             // 
+            tsmiKBrd.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem50, toolStripMenuItem1 });
             tsmiKBrd.Name = "tsmiKBrd";
             resources.ApplyResources(tsmiKBrd, "tsmiKBrd");
-            tsmiKBrd.Click += TsmiKBrd_Click;
+            // 
+            // toolStripMenuItem50
+            // 
+            toolStripMenuItem50.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem51, toolStripMenuItem54, toolStripMenuItem58, toolStripMenuItem65, toolStripMenuItem71, toolStripMenuItem72, toolStripMenuItem73, toolStripMenuItem74, toolStripMenuItem88, toolStripMenuItem89, toolStripMenuItem97 });
+            toolStripMenuItem50.Name = "toolStripMenuItem50";
+            resources.ApplyResources(toolStripMenuItem50, "toolStripMenuItem50");
+            // 
+            // toolStripMenuItem51
+            // 
+            toolStripMenuItem51.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem52, toolStripMenuItem53 });
+            toolStripMenuItem51.Name = "toolStripMenuItem51";
+            resources.ApplyResources(toolStripMenuItem51, "toolStripMenuItem51");
+            // 
+            // toolStripMenuItem52
+            // 
+            toolStripMenuItem52.Name = "toolStripMenuItem52";
+            resources.ApplyResources(toolStripMenuItem52, "toolStripMenuItem52");
+            toolStripMenuItem52.Click += TsmiPAY8910_Click;
+            // 
+            // toolStripMenuItem53
+            // 
+            toolStripMenuItem53.Name = "toolStripMenuItem53";
+            resources.ApplyResources(toolStripMenuItem53, "toolStripMenuItem53");
+            toolStripMenuItem53.Click += TsmiPDCSG_Click;
+            // 
+            // toolStripMenuItem54
+            // 
+            toolStripMenuItem54.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem55, toolStripMenuItem56, toolStripMenuItem57 });
+            toolStripMenuItem54.Name = "toolStripMenuItem54";
+            resources.ApplyResources(toolStripMenuItem54, "toolStripMenuItem54");
+            // 
+            // toolStripMenuItem55
+            // 
+            toolStripMenuItem55.Name = "toolStripMenuItem55";
+            resources.ApplyResources(toolStripMenuItem55, "toolStripMenuItem55");
+            toolStripMenuItem55.Click += TsmiPHuC6280_Click;
+            // 
+            // toolStripMenuItem56
+            // 
+            toolStripMenuItem56.Name = "toolStripMenuItem56";
+            resources.ApplyResources(toolStripMenuItem56, "toolStripMenuItem56");
+            toolStripMenuItem56.Click += TsmiPK051649_Click;
+            // 
+            // toolStripMenuItem57
+            // 
+            toolStripMenuItem57.Name = "toolStripMenuItem57";
+            resources.ApplyResources(toolStripMenuItem57, "toolStripMenuItem57");
+            // 
+            // toolStripMenuItem58
+            // 
+            toolStripMenuItem58.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem59, toolStripMenuItem60, toolStripMenuItem61, toolStripMenuItem62, toolStripMenuItem63, toolStripMenuItem64 });
+            toolStripMenuItem58.Name = "toolStripMenuItem58";
+            resources.ApplyResources(toolStripMenuItem58, "toolStripMenuItem58");
+            // 
+            // toolStripMenuItem59
+            // 
+            toolStripMenuItem59.Name = "toolStripMenuItem59";
+            resources.ApplyResources(toolStripMenuItem59, "toolStripMenuItem59");
+            toolStripMenuItem59.Click += TsmiPOPLL_Click;
+            // 
+            // toolStripMenuItem60
+            // 
+            toolStripMenuItem60.Name = "toolStripMenuItem60";
+            resources.ApplyResources(toolStripMenuItem60, "toolStripMenuItem60");
+            toolStripMenuItem60.Click += TsmiPOPL_Click;
+            // 
+            // toolStripMenuItem61
+            // 
+            toolStripMenuItem61.Name = "toolStripMenuItem61";
+            resources.ApplyResources(toolStripMenuItem61, "toolStripMenuItem61");
+            toolStripMenuItem61.Click += TsmiPY8950_Click;
+            // 
+            // toolStripMenuItem62
+            // 
+            toolStripMenuItem62.Name = "toolStripMenuItem62";
+            resources.ApplyResources(toolStripMenuItem62, "toolStripMenuItem62");
+            toolStripMenuItem62.Click += TsmiPOPL2_Click;
+            // 
+            // toolStripMenuItem63
+            // 
+            toolStripMenuItem63.Name = "toolStripMenuItem63";
+            resources.ApplyResources(toolStripMenuItem63, "toolStripMenuItem63");
+            toolStripMenuItem63.Click += TsmiPOPL3_Click;
+            // 
+            // toolStripMenuItem64
+            // 
+            toolStripMenuItem64.Name = "toolStripMenuItem64";
+            resources.ApplyResources(toolStripMenuItem64, "toolStripMenuItem64");
+            toolStripMenuItem64.Click += TsmiPOPL4_Click;
+            // 
+            // toolStripMenuItem65
+            // 
+            toolStripMenuItem65.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem66, toolStripMenuItem67, toolStripMenuItem68, toolStripMenuItem69, toolStripMenuItem70 });
+            toolStripMenuItem65.Name = "toolStripMenuItem65";
+            resources.ApplyResources(toolStripMenuItem65, "toolStripMenuItem65");
+            // 
+            // toolStripMenuItem66
+            // 
+            toolStripMenuItem66.Name = "toolStripMenuItem66";
+            resources.ApplyResources(toolStripMenuItem66, "toolStripMenuItem66");
+            toolStripMenuItem66.Click += tsmiPOPN_Click;
+            // 
+            // toolStripMenuItem67
+            // 
+            toolStripMenuItem67.Name = "toolStripMenuItem67";
+            resources.ApplyResources(toolStripMenuItem67, "toolStripMenuItem67");
+            toolStripMenuItem67.Click += tsmiPOPN2_Click;
+            // 
+            // toolStripMenuItem68
+            // 
+            toolStripMenuItem68.Name = "toolStripMenuItem68";
+            resources.ApplyResources(toolStripMenuItem68, "toolStripMenuItem68");
+            toolStripMenuItem68.Click += TsmiPOPNA_Click;
+            // 
+            // toolStripMenuItem69
+            // 
+            toolStripMenuItem69.Name = "toolStripMenuItem69";
+            resources.ApplyResources(toolStripMenuItem69, "toolStripMenuItem69");
+            toolStripMenuItem69.Click += TsmiPOPNB_Click;
+            // 
+            // toolStripMenuItem70
+            // 
+            toolStripMenuItem70.Name = "toolStripMenuItem70";
+            resources.ApplyResources(toolStripMenuItem70, "toolStripMenuItem70");
+            toolStripMenuItem70.Click += TsmiPOPNA2_Click;
+            // 
+            // toolStripMenuItem71
+            // 
+            toolStripMenuItem71.Name = "toolStripMenuItem71";
+            resources.ApplyResources(toolStripMenuItem71, "toolStripMenuItem71");
+            toolStripMenuItem71.Click += TsmiPOPM_Click;
+            // 
+            // toolStripMenuItem72
+            // 
+            toolStripMenuItem72.Name = "toolStripMenuItem72";
+            resources.ApplyResources(toolStripMenuItem72, "toolStripMenuItem72");
+            toolStripMenuItem72.Click += TsmiPOPX_Click;
+            // 
+            // toolStripMenuItem73
+            // 
+            toolStripMenuItem73.Name = "toolStripMenuItem73";
+            resources.ApplyResources(toolStripMenuItem73, "toolStripMenuItem73");
+            toolStripMenuItem73.Click += TsmiYMZ280B_Click;
+            // 
+            // toolStripMenuItem74
+            // 
+            toolStripMenuItem74.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem75, toolStripMenuItem76, toolStripMenuItem77, toolStripMenuItem78, toolStripMenuItem79, toolStripMenuItem80, toolStripMenuItem81, toolStripMenuItem82, toolStripMenuItem83, toolStripMenuItem84, toolStripMenuItem85, toolStripMenuItem86, toolStripMenuItem87 });
+            toolStripMenuItem74.Name = "toolStripMenuItem74";
+            resources.ApplyResources(toolStripMenuItem74, "toolStripMenuItem74");
+            // 
+            // toolStripMenuItem75
+            // 
+            toolStripMenuItem75.Name = "toolStripMenuItem75";
+            resources.ApplyResources(toolStripMenuItem75, "toolStripMenuItem75");
+            toolStripMenuItem75.Click += TsmiPC140_Click;
+            // 
+            // toolStripMenuItem76
+            // 
+            toolStripMenuItem76.Name = "toolStripMenuItem76";
+            resources.ApplyResources(toolStripMenuItem76, "toolStripMenuItem76");
+            toolStripMenuItem76.Click += TsmiPC352_Click;
+            // 
+            // toolStripMenuItem77
+            // 
+            toolStripMenuItem77.Name = "toolStripMenuItem77";
+            resources.ApplyResources(toolStripMenuItem77, "toolStripMenuItem77");
+            toolStripMenuItem77.Click += TsmiPOKIM6258_Click;
+            // 
+            // toolStripMenuItem78
+            // 
+            toolStripMenuItem78.Name = "toolStripMenuItem78";
+            resources.ApplyResources(toolStripMenuItem78, "toolStripMenuItem78");
+            toolStripMenuItem78.Click += TsmiPOKIM6295_Click;
+            // 
+            // toolStripMenuItem79
+            // 
+            toolStripMenuItem79.Name = "toolStripMenuItem79";
+            resources.ApplyResources(toolStripMenuItem79, "toolStripMenuItem79");
+            toolStripMenuItem79.Click += TsmiPPCM8_Click;
+            // 
+            // toolStripMenuItem80
+            // 
+            toolStripMenuItem80.Name = "toolStripMenuItem80";
+            resources.ApplyResources(toolStripMenuItem80, "toolStripMenuItem80");
+            toolStripMenuItem80.Click += TsmiPPWM_Click;
+            // 
+            // toolStripMenuItem81
+            // 
+            toolStripMenuItem81.Name = "toolStripMenuItem81";
+            resources.ApplyResources(toolStripMenuItem81, "toolStripMenuItem81");
+            toolStripMenuItem81.Click += TsmiPQSound_Click;
+            // 
+            // toolStripMenuItem82
+            // 
+            toolStripMenuItem82.Name = "toolStripMenuItem82";
+            resources.ApplyResources(toolStripMenuItem82, "toolStripMenuItem82");
+            toolStripMenuItem82.Click += TsmiPRF5C164_Click;
+            // 
+            // toolStripMenuItem83
+            // 
+            toolStripMenuItem83.Name = "toolStripMenuItem83";
+            resources.ApplyResources(toolStripMenuItem83, "toolStripMenuItem83");
+            toolStripMenuItem83.Click += TsmiPRF5C68_Click;
+            // 
+            // toolStripMenuItem84
+            // 
+            toolStripMenuItem84.Name = "toolStripMenuItem84";
+            resources.ApplyResources(toolStripMenuItem84, "toolStripMenuItem84");
+            toolStripMenuItem84.Click += TsmiPMultiPCM_Click;
+            // 
+            // toolStripMenuItem85
+            // 
+            toolStripMenuItem85.Name = "toolStripMenuItem85";
+            resources.ApplyResources(toolStripMenuItem85, "toolStripMenuItem85");
+            toolStripMenuItem85.Click += TsmiPPPZ8_Click;
+            // 
+            // toolStripMenuItem86
+            // 
+            toolStripMenuItem86.Name = "toolStripMenuItem86";
+            resources.ApplyResources(toolStripMenuItem86, "toolStripMenuItem86");
+            toolStripMenuItem86.Click += TsmiPSegaPCM_Click;
+            // 
+            // toolStripMenuItem87
+            // 
+            toolStripMenuItem87.Name = "toolStripMenuItem87";
+            resources.ApplyResources(toolStripMenuItem87, "toolStripMenuItem87");
+            toolStripMenuItem87.Click += TsmiPK053260_Click;
+            // 
+            // toolStripMenuItem88
+            // 
+            toolStripMenuItem88.Name = "toolStripMenuItem88";
+            resources.ApplyResources(toolStripMenuItem88, "toolStripMenuItem88");
+            toolStripMenuItem88.Click += TsmiPMIDI_Click;
+            // 
+            // toolStripMenuItem89
+            // 
+            toolStripMenuItem89.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem90, toolStripMenuItem91, toolStripMenuItem92, toolStripMenuItem93, toolStripMenuItem94, toolStripMenuItem95, toolStripMenuItem96 });
+            toolStripMenuItem89.Name = "toolStripMenuItem89";
+            resources.ApplyResources(toolStripMenuItem89, "toolStripMenuItem89");
+            // 
+            // toolStripMenuItem90
+            // 
+            toolStripMenuItem90.Name = "toolStripMenuItem90";
+            resources.ApplyResources(toolStripMenuItem90, "toolStripMenuItem90");
+            toolStripMenuItem90.Click += TsmiPNESDMC_Click;
+            // 
+            // toolStripMenuItem91
+            // 
+            toolStripMenuItem91.Name = "toolStripMenuItem91";
+            resources.ApplyResources(toolStripMenuItem91, "toolStripMenuItem91");
+            toolStripMenuItem91.Click += TsmiPFDS_Click;
+            // 
+            // toolStripMenuItem92
+            // 
+            toolStripMenuItem92.Name = "toolStripMenuItem92";
+            resources.ApplyResources(toolStripMenuItem92, "toolStripMenuItem92");
+            toolStripMenuItem92.Click += TsmiPMMC5_Click;
+            // 
+            // toolStripMenuItem93
+            // 
+            toolStripMenuItem93.Name = "toolStripMenuItem93";
+            resources.ApplyResources(toolStripMenuItem93, "toolStripMenuItem93");
+            toolStripMenuItem93.Click += TsmiPVRC6_Click;
+            // 
+            // toolStripMenuItem94
+            // 
+            toolStripMenuItem94.Name = "toolStripMenuItem94";
+            resources.ApplyResources(toolStripMenuItem94, "toolStripMenuItem94");
+            toolStripMenuItem94.Click += TsmiPVRC7_Click;
+            // 
+            // toolStripMenuItem95
+            // 
+            toolStripMenuItem95.Name = "toolStripMenuItem95";
+            resources.ApplyResources(toolStripMenuItem95, "toolStripMenuItem95");
+            toolStripMenuItem95.Click += TsmiPN106_Click;
+            // 
+            // toolStripMenuItem96
+            // 
+            toolStripMenuItem96.Name = "toolStripMenuItem96";
+            resources.ApplyResources(toolStripMenuItem96, "toolStripMenuItem96");
+            toolStripMenuItem96.Click += TsmiPS5B_Click;
+            // 
+            // toolStripMenuItem97
+            // 
+            toolStripMenuItem97.Name = "toolStripMenuItem97";
+            resources.ApplyResources(toolStripMenuItem97, "toolStripMenuItem97");
+            toolStripMenuItem97.Click += TsmiPDMG_Click;
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem3, toolStripMenuItem6, toolStripMenuItem9, toolStripMenuItem16, toolStripMenuItem22, toolStripMenuItem23, toolStripMenuItem24, toolStripMenuItem25, toolStripMenuItem38, toolStripMenuItem39, toolStripMenuItem47 });
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            resources.ApplyResources(toolStripMenuItem1, "toolStripMenuItem1");
+            // 
+            // toolStripMenuItem3
+            // 
+            toolStripMenuItem3.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem4, toolStripMenuItem5 });
+            toolStripMenuItem3.Name = "toolStripMenuItem3";
+            resources.ApplyResources(toolStripMenuItem3, "toolStripMenuItem3");
+            // 
+            // toolStripMenuItem4
+            // 
+            toolStripMenuItem4.Name = "toolStripMenuItem4";
+            resources.ApplyResources(toolStripMenuItem4, "toolStripMenuItem4");
+            toolStripMenuItem4.Click += TsmiSAY8910_Click;
+            // 
+            // toolStripMenuItem5
+            // 
+            toolStripMenuItem5.Name = "toolStripMenuItem5";
+            resources.ApplyResources(toolStripMenuItem5, "toolStripMenuItem5");
+            toolStripMenuItem5.Click += TsmiSDCSG_Click;
+            // 
+            // toolStripMenuItem6
+            // 
+            toolStripMenuItem6.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem7, toolStripMenuItem8 });
+            toolStripMenuItem6.Name = "toolStripMenuItem6";
+            resources.ApplyResources(toolStripMenuItem6, "toolStripMenuItem6");
+            // 
+            // toolStripMenuItem7
+            // 
+            toolStripMenuItem7.Name = "toolStripMenuItem7";
+            resources.ApplyResources(toolStripMenuItem7, "toolStripMenuItem7");
+            toolStripMenuItem7.Click += TsmiSHuC6280_Click;
+            // 
+            // toolStripMenuItem8
+            // 
+            toolStripMenuItem8.Name = "toolStripMenuItem8";
+            resources.ApplyResources(toolStripMenuItem8, "toolStripMenuItem8");
+            toolStripMenuItem8.Click += TsmiSK051649_Click;
+            // 
+            // toolStripMenuItem9
+            // 
+            toolStripMenuItem9.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem10, toolStripMenuItem11, toolStripMenuItem12, toolStripMenuItem13, toolStripMenuItem14, toolStripMenuItem15 });
+            toolStripMenuItem9.Name = "toolStripMenuItem9";
+            resources.ApplyResources(toolStripMenuItem9, "toolStripMenuItem9");
+            // 
+            // toolStripMenuItem10
+            // 
+            toolStripMenuItem10.Name = "toolStripMenuItem10";
+            resources.ApplyResources(toolStripMenuItem10, "toolStripMenuItem10");
+            toolStripMenuItem10.Click += TsmiSOPLL_Click;
+            // 
+            // toolStripMenuItem11
+            // 
+            toolStripMenuItem11.Name = "toolStripMenuItem11";
+            resources.ApplyResources(toolStripMenuItem11, "toolStripMenuItem11");
+            toolStripMenuItem11.Click += TsmiSOPL_Click;
+            // 
+            // toolStripMenuItem12
+            // 
+            toolStripMenuItem12.Name = "toolStripMenuItem12";
+            resources.ApplyResources(toolStripMenuItem12, "toolStripMenuItem12");
+            toolStripMenuItem12.Click += TsmiSY8950_Click;
+            // 
+            // toolStripMenuItem13
+            // 
+            toolStripMenuItem13.Name = "toolStripMenuItem13";
+            resources.ApplyResources(toolStripMenuItem13, "toolStripMenuItem13");
+            toolStripMenuItem13.Click += TsmiSOPL2_Click;
+            // 
+            // toolStripMenuItem14
+            // 
+            toolStripMenuItem14.Name = "toolStripMenuItem14";
+            resources.ApplyResources(toolStripMenuItem14, "toolStripMenuItem14");
+            toolStripMenuItem14.Click += TsmiSOPL3_Click;
+            // 
+            // toolStripMenuItem15
+            // 
+            toolStripMenuItem15.Name = "toolStripMenuItem15";
+            resources.ApplyResources(toolStripMenuItem15, "toolStripMenuItem15");
+            toolStripMenuItem15.Click += TsmiSOPL4_Click;
+            // 
+            // toolStripMenuItem16
+            // 
+            toolStripMenuItem16.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem17, toolStripMenuItem18, toolStripMenuItem19, toolStripMenuItem20, toolStripMenuItem21 });
+            toolStripMenuItem16.Name = "toolStripMenuItem16";
+            resources.ApplyResources(toolStripMenuItem16, "toolStripMenuItem16");
+            // 
+            // toolStripMenuItem17
+            // 
+            toolStripMenuItem17.Name = "toolStripMenuItem17";
+            resources.ApplyResources(toolStripMenuItem17, "toolStripMenuItem17");
+            toolStripMenuItem17.Click += TsmiSOPN_Click;
+            // 
+            // toolStripMenuItem18
+            // 
+            toolStripMenuItem18.Name = "toolStripMenuItem18";
+            resources.ApplyResources(toolStripMenuItem18, "toolStripMenuItem18");
+            toolStripMenuItem18.Click += TsmiSOPN2_Click;
+            // 
+            // toolStripMenuItem19
+            // 
+            toolStripMenuItem19.Name = "toolStripMenuItem19";
+            resources.ApplyResources(toolStripMenuItem19, "toolStripMenuItem19");
+            toolStripMenuItem19.Click += TsmiSOPNA_Click;
+            // 
+            // toolStripMenuItem20
+            // 
+            toolStripMenuItem20.Name = "toolStripMenuItem20";
+            resources.ApplyResources(toolStripMenuItem20, "toolStripMenuItem20");
+            toolStripMenuItem20.Click += TsmiSOPNB_Click;
+            // 
+            // toolStripMenuItem21
+            // 
+            toolStripMenuItem21.Name = "toolStripMenuItem21";
+            resources.ApplyResources(toolStripMenuItem21, "toolStripMenuItem21");
+            toolStripMenuItem21.Click += TsmiSOPNA2_Click;
+            // 
+            // toolStripMenuItem22
+            // 
+            toolStripMenuItem22.Name = "toolStripMenuItem22";
+            resources.ApplyResources(toolStripMenuItem22, "toolStripMenuItem22");
+            toolStripMenuItem22.Click += TsmiSOPM_Click;
+            // 
+            // toolStripMenuItem23
+            // 
+            toolStripMenuItem23.Name = "toolStripMenuItem23";
+            resources.ApplyResources(toolStripMenuItem23, "toolStripMenuItem23");
+            toolStripMenuItem23.Click += TsmiSOPX_Click;
+            // 
+            // toolStripMenuItem24
+            // 
+            toolStripMenuItem24.Name = "toolStripMenuItem24";
+            resources.ApplyResources(toolStripMenuItem24, "toolStripMenuItem24");
+            toolStripMenuItem24.Click += TsmiSYMZ280B_Click;
+            // 
+            // toolStripMenuItem25
+            // 
+            toolStripMenuItem25.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem26, toolStripMenuItem27, toolStripMenuItem28, toolStripMenuItem29, toolStripMenuItem30, toolStripMenuItem31, toolStripMenuItem32, toolStripMenuItem33, toolStripMenuItem34, toolStripMenuItem35, toolStripMenuItem36, toolStripMenuItem37 });
+            toolStripMenuItem25.Name = "toolStripMenuItem25";
+            resources.ApplyResources(toolStripMenuItem25, "toolStripMenuItem25");
+            // 
+            // toolStripMenuItem26
+            // 
+            toolStripMenuItem26.Name = "toolStripMenuItem26";
+            resources.ApplyResources(toolStripMenuItem26, "toolStripMenuItem26");
+            toolStripMenuItem26.Click += TsmiSC140_Click;
+            // 
+            // toolStripMenuItem27
+            // 
+            toolStripMenuItem27.Name = "toolStripMenuItem27";
+            resources.ApplyResources(toolStripMenuItem27, "toolStripMenuItem27");
+            toolStripMenuItem27.Click += TsmiSC352_Click;
+            // 
+            // toolStripMenuItem28
+            // 
+            toolStripMenuItem28.Name = "toolStripMenuItem28";
+            resources.ApplyResources(toolStripMenuItem28, "toolStripMenuItem28");
+            toolStripMenuItem28.Click += TsmiSOKIM6258_Click;
+            // 
+            // toolStripMenuItem29
+            // 
+            toolStripMenuItem29.Name = "toolStripMenuItem29";
+            resources.ApplyResources(toolStripMenuItem29, "toolStripMenuItem29");
+            toolStripMenuItem29.Click += TsmiSOKIM6295_Click;
+            // 
+            // toolStripMenuItem30
+            // 
+            toolStripMenuItem30.Name = "toolStripMenuItem30";
+            resources.ApplyResources(toolStripMenuItem30, "toolStripMenuItem30");
+            toolStripMenuItem30.Click += TsmiSPCM8_Click;
+            // 
+            // toolStripMenuItem31
+            // 
+            toolStripMenuItem31.Name = "toolStripMenuItem31";
+            resources.ApplyResources(toolStripMenuItem31, "toolStripMenuItem31");
+            toolStripMenuItem31.Click += TsmiSPWM_Click;
+            // 
+            // toolStripMenuItem32
+            // 
+            toolStripMenuItem32.Name = "toolStripMenuItem32";
+            resources.ApplyResources(toolStripMenuItem32, "toolStripMenuItem32");
+            toolStripMenuItem32.Click += TsmiSRF5C164_Click;
+            // 
+            // toolStripMenuItem33
+            // 
+            toolStripMenuItem33.Name = "toolStripMenuItem33";
+            resources.ApplyResources(toolStripMenuItem33, "toolStripMenuItem33");
+            toolStripMenuItem33.Click += TsmiSRF5C68_Click;
+            // 
+            // toolStripMenuItem34
+            // 
+            toolStripMenuItem34.Name = "toolStripMenuItem34";
+            resources.ApplyResources(toolStripMenuItem34, "toolStripMenuItem34");
+            toolStripMenuItem34.Click += TsmiSSegaPCM_Click;
+            // 
+            // toolStripMenuItem35
+            // 
+            toolStripMenuItem35.Name = "toolStripMenuItem35";
+            resources.ApplyResources(toolStripMenuItem35, "toolStripMenuItem35");
+            toolStripMenuItem35.Click += TsmiSMultiPCM_Click;
+            // 
+            // toolStripMenuItem36
+            // 
+            toolStripMenuItem36.Name = "toolStripMenuItem36";
+            resources.ApplyResources(toolStripMenuItem36, "toolStripMenuItem36");
+            toolStripMenuItem36.Click += TsmiSPPZ8_Click;
+            // 
+            // toolStripMenuItem37
+            // 
+            toolStripMenuItem37.Name = "toolStripMenuItem37";
+            resources.ApplyResources(toolStripMenuItem37, "toolStripMenuItem37");
+            toolStripMenuItem37.Click += TsmiSK053260_Click;
+            // 
+            // toolStripMenuItem38
+            // 
+            toolStripMenuItem38.Name = "toolStripMenuItem38";
+            resources.ApplyResources(toolStripMenuItem38, "toolStripMenuItem38");
+            toolStripMenuItem38.Click += TsmiSMIDI_Click;
+            // 
+            // toolStripMenuItem39
+            // 
+            toolStripMenuItem39.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem40, toolStripMenuItem41, toolStripMenuItem42, toolStripMenuItem43, toolStripMenuItem44, toolStripMenuItem45, toolStripMenuItem46 });
+            toolStripMenuItem39.Name = "toolStripMenuItem39";
+            resources.ApplyResources(toolStripMenuItem39, "toolStripMenuItem39");
+            // 
+            // toolStripMenuItem40
+            // 
+            toolStripMenuItem40.Name = "toolStripMenuItem40";
+            resources.ApplyResources(toolStripMenuItem40, "toolStripMenuItem40");
+            toolStripMenuItem40.Click += TsmiSFDS_Click;
+            // 
+            // toolStripMenuItem41
+            // 
+            toolStripMenuItem41.Name = "toolStripMenuItem41";
+            resources.ApplyResources(toolStripMenuItem41, "toolStripMenuItem41");
+            toolStripMenuItem41.Click += TsmiSMMC5_Click;
+            // 
+            // toolStripMenuItem42
+            // 
+            toolStripMenuItem42.Name = "toolStripMenuItem42";
+            resources.ApplyResources(toolStripMenuItem42, "toolStripMenuItem42");
+            toolStripMenuItem42.Click += TsmiSNESDMC_Click;
+            // 
+            // toolStripMenuItem43
+            // 
+            toolStripMenuItem43.Name = "toolStripMenuItem43";
+            resources.ApplyResources(toolStripMenuItem43, "toolStripMenuItem43");
+            toolStripMenuItem43.Click += TsmiSVRC6_Click;
+            // 
+            // toolStripMenuItem44
+            // 
+            toolStripMenuItem44.Name = "toolStripMenuItem44";
+            resources.ApplyResources(toolStripMenuItem44, "toolStripMenuItem44");
+            toolStripMenuItem44.Click += TsmiSVRC7_Click;
+            // 
+            // toolStripMenuItem45
+            // 
+            toolStripMenuItem45.Name = "toolStripMenuItem45";
+            resources.ApplyResources(toolStripMenuItem45, "toolStripMenuItem45");
+            toolStripMenuItem45.Click += TsmiSN106_Click;
+            // 
+            // toolStripMenuItem46
+            // 
+            toolStripMenuItem46.Name = "toolStripMenuItem46";
+            resources.ApplyResources(toolStripMenuItem46, "toolStripMenuItem46");
+            toolStripMenuItem46.Click += tsmiSS5B_Click;
+            // 
+            // toolStripMenuItem47
+            // 
+            toolStripMenuItem47.Name = "toolStripMenuItem47";
+            resources.ApplyResources(toolStripMenuItem47, "toolStripMenuItem47");
+            toolStripMenuItem47.Click += TsmiSDMG_Click;
             // 
             // tsmiVST
             // 
@@ -1398,18 +2067,6 @@ namespace MDPlayer.form
             // 
             keyboardHook1.KeyboardHooked += keyboardHook1_KeyboardHooked;
             // 
-            // tsmiPPCM8
-            // 
-            tsmiPPCM8.Name = "tsmiPPCM8";
-            resources.ApplyResources(tsmiPPCM8, "tsmiPPCM8");
-            tsmiPPCM8.Click += TsmiPPCM8_Click;
-            // 
-            // tsmiSPCM8
-            // 
-            tsmiSPCM8.Name = "tsmiSPCM8";
-            resources.ApplyResources(tsmiSPCM8, "tsmiSPCM8");
-            tsmiSPCM8.Click += TsmiSPCM8_Click;
-            // 
             // frmMain
             // 
             resources.ApplyResources(this, "$this");
@@ -1614,6 +2271,100 @@ namespace MDPlayer.form
         private ToolStripMenuItem tsmiSK053260;
         private ToolStripMenuItem tsmiPPCM8;
         private ToolStripMenuItem tsmiSPCM8;
+        private ToolStripMenuItem toolStripMenuItem50;
+        private ToolStripMenuItem toolStripMenuItem51;
+        private ToolStripMenuItem toolStripMenuItem52;
+        private ToolStripMenuItem toolStripMenuItem53;
+        private ToolStripMenuItem toolStripMenuItem54;
+        private ToolStripMenuItem toolStripMenuItem55;
+        private ToolStripMenuItem toolStripMenuItem56;
+        private ToolStripMenuItem toolStripMenuItem57;
+        private ToolStripMenuItem toolStripMenuItem58;
+        private ToolStripMenuItem toolStripMenuItem59;
+        private ToolStripMenuItem toolStripMenuItem60;
+        private ToolStripMenuItem toolStripMenuItem61;
+        private ToolStripMenuItem toolStripMenuItem62;
+        private ToolStripMenuItem toolStripMenuItem63;
+        private ToolStripMenuItem toolStripMenuItem64;
+        private ToolStripMenuItem toolStripMenuItem65;
+        private ToolStripMenuItem toolStripMenuItem66;
+        private ToolStripMenuItem toolStripMenuItem67;
+        private ToolStripMenuItem toolStripMenuItem68;
+        private ToolStripMenuItem toolStripMenuItem69;
+        private ToolStripMenuItem toolStripMenuItem70;
+        private ToolStripMenuItem toolStripMenuItem71;
+        private ToolStripMenuItem toolStripMenuItem72;
+        private ToolStripMenuItem toolStripMenuItem73;
+        private ToolStripMenuItem toolStripMenuItem74;
+        private ToolStripMenuItem toolStripMenuItem75;
+        private ToolStripMenuItem toolStripMenuItem76;
+        private ToolStripMenuItem toolStripMenuItem77;
+        private ToolStripMenuItem toolStripMenuItem78;
+        private ToolStripMenuItem toolStripMenuItem79;
+        private ToolStripMenuItem toolStripMenuItem80;
+        private ToolStripMenuItem toolStripMenuItem81;
+        private ToolStripMenuItem toolStripMenuItem82;
+        private ToolStripMenuItem toolStripMenuItem83;
+        private ToolStripMenuItem toolStripMenuItem84;
+        private ToolStripMenuItem toolStripMenuItem85;
+        private ToolStripMenuItem toolStripMenuItem86;
+        private ToolStripMenuItem toolStripMenuItem87;
+        private ToolStripMenuItem toolStripMenuItem88;
+        private ToolStripMenuItem toolStripMenuItem89;
+        private ToolStripMenuItem toolStripMenuItem90;
+        private ToolStripMenuItem toolStripMenuItem91;
+        private ToolStripMenuItem toolStripMenuItem92;
+        private ToolStripMenuItem toolStripMenuItem93;
+        private ToolStripMenuItem toolStripMenuItem94;
+        private ToolStripMenuItem toolStripMenuItem95;
+        private ToolStripMenuItem toolStripMenuItem96;
+        private ToolStripMenuItem toolStripMenuItem97;
+        private ToolStripMenuItem toolStripMenuItem1;
+        private ToolStripMenuItem toolStripMenuItem3;
+        private ToolStripMenuItem toolStripMenuItem4;
+        private ToolStripMenuItem toolStripMenuItem5;
+        private ToolStripMenuItem toolStripMenuItem6;
+        private ToolStripMenuItem toolStripMenuItem7;
+        private ToolStripMenuItem toolStripMenuItem8;
+        private ToolStripMenuItem toolStripMenuItem9;
+        private ToolStripMenuItem toolStripMenuItem10;
+        private ToolStripMenuItem toolStripMenuItem11;
+        private ToolStripMenuItem toolStripMenuItem12;
+        private ToolStripMenuItem toolStripMenuItem13;
+        private ToolStripMenuItem toolStripMenuItem14;
+        private ToolStripMenuItem toolStripMenuItem15;
+        private ToolStripMenuItem toolStripMenuItem16;
+        private ToolStripMenuItem toolStripMenuItem17;
+        private ToolStripMenuItem toolStripMenuItem18;
+        private ToolStripMenuItem toolStripMenuItem19;
+        private ToolStripMenuItem toolStripMenuItem20;
+        private ToolStripMenuItem toolStripMenuItem21;
+        private ToolStripMenuItem toolStripMenuItem22;
+        private ToolStripMenuItem toolStripMenuItem23;
+        private ToolStripMenuItem toolStripMenuItem24;
+        private ToolStripMenuItem toolStripMenuItem25;
+        private ToolStripMenuItem toolStripMenuItem26;
+        private ToolStripMenuItem toolStripMenuItem27;
+        private ToolStripMenuItem toolStripMenuItem28;
+        private ToolStripMenuItem toolStripMenuItem29;
+        private ToolStripMenuItem toolStripMenuItem30;
+        private ToolStripMenuItem toolStripMenuItem31;
+        private ToolStripMenuItem toolStripMenuItem32;
+        private ToolStripMenuItem toolStripMenuItem33;
+        private ToolStripMenuItem toolStripMenuItem34;
+        private ToolStripMenuItem toolStripMenuItem35;
+        private ToolStripMenuItem toolStripMenuItem36;
+        private ToolStripMenuItem toolStripMenuItem37;
+        private ToolStripMenuItem toolStripMenuItem38;
+        private ToolStripMenuItem toolStripMenuItem39;
+        private ToolStripMenuItem toolStripMenuItem40;
+        private ToolStripMenuItem toolStripMenuItem41;
+        private ToolStripMenuItem toolStripMenuItem42;
+        private ToolStripMenuItem toolStripMenuItem43;
+        private ToolStripMenuItem toolStripMenuItem44;
+        private ToolStripMenuItem toolStripMenuItem45;
+        private ToolStripMenuItem toolStripMenuItem46;
+        private ToolStripMenuItem toolStripMenuItem47;
     }
 }
 
