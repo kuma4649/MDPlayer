@@ -5873,6 +5873,12 @@ namespace MDPlayer.form
                 return buf;
             }
 
+            if (ext == ".opi" || ext == ".ovi" || ext == ".ozi")
+            {
+                format = EnmFileFormat.FMP;
+                return buf;
+            }
+
             if (ext == ".mml")
             {
                 format = EnmFileFormat.MML;

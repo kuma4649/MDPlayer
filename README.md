@@ -3,7 +3,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   
 [概要]  
   このツールは、鍵盤表示を行いながらVGMファイルの再生を行います。  
-  (NRD,XGM,S98,MID,RCP,NSF,HES,SID,MGS,MDR,MDX,MND,MUC,MUB,M,M2,MZ,WAV,MP3,AIFFファイルにも対応。)  
+  (NRD,XGM,S98,MID,RCP,NSF,HES,SID,MGS,MDR,MDX,MND,MUC,MUB,M,M2,MZ,OPI,OVI,OZI,WAV,MP3,AIFFファイルにも対応。)  
   
 [注意]  
   ・再生時の音量に注意してください。バグによる雑音が大音量で再生される場合もあります。  
@@ -39,6 +39,9 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   .M   (PMD 向けファイル)  
   .M2  (PMD 向けファイル)  
   .MZ  (PMD 向けファイル)  
+  .OPI (FMP 向けファイル 演奏するにはFMP.COMが必要です)    
+  .OVI (FMP 向けファイル 演奏するにはFMP.COMが必要です)    
+  .OZI (FMP 向けファイル 演奏するにはFMP.COMが必要です)    
   .WAV (TBD 音声ファイル)  
   .MP3 (TBD 音声ファイル)  
   .AIF (TBD 音声ファイル)  
@@ -165,13 +168,13 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
         MDPlayerx64.exe -PL- sample.vgm
           起動時にsample.vgmを読み込み、再生を開始する。但しプレイリストに追加しない。
 
-[ちょっと分かりずらい操作]  
+[ちょっと分かりづらい操作]  
   ・各ウィンドウのタイトルバーをダブルクリック(トグル)すると常に前面に表示するようになります。  
 　・Shiftキーを押しながらアプリを起動すると、ウィンドウの位置を初期化できるように機能追加。  
 
   
   
-[ちょっと分かりずらい設定項目]  
+[ちょっと分かりづらい設定項目]  
   ・[Options]ウィンドウ > [other]タブ > [Search paths on additional file]  
     このテキストボックスにパスを入力しておくと、  
     曲データを再生するときに追加で参照されるファイルをその場所を検索するようになります。  
@@ -237,6 +240,9 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
       .m(PMD)        ->  OPNA:7987200Hz  
       .m2(PMD)       ->  OPNA:7987200Hz  
       .mz(PMD)       ->  OPNA:7987200Hz  
+      .opi(FMP)      ->  OPNA:7987200Hz  
+      .ovi(FMP)      ->  OPNA:7987200Hz  
+      .ozi(FMP)      ->  OPNA:7987200Hz  
   
   
 [必要な動作環境]  
@@ -290,6 +296,11 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   ・MuSICAのファイルを演奏するには、以下のファイルが必要です。  
   (予め同梱させていただいていますが必要であれば、公式サイトから入手してください。)
     KINROU5.DRV  
+
+  ・FMPのファイルを演奏するには、以下のファイルが必要です。  
+  (公式サイト,VECTORなどから入手してください。)
+    FMP.COM  
+    PPZ8.COM  
 
   
 [同期のすゝめ]  
@@ -489,6 +500,8 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
     ・MGSDRV  
     ・Z80dotNET  
     ・blueMSX  
+    ・FMP  
+    ・PPZ8  
      
     ・SMS Power!  
     ・DOBON.NET  
@@ -597,6 +610,8 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   ・勤労5号  
   ・Z80dotNet  
   ・mucom88torym2612  
+  ・FMP  
+  ・PPZ8  
   
   
   
