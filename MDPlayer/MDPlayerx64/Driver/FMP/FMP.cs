@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using musicDriverInterface;
 using static MDSound.fm._ssg_callbacks;
+using MDPlayer.Driver.MNDRV;
 
 namespace MDPlayer.Driver.FMP
 {
@@ -71,11 +72,30 @@ namespace MDPlayer.Driver.FMP
 
         public override void oneFrameProc()
         {
-            nise98.Runtimer();
-            if (!nise98.IntTimer()) return;
-            regs.SS = unchecked((short)0xE000);
-            regs.SP = 0x0000;
-            nise98.CallRunfunctionCall(0x14, true, true, true, 10_000_000_000, 0_000);//0x14 ->INT5 0x12->INT4 0x15->INT6 0x0b->INT0
+            try
+            {
+                vgmSpeedCounter += (double)Common.VGMProcSampleRate / setting.outputDevice.SampleRate * vgmSpeed;
+                while (vgmSpeedCounter >= 1.0)
+                {
+                    vgmSpeedCounter -= 1.0;
+
+                    nise98.Runtimer();
+                    if (!nise98.IntTimer()) continue;
+                    regs.SS = unchecked((short)0xE000);
+                    regs.SP = 0x0000;
+                    nise98.CallRunfunctionCall(0x14);
+
+                    Counter++;
+                    vgmFrameCounter++;
+                }
+
+                //vgmCurLoop = mm.ReadUInt16(reg.a6 + dw.LOOP_COUNTER);
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+
         }
 
         private void Run(byte[] vgmBuf)

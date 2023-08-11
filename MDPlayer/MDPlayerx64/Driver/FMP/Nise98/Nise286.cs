@@ -120,7 +120,7 @@ namespace MDPlayer.Driver.FMP.Nise98
                 case 0x26: ES(); break;
                 case 0x27: throw new NotImplementedException(op.ToString("X02"));
                 case 0x28: SUB_EB_GB(); break;
-                case 0x29: throw new NotImplementedException(op.ToString("X02"));
+                case 0x29: SUB_EW_GW(); break;
                 case 0x2a: SUB_GB_EB(); break;
                 case 0x2b: SUB_GW_EW(); break;
                 case 0x2c: SUB_AL_IB(); break;
@@ -1599,6 +1599,65 @@ namespace MDPlayer.Driver.FMP.Nise98
             regs.SetOFbSub((byte)a, (byte)b, ic);
             regs.SetCFb((ushort)c);
             regs.SetAF((byte)a, (byte)b, ic);
+        }
+
+        // 0x29
+        private void SUB_EW_GW()
+        {
+            byte modrw = Fetch();
+            Log.WriteLine(musicDriverInterface.LogLevel.TRACE, "SUB EW,GW modrw:${0:X02}", modrw);
+
+            byte reg = (byte)((modrw & 0x38) >> 3);
+            byte rm = (byte)(modrw & 7);
+            byte mod = (byte)(modrw >> 6);
+
+            ushort a = 0;
+            ushort b = 0;
+            int c = 0;
+            ushort ic = 0;
+
+            ushort GW = (ushort)regs.eRegs[reg];
+
+            int ptr;
+            switch (mod)
+            {
+                case 0:
+                    ptr = GetMod00RWADR(rm);
+                    a = (ushort)mem.PeekW(ptr);
+                    b = GW;
+                    c = a - b;
+                    ic = (ushort)c;
+                    mem.PokeW(ptr, (short)ic);
+                    break;
+                case 1:
+                    ptr = GetMod01RWADR(rm);
+                    a = (ushort)mem.PeekW(ptr);
+                    b = GW;
+                    c = a - b;
+                    ic = (ushort)c;
+                    mem.PokeW(ptr, (short)ic);
+                    break;
+                case 2:
+                    ptr = GetMod02RWADR(rm);
+                    a = (ushort)mem.PeekW(ptr);
+                    b = GW;
+                    c = a - b;
+                    ic = (ushort)c;
+                    mem.PokeW(ptr, (short)ic);
+                    break;
+                case 3:
+                    a = (ushort)regs.eRegs[rm];
+                    b = GW;
+                    c = a - b;
+                    ic = (ushort)c;
+                    regs.eRegs[rm] = (short)ic;
+                    break;
+            }
+
+            regs.SetSZPFw(ic);
+            regs.SetOFwSub(a, b, ic);
+            regs.SetCFw((uint)c);
+            regs.SetAF((byte)a, (byte)b, (byte)ic);
         }
 
         // 0x2a
@@ -3206,8 +3265,26 @@ namespace MDPlayer.Driver.FMP.Nise98
                             break;
                     }
                     break;
-                case 3:
-                    throw new NotImplementedException();
+                case 3://SBB EW,IB
+                    Log.WriteLine(musicDriverInterface.LogLevel.TRACE, "SBB EW,${0:X02}", IB);
+                    ians = (ushort)EW - (byte)(IB + (regs.CF ? 1 : 0));
+                    ans = (Int16)ians;
+                    regs.SetSZPFw((ushort)ians);
+                    regs.SetOFwSub((ushort)EW, (ushort)IB, (ushort)ans);
+                    regs.SetCFw((uint)ians);
+                    regs.SetAF((byte)EW, (byte)IB, (byte)ans);
+                    switch (mod)
+                    {
+                        case 0:
+                        case 1:
+                        case 2:
+                            mem.PokeW(ptr, ans);
+                            break;
+                        case 3:
+                            regs.eRegs[rm] = ans;
+                            break;
+                    }
+                    break;
                 case 4://AND EW,IB
                     Log.WriteLine(musicDriverInterface.LogLevel.TRACE, "AND EW,${0:X02}", IB);
                     ians = (ushort)EW & (ushort)IB;
@@ -4536,12 +4613,13 @@ namespace MDPlayer.Driver.FMP.Nise98
                     break;
             }
 
+            bool newCF;
             switch (reg)
             {
                 case 0://ROL
                     Log.WriteLine(musicDriverInterface.LogLevel.TRACE, "ROL EW,1 modrw:${0:X02}", modrw);
-                    uans = unchecked((UInt16)EW);
 
+                    uans = unchecked((UInt16)EW);
                     regs.CF = (uans & 0x8000) != 0;
                     uans = (ushort)((uans << 1) | (regs.CF ? 1 : 0));
                     ans = (Int16)uans;
@@ -4551,21 +4629,40 @@ namespace MDPlayer.Driver.FMP.Nise98
                     regs.AF = true;//TBD
                     break;
                 case 1://ROR
-                    throw new NotImplementedException();
+                    Log.WriteLine(musicDriverInterface.LogLevel.TRACE, "ROR EW,1 modrw:${0:X02}", modrw);
+
+                    uans = unchecked((UInt16)EW);
+                    regs.CF = (uans & 0x0001) != 0;
+                    uans = (ushort)((uans >> 1) | (regs.CF ? 1 : 0));
+                    ans = (Int16)uans;
+                    regs.OF = (ans & 0x0001) != 0;
+                    regs.SetSZPFw((ushort)ans);
+                    regs.AF = true;//TBD
+                    break;
                 case 2://RCL
                     Log.WriteLine(musicDriverInterface.LogLevel.TRACE, "RCL EW,1 modrw:${0:X02}", modrw);
 
-                    bool newCF = (uans & 0x8000) != 0;
+                    uans = unchecked((UInt16)EW);
+                    newCF = (uans & 0x8000) != 0;
                     uans = (ushort)((EW << 1) | (regs.CF ? 1 : 0));
                     regs.CF = newCF;
-
                     ans = (Int16)uans;
                     regs.OF = (ans & 0x8000) != 0;
                     regs.SetSZPFw((ushort)ans);
                     regs.AF = true;//TBD
                     break;
                 case 3://RCR
-                    throw new NotImplementedException();
+                    Log.WriteLine(musicDriverInterface.LogLevel.TRACE, "RCR EW,1 modrw:${0:X02}", modrw);
+
+                    uans = unchecked((UInt16)EW);
+                    newCF = (uans & 0x0001) != 0;
+                    uans = (ushort)((EW >> 1) | (regs.CF ? 0x8000 : 0x000));
+                    regs.CF = newCF;
+                    ans = (Int16)uans;
+                    regs.OF = (ans & 0x0001) != 0;
+                    regs.SetSZPFw((ushort)ans);
+                    regs.AF = true;//TBD
+                    break;
                 case 4://SHL
                 case 6://同じSHL
                     Log.WriteLine(musicDriverInterface.LogLevel.TRACE, "SHL EW,1 modrw:${0:X02}", modrw);
@@ -4589,7 +4686,7 @@ namespace MDPlayer.Driver.FMP.Nise98
                     break;
                 case 7://SAR
                     Log.WriteLine(musicDriverInterface.LogLevel.TRACE, "SAR EW,1 modrw:${0:X02}", modrw);
-                    ans = regs.eRegs[rm];
+                    ans = (short)EW;
                     regs.CF = (ans & 0x01) != 0;
                     ans >>= 1;
                     uans = (ushort)ans;
