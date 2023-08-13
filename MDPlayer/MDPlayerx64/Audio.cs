@@ -3124,7 +3124,7 @@ namespace MDPlayer
                 chipRegister.setYM2608SSGVolume(1, setting.balance.GimicOPNAVolume, EnmModel.RealModel);
 
                 ((Driver.FMP.FMP)DriverVirtual).SetSearchPath(setting.FileSearchPathList);
-                ((Driver.FMP.FMP)DriverReal).SetSearchPath(setting.FileSearchPathList);
+                if (DriverReal != null) ((Driver.FMP.FMP)DriverReal).SetSearchPath(setting.FileSearchPathList);
 
                 if (!DriverVirtual.init(vgmBuf, chipRegister, EnmModel.VirtualModel, new EnmChip[] { EnmChip.YM2608 }
                     , (uint)(setting.outputDevice.SampleRate * setting.LatencyEmulation / 1000)
