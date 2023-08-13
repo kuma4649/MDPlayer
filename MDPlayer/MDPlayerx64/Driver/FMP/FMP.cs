@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using musicDriverInterface;
 using static MDSound.fm._ssg_callbacks;
 using MDPlayer.Driver.MNDRV;
+using System.Text.RegularExpressions;
 
 namespace MDPlayer.Driver.FMP
 {
@@ -18,8 +19,14 @@ namespace MDPlayer.Driver.FMP
         private Nise98.Nise98 nise98 = new();
         private Register286 regs;
         private myEncoding enc = new myEncoding();
+        private string searchPath="";
+        private List<string> searchPaths = null;
 
         public string PlayingFileName { get; set; }
+
+        public FMP()
+        {
+        }
 
         public override GD3 getGD3Info(byte[] buf, uint vgmGd3)
         {
@@ -31,6 +38,7 @@ namespace MDPlayer.Driver.FMP
                 {
                     uint ptr = Common.getLE16(buf, 0) + 4;//4 'FMC'+version(1byte)
                     string comment = Common.getNRDString(buf, ref ptr);
+                    comment = Regex.Replace(comment, "\\u001b\\[[0-9]*m", "");
                     ret.TrackName = comment;
                     ret.TrackNameJ = ret.TrackName;
 
@@ -43,6 +51,35 @@ namespace MDPlayer.Driver.FMP
             }
 
             return ret;
+        }
+
+        public void SetSearchPath(string searchPath)
+        {
+            try
+            {
+                this.searchPath = searchPath;
+                //環境変数"PVI"を取得する
+                string pvi="";
+                try
+                {
+                    pvi = Environment.GetEnvironmentVariable("PVI", System.EnvironmentVariableTarget.User);
+                    if (!string.IsNullOrEmpty(pvi)) this.searchPath += ";" + pvi;
+                }
+                catch
+                {
+                    this.searchPath = searchPath;
+                }
+                IEnumerable<string> fileSerachPaths =
+                    this.searchPath
+                        .Split(';')
+                        .Where(path => !String.IsNullOrEmpty(path));
+                searchPaths = fileSerachPaths.ToList();
+            }
+            catch
+            {
+                this.searchPath = searchPath;
+            }
+
         }
 
         public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime)
@@ -104,6 +141,8 @@ namespace MDPlayer.Driver.FMP
             var fileNamePPZ8 = "PPZ8.COM";
 
             nise98.Init(null, OPNAWrite, Nise98.Nise98.enmOngenBoardType.SpeakBoard);//.PC9801_86B);//.SpeakBoard);//.PC9801_26K);
+
+            nise98.GetDos().SetSearchPath(searchPaths);
 
             //FMPの常駐
             Log.level = musicDriverInterface.LogLevel.INFO;

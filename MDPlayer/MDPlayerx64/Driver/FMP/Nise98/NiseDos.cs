@@ -466,6 +466,7 @@ namespace MDPlayer.Driver.FMP.Nise98
 
 
         private Dictionary<byte, Action> dicHookINT = new Dictionary<byte, Action>();
+        private List<string> searchPath;
 
         public void SetHookINT(byte intnum, Action action)
         {
@@ -494,19 +495,48 @@ namespace MDPlayer.Driver.FMP.Nise98
         private byte[] ReadAllByte()
         {
             string fn = Path.Combine(filePath, filename);
+            if (!File.Exists(fn))
+            {
+                foreach (string sp in searchPath)
+                {
+                    fn = Path.Combine(sp, filename);
+                    if (File.Exists(fn)) break;
+                }
+            }
+
             return File.ReadAllBytes(fn);
         }
 
         private bool CheckFileExist()
         {
             string fn = Path.Combine(filePath, filename);
-            return File.Exists(fn);
+            if(File.Exists(fn)) return true;
+            foreach(string sp in searchPath)
+            {
+                fn = Path.Combine(sp, filename);
+                if (File.Exists(fn)) return true;
+            }
+            return false;
         }
 
-        public byte[] LoadData(string fn)
+        public byte[] LoadData(string filename)
         {
-            fn = Path.Combine(filePath, fn);
+            string fn = Path.Combine(filePath, filename);
+            if (!File.Exists(fn))
+            {
+                foreach (string sp in searchPath)
+                {
+                    fn = Path.Combine(sp, filename);
+                    if (File.Exists(fn)) break;
+                }
+            }
+
             return File.ReadAllBytes(fn);
+        }
+
+        internal void SetSearchPath(List<string> searchPaths)
+        {
+            this.searchPath = searchPaths;
         }
     }
 }

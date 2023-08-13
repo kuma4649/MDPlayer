@@ -1,4 +1,9 @@
 更新履歴
+STBL316 2023/08/13 
+  FMP:タイトルとして取得している3行コメントからエスケープシーケンスを除去するように機能追加
+  (アプリ終了時にそれが含まれていると例外が発生してプレイリストが空になってしまう為)
+  FMP:USER環境変数"PVI"(と設定画面の[Search paths on additional file])を参照するよう機能追加
+
 STBL315 2023/08/12 
   FMP:timer処理修正
   FMP:nise286:SUB_EW_GW , ROR EW,1 , RCR EW,1 , SBB EW,IB命令追加 SAR EW,1命令修正
