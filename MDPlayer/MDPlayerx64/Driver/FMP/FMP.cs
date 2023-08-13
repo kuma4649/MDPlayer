@@ -38,7 +38,8 @@ namespace MDPlayer.Driver.FMP
                 {
                     uint ptr = Common.getLE16(buf, 0) + 4;//4 'FMC'+version(1byte)
                     string comment = Common.getNRDString(buf, ref ptr);
-                    comment = Regex.Replace(comment, "\\u001b\\[[0-9\\;]*m", "");
+                    comment = Regex.Replace(comment, "\\u001b\\[[0-9\\;]*[ABCDJHfm]", "");
+                    comment = Regex.Replace(comment, "\\u001b", "");
                     ret.TrackName = comment;
                     ret.TrackNameJ = ret.TrackName;
 
