@@ -33,19 +33,19 @@
             GD3 gd3 = Audio.GetGD3();
             if (gd3 == null) return;
 
-            dgvInfo.Rows.Add("Title", gd3.TrackName);
-            dgvInfo.Rows.Add("TitleJ", gd3.TrackNameJ);
-            dgvInfo.Rows.Add("Game", gd3.GameName);
-            dgvInfo.Rows.Add("GameJ", gd3.GameNameJ);
-            dgvInfo.Rows.Add("System", gd3.SystemName);
-            dgvInfo.Rows.Add("SystemJ", gd3.SystemNameJ);
-            dgvInfo.Rows.Add("Composer", gd3.Composer);
-            dgvInfo.Rows.Add("ComposerJ", gd3.ComposerJ);
-            dgvInfo.Rows.Add("Release", gd3.Converted);
-            dgvInfo.Rows.Add("VGMBy", gd3.VGMBy);
-            dgvInfo.Rows.Add("Notes", gd3.Notes);
-            dgvInfo.Rows.Add("Version", gd3.Version);
-            dgvInfo.Rows.Add("UsedChips", gd3.UsedChips);
+            dgvInfo.Rows.Add("Title", Common.EscSeqFilter(gd3.TrackName));
+            dgvInfo.Rows.Add("TitleJ", Common.EscSeqFilter(gd3.TrackNameJ));
+            dgvInfo.Rows.Add("Game", Common.EscSeqFilter(gd3.GameName));
+            dgvInfo.Rows.Add("GameJ", Common.EscSeqFilter(gd3.GameNameJ));
+            dgvInfo.Rows.Add("System", Common.EscSeqFilter(gd3.SystemName));
+            dgvInfo.Rows.Add("SystemJ", Common.EscSeqFilter(gd3.SystemNameJ));
+            dgvInfo.Rows.Add("Composer", Common.EscSeqFilter(gd3.Composer));
+            dgvInfo.Rows.Add("ComposerJ", Common.EscSeqFilter(gd3.ComposerJ));
+            dgvInfo.Rows.Add("Release", Common.EscSeqFilter(gd3.Converted));
+            dgvInfo.Rows.Add("VGMBy", Common.EscSeqFilter(gd3.VGMBy));
+            dgvInfo.Rows.Add("Notes", Common.EscSeqFilter(gd3.Notes));
+            dgvInfo.Rows.Add("Version", Common.EscSeqFilter(gd3.Version));
+            dgvInfo.Rows.Add("UsedChips", Common.EscSeqFilter(gd3.UsedChips));
             dgvInfo.ClearSelection();
 
             if (gd3.Lyrics == null)

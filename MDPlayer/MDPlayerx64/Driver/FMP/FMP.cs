@@ -38,8 +38,6 @@ namespace MDPlayer.Driver.FMP
                 {
                     uint ptr = Common.getLE16(buf, 0) + 4;//4 'FMC'+version(1byte)
                     string comment = Common.getNRDString(buf, ref ptr);
-                    comment = Regex.Replace(comment, "\\u001b\\[[0-9\\;]*[ABCDJHfm]", "");
-                    comment = Regex.Replace(comment, "\\u001b", "");
                     ret.TrackName = comment;
                     ret.TrackNameJ = ret.TrackName;
 
@@ -85,6 +83,7 @@ namespace MDPlayer.Driver.FMP
 
         public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime)
         {
+            GD3 = getGD3Info(vgmBuf, 0);
             this.chipRegister = chipRegister;
             LoopCounter = 0;
             vgmCurLoop = 0;
@@ -117,14 +116,33 @@ namespace MDPlayer.Driver.FMP
                 {
                     vgmSpeedCounter -= 1.0;
 
+                    Counter++;
+                    vgmFrameCounter++;
+
                     nise98.Runtimer();
                     if (!nise98.IntTimer()) continue;
                     regs.SS = unchecked((short)0xE000);
                     regs.SP = 0x0000;
                     nise98.CallRunfunctionCall(0x14);
 
-                    Counter++;
-                    vgmFrameCounter++;
+                    //演奏チェック
+                    regs.AX = 0x0004;
+                    regs.SS = unchecked((short)0xE000);
+                    regs.SP = 0x0000;
+                    nise98.CallRunfunctionCall(0xd2);
+                    if (regs.AX == 0)
+                        Stopped = true;
+
+                    //内部ワークアドレス取得し、曲ループ回数をチェックする
+                    regs.AX = 0x1104;
+                    regs.SS = unchecked((short)0xE000);
+                    regs.SP = 0x0000;
+                    nise98.CallRunfunctionCall(0xd2);
+                    int ptr = ((ushort)0x2000 << 4) + (ushort)regs.AX;
+                    int FmpSloop_c = nise98.GetMem().PeekB(ptr + 0x17);
+                    vgmCurLoop = (uint)FmpSloop_c;
+
+
                 }
 
                 //vgmCurLoop = mm.ReadUInt16(reg.a6 + dw.LOOP_COUNTER);

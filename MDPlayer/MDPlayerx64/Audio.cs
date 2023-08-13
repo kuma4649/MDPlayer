@@ -865,6 +865,9 @@ namespace MDPlayer
                 music.duration = string.Format("{0:D2}:{1:D2}:{2:D2}", TCminutes, TCsecond, TCmillisecond);
             }
 
+            //ESCシーケンス除去
+            music = Common.EscSeqFilter(music);
+
             musics.Add(music);
             return musics;
         }

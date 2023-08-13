@@ -5031,8 +5031,8 @@ namespace MDPlayer.form
             GD3 gd3 = Audio.GetGD3();
             if (gd3 != null)
             {
-                string title = gd3.TrackName;
-                string usedChips = gd3.UsedChips;
+                string title = Common.EscSeqFilter(gd3.TrackName);
+                string usedChips = Common.EscSeqFilter(gd3.UsedChips);
                 newInfo = string.Format("MDPlayer - [{0}] {1}", usedChips, title);
             }
             else
@@ -7279,8 +7279,8 @@ namespace MDPlayer.form
             string patch_Name = "MDPlayer_{0}";
             if (gd3 != null)
             {
-                string pn = gd3.TrackName;
-                if (string.IsNullOrEmpty(pn)) pn = gd3.TrackNameJ;
+                string pn = Common.EscSeqFilter(gd3.TrackName);
+                if (string.IsNullOrEmpty(pn)) pn = Common.EscSeqFilter(gd3.TrackNameJ);
                 if (!string.IsNullOrEmpty(pn))
                 {
                     patch_Name = pn + "_{0}";

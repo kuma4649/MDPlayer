@@ -148,6 +148,8 @@ namespace MDPlayer.Driver.FMP.Nise98
                 case 0x0b://change PCM FNUM
                     setPPZ8Data(11, regs.AL, ((ushort)regs.DX << 16) + (ushort)regs.CX);
                     break;
+                case 0x12://Disable interrupt
+                    break;
                 case 0x13://change pan
                     setPPZ8Data(19, regs.AL, regs.DX);
                     break;
