@@ -161,7 +161,7 @@ namespace MDPlayer.Driver.FMP
 
             nise98.Init(null, OPNAWrite, Nise98.Nise98.enmOngenBoardType.SpeakBoard);//.PC9801_86B);//.SpeakBoard);//.PC9801_26K);
 
-            nise98.GetDos().SetSearchPath(searchPaths);
+            //nise98.GetDos().SetSearchPath(searchPaths);
 
             //FMPの常駐
             Log.level = musicDriverInterface.LogLevel.INFO;
