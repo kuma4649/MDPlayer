@@ -1,4 +1,5 @@
-﻿using MDPlayer.Driver.SID;
+﻿using MDPlayer.Driver.FMP.Nise98;
+using MDPlayer.Driver.SID;
 using MDPlayer.form;
 using MDSound;
 using MDSound.np.chip;
@@ -479,7 +480,7 @@ namespace MDPlayer
 
                 music.format = EnmFileFormat.FMP;
                 uint index = 0;
-                GD3 gd3 = new Driver.FMP.FMP().getGD3Info(buf, index);
+                GD3 gd3 = new Driver.FMP.FMP(null).getGD3Info(buf, index);
                 music.title = gd3.TrackName == "" ? Path.GetFileName(file) : gd3.TrackName;
                 music.titleJ = gd3.TrackName == "" ? Path.GetFileName(file) : gd3.TrackNameJ;
                 music.game = gd3.GameName;
@@ -1958,22 +1959,24 @@ namespace MDPlayer
 
             if (PlayingFileFormat == EnmFileFormat.FMP)
             {
-                string ext=Path.GetExtension(PlayingFileName);
+                fileTemp ft = new fileTemp();
+                string ext =Path.GetExtension(PlayingFileName);
                 if (!string.IsNullOrEmpty(ext))
                 {
                     ext = ext.ToLower();
                     if(ext.Length>3&& ext[1] == 'm')
                     {
                         //compile
-                        if(!(new Driver.FMP.FMP().Compile(PlayingFileName))) return false;
+                        if(!(new Driver.FMP.FMP(ft).Compile(PlayingFileName))) return false;
                         PlayingFileName = Path.ChangeExtension(
                             PlayingFileName
                             , ext == ".mpi" ? ".opi" : (ext == ".mvi" ? ".ovi" : ".ozi"));
-                        vgmBuf = File.ReadAllBytes(PlayingFileName);
+                        vgmBuf = ft.ReadTemp(PlayingFileName);
+                        //vgmBuf = File.ReadAllBytes(PlayingFileName);
                     }
                 }
 
-                DriverVirtual = new Driver.FMP.FMP()
+                DriverVirtual = new Driver.FMP.FMP(ft)
                 {
                     setting = setting
                 };
@@ -1981,13 +1984,13 @@ namespace MDPlayer
                 DriverReal = null;
                 if (setting.outputDevice.DeviceType != Common.DEV_Null && !setting.YM2608Type[0].UseEmu[0])
                 {
-                    DriverReal = new Driver.FMP.FMP()
+                    DriverReal = new Driver.FMP.FMP(ft)
                     {
                         setting = setting
                     };
                     ((Driver.FMP.FMP)DriverReal).PlayingFileName = PlayingFileName;
                 }
-                return OxiPlay_FMP(setting);
+                return OxiPlay_FMP(setting, ft);
             }
 
             if (PlayingFileFormat == EnmFileFormat.NRT)
@@ -3040,7 +3043,7 @@ namespace MDPlayer
 
         }
 
-        public static bool OxiPlay_FMP(Setting setting)
+        public static bool OxiPlay_FMP(Setting setting,fileTemp ft)
         {
 
             try
@@ -3142,7 +3145,10 @@ namespace MDPlayer
                 chipRegister.setYM2608SSGVolume(1, setting.balance.GimicOPNAVolume, EnmModel.RealModel);
 
                 ((Driver.FMP.FMP)DriverVirtual).SetSearchPath(setting.FileSearchPathList);
-                if (DriverReal != null) ((Driver.FMP.FMP)DriverReal).SetSearchPath(setting.FileSearchPathList);
+                if (DriverReal != null)
+                {
+                    ((Driver.FMP.FMP)DriverReal).SetSearchPath(setting.FileSearchPathList);
+                }
 
                 if (!DriverVirtual.init(vgmBuf, chipRegister, EnmModel.VirtualModel, new EnmChip[] { EnmChip.YM2608 }
                     , (uint)(setting.outputDevice.SampleRate * setting.LatencyEmulation / 1000)

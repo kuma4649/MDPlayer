@@ -17,6 +17,7 @@ namespace MDPlayer.Driver.FMP.Nise98
         private NiseInt08Timer int08Timer = null;
         private NiseDos dos = null;
         private NisePPZ8 ppz8 = null;
+        private fileTemp fileTemp = null;
 
         private fmStatus fmReg088 = null;
         private fmStatus fmReg188 = null;
@@ -89,14 +90,15 @@ namespace MDPlayer.Driver.FMP.Nise98
             }
         }
 
-        public void Init(Action<string, object[]> msgWrite, Action<ChipDatum> opnaWrite, enmOngenBoardType ongen = enmOngenBoardType.PC9801_86B)
+        public void Init(Action<string, object[]> msgWrite, Action<ChipDatum> opnaWrite,fileTemp fileTemp, enmOngenBoardType ongen = enmOngenBoardType.PC9801_86B)
         {
             Log.WriteLine(musicDriverInterface.LogLevel.DEBUG, "<Nise98>Init");
 
             this.opnaWrite = opnaWrite;
+            this.fileTemp = fileTemp;
             regs = new Register286();
             mem = new Memory98(16 * 64 * 1024);
-            dos = new NiseDos(regs, mem);
+            dos = new NiseDos(regs, mem,fileTemp);
             cpu = new Nise286(this);
             int08Timer = new NiseInt08Timer(cpu);
             ppz8 = new NisePPZ8(this);

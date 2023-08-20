@@ -11,6 +11,7 @@ namespace MDPlayer.Driver.FMP.Nise98
     {
         private Register286 regs;
         private Memory98 mem;
+        private fileTemp fileTemp;
         private short paragraphsSize;
         private short paragraphsSizeSeg;
         private short freeBlockSeg;
@@ -41,11 +42,12 @@ namespace MDPlayer.Driver.FMP.Nise98
         public byte returnCode { get; private set; } = 0x00;
         public bool programTerminate { get; set; } = false;
 
-        public NiseDos(Register286 regs, Memory98 mem)
+        public NiseDos(Register286 regs, Memory98 mem,fileTemp fileTemp)
         {
             enc = new myEncoding();
             this.regs = regs;
             this.mem = mem;
+            this.fileTemp = fileTemp;
 
             MakeSYSVARS();
 
@@ -428,7 +430,9 @@ namespace MDPlayer.Driver.FMP.Nise98
                             files.Remove(fnd);
                             if (fnd.mode == 1)
                             {
-                                File.WriteAllBytes(Path.Combine(fnd.path, fnd.name), fnd.lstBuf.ToArray());
+                                string wFn=Path.Combine(fnd.path,fnd.name);
+                                fileTemp.WriteTemp(wFn, fnd.lstBuf.ToArray());
+                                //File.WriteAllBytes(wFn, fnd.lstBuf.ToArray());
                             }
                             regs.CF = false;
                         }
@@ -455,7 +459,7 @@ namespace MDPlayer.Driver.FMP.Nise98
 
                     byte[] buf = ReadAllByte(fnd);
                     fnd.size = buf.Length;
-                    int size = Math.Min((ushort)regs.CX, buf.Length-fnd.ptr);
+                    int size = Math.Min((ushort)regs.CX, buf.Length - fnd.ptr);
                     byte[] rbuf = new byte[size];
                     Array.Copy(buf, fnd.ptr, rbuf, 0, size);
                     LoadImage(rbuf, regs.DS_DX);
@@ -639,18 +643,21 @@ namespace MDPlayer.Driver.FMP.Nise98
         private byte[] ReadAllByte(filestatus fs)
         {
             string fn = Path.Combine(fs.path, fs.name);
+            if(fileTemp.ExistTemp(fn))
+                return fileTemp.ReadTemp(fn);
+
             return File.ReadAllBytes(fn);
         }
 
         private bool CheckFileExist(string filename,out string fndFilename)
         {
-            if(File.Exists(filename))
+            if(File.Exists(filename) || fileTemp.ExistTemp(filename))
             {
                 fndFilename = filename;
                 return true;
             }
             string fn = Path.Combine(filePath, filename);
-            if (File.Exists(fn))
+            if (File.Exists(fn) || fileTemp.ExistTemp(fn))
             {
                 fndFilename = fn;
                 return true;
@@ -663,6 +670,9 @@ namespace MDPlayer.Driver.FMP.Nise98
         public byte[] LoadData(string fn)
         {
             fn = Path.Combine(filePath, fn);
+            if (fileTemp.ExistTemp(fn))
+                return fileTemp.ReadTemp(fn);
+
             return File.ReadAllBytes(fn);
         }
 
