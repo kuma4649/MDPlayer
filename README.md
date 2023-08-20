@@ -3,7 +3,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   
 [概要]  
   このツールは、鍵盤表示を行いながらVGMファイルの再生を行います。  
-  (NRD,XGM,S98,MID,RCP,NSF,HES,SID,MGS,MDR,MDX,MND,MUC,MUB,M,M2,MZ,OPI,OVI,OZI,WAV,MP3,AIFFファイルにも対応。)  
+  (NRD,XGM,S98,MID,RCP,NSF,HES,SID,MGS,MDR,MDX,MND,MUC,MUB,M,M2,MZ,MPI,MVI,MZI,OPI,OVI,OZI,WAV,MP3,AIFFファイルにも対応。)  
   
 [注意]  
   ・再生時の音量に注意してください。バグによる雑音が大音量で再生される場合もあります。  
@@ -39,6 +39,9 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   .M   (PMD 向けファイル)  
   .M2  (PMD 向けファイル)  
   .MZ  (PMD 向けファイル)  
+  .MPI (FMP 向けファイル 演奏するにはFMC.COM,FMP.COMが必要です)    
+  .MVI (FMP 向けファイル 演奏するにはFMC.COM,FMP.COMが必要です)    
+  .MZI (FMP 向けファイル 演奏するにはFMC.COM,FMP.COMが必要です)    
   .OPI (FMP 向けファイル 演奏するにはFMP.COMが必要です)    
   .OVI (FMP 向けファイル 演奏するにはFMP.COMが必要です)    
   .OZI (FMP 向けファイル 演奏するにはFMP.COMが必要です)    
@@ -103,6 +106,14 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   
   ・X68Soundのソースを参考、移植しています。  
   (m_puusanさん/rururutanさん版両方)  
+  
+  ・PMDのソースを参考、移植にしています。  
+  
+  ・MGSDRVのコードを参考にしています。  
+  
+  ・MuSICAのコードを参考にしています。  
+  
+  ・FMPのコードを参考にしています。  
   
   ・CVS.EXEの出力を参考に同じデータが出力されるよう調整しています。  
   
@@ -300,6 +311,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   ・FMPのファイルを演奏するには、以下のファイルが必要です。  
   (公式サイト,VECTORなどから入手してください。)
     FMP.COM  
+    FMC.COM  
     PPZ8.COM  
 
   

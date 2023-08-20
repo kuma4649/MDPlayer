@@ -785,11 +785,10 @@ namespace MDPlayerx64.Properties {
         ///NRDファイル(*.nrd)|*.nrd|
         ///NSFファイル(*.nsf)|*.nsf|
         ///PMDファイル(*.m;*.m2;*.mz;*.mml)|*.m;*.m2;*.mz;*.mml|
-        ///FMPファイル(*.opi;*.ovi;*.ozi)|*.opi;*.ovi;*.ozi|
+        ///FMPファイル(*.mpi;*.mvi;*.mzi;*.opi;*.ovi;*.ozi)|*.mpi;*.mvi;*.mzi;*.opi;*.ovi;*.ozi|
         ///RCPファイル(*.rcp)|*.rcp|
         ///S98ファイル(*.s98)|*.s98|
-        ///SIDファイル(*.sid)|*.sid|
-        ///StandardMIDIファイル(*.mid)|*. [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        ///SIDファイル(*.sid [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string cntSupportFile {
             get {

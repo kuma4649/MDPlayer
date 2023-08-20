@@ -1958,6 +1958,21 @@ namespace MDPlayer
 
             if (PlayingFileFormat == EnmFileFormat.FMP)
             {
+                string ext=Path.GetExtension(PlayingFileName);
+                if (!string.IsNullOrEmpty(ext))
+                {
+                    ext = ext.ToLower();
+                    if(ext.Length>3&& ext[1] == 'm')
+                    {
+                        //compile
+                        if(!(new Driver.FMP.FMP().Compile(PlayingFileName))) return false;
+                        PlayingFileName = Path.ChangeExtension(
+                            PlayingFileName
+                            , ext == ".mpi" ? ".opi" : (ext == ".mvi" ? ".ovi" : ".ozi"));
+                        vgmBuf = File.ReadAllBytes(PlayingFileName);
+                    }
+                }
+
                 DriverVirtual = new Driver.FMP.FMP()
                 {
                     setting = setting

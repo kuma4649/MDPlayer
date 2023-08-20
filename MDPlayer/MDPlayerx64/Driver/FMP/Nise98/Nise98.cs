@@ -558,7 +558,6 @@ namespace MDPlayer.Driver.FMP.Nise98
             return dos.returnCode;
         }
 
-
         public void CallRunfunctionCall(byte intnumber, bool dispReg = false, bool useStepCounter = false, bool dispStepCounter = false,
     long MaxStepCounter = 100_000_000, long StartStepCounterForDispStep = 0)
         {
@@ -566,6 +565,9 @@ namespace MDPlayer.Driver.FMP.Nise98
             UserInt ui = new UserInt();
             ui.intNum = intnumber;
             UserINT(ui);
+            //regs.IF=false;
+            cpu.w_mmsk = 0xff;
+            cpu.w_smsk = 0xff;
             dos.programTerminate = false;
 
             functionCallTimes++;
@@ -580,11 +582,11 @@ namespace MDPlayer.Driver.FMP.Nise98
                     if (step < StartStepCounterForDispStep) continue;
                 }
 
-                //if (dispReg)
-                //{
-                //    regs = GetRegisters();
-                //    DispRegs(regs);
-                //}
+                if (dispReg)
+                {
+                    regs = GetRegisters();
+                    DispRegs(regs);
+                }
 
                 //if (dispStepCounter) Log.WriteLine(musicDriverInterface.LogLevel.TRACE, "functionCalls:{0} STEP:{1}\r\n", functionCallTimes, step);
 

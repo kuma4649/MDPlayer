@@ -103,7 +103,7 @@ namespace MDPlayer.Driver.FMP.Nise98
                 case 0x16: PUSH_SS(); break;
                 case 0x17: POP_SS(); break;
                 case 0x18: throw new NotImplementedException(op.ToString("X02"));
-                case 0x19: throw new NotImplementedException(op.ToString("X02"));
+                case 0x19: SBB_EW_GW();break;
                 case 0x1a: throw new NotImplementedException(op.ToString("X02"));
                 case 0x1b: throw new NotImplementedException(op.ToString("X02"));
                 case 0x1c: SBB_AL_IB(); break;
@@ -361,7 +361,7 @@ namespace MDPlayer.Driver.FMP.Nise98
         {
             if (segPrefSw) return;
             if (repSW) return;
-            if (!regs.IF) return;
+            if (!regs.IF) return;//IFはfalseで不許可
 
             //check mask
             for (int i = 0; i < 8; i++)
@@ -441,7 +441,7 @@ namespace MDPlayer.Driver.FMP.Nise98
             return imm16;
         }
 
-        private uint GetSegment(byte rm, bool NoSeg)
+        private uint GetSegment(byte rm, bool NoSeg,bool isMod00=false)
         {
             if (NoSeg) return 0;
 
@@ -450,7 +450,9 @@ namespace MDPlayer.Driver.FMP.Nise98
                 segPrefSw = false;
                 return (uint)((UInt16)regs.sRegs[segPref] << 4);
             }
-            else if (rm != 2 && rm != 3)//指定レジスタがBP以外のときはDSをデフォルトのセグメントとして使用する
+            else if (rm != 2 && rm != 3 && rm != 6)//指定レジスタがBP以外のときはDSをデフォルトのセグメントとして使用する
+                return (uint)((UInt16)regs.DS << 4);
+            else if (rm == 6 && isMod00)//指定レジスタがBP以外のときはDSをデフォルトのセグメントとして使用する
                 return (uint)((UInt16)regs.DS << 4);
             else//指定レジスタがBPのときはSSをデフォルトのセグメントとして使用する
                 return (uint)((UInt16)regs.SS << 4);
@@ -458,7 +460,7 @@ namespace MDPlayer.Driver.FMP.Nise98
 
         private int GetMod00RWADR(byte rm, bool NoSeg = false)
         {
-            uint seg = GetSegment(rm, NoSeg);
+            uint seg = GetSegment(rm, NoSeg, true);
 
             switch (rm)
             {
@@ -1230,6 +1232,65 @@ namespace MDPlayer.Driver.FMP.Nise98
             Log.WriteLine(musicDriverInterface.LogLevel.TRACE, "POP SS");
             regs.SS = mem.PeekW(regs.SS_SP);
             regs.SP += 2;
+        }
+
+        // 0x19
+        private void SBB_EW_GW()
+        {
+            byte modrw = Fetch();
+            Log.WriteLine(musicDriverInterface.LogLevel.TRACE, "SBB EW,GW modrw:${0:X02}", modrw);
+
+            byte reg = (byte)((modrw & 0x38) >> 3);
+            byte rm = (byte)(modrw & 7);
+            byte mod = (byte)(modrw >> 6);
+
+            ushort a = 0;
+            ushort b = 0;
+            int c = 0;
+            ushort ic = 0;
+
+            ushort GW = (ushort)regs.eRegs[reg];
+
+            int ptr;
+            switch (mod)
+            {
+                case 0:
+                    ptr = GetMod00RWADR(rm);
+                    a = (ushort)mem.PeekW(ptr);
+                    b = (ushort)(GW + (regs.CF ? 1 : 0));
+                    c = a - b;
+                    ic = (ushort)c;
+                    mem.PokeW(ptr, (short)ic);
+                    break;
+                case 1:
+                    ptr = GetMod01RWADR(rm);
+                    a = (ushort)mem.PeekW(ptr);
+                    b = (ushort)(GW + (regs.CF ? 1 : 0));
+                    c = a - b;
+                    ic = (ushort)c;
+                    mem.PokeW(ptr, (short)ic);
+                    break;
+                case 2:
+                    ptr = GetMod02RWADR(rm);
+                    a = (ushort)mem.PeekW(ptr);
+                    b = (ushort)(GW + (regs.CF ? 1 : 0));
+                    c = a - b;
+                    ic = (ushort)c;
+                    mem.PokeW(ptr, (short)ic);
+                    break;
+                case 3:
+                    a = (ushort)regs.eRegs[rm];
+                    b = (ushort)(GW + (regs.CF ? 1 : 0));
+                    c = a - b;
+                    ic = (ushort)c;
+                    regs.eRegs[rm] = (short)ic;
+                    break;
+            }
+
+            regs.SetSZPFw(ic);
+            regs.SetOFwSub(a, b, ic);
+            regs.SetCFw((uint)c);
+            regs.SetAF((byte)a, (byte)b, (byte)ic);
         }
 
         // 0x1c
@@ -3048,7 +3109,7 @@ namespace MDPlayer.Driver.FMP.Nise98
             {
                 case 0://ADD EW,IW
                     Log.WriteLine(musicDriverInterface.LogLevel.TRACE, "ADD EW,${0:X04}", IW);
-                    ians = EW + IW;
+                    ians = (ushort)EW + IW;
                     ans = (Int16)ians;
                     regs.SetSZPFw((ushort)ans);
                     regs.SetOFwAdd((ushort)EW, (ushort)IW, (ushort)ans);
@@ -3130,7 +3191,7 @@ namespace MDPlayer.Driver.FMP.Nise98
                     break;
                 case 5://SUB EW,IW
                     Log.WriteLine(musicDriverInterface.LogLevel.TRACE, "SUB EW,${0:X04}", IW);
-                    ians = EW - IW;
+                    ians = (ushort)EW - IW;
                     ans = (Int16)ians;
                     regs.SetSZPFw((ushort)ans);
                     regs.SetOFwSub((ushort)EW, (ushort)IW, (ushort)ans);
@@ -3259,7 +3320,7 @@ namespace MDPlayer.Driver.FMP.Nise98
                     break;
                 case 2://ADC EW,IB
                     Log.WriteLine(musicDriverInterface.LogLevel.TRACE, "ADC EW,${0:X02}", IB);
-                    ians = EW + (sbyte)(IB + (regs.CF ? 1 : 0));
+                    ians = (ushort)EW + (sbyte)(IB + (regs.CF ? 1 : 0));
                     ans = (Int16)ians;
                     regs.SetSZPFw((ushort)ians);
                     regs.SetOFwAdd((ushort)EW, (ushort)IB, (ushort)ans);
@@ -3362,7 +3423,7 @@ namespace MDPlayer.Driver.FMP.Nise98
                     ians = (ushort)EW - (sbyte)IB;
                     ans = (Int16)ians;
                     regs.SetSZPFw((ushort)ians);
-                    regs.SetOFwSub((ushort)EW, (ushort)IB, (ushort)ans);
+                    regs.SetOFwSub((ushort)EW, (ushort)(sbyte)IB, (ushort)ans);
                     regs.SetCFw((uint)ians);
                     regs.SetAF((byte)EW, (byte)IB, (byte)ans);
                     break;
@@ -4899,7 +4960,13 @@ namespace MDPlayer.Driver.FMP.Nise98
                     case 6://(SMO)
                         throw new NotImplementedException();
                     case 7://SAR
-                        throw new NotImplementedException();
+                        int ians = unchecked((sbyte)EB);
+                        regs.CF = (ians & 1) != 0;
+                        ians >>= 1;
+                        uans = (byte)ians;
+                        regs.SetSZPFb(uans);
+                        regs.OF = false;
+                        break;
                 }
             }
             else
@@ -4941,8 +5008,13 @@ namespace MDPlayer.Driver.FMP.Nise98
                         break;
                     case 6://(SMO)
                         throw new NotImplementedException();
-                    case 7://SAR
-                        throw new NotImplementedException();
+                    case 7://SAR 算出シフト
+                        int ians = unchecked((sbyte)EB);
+                        regs.CF = (ians & (1 << (count - 1))) != 0;
+                        ians >>= count;
+                        uans = (byte)ians;
+                        regs.SetSZPFb(uans);
+                        break;
                 }
 
             }

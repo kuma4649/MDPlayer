@@ -9,6 +9,7 @@ namespace MDPlayerx64.form.SYS
         {
             if (!this.IsHandleCreated) return;
             this.BeginInvoke((Action<string>)lw, message);
+            Application.DoEvents();
         }
 
         private void lw(string message)

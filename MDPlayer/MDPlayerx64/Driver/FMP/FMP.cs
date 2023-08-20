@@ -9,6 +9,7 @@ using musicDriverInterface;
 using static MDSound.fm._ssg_callbacks;
 using MDPlayer.Driver.MNDRV;
 using System.Text.RegularExpressions;
+using System.Net;
 
 namespace MDPlayer.Driver.FMP
 {
@@ -196,7 +197,7 @@ namespace MDPlayer.Driver.FMP
         {
             byte cn = (byte)(dat.port >> 8);
             byte port = (byte)((byte)dat.port == 0x8a ? 0 : 1);
-            chipRegister.setYM2608Register(0, port, (byte)dat.address, (byte)dat.data, model);
+            chipRegister?.setYM2608Register(0, port, (byte)dat.address, (byte)dat.data, model);
         }
 
         private void FMPLoadAndPlayFileAL2(NiseDos dos, Register286 regs)
@@ -215,5 +216,26 @@ namespace MDPlayer.Driver.FMP
             Log.WriteLine( musicDriverInterface.LogLevel.DEBUG, "return CF={0} code={1:X02}", regs.CF, regs.AL);
         }
 
+        public bool Compile(string playingFileName)
+        {
+            var fileNameFMP = "FMP.COM";
+            var fileNameFMC = "FMC.EXE";
+            int rc = 0;
+
+            nise98.Init(null, OPNAWrite, Nise98.Nise98.enmOngenBoardType.SpeakBoard);//.PC9801_86B);//.SpeakBoard);//.PC9801_26K);
+
+            //FMPの常駐
+            Log.level = musicDriverInterface.LogLevel.INFO;
+            nise98.LoadRun(fileNameFMP, "s -s", 0x2000);
+            regs = nise98.GetRegisters();
+
+            //FMCの実行
+            nise98.GetDos().programTerminate = false;
+            if ((rc = nise98.LoadRun(fileNameFMC, playingFileName, 0x3000
+                //, true, true, true, 3_000_000, 0
+                )) != 0) return false;
+
+            return true;
+        }
     }
 }
