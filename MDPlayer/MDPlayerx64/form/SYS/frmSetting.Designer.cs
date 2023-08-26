@@ -547,6 +547,7 @@ namespace MDPlayer.form
             labelCompanyName = new Label();
             textBoxDescription = new TextBox();
             llOpenGithub = new LinkLabel();
+            cbSaveCompiledFile = new CheckBox();
             gbWaveOut.SuspendLayout();
             gbAsioOut.SuspendLayout();
             gbWasapiOut.SuspendLayout();
@@ -3957,6 +3958,7 @@ namespace MDPlayer.form
             tpOther.Controls.Add(btnResetPosition);
             tpOther.Controls.Add(btnOpenSettingFolder);
             tpOther.Controls.Add(cbExALL);
+            tpOther.Controls.Add(cbSaveCompiledFile);
             tpOther.Controls.Add(cbInitAlways);
             tpOther.Controls.Add(cbAutoOpen);
             tpOther.Controls.Add(cbUseLoopTimes);
@@ -4355,6 +4357,13 @@ namespace MDPlayer.form
             llOpenGithub.Name = "llOpenGithub";
             llOpenGithub.TabStop = true;
             llOpenGithub.LinkClicked += LlOpenGithub_LinkClicked;
+            // 
+            // cbSaveCompiledFile
+            // 
+            resources.ApplyResources(cbSaveCompiledFile, "cbSaveCompiledFile");
+            cbSaveCompiledFile.Name = "cbSaveCompiledFile";
+            cbSaveCompiledFile.UseVisualStyleBackColor = true;
+            cbSaveCompiledFile.CheckedChanged += CbUseLoopTimes_CheckedChanged;
             // 
             // frmSetting
             // 
@@ -5043,5 +5052,6 @@ namespace MDPlayer.form
         private Button btnImageResourceFile;
         private TextBox tbResourceFile;
         private Label label73;
+        private CheckBox cbSaveCompiledFile;
     }
 }

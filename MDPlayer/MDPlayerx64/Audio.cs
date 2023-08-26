@@ -1959,7 +1959,7 @@ namespace MDPlayer
 
             if (PlayingFileFormat == EnmFileFormat.FMP)
             {
-                fileTemp ft = new fileTemp();
+                fileTemp ft = new fileTemp(setting);
                 string ext =Path.GetExtension(PlayingFileName);
                 if (!string.IsNullOrEmpty(ext))
                 {

@@ -585,6 +585,7 @@ namespace MDPlayer.form
             cbInitAlways.Checked = setting.other.InitAlways;
             cbEmptyPlayList.Checked = setting.other.EmptyPlayList;
             cbAdjustTLParam.Checked = setting.other.AdjustTLParam;
+            cbSaveCompiledFile.Checked = setting.other.SaveCompiledFile;
 
             cbUseMIDIExport.Checked = setting.midiExport.UseMIDIExport;
             gbMIDIExport.Enabled = cbUseMIDIExport.Checked;
@@ -1612,6 +1613,7 @@ namespace MDPlayer.form
             setting.other.ExAll = cbExALL.Checked;
             setting.other.NonRenderingForPause = cbNonRenderingForPause.Checked;
             setting.other.AdjustTLParam = cbAdjustTLParam.Checked;
+            setting.other.SaveCompiledFile = cbSaveCompiledFile.Checked;
 
             setting.debug.DispFrameCounter = cbDispFrameCounter.Checked;
             setting.debug.ShowConsole = cbShowConsole.Checked;

@@ -9,6 +9,12 @@ namespace MDPlayer.Driver.FMP.Nise98
     public class fileTemp
     {
         private Dictionary<string, byte[]> temp = new Dictionary<string, byte[]>();
+        private Setting setting;
+
+        public fileTemp(Setting setting)
+        {
+            this.setting = setting;
+        }
 
         public void WriteTemp(string filename, byte[] data)
         {
@@ -17,6 +23,17 @@ namespace MDPlayer.Driver.FMP.Nise98
                 temp.Remove(filename.ToUpper());
             }
             temp.Add(filename.ToUpper(), data);
+
+            if (!setting.other.SaveCompiledFile) return;
+
+            try
+            {
+                File.WriteAllBytes(filename, data);
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
         }
 
         public byte[] ReadTemp(string filename) 

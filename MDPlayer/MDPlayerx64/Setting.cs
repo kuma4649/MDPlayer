@@ -1560,6 +1560,7 @@ namespace MDPlayer
             public bool NonRenderingForPause { get; set; } = false;
             public bool AdjustTLParam { get; set; } = false;
             public string ResourceFile { get; set; } = null;
+            public bool SaveCompiledFile { get; set; } = false;
 
             public Other Copy()
             {
@@ -1589,7 +1590,8 @@ namespace MDPlayer
                     ExAll = this.ExAll,
                     NonRenderingForPause = this.NonRenderingForPause,
                     AdjustTLParam = this.AdjustTLParam,
-                    ResourceFile = this.ResourceFile
+                    ResourceFile = this.ResourceFile,
+                    SaveCompiledFile = this.SaveCompiledFile
                 };
 
                 return other;
