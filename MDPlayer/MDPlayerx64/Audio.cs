@@ -2848,6 +2848,9 @@ namespace MDPlayer
                     try { mds.ChangeYM2610_PSGMode(1, 1); } catch { }
                 }
 
+                DriverVirtual.SetYM2151Hosei(Driver.MucomDotNET.OPMbaseclock);
+                DriverReal?.SetYM2151Hosei(Driver.MucomDotNET.OPMbaseclock);
+
                 //Play
 
                 Paused = false;
