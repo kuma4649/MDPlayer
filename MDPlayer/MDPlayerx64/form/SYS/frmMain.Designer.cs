@@ -1739,6 +1739,7 @@ namespace MDPlayer.form
             opeButtonSetting.DragEnter += pbScreen_DragEnter;
             opeButtonSetting.MouseEnter += opeButton_MouseEnter;
             opeButtonSetting.MouseLeave += opeButton_MouseLeave;
+            opeButtonSetting.MouseUp += PbScreen_MouseClick;
             // 
             // opeButtonStop
             // 
@@ -1758,6 +1759,7 @@ namespace MDPlayer.form
             opeButtonStop.DragEnter += pbScreen_DragEnter;
             opeButtonStop.MouseEnter += opeButton_MouseEnter;
             opeButtonStop.MouseLeave += opeButton_MouseLeave;
+            opeButtonStop.MouseUp += PbScreen_MouseClick;
             // 
             // opeButtonPause
             // 
@@ -1777,6 +1779,7 @@ namespace MDPlayer.form
             opeButtonPause.DragEnter += pbScreen_DragEnter;
             opeButtonPause.MouseEnter += opeButton_MouseEnter;
             opeButtonPause.MouseLeave += opeButton_MouseLeave;
+            opeButtonPause.MouseUp += PbScreen_MouseClick;
             // 
             // opeButtonFadeout
             // 
@@ -1796,6 +1799,7 @@ namespace MDPlayer.form
             opeButtonFadeout.DragEnter += pbScreen_DragEnter;
             opeButtonFadeout.MouseEnter += opeButton_MouseEnter;
             opeButtonFadeout.MouseLeave += opeButton_MouseLeave;
+            opeButtonFadeout.MouseUp += PbScreen_MouseClick;
             // 
             // opeButtonPrevious
             // 
@@ -1815,6 +1819,7 @@ namespace MDPlayer.form
             opeButtonPrevious.DragEnter += pbScreen_DragEnter;
             opeButtonPrevious.MouseEnter += opeButton_MouseEnter;
             opeButtonPrevious.MouseLeave += opeButton_MouseLeave;
+            opeButtonPrevious.MouseUp += PbScreen_MouseClick;
             // 
             // opeButtonSlow
             // 
@@ -1834,6 +1839,7 @@ namespace MDPlayer.form
             opeButtonSlow.DragEnter += pbScreen_DragEnter;
             opeButtonSlow.MouseEnter += opeButton_MouseEnter;
             opeButtonSlow.MouseLeave += opeButton_MouseLeave;
+            opeButtonSlow.MouseUp += PbScreen_MouseClick;
             // 
             // opeButtonPlay
             // 
@@ -1853,6 +1859,7 @@ namespace MDPlayer.form
             opeButtonPlay.DragEnter += pbScreen_DragEnter;
             opeButtonPlay.MouseEnter += opeButton_MouseEnter;
             opeButtonPlay.MouseLeave += opeButton_MouseLeave;
+            opeButtonPlay.MouseUp += PbScreen_MouseClick;
             // 
             // opeButtonFast
             // 
@@ -1872,6 +1879,7 @@ namespace MDPlayer.form
             opeButtonFast.DragEnter += pbScreen_DragEnter;
             opeButtonFast.MouseEnter += opeButton_MouseEnter;
             opeButtonFast.MouseLeave += opeButton_MouseLeave;
+            opeButtonFast.MouseUp += PbScreen_MouseClick;
             // 
             // opeButtonNext
             // 
@@ -1891,6 +1899,7 @@ namespace MDPlayer.form
             opeButtonNext.DragEnter += pbScreen_DragEnter;
             opeButtonNext.MouseEnter += opeButton_MouseEnter;
             opeButtonNext.MouseLeave += opeButton_MouseLeave;
+            opeButtonNext.MouseUp += PbScreen_MouseClick;
             // 
             // opeButtonZoom
             // 
@@ -1910,6 +1919,7 @@ namespace MDPlayer.form
             opeButtonZoom.DragEnter += pbScreen_DragEnter;
             opeButtonZoom.MouseEnter += opeButton_MouseEnter;
             opeButtonZoom.MouseLeave += opeButton_MouseLeave;
+            opeButtonZoom.MouseUp += PbScreen_MouseClick;
             // 
             // opeButtonMIDIKBD
             // 
@@ -1929,6 +1939,7 @@ namespace MDPlayer.form
             opeButtonMIDIKBD.DragEnter += pbScreen_DragEnter;
             opeButtonMIDIKBD.MouseEnter += opeButton_MouseEnter;
             opeButtonMIDIKBD.MouseLeave += opeButton_MouseLeave;
+            opeButtonMIDIKBD.MouseUp += PbScreen_MouseClick;
             // 
             // opeButtonVST
             // 
@@ -1948,6 +1959,7 @@ namespace MDPlayer.form
             opeButtonVST.DragEnter += pbScreen_DragEnter;
             opeButtonVST.MouseEnter += opeButton_MouseEnter;
             opeButtonVST.MouseLeave += opeButton_MouseLeave;
+            opeButtonVST.MouseUp += PbScreen_MouseClick;
             // 
             // opeButtonKBD
             // 
@@ -1967,6 +1979,7 @@ namespace MDPlayer.form
             opeButtonKBD.DragEnter += pbScreen_DragEnter;
             opeButtonKBD.MouseEnter += opeButton_MouseEnter;
             opeButtonKBD.MouseLeave += opeButton_MouseLeave;
+            opeButtonKBD.MouseUp += PbScreen_MouseClick;
             // 
             // opeButtonMixer
             // 
@@ -1986,6 +1999,7 @@ namespace MDPlayer.form
             opeButtonMixer.DragEnter += pbScreen_DragEnter;
             opeButtonMixer.MouseEnter += opeButton_MouseEnter;
             opeButtonMixer.MouseLeave += opeButton_MouseLeave;
+            opeButtonMixer.MouseUp += PbScreen_MouseClick;
             // 
             // opeButtonInformation
             // 
@@ -2005,6 +2019,7 @@ namespace MDPlayer.form
             opeButtonInformation.DragEnter += pbScreen_DragEnter;
             opeButtonInformation.MouseEnter += opeButton_MouseEnter;
             opeButtonInformation.MouseLeave += opeButton_MouseLeave;
+            opeButtonInformation.MouseUp += PbScreen_MouseClick;
             // 
             // opeButtonPlayList
             // 
@@ -2024,6 +2039,7 @@ namespace MDPlayer.form
             opeButtonPlayList.DragEnter += pbScreen_DragEnter;
             opeButtonPlayList.MouseEnter += opeButton_MouseEnter;
             opeButtonPlayList.MouseLeave += opeButton_MouseLeave;
+            opeButtonPlayList.MouseUp += PbScreen_MouseClick;
             // 
             // opeButtonOpen
             // 
@@ -2043,6 +2059,7 @@ namespace MDPlayer.form
             opeButtonOpen.DragEnter += pbScreen_DragEnter;
             opeButtonOpen.MouseEnter += opeButton_MouseEnter;
             opeButtonOpen.MouseLeave += opeButton_MouseLeave;
+            opeButtonOpen.MouseUp += PbScreen_MouseClick;
             // 
             // opeButtonMode
             // 
@@ -2062,6 +2079,7 @@ namespace MDPlayer.form
             opeButtonMode.DragEnter += pbScreen_DragEnter;
             opeButtonMode.MouseEnter += opeButton_MouseEnter;
             opeButtonMode.MouseLeave += opeButton_MouseLeave;
+            opeButtonMode.MouseUp += PbScreen_MouseClick;
             // 
             // keyboardHook1
             // 

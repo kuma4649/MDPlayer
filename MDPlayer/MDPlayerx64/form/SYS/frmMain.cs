@@ -10517,5 +10517,6 @@ namespace MDPlayer.form
         {
             setting.other.WavSwitch = tsmiOutputwavFile.Checked;
         }
+
     }
 }

@@ -18,7 +18,7 @@
     <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
     <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
     <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing"">Blue</data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
     <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
         <value>[base64 mime encoded serialized .NET Framework object]</value>
     </data>
@@ -1109,7 +1109,7 @@
     <value>DMG</value>
   </data>
   <data name="toolStripMenuItem50.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>129, 22</value>
   </data>
   <data name="toolStripMenuItem50.Text" xml:space="preserve">
     <value>Primary</value>
@@ -1385,25 +1385,25 @@
     <value>DMG</value>
   </data>
   <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>129, 22</value>
   </data>
   <data name="toolStripMenuItem1.Text" xml:space="preserve">
     <value>Secondary</value>
   </data>
   <data name="tsmiKBrd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>169, 22</value>
   </data>
   <data name="tsmiKBrd.Text" xml:space="preserve">
     <value>Various keyboards</value>
   </data>
   <data name="tsmiVST.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>169, 22</value>
   </data>
   <data name="tsmiVST.Text" xml:space="preserve">
     <value>VST</value>
   </data>
   <data name="tsmiMIDIkbd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>169, 22</value>
   </data>
   <data name="tsmiMIDIkbd.Text" xml:space="preserve">
     <value>MIDI keyboard</value>
