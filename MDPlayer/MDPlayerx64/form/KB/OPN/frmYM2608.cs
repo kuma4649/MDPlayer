@@ -287,7 +287,7 @@ namespace MDPlayer.form
                 channel.volume = (int)(((t || n) ? 1 : 0) * (ym2608Register[0][0x08 + ch] & 0xf));
 
                 int ft = ym2608Register[0][0x00 + ch * 2];
-                int ct = ym2608Register[0][0x01 + ch * 2];
+                int ct = ym2608Register[0][0x01 + ch * 2]&0xf;
                 int tp = (ct << 8) | ft;
                 channel.freq = tp;
 
