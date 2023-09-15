@@ -1298,14 +1298,17 @@ namespace MDPlayer
             }
             if (Audio.Setting.YM2151Type == null || Audio.Setting.YM2151Type.Length < 2 || (Audio.Setting.YM2151Type[0].realChipInfo != null && Audio.Setting.YM2151Type[0].realChipInfo.Length < 2))
             {
-                Audio.Setting.YM2151Type = new Setting.ChipType2[] { new Setting.ChipType2(), new Setting.ChipType2() };
+                Setting.ChipType2[] ct = new Setting.ChipType2[] { new Setting.ChipType2(), new Setting.ChipType2() };
                 for (int i = 0; i < 2; i++)
                 {
-                    Audio.Setting.YM2151Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo(), new Setting.ChipType2.RealChipInfo() };
-                    Audio.Setting.YM2151Type[i].UseEmu = new bool[3];
-                    Audio.Setting.YM2151Type[i].UseEmu[0] = true;
-                    Audio.Setting.YM2151Type[i].UseReal = new bool[2];
+                    ct[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo(), new Setting.ChipType2.RealChipInfo() };
+                    ct[i].UseEmu = new bool[3];
+                    ct[i].UseEmu[0] = true;
+                    ct[i].UseReal = new bool[2];
+                    if (Audio.Setting.YM2151Type != null && Audio.Setting.YM2151Type.Length > i && Audio.Setting.YM2151Type[i] != null)
+                        ct[i].exchgPAN = Audio.Setting.YM2151Type[i].exchgPAN;
                 }
+                Audio.Setting.YM2151Type = ct;
             }
             if (Audio.Setting.YM2203Type == null || Audio.Setting.YM2203Type.Length < 2)
             {

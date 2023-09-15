@@ -5443,6 +5443,9 @@ namespace MDPlayer
                 }
             }
 
+            private bool _exchgPAN = false;
+            public bool exchgPAN { get; set; }
+
             //Emulation時の遅延時間
 
             private int _LatencyForEmulation = 0;
@@ -5512,6 +5515,7 @@ namespace MDPlayer
                 ct.LatencyForReal = this.LatencyForReal;
                 ct.UseRealChipFreqDiff = this.UseRealChipFreqDiff;
                 ct.UseRealChipAutoAdjust = this.UseRealChipAutoAdjust;
+                ct.exchgPAN = this.exchgPAN;
 
                 return ct;
             }

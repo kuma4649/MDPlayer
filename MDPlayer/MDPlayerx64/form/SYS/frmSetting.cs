@@ -395,6 +395,8 @@ namespace MDPlayer.form
                 if (setting.YM2151Type[0].UseRealChipAutoAdjust != null && setting.YM2151Type[0].UseRealChipAutoAdjust.Length > 0)
                     ucSI.cbYM2151P_RealDefAutoAdjust.Checked = setting.YM2151Type[0].UseRealChipAutoAdjust[0];
 
+                ucSI.cbYM2151P_exchgPAN.Checked = setting.YM2151Type[0].exchgPAN;
+
                 SetRealParam(setting.YM2151Type[1]
                     , ucSI.rbYM2151S_Silent
                     , ucSI.rbYM2151S_Emu
@@ -411,6 +413,8 @@ namespace MDPlayer.form
                 ucSI.cbYM2151S_RealDefAutoAdjust.Checked = true;
                 if (setting.YM2151Type[1].UseRealChipAutoAdjust != null && setting.YM2151Type[1].UseRealChipAutoAdjust.Length > 0)
                     ucSI.cbYM2151S_RealDefAutoAdjust.Checked = setting.YM2151Type[1].UseRealChipAutoAdjust[0];
+
+                ucSI.cbYM2151S_exchgPAN.Checked = setting.YM2151Type[1].exchgPAN;
 
                 SetRealParam(setting.YM2203Type[0]
                     , ucSI.rbYM2203P_Silent
@@ -1314,6 +1318,7 @@ namespace MDPlayer.form
             setting.YM2151Type[0].UseRealChipFreqDiff[0] = ucSI.cbYM2151P_Real4M.Checked;
             setting.YM2151Type[0].UseRealChipAutoAdjust = new bool[1];
             setting.YM2151Type[0].UseRealChipAutoAdjust[0] = ucSI.cbYM2151P_RealDefAutoAdjust.Checked;
+            setting.YM2151Type[0].exchgPAN = ucSI.cbYM2151P_exchgPAN.Checked;
 
             setting.YM2151Type[1] = new Setting.ChipType2();
             SetChipType2FromControls(
@@ -1332,6 +1337,7 @@ namespace MDPlayer.form
             setting.YM2151Type[1].UseRealChipFreqDiff[0] = ucSI.cbYM2151S_Real4M.Checked;
             setting.YM2151Type[1].UseRealChipAutoAdjust = new bool[1];
             setting.YM2151Type[1].UseRealChipAutoAdjust[0] = ucSI.cbYM2151S_RealDefAutoAdjust.Checked;
+            setting.YM2151Type[1].exchgPAN = ucSI.cbYM2151S_exchgPAN.Checked;
 
 
             setting.YM2203Type = new Setting.ChipType2[2];
