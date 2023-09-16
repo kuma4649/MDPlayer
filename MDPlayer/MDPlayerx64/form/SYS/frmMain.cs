@@ -9867,6 +9867,8 @@ namespace MDPlayer.form
                 return;
             }
 
+            if (!setting.keyBoardHook.UseKeyBoardHook) return;
+
             string k = e.KeyCode.ToString();
             bool Shift = (Control.ModifierKeys & Keys.Shift) != 0;
             bool Ctrl = (Control.ModifierKeys & Keys.Control) != 0;
