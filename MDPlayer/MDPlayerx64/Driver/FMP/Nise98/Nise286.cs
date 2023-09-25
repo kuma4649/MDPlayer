@@ -3641,6 +3641,7 @@ namespace MDPlayer.Driver.FMP.Nise98
                     regs.eRegs[rm] = (short)EW;
                     break;
             }
+            regs.eRegs[reg] = (short)GW;
 
         }
 

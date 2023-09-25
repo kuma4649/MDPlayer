@@ -226,7 +226,8 @@ namespace MDPlayer.Driver.FMP.Nise98
                 regs.CS = regs.DS = (short)(mem.PeekW(ptr + 0x16) + StartSegment + 0x10);
                 regs.DS -= 0x10;
                 int relocOfs = mem.PeekW(ptr + 0x18);
-                int relocSize = headerSize - relocOfs;
+                //int relocSize = headerSize - relocOfs;
+                int relocSize = mem.PeekW(ptr + 0x06) * 4;// headerSize - relocOfs - 8;
                 for (int i = 0; i < relocSize; i += 4)
                 {
                     ushort rOfs = (ushort)mem.PeekW(ptr + relocOfs + i + 0);
@@ -237,7 +238,8 @@ namespace MDPlayer.Driver.FMP.Nise98
                 }
                 for (int i = 0; i < prog.Length - headerSize; i++)
                 {
-                    mem.PokeB(ptr + i , prog[headerSize + i]);
+                    byte b = mem.PeekB(ptr + i + headerSize);
+                    mem.PokeB(ptr + i, b);// prog[headerSize + i]);
                 }
                 ptr -= 0x100;
 
