@@ -50,97 +50,100 @@ namespace MDPlayer
                 }
                 else if (Format == 3)
                 {
-                    if (buf[TAGAdr++] != 0x5b) return null;
-                    if (buf[TAGAdr++] != 0x53) return null;
-                    if (buf[TAGAdr++] != 0x39) return null;
-                    if (buf[TAGAdr++] != 0x38) return null;
-                    if (buf[TAGAdr++] != 0x5d) return null;
-                    bool IsUTF8 = false;
-                    if (Common.getLE24(buf, TAGAdr) == FCC_BOM)
+                    if (TAGAdr != 0)
                     {
-                        IsUTF8 = true;
-                        TAGAdr += 3;
-                    }
+                        if (buf[TAGAdr++] != 0x5b) return null;
+                        if (buf[TAGAdr++] != 0x53) return null;
+                        if (buf[TAGAdr++] != 0x39) return null;
+                        if (buf[TAGAdr++] != 0x38) return null;
+                        if (buf[TAGAdr++] != 0x5d) return null;
+                        bool IsUTF8 = false;
+                        if (Common.getLE24(buf, TAGAdr) == FCC_BOM)
+                        {
+                            IsUTF8 = true;
+                            TAGAdr += 3;
+                        }
 
-                    while (buf.Length > TAGAdr && buf[TAGAdr] != 0x00)
-                    {
-                        List<byte> strLst = new List<byte>();
-                        string str;
-                        while (buf[TAGAdr] != 0x0a && buf[TAGAdr] != 0x00)
+                        while (buf.Length > TAGAdr && buf[TAGAdr] != 0x00)
                         {
-                            strLst.Add(buf[TAGAdr++]);
-                        }
-                        if (IsUTF8)
-                        {
-                            str = Encoding.UTF8.GetString(strLst.ToArray());
-                        }
-                        else
-                        {
-                            str = Encoding.GetEncoding(932).GetString(strLst.ToArray());
-                        }
-                        TAGAdr++;
+                            List<byte> strLst = new List<byte>();
+                            string str;
+                            while (buf[TAGAdr] != 0x0a && buf[TAGAdr] != 0x00)
+                            {
+                                strLst.Add(buf[TAGAdr++]);
+                            }
+                            if (IsUTF8)
+                            {
+                                str = Encoding.UTF8.GetString(strLst.ToArray());
+                            }
+                            else
+                            {
+                                str = Encoding.GetEncoding(932).GetString(strLst.ToArray());
+                            }
+                            TAGAdr++;
 
-                        if (str.ToLower().IndexOf("artist=") != -1)
-                        {
-                            try
+                            if (str.ToLower().IndexOf("artist=") != -1)
                             {
-                                gd3.Composer = str.Substring(str.IndexOf("=") + 1);
-                                gd3.ComposerJ = str.Substring(str.IndexOf("=") + 1);
+                                try
+                                {
+                                    gd3.Composer = str.Substring(str.IndexOf("=") + 1);
+                                    gd3.ComposerJ = str.Substring(str.IndexOf("=") + 1);
+                                }
+                                catch
+                                { }
                             }
-                            catch
-                            { }
-                        }
-                        if (str.ToLower().IndexOf("s98by=") != -1)
-                        {
-                            try
+                            if (str.ToLower().IndexOf("s98by=") != -1)
                             {
-                                gd3.VGMBy = str.Substring(str.IndexOf("=") + 1);
+                                try
+                                {
+                                    gd3.VGMBy = str.Substring(str.IndexOf("=") + 1);
+                                }
+                                catch
+                                { }
                             }
-                            catch
-                            { }
-                        }
-                        if (str.ToLower().IndexOf("game=") != -1)
-                        {
-                            try
+                            if (str.ToLower().IndexOf("game=") != -1)
                             {
-                                gd3.GameName = str.Substring(str.IndexOf("=") + 1);
-                                gd3.GameNameJ = str.Substring(str.IndexOf("=") + 1);
+                                try
+                                {
+                                    gd3.GameName = str.Substring(str.IndexOf("=") + 1);
+                                    gd3.GameNameJ = str.Substring(str.IndexOf("=") + 1);
+                                }
+                                catch
+                                { }
                             }
-                            catch
-                            { }
-                        }
-                        SSGVolumeFromTAG = -1;
-                        if (str.ToLower().IndexOf("system=") != -1)
-                        {
-                            try
+                            SSGVolumeFromTAG = -1;
+                            if (str.ToLower().IndexOf("system=") != -1)
                             {
-                                gd3.SystemName = str.Substring(str.IndexOf("=") + 1);
-                                gd3.SystemNameJ = str.Substring(str.IndexOf("=") + 1);
+                                try
+                                {
+                                    gd3.SystemName = str.Substring(str.IndexOf("=") + 1);
+                                    gd3.SystemNameJ = str.Substring(str.IndexOf("=") + 1);
 
-                                if (gd3.SystemName.IndexOf("8801") > 0) SSGVolumeFromTAG = 63;
-                                else if (gd3.SystemName.IndexOf("9801") > 0) SSGVolumeFromTAG = 31;
+                                    if (gd3.SystemName.IndexOf("8801") > 0) SSGVolumeFromTAG = 63;
+                                    else if (gd3.SystemName.IndexOf("9801") > 0) SSGVolumeFromTAG = 31;
+                                }
+                                catch
+                                { }
                             }
-                            catch
-                            { }
-                        }
-                        if (str.ToLower().IndexOf("title=") != -1)
-                        {
-                            try
+                            if (str.ToLower().IndexOf("title=") != -1)
                             {
-                                gd3.TrackName = str.Substring(str.IndexOf("=") + 1);
-                                gd3.TrackNameJ = str.Substring(str.IndexOf("=") + 1);
+                                try
+                                {
+                                    gd3.TrackName = str.Substring(str.IndexOf("=") + 1);
+                                    gd3.TrackNameJ = str.Substring(str.IndexOf("=") + 1);
+                                }
+                                catch
+                                { }
                             }
-                            catch
-                            { }
-                        }
-                        if (str.ToLower().IndexOf("year=") != -1)
-                        {
-                            try
+                            if (str.ToLower().IndexOf("year=") != -1)
                             {
-                                gd3.Converted = str.Substring(str.IndexOf("=") + 1);
+                                try
+                                {
+                                    gd3.Converted = str.Substring(str.IndexOf("=") + 1);
+                                }
+                                catch
+                                { }
                             }
-                            catch
-                            { }
                         }
                     }
                 }

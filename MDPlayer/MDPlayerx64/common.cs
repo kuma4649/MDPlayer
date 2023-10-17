@@ -621,6 +621,7 @@ namespace MDPlayer
 
         public static string EscSeqFilter(string src)
         {
+            if (src == null) return null;
             src = Regex.Replace(src, "\\u001b\\[[0-9\\;]*[ABCDJHfm]", "");
             src = Regex.Replace(src, "\\u001b", "");
 
