@@ -155,6 +155,7 @@ namespace MDPlayer.form
                 newParam.channels[ch].inst[47] = ym2203Register[0xb4 + c] & 0x07;//FMS
 
                 newParam.channels[ch].pan = 3;
+                newParam.channels[ch].slot = (byte)(fmKeyYM2203[ch] >> 4);
 
                 int freq = 0;
                 int octav = 0;
@@ -163,11 +164,16 @@ namespace MDPlayer.form
                 {
                     octav = (ym2203Register[0xa4 + c] & 0x38) >> 3;
                     freq = ym2203Register[0xa0 + c] + (ym2203Register[0xa4 + c] & 0x07) * 0x100;
+                    newParam.channels[ch].freq = (freq & 0x7ff) | ((octav & 7) << 11);
                     float ff = freq / ((2 << 20) / (masterClock / (12 * fmDiv))) * (2 << (octav + 2));
                     ff /= 1038f;
 
+                    newParam.channels[ch].slot = (byte)0;
                     if ((fmKeyYM2203[ch] & 1) != 0)
+                    {
                         n = Math.Min(Math.Max(Common.searchYM2608Adpcm(ff) - 1, 0), 95);
+                        newParam.channels[ch].slot = (byte)(fmKeyYM2203[ch] >> 4);
+                    }
 
                     byte con = (byte)(fmKeyYM2203[ch]);
                     int v = 127;
@@ -188,6 +194,7 @@ namespace MDPlayer.form
                     if (parent.setting.other.ExAll) m = 0xf0;
                     freq = ym2203Register[0xa9] + (ym2203Register[0xad] & 0x07) * 0x100;
                     octav = (ym2203Register[0xad] & 0x38) >> 3;
+                    newParam.channels[2].freq = (freq & 0x7ff) | ((octav & 7) << 11);
                     float ff = freq / ((2 << 20) / (masterClock / (12 * fmDiv))) * (2 << (octav + 2));
                     ff /= 1038f;
 
@@ -218,6 +225,7 @@ namespace MDPlayer.form
 
                     int freq = ym2203Register[0xa8 + c] + (ym2203Register[0xac + c] & 0x07) * 0x100;
                     int octav = (ym2203Register[0xac + c] & 0x38) >> 3;
+                    newParam.channels[ch].freq = (freq & 0x7ff) | ((octav & 7) << 11);
                     int n = -1;
                     if ((fmKeyYM2203[2] & (0x20 << (ch - 3))) != 0 && ((m & (0x10 << op)) != 0))
                     {
@@ -244,7 +252,14 @@ namespace MDPlayer.form
                 bool t = (ym2203Register[0x07] & (0x1 << ch)) == 0;
                 bool n = (ym2203Register[0x07] & (0x8 << ch)) == 0;
                 channel.tn = (t ? 1 : 0) + (n ? 2 : 0);
-                channel.volume = (int)(((t || n) ? 1 : 0) * (ym2203Register[0x08 + ch] & 0xf) * (20.0 / 16.0));
+                channel.volumeL = ym2203Register[0x08 + ch] & 0xf;
+                channel.volume = (int)(((t || n) ? 1 : 0) * (ym2203Register[0x08 + ch] & 0xf));
+
+                int ft = ym2203Register[0x00 + ch * 2];
+                int ct = ym2203Register[0x01 + ch * 2];
+                int tp = (ct << 8) | ft;
+                channel.freq = tp;
+
                 if (!t && !n && channel.volume > 0)
                 {
                     channel.volume--;
@@ -256,13 +271,11 @@ namespace MDPlayer.form
                 }
                 else
                 {
-                    int ft = ym2203Register[0x00 + ch * 2];
-                    int ct = ym2203Register[0x01 + ch * 2];
-                    int tp = (ct << 8) | ft;
                     if (tp == 0) tp = 1;
                     float ftone = (float)(7987200.0 / (64.0 * tp) * ssgMul);// 7987200 = MasterClock(↓のメソッドが7987200を基準としたテーブルの為)
                     channel.note = Common.searchSSGNote(ftone);
                 }
+                channel.ex = (ym2203Register[0x08 + ch] & 0xf0) != 0;
 
             }
 
@@ -291,23 +304,29 @@ namespace MDPlayer.form
 
                 if (c == 2)
                 {
-                    DrawBuff.Volume(frameBuffer, 256, 8 + c * 8, 0, ref oyc.volumeL, nyc.volumeL, tp);
-                    DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
+                    DrawBuff.Volume(frameBuffer, 272, 8 + c * 8, 0, ref oyc.volumeL, nyc.volumeL, tp);
+                    DrawBuff.KeyBoardOPNA(frameBuffer, 32, 8 + c * 8, ref oyc.note, nyc.note, tp);
                     DrawBuff.Inst(frameBuffer, 1, 12, c, oyc.inst, nyc.inst);
                     DrawBuff.Ch3YM2203(frameBuffer, c, ref oyc.mask, nyc.mask, ref oyc.ex, nyc.ex, tp);
+                    DrawBuff.Slot(frameBuffer, 0 + 4 * 64, 8 + c * 8, ref oyc.slot, nyc.slot);
+                    DrawBuff.font4Hex16Bit(frameBuffer, 0 + 4 * 78, 8 + c * 8, 0, ref oyc.freq, nyc.freq);
                 }
                 else if (c < 3)
                 {
-                    DrawBuff.Volume(frameBuffer, 256, 8 + c * 8, 0, ref oyc.volumeL, nyc.volumeL, tp);
-                    DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
+                    DrawBuff.Volume(frameBuffer, 272, 8 + c * 8, 0, ref oyc.volumeL, nyc.volumeL, tp);
+                    DrawBuff.KeyBoardOPNA(frameBuffer, 32, 8 + c * 8, ref oyc.note, nyc.note, tp);
                     DrawBuff.Inst(frameBuffer, 1, 12, c, oyc.inst, nyc.inst);
                     DrawBuff.ChYM2203(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
+                    DrawBuff.Slot(frameBuffer, 0 + 4 * 64, 8 + c * 8, ref oyc.slot, nyc.slot);
+                    DrawBuff.font4Hex16Bit(frameBuffer, 0 + 4 * 78, 8 + c * 8, 0, ref oyc.freq, nyc.freq);
                 }
                 else
                 {
-                    DrawBuff.Volume(frameBuffer, 256, 8 + (c + 3) * 8, 0, ref oyc.volumeL, nyc.volumeL, tp);
-                    DrawBuff.KeyBoard(frameBuffer, c + 3, ref oyc.note, nyc.note, tp);
+                    DrawBuff.Volume(frameBuffer, 272, 8 + (c + 3) * 8, 0, ref oyc.volumeL, nyc.volumeL, tp);
+                    DrawBuff.KeyBoardOPNA(frameBuffer, 32, 8 + (c+3) * 8, ref oyc.note, nyc.note, tp);
                     DrawBuff.ChYM2203(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
+                    DrawBuff.Slot(frameBuffer, 0 + 4 * 64, 8 + (c + 3) * 8, ref oyc.slot, nyc.slot);
+                    DrawBuff.font4Hex16Bit(frameBuffer, 0 + 4 * 78, 8 + (c + 3) * 8, 0, ref oyc.freq, nyc.freq);
                 }
 
 
@@ -318,11 +337,14 @@ namespace MDPlayer.form
                 MDChipParams.Channel oyc = oldParam.channels[c + 6];
                 MDChipParams.Channel nyc = newParam.channels[c + 6];
 
-                DrawBuff.Volume(frameBuffer, 256, 8 + (c + 3) * 8, 0, ref oyc.volume, nyc.volume, tp);
-                DrawBuff.KeyBoard(frameBuffer, c + 3, ref oyc.note, nyc.note, tp);
+                DrawBuff.VolumeShort(frameBuffer, 280 + 0, 8 + (c + 3) * 8, 0, ref oyc.volume, nyc.volume, tp);
+                DrawBuff.KeyBoardOPNA(frameBuffer, 32, 8 + (c + 3) * 8, ref oyc.note, nyc.note, tp);
                 DrawBuff.Tn(frameBuffer, 6, 2, c + 3, ref oyc.tn, nyc.tn, ref oyc.tntp, tp * 2);
 
                 DrawBuff.ChYM2203(frameBuffer, c + 6, ref oyc.mask, nyc.mask, tp);
+                DrawBuff.drawNESSw(frameBuffer, 268 + 0, 8 + c * 8, ref oyc.ex, nyc.ex);
+                DrawBuff.font4Hex16Bit(frameBuffer, 0 + 4 * 78, 8 + (c + 3) * 8, 0, ref oyc.freq, nyc.freq);
+                DrawBuff.font4HexByte(frameBuffer, 272 + 0, 8 + (c + 3) * 8, 0, ref oyc.volumeL, nyc.volumeL);
 
             }
 

@@ -281,7 +281,7 @@ namespace MDPlayer
             for (int y = 0; y < 3 + 3 + 3; y++)
             {
 
-                drawFont8(screen, 296, y * 8 + 8, 1, "   ");
+                drawFont8(screen, 296+32, y * 8 + 8, 1, "   ");
                 for (int i = 0; i < 96; i++)
                 {
                     int kx = Tables.kbl[(i % 12) * 2] + i / 12 * 28;
@@ -290,7 +290,7 @@ namespace MDPlayer
                 }
 
                 int d = 99;
-                Volume(screen, 256, 8 + y * 8, 0, ref d, 0, tp);
+                Volume(screen, 272, 8 + y * 8, 0, ref d, 0, tp);
 
                 if (y < 9)
                 {
