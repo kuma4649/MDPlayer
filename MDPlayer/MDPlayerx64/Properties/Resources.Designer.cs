@@ -829,6 +829,27 @@ namespace MDPlayerx64.Properties {
         ///   &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///&lt;Balance xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
         ///  &lt;MasterVolume&gt;0&lt;/MasterVolume&gt;
+        ///  &lt;YM2612Volume&gt;0&lt;/YM2612Volume&gt;
+        ///  &lt;SN76489Volume&gt;0&lt;/SN76489Volume&gt;
+        ///  &lt;RF5C68Volume&gt;0&lt;/RF5C68Volume&gt;
+        ///  &lt;RF5C164Volume&gt;0&lt;/RF5C164Volume&gt;
+        ///  &lt;PWMVolume&gt;0&lt;/PWMVolume&gt;
+        ///  &lt;C140Volume&gt;0&lt;/C140Volume&gt;
+        ///  &lt;OKIM6258Volume&gt;0&lt;/OKIM6258Volume&gt;
+        ///  &lt;OKIM6295Volume&gt;0&lt;/OKIM6295Volume&gt;
+        ///  &lt;SEGAPCMVolume&gt;0&lt;/SEGAPCMVolume&gt;
+        ///  &lt;AY8910Volume&gt;0&lt; [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string DefaultVolumeBalance_M {
+            get {
+                return ResourceManager.GetString("DefaultVolumeBalance_M", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;Balance xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
+        ///  &lt;MasterVolume&gt;0&lt;/MasterVolume&gt;
         ///  &lt;YM2612Volume&gt;-192&lt;/YM2612Volume&gt;
         ///  &lt;SN76489Volume&gt;-192&lt;/SN76489Volume&gt;
         ///  &lt;RF5C68Volume&gt;-192&lt;/RF5C68Volume&gt;

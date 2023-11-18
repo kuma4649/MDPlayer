@@ -9742,6 +9742,10 @@ namespace MDPlayer.form
                             fn = "DriverBalance_MUB.mbc";
                             defMbc = Resources.DefaultVolumeBalance_MUB;
                             break;
+                        case EnmFileFormat.M:
+                            fn = "DriverBalance_M.mbc";
+                            defMbc = Resources.DefaultVolumeBalance_M;
+                            break;
                     }
 
                     fullPath = Path.Combine(fullPath, fn);

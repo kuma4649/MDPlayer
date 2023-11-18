@@ -3,10 +3,12 @@ using MDPlayer.Driver.SID;
 using MDPlayer.form;
 using MDSound;
 using MDSound.np.chip;
+using Microsoft.VisualBasic.Devices;
 using musicDriverInterface;
 using NAudio.Wave;
 using System.Diagnostics;
 using System.IO.Compression;
+using static MDPlayer.MDChipParams;
 
 namespace MDPlayer
 {
@@ -2425,9 +2427,9 @@ namespace MDPlayer
 
                 if (useSCC)
                 {
-                    K051649 K051649 = null;
+                    MDSound.K051649 K051649 = null;
                     chip = new MDSound.MDSound.Chip();
-                    K051649 = new K051649();
+                    K051649 = new MDSound.K051649();
                     chip.ID = 0;
                     ChipLED.PriK051649 = 1;
                     chip.type = MDSound.MDSound.enmInstrumentType.K051649;
@@ -2588,9 +2590,9 @@ namespace MDPlayer
 
                 if (useSCC)
                 {
-                    K051649 K051649 = null;
+                    MDSound.K051649 K051649 = null;
                     chip = new MDSound.MDSound.Chip();
-                    K051649 = new K051649();
+                    K051649 = new MDSound.K051649();
                     chip.ID = 0;
                     ChipLED.PriK051649 = 1;
                     chip.type = MDSound.MDSound.enmInstrumentType.K051649;
@@ -4216,21 +4218,42 @@ namespace MDPlayer
                 lstChips.Add(chip);
                 UseChip.Add(EnmChip.YM2612);
 
-                sn76489 sn76489 = new();
-                chip = new MDSound.MDSound.Chip
+                sn76489 sn76489;
+                SN76496 sn76496;
+                if (setting.SN76489Type[0].UseEmu[0] || setting.SN76489Type[0].UseReal[0])
                 {
-                    type = MDSound.MDSound.enmInstrumentType.SN76489,
-                    ID = (byte)0,
-                    Instrument = sn76489,
-                    Update = sn76489.Update,
-                    Start = sn76489.Start,
-                    Stop = sn76489.Stop,
-                    Reset = sn76489.Reset,
-                    SamplingRate = (UInt32)setting.outputDevice.SampleRate,
-                    Volume = setting.balance.SN76489Volume,
-                    Clock = 3579545,
-                    Option = null
-                };
+                    sn76489 = new sn76489();
+                    chip = new MDSound.MDSound.Chip();
+                    chip.type = MDSound.MDSound.enmInstrumentType.SN76489;
+                    chip.ID = 0;
+                    chip.Instrument = sn76489;
+                    chip.Update = sn76489.Update;
+                    chip.Start = sn76489.Start;
+                    chip.Stop = sn76489.Stop;
+                    chip.Reset = sn76489.Reset;
+                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
+                    chip.Volume = setting.balance.SN76489Volume;
+                    chip.Clock = 3579545;
+                    ClockSN76489 = (int)(chip.Clock & 0x7fff_ffff);
+                    chip.Option = null;
+                }
+                else if (setting.SN76489Type[0].UseEmu[1])
+                {
+                    sn76496 = new SN76496();
+                    chip = new MDSound.MDSound.Chip();
+                    chip.type = MDSound.MDSound.enmInstrumentType.SN76496;
+                    chip.ID = 0;
+                    chip.Instrument = sn76496;
+                    chip.Update = sn76496.Update;
+                    chip.Start = sn76496.Start;
+                    chip.Stop = sn76496.Stop;
+                    chip.Reset = sn76496.Reset;
+                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
+                    chip.Volume = setting.balance.SN76489Volume;
+                    chip.Clock = 3579545;
+                    ClockSN76489 = (int)(chip.Clock & 0x7fff_ffff);
+                    chip.Option = null;
+                }
                 ChipLED.PriDCSG = 1;
                 lstChips.Add(chip);
                 UseChip.Add(EnmChip.SN76489);
@@ -8392,12 +8415,12 @@ namespace MDPlayer
             return mds.ReadHuC6280Status(chipID);
         }
 
-        public static K051649.k051649_state GetK051649Register(int chipID)
+        public static MDSound.K051649.k051649_state GetK051649Register(int chipID)
         {
             return chipRegister.scc_k051649.GetK051649_State((byte)chipID);//  mds.ReadK051649Status(chipID);
         }
 
-        public static K053260.k053260_state GetK053260Register(int chipID)
+        public static MDSound.K053260.k053260_state GetK053260Register(int chipID)
         {
             return mds.getK053260State(chipID);
         }
@@ -8428,7 +8451,7 @@ namespace MDPlayer
             return chipRegister.pcmRegisterC140[chipID];
         }
 
-        public static PPZ8.PPZChannelWork[] GetPPZ8Register(int chipID)
+        public static MDSound.PPZ8.PPZChannelWork[] GetPPZ8Register(int chipID)
         {
             return chipRegister.GetPPZ8Register(chipID);
         }
