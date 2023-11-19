@@ -809,6 +809,26 @@ namespace MDPlayerx64.Properties {
         ///   &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///&lt;Balance xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
         ///  &lt;MasterVolume&gt;0&lt;/MasterVolume&gt;
+        ///  &lt;YM2612Volume&gt;0&lt;/YM2612Volume&gt;
+        ///  &lt;SN76489Volume&gt;-15&lt;/SN76489Volume&gt;
+        ///  &lt;RF5C68Volume&gt;-192&lt;/RF5C68Volume&gt;
+        ///  &lt;RF5C164Volume&gt;-192&lt;/RF5C164Volume&gt;
+        ///  &lt;PWMVolume&gt;-192&lt;/PWMVolume&gt;
+        ///  &lt;C140Volume&gt;-192&lt;/C140Volume&gt;
+        ///  &lt;OKIM6258Volume&gt;-192&lt;/OKIM6258Volume&gt;
+        ///  &lt;OKIM6295Volume&gt;-192&lt;/OKIM6295Volume&gt;
+        ///  &lt;SEGAPCMVolume&gt;-192&lt;/SEGAPCMVolu [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string DefaultVolumeBalance_FMP {
+            get {
+                return ResourceManager.GetString("DefaultVolumeBalance_FMP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;Balance xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
+        ///  &lt;MasterVolume&gt;0&lt;/MasterVolume&gt;
         ///  &lt;YM2612Volume&gt;-192&lt;/YM2612Volume&gt;
         ///  &lt;SN76489Volume&gt;-192&lt;/SN76489Volume&gt;
         ///  &lt;RF5C68Volume&gt;-192&lt;/RF5C68Volume&gt;
@@ -850,6 +870,26 @@ namespace MDPlayerx64.Properties {
         ///   &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///&lt;Balance xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
         ///  &lt;MasterVolume&gt;0&lt;/MasterVolume&gt;
+        ///  &lt;YM2612Volume&gt;0&lt;/YM2612Volume&gt;
+        ///  &lt;SN76489Volume&gt;-15&lt;/SN76489Volume&gt;
+        ///  &lt;RF5C68Volume&gt;-192&lt;/RF5C68Volume&gt;
+        ///  &lt;RF5C164Volume&gt;-192&lt;/RF5C164Volume&gt;
+        ///  &lt;PWMVolume&gt;-192&lt;/PWMVolume&gt;
+        ///  &lt;C140Volume&gt;-192&lt;/C140Volume&gt;
+        ///  &lt;OKIM6258Volume&gt;-192&lt;/OKIM6258Volume&gt;
+        ///  &lt;OKIM6295Volume&gt;-192&lt;/OKIM6295Volume&gt;
+        ///  &lt;SEGAPCMVolume&gt;-192&lt;/SEGAPCMVolu [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string DefaultVolumeBalance_MDL {
+            get {
+                return ResourceManager.GetString("DefaultVolumeBalance_MDL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;Balance xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
+        ///  &lt;MasterVolume&gt;0&lt;/MasterVolume&gt;
         ///  &lt;YM2612Volume&gt;-192&lt;/YM2612Volume&gt;
         ///  &lt;SN76489Volume&gt;-192&lt;/SN76489Volume&gt;
         ///  &lt;RF5C68Volume&gt;-192&lt;/RF5C68Volume&gt;
@@ -883,6 +923,26 @@ namespace MDPlayerx64.Properties {
         internal static string DefaultVolumeBalance_MDX {
             get {
                 return ResourceManager.GetString("DefaultVolumeBalance_MDX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;Balance xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
+        ///  &lt;MasterVolume&gt;0&lt;/MasterVolume&gt;
+        ///  &lt;YM2612Volume&gt;0&lt;/YM2612Volume&gt;
+        ///  &lt;SN76489Volume&gt;-15&lt;/SN76489Volume&gt;
+        ///  &lt;RF5C68Volume&gt;-192&lt;/RF5C68Volume&gt;
+        ///  &lt;RF5C164Volume&gt;-192&lt;/RF5C164Volume&gt;
+        ///  &lt;PWMVolume&gt;-192&lt;/PWMVolume&gt;
+        ///  &lt;C140Volume&gt;-192&lt;/C140Volume&gt;
+        ///  &lt;OKIM6258Volume&gt;-192&lt;/OKIM6258Volume&gt;
+        ///  &lt;OKIM6295Volume&gt;-192&lt;/OKIM6295Volume&gt;
+        ///  &lt;SEGAPCMVolume&gt;-192&lt;/SEGAPCMVolu [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string DefaultVolumeBalance_MGS {
+            get {
+                return ResourceManager.GetString("DefaultVolumeBalance_MGS", resourceCulture);
             }
         }
         
@@ -943,6 +1003,26 @@ namespace MDPlayerx64.Properties {
         internal static string DefaultVolumeBalance_MUC {
             get {
                 return ResourceManager.GetString("DefaultVolumeBalance_MUC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;Balance xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
+        ///  &lt;MasterVolume&gt;0&lt;/MasterVolume&gt;
+        ///  &lt;YM2612Volume&gt;0&lt;/YM2612Volume&gt;
+        ///  &lt;SN76489Volume&gt;-15&lt;/SN76489Volume&gt;
+        ///  &lt;RF5C68Volume&gt;-192&lt;/RF5C68Volume&gt;
+        ///  &lt;RF5C164Volume&gt;-192&lt;/RF5C164Volume&gt;
+        ///  &lt;PWMVolume&gt;-192&lt;/PWMVolume&gt;
+        ///  &lt;C140Volume&gt;-192&lt;/C140Volume&gt;
+        ///  &lt;OKIM6258Volume&gt;-192&lt;/OKIM6258Volume&gt;
+        ///  &lt;OKIM6295Volume&gt;-192&lt;/OKIM6295Volume&gt;
+        ///  &lt;SEGAPCMVolume&gt;-192&lt;/SEGAPCMVolu [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string DefaultVolumeBalance_MuSICA {
+            get {
+                return ResourceManager.GetString("DefaultVolumeBalance_MuSICA", resourceCulture);
             }
         }
         

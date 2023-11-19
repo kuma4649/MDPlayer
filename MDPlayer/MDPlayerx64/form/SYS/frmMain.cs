@@ -9743,8 +9743,26 @@ namespace MDPlayer.form
                             defMbc = Resources.DefaultVolumeBalance_MUB;
                             break;
                         case EnmFileFormat.M:
+                        case EnmFileFormat.MML:
                             fn = "DriverBalance_M.mbc";
                             defMbc = Resources.DefaultVolumeBalance_M;
+                            break;
+                        case EnmFileFormat.MGS:
+                            fn = "DriverBalance_MGS.mbc";
+                            defMbc = Resources.DefaultVolumeBalance_MGS;
+                            break;
+                        case EnmFileFormat.MDL:
+                            fn = "DriverBalance_MDL.mbc";
+                            defMbc = Resources.DefaultVolumeBalance_MDL;
+                            break;
+                        case EnmFileFormat.MuSICA:
+                        case EnmFileFormat.MuSICA_src:
+                            fn = "DriverBalance_MuSICA.mbc";
+                            defMbc = Resources.DefaultVolumeBalance_MuSICA;
+                            break;
+                        case EnmFileFormat.FMP:
+                            fn = "DriverBalance_FMP.mbc";
+                            defMbc = Resources.DefaultVolumeBalance_FMP;
                             break;
                     }
 
