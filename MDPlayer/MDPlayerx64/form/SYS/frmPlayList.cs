@@ -122,6 +122,22 @@ namespace MDPlayer.form
 
         private void frmPlayList_Shown(object sender, EventArgs e)
         {
+            tsbJapanese.Checked = setting.playList.isJP;
+            ChangeLang(setting.playList.isJP);
+            if (setting.playList.cwExt != -1) dgvList.Columns["clmExt"].Width = setting.playList.cwExt;
+            if (setting.playList.cwType != -1) dgvList.Columns["clmType"].Width = setting.playList.cwType;
+            if (setting.playList.cwTitle != -1) dgvList.Columns["clmTitle"].Width = setting.playList.cwTitle;
+            if (setting.playList.cwTitleJ != -1) dgvList.Columns["clmTitleJ"].Width = setting.playList.cwTitleJ;
+            if (setting.playList.cwFilename != -1) dgvList.Columns["clmDispFileName"].Width = setting.playList.cwFilename;
+            if (setting.playList.cwGame != -1) dgvList.Columns["clmGame"].Width = setting.playList.cwGame;
+            if (setting.playList.cwGameJ != -1) dgvList.Columns["clmGameJ"].Width = setting.playList.cwGameJ;
+            if (setting.playList.cwComposer != -1) dgvList.Columns["clmComposer"].Width = setting.playList.cwComposer;
+            if (setting.playList.cwComposerJ != -1) dgvList.Columns["clmComposerJ"].Width = setting.playList.cwComposerJ;
+            if (setting.playList.cwRelease != -1) dgvList.Columns["clmConverted"].Width = setting.playList.cwRelease;
+            if (setting.playList.cwNotes != -1) dgvList.Columns["clmNotes"].Width = setting.playList.cwNotes;
+            if (setting.playList.cwDuration != -1) dgvList.Columns["clmDuration"].Width = setting.playList.cwDuration;
+            if (setting.playList.cwVersion != -1) dgvList.Columns["ClmVersion"].Width = setting.playList.cwVersion;
+            if (setting.playList.cwUseChips != -1) dgvList.Columns["ClmUseChips"].Width = setting.playList.cwUseChips;
         }
 
         private void frmPlayList_Load(object sender, EventArgs e)
@@ -145,6 +161,23 @@ namespace MDPlayer.form
                 setting.location.PPlayList = RestoreBounds.Location;
                 setting.location.PPlayListWH = new Point(RestoreBounds.Size.Width, RestoreBounds.Size.Height);
             }
+
+            setting.playList.isJP = tsbJapanese.Checked;
+            setting.playList.cwExt = dgvList.Columns["clmExt"].Width;
+            setting.playList.cwType = dgvList.Columns["clmType"].Width;
+            setting.playList.cwTitle = dgvList.Columns["clmTitle"].Width;
+            setting.playList.cwTitleJ = dgvList.Columns["clmTitleJ"].Width;
+            setting.playList.cwFilename = dgvList.Columns["clmDispFileName"].Width;
+            setting.playList.cwGame = dgvList.Columns["clmGame"].Width;
+            setting.playList.cwGameJ = dgvList.Columns["clmGameJ"].Width;
+            setting.playList.cwComposer = dgvList.Columns["clmComposer"].Width;
+            setting.playList.cwComposerJ = dgvList.Columns["clmComposerJ"].Width;
+            setting.playList.cwRelease = dgvList.Columns["clmConverted"].Width;
+            setting.playList.cwNotes = dgvList.Columns["clmNotes"].Width;
+            setting.playList.cwDuration = dgvList.Columns["clmDuration"].Width;
+            setting.playList.cwVersion = dgvList.Columns["ClmVersion"].Width;
+            setting.playList.cwUseChips = dgvList.Columns["ClmUseChips"].Width;
+
             this.Visible = false;
             e.Cancel = true;
         }
@@ -791,12 +824,17 @@ namespace MDPlayer.form
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            dgvList.Columns["clmTitle"].Visible = !tsbJapanese.Checked;
-            dgvList.Columns["clmTitleJ"].Visible = tsbJapanese.Checked;
-            dgvList.Columns["clmGame"].Visible = !tsbJapanese.Checked;
-            dgvList.Columns["clmGameJ"].Visible = tsbJapanese.Checked;
-            dgvList.Columns["clmComposer"].Visible = !tsbJapanese.Checked;
-            dgvList.Columns["clmComposerJ"].Visible = tsbJapanese.Checked;
+            ChangeLang(tsbJapanese.Checked);
+        }
+
+        private void ChangeLang(bool isJP)
+        {
+            dgvList.Columns["clmTitle"].Visible = !isJP;
+            dgvList.Columns["clmTitleJ"].Visible = isJP;
+            dgvList.Columns["clmGame"].Visible = !isJP;
+            dgvList.Columns["clmGameJ"].Visible = isJP;
+            dgvList.Columns["clmComposer"].Visible = !isJP;
+            dgvList.Columns["clmComposerJ"].Visible = isJP;
         }
 
         private void frmPlayList_KeyDown(object sender, KeyEventArgs e)
@@ -1163,6 +1201,5 @@ namespace MDPlayer.form
             KeyEventArgs kea = new KeyEventArgs(Keys.Enter);
             frmPlayList_KeyDown(null, kea);
         }
-
     }
 }

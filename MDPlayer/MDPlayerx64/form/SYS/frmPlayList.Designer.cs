@@ -37,567 +37,514 @@ namespace MDPlayer.form
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPlayList));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
-            this.dgvList = new System.Windows.Forms.DataGridView();
-            this.cmsPlayList = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.type設定ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiA = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiB = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiC = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiD = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiE = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiF = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiG = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiH = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiI = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiJ = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsmiPlayThis = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiDelThis = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsmiDelAllMusic = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiOpenFolder = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.tsbOpenPlayList = new System.Windows.Forms.ToolStripButton();
-            this.tsbSavePlayList = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsbAddMusic = new System.Windows.Forms.ToolStripButton();
-            this.tsbAddFolder = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsbUp = new System.Windows.Forms.ToolStripButton();
-            this.tsbDown = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsbJapanese = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsbTextExt = new System.Windows.Forms.ToolStripButton();
-            this.tsbMMLExt = new System.Windows.Forms.ToolStripButton();
-            this.tsbImgExt = new System.Windows.Forms.ToolStripButton();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.clmKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmSongNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmZipFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmPlayingNow = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmEXT = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmTitleJ = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmDispFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmGame = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmGameJ = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmComposer = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmComposerJ = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmVGMby = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmConverted = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmNotes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmDuration = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ClmVersion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ClmUseChips = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmSpacer = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.toolStripContainer1.ContentPanel.SuspendLayout();
-            this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
-            this.toolStripContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvList)).BeginInit();
-            this.cmsPlayList.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
-            this.SuspendLayout();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            toolStripContainer1 = new ToolStripContainer();
+            dgvList = new DataGridView();
+            toolStrip1 = new ToolStrip();
+            tsbOpenPlayList = new ToolStripButton();
+            tsbSavePlayList = new ToolStripButton();
+            toolStripSeparator1 = new ToolStripSeparator();
+            tsbAddMusic = new ToolStripButton();
+            tsbAddFolder = new ToolStripButton();
+            toolStripSeparator2 = new ToolStripSeparator();
+            tsbUp = new ToolStripButton();
+            tsbDown = new ToolStripButton();
+            toolStripSeparator4 = new ToolStripSeparator();
+            tsbJapanese = new ToolStripButton();
+            toolStripSeparator6 = new ToolStripSeparator();
+            tsbTextExt = new ToolStripButton();
+            tsbMMLExt = new ToolStripButton();
+            tsbImgExt = new ToolStripButton();
+            cmsPlayList = new ContextMenuStrip(components);
+            type設定ToolStripMenuItem = new ToolStripMenuItem();
+            tsmiA = new ToolStripMenuItem();
+            tsmiB = new ToolStripMenuItem();
+            tsmiC = new ToolStripMenuItem();
+            tsmiD = new ToolStripMenuItem();
+            tsmiE = new ToolStripMenuItem();
+            tsmiF = new ToolStripMenuItem();
+            tsmiG = new ToolStripMenuItem();
+            tsmiH = new ToolStripMenuItem();
+            tsmiI = new ToolStripMenuItem();
+            tsmiJ = new ToolStripMenuItem();
+            toolStripSeparator5 = new ToolStripSeparator();
+            tsmiPlayThis = new ToolStripMenuItem();
+            tsmiDelThis = new ToolStripMenuItem();
+            toolStripSeparator3 = new ToolStripSeparator();
+            tsmiDelAllMusic = new ToolStripMenuItem();
+            tsmiOpenFolder = new ToolStripMenuItem();
+            timer1 = new System.Windows.Forms.Timer(components);
+            clmKey = new DataGridViewTextBoxColumn();
+            clmSongNo = new DataGridViewTextBoxColumn();
+            clmZipFileName = new DataGridViewTextBoxColumn();
+            clmFileName = new DataGridViewTextBoxColumn();
+            clmPlayingNow = new DataGridViewTextBoxColumn();
+            clmEXT = new DataGridViewTextBoxColumn();
+            clmType = new DataGridViewTextBoxColumn();
+            clmTitle = new DataGridViewTextBoxColumn();
+            clmTitleJ = new DataGridViewTextBoxColumn();
+            clmDispFileName = new DataGridViewTextBoxColumn();
+            clmGame = new DataGridViewTextBoxColumn();
+            clmGameJ = new DataGridViewTextBoxColumn();
+            clmComposer = new DataGridViewTextBoxColumn();
+            clmComposerJ = new DataGridViewTextBoxColumn();
+            clmVGMby = new DataGridViewTextBoxColumn();
+            clmConverted = new DataGridViewTextBoxColumn();
+            clmNotes = new DataGridViewTextBoxColumn();
+            clmDuration = new DataGridViewTextBoxColumn();
+            ClmVersion = new DataGridViewTextBoxColumn();
+            ClmUseChips = new DataGridViewTextBoxColumn();
+            clmSpacer = new DataGridViewTextBoxColumn();
+            toolStripContainer1.ContentPanel.SuspendLayout();
+            toolStripContainer1.TopToolStripPanel.SuspendLayout();
+            toolStripContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvList).BeginInit();
+            toolStrip1.SuspendLayout();
+            cmsPlayList.SuspendLayout();
+            SuspendLayout();
             // 
             // toolStripContainer1
             // 
             // 
             // toolStripContainer1.ContentPanel
             // 
-            resources.ApplyResources(this.toolStripContainer1.ContentPanel, "toolStripContainer1.ContentPanel");
-            this.toolStripContainer1.ContentPanel.Controls.Add(this.dgvList);
-            resources.ApplyResources(this.toolStripContainer1, "toolStripContainer1");
-            this.toolStripContainer1.Name = "toolStripContainer1";
+            resources.ApplyResources(toolStripContainer1.ContentPanel, "toolStripContainer1.ContentPanel");
+            toolStripContainer1.ContentPanel.Controls.Add(dgvList);
+            resources.ApplyResources(toolStripContainer1, "toolStripContainer1");
+            toolStripContainer1.Name = "toolStripContainer1";
             // 
             // toolStripContainer1.TopToolStripPanel
             // 
-            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip1);
+            toolStripContainer1.TopToolStripPanel.Controls.Add(toolStrip1);
             // 
             // dgvList
             // 
-            this.dgvList.AllowDrop = true;
-            this.dgvList.AllowUserToAddRows = false;
-            this.dgvList.AllowUserToDeleteRows = false;
-            this.dgvList.AllowUserToResizeRows = false;
-            this.dgvList.BackgroundColor = System.Drawing.Color.Black;
-            this.dgvList.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvList.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            resources.ApplyResources(this.dgvList, "dgvList");
-            this.dgvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.clmKey,
-            this.clmSongNo,
-            this.clmZipFileName,
-            this.clmFileName,
-            this.clmPlayingNow,
-            this.clmEXT,
-            this.clmType,
-            this.clmTitle,
-            this.clmTitleJ,
-            this.clmDispFileName,
-            this.clmGame,
-            this.clmGameJ,
-            this.clmComposer,
-            this.clmComposerJ,
-            this.clmVGMby,
-            this.clmConverted,
-            this.clmNotes,
-            this.clmDuration,
-            this.ClmVersion,
-            this.ClmUseChips,
-            this.clmSpacer});
-            this.dgvList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvList.Name = "dgvList";
-            this.dgvList.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dgvList.RowHeadersVisible = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.dgvList.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.dgvList.RowTemplate.ContextMenuStrip = this.cmsPlayList;
-            this.dgvList.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.dgvList.RowTemplate.Height = 10;
-            this.dgvList.RowTemplate.ReadOnly = true;
-            this.dgvList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvList.ShowCellErrors = false;
-            this.dgvList.ShowEditingIcon = false;
-            this.dgvList.ShowRowErrors = false;
-            this.dgvList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvList_CellDoubleClick);
-            this.dgvList.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvList_CellMouseClick);
-            this.dgvList.DragDrop += new System.Windows.Forms.DragEventHandler(this.dgvList_DragDrop);
-            this.dgvList.DragEnter += new System.Windows.Forms.DragEventHandler(this.dgvList_DragEnter);
-            this.dgvList.DragOver += new System.Windows.Forms.DragEventHandler(this.dgvList_DragOver);
-            // 
-            // cmsPlayList
-            // 
-            this.cmsPlayList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.type設定ToolStripMenuItem,
-            this.toolStripSeparator5,
-            this.tsmiPlayThis,
-            this.tsmiDelThis,
-            this.toolStripSeparator3,
-            this.tsmiDelAllMusic,
-            this.tsmiOpenFolder});
-            this.cmsPlayList.Name = "cmsPlayList";
-            resources.ApplyResources(this.cmsPlayList, "cmsPlayList");
-            // 
-            // type設定ToolStripMenuItem
-            // 
-            this.type設定ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiA,
-            this.tsmiB,
-            this.tsmiC,
-            this.tsmiD,
-            this.tsmiE,
-            this.tsmiF,
-            this.tsmiG,
-            this.tsmiH,
-            this.tsmiI,
-            this.tsmiJ});
-            this.type設定ToolStripMenuItem.Name = "type設定ToolStripMenuItem";
-            resources.ApplyResources(this.type設定ToolStripMenuItem, "type設定ToolStripMenuItem");
-            // 
-            // tsmiA
-            // 
-            this.tsmiA.Name = "tsmiA";
-            resources.ApplyResources(this.tsmiA, "tsmiA");
-            this.tsmiA.Click += new System.EventHandler(this.tsmiA_Click);
-            // 
-            // tsmiB
-            // 
-            this.tsmiB.Name = "tsmiB";
-            resources.ApplyResources(this.tsmiB, "tsmiB");
-            this.tsmiB.Click += new System.EventHandler(this.tsmiA_Click);
-            // 
-            // tsmiC
-            // 
-            this.tsmiC.Name = "tsmiC";
-            resources.ApplyResources(this.tsmiC, "tsmiC");
-            this.tsmiC.Click += new System.EventHandler(this.tsmiA_Click);
-            // 
-            // tsmiD
-            // 
-            this.tsmiD.Name = "tsmiD";
-            resources.ApplyResources(this.tsmiD, "tsmiD");
-            this.tsmiD.Click += new System.EventHandler(this.tsmiA_Click);
-            // 
-            // tsmiE
-            // 
-            this.tsmiE.Name = "tsmiE";
-            resources.ApplyResources(this.tsmiE, "tsmiE");
-            this.tsmiE.Click += new System.EventHandler(this.tsmiA_Click);
-            // 
-            // tsmiF
-            // 
-            this.tsmiF.Name = "tsmiF";
-            resources.ApplyResources(this.tsmiF, "tsmiF");
-            this.tsmiF.Click += new System.EventHandler(this.tsmiA_Click);
-            // 
-            // tsmiG
-            // 
-            this.tsmiG.Name = "tsmiG";
-            resources.ApplyResources(this.tsmiG, "tsmiG");
-            this.tsmiG.Click += new System.EventHandler(this.tsmiA_Click);
-            // 
-            // tsmiH
-            // 
-            this.tsmiH.Name = "tsmiH";
-            resources.ApplyResources(this.tsmiH, "tsmiH");
-            this.tsmiH.Click += new System.EventHandler(this.tsmiA_Click);
-            // 
-            // tsmiI
-            // 
-            this.tsmiI.Name = "tsmiI";
-            resources.ApplyResources(this.tsmiI, "tsmiI");
-            this.tsmiI.Click += new System.EventHandler(this.tsmiA_Click);
-            // 
-            // tsmiJ
-            // 
-            this.tsmiJ.Name = "tsmiJ";
-            resources.ApplyResources(this.tsmiJ, "tsmiJ");
-            this.tsmiJ.Click += new System.EventHandler(this.tsmiA_Click);
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            resources.ApplyResources(this.toolStripSeparator5, "toolStripSeparator5");
-            // 
-            // tsmiPlayThis
-            // 
-            this.tsmiPlayThis.Name = "tsmiPlayThis";
-            resources.ApplyResources(this.tsmiPlayThis, "tsmiPlayThis");
-            this.tsmiPlayThis.Click += new System.EventHandler(this.tsmiPlayThis_Click);
-            // 
-            // tsmiDelThis
-            // 
-            this.tsmiDelThis.Name = "tsmiDelThis";
-            resources.ApplyResources(this.tsmiDelThis, "tsmiDelThis");
-            this.tsmiDelThis.Click += new System.EventHandler(this.tsmiDelThis_Click);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
-            // 
-            // tsmiDelAllMusic
-            // 
-            this.tsmiDelAllMusic.Name = "tsmiDelAllMusic";
-            resources.ApplyResources(this.tsmiDelAllMusic, "tsmiDelAllMusic");
-            this.tsmiDelAllMusic.Click += new System.EventHandler(this.tsmiDelAllMusic_Click);
-            // 
-            // tsmiOpenFolder
-            // 
-            this.tsmiOpenFolder.Name = "tsmiOpenFolder";
-            resources.ApplyResources(this.tsmiOpenFolder, "tsmiOpenFolder");
-            this.tsmiOpenFolder.Click += new System.EventHandler(this.tsmiOpenFolder_Click);
+            dgvList.AllowDrop = true;
+            dgvList.AllowUserToAddRows = false;
+            dgvList.AllowUserToDeleteRows = false;
+            dgvList.AllowUserToResizeRows = false;
+            dgvList.BackgroundColor = Color.Black;
+            dgvList.BorderStyle = BorderStyle.None;
+            dgvList.CellBorderStyle = DataGridViewCellBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.Black;
+            dataGridViewCellStyle1.Font = new Font("メイリオ", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = SystemColors.MenuHighlight;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            dgvList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            resources.ApplyResources(dgvList, "dgvList");
+            dgvList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dgvList.Columns.AddRange(new DataGridViewColumn[] { clmKey, clmSongNo, clmZipFileName, clmFileName, clmPlayingNow, clmEXT, clmType, clmTitle, clmTitleJ, clmDispFileName, clmGame, clmGameJ, clmComposer, clmComposerJ, clmVGMby, clmConverted, clmNotes, clmDuration, ClmVersion, ClmUseChips, clmSpacer });
+            dgvList.EditMode = DataGridViewEditMode.EditProgrammatically;
+            dgvList.Name = "dgvList";
+            dgvList.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.Black;
+            dataGridViewCellStyle3.Font = new Font("メイリオ", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = SystemColors.Window;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgvList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dgvList.RowHeadersVisible = false;
+            dataGridViewCellStyle4.BackColor = Color.Black;
+            dataGridViewCellStyle4.Font = new Font("メイリオ", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle4.ForeColor = Color.FromArgb(192, 192, 255);
+            dgvList.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dgvList.RowTemplate.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dgvList.RowTemplate.Height = 10;
+            dgvList.RowTemplate.ReadOnly = true;
+            dgvList.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvList.ShowCellErrors = false;
+            dgvList.ShowEditingIcon = false;
+            dgvList.ShowRowErrors = false;
+            dgvList.CellDoubleClick += dgvList_CellDoubleClick;
+            dgvList.CellMouseClick += dgvList_CellMouseClick;
+            dgvList.DragDrop += dgvList_DragDrop;
+            dgvList.DragEnter += dgvList_DragEnter;
+            dgvList.DragOver += dgvList_DragOver;
             // 
             // toolStrip1
             // 
-            resources.ApplyResources(this.toolStrip1, "toolStrip1");
-            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsbOpenPlayList,
-            this.tsbSavePlayList,
-            this.toolStripSeparator1,
-            this.tsbAddMusic,
-            this.tsbAddFolder,
-            this.toolStripSeparator2,
-            this.tsbUp,
-            this.tsbDown,
-            this.toolStripSeparator4,
-            this.tsbJapanese,
-            this.toolStripSeparator6,
-            this.tsbTextExt,
-            this.tsbMMLExt,
-            this.tsbImgExt});
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Stretch = true;
+            resources.ApplyResources(toolStrip1, "toolStrip1");
+            toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
+            toolStrip1.Items.AddRange(new ToolStripItem[] { tsbOpenPlayList, tsbSavePlayList, toolStripSeparator1, tsbAddMusic, tsbAddFolder, toolStripSeparator2, tsbUp, tsbDown, toolStripSeparator4, tsbJapanese, toolStripSeparator6, tsbTextExt, tsbMMLExt, tsbImgExt });
+            toolStrip1.Name = "toolStrip1";
+            toolStrip1.Stretch = true;
             // 
             // tsbOpenPlayList
             // 
-            this.tsbOpenPlayList.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbOpenPlayList.Image = ResMng.ImgDic["openPL"];
-            resources.ApplyResources(this.tsbOpenPlayList, "tsbOpenPlayList");
-            this.tsbOpenPlayList.Name = "tsbOpenPlayList";
-            this.tsbOpenPlayList.Click += new System.EventHandler(this.tsbOpenPlayList_Click);
+            tsbOpenPlayList.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsbOpenPlayList.Image = Resources.ccOpenFolder;
+            resources.ApplyResources(tsbOpenPlayList, "tsbOpenPlayList");
+            tsbOpenPlayList.Name = "tsbOpenPlayList";
+            tsbOpenPlayList.Click += tsbOpenPlayList_Click;
             // 
             // tsbSavePlayList
             // 
-            this.tsbSavePlayList.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbSavePlayList.Image = ResMng.ImgDic["savePL"];
-            resources.ApplyResources(this.tsbSavePlayList, "tsbSavePlayList");
-            this.tsbSavePlayList.Name = "tsbSavePlayList";
-            this.tsbSavePlayList.Click += new System.EventHandler(this.tsbSavePlayList_Click);
+            tsbSavePlayList.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsbSavePlayList.Image = Resources.savePL;
+            resources.ApplyResources(tsbSavePlayList, "tsbSavePlayList");
+            tsbSavePlayList.Name = "tsbSavePlayList";
+            tsbSavePlayList.Click += tsbSavePlayList_Click;
             // 
             // toolStripSeparator1
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            resources.ApplyResources(toolStripSeparator1, "toolStripSeparator1");
             // 
             // tsbAddMusic
             // 
-            this.tsbAddMusic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbAddMusic.Image = ResMng.ImgDic["addPL"];
-            resources.ApplyResources(this.tsbAddMusic, "tsbAddMusic");
-            this.tsbAddMusic.Name = "tsbAddMusic";
-            this.tsbAddMusic.Click += new System.EventHandler(this.tsbAddMusic_Click);
+            tsbAddMusic.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsbAddMusic.Image = Resources.addPL;
+            resources.ApplyResources(tsbAddMusic, "tsbAddMusic");
+            tsbAddMusic.Name = "tsbAddMusic";
+            tsbAddMusic.Click += tsbAddMusic_Click;
             // 
             // tsbAddFolder
             // 
-            this.tsbAddFolder.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbAddFolder.Image = ResMng.ImgDic["addFolderPL"];
-            resources.ApplyResources(this.tsbAddFolder, "tsbAddFolder");
-            this.tsbAddFolder.Name = "tsbAddFolder";
-            this.tsbAddFolder.Click += new System.EventHandler(this.tsbAddFolder_Click);
+            tsbAddFolder.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsbAddFolder.Image = Resources.addFolderPL;
+            resources.ApplyResources(tsbAddFolder, "tsbAddFolder");
+            tsbAddFolder.Name = "tsbAddFolder";
+            tsbAddFolder.Click += tsbAddFolder_Click;
             // 
             // toolStripSeparator2
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            resources.ApplyResources(toolStripSeparator2, "toolStripSeparator2");
             // 
             // tsbUp
             // 
-            this.tsbUp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbUp.Image = ResMng.ImgDic["upPL"];
-            resources.ApplyResources(this.tsbUp, "tsbUp");
-            this.tsbUp.Name = "tsbUp";
-            this.tsbUp.Click += new System.EventHandler(this.tsbUp_Click);
+            tsbUp.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsbUp.Image = Resources.upPL;
+            resources.ApplyResources(tsbUp, "tsbUp");
+            tsbUp.Name = "tsbUp";
+            tsbUp.Click += tsbUp_Click;
             // 
             // tsbDown
             // 
-            this.tsbDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbDown.Image = ResMng.ImgDic["downPL"];
-            resources.ApplyResources(this.tsbDown, "tsbDown");
-            this.tsbDown.Name = "tsbDown";
-            this.tsbDown.Click += new System.EventHandler(this.tsbDown_Click);
+            tsbDown.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsbDown.Image = Resources.downPL;
+            resources.ApplyResources(tsbDown, "tsbDown");
+            tsbDown.Name = "tsbDown";
+            tsbDown.Click += tsbDown_Click;
             // 
             // toolStripSeparator4
             // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
+            toolStripSeparator4.Name = "toolStripSeparator4";
+            resources.ApplyResources(toolStripSeparator4, "toolStripSeparator4");
             // 
             // tsbJapanese
             // 
-            this.tsbJapanese.CheckOnClick = true;
-            this.tsbJapanese.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbJapanese.Image = ResMng.ImgDic["japPL"];
-            resources.ApplyResources(this.tsbJapanese, "tsbJapanese");
-            this.tsbJapanese.Name = "tsbJapanese";
-            this.tsbJapanese.Click += new System.EventHandler(this.toolStripButton1_Click);
+            tsbJapanese.CheckOnClick = true;
+            tsbJapanese.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsbJapanese.Image = Resources.japPL;
+            resources.ApplyResources(tsbJapanese, "tsbJapanese");
+            tsbJapanese.Name = "tsbJapanese";
+            tsbJapanese.Click += toolStripButton1_Click;
             // 
             // toolStripSeparator6
             // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            resources.ApplyResources(this.toolStripSeparator6, "toolStripSeparator6");
+            toolStripSeparator6.Name = "toolStripSeparator6";
+            resources.ApplyResources(toolStripSeparator6, "toolStripSeparator6");
             // 
             // tsbTextExt
             // 
-            this.tsbTextExt.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            resources.ApplyResources(this.tsbTextExt, "tsbTextExt");
-            this.tsbTextExt.Image = ResMng.ImgDic["txtPL"];
-            this.tsbTextExt.Name = "tsbTextExt";
-            this.tsbTextExt.Click += new System.EventHandler(this.tsbTextExt_Click);
+            tsbTextExt.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(tsbTextExt, "tsbTextExt");
+            tsbTextExt.Image = Resources.txtPL;
+            tsbTextExt.Name = "tsbTextExt";
+            tsbTextExt.Click += tsbTextExt_Click;
             // 
             // tsbMMLExt
             // 
-            this.tsbMMLExt.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            resources.ApplyResources(this.tsbMMLExt, "tsbMMLExt");
-            this.tsbMMLExt.Image = ResMng.ImgDic["mmlPL"];
-            this.tsbMMLExt.Name = "tsbMMLExt";
-            this.tsbMMLExt.Click += new System.EventHandler(this.tsbMMLExt_Click);
+            tsbMMLExt.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(tsbMMLExt, "tsbMMLExt");
+            tsbMMLExt.Image = Resources.mmlPL;
+            tsbMMLExt.Name = "tsbMMLExt";
+            tsbMMLExt.Click += tsbMMLExt_Click;
             // 
             // tsbImgExt
             // 
-            this.tsbImgExt.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            resources.ApplyResources(this.tsbImgExt, "tsbImgExt");
-            this.tsbImgExt.Image = ResMng.ImgDic["imgPL"];
-            this.tsbImgExt.Name = "tsbImgExt";
-            this.tsbImgExt.Click += new System.EventHandler(this.tsbImgExt_Click);
+            tsbImgExt.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(tsbImgExt, "tsbImgExt");
+            tsbImgExt.Image = Resources.imgPL;
+            tsbImgExt.Name = "tsbImgExt";
+            tsbImgExt.Click += tsbImgExt_Click;
+            // 
+            // cmsPlayList
+            // 
+            cmsPlayList.Items.AddRange(new ToolStripItem[] { type設定ToolStripMenuItem, toolStripSeparator5, tsmiPlayThis, tsmiDelThis, toolStripSeparator3, tsmiDelAllMusic, tsmiOpenFolder });
+            cmsPlayList.Name = "cmsPlayList";
+            resources.ApplyResources(cmsPlayList, "cmsPlayList");
+            // 
+            // type設定ToolStripMenuItem
+            // 
+            type設定ToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { tsmiA, tsmiB, tsmiC, tsmiD, tsmiE, tsmiF, tsmiG, tsmiH, tsmiI, tsmiJ });
+            type設定ToolStripMenuItem.Name = "type設定ToolStripMenuItem";
+            resources.ApplyResources(type設定ToolStripMenuItem, "type設定ToolStripMenuItem");
+            // 
+            // tsmiA
+            // 
+            tsmiA.Name = "tsmiA";
+            resources.ApplyResources(tsmiA, "tsmiA");
+            tsmiA.Click += tsmiA_Click;
+            // 
+            // tsmiB
+            // 
+            tsmiB.Name = "tsmiB";
+            resources.ApplyResources(tsmiB, "tsmiB");
+            tsmiB.Click += tsmiA_Click;
+            // 
+            // tsmiC
+            // 
+            tsmiC.Name = "tsmiC";
+            resources.ApplyResources(tsmiC, "tsmiC");
+            tsmiC.Click += tsmiA_Click;
+            // 
+            // tsmiD
+            // 
+            tsmiD.Name = "tsmiD";
+            resources.ApplyResources(tsmiD, "tsmiD");
+            tsmiD.Click += tsmiA_Click;
+            // 
+            // tsmiE
+            // 
+            tsmiE.Name = "tsmiE";
+            resources.ApplyResources(tsmiE, "tsmiE");
+            tsmiE.Click += tsmiA_Click;
+            // 
+            // tsmiF
+            // 
+            tsmiF.Name = "tsmiF";
+            resources.ApplyResources(tsmiF, "tsmiF");
+            tsmiF.Click += tsmiA_Click;
+            // 
+            // tsmiG
+            // 
+            tsmiG.Name = "tsmiG";
+            resources.ApplyResources(tsmiG, "tsmiG");
+            tsmiG.Click += tsmiA_Click;
+            // 
+            // tsmiH
+            // 
+            tsmiH.Name = "tsmiH";
+            resources.ApplyResources(tsmiH, "tsmiH");
+            tsmiH.Click += tsmiA_Click;
+            // 
+            // tsmiI
+            // 
+            tsmiI.Name = "tsmiI";
+            resources.ApplyResources(tsmiI, "tsmiI");
+            tsmiI.Click += tsmiA_Click;
+            // 
+            // tsmiJ
+            // 
+            tsmiJ.Name = "tsmiJ";
+            resources.ApplyResources(tsmiJ, "tsmiJ");
+            tsmiJ.Click += tsmiA_Click;
+            // 
+            // toolStripSeparator5
+            // 
+            toolStripSeparator5.Name = "toolStripSeparator5";
+            resources.ApplyResources(toolStripSeparator5, "toolStripSeparator5");
+            // 
+            // tsmiPlayThis
+            // 
+            tsmiPlayThis.Name = "tsmiPlayThis";
+            resources.ApplyResources(tsmiPlayThis, "tsmiPlayThis");
+            tsmiPlayThis.Click += tsmiPlayThis_Click;
+            // 
+            // tsmiDelThis
+            // 
+            tsmiDelThis.Name = "tsmiDelThis";
+            resources.ApplyResources(tsmiDelThis, "tsmiDelThis");
+            tsmiDelThis.Click += tsmiDelThis_Click;
+            // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            resources.ApplyResources(toolStripSeparator3, "toolStripSeparator3");
+            // 
+            // tsmiDelAllMusic
+            // 
+            tsmiDelAllMusic.Name = "tsmiDelAllMusic";
+            resources.ApplyResources(tsmiDelAllMusic, "tsmiDelAllMusic");
+            tsmiDelAllMusic.Click += tsmiDelAllMusic_Click;
+            // 
+            // tsmiOpenFolder
+            // 
+            tsmiOpenFolder.Name = "tsmiOpenFolder";
+            resources.ApplyResources(tsmiOpenFolder, "tsmiOpenFolder");
+            tsmiOpenFolder.Click += tsmiOpenFolder_Click;
             // 
             // timer1
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            timer1.Enabled = true;
+            timer1.Tick += timer1_Tick;
             // 
             // clmKey
             // 
-            resources.ApplyResources(this.clmKey, "clmKey");
-            this.clmKey.Name = "clmKey";
-            this.clmKey.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            resources.ApplyResources(clmKey, "clmKey");
+            clmKey.Name = "clmKey";
+            clmKey.SortMode = DataGridViewColumnSortMode.NotSortable;
             // 
             // clmSongNo
             // 
-            resources.ApplyResources(this.clmSongNo, "clmSongNo");
-            this.clmSongNo.Name = "clmSongNo";
+            resources.ApplyResources(clmSongNo, "clmSongNo");
+            clmSongNo.Name = "clmSongNo";
             // 
             // clmZipFileName
             // 
-            resources.ApplyResources(this.clmZipFileName, "clmZipFileName");
-            this.clmZipFileName.Name = "clmZipFileName";
+            resources.ApplyResources(clmZipFileName, "clmZipFileName");
+            clmZipFileName.Name = "clmZipFileName";
             // 
             // clmFileName
             // 
-            resources.ApplyResources(this.clmFileName, "clmFileName");
-            this.clmFileName.Name = "clmFileName";
-            this.clmFileName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            resources.ApplyResources(clmFileName, "clmFileName");
+            clmFileName.Name = "clmFileName";
+            clmFileName.SortMode = DataGridViewColumnSortMode.NotSortable;
             // 
             // clmPlayingNow
             // 
-            this.clmPlayingNow.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            resources.ApplyResources(this.clmPlayingNow, "clmPlayingNow");
-            this.clmPlayingNow.Name = "clmPlayingNow";
-            this.clmPlayingNow.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.clmPlayingNow.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            clmPlayingNow.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            resources.ApplyResources(clmPlayingNow, "clmPlayingNow");
+            clmPlayingNow.Name = "clmPlayingNow";
+            clmPlayingNow.ReadOnly = true;
+            clmPlayingNow.Resizable = DataGridViewTriState.False;
+            clmPlayingNow.SortMode = DataGridViewColumnSortMode.NotSortable;
             // 
             // clmEXT
             // 
-            resources.ApplyResources(this.clmEXT, "clmEXT");
-            this.clmEXT.Name = "clmEXT";
-            this.clmEXT.ReadOnly = true;
-            this.clmEXT.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            resources.ApplyResources(clmEXT, "clmEXT");
+            clmEXT.Name = "clmEXT";
+            clmEXT.ReadOnly = true;
             // 
             // clmType
             // 
-            resources.ApplyResources(this.clmType, "clmType");
-            this.clmType.Name = "clmType";
-            this.clmType.ReadOnly = true;
-            this.clmType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            resources.ApplyResources(clmType, "clmType");
+            clmType.Name = "clmType";
+            clmType.ReadOnly = true;
             // 
             // clmTitle
             // 
-            resources.ApplyResources(this.clmTitle, "clmTitle");
-            this.clmTitle.Name = "clmTitle";
-            this.clmTitle.ReadOnly = true;
-            this.clmTitle.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            resources.ApplyResources(clmTitle, "clmTitle");
+            clmTitle.Name = "clmTitle";
+            clmTitle.ReadOnly = true;
             // 
             // clmTitleJ
             // 
-            resources.ApplyResources(this.clmTitleJ, "clmTitleJ");
-            this.clmTitleJ.Name = "clmTitleJ";
-            this.clmTitleJ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            resources.ApplyResources(clmTitleJ, "clmTitleJ");
+            clmTitleJ.Name = "clmTitleJ";
+            clmTitleJ.ReadOnly = true;
             // 
             // clmDispFileName
             // 
-            resources.ApplyResources(this.clmDispFileName, "clmDispFileName");
-            this.clmDispFileName.Name = "clmDispFileName";
+            resources.ApplyResources(clmDispFileName, "clmDispFileName");
+            clmDispFileName.Name = "clmDispFileName";
+            clmDispFileName.ReadOnly = true;
             // 
             // clmGame
             // 
-            resources.ApplyResources(this.clmGame, "clmGame");
-            this.clmGame.Name = "clmGame";
-            this.clmGame.ReadOnly = true;
-            this.clmGame.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            resources.ApplyResources(clmGame, "clmGame");
+            clmGame.Name = "clmGame";
+            clmGame.ReadOnly = true;
             // 
             // clmGameJ
             // 
-            resources.ApplyResources(this.clmGameJ, "clmGameJ");
-            this.clmGameJ.Name = "clmGameJ";
-            this.clmGameJ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            resources.ApplyResources(clmGameJ, "clmGameJ");
+            clmGameJ.Name = "clmGameJ";
+            clmGameJ.ReadOnly = true;
             // 
             // clmComposer
             // 
-            resources.ApplyResources(this.clmComposer, "clmComposer");
-            this.clmComposer.Name = "clmComposer";
-            this.clmComposer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            resources.ApplyResources(clmComposer, "clmComposer");
+            clmComposer.Name = "clmComposer";
+            clmComposer.ReadOnly = true;
             // 
             // clmComposerJ
             // 
-            resources.ApplyResources(this.clmComposerJ, "clmComposerJ");
-            this.clmComposerJ.Name = "clmComposerJ";
-            this.clmComposerJ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            resources.ApplyResources(clmComposerJ, "clmComposerJ");
+            clmComposerJ.Name = "clmComposerJ";
+            clmComposerJ.ReadOnly = true;
             // 
             // clmVGMby
             // 
-            resources.ApplyResources(this.clmVGMby, "clmVGMby");
-            this.clmVGMby.Name = "clmVGMby";
-            this.clmVGMby.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            resources.ApplyResources(clmVGMby, "clmVGMby");
+            clmVGMby.Name = "clmVGMby";
+            clmVGMby.ReadOnly = true;
             // 
             // clmConverted
             // 
-            resources.ApplyResources(this.clmConverted, "clmConverted");
-            this.clmConverted.Name = "clmConverted";
-            this.clmConverted.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            resources.ApplyResources(clmConverted, "clmConverted");
+            clmConverted.Name = "clmConverted";
+            clmConverted.ReadOnly = true;
             // 
             // clmNotes
             // 
-            resources.ApplyResources(this.clmNotes, "clmNotes");
-            this.clmNotes.Name = "clmNotes";
-            this.clmNotes.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            resources.ApplyResources(clmNotes, "clmNotes");
+            clmNotes.Name = "clmNotes";
+            clmNotes.ReadOnly = true;
             // 
             // clmDuration
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.clmDuration.DefaultCellStyle = dataGridViewCellStyle2;
-            resources.ApplyResources(this.clmDuration, "clmDuration");
-            this.clmDuration.Name = "clmDuration";
-            this.clmDuration.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleRight;
+            clmDuration.DefaultCellStyle = dataGridViewCellStyle2;
+            resources.ApplyResources(clmDuration, "clmDuration");
+            clmDuration.Name = "clmDuration";
+            clmDuration.ReadOnly = true;
             // 
             // ClmVersion
             // 
-            resources.ApplyResources(this.ClmVersion, "ClmVersion");
-            this.ClmVersion.Name = "ClmVersion";
+            resources.ApplyResources(ClmVersion, "ClmVersion");
+            ClmVersion.Name = "ClmVersion";
+            ClmVersion.ReadOnly = true;
+            ClmVersion.SortMode = DataGridViewColumnSortMode.Programmatic;
             // 
             // ClmUseChips
             // 
-            resources.ApplyResources(this.ClmUseChips, "ClmUseChips");
-            this.ClmUseChips.Name = "ClmUseChips";
+            resources.ApplyResources(ClmUseChips, "ClmUseChips");
+            ClmUseChips.Name = "ClmUseChips";
+            ClmUseChips.ReadOnly = true;
             // 
             // clmSpacer
             // 
-            this.clmSpacer.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            resources.ApplyResources(this.clmSpacer, "clmSpacer");
-            this.clmSpacer.Name = "clmSpacer";
-            this.clmSpacer.ReadOnly = true;
-            this.clmSpacer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            clmSpacer.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            resources.ApplyResources(clmSpacer, "clmSpacer");
+            clmSpacer.Name = "clmSpacer";
+            clmSpacer.ReadOnly = true;
+            clmSpacer.SortMode = DataGridViewColumnSortMode.NotSortable;
             // 
             // frmPlayList
             // 
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.toolStripContainer1);
-            this.KeyPreview = true;
-            this.Name = "frmPlayList";
-            this.Opacity = 0D;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmPlayList_FormClosing);
-            this.Load += new System.EventHandler(this.frmPlayList_Load);
-            this.Shown += new System.EventHandler(this.frmPlayList_Shown);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmPlayList_KeyDown);
-            this.toolStripContainer1.ContentPanel.ResumeLayout(false);
-            this.toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
-            this.toolStripContainer1.TopToolStripPanel.PerformLayout();
-            this.toolStripContainer1.ResumeLayout(false);
-            this.toolStripContainer1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvList)).EndInit();
-            this.cmsPlayList.ResumeLayout(false);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
-            this.ResumeLayout(false);
-
+            AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(toolStripContainer1);
+            KeyPreview = true;
+            Name = "frmPlayList";
+            Opacity = 0D;
+            FormClosing += frmPlayList_FormClosing;
+            Load += frmPlayList_Load;
+            Shown += frmPlayList_Shown;
+            KeyDown += frmPlayList_KeyDown;
+            toolStripContainer1.ContentPanel.ResumeLayout(false);
+            toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
+            toolStripContainer1.TopToolStripPanel.PerformLayout();
+            toolStripContainer1.ResumeLayout(false);
+            toolStripContainer1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvList).EndInit();
+            toolStrip1.ResumeLayout(false);
+            toolStrip1.PerformLayout();
+            cmsPlayList.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion
@@ -638,26 +585,26 @@ namespace MDPlayer.form
         private System.Windows.Forms.ToolStripButton tsbImgExt;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ToolStripMenuItem tsmiOpenFolder;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmKey;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmSongNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmZipFileName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmFileName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmPlayingNow;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmEXT;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmTitle;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmTitleJ;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmDispFileName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmGame;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmGameJ;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmComposer;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmComposerJ;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmVGMby;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmConverted;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmNotes;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmDuration;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ClmVersion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ClmUseChips;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmSpacer;
+        private DataGridViewTextBoxColumn clmKey;
+        private DataGridViewTextBoxColumn clmSongNo;
+        private DataGridViewTextBoxColumn clmZipFileName;
+        private DataGridViewTextBoxColumn clmFileName;
+        private DataGridViewTextBoxColumn clmPlayingNow;
+        private DataGridViewTextBoxColumn clmEXT;
+        private DataGridViewTextBoxColumn clmType;
+        private DataGridViewTextBoxColumn clmTitle;
+        private DataGridViewTextBoxColumn clmTitleJ;
+        private DataGridViewTextBoxColumn clmDispFileName;
+        private DataGridViewTextBoxColumn clmGame;
+        private DataGridViewTextBoxColumn clmGameJ;
+        private DataGridViewTextBoxColumn clmComposer;
+        private DataGridViewTextBoxColumn clmComposerJ;
+        private DataGridViewTextBoxColumn clmVGMby;
+        private DataGridViewTextBoxColumn clmConverted;
+        private DataGridViewTextBoxColumn clmNotes;
+        private DataGridViewTextBoxColumn clmDuration;
+        private DataGridViewTextBoxColumn ClmVersion;
+        private DataGridViewTextBoxColumn ClmUseChips;
+        private DataGridViewTextBoxColumn clmSpacer;
     }
 }

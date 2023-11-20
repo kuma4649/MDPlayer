@@ -786,6 +786,20 @@ namespace MDPlayer
             }
         }
 
+        private PlayList _playList = new();
+        public PlayList playList
+        {
+            get
+            {
+                return _playList;
+            }
+
+            set
+            {
+                _playList = value;
+            }
+        }
+
         public KeyBoardHook keyBoardHook { get => _keyBoardHook; set => _keyBoardHook = value; }
         public bool unuseRealChip { get; set; }
 
@@ -5224,6 +5238,51 @@ namespace MDPlayer
             }
         }
 
+        [Serializable]
+        public class PlayList
+        {
+            public bool isJP { get; set; } = false;
+            public int cwExt { get; set; } = -1;
+            public int cwType { get; set; } = -1;
+            public int cwTitle { get; set; } = -1;
+            public int cwTitleJ { get; set; } = -1;
+            public int cwFilename { get; set; } = -1;
+            public int cwGame { get; set; } = -1;
+            public int cwGameJ { get; set; } = -1;
+            public int cwComposer { get; set; } = -1;
+            public int cwComposerJ { get; set; } = -1;
+            public int cwVGMby { get; set; } = -1;
+            public int cwRelease { get; set; } = -1;
+            public int cwNotes { get; set; } = -1;
+            public int cwDuration { get; set; } = -1;
+            public int cwVersion { get; set; } = -1;
+            public int cwUseChips { get; set; } = -1;
+
+            public PlayList Copy()
+            {
+                PlayList p = new PlayList()
+                {
+                    isJP = this.isJP,
+                    cwExt = this.cwExt,
+                    cwType = this.cwType,
+                    cwTitle = this.cwTitle,
+                    cwTitleJ = this.cwTitleJ,
+                    cwFilename = this.cwFilename,
+                    cwGame = this.cwGame,
+                    cwGameJ = this.cwGameJ,
+                    cwComposer = this.cwComposer,
+                    cwComposerJ = this.cwComposerJ,
+                    cwVGMby = this.cwVGMby,
+                    cwRelease = this.cwRelease,
+                    cwNotes = this.cwNotes,
+                    cwDuration = this.cwDuration,
+                    cwVersion = this.cwVersion,
+                    cwUseChips = this.cwUseChips
+                };
+
+                return p;
+            }
+        }
 
         //多音源対応
         [Serializable]
@@ -5668,6 +5727,7 @@ namespace MDPlayer
             setting.nukedOPN2 = this.nukedOPN2.Copy();
             setting.autoBalance = this.autoBalance.Copy();
             setting.pmdDotNET = this.pmdDotNET.Copy();
+            setting.playList = this.playList.Copy();
 
             setting.keyBoardHook = this.keyBoardHook.Copy();
 
