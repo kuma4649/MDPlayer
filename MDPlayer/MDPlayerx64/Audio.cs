@@ -3762,6 +3762,7 @@ namespace MDPlayer
                 MDSound.ym2151_x68sound mdxPCM_V = new();
                 mdxPCM_V.x68sound[0] = new MDSound.NX68Sound.X68Sound();
                 mdxPCM_V.sound_Iocs[0] = new MDSound.NX68Sound.sound_iocs(mdxPCM_V.x68sound[0]);
+
                 chip = new MDSound.MDSound.Chip
                 {
                     type = MDSound.MDSound.enmInstrumentType.YM2151x68soundPCM,
@@ -3825,7 +3826,7 @@ namespace MDPlayer
                     retR = ((MDPlayer.Driver.MXDRV.MXDRV)DriverReal).Init(vgmBuf, chipRegister, EnmModel.RealModel, new EnmChip[] { EnmChip.Unuse }
                         , (uint)(setting.outputDevice.SampleRate * setting.LatencySCCI / 1000)
                         , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000)
-                        , null);
+                        , mdxPCM_R);
                 }
 
                 if (!retV || !retR)
