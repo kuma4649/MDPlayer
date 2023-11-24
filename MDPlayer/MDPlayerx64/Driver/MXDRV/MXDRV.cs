@@ -172,7 +172,7 @@ namespace MDPlayer.Driver.MXDRV
             }
             else
             {
-                _ = MXDRV_Start(setting.outputDevice.SampleRate, 0, 0, 0, mdxsize, pdxsize, 0, -1, -1);
+                _ = MXDRV_Start(setting.outputDevice.SampleRate, 0, 0, 0, mdxsize, pdxsize, 0, -1, 0);
             }
             UInt32 memind = (UInt32)mm.mm.Length;
             mdxPtr = memind;
@@ -253,7 +253,14 @@ namespace MDPlayer.Driver.MXDRV
             {
                 return 0;
             }
-            int ret = mdxPCM.x68sound[0].X68Sound_GetPcm(buffer, offset, (int)sampleCount, OneFrameProc2);
+            int ret = 0;
+            if(model== EnmModel.VirtualModel) 
+                ret = mdxPCM.x68sound[0].X68Sound_GetPcm(buffer, offset, (int)sampleCount, OneFrameProc2);
+            else
+            {
+                ret = mdxPCM.x68sound[0].X68Sound_GetPcm(buffer, offset, (int)sampleCount, OneFrameProc2);
+                //for(int i=0;i<sampleCount;i++) buffer[i] = 0;
+            }
             //for (int ch = 0; ch < 16; ch++) chipRegister.setMaskX68Sound(0, ch, true);
             //Console.WriteLine("0:{0:x08}", mm.ReadUInt32(MXWORK_CHBUF_FM[8] + MXWORK_CH.S0012));
             //Console.WriteLine("1:{0:x04}", mm.ReadUInt16(MXWORK_CHBUF_PCM[0] + MXWORK_CH.S0012) >> 6);

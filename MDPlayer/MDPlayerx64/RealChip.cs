@@ -663,13 +663,13 @@ namespace MDPlayer
             if (adr < 0)
                 return;
             realChip.@out((ushort)adr, (byte)dat);
-            log.Write("Out Register C86Ctl(Adr:{0:x04} Dat:{1:x02})", (ushort)adr, (byte)dat);
+            //log.Write("Out Register C86Ctl(Adr:{0:x04} Dat:{1:x02})", (ushort)adr, (byte)dat);
             //realChip.directOut((ushort)adr, (byte)dat);
         }
 
         override public int GetRegister(int adr)
         {
-            log.Write("In  Register C86Ctl(Adr:{0:x04}", (ushort)adr);
+            //log.Write("In  Register C86Ctl(Adr:{0:x04}", (ushort)adr);
             return realChip.@in((ushort)adr);
         }
 
