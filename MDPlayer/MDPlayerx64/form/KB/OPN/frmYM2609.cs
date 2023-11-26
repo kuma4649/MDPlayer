@@ -272,7 +272,7 @@ namespace MDPlayer.form
                     ff /= 1038f;
 
                     if ((fmKeyYM2609[ch] & 0x10) > 0 && ((m & 0x10) != 0))
-                        n = Math.Min(Math.Max(Common.searchYM2608Adpcm(ff) - 1, 0), 95);
+                        n = Math.Min(Math.Max(Common.searchYM2608Adpcm(ff) -1, 0), 95);
 
                     int v = ((m & 0x10) != 0) ? (ym2609Register[p][0x40 + c] & 0x7f) : 127;
 

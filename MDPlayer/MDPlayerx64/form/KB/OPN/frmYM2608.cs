@@ -200,7 +200,7 @@ namespace MDPlayer.form
                     ff /= 1038f;
 
                     if ((fmKeyYM2608[ch] & 1) != 0)
-                        n = Math.Min(Math.Max(Common.searchYM2608Adpcm(ff) - 1, 0), 95);
+                        n = Math.Min(Math.Max(Common.searchYM2608Adpcm(ff) , 0), 95);
 
                     byte con = (byte)(fmKeyYM2608[ch]);
                     int v = 127;

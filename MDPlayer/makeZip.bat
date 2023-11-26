@@ -28,6 +28,7 @@ cd
 del /Q .\output\*.pdb
 rem del /Q .\output\*.config
 del /Q .\output\*.bat
+del /Q .\output\scci.ini
 rem del /Q .\output\MGSDRV.COM
 copy /Y .\removeZoneIdent.bat   .\output
 copy /Y .\mdp.bat   .\output

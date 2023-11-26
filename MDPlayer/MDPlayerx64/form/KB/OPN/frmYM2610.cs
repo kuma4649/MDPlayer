@@ -335,7 +335,7 @@ namespace MDPlayer.form
                     ff /= 1038f;
 
                     if ((fmKeyYM2610[2] & 0x10) != 0 && ((m & 0x10) != 0))
-                        n = Math.Min(Math.Max(Common.searchYM2608Adpcm(ff) - 1, 0), 95);
+                        n = Math.Min(Math.Max(Common.searchYM2608Adpcm(ff) , 0), 95);
 
                     int v = ((m & 0x10) != 0) ? YM2610Register[p][0x40 + c] : 127;
                     newParam.channels[2].volumeL = Math.Min(Math.Max((int)((127 - v) / 127.0 * ((YM2610Register[0][0xb4 + 2] & 0x80) != 0 ? 1 : 0) * YM2610Ch3SlotVol[0] / 80.0), 0), 19);
@@ -443,7 +443,7 @@ namespace MDPlayer.form
             delta = (YM2610Register[0][0x1a] << 8) | YM2610Register[0][0x19];
             newParam.channels[12].freq = delta;
             frq = (float)(delta / 9447.0f);//Delta=9447 at freq=8kHz
-            newParam.channels[12].note = (YM2610Register[0][0x10] & 0x80) != 0 ? (Common.searchYM2608Adpcm(frq) - 1) : -1;
+            newParam.channels[12].note = (YM2610Register[0][0x10] & 0x80) != 0 ? (Common.searchYM2608Adpcm(frq) - 0) : -1;
             if ((YM2610Register[0][0x11] & 0xc0) == 0)
             {
                 newParam.channels[12].note = -1;
