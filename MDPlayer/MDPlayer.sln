@@ -7,6 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "document", "document", "{4B
 	ProjectSection(SolutionItems) = preProject
 		..\CHANGE.txt = ..\CHANGE.txt
 		..\LICENSE.txt = ..\LICENSE.txt
+		makeInstaller.bat = makeInstaller.bat
 		makeZip.bat = makeZip.bat
 		mdp.bat = mdp.bat
 		..\README.md = ..\README.md
@@ -51,9 +52,31 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mdc", "mdc\mdc.csproj", "{6
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDPlayerx64", "MDPlayerx64\MDPlayerx64.csproj", "{0B8ADAC3-8EE4-4E85-96ED-7FE804B6019D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mdpc", "mdpc\mdpc.csproj", "{4B255584-B459-4D48-98CD-FB333679548D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mdpc", "mdpc\mdpc.csproj", "{4B255584-B459-4D48-98CD-FB333679548D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{0B8ADAC3-8EE4-4E85-96ED-7FE804B6019D} = {0B8ADAC3-8EE4-4E85-96ED-7FE804B6019D}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MDPlayer_InstKit", "MDPlayer_InstKit", "{712EC4B5-A5FB-4003-AB9F-E4ED08D85AD3}"
+	ProjectSection(SolutionItems) = preProject
+		MDPlayer_InstKit\00inst.nsh = MDPlayer_InstKit\00inst.nsh
+		MDPlayer_InstKit\01uninst.nsh = MDPlayer_InstKit\01uninst.nsh
+		MDPlayer_InstKit\02info.nsh = MDPlayer_InstKit\02info.nsh
+		MDPlayer_InstKit\02info.nsh.T = MDPlayer_InstKit\02info.nsh.T
+		MDPlayer_InstKit\MakeExeList.ps1 = MDPlayer_InstKit\MakeExeList.ps1
+		MDPlayer_InstKit\MakeFileList.ps1 = MDPlayer_InstKit\MakeFileList.ps1
+		MDPlayer_InstKit\personal.pfx = MDPlayer_InstKit\personal.pfx
+		MDPlayer_InstKit\README.md = MDPlayer_InstKit\README.md
+		MDPlayer_InstKit\SignExe.bat = MDPlayer_InstKit\SignExe.bat
+		MDPlayer_InstKit\SignMDPlayer.ps1 = MDPlayer_InstKit\SignMDPlayer.ps1
+		MDPlayer_InstKit\_inst_mui2.nsi = MDPlayer_InstKit\_inst_mui2.nsi
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{BE761511-B6A2-4505-84D1-23722F393B4D}"
+	ProjectSection(SolutionItems) = preProject
+		MDPlayer_InstKit\images\Feli.ico = MDPlayer_InstKit\images\Feli.ico
+		MDPlayer_InstKit\images\welcome.bmp = MDPlayer_InstKit\images\welcome.bmp
+		MDPlayer_InstKit\images\welcome_.bmp = MDPlayer_InstKit\images\welcome_.bmp
 	EndProjectSection
 EndProject
 Global
@@ -84,6 +107,7 @@ Global
 		{D55D1918-56B0-4305-BD88-985BC75A01CC} = {B336E366-413C-4035-98C5-70D7BB32EF5D}
 		{07460D4A-BCDC-4952-B595-44A9E4F5D994} = {B336E366-413C-4035-98C5-70D7BB32EF5D}
 		{0942FE22-9C0F-4C41-9950-51C3A722B2F9} = {B336E366-413C-4035-98C5-70D7BB32EF5D}
+		{BE761511-B6A2-4505-84D1-23722F393B4D} = {712EC4B5-A5FB-4003-AB9F-E4ED08D85AD3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AFAB7D8F-51EE-49D9-AE16-CBBBBB8774C9}
