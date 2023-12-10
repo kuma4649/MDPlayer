@@ -12,7 +12,7 @@ del /Q .\output\plugin\driver\*.*
 
 xcopy   .\mdc\bin\Release\*.*          .\output\ /E /R /Y /I /K
 xcopy   .\mdpc\bin\Release\*.*         .\output\ /E /R /Y /I /K
-xcopy   .\MDPlayerx64\bin\x64\Release\net6.0-windows\*.* .\output\ /E /R /Y /I /K
+xcopy   .\MDPlayerx64\bin\x64\Release\net8.0-windows7.0\*.* .\output\ /E /R /Y /I /K
 xcopy   ..\licenses                    .\output\licenses\ /E /R /Y /I /K
 copy /Y .\MDPlayerx64\lib\scci*.*         .\output
 copy /Y .\MDPlayerx64\lib\c86ctl.*        .\output
@@ -33,7 +33,7 @@ rem del /Q .\output\MGSDRV.COM
 copy /Y .\removeZoneIdent.bat   .\output
 copy /Y .\mdp.bat   .\output
 rmdir /S /Q .\output\deploy
-rmdir /S /Q .\output\net6.0-windows
+rmdir /S /Q .\output\net8.0-windows7.0
 rmdir /S /Q .\output\ref
 rmdir /S /Q .\output\runtimes
 rem -- withoutVSTŒü‚¯

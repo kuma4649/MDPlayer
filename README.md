@@ -257,12 +257,10 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   
   
 [必要な動作環境]  
-  ・恐らく、WindowsVista(32bit)以降のOS。私はWindows11Home(x64)を使用しています。  
+  ・Windows7(64bit)以降のOS。私はWindows11Home(x64)を使用しています。  
   XPでは動作しません。  
   
-  ・.NET Framework4をインストールしている必要あり。  
-  
-  ・.NET Standard2をインストールしている必要あり。  
+  ・.NET8をインストールしている必要あり。  
   
   ・Visual Studio 2012 更新プログラム 4 の Visual C++ 再頒布可能パッケージ をインストールしている必要あり。  
   

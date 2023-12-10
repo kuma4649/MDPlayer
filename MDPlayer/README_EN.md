@@ -208,12 +208,8 @@ Player for VGM files, etc. (a performance tool that emulates Mega Drive sound ch
   
   
 [Required Operating Environment]  
-  I am using Windows10Home(x64).  
-  NET Framework4 installed.  
-  
-  NET Framework4 must be installed.  
-  
-  NET Standard2 must be installed.  
+  I am using Windows11Home(x64).  
+  .NET8 installed.  
   
   NET Standard2 must be installed. - Visual C++ Redistributable Package of Visual Studio 2012 Update 4 must be installed.  
   
