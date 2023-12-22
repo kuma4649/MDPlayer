@@ -1,5 +1,5 @@
 更新履歴 
-STBL340 2023/12/22
+STBL341 2023/12/22
   Mixer:以下のドライバーごとの音量バランスを保存できないバグを修正
         PMD,FMP,MuSICA,MGSDRV,MoonDriver
 
