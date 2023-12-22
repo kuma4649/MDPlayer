@@ -9843,6 +9843,23 @@ namespace MDPlayer.form
                         case EnmFileFormat.MUB:
                             fn = "DriverBalance_MUB.mbc";
                             break;
+                        case EnmFileFormat.MML:
+                        case EnmFileFormat.M:
+                            fn = "DriverBalance_M.mbc";
+                            break;
+                        case EnmFileFormat.MGS:
+                            fn = "DriverBalance_MGS.mbc";
+                            break;
+                        case EnmFileFormat.MDL:
+                            fn = "DriverBalance_MDL.mbc";
+                            break;
+                        case EnmFileFormat.MuSICA:
+                        case EnmFileFormat.MuSICA_src:
+                            fn = "DriverBalance_MuSICA.mbc";
+                            break;
+                        case EnmFileFormat.FMP:
+                            fn = "DriverBalance_FMP.mbc";
+                            break;
                     }
 
                     fullPath = Path.Combine(fullPath, fn);
