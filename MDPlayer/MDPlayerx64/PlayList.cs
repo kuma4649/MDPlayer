@@ -75,9 +75,20 @@ namespace MDPlayer
                 fullPath = fileName;
             }
 
-            System.Xml.Serialization.XmlSerializer serializer = new(typeof(PlayList), typeof(PlayList).GetNestedTypes());
-            using StreamWriter sw = new(fullPath, false, new UTF8Encoding(false));
-            serializer.Serialize(sw, this);
+            try
+            {
+                System.Xml.Serialization.XmlSerializer serializer = new(typeof(PlayList), typeof(PlayList).GetNestedTypes());
+                using StreamWriter sw = new(fullPath, false, new UTF8Encoding(false));
+                serializer.Serialize(sw, this);
+            }
+            catch(Exception ex) 
+            { 
+                MessageBox.Show(
+                    "An error has occurred. The playlist will not be saved.\r\nMessage:\n"+ex.Message+"StackTrace:\n"+ex.StackTrace,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
 
         public void SaveM3U(string fileName)

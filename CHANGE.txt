@@ -1,4 +1,7 @@
 更新履歴 
+STBL342 2023/12/23
+  FMP:zipファイルのままで演奏できるように機能追加
+
 STBL341 2023/12/22
   Mixer:以下のドライバーごとの音量バランスを保存できないバグを修正
         PMD,FMP,MuSICA,MGSDRV,MoonDriver

@@ -25,6 +25,7 @@ namespace MDPlayer.Driver.FMP
         private fileTemp ft = null;
 
         public string PlayingFileName { get; set; }
+        public string PlayingArcFileName { get; set; }
 
         public FMP(fileTemp ft)
         {
@@ -162,7 +163,7 @@ namespace MDPlayer.Driver.FMP
             var fileNameFMP = "FMP.COM";
             var fileNamePPZ8 = "PPZ8.COM";
             nise98.Init(null, OPNAWrite, ft, Nise98.Nise98.enmOngenBoardType.SpeakBoard);//.PC9801_86B);//.SpeakBoard);//.PC9801_26K);
-
+            nise98.GetDos().SetArcFile(PlayingArcFileName);
             //nise98.GetDos().SetSearchPath(searchPaths);
 
             //FMPの常駐

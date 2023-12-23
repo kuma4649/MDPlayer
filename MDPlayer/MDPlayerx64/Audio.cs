@@ -1986,6 +1986,7 @@ namespace MDPlayer
                     setting = setting
                 };
                 ((Driver.FMP.FMP)DriverVirtual).PlayingFileName = PlayingFileName;
+                ((Driver.FMP.FMP)DriverVirtual).PlayingArcFileName = PlayingArcFileName;
                 DriverReal = null;
                 if (setting.outputDevice.DeviceType != Common.DEV_Null && !setting.YM2608Type[0].UseEmu[0])
                 {
@@ -1994,6 +1995,7 @@ namespace MDPlayer
                         setting = setting
                     };
                     ((Driver.FMP.FMP)DriverReal).PlayingFileName = PlayingFileName;
+                    ((Driver.FMP.FMP)DriverReal).PlayingArcFileName = PlayingArcFileName;
                 }
                 return OxiPlay_FMP(setting, ft);
             }
