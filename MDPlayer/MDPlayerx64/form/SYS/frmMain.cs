@@ -8517,10 +8517,10 @@ namespace MDPlayer.form
                     }
                     break;
                 case EnmChip.YM2610:
-                    if (ch >= 0 && ch < 14)
+                    if (ch >= 0 && ch < 20)
                     {
                         int c = ch;
-                        if (ch == 12) c = 13;
+                        if (ch >= 14) c = ch - 1;
                         else if (ch == 13) c = 12;
 
                         Audio.SetYM2610Mask(chipID, ch);
@@ -8903,11 +8903,12 @@ namespace MDPlayer.form
                     }
                     break;
                 case EnmChip.YM2610:
-                    if (ch >= 0 && ch < 14)
+                    if (ch >= 0 && ch <= 20)
                     {
                         int c = ch;
                         if (ch == 12) c = 13;
                         else if (ch == 13) c = 12;
+                        else if (ch > 13) c = ch - 1;
 
                         Audio.ResetYM2610Mask(chipID, ch);
                         newParam.ym2610[chipID].channels[c].mask = false;

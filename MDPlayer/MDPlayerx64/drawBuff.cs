@@ -4529,12 +4529,27 @@ namespace MDPlayer
         {
             if (screen == null) return;
 
-            drawFont4(screen, x + 15 * 0 * 4, y, mask ? 1 : 0, "A1");
-            drawFont4(screen, x + 15 * 1 * 4 + 4, y, mask ? 1 : 0, "2");
-            drawFont4(screen, x + 15 * 2 * 4 + 4, y, mask ? 1 : 0, "3");
-            drawFont4(screen, x + 15 * 3 * 4 + 4, y, mask ? 1 : 0, "4");
-            drawFont4(screen, x + 15 * 4 * 4 + 4, y, mask ? 1 : 0, "5");
-            drawFont4(screen, x + 15 * 5 * 4 + 4, y, mask ? 1 : 0, "6");
+            switch (ch)
+            {
+                case 0:
+                    drawFont4(screen, x + 15 * 0 * 4, y, mask ? 1 : 0, "A1");
+                    break;
+                case 1:
+                    drawFont4(screen, x + 15 * 1 * 4 + 4, y, mask ? 1 : 0, "2");
+                    break;
+                case 2:
+                    drawFont4(screen, x + 15 * 2 * 4 + 4, y, mask ? 1 : 0, "3");
+                    break;
+                case 3:
+                    drawFont4(screen, x + 15 * 3 * 4 + 4, y, mask ? 1 : 0, "4");
+                    break;
+                case 4:
+                    drawFont4(screen, x + 15 * 4 * 4 + 4, y, mask ? 1 : 0, "5");
+                    break;
+                case 5:
+                    drawFont4(screen, x + 15 * 5 * 4 + 4, y, mask ? 1 : 0, "6");
+                    break;
+            }
         }
 
         private static void Ch6YM2612_P(FrameBuffer screen, int x, int y, int m, bool mask, int tp)
