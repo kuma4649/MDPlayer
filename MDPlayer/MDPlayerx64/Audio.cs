@@ -260,9 +260,13 @@ namespace MDPlayer
                 game = "unknown",
                 type = "-"
             };
-            if (!string.IsNullOrEmpty(zipFile)) music.arcType = zipFile.ToLower().LastIndexOf(".zip") != -1 ? EnmArcType.ZIP : EnmArcType.LZH;
 
-            if (file.ToLower().LastIndexOf(".nrd") != -1)
+            if (!string.IsNullOrEmpty(zipFile)) music.arcType 
+                    = (Path.GetExtension(zipFile).ToLower()==".zip") 
+                    ? EnmArcType.ZIP : EnmArcType.LZH;
+
+            string ext = Path.GetExtension(file).ToLower();
+            if (ext == ".nrd")
             {
 
                 music.format = EnmFileFormat.NRT;
@@ -280,7 +284,7 @@ namespace MDPlayer
                 music.notes = gd3.Notes;
 
             }
-            else if (file.ToLower().LastIndexOf(".mgs") != -1)
+            else if (ext == ".mgs")
             {
 
                 music.format = EnmFileFormat.MGS;
@@ -298,7 +302,7 @@ namespace MDPlayer
                 music.notes = "";
 
             }
-            else if (file.ToLower().LastIndexOf(".bgm") != -1)
+            else if (ext == ".bgm")
             {
 
                 music.format = EnmFileFormat.MuSICA;
@@ -314,7 +318,7 @@ namespace MDPlayer
                 music.notes = gd3.Notes == "" ? "" : gd3.Notes;
 
             }
-            else if (file.ToLower().LastIndexOf(".msd") != -1)
+            else if (ext == ".msd")
             {
 
                 music.format = EnmFileFormat.MuSICA_src;
@@ -345,7 +349,7 @@ namespace MDPlayer
                 music.vgmby = "";
                 music.converted = "";
             }
-            else if (file.ToLower().LastIndexOf(".mdr") != -1)
+            else if (ext == ".mdr")
             {
 
                 music.format = EnmFileFormat.MDR;
@@ -363,7 +367,7 @@ namespace MDPlayer
                 music.notes = gd3.Notes;
 
             }
-            else if (file.ToLower().LastIndexOf(".mdx") != -1)
+            else if (ext == ".mdx")
             {
 
                 music.format = EnmFileFormat.MDX;
@@ -381,7 +385,7 @@ namespace MDPlayer
                 music.notes = gd3.Notes;
 
             }
-            else if (file.ToLower().LastIndexOf(".mnd") != -1)
+            else if (ext == ".mnd")
             {
 
                 music.format = EnmFileFormat.MND;
@@ -399,7 +403,7 @@ namespace MDPlayer
                 music.notes = gd3.Notes;
 
             }
-            else if (file.ToLower().LastIndexOf(".mub") != -1)
+            else if (ext == ".mub")
             {
 
                 music.format = EnmFileFormat.MUB;
@@ -418,7 +422,7 @@ namespace MDPlayer
                 music.notes = gd3.Notes;
 
             }
-            else if (file.ToLower().LastIndexOf(".muc") != -1)
+            else if (ext == ".muc")
             {
 
                 music.format = EnmFileFormat.MUC;
@@ -437,7 +441,7 @@ namespace MDPlayer
                 music.notes = gd3.Notes;
 
             }
-            else if (file.ToLower().LastIndexOf(".mml") != -1)
+            else if (ext == ".mml")
             {
 
                 music.format = EnmFileFormat.MML;
@@ -459,7 +463,7 @@ namespace MDPlayer
                 music.notes = gd3.Notes;
 
             }
-            else if (file.ToLower().LastIndexOf(".m") != -1 || file.ToLower().LastIndexOf(".m2") != -1 || file.ToLower().LastIndexOf(".mz") != -1)
+            else if (ext == ".m" || ext == ".m2" || ext ==".mz")
             {
 
                 music.format = EnmFileFormat.M;
@@ -477,7 +481,7 @@ namespace MDPlayer
                 music.notes = gd3.Notes;
 
             }
-            else if (file.ToLower().LastIndexOf(".opi") != -1 || file.ToLower().LastIndexOf(".ovi") != -1 || file.ToLower().LastIndexOf(".ozi") != -1)
+            else if (ext == ".opi" || ext == ".ovi" || ext == ".ozi")
             {
 
                 music.format = EnmFileFormat.FMP;
@@ -495,7 +499,7 @@ namespace MDPlayer
                 music.notes = gd3.Notes;
 
             }
-            else if (file.ToLower().LastIndexOf(".xgm") != -1)
+            else if (ext == ".xgm")
             {
                 music.format = EnmFileFormat.XGM;
                 GD3 gd3 = new xgm(Setting).getGD3Info(buf, 0);
@@ -515,7 +519,7 @@ namespace MDPlayer
                     music.title = string.Format("({0})", System.IO.Path.GetFileName(file));
                 }
             }
-            else if (file.ToLower().LastIndexOf(".xgz") != -1)
+            else if (ext == ".xgz")
             {
 
                 buf = null;
@@ -557,7 +561,7 @@ namespace MDPlayer
                     music.title = string.Format("({0})", System.IO.Path.GetFileName(file));
                 }
             }
-            else if (file.ToLower().LastIndexOf(".zgm") != -1)
+            else if (ext == ".zgm")
             {
                 music.format = EnmFileFormat.ZGM;
                 GD3 gd3 = new Driver.ZGM.zgm().getGD3Info(buf, 0);
@@ -577,7 +581,7 @@ namespace MDPlayer
                     music.title = string.Format("({0})", System.IO.Path.GetFileName(file));
                 }
             }
-            else if (file.ToLower().LastIndexOf(".s98") != -1)
+            else if (ext == ".s98")
             {
                 music.format = EnmFileFormat.S98;
                 GD3 gd3 = new S98(Setting).getGD3Info(buf, 0);
@@ -603,7 +607,7 @@ namespace MDPlayer
                 }
 
             }
-            else if (file.ToLower().LastIndexOf(".nsf") != -1)
+            else if (ext == ".nsf")
             {
                 nsf nsf = new(Setting);
                 GD3 gd3 = nsf.getGD3Info(buf, 0);
@@ -647,7 +651,7 @@ namespace MDPlayer
                 }
 
             }
-            else if (file.ToLower().LastIndexOf(".hes") != -1)
+            else if (ext == ".hes")
             {
                 hes hes = new();
                 _ = hes.getGD3Info(buf, 0);
@@ -679,7 +683,7 @@ namespace MDPlayer
                 return musics;
 
             }
-            else if (file.ToLower().LastIndexOf(".sid") != -1)
+            else if (ext == ".sid")
             {
                 Driver.SID.sid sid = new();
                 GD3 gd3 = sid.getGD3Info(buf, 0);
@@ -711,7 +715,7 @@ namespace MDPlayer
                 return musics;
 
             }
-            else if (file.ToLower().LastIndexOf(".mid") != -1)
+            else if (ext == ".mid")
             {
                 music.format = EnmFileFormat.MID;
                 GD3 gd3 = new MID().getGD3Info(buf, 0);
@@ -739,7 +743,7 @@ namespace MDPlayer
                 }
 
             }
-            else if (file.ToLower().LastIndexOf(".rcp") != -1)
+            else if (ext == ".rcp")
             {
                 music.format = EnmFileFormat.RCP;
                 GD3 gd3 = new RCP().getGD3Info(buf, 0);
@@ -767,17 +771,17 @@ namespace MDPlayer
                 }
 
             }
-            else if (file.ToLower().LastIndexOf(".wav") != -1)
+            else if (ext == ".wav")
             {
                 music.format = EnmFileFormat.WAV;
                 music.title = string.Format("({0})", System.IO.Path.GetFileName(file));
             }
-            else if (file.ToLower().LastIndexOf(".mp3") != -1)
+            else if (ext == ".mp3")
             {
                 music.format = EnmFileFormat.MP3;
                 music.title = string.Format("({0})", System.IO.Path.GetFileName(file));
             }
-            else if (file.ToLower().LastIndexOf(".aiff") != -1)
+            else if (ext == ".aiff")
             {
                 music.format = EnmFileFormat.AIFF;
                 music.title = string.Format("({0})", System.IO.Path.GetFileName(file));

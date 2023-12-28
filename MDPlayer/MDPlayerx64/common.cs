@@ -623,7 +623,8 @@ namespace MDPlayer
         {
             if (src == null) return null;
             src = Regex.Replace(src, "\\u001b\\[[0-9\\;]*[ABCDJHfm]", "");
-            src = Regex.Replace(src, "\\u001b", "");
+            for (int i = 0; i < 0x20; i++)
+                src = Regex.Replace(src, string.Format("\\u{0:x04}", i), "");
 
             return src;
         }

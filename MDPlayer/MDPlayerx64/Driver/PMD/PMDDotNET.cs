@@ -284,6 +284,11 @@ namespace MDPlayer.Driver
             if (cd.port == -1) return;
 
             chipRegister.setYM2608Register(0, cd.port, cd.address, cd.data, model);
+            if (cd.port == 1 && (byte)cd.address == 0x8 && model == EnmModel.RealModel)
+            {
+                this.isDataBlock = true;
+                chipRegister.setYM2608SyncWait(0, 1);
+            }
         }
 
         private void OPNAWaitSend(long size, int elapsed)
@@ -297,8 +302,10 @@ namespace MDPlayer.Driver
             }
 
             //サイズと経過時間から、追加でウエイトする。
+            this.isDataBlock = true;
             int m = Math.Max((int)(size / 20 - elapsed), 0);//20 閾値(magic number)
             Thread.Sleep(m);
+            this.isDataBlock = false;
         }
 
         public class PMDChipAction : ChipAction

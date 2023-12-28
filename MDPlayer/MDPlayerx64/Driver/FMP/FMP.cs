@@ -10,6 +10,7 @@ using static MDSound.fm._ssg_callbacks;
 using MDPlayer.Driver.MNDRV;
 using System.Text.RegularExpressions;
 using System.Net;
+using System.Drawing;
 
 namespace MDPlayer.Driver.FMP
 {
@@ -23,6 +24,7 @@ namespace MDPlayer.Driver.FMP
         private string searchPath = "";
         private List<string> searchPaths = null;
         private fileTemp ft = null;
+        private int pcmDataSendCount;
 
         public string PlayingFileName { get; set; }
         public string PlayingArcFileName { get; set; }
@@ -144,6 +146,11 @@ namespace MDPlayer.Driver.FMP
                     nise98.CallRunfunctionCall(0xd2);
                     int ptr = ((ushort)0x2000 << 4) + (ushort)regs.AX;
                     int FmpSloop_c = nise98.GetMem().PeekB(ptr + 0x17);
+                    int pcmuse = nise98.GetMem().PeekW(ptr + 0x20);
+                    if ((pcmuse & 0xff00)!=0)
+                    {
+                        ;
+                    }
                     vgmCurLoop = (uint)FmpSloop_c;
 
 
@@ -200,6 +207,13 @@ namespace MDPlayer.Driver.FMP
             byte cn = (byte)(dat.port >> 8);
             byte port = (byte)((byte)dat.port == 0x8a ? 0 : 1);
             chipRegister?.setYM2608Register(0, port, (byte)dat.address, (byte)dat.data, model);
+
+            if (port == 1 && (byte)dat.address == 0x8 && model == EnmModel.RealModel)
+            {
+                this.isDataBlock = true;
+                pcmDataSendCount++;
+                chipRegister.setYM2608SyncWait(0, 1);
+            }
         }
 
         private void FMPLoadAndPlayFileAL2(NiseDos dos, Register286 regs)
@@ -214,7 +228,17 @@ namespace MDPlayer.Driver.FMP
             regs.DX = 0x0000;
             regs.SS = unchecked((short)0xE000);
             regs.SP = 0x0000;
+            pcmDataSendCount = 0;
             nise98.CallRunfunctionCall(0xd2);//, true, true, true, 10_000_000_000, 0_000);
+            
+            if (pcmDataSendCount != 0)
+            {
+                this.isDataBlock = true;
+                //サイズと経過時間から、追加でウエイトする。
+                Thread.Sleep(Math.Max((int)(pcmDataSendCount / 20), 0));
+                this.isDataBlock = false;
+            }
+
             Log.WriteLine(musicDriverInterface.LogLevel.DEBUG, "return CF={0} code={1:X02}", regs.CF, regs.AL);
         }
 
