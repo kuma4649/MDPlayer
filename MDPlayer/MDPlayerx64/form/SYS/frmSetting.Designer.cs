@@ -520,6 +520,7 @@ namespace MDPlayer.form
             btnResetPosition = new Button();
             btnOpenSettingFolder = new Button();
             cbExALL = new CheckBox();
+            cbSaveCompiledFile = new CheckBox();
             cbInitAlways = new CheckBox();
             cbAutoOpen = new CheckBox();
             cbUseLoopTimes = new CheckBox();
@@ -547,7 +548,6 @@ namespace MDPlayer.form
             labelCompanyName = new Label();
             textBoxDescription = new TextBox();
             llOpenGithub = new LinkLabel();
-            cbSaveCompiledFile = new CheckBox();
             gbWaveOut.SuspendLayout();
             gbAsioOut.SuspendLayout();
             gbWasapiOut.SuspendLayout();
@@ -4170,6 +4170,13 @@ namespace MDPlayer.form
             cbExALL.UseVisualStyleBackColor = true;
             cbExALL.CheckedChanged += CbUseLoopTimes_CheckedChanged;
             // 
+            // cbSaveCompiledFile
+            // 
+            resources.ApplyResources(cbSaveCompiledFile, "cbSaveCompiledFile");
+            cbSaveCompiledFile.Name = "cbSaveCompiledFile";
+            cbSaveCompiledFile.UseVisualStyleBackColor = true;
+            cbSaveCompiledFile.CheckedChanged += CbUseLoopTimes_CheckedChanged;
+            // 
             // cbInitAlways
             // 
             resources.ApplyResources(cbInitAlways, "cbInitAlways");
@@ -4357,13 +4364,6 @@ namespace MDPlayer.form
             llOpenGithub.Name = "llOpenGithub";
             llOpenGithub.TabStop = true;
             llOpenGithub.LinkClicked += LlOpenGithub_LinkClicked;
-            // 
-            // cbSaveCompiledFile
-            // 
-            resources.ApplyResources(cbSaveCompiledFile, "cbSaveCompiledFile");
-            cbSaveCompiledFile.Name = "cbSaveCompiledFile";
-            cbSaveCompiledFile.UseVisualStyleBackColor = true;
-            cbSaveCompiledFile.CheckedChanged += CbUseLoopTimes_CheckedChanged;
             // 
             // frmSetting
             // 

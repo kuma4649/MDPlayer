@@ -3193,6 +3193,79 @@ namespace MDPlayer
             writeYM2608(chipID, 1, 0x10, 0x9C, model); // FLAGリセット        }
         }
 
+        private void writeYM2612(int chipID, int dPort, int dAddr, int dData, EnmModel model)
+        {
+            if (model == EnmModel.VirtualModel)
+            {
+                if (!ctYM2612[chipID].UseReal[0] && ctYM2612[chipID].UseEmu[0])
+                {
+                    mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                }
+            }
+            else
+            {
+                if (scYM2612[chipID] == null) return;
+
+                scYM2612[chipID].SetRegister(dPort * 0x100 + dAddr, dData);
+            }
+        }
+
+        public void softResetYM2612(int chipID, EnmModel model)
+        {
+            int i;
+
+            // FM全チャネルキーオフ
+            writeYM2612(chipID, 0, 0x28, 0x00, model);
+            writeYM2612(chipID, 0, 0x28, 0x01, model);
+            writeYM2612(chipID, 0, 0x28, 0x02, model);
+            writeYM2612(chipID, 0, 0x28, 0x04, model);
+            writeYM2612(chipID, 0, 0x28, 0x05, model);
+            writeYM2612(chipID, 0, 0x28, 0x06, model);
+
+            // FM TL=127
+            for (i = 0x40; i < 0x4F + 1; i++)
+            {
+                writeYM2612(chipID, 0, i, 0x7f, model);
+                writeYM2612(chipID, 1, i, 0x7f, model);
+            }
+            // FM ML/DT
+            for (i = 0x30; i < 0x3F + 1; i++)
+            {
+                writeYM2612(chipID, 0, i, 0x0, model);
+                writeYM2612(chipID, 1, i, 0x0, model);
+            }
+            // FM AR,DR,SR,KS,AMON
+            for (i = 0x50; i < 0x7F + 1; i++)
+            {
+                writeYM2612(chipID, 0, i, 0x0, model);
+                writeYM2612(chipID, 1, i, 0x0, model);
+            }
+            // FM SL,RR
+            for (i = 0x80; i < 0x8F + 1; i++)
+            {
+                writeYM2612(chipID, 0, i, 0xff, model);
+                writeYM2612(chipID, 1, i, 0xff, model);
+            }
+            // FM F-Num, FB/CONNECT
+            for (i = 0x90; i < 0xBF + 1; i++)
+            {
+                writeYM2612(chipID, 0, i, 0x0, model);
+                writeYM2612(chipID, 1, i, 0x0, model);
+            }
+            // FM PAN/AMS/PMS
+            for (i = 0xB4; i < 0xB6 + 1; i++)
+            {
+                writeYM2612(chipID, 0, i, 0xc0, model);
+                writeYM2612(chipID, 1, i, 0xc0, model);
+            }
+            writeYM2612(chipID, 0, 0x22, 0x00, model); // HW LFO
+            writeYM2612(chipID, 0, 0x24, 0x00, model); // Timer-A(1)
+            writeYM2612(chipID, 0, 0x25, 0x00, model); // Timer-A(2)
+            writeYM2612(chipID, 0, 0x26, 0x00, model); // Timer-B
+            writeYM2612(chipID, 0, 0x27, 0x30, model); // Timer Control
+            writeYM2612(chipID, 0, 0x29, 0x80, model); // FM4-6 Enable
+
+        }
 
 
         public void writeYM2609(int chipID, int dPort, int dAddr, int dData, EnmModel model)

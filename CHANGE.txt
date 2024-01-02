@@ -1,4 +1,8 @@
 更新履歴 
+STBL345 2024/01/02
+  OPN2:実chip使用時、停止処理時にSoftResetを行っていなかったのを修正
+  (SCCIのみ。GIMICは今のところOPN2未対応)
+
 STBL344 2023/12/28 2nd
   鍵盤:OPNB:ADPCM-Aの個別ミュート機能実装
 

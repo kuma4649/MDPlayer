@@ -7873,6 +7873,8 @@ namespace MDPlayer
             chipRegister.softResetYM2413(1, model);
             chipRegister.softResetYM2608(0, model);
             chipRegister.softResetYM2608(1, model);
+            chipRegister.softResetYM2612(0, model);
+            chipRegister.softResetYM2612(1, model);
             chipRegister.softResetYM2151(0, model);
             chipRegister.softResetYM2151(1, model);
             chipRegister.softResetYM3526(0, model);

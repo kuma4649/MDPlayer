@@ -2287,7 +2287,18 @@ namespace MDPlayer.form
         private void BtnOpenSettingFolder_Click(object sender, EventArgs e)
         {
             string fullPath = Common.settingFilePath;
-            System.Diagnostics.Process.Start(fullPath);
+            try
+            {
+                Process.Start(fullPath);                
+            }
+            catch
+            {
+                MessageBox.Show(
+                    string.Format("設定ファイルを開くのに失敗しました。手動で以下のパスを開いてください\n{0}",fullPath),
+                    "エラー",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
 
         private void BtnDataPath_Click(object sender, EventArgs e)
