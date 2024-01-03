@@ -228,7 +228,6 @@ namespace MDPlayer.Driver.FMP
             regs.DX = 0x0000;
             regs.SS = unchecked((short)0xE000);
             regs.SP = 0x0000;
-            pcmDataSendCount = 0;
             nise98.CallRunfunctionCall(0xd2);//, true, true, true, 10_000_000_000, 0_000);
             
             if (pcmDataSendCount != 0)
@@ -237,6 +236,7 @@ namespace MDPlayer.Driver.FMP
                 //サイズと経過時間から、追加でウエイトする。
                 Thread.Sleep(Math.Max((int)(pcmDataSendCount / 20), 0));
                 this.isDataBlock = false;
+                pcmDataSendCount = 0;
             }
 
             Log.WriteLine(musicDriverInterface.LogLevel.DEBUG, "return CF={0} code={1:X02}", regs.CF, regs.AL);

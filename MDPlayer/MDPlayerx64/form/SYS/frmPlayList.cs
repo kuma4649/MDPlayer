@@ -1123,19 +1123,19 @@ namespace MDPlayer.form
         private void tsbTextExt_Click(object sender, EventArgs e)
         {
             if (text == "") return;
-            Process.Start(text);
+            Process.Start("explorer.exe", text);
         }
 
         private void tsbMMLExt_Click(object sender, EventArgs e)
         {
             if (mml == "") return;
-            Process.Start(mml);
+            Process.Start("explorer.exe", mml);
         }
 
         private void tsbImgExt_Click(object sender, EventArgs e)
         {
             if (img == "") return;
-            Process.Start(img);
+            Process.Start("explorer.exe", img);
         }
 
         public PlayList.Music getPlayingSongInfo()
@@ -1150,7 +1150,7 @@ namespace MDPlayer.form
             {
                 string path = (string)dgvList.SelectedRows[0].Cells["clmFileName"].Value;
                 path = Path.GetDirectoryName(path);
-                System.Diagnostics.Process.Start(path);
+                System.Diagnostics.Process.Start("explorer.exe", path);
             }
             catch
             {

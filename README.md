@@ -39,9 +39,9 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   .M   (PMD 向けファイル)  
   .M2  (PMD 向けファイル)  
   .MZ  (PMD 向けファイル)  
-  .MPI (FMP 向けファイル 演奏するにはFMC.COM,FMP.COMが必要です)    
-  .MVI (FMP 向けファイル 演奏するにはFMC.COM,FMP.COMが必要です)    
-  .MZI (FMP 向けファイル 演奏するにはFMC.COM,FMP.COMが必要です)    
+  .MPI (FMP 向けファイル 演奏するにはFMC.EXE,FMP.COMが必要です)    
+  .MVI (FMP 向けファイル 演奏するにはFMC.EXE,FMP.COMが必要です)    
+  .MZI (FMP 向けファイル 演奏するにはFMC.EXE,FMP.COMが必要です)    
   .OPI (FMP 向けファイル 演奏するにはFMP.COMが必要です)    
   .OVI (FMP 向けファイル 演奏するにはFMP.COMが必要です)    
   .OZI (FMP 向けファイル 演奏するにはFMP.COMが必要です)    
@@ -309,7 +309,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   ・FMPのファイルを演奏するには、以下のファイルが必要です。  
   (公式サイト,VECTORなどから入手してください。)
     FMP.COM  
-    FMC.COM  
+    FMC.EXE  
     PPZ8.COM  
 
   

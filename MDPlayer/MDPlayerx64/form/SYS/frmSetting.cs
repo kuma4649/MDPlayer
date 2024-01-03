@@ -2289,7 +2289,7 @@ namespace MDPlayer.form
             string fullPath = Common.settingFilePath;
             try
             {
-                Process.Start(fullPath);                
+                Process.Start("explorer.exe", fullPath);                
             }
             catch
             {

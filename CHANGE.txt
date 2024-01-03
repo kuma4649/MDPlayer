@@ -1,4 +1,9 @@
 更新履歴 
+STBL346 2024/01/03
+  Document:READMEの修正
+  PlayList,Setting:Process.Startでパスだけではフォルダーが開けなくなってしまっていたので修正。
+  FMP:"RD"表示が消えないバグを修正
+
 STBL345 2024/01/02
   OPN2:実chip使用時、停止処理時にSoftResetを行っていなかったのを修正
   (SCCIのみ。GIMICは今のところOPN2未対応)
