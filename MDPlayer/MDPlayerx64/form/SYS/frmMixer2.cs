@@ -1,5 +1,6 @@
 ﻿#if X64
 using MDPlayerx64;
+using System;
 #else
 using MDPlayer.Properties;
 #endif
@@ -20,6 +21,11 @@ namespace MDPlayer.form
         private MDChipParams.Mixer newParam = null;
         private MDChipParams.Mixer oldParam = new MDChipParams.Mixer();
         private FrameBuffer frameBuffer = new FrameBuffer();
+        private MDChipParams.Mixer.VolumeInfo[] oVITbl;
+        private MDChipParams.Mixer.VolumeInfo[] nVITbl;
+        private int cn = 0;
+        private int ocn = 0;
+
 
         public frmMixer2(frmMain frm, int zoom, MDChipParams.Mixer newParam)
         {
@@ -33,6 +39,147 @@ namespace MDPlayer.form
             frameBuffer.Add(pbScreen, ResMng.ImgDic["planeMixer"], null, zoom);
             DrawBuff.screenInitMixer(frameBuffer);
             update();
+
+            oVITbl =
+            [
+                oldParam.Master       ,
+                oldParam.YM2151       ,
+                oldParam.YM2203       ,
+                oldParam.YM2203FM     ,
+                oldParam.YM2203PSG    ,
+                oldParam.YM2612       ,
+                oldParam.YM2608       ,
+                oldParam.YM2608FM     ,
+                oldParam.YM2608PSG    ,
+                oldParam.YM2608Rhythm ,
+                oldParam.YM2608Adpcm  ,
+                oldParam.YM2610       ,
+                oldParam.YM2610FM     ,
+                oldParam.YM2610PSG    ,
+                oldParam.YM2610AdpcmA ,
+                oldParam.YM2610AdpcmB ,
+
+                oldParam.YM2413,
+                oldParam.YM3526,
+                oldParam.Y8950,
+                oldParam.YM3812,
+                oldParam.YMF262,
+                oldParam.YMF278B,
+                oldParam.YMZ280B,
+                oldParam.YMF271,
+                null,
+                oldParam.AY8910,
+                oldParam.SN76489,
+                oldParam.HuC6280,
+                oldParam.SAA1099,
+                null,
+                null,
+                null,
+
+                null,
+                null,
+                oldParam.RF5C164,
+                oldParam.RF5C68,
+                oldParam.PWM,
+                oldParam.OKIM6258,
+                oldParam.OKIM6295,
+                oldParam.C140,
+                oldParam.C352,
+                oldParam.SEGAPCM,
+                oldParam.MultiPCM,
+                oldParam.K051649,
+                oldParam.K053260,
+                oldParam.K054539,
+                oldParam.QSound,
+                oldParam.GA20,
+
+                oldParam.APU,
+                oldParam.DMC,
+                oldParam.FDS,
+                oldParam.MMC5,
+                oldParam.N160,
+                oldParam.VRC6,
+                oldParam.VRC7,
+                oldParam.FME7,
+                oldParam.DMG,
+                null,
+                null,
+                null,
+                null,
+                oldParam.PPZ8,
+                oldParam.GimicOPN,
+                oldParam.GimicOPNA
+            ];
+            nVITbl =
+            [
+                newParam.Master,
+                newParam.YM2151,
+                newParam.YM2203,
+                newParam.YM2203FM,
+                newParam.YM2203PSG,
+                newParam.YM2612,
+                newParam.YM2608,
+                newParam.YM2608FM,
+                newParam.YM2608PSG,
+                newParam.YM2608Rhythm,
+                newParam.YM2608Adpcm,
+                newParam.YM2610,
+                newParam.YM2610FM,
+                newParam.YM2610PSG,
+                newParam.YM2610AdpcmA,
+                newParam.YM2610AdpcmB,
+
+                newParam.YM2413,
+                newParam.YM3526,
+                newParam.Y8950,
+                newParam.YM3812,
+                newParam.YMF262,
+                newParam.YMF278B,
+                newParam.YMZ280B,
+                newParam.YMF271,
+                null,
+                newParam.AY8910,
+                newParam.SN76489,
+                newParam.HuC6280,
+                newParam.SAA1099,
+                null,
+                null,
+                null,
+
+                null,
+                null,
+                newParam.RF5C164,
+                newParam.RF5C68,
+                newParam.PWM,
+                newParam.OKIM6258,
+                newParam.OKIM6295,
+                newParam.C140,
+                newParam.C352,
+                newParam.SEGAPCM,
+                newParam.MultiPCM,
+                newParam.K051649,
+                newParam.K053260,
+                newParam.K054539,
+                newParam.QSound,
+                newParam.GA20,
+
+                newParam.APU,
+                newParam.DMC,
+                newParam.FDS,
+                newParam.MMC5,
+                newParam.N160,
+                newParam.VRC6,
+                newParam.VRC7,
+                newParam.FME7,
+                newParam.DMG,
+                null,
+                null,
+                null,
+                null,
+                newParam.PPZ8,
+                newParam.GimicOPN,
+                newParam.GimicOPNA
+            ];
         }
 
         private void pbScreen_MouseWheel(object sender, MouseEventArgs e)
@@ -543,80 +690,41 @@ namespace MDPlayer.form
             }
         }
 
+
         public void screenDrawParams()
         {
-            int num;
             MDChipParams.Mixer.VolumeInfo oVI, nVI;
 
-            num = 0; oVI = oldParam.Master; nVI = newParam.Master; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.YM2151; nVI = newParam.YM2151; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.YM2203; nVI = newParam.YM2203; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.YM2203FM; nVI = newParam.YM2203FM; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.YM2203PSG; nVI = newParam.YM2203PSG; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.YM2612; nVI = newParam.YM2612; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.YM2608; nVI = newParam.YM2608; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.YM2608FM; nVI = newParam.YM2608FM; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.YM2608PSG; nVI = newParam.YM2608PSG; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.YM2608Rhythm; nVI = newParam.YM2608Rhythm; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.YM2608Adpcm; nVI = newParam.YM2608Adpcm; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.YM2610; nVI = newParam.YM2610; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.YM2610FM; nVI = newParam.YM2610FM; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.YM2610PSG; nVI = newParam.YM2610PSG; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.YM2610AdpcmA; nVI = newParam.YM2610AdpcmA; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.YM2610AdpcmB; nVI = newParam.YM2610AdpcmB; drawVolAndFader(num, oVI, nVI);
+            for (int num = 0; num < oVITbl.Length; num++)
+            {
+                oVI = oVITbl[num];
+                nVI = nVITbl[num];
+                if (oVI == null) continue;
 
-            num++; oVI = oldParam.YM2413; nVI = newParam.YM2413; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.YM3526; nVI = newParam.YM3526; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.Y8950; nVI = newParam.Y8950; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.YM3812; nVI = newParam.YM3812; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.YMF262; nVI = newParam.YMF262; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.YMF278B; nVI = newParam.YMF278B; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.YMZ280B; nVI = newParam.YMZ280B; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.YMF271; nVI = newParam.YMF271; drawVolAndFader(num, oVI, nVI);
-            num++;
-            num++; oVI = oldParam.AY8910; nVI = newParam.AY8910; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.SN76489; nVI = newParam.SN76489; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.HuC6280; nVI = newParam.HuC6280; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.SAA1099; nVI = newParam.SAA1099; drawVolAndFader(num, oVI, nVI);
-            num++;
-            num++;
-            num++;
+                if (ocn != -1 && num == ocn)
+                {
+                    oVI.VisVolume1 = -1;
+                    oVI.VisVolume2 = -1;
+                    oVI.Volume = -1;
+                    ocn = -1;
+                }
 
-            num++;
-            num++;
-            num++; oVI = oldParam.RF5C164; nVI = newParam.RF5C164; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.RF5C68; nVI = newParam.RF5C68; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.PWM; nVI = newParam.PWM; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.OKIM6258; nVI = newParam.OKIM6258; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.OKIM6295; nVI = newParam.OKIM6295; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.C140; nVI = newParam.C140; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.C352; nVI = newParam.C352; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.SEGAPCM; nVI = newParam.SEGAPCM; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.MultiPCM; nVI = newParam.MultiPCM; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.K051649; nVI = newParam.K051649; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.K053260; nVI = newParam.K053260; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.K054539; nVI = newParam.K054539; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.QSound; nVI = newParam.QSound; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.GA20; nVI = newParam.GA20; drawVolAndFader(num, oVI, nVI);
+                if (oVI == oldParam.GimicOPN || oVI == oldParam.GimicOPNA)
+                    drawGVolAndFader(num, oVI, nVI);
+                else
+                    drawVolAndFader(num, oVI, nVI);
+            }
 
-            num++; oVI = oldParam.APU; nVI = newParam.APU; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.DMC; nVI = newParam.DMC; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.FDS; nVI = newParam.FDS; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.MMC5; nVI = newParam.MMC5; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.N160; nVI = newParam.N160; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.VRC6; nVI = newParam.VRC6; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.VRC7; nVI = newParam.VRC7; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.FME7; nVI = newParam.FME7; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.DMG; nVI = newParam.DMG; drawVolAndFader(num, oVI, nVI);
-            num++;
-            num++;
-            num++;
-            num++;
-            num++; oVI = oldParam.PPZ8; nVI = newParam.PPZ8; drawVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.GimicOPN; nVI = newParam.GimicOPN; drawGVolAndFader(num, oVI, nVI);
-            num++; oVI = oldParam.GimicOPNA; nVI = newParam.GimicOPNA; drawGVolAndFader(num, oVI, nVI);
-
+            int od = -1;
+            //DrawBuff.drawFaderCursor(frameBuffer, cn, ref od, 10);
+            ocn = cn;
+            do
+            {
+                cn++;
+                if (cn >= 16 * 4) cn = 0;
+            } while (oVITbl[cn] == null);
         }
+
 
         private void drawVolAndFader(int num, MDChipParams.Mixer.VolumeInfo oVI, MDChipParams.Mixer.VolumeInfo nVI)
         {

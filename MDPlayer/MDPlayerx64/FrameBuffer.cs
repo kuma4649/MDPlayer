@@ -255,6 +255,64 @@ namespace MDPlayer
                 log.ForcedWrite(ex);
             }
         }
+
+        public void drawBoxArray(int x, int y, byte src, int thin, int width, int height)
+        {
+            if (bmpPlane == null) return;
+
+            try
+            {
+                int adr1;
+                int wid = bmpPlaneW * 4;
+                adr1 = wid * y + x * 4;
+                for (int i = 0; i < height; i++)
+                {
+                    if (adr1 < 0)
+                    {
+                        adr1 += wid;
+                        continue;
+                    }
+
+                    if (i >= thin && i < height - thin)
+                    {
+                        for (int j = 0; j < width * 4; j += 4)
+                        {
+                            if (baPlaneBuffer == null) continue;
+                            if (adr1 + j >= baPlaneBuffer.Length) continue;
+
+                            if (j/4 >= thin && j/4 < width - thin) continue;
+
+                            baPlaneBuffer[adr1 + j + 0] = src;
+                            baPlaneBuffer[adr1 + j + 1] = src;
+                            baPlaneBuffer[adr1 + j + 2] = src;
+                            baPlaneBuffer[adr1 + j + 3] = src;
+                        }
+
+                        adr1 += wid;
+                        continue;
+                    }
+
+                    for (int j = 0; j < width * 4; j += 4)
+                    {
+                        if (baPlaneBuffer == null) continue;
+                        if (adr1 + j >= baPlaneBuffer.Length) continue;
+
+                        baPlaneBuffer[adr1 + j + 0] = src;
+                        baPlaneBuffer[adr1 + j + 1] = src;
+                        baPlaneBuffer[adr1 + j + 2] = src;
+                        baPlaneBuffer[adr1 + j + 3] = src;
+                    }
+
+                    adr1 += wid;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+        }
+
     }
 
 }

@@ -7338,13 +7338,15 @@ namespace MDPlayer
                 {
                     Thread.Sleep(1);
                     timeout--;
-                    if (timeout < 1) break;
+                    if (timeout < 1) 
+                        break;
                 };
                 while (!Stopped)
                 {
                     Thread.Sleep(1);
                     timeout--;
-                    if (timeout < 1) break;
+                    if (timeout < 1)
+                        break;
                 };
                 Stopped = true;
 

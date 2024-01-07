@@ -439,7 +439,7 @@ namespace MDPlayer
             {
                 while (true)
                 {
-                    if (vgmBuf == null)
+                    if (vgmBuf == null || musicPtr == vgmBuf.Length)
                     {
                         break;
                     }
@@ -500,7 +500,7 @@ namespace MDPlayer
                             break;
                         case 4:
 
-                            if (model == EnmModel.RealModel)
+                            if (model == EnmModel.RealModel && !Audio.TrdClosed)
                             {
                                 if (ym2608WaitCounter > 200)
                                 {

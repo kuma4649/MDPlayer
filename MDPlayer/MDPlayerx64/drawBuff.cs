@@ -2827,6 +2827,13 @@ namespace MDPlayer
             od = nd;
         }
 
+        public static void drawFaderCursor(FrameBuffer screen, int n, ref int od, int nd)
+        {
+            int x = (n % 16)*20+5;
+            int y = (n / 16)*72+8;
+            screen.drawBoxArray(x, y, 0xff, 1, 8, 56);
+        }
+
         public static void MixerVolume(FrameBuffer screen, int x, int y, ref int od, int nd, ref int ov, int nv)
         {
             if (od == nd && ov == nv) return;

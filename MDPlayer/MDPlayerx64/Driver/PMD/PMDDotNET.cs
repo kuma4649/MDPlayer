@@ -80,7 +80,7 @@ namespace MDPlayer.Driver
 
 #if DEBUG
             //実チップスレッドは処理をスキップ(デバッグ向け)
-            if (model == EnmModel.RealModel) return true;
+            //if (model == EnmModel.RealModel) return true;
 #endif
 
             if (mtype == enmPMDFileType.MML) return initMML();
@@ -94,8 +94,8 @@ namespace MDPlayer.Driver
             //実チップスレッドは処理をスキップ(デバッグ向け)
             if (model == EnmModel.RealModel)
             {
-                Stopped = true;
-                return;
+                //Stopped = true;
+                //return;
             }
 #endif
 
@@ -106,9 +106,12 @@ namespace MDPlayer.Driver
                 {
                     vgmSpeedCounter -= 1.0;
 
-                    PMDDriver.Rendering();
+                    if (vgmFrameCounter > -1)
+                    {
+                        PMDDriver.Rendering();
 
-                    Counter++;
+                        Counter++;
+                    }
                     vgmFrameCounter++;
                 }
 

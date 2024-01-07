@@ -122,36 +122,39 @@ namespace MDPlayer.Driver.FMP
                 {
                     vgmSpeedCounter -= 1.0;
 
-                    Counter++;
-                    vgmFrameCounter++;
-
-                    nise98.Runtimer();
-                    if (!nise98.IntTimer()) continue;
-                    regs.SS = unchecked((short)0xE000);
-                    regs.SP = 0x0000;
-                    nise98.CallRunfunctionCall(0x14);
-
-                    //演奏チェック
-                    regs.AX = 0x0004;
-                    regs.SS = unchecked((short)0xE000);
-                    regs.SP = 0x0000;
-                    nise98.CallRunfunctionCall(0xd2);
-                    if (regs.AX == 0)
-                        Stopped = true;
-
-                    //内部ワークアドレス取得し、曲ループ回数をチェックする
-                    regs.AX = 0x1104;
-                    regs.SS = unchecked((short)0xE000);
-                    regs.SP = 0x0000;
-                    nise98.CallRunfunctionCall(0xd2);
-                    int ptr = ((ushort)0x2000 << 4) + (ushort)regs.AX;
-                    int FmpSloop_c = nise98.GetMem().PeekB(ptr + 0x17);
-                    int pcmuse = nise98.GetMem().PeekW(ptr + 0x20);
-                    if ((pcmuse & 0xff00)!=0)
+                    if (vgmFrameCounter > -1)
                     {
-                        ;
+                        Counter++;
+
+                        nise98.Runtimer();
+                        if (!nise98.IntTimer()) continue;
+                        regs.SS = unchecked((short)0xE000);
+                        regs.SP = 0x0000;
+                        nise98.CallRunfunctionCall(0x14);
+
+                        //演奏チェック
+                        regs.AX = 0x0004;
+                        regs.SS = unchecked((short)0xE000);
+                        regs.SP = 0x0000;
+                        nise98.CallRunfunctionCall(0xd2);
+                        if (regs.AX == 0)
+                            Stopped = true;
+
+                        //内部ワークアドレス取得し、曲ループ回数をチェックする
+                        regs.AX = 0x1104;
+                        regs.SS = unchecked((short)0xE000);
+                        regs.SP = 0x0000;
+                        nise98.CallRunfunctionCall(0xd2);
+                        int ptr = ((ushort)0x2000 << 4) + (ushort)regs.AX;
+                        int FmpSloop_c = nise98.GetMem().PeekB(ptr + 0x17);
+                        int pcmuse = nise98.GetMem().PeekW(ptr + 0x20);
+                        if ((pcmuse & 0xff00) != 0)
+                        {
+                            ;
+                        }
+                        vgmCurLoop = (uint)FmpSloop_c;
                     }
-                    vgmCurLoop = (uint)FmpSloop_c;
+                    vgmFrameCounter++;
 
 
                 }
