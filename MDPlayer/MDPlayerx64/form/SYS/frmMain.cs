@@ -9360,6 +9360,14 @@ namespace MDPlayer.form
                     newParam.pcm8[chipID].channels[ch].mask = mask;
                     oldParam.pcm8[chipID].channels[ch].mask = !mask;
                     break;
+                case EnmChip.PPZ8:
+                    if (mask == true)
+                        Audio.SetPPZ8Mask(chipID, ch);
+                    else
+                        Audio.ResetPPZ8Mask(chipID, ch);
+                    newParam.ppz8[chipID].channels[ch].mask = mask;
+                    oldParam.ppz8[chipID].channels[ch].mask = !mask;
+                    break;
                 case EnmChip.DMG:
                     if (mask == true)
                         Audio.SetDMGMask(chipID, ch);

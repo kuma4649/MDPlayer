@@ -1,5 +1,6 @@
 ﻿#if X64
 using MDPlayerx64;
+using System.Windows.Forms;
 #else
 using MDPlayer.Properties;
 #endif
@@ -37,6 +38,12 @@ namespace MDPlayer.form
                 : parent.setting.YMF262Type[1].realChipInfo[0].SoundLocation;
             int tp = !YMF262Type ? 0 : (YMF262SoundLocation < 0 ? 2 : 1);
             DrawBuff.screenInitYMF262(frameBuffer, tp);
+            for (int y = 0; y < 18; y++)
+            {
+                bool? nmask = newParam.channels[y].mask;
+                bool? omask = !nmask;
+                DrawBuff.ChYMF262(frameBuffer, y, ref omask, nmask, tp);
+            }
             update();
         }
 

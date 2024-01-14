@@ -4474,6 +4474,13 @@ namespace MDPlayer
             else chipLED.SecPPZ8 = 2;
 
             if (dPort == -1 && dAddr == -1 && dData == -1) return;
+            
+            ////mask判定
+            //if (dPort == 0x01)//0x01 : PlayPCM
+            //{
+            //    if (maskChPPZ8[ChipID][dAddr]) return;
+            //}
+
             mds.WritePPZ8((byte)ChipID, dPort, dAddr, dData, null);
 
         }
@@ -4625,6 +4632,7 @@ namespace MDPlayer
         public void setMaskPPZ8(int chipID, int ch, bool mask)
         {
             maskChPPZ8[chipID][ch] = mask;
+            mds.SetPPZ8Mask(chipID, (byte)ch, mask);
         }
 
         public void setMaskC352(int chipID, int ch, bool mask)

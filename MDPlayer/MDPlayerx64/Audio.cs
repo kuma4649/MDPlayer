@@ -4935,15 +4935,75 @@ namespace MDPlayer
                 if (UseChip.Contains(EnmChip.S_YM2608))
                     chipRegister.writeYM2608Clock(1, YM2608ClockValue, EnmModel.RealModel);
 
+                if (UseChip.Contains(EnmChip.YM3526))
+                {
+                    //SCCI対策
+                    chipRegister.setYMF262Register(0, 1, 5, 1, EnmModel.RealModel);//opl3mode 一旦有効にしてパラメータをクリアできるようにする
+                    for (int i = 0; i < 0xff; i++)
+                    {
+                        chipRegister.setYM3526Register(0, i, 0, EnmModel.RealModel);
+                        if (i != 5) chipRegister.setYMF262Register(0, 1, i, 0, EnmModel.RealModel);
+                    }
+                    chipRegister.setYMF262Register(0, 1, 5, 0, EnmModel.RealModel);//opl3mode disable
+
+                    chipRegister.writeYM3526Clock(0, (int)((Vgm)DriverVirtual).YM3526ClockValue, EnmModel.RealModel);
+                }
+                if (UseChip.Contains(EnmChip.S_YM3526))
+                {
+                    //SCCI対策
+                    chipRegister.setYMF262Register(1, 1, 5, 1, EnmModel.RealModel);//opl3mode 一旦有効にしてパラメータをクリアできるようにする
+                    for (int i = 0; i < 0xff; i++)
+                    {
+                        chipRegister.setYM3526Register(1, i, 0, EnmModel.RealModel);
+                        if (i != 5) chipRegister.setYMF262Register(1, 1, i, 0, EnmModel.RealModel);
+                    }
+                    chipRegister.setYMF262Register(1, 1, 5, 0, EnmModel.RealModel);//opl3mode disable
+
+                    chipRegister.writeYM3526Clock(1, (int)((Vgm)DriverVirtual).YM3526ClockValue, EnmModel.RealModel);
+                }
+                if (UseChip.Contains(EnmChip.YM3812))
+                {
+                    //SCCI対策
+                    chipRegister.setYMF262Register(0, 1, 5, 1, EnmModel.RealModel);//opl3mode 一旦有効にしてパラメータをクリアできるようにする
+                    for (int i = 0; i < 0xff; i++)
+                    {
+                        chipRegister.setYM3812Register(0, i, 0, EnmModel.RealModel);
+                        if (i != 5) chipRegister.setYMF262Register(0, 1, i, 0, EnmModel.RealModel);
+                    }
+                    chipRegister.setYMF262Register(0, 1, 5, 0, EnmModel.RealModel);//opl3mode disable
+                    chipRegister.writeYM3812Clock(0, (int)((Vgm)DriverVirtual).YM3812ClockValue, EnmModel.RealModel);
+                }
+                if (UseChip.Contains(EnmChip.S_YM3812))
+                {
+                    //SCCI対策
+                    chipRegister.setYMF262Register(1, 1, 5, 1, EnmModel.RealModel);//opl3mode 一旦有効にしてパラメータをクリアできるようにする
+                    for (int i = 0; i < 0xff; i++)
+                    {
+                        chipRegister.setYM3812Register(1, i, 0, EnmModel.RealModel);
+                        if (i != 5) chipRegister.setYMF262Register(1, 1, i, 0, EnmModel.RealModel);
+                    }
+                    chipRegister.setYMF262Register(1, 1, 5, 0, EnmModel.RealModel);//opl3mode disable
+                    chipRegister.writeYM3812Clock(1, (int)((Vgm)DriverVirtual).YM3812ClockValue, EnmModel.RealModel);
+                }
                 if (UseChip.Contains(EnmChip.YMF262))
                 {
                     chipRegister.setYMF262Register(0, 1, 5, 1, EnmModel.RealModel);//opl3mode
-                    chipRegister.writeYMF262Clock(0, YMF262ClockValue, EnmModel.RealModel);
+                    for (int i = 0; i < 0xff; i++)
+                    {
+                        chipRegister.setYMF262Register(0, 0, i, 0, EnmModel.RealModel);
+                        if (i != 5) chipRegister.setYMF262Register(0, 1, i, 0, EnmModel.RealModel);
+                    }
+                    chipRegister.writeYMF262Clock(0, (int)((Vgm)DriverVirtual).YMF262ClockValue, EnmModel.RealModel);
                 }
                 if (UseChip.Contains(EnmChip.S_YMF262))
                 {
                     chipRegister.setYMF262Register(1, 1, 5, 1, EnmModel.RealModel);//opl3mode
-                    chipRegister.writeYMF262Clock(1, YMF262ClockValue, EnmModel.RealModel);
+                    for (int i = 0; i < 0xff; i++)
+                    {
+                        chipRegister.setYMF262Register(1, 0, i, 0, EnmModel.RealModel);
+                        if (i != 5) chipRegister.setYMF262Register(1, 1, i, 0, EnmModel.RealModel);
+                    }
+                    chipRegister.writeYMF262Clock(1, (int)((Vgm)DriverVirtual).YMF262ClockValue, EnmModel.RealModel);
                 }
 
                 DriverVirtual.SetYM2151Hosei(YM2151ClockValue);
@@ -7008,34 +7068,72 @@ namespace MDPlayer
                     chipRegister.writeYM2608Clock(1, (int)((Vgm)DriverVirtual).YM2608ClockValue, EnmModel.RealModel);
                 if (UseChip.Contains(EnmChip.YM3526))
                 {
-                    chipRegister.setYM3526Register(0, 0xbd, 0, EnmModel.RealModel);//リズムモードオフ
+                    //SCCI対策
+                    chipRegister.setYMF262Register(0, 1, 5, 1, EnmModel.RealModel);//opl3mode 一旦有効にしてパラメータをクリアできるようにする
+                    for (int i = 0; i < 0xff; i++)
+                    {
+                        chipRegister.setYM3526Register(0, i, 0, EnmModel.RealModel);
+                        if (i != 5) chipRegister.setYMF262Register(0, 1, i, 0, EnmModel.RealModel);
+                    }
+                    chipRegister.setYMF262Register(0, 1, 5, 0, EnmModel.RealModel);//opl3mode disable
+
                     chipRegister.writeYM3526Clock(0, (int)((Vgm)DriverVirtual).YM3526ClockValue, EnmModel.RealModel);
                 }
                 if (UseChip.Contains(EnmChip.S_YM3526))
                 {
-                    chipRegister.setYM3526Register(1, 0xbd, 0, EnmModel.RealModel);//リズムモードオフ
+                    //SCCI対策
+                    chipRegister.setYMF262Register(1, 1, 5, 1, EnmModel.RealModel);//opl3mode 一旦有効にしてパラメータをクリアできるようにする
+                    for (int i = 0; i < 0xff; i++)
+                    {
+                        chipRegister.setYM3526Register(1, i, 0, EnmModel.RealModel);
+                        if (i != 5) chipRegister.setYMF262Register(1, 1, i, 0, EnmModel.RealModel);
+                    }
+                    chipRegister.setYMF262Register(1, 1, 5, 0, EnmModel.RealModel);//opl3mode disable
+
                     chipRegister.writeYM3526Clock(1, (int)((Vgm)DriverVirtual).YM3526ClockValue, EnmModel.RealModel);
                 }
                 if (UseChip.Contains(EnmChip.YM3812))
                 {
-                    chipRegister.setYM3812Register(0, 0xbd, 0, EnmModel.RealModel);//リズムモードオフ
+                    //SCCI対策
+                    chipRegister.setYMF262Register(0, 1, 5, 1, EnmModel.RealModel);//opl3mode 一旦有効にしてパラメータをクリアできるようにする
+                    for (int i = 0; i < 0xff; i++)
+                    {
+                        chipRegister.setYM3812Register(0, i, 0, EnmModel.RealModel);
+                        if (i != 5) chipRegister.setYMF262Register(0, 1, i, 0, EnmModel.RealModel);
+                    }
+                    chipRegister.setYMF262Register(0, 1, 5, 0, EnmModel.RealModel);//opl3mode disable
                     chipRegister.writeYM3812Clock(0, (int)((Vgm)DriverVirtual).YM3812ClockValue, EnmModel.RealModel);
                 }
                 if (UseChip.Contains(EnmChip.S_YM3812))
                 {
-                    chipRegister.setYM3812Register(1, 0xbd, 0, EnmModel.RealModel);//リズムモードオフ
+                    //SCCI対策
+                    chipRegister.setYMF262Register(1, 1, 5, 1, EnmModel.RealModel);//opl3mode 一旦有効にしてパラメータをクリアできるようにする
+                    for (int i = 0; i < 0xff; i++)
+                    {
+                        chipRegister.setYM3812Register(1, i, 0, EnmModel.RealModel);
+                        if (i != 5) chipRegister.setYMF262Register(1, 1, i, 0, EnmModel.RealModel);
+                    }
+                    chipRegister.setYMF262Register(1, 1, 5, 0, EnmModel.RealModel);//opl3mode disable
                     chipRegister.writeYM3812Clock(1, (int)((Vgm)DriverVirtual).YM3812ClockValue, EnmModel.RealModel);
                 }
                 if (UseChip.Contains(EnmChip.YMF262))
                 {
-                    chipRegister.setYMF262Register(0, 0, 0xbd, 0, EnmModel.RealModel);//リズムモードオフ
                     chipRegister.setYMF262Register(0, 1, 5, 1, EnmModel.RealModel);//opl3mode
+                    for (int i = 0; i < 0xff; i++)
+                    {
+                        chipRegister.setYMF262Register(0, 0, i, 0, EnmModel.RealModel);
+                        if (i != 5) chipRegister.setYMF262Register(0, 1, i, 0, EnmModel.RealModel);
+                    }
                     chipRegister.writeYMF262Clock(0, (int)((Vgm)DriverVirtual).YMF262ClockValue, EnmModel.RealModel);
                 }
                 if (UseChip.Contains(EnmChip.S_YMF262))
                 {
-                    chipRegister.setYMF262Register(1, 0, 0xbd, 0, EnmModel.RealModel);//リズムモードオフ
                     chipRegister.setYMF262Register(1, 1, 5, 1, EnmModel.RealModel);//opl3mode
+                    for (int i = 0; i < 0xff; i++)
+                    {
+                        chipRegister.setYMF262Register(1, 0, i, 0, EnmModel.RealModel);
+                        if (i != 5) chipRegister.setYMF262Register(1, 1, i, 0, EnmModel.RealModel);
+                    }
                     chipRegister.writeYMF262Clock(1, (int)((Vgm)DriverVirtual).YMF262ClockValue, EnmModel.RealModel);
                 }
                 if (SN76489NGPFlag)

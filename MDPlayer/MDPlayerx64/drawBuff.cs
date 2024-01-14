@@ -1938,6 +1938,18 @@ namespace MDPlayer
             om = nm;
         }
 
+        public static void ChPPZ8(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            ChPPZ8_P(screen, 0, 8 + ch * 8, ch, nm == null ? false : (bool)nm, tp);
+            om = nm;
+        }
+
         public static void ChK051649(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
         {
 
@@ -4193,6 +4205,14 @@ namespace MDPlayer
 
             screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 64, 0, 24, 8);
             drawFont8(screen, x + 24, y, mask ? 1 : 0, (1 + ch).ToString());
+        }
+
+        private static void ChPPZ8_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
+        {
+            if (screen == null) return;
+
+            screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 16, 0, 16, 8);
+            drawFont4Int2(screen, x + 16, y, mask ? 1 : 0, 2, 1 + ch);
         }
 
         private static void ChK051649_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)

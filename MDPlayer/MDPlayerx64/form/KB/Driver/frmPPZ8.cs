@@ -85,10 +85,29 @@ namespace MDPlayer.form
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
-            //int px = e.Location.X / zoom;
+            int px = e.Location.X / zoom;
             int py = e.Location.Y / zoom;
+            int ch;
 
-            int ch = (py / 8) - 1;
+            //上部のラベル行の場合は何もしない
+            if (py < 1 * 8)
+            {
+                //但しchをクリックした場合はマスク反転
+                if (px < 8)
+                {
+                    for (ch = 0; ch < 8; ch++)
+                    {
+
+                        if (newParam.channels[ch].mask == true)
+                            parent.ResetChannelMask(EnmChip.PPZ8, chipID, ch);
+                        else
+                            parent.SetChannelMask(EnmChip.PPZ8, chipID, ch);
+                    }
+                }
+                return;
+            }
+
+            ch = (py / 8) - 1;
             if (ch < 0) return;
 
             if (ch < 8)
@@ -202,6 +221,7 @@ namespace MDPlayer.form
                 newParam.channels[ch].leadr = ppz8State[ch].loopEndOffset;
                 newParam.channels[ch].volumeRL = ppz8State[ch].volume;
                 newParam.channels[ch].volumeRR = ppz8State[ch].pan;
+                newParam.channels[ch].mask = ppz8State[ch].mask;
             }
         }
 
@@ -214,6 +234,8 @@ namespace MDPlayer.form
 
                 MDChipParams.Channel orc = oldParam.channels[c];
                 MDChipParams.Channel nrc = newParam.channels[c];
+
+                DrawBuff.ChPPZ8(frameBuffer, c, ref orc.mask, nrc.mask, tp);
 
                 DrawBuff.VolumeXY(frameBuffer, 64, c * 2 + 2, 1, ref orc.volumeL, nrc.volumeL, tp);
                 DrawBuff.VolumeXY(frameBuffer, 64, c * 2 + 3, 1, ref orc.volumeR, nrc.volumeR, tp);
