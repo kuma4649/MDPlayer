@@ -976,6 +976,8 @@ namespace MDPlayer
                 for (int c = 0; c < 4; c++)
                 {
                     setSN76489Register(chipID, 0x90 + (c << 5) + 0xf, EnmModel.RealModel);
+                    setSN76489Register(chipID, 0x80 + (c << 5) + 0x0, EnmModel.RealModel);
+                    setSN76489Register(chipID, 0x00 , EnmModel.RealModel);
                 }
 
                 for (int p = 0; p < 2; p++)
@@ -5254,6 +5256,17 @@ namespace MDPlayer
                 if (ctSN76489[chipID].UseReal[0])
                 {
                     if (scSN76489[chipID] == null) return;
+
+
+                    //暫定対応
+                    //実チップ使用時、Whiteノイズ、Ch3連動モード時にFreq0を入力すると何故かブツブツノイズになってしまうのでパッチ
+                    //SCCIのみかもしれないのでGIMICが対応時は再度確認する必要あり
+                    if (dData == 0xc0 && sn76489Register[chipID][6] == 0x07)
+                    {
+                        dData = 0xc1;
+                    }
+
+
                     scSN76489[chipID].SetRegister(0, dData);
                 }
             }

@@ -7066,6 +7066,11 @@ namespace MDPlayer
                     chipRegister.writeYM2608Clock(0, (int)((Vgm)DriverVirtual).YM2608ClockValue, EnmModel.RealModel);
                 if (UseChip.Contains(EnmChip.S_YM2608))
                     chipRegister.writeYM2608Clock(1, (int)((Vgm)DriverVirtual).YM2608ClockValue, EnmModel.RealModel);
+                //if (UseChip.Contains(EnmChip.SN76489))
+                //{
+                //    chipRegister.setSN76489Register(0, 0xc1, EnmModel.RealModel);
+                //    chipRegister.setSN76489Register(0, 0x00, EnmModel.RealModel);
+                //}
                 if (UseChip.Contains(EnmChip.YM3526))
                 {
                     //SCCI対策
