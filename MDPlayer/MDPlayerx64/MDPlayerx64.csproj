@@ -58,6 +58,9 @@
     <Reference Include="musicDriverInterface">
       <HintPath>lib\musicDriverInterface.dll</HintPath>
     </Reference>
+    <Reference Include="NiseC86ctl">
+      <HintPath>lib\NiseC86ctl.dll</HintPath>
+    </Reference>
     <Reference Include="RealChipCtlWrap64">
       <HintPath>lib\RealChipCtlWrap64.dll</HintPath>
     </Reference>
@@ -139,6 +142,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="lib\musicDriverInterface.pdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\Nefarius.Drivers.WinUSB.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\NiseC86ctl.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="lib\RealChipCtlWrap64.dll">
