@@ -566,6 +566,40 @@ namespace MDPlayer
                     int o;
                     switch (realChipType2)
                     {
+                        case EnmRealChipType.YM2612:
+                            if (cct == "GMC-S2612" || cct == "GMC-S3438" || cct == "GMC-S276")
+                            {
+                                ct = new Setting.ChipType2
+                                {
+                                    realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() }
+                                };
+                                ct.realChipInfo[0].SoundLocation = -2;
+                                ct.realChipInfo[0].BusID = i;
+                                string seri = di.Serial;
+                                if (!int.TryParse(seri, out o)) o = -1;
+                                ct.realChipInfo[0].SoundChip = o;
+                                ct.realChipInfo[0].ChipName = gm.chip.ID;
+                                ct.realChipInfo[0].InterfaceName = gm.MBInfo.Devname;
+                                ct.realChipInfo[0].ChipType = RNiseC86ctlSoundChip.getChipType(gm.chip.ID);
+                            }
+                            break;
+                        case EnmRealChipType.SN76489:
+                            if (cct == "GMC-S5377")
+                            {
+                                ct = new Setting.ChipType2
+                                {
+                                    realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() }
+                                };
+                                ct.realChipInfo[0].SoundLocation = -2;
+                                ct.realChipInfo[0].BusID = i;
+                                string seri = di.Serial;
+                                if (!int.TryParse(seri, out o)) o = -1;
+                                ct.realChipInfo[0].SoundChip = o;
+                                ct.realChipInfo[0].ChipName = gm.chip.ID;
+                                ct.realChipInfo[0].InterfaceName = gm.MBInfo.Devname;
+                                ct.realChipInfo[0].ChipType = RNiseC86ctlSoundChip.getChipType(gm.chip.ID);
+                            }
+                            break;
                         case EnmRealChipType.YM2203:
                         case EnmRealChipType.YM2608:
                             if (cct == "GMC-OPNA" || cct == "GMC-OPN3L" || cct == "GMC-OPN")
@@ -1031,6 +1065,14 @@ namespace MDPlayer
                     return 2; //OPM
                 case "GMC-OPL3":
                     return 4;
+                case "GMC-S2612":
+                    return 9;
+                case "GMC-S3438"://OPN2C
+                    return 33;//OPN2C
+                case "GMC-S276"://OPN2L
+                    return 33;//OPN2C
+                case "GMC-S5377"://SPSG
+                    return 6;//DCSG
             }
             return -1;
         }

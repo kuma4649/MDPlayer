@@ -1,4 +1,7 @@
 更新履歴 
+STBL352 2024/01/25 2nd
+  コア:NiseC86ctl:OPN2/C/L,SPSG暫定対応。但しPCMは出せません。
+
 STBL351 2024/01/25
   コア:NiseC86ctl対応。C86ctl.dll(本物)が読み込めない時に動作します。
 
