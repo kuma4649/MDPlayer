@@ -36,7 +36,10 @@ namespace MDPlayer.form
         public void screenInit()
         {
             bool YM2612Type = (chipID == 0) ? parent.setting.YM2612Type[0].UseReal[0] : parent.setting.YM2612Type[1].UseReal[0];
-            int tp = YM2612Type ? 1 : 0;
+            int YM2612SoundLocation = (chipID == 0)
+                ? parent.setting.YM2612Type[0].realChipInfo[0].SoundLocation
+                : parent.setting.YM2612Type[1].realChipInfo[0].SoundLocation;
+            int tp = !YM2612Type ? 0 : (YM2612SoundLocation < 0 ? 2 : 1);
             DrawBuff.screenInitYM2612(frameBuffer, tp, (chipID == 0)
                 ? parent.setting.YM2612Type[0].realChipInfo[0].OnlyPCMEmulation
                 : parent.setting.YM2612Type[1].realChipInfo[0].OnlyPCMEmulation
@@ -308,10 +311,11 @@ namespace MDPlayer.form
                 MDChipParams.Channel oyc = oldParam.channels[c];
                 MDChipParams.Channel nyc = newParam.channels[c];
 
-                bool YM2612type = (chipID == 0)
-                    ? parent.setting.YM2612Type[0].UseReal[0]
-                    : parent.setting.YM2612Type[1].UseReal[0];
-                int tp = YM2612type ? 1 : 0;
+                bool YM2612Type = (chipID == 0) ? parent.setting.YM2612Type[0].UseReal[0] : parent.setting.YM2612Type[1].UseReal[0];
+                int YM2612SoundLocation = (chipID == 0)
+                    ? parent.setting.YM2612Type[0].realChipInfo[0].SoundLocation
+                    : parent.setting.YM2612Type[1].realChipInfo[0].SoundLocation;
+                int tp = !YM2612Type ? 0 : (YM2612SoundLocation < 0 ? 2 : 1);
 
                 if (c == 2)
                 {

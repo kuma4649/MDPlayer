@@ -31,7 +31,10 @@ namespace MDPlayer.form
             this.oldParam = oldParam;
             frameBuffer.Add(pbScreen, ResMng.ImgDic["planeSN76489"], null, zoom);
             bool SN76489Type = (chipID == 0) ? parent.setting.SN76489Type[0].UseReal[0] : parent.setting.SN76489Type[1].UseReal[0];
-            int tp = SN76489Type ? 1 : 0;
+            int SN76489SoundLocation = (chipID == 0)
+                ? parent.setting.SN76489Type[0].realChipInfo[0].SoundLocation
+                : parent.setting.SN76489Type[1].realChipInfo[0].SoundLocation;
+            int tp = !SN76489Type ? 0 : (SN76489SoundLocation < 0 ? 2 : 1);
             DrawBuff.screenInitSN76489(frameBuffer, tp);
             update();
         }
@@ -197,7 +200,10 @@ namespace MDPlayer.form
             }
 
             bool SN76489Type = (chipID == 0) ? parent.setting.SN76489Type[0].UseReal[0] : parent.setting.SN76489Type[1].UseReal[0];
-            int tp = SN76489Type ? 1 : 0;
+            int SN76489SoundLocation = (chipID == 0)
+                ? parent.setting.SN76489Type[0].realChipInfo[0].SoundLocation
+                : parent.setting.SN76489Type[1].realChipInfo[0].SoundLocation;
+            int tp = !SN76489Type ? 0 : (SN76489SoundLocation < 0 ? 2 : 1);
             MDChipParams.Channel osc;
             MDChipParams.Channel nsc;
 

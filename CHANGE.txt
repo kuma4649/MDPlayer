@@ -1,4 +1,8 @@
 更新履歴 
+STBL353 2024/01/25 3rd
+  コア:NiseC86ctl:鍵盤:OPN2/C/L,SPSG対応。
+  コア:DCSG(SPSG):STBL350で対応した件はSCCIのみの現象であって、GIMICでは無用なのでスキップするよう調整
+
 STBL352 2024/01/25 2nd
   コア:NiseC86ctl:OPN2/C/L,SPSG暫定対応。但しPCMは出せません。
 

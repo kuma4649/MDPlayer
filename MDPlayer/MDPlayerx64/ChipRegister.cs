@@ -5261,7 +5261,7 @@ namespace MDPlayer
                     //暫定対応
                     //実チップ使用時、Whiteノイズ、Ch3連動モード時にFreq0を入力すると何故かブツブツノイズになってしまうのでパッチ
                     //SCCIのみかもしれないのでGIMICが対応時は再度確認する必要あり
-                    if (dData == 0xc0 && sn76489Register[chipID][6] == 0x07)
+                    if (ctSN76489[chipID].realChipInfo[0].SoundLocation > -1 && dData == 0xc0 && sn76489Register[chipID][6] == 0x07)
                     {
                         dData = 0xc1;
                     }
