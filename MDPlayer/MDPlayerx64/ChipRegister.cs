@@ -5207,11 +5207,13 @@ namespace MDPlayer
             if (chipID == 0) chipLED.PriDCSG = 2;
             else chipLED.SecDCSG = 2;
 
+            sn76489RegisterGGPan[chipID] = dData;
             if (model == EnmModel.RealModel)
             {
                 if (ctSN76489[chipID].UseReal[0])
                 {
                     if (scSN76489[chipID] == null) return;
+                    scSN76489[chipID].SetRegister(1, dData);
                 }
             }
             else
@@ -5222,7 +5224,6 @@ namespace MDPlayer
                         mds.WriteSN76489GGPanning((byte)chipID, (byte)dData);
                     else if (ctSN76489[chipID].UseEmu[1])
                         mds.WriteSN76496GGPanning((byte)chipID, (byte)dData);
-                    sn76489RegisterGGPan[chipID] = dData;
                 }
             }
         }
@@ -5334,6 +5335,26 @@ namespace MDPlayer
                     NoiseFreq[chipID] = 0x10 << (sn76489Register[chipID][6] & 0x3); /* set noise signal generator frequency */
                     break;
             }
+        }
+
+        public void softResetSN76489(int chipID, EnmModel model)
+        {
+            // volume 0
+            setSN76489Register(chipID, 0b1_001_1111, model);// latch : reg 1(Ch1vol) : val $f
+            setSN76489Register(chipID, 0b1_011_1111, model);// latch : reg 3(Ch2vol) : val $f
+            setSN76489Register(chipID, 0b1_101_1111, model);// latch : reg 5(Ch3vol) : val $f
+            setSN76489Register(chipID, 0b1_111_1111, model);// latch : reg 7(Ch3vol) : val $f
+            // freq 0
+            setSN76489Register(chipID, 0b1_000_0000, model);// latch : reg 0(Ch1freq(low)) : val 0
+            setSN76489Register(chipID, 0b00_00_0000, model);//       : reg 0(Ch1freq(hi )) : val 0
+            setSN76489Register(chipID, 0b1_010_0000, model);// latch : reg 2(Ch2freq(low)) : val 0
+            setSN76489Register(chipID, 0b00_00_0000, model);//       : reg 2(Ch2freq(hi )) : val 0
+            setSN76489Register(chipID, 0b1_100_0000, model);// latch : reg 4(Ch3freq(low)) : val 0
+            setSN76489Register(chipID, 0b00_00_0000, model);//       : reg 4(Ch3freq(hi )) : val 0
+            setSN76489Register(chipID, 0b1_110_0000, model);// latch : reg 6(Ch4noise    ) : val 0
+            setSN76489Register(chipID, 0b00_00_0000, model);//       : reg 6(Ch4noise    ) : val 0
+            //panning
+            setSN76489RegisterGGpanning(chipID, 0xff, model);
         }
 
 

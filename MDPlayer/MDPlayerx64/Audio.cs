@@ -7970,32 +7970,23 @@ namespace MDPlayer
 
         private static void SoftReset(EnmModel model)
         {
-            chipRegister.softResetYM2203(0, model);
-            chipRegister.softResetYM2203(1, model);
-            chipRegister.softResetAY8910(0, model);
-            chipRegister.softResetAY8910(1, model);
-            chipRegister.softResetYM2413(0, model);
-            chipRegister.softResetYM2413(1, model);
-            chipRegister.softResetYM2608(0, model);
-            chipRegister.softResetYM2608(1, model);
-            chipRegister.softResetYM2612(0, model);
-            chipRegister.softResetYM2612(1, model);
-            chipRegister.softResetYM2151(0, model);
-            chipRegister.softResetYM2151(1, model);
-            chipRegister.softResetYM3526(0, model);
-            chipRegister.softResetYM3526(1, model);
-            chipRegister.softResetYM3812(0, model);
-            chipRegister.softResetYM3812(1, model);
-            chipRegister.softResetYMF262(0, model);
-            chipRegister.softResetYMF262(1, model);
-            chipRegister.softResetK051649(0, model);
-            chipRegister.softResetK051649(1, model);
-            chipRegister.softResetC140(0, model);
-            chipRegister.softResetC140(1, model);
-            chipRegister.softResetSEGAPCM(0, model);
-            chipRegister.softResetSEGAPCM(1, model);
-            chipRegister.softResetMIDI(0, model);
-            chipRegister.softResetMIDI(1, model);
+            for (int i = 0; i < 2; i++)
+            {
+                chipRegister.softResetYM2203(i, model);
+                chipRegister.softResetAY8910(i, model);
+                chipRegister.softResetYM2413(i, model);
+                chipRegister.softResetYM2608(i, model);
+                chipRegister.softResetYM2612(i, model);
+                chipRegister.softResetYM2151(i, model);
+                chipRegister.softResetYM3526(i, model);
+                chipRegister.softResetYM3812(i, model);
+                chipRegister.softResetYMF262(i, model);
+                chipRegister.softResetK051649(i, model);
+                chipRegister.softResetC140(i, model);
+                chipRegister.softResetSEGAPCM(i, model);
+                chipRegister.softResetSN76489(i, model);
+                chipRegister.softResetMIDI(i, model);
+            }
 
             if (model == EnmModel.RealModel && realChip != null)
             {

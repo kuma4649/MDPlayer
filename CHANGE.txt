@@ -1,4 +1,8 @@
 更新履歴 
+STBL354 2024/01/28
+  コア:DCSG(SPSG):GIMIC:停止ボタン押しても音が止まらなかったのを修正。
+  コア:DCSG(SPSG):GIMIC:GGのパン情報を出力するように修正。
+
 STBL353 2024/01/25 3rd
   コア:NiseC86ctl:鍵盤:OPN2/C/L,SPSG対応。
   コア:DCSG(SPSG):STBL350で対応した件はSCCIのみの現象であって、GIMICでは無用なのでスキップするよう調整
