@@ -434,6 +434,8 @@ namespace MDPlayer
                         if (di.Devname == "GMC-S2149") cct = ChipType.CHIP_YM2149;
                         else if (di.Devname == "GMC-S8910") cct = ChipType.CHIP_AY38910;
                         else if (di.Devname == "GMC-S2413") cct = ChipType.CHIP_YM2413;
+                        else if (di.Devname == "GMC-S3438") cct = ChipType.CHIP_YM3438;
+                        else if (di.Devname == "GMC-S5377") cct = ChipType.CHIP_SN76489;
                     }
                     Setting.ChipType2 ct = null;
                     int o;
@@ -512,6 +514,23 @@ namespace MDPlayer
                                 ct.realChipInfo[0].ChipType = (int)cct;
                             }
                             break;
+                        case EnmRealChipType.YM2612:
+                            if (cct == ChipType.CHIP_YM3438 || cct == ChipType.CHIP_YM2612)
+                            {
+                                ct = new Setting.ChipType2
+                                {
+                                    realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() }
+                                };
+                                ct.realChipInfo[0].SoundLocation = -1;
+                                ct.realChipInfo[0].BusID = i;
+                                string seri = gm.getModuleInfo().Serial;
+                                if (!int.TryParse(seri, out o)) o = -1;
+                                ct.realChipInfo[0].SoundChip = o;
+                                ct.realChipInfo[0].ChipName = di.Devname;
+                                ct.realChipInfo[0].InterfaceName = gm.getMBInfo().Devname;
+                                ct.realChipInfo[0].ChipType = (int)cct;
+                            }
+                            break;
                         case EnmRealChipType.YM2151:
                             if (cct == ChipType.CHIP_YM2151)
                             {
@@ -533,6 +552,23 @@ namespace MDPlayer
                         case EnmRealChipType.YM3812:
                         case EnmRealChipType.YMF262:
                             if (cct == ChipType.CHIP_OPL3)
+                            {
+                                ct = new Setting.ChipType2
+                                {
+                                    realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() }
+                                };
+                                ct.realChipInfo[0].SoundLocation = -1;
+                                ct.realChipInfo[0].BusID = i;
+                                string seri = gm.getModuleInfo().Serial;
+                                if (!int.TryParse(seri, out o)) o = -1;
+                                ct.realChipInfo[0].SoundChip = o;
+                                ct.realChipInfo[0].ChipName = di.Devname;
+                                ct.realChipInfo[0].InterfaceName = gm.getMBInfo().Devname;
+                                ct.realChipInfo[0].ChipType = (int)cct;
+                            }
+                            break;
+                        case EnmRealChipType.SN76489:
+                            if (cct == ChipType.CHIP_SN76489)
                             {
                                 ct = new Setting.ChipType2
                                 {

@@ -1,4 +1,7 @@
 更新履歴 
+STBL355 2024/02/04
+　LisenseをGPLへ変更
+
 STBL354 2024/01/28
   コア:DCSG(SPSG):GIMIC:停止ボタン押しても音が止まらなかったのを修正。
   コア:DCSG(SPSG):GIMIC:GGのパン情報を出力するように修正。

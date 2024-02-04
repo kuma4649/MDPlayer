@@ -4806,7 +4806,9 @@ namespace MDPlayer
         public void setMaskX68Sound(int chipID,int ch, bool mask)
         {
             maskX68Sound[chipID][ch] = mask;
+            
             if (mask) mds.setX68SoundPCMMask(0, chipID, ch+8);
+            
             else mds.resetX68SoundPCMMask(0, chipID, ch+8);
         }
 
@@ -4915,7 +4917,9 @@ namespace MDPlayer
             maskChK053260[chipID][ch] = mask;
             if (dicChipsInfo.ContainsKey(MDSound.MDSound.enmInstrumentType.K053260))
             {
+                
                 if (mask) mds.setK053260Mask(chipID, ch);
+                
                 else mds.resetK053260Mask(chipID, ch);
             }
         }

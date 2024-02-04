@@ -269,7 +269,7 @@ namespace MDPlayer
         {
             chipRegister.nes_bank = new nes_bank();
             chipRegister.nes_mem = new nes_mem();
-            chipRegister.nes_cpu = new km6502();
+            chipRegister.nes_cpu = new km6502(true);
             chipRegister.nes_apu = new nes_apu();
             chipRegister.nes_dmc = new nes_dmc();
             chipRegister.nes_fds = new nes_fds();
@@ -283,6 +283,7 @@ namespace MDPlayer
             chipRegister.nes_apu.Reset();
             chipRegister.nes_dmc.chip = chipRegister.nes_dmc.dmc.NES_DMC_np_Create(Common.NsfClock, setting.outputDevice.SampleRate);
             chipRegister.nes_dmc.Reset(chipRegister.nes_cpu);
+            chipRegister.nes_dmc.Reset();
             chipRegister.nes_fds.chip = chipRegister.nes_fds.fds.NES_FDS_Create(Common.NsfClock, setting.outputDevice.SampleRate);
             chipRegister.nes_fds.Reset();
             chipRegister.nes_n106.SetClock(Common.NsfClock);
@@ -442,7 +443,7 @@ namespace MDPlayer
             layer.Reset();
             chipRegister.nes_cpu.Reset();
 
-            chipRegister.nes_cpu.Start(init_address, play_address, speed, song, (region == enmREGION.PAL) ? 1 : 0);
+            chipRegister.nes_cpu.Start(init_address, play_address, true, speed, song, (region == enmREGION.PAL) ? 1 : 0);
         }
 
         private enmREGION GetRegion(byte flags)
