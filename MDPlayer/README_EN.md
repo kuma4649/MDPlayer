@@ -592,11 +592,11 @@ Player for VGM files, etc. (Performance tool with emulation of Mega Drive sound 
   
   
 [Copyright and Disclaimer]  
-  MDPlayer is licensed under the MIT License, see LICENSE.txt.  
+  MDPlayer is licensed under the GPLv3 License, see LICENSE.txt.  
   The copyright is owned by the author.  
   This software is provided "as is" without warranty of any kind, and the author assumes no responsibility for any damages resulting from the use of this software.  
   The author assumes no responsibility for any damages resulting from the use of this software.  
-  The MIT License requires a copyright notice and this permission notice, which is not required for this software.  
+  In addition, the copyright notice and this permission notice are not required for this software.  
   The source code of the following software is ported and modified for C# or used as is.  
   These sources and software are copyrighted by their respective authors. Please refer to each document for the license.  
   
