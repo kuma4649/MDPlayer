@@ -46,8 +46,10 @@ namespace MDPlayerx64.Driver
 
         private int fmWaitCnt = 0;
         private bool endFm = false;
+        private uint fmLoopCnt = 0;
         private int psgWaitCnt = 0;
         private bool endPsg = false;
+        private uint psgLoopCnt = 0;
 
         private byte[] vd = new byte[30];
         private byte[][][] fmTL = new byte[2][][] {
@@ -138,8 +140,10 @@ namespace MDPlayerx64.Driver
 
             fmWaitCnt = 0;
             endFm = false;
+            fmLoopCnt = 0;
             psgWaitCnt = 0;
             endPsg = false;
+            psgLoopCnt = 0;
             pendingFrame = 0;
 
             return true;
@@ -271,7 +275,7 @@ namespace MDPlayerx64.Driver
         {
             try
             {
-                if (model == EnmModel.RealModel) return;
+                //if (model == EnmModel.RealModel) return;
 
                 Counter++;
                 vgmFrameCounter++;
@@ -357,6 +361,8 @@ namespace MDPlayerx64.Driver
             if (!endFm) oneFrameFM();
             if (!endPsg) oneFramePsg();
             if (endFm && endPsg) Stopped = true;
+            vgmCurLoop = Math.Min(fmLoopCnt, psgLoopCnt);
+
         }
 
         private void oneFrameFM()
@@ -488,6 +494,7 @@ namespace MDPlayerx64.Driver
                                 uint loopAdr = Common.getLE24(vgmBuf, fmmusicPtr);
                                 if (loopAdr == 0xffffff) endFm = true;
                                 fmmusicPtr = fmDataBlockAddr + loopAdr;
+                                fmLoopCnt++;
                                 break;
                             default:
                                 throw new NotImplementedException();
@@ -620,6 +627,7 @@ namespace MDPlayerx64.Driver
                             uint loopAdr = Common.getLE24(vgmBuf, psgmusicPtr);
                             if (loopAdr == 0xffffff) endPsg = true;
                             psgmusicPtr = psgDataBlockAddr + loopAdr;
+                            psgLoopCnt++;
                             break;
                         }
                         return;
