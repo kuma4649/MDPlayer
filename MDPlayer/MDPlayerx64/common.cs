@@ -844,7 +844,8 @@ namespace MDPlayer
         XGZ = 26,
         MuSICA = 27,
         MuSICA_src = 28,
-        FMP = 29
+        FMP = 29,
+        XGM2 = 30
     }
 
     public enum EnmArcType : int

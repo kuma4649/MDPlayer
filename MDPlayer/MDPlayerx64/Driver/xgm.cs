@@ -11,6 +11,7 @@
         }
 
         public const int FCC_XGM = 0x204d4758;	// "XGM "
+        public const int FCC_XGM2 = 0x324d4758;	// "XGM2"
         public const int FCC_GD3 = 0x20336447;  // "Gd3 "
 
         private class XGMSampleID

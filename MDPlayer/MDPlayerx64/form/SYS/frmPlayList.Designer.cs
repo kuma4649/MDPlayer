@@ -45,6 +45,27 @@ namespace MDPlayer.form
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             toolStripContainer1 = new ToolStripContainer();
             dgvList = new DataGridView();
+            clmKey = new DataGridViewTextBoxColumn();
+            clmSongNo = new DataGridViewTextBoxColumn();
+            clmZipFileName = new DataGridViewTextBoxColumn();
+            clmFileName = new DataGridViewTextBoxColumn();
+            clmPlayingNow = new DataGridViewTextBoxColumn();
+            clmEXT = new DataGridViewTextBoxColumn();
+            clmType = new DataGridViewTextBoxColumn();
+            clmTitle = new DataGridViewTextBoxColumn();
+            clmTitleJ = new DataGridViewTextBoxColumn();
+            clmDispFileName = new DataGridViewTextBoxColumn();
+            clmGame = new DataGridViewTextBoxColumn();
+            clmGameJ = new DataGridViewTextBoxColumn();
+            clmComposer = new DataGridViewTextBoxColumn();
+            clmComposerJ = new DataGridViewTextBoxColumn();
+            clmVGMby = new DataGridViewTextBoxColumn();
+            clmConverted = new DataGridViewTextBoxColumn();
+            clmNotes = new DataGridViewTextBoxColumn();
+            clmDuration = new DataGridViewTextBoxColumn();
+            ClmVersion = new DataGridViewTextBoxColumn();
+            ClmUseChips = new DataGridViewTextBoxColumn();
+            clmSpacer = new DataGridViewTextBoxColumn();
             toolStrip1 = new ToolStrip();
             tsbOpenPlayList = new ToolStripButton();
             tsbSavePlayList = new ToolStripButton();
@@ -79,27 +100,6 @@ namespace MDPlayer.form
             tsmiDelAllMusic = new ToolStripMenuItem();
             tsmiOpenFolder = new ToolStripMenuItem();
             timer1 = new System.Windows.Forms.Timer(components);
-            clmKey = new DataGridViewTextBoxColumn();
-            clmSongNo = new DataGridViewTextBoxColumn();
-            clmZipFileName = new DataGridViewTextBoxColumn();
-            clmFileName = new DataGridViewTextBoxColumn();
-            clmPlayingNow = new DataGridViewTextBoxColumn();
-            clmEXT = new DataGridViewTextBoxColumn();
-            clmType = new DataGridViewTextBoxColumn();
-            clmTitle = new DataGridViewTextBoxColumn();
-            clmTitleJ = new DataGridViewTextBoxColumn();
-            clmDispFileName = new DataGridViewTextBoxColumn();
-            clmGame = new DataGridViewTextBoxColumn();
-            clmGameJ = new DataGridViewTextBoxColumn();
-            clmComposer = new DataGridViewTextBoxColumn();
-            clmComposerJ = new DataGridViewTextBoxColumn();
-            clmVGMby = new DataGridViewTextBoxColumn();
-            clmConverted = new DataGridViewTextBoxColumn();
-            clmNotes = new DataGridViewTextBoxColumn();
-            clmDuration = new DataGridViewTextBoxColumn();
-            ClmVersion = new DataGridViewTextBoxColumn();
-            ClmUseChips = new DataGridViewTextBoxColumn();
-            clmSpacer = new DataGridViewTextBoxColumn();
             toolStripContainer1.ContentPanel.SuspendLayout();
             toolStripContainer1.TopToolStripPanel.SuspendLayout();
             toolStripContainer1.SuspendLayout();
@@ -133,7 +133,7 @@ namespace MDPlayer.form
             dgvList.CellBorderStyle = DataGridViewCellBorderStyle.None;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = Color.Black;
-            dataGridViewCellStyle1.Font = new Font("メイリオ", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.Font = new Font("メイリオ", 8.25F);
             dataGridViewCellStyle1.ForeColor = SystemColors.MenuHighlight;
             dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
@@ -147,7 +147,7 @@ namespace MDPlayer.form
             dgvList.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = Color.Black;
-            dataGridViewCellStyle3.Font = new Font("メイリオ", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle3.Font = new Font("メイリオ", 8.25F, FontStyle.Bold);
             dataGridViewCellStyle3.ForeColor = SystemColors.Window;
             dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
@@ -155,7 +155,7 @@ namespace MDPlayer.form
             dgvList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dgvList.RowHeadersVisible = false;
             dataGridViewCellStyle4.BackColor = Color.Black;
-            dataGridViewCellStyle4.Font = new Font("メイリオ", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle4.Font = new Font("メイリオ", 8.25F, FontStyle.Bold);
             dataGridViewCellStyle4.ForeColor = Color.FromArgb(192, 192, 255);
             dgvList.RowsDefaultCellStyle = dataGridViewCellStyle4;
             dgvList.RowTemplate.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -170,6 +170,138 @@ namespace MDPlayer.form
             dgvList.DragDrop += dgvList_DragDrop;
             dgvList.DragEnter += dgvList_DragEnter;
             dgvList.DragOver += dgvList_DragOver;
+            // 
+            // clmKey
+            // 
+            resources.ApplyResources(clmKey, "clmKey");
+            clmKey.Name = "clmKey";
+            clmKey.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // clmSongNo
+            // 
+            resources.ApplyResources(clmSongNo, "clmSongNo");
+            clmSongNo.Name = "clmSongNo";
+            // 
+            // clmZipFileName
+            // 
+            resources.ApplyResources(clmZipFileName, "clmZipFileName");
+            clmZipFileName.Name = "clmZipFileName";
+            // 
+            // clmFileName
+            // 
+            resources.ApplyResources(clmFileName, "clmFileName");
+            clmFileName.Name = "clmFileName";
+            clmFileName.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // clmPlayingNow
+            // 
+            clmPlayingNow.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            resources.ApplyResources(clmPlayingNow, "clmPlayingNow");
+            clmPlayingNow.Name = "clmPlayingNow";
+            clmPlayingNow.ReadOnly = true;
+            clmPlayingNow.Resizable = DataGridViewTriState.False;
+            clmPlayingNow.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // clmEXT
+            // 
+            resources.ApplyResources(clmEXT, "clmEXT");
+            clmEXT.Name = "clmEXT";
+            clmEXT.ReadOnly = true;
+            // 
+            // clmType
+            // 
+            resources.ApplyResources(clmType, "clmType");
+            clmType.Name = "clmType";
+            clmType.ReadOnly = true;
+            // 
+            // clmTitle
+            // 
+            resources.ApplyResources(clmTitle, "clmTitle");
+            clmTitle.Name = "clmTitle";
+            clmTitle.ReadOnly = true;
+            // 
+            // clmTitleJ
+            // 
+            resources.ApplyResources(clmTitleJ, "clmTitleJ");
+            clmTitleJ.Name = "clmTitleJ";
+            clmTitleJ.ReadOnly = true;
+            // 
+            // clmDispFileName
+            // 
+            resources.ApplyResources(clmDispFileName, "clmDispFileName");
+            clmDispFileName.Name = "clmDispFileName";
+            clmDispFileName.ReadOnly = true;
+            // 
+            // clmGame
+            // 
+            resources.ApplyResources(clmGame, "clmGame");
+            clmGame.Name = "clmGame";
+            clmGame.ReadOnly = true;
+            // 
+            // clmGameJ
+            // 
+            resources.ApplyResources(clmGameJ, "clmGameJ");
+            clmGameJ.Name = "clmGameJ";
+            clmGameJ.ReadOnly = true;
+            // 
+            // clmComposer
+            // 
+            resources.ApplyResources(clmComposer, "clmComposer");
+            clmComposer.Name = "clmComposer";
+            clmComposer.ReadOnly = true;
+            // 
+            // clmComposerJ
+            // 
+            resources.ApplyResources(clmComposerJ, "clmComposerJ");
+            clmComposerJ.Name = "clmComposerJ";
+            clmComposerJ.ReadOnly = true;
+            // 
+            // clmVGMby
+            // 
+            resources.ApplyResources(clmVGMby, "clmVGMby");
+            clmVGMby.Name = "clmVGMby";
+            clmVGMby.ReadOnly = true;
+            // 
+            // clmConverted
+            // 
+            resources.ApplyResources(clmConverted, "clmConverted");
+            clmConverted.Name = "clmConverted";
+            clmConverted.ReadOnly = true;
+            // 
+            // clmNotes
+            // 
+            resources.ApplyResources(clmNotes, "clmNotes");
+            clmNotes.Name = "clmNotes";
+            clmNotes.ReadOnly = true;
+            // 
+            // clmDuration
+            // 
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleRight;
+            clmDuration.DefaultCellStyle = dataGridViewCellStyle2;
+            resources.ApplyResources(clmDuration, "clmDuration");
+            clmDuration.Name = "clmDuration";
+            clmDuration.ReadOnly = true;
+            // 
+            // ClmVersion
+            // 
+            resources.ApplyResources(ClmVersion, "ClmVersion");
+            ClmVersion.Name = "ClmVersion";
+            ClmVersion.ReadOnly = true;
+            ClmVersion.SortMode = DataGridViewColumnSortMode.Programmatic;
+            // 
+            // ClmUseChips
+            // 
+            resources.ApplyResources(ClmUseChips, "ClmUseChips");
+            ClmUseChips.Name = "ClmUseChips";
+            ClmUseChips.ReadOnly = true;
+            // 
+            // clmSpacer
+            // 
+            clmSpacer.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            resources.ApplyResources(clmSpacer, "clmSpacer");
+            clmSpacer.Name = "clmSpacer";
+            clmSpacer.ReadOnly = true;
+            clmSpacer.SortMode = DataGridViewColumnSortMode.NotSortable;
             // 
             // toolStrip1
             // 
@@ -390,138 +522,6 @@ namespace MDPlayer.form
             // 
             timer1.Enabled = true;
             timer1.Tick += timer1_Tick;
-            // 
-            // clmKey
-            // 
-            resources.ApplyResources(clmKey, "clmKey");
-            clmKey.Name = "clmKey";
-            clmKey.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // 
-            // clmSongNo
-            // 
-            resources.ApplyResources(clmSongNo, "clmSongNo");
-            clmSongNo.Name = "clmSongNo";
-            // 
-            // clmZipFileName
-            // 
-            resources.ApplyResources(clmZipFileName, "clmZipFileName");
-            clmZipFileName.Name = "clmZipFileName";
-            // 
-            // clmFileName
-            // 
-            resources.ApplyResources(clmFileName, "clmFileName");
-            clmFileName.Name = "clmFileName";
-            clmFileName.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // 
-            // clmPlayingNow
-            // 
-            clmPlayingNow.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            resources.ApplyResources(clmPlayingNow, "clmPlayingNow");
-            clmPlayingNow.Name = "clmPlayingNow";
-            clmPlayingNow.ReadOnly = true;
-            clmPlayingNow.Resizable = DataGridViewTriState.False;
-            clmPlayingNow.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // 
-            // clmEXT
-            // 
-            resources.ApplyResources(clmEXT, "clmEXT");
-            clmEXT.Name = "clmEXT";
-            clmEXT.ReadOnly = true;
-            // 
-            // clmType
-            // 
-            resources.ApplyResources(clmType, "clmType");
-            clmType.Name = "clmType";
-            clmType.ReadOnly = true;
-            // 
-            // clmTitle
-            // 
-            resources.ApplyResources(clmTitle, "clmTitle");
-            clmTitle.Name = "clmTitle";
-            clmTitle.ReadOnly = true;
-            // 
-            // clmTitleJ
-            // 
-            resources.ApplyResources(clmTitleJ, "clmTitleJ");
-            clmTitleJ.Name = "clmTitleJ";
-            clmTitleJ.ReadOnly = true;
-            // 
-            // clmDispFileName
-            // 
-            resources.ApplyResources(clmDispFileName, "clmDispFileName");
-            clmDispFileName.Name = "clmDispFileName";
-            clmDispFileName.ReadOnly = true;
-            // 
-            // clmGame
-            // 
-            resources.ApplyResources(clmGame, "clmGame");
-            clmGame.Name = "clmGame";
-            clmGame.ReadOnly = true;
-            // 
-            // clmGameJ
-            // 
-            resources.ApplyResources(clmGameJ, "clmGameJ");
-            clmGameJ.Name = "clmGameJ";
-            clmGameJ.ReadOnly = true;
-            // 
-            // clmComposer
-            // 
-            resources.ApplyResources(clmComposer, "clmComposer");
-            clmComposer.Name = "clmComposer";
-            clmComposer.ReadOnly = true;
-            // 
-            // clmComposerJ
-            // 
-            resources.ApplyResources(clmComposerJ, "clmComposerJ");
-            clmComposerJ.Name = "clmComposerJ";
-            clmComposerJ.ReadOnly = true;
-            // 
-            // clmVGMby
-            // 
-            resources.ApplyResources(clmVGMby, "clmVGMby");
-            clmVGMby.Name = "clmVGMby";
-            clmVGMby.ReadOnly = true;
-            // 
-            // clmConverted
-            // 
-            resources.ApplyResources(clmConverted, "clmConverted");
-            clmConverted.Name = "clmConverted";
-            clmConverted.ReadOnly = true;
-            // 
-            // clmNotes
-            // 
-            resources.ApplyResources(clmNotes, "clmNotes");
-            clmNotes.Name = "clmNotes";
-            clmNotes.ReadOnly = true;
-            // 
-            // clmDuration
-            // 
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleRight;
-            clmDuration.DefaultCellStyle = dataGridViewCellStyle2;
-            resources.ApplyResources(clmDuration, "clmDuration");
-            clmDuration.Name = "clmDuration";
-            clmDuration.ReadOnly = true;
-            // 
-            // ClmVersion
-            // 
-            resources.ApplyResources(ClmVersion, "ClmVersion");
-            ClmVersion.Name = "ClmVersion";
-            ClmVersion.ReadOnly = true;
-            ClmVersion.SortMode = DataGridViewColumnSortMode.Programmatic;
-            // 
-            // ClmUseChips
-            // 
-            resources.ApplyResources(ClmUseChips, "ClmUseChips");
-            ClmUseChips.Name = "ClmUseChips";
-            ClmUseChips.ReadOnly = true;
-            // 
-            // clmSpacer
-            // 
-            clmSpacer.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            resources.ApplyResources(clmSpacer, "clmSpacer");
-            clmSpacer.Name = "clmSpacer";
-            clmSpacer.ReadOnly = true;
-            clmSpacer.SortMode = DataGridViewColumnSortMode.NotSortable;
             // 
             // frmPlayList
             // 

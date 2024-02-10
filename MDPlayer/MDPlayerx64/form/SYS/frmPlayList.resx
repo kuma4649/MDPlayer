@@ -1231,6 +1231,132 @@
   <data name="$this.Text" xml:space="preserve">
     <value>play list</value>
   </data>
+  <data name="&gt;&gt;clmKey.Name" xml:space="preserve">
+    <value>clmKey</value>
+  </data>
+  <data name="&gt;&gt;clmKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clmSongNo.Name" xml:space="preserve">
+    <value>clmSongNo</value>
+  </data>
+  <data name="&gt;&gt;clmSongNo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clmZipFileName.Name" xml:space="preserve">
+    <value>clmZipFileName</value>
+  </data>
+  <data name="&gt;&gt;clmZipFileName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clmFileName.Name" xml:space="preserve">
+    <value>clmFileName</value>
+  </data>
+  <data name="&gt;&gt;clmFileName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clmPlayingNow.Name" xml:space="preserve">
+    <value>clmPlayingNow</value>
+  </data>
+  <data name="&gt;&gt;clmPlayingNow.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clmEXT.Name" xml:space="preserve">
+    <value>clmEXT</value>
+  </data>
+  <data name="&gt;&gt;clmEXT.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clmType.Name" xml:space="preserve">
+    <value>clmType</value>
+  </data>
+  <data name="&gt;&gt;clmType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clmTitle.Name" xml:space="preserve">
+    <value>clmTitle</value>
+  </data>
+  <data name="&gt;&gt;clmTitle.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clmTitleJ.Name" xml:space="preserve">
+    <value>clmTitleJ</value>
+  </data>
+  <data name="&gt;&gt;clmTitleJ.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clmDispFileName.Name" xml:space="preserve">
+    <value>clmDispFileName</value>
+  </data>
+  <data name="&gt;&gt;clmDispFileName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clmGame.Name" xml:space="preserve">
+    <value>clmGame</value>
+  </data>
+  <data name="&gt;&gt;clmGame.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clmGameJ.Name" xml:space="preserve">
+    <value>clmGameJ</value>
+  </data>
+  <data name="&gt;&gt;clmGameJ.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clmComposer.Name" xml:space="preserve">
+    <value>clmComposer</value>
+  </data>
+  <data name="&gt;&gt;clmComposer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clmComposerJ.Name" xml:space="preserve">
+    <value>clmComposerJ</value>
+  </data>
+  <data name="&gt;&gt;clmComposerJ.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clmVGMby.Name" xml:space="preserve">
+    <value>clmVGMby</value>
+  </data>
+  <data name="&gt;&gt;clmVGMby.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clmConverted.Name" xml:space="preserve">
+    <value>clmConverted</value>
+  </data>
+  <data name="&gt;&gt;clmConverted.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clmNotes.Name" xml:space="preserve">
+    <value>clmNotes</value>
+  </data>
+  <data name="&gt;&gt;clmNotes.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clmDuration.Name" xml:space="preserve">
+    <value>clmDuration</value>
+  </data>
+  <data name="&gt;&gt;clmDuration.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ClmVersion.Name" xml:space="preserve">
+    <value>ClmVersion</value>
+  </data>
+  <data name="&gt;&gt;ClmVersion.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ClmUseChips.Name" xml:space="preserve">
+    <value>ClmUseChips</value>
+  </data>
+  <data name="&gt;&gt;ClmUseChips.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clmSpacer.Name" xml:space="preserve">
+    <value>clmSpacer</value>
+  </data>
+  <data name="&gt;&gt;clmSpacer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;tsbOpenPlayList.Name" xml:space="preserve">
     <value>tsbOpenPlayList</value>
   </data>
@@ -1422,132 +1548,6 @@
   </data>
   <data name="&gt;&gt;timer1.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;clmKey.Name" xml:space="preserve">
-    <value>clmKey</value>
-  </data>
-  <data name="&gt;&gt;clmKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;clmSongNo.Name" xml:space="preserve">
-    <value>clmSongNo</value>
-  </data>
-  <data name="&gt;&gt;clmSongNo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;clmZipFileName.Name" xml:space="preserve">
-    <value>clmZipFileName</value>
-  </data>
-  <data name="&gt;&gt;clmZipFileName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;clmFileName.Name" xml:space="preserve">
-    <value>clmFileName</value>
-  </data>
-  <data name="&gt;&gt;clmFileName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;clmPlayingNow.Name" xml:space="preserve">
-    <value>clmPlayingNow</value>
-  </data>
-  <data name="&gt;&gt;clmPlayingNow.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;clmEXT.Name" xml:space="preserve">
-    <value>clmEXT</value>
-  </data>
-  <data name="&gt;&gt;clmEXT.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;clmType.Name" xml:space="preserve">
-    <value>clmType</value>
-  </data>
-  <data name="&gt;&gt;clmType.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;clmTitle.Name" xml:space="preserve">
-    <value>clmTitle</value>
-  </data>
-  <data name="&gt;&gt;clmTitle.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;clmTitleJ.Name" xml:space="preserve">
-    <value>clmTitleJ</value>
-  </data>
-  <data name="&gt;&gt;clmTitleJ.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;clmDispFileName.Name" xml:space="preserve">
-    <value>clmDispFileName</value>
-  </data>
-  <data name="&gt;&gt;clmDispFileName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;clmGame.Name" xml:space="preserve">
-    <value>clmGame</value>
-  </data>
-  <data name="&gt;&gt;clmGame.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;clmGameJ.Name" xml:space="preserve">
-    <value>clmGameJ</value>
-  </data>
-  <data name="&gt;&gt;clmGameJ.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;clmComposer.Name" xml:space="preserve">
-    <value>clmComposer</value>
-  </data>
-  <data name="&gt;&gt;clmComposer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;clmComposerJ.Name" xml:space="preserve">
-    <value>clmComposerJ</value>
-  </data>
-  <data name="&gt;&gt;clmComposerJ.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;clmVGMby.Name" xml:space="preserve">
-    <value>clmVGMby</value>
-  </data>
-  <data name="&gt;&gt;clmVGMby.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;clmConverted.Name" xml:space="preserve">
-    <value>clmConverted</value>
-  </data>
-  <data name="&gt;&gt;clmConverted.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;clmNotes.Name" xml:space="preserve">
-    <value>clmNotes</value>
-  </data>
-  <data name="&gt;&gt;clmNotes.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;clmDuration.Name" xml:space="preserve">
-    <value>clmDuration</value>
-  </data>
-  <data name="&gt;&gt;clmDuration.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ClmVersion.Name" xml:space="preserve">
-    <value>ClmVersion</value>
-  </data>
-  <data name="&gt;&gt;ClmVersion.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ClmUseChips.Name" xml:space="preserve">
-    <value>ClmUseChips</value>
-  </data>
-  <data name="&gt;&gt;ClmUseChips.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;clmSpacer.Name" xml:space="preserve">
-    <value>clmSpacer</value>
-  </data>
-  <data name="&gt;&gt;clmSpacer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>frmPlayList</value>

@@ -13,6 +13,7 @@ using MDSound.np.chip;
 using MDPlayerx64.form.SYS;
 using MDPlayerx64;
 using System;
+using MDPlayerx64.Driver;
 
 namespace MDPlayer.form
 {
@@ -5887,7 +5888,7 @@ namespace MDPlayer.form
 
             if (ext == ".xgm")
             {
-                format = EnmFileFormat.XGM;
+                format = xgm2.CheckXGM2(buf) ? EnmFileFormat.XGM2 : EnmFileFormat.XGM;
                 return buf;
             }
 
@@ -9704,6 +9705,7 @@ namespace MDPlayer.form
                             defMbc = Resources.DefaultVolumeBalance_VGM;
                             break;
                         case EnmFileFormat.XGM:
+                        case EnmFileFormat.XGM2:
                             fn = "DriverBalance_XGM.mbc";
                             defMbc = Resources.DefaultVolumeBalance_XGM;
                             break;
