@@ -1,4 +1,5 @@
 ﻿using MDPlayer;
+using MDPlayer.Driver.MuSICA;
 using NAudio.Midi;
 using NAudio.Wave.Compression;
 using System;
@@ -23,6 +24,7 @@ namespace MDPlayerx64.Driver
         private uint fmmusicPtr = 0;
         private uint psgmusicPtr = 0;
         private byte DACEnable = 0;
+        private bool ch3spEnable = false;
         private bool isNTSC = false;
         private bool existGD3 = false;
         private bool multiTrack = false;
@@ -64,9 +66,9 @@ namespace MDPlayerx64.Driver
         private byte[][] fmPanAmsPms = new byte[2][] {
             new byte[3],
             new byte[3]};
-        private uint[][] fmFreq = new uint[2][] {
-            new uint[3],
-            new uint[3]};
+        private uint[][][] fmFreq = new uint[2][][] {
+            new uint[3][] { new uint[4] , new uint[4] , new uint[4] } ,
+            new uint[3][] { new uint[4] , new uint[4] , new uint[4] } };
 
         private uint[] psgFreq = new uint[4];
         private uint[] psgVol = new uint[4];
@@ -136,7 +138,11 @@ namespace MDPlayerx64.Driver
             fmmusicPtr = fmDataBlockAddr;
             psgmusicPtr = psgDataBlockAddr;
             xgm2pcm = [new XGM2PCM(), new XGM2PCM(), new XGM2PCM(), new XGM2PCM()];
+
+            WriteYM2612P0(0x2b, 0x00);
             DACEnable = 0;
+            WriteYM2612P0(0x27, 0x05);
+            ch3spEnable = false;
 
             fmWaitCnt = 0;
             endFm = false;
@@ -399,6 +405,8 @@ namespace MDPlayerx64.Driver
                         cs = (byte)(val & 0x7);//0x28はport込み
                         keyOffOn = (byte)((val & 0x8) >> 3);
                         WriteYM2612P0(0x28, (byte)((keyOffOn != 0 ? 0xf0 : 0x00) | cs));
+                        if (cs == 2) 
+                            ch3KeyOn = (byte)(keyOffOn != 0 ? 0xf0 : 0x00);
                         break;
                     case 0x50://YM2612 key sequence ($28)
                         cs = (byte)(val & 0x7);
@@ -413,6 +421,8 @@ namespace MDPlayerx64.Driver
                             WriteYM2612P0(0x28, (byte)(0xf0 | cs));//ON
                             WriteYM2612P0(0x28, (byte)(0x00 | cs));//OFF
                         }
+                        if (cs == 2) 
+                            ch3KeyOn = (byte)(keyOffOn != 0 ? 0xf0 : 0x00);
                         break;
                     case 0x60://YM2612 port 0 panning
                         cs = (byte)(val & 0x3);
@@ -478,16 +488,18 @@ namespace MDPlayerx64.Driver
                                 break;
                             case 0x0a://YM2612 register $27.6 = 1 (CH3 special mode enable)
                                 WriteYM2612P0(0x27, 0x45);
+                                ch3spEnable = true;
                                 break;
                             case 0x0b://YM2612 register $27.6 = 0 (CH3 special mode disable)
                                 WriteYM2612P0(0x27, 0x05);
+                                ch3spEnable = false;
                                 break;
                             case 0x0c://YM2612 register $2B = 80 (DAC enable)
                                 WriteYM2612P0(0x2b, 0x80);
                                 DACEnable = 1;
                                 break;
                             case 0x0d://YM2612 register $2B = 00 (DAC disable)
-                                WriteYM2612P0(0x2b, 0x80);
+                                WriteYM2612P0(0x2b, 0x00);
                                 DACEnable = 0;
                                 break;
                             case 0x0f:
@@ -526,11 +538,20 @@ namespace MDPlayerx64.Driver
             port = (byte)((val & 0x4) >> 2);
             ch3m = (byte)((val & 0x8) >> 3);
             addOrsub = (byte)(vgmBuf[fmmusicPtr] & 0x1);
-            freq = (byte)(vgmBuf[fmmusicPtr] >> 1);
-            fmFreq[port][cs] = (uint)(fmFreq[port][cs] + (addOrsub == 0 ? 1 : -1) * freq);
+            freq = (byte)((vgmBuf[fmmusicPtr] >> 1) + 1);
             fmmusicPtr += 1;
-            WriteYM2612(port == 0, (byte)(0xa4 + cs), (byte)(fmFreq[port][cs] >> 8));
-            WriteYM2612(port == 0, (byte)(0xa0 + cs), (byte)fmFreq[port][cs]);
+
+            if (ch3m == 0)
+            {
+                fmFreq[port][cs][0] = (uint)(fmFreq[port][cs][0] + (addOrsub == 0 ? 1 : -1) * freq);
+                WriteYM2612(port == 0, (byte)(0xa4 + cs), (byte)(fmFreq[port][cs][0] >> 8));
+                WriteYM2612(port == 0, (byte)(0xa0 + cs), (byte)fmFreq[port][cs][0]);
+                return;
+            }
+
+            fmFreq[port][2][cs + 1] = (uint)(fmFreq[port][2][cs + 1] + (addOrsub == 0 ? 1 : -1) * freq);
+            WriteYM2612(true, ch3FnumAdr[cs + 1], (byte)(fmFreq[port][2][cs + 1] >> 8));
+            WriteYM2612(true, (byte)(ch3FnumAdr[cs + 1] - 4), (byte)fmFreq[port][2][cs + 1]);
         }
 
         private void fmFreqSetAndKeyOffOn(byte val)
@@ -544,13 +565,48 @@ namespace MDPlayerx64.Driver
             keyOff = (byte)((vgmBuf[fmmusicPtr] & 0x40) >> 6);
             keyOn = (byte)((vgmBuf[fmmusicPtr] & 0x80) >> 7);
             freq = Common.getBE16(vgmBuf, fmmusicPtr) & 0x3fff;
-            fmFreq[port][cs] = freq;
             fmmusicPtr += 2;
-            if (keyOff != 0) WriteYM2612P0(0x28, (byte)(0x00 | cs | (port << 2)));
-            WriteYM2612(port == 0, (byte)(0xa4 + cs), (byte)(freq >> 8));
-            WriteYM2612(port == 0, (byte)(0xa0 + cs), (byte)freq);
-            if (keyOn != 0) WriteYM2612P0(0x28, (byte)(0xf0 | cs | (port << 2)));
+
+            if (ch3m == 0)
+            {
+                fmFreq[port][cs][0] = freq;
+                if (keyOff != 0)
+                {
+                    if (cs == 2 && port == 0)
+                        ch3KeyOn = 0x00;
+                    WriteYM2612P0(0x28, (byte)(0x00 | cs | (port << 2)));
+                }
+                WriteYM2612(port == 0, (byte)(0xa4 + cs), (byte)(freq >> 8));
+                WriteYM2612(port == 0, (byte)(0xa0 + cs), (byte)freq);
+                if (keyOn != 0)
+                {
+                    if (cs == 2 && port == 0)
+                        ch3KeyOn = 0xf0;
+                    WriteYM2612P0(0x28, (byte)(0xf0 | cs | (port << 2)));
+                }
+                return;
+            }
+
+
+            fmFreq[port][2][cs + 1] = freq;
+
+            //byte m = (byte)(0x20 << cs);
+            //if (keyOff != 0)
+            //{
+            //    ch3KeyOn = (byte)(ch3KeyOn & (~m));
+            //    WriteYM2612P0(0x28, (byte)(ch3KeyOn | 2));
+            //}
+            WriteYM2612(true, ch3FnumAdr[cs + 1], (byte)(fmFreq[port][2][cs + 1] >> 8));
+            WriteYM2612(true, (byte)(ch3FnumAdr[cs + 1] - 4), (byte)fmFreq[port][2][cs + 1]);
+            //if (keyOn != 0)
+            //{
+            //    ch3KeyOn = (byte)(ch3KeyOn | m);
+            //    WriteYM2612P0(0x28, (byte)(ch3KeyOn | 2));
+            //}
         }
+
+        private static byte[] ch3FnumAdr = [0xa6, 0xac, 0xad, 0xae];
+        private byte ch3KeyOn = 0;
 
         private void SendInst(byte cs, byte port, byte[] vd)
         {
@@ -592,11 +648,16 @@ namespace MDPlayerx64.Driver
             //FB/ALG
             chipRegister.setYM2612Register(0, port, 0xb0 + cs, vd[28], model, vgmFrameCounter);
             fmALG[port][cs] = (byte)(vd[28] & 0xf);
-            //SL/RR mute機能の為にこのタイミングで更新するっぽい
+
+            chipRegister.setYM2612Register(0, port, 0x40 + cs, vd[ 4], model, vgmFrameCounter);
+            chipRegister.setYM2612Register(0, port, 0x44 + cs, vd[ 5], model, vgmFrameCounter);
+            chipRegister.setYM2612Register(0, port, 0x48 + cs, vd[ 6], model, vgmFrameCounter);
+            chipRegister.setYM2612Register(0, port, 0x4c + cs, vd[ 7], model, vgmFrameCounter);
             chipRegister.setYM2612Register(0, port, 0x80 + cs, vd[20], model, vgmFrameCounter);
             chipRegister.setYM2612Register(0, port, 0x84 + cs, vd[21], model, vgmFrameCounter);
             chipRegister.setYM2612Register(0, port, 0x88 + cs, vd[22], model, vgmFrameCounter);
             chipRegister.setYM2612Register(0, port, 0x8c + cs, vd[23], model, vgmFrameCounter);
+
             //pan/ams/pms
             chipRegister.setYM2612Register(0, port, 0xb4 + cs, vd[29], model, vgmFrameCounter);
             fmPanAmsPms[port][cs] = vd[29];
@@ -768,15 +829,24 @@ namespace MDPlayerx64.Driver
             chipRegister.setSN76489Register(0, val, model);
         }
 
-        private void WriteYM2612(bool isP0,byte adr, byte val)
+        private void WriteYM2612(bool isP0, byte adr, byte val)
         {
             if (isP0) WriteYM2612P0(adr, val);
             else WriteYM2612P1(adr, val);
+
+            if (adr >= 0x40 && adr < 0x50)
+            {
+                byte slot = (byte)((adr - 0x40) / 4);
+                byte cs = (byte)((adr - 0x40) % 4);
+                fmTL[isP0 ? 0 : 1][cs][slot] = val;
+            }
         }
 
         private void WriteYM2612P0(byte adr, byte val)
         {
             if (adr == 0x2b) DACEnable = (byte)(val & 0x80);
+            else if (adr == 0x27) ch3spEnable = ((val & 0x40) != 0);
+
             chipRegister.setYM2612Register(0, 0, adr, val, model, vgmFrameCounter);
         }
 

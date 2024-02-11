@@ -395,7 +395,7 @@ namespace MDPlayer
             //}
         }
 
-        public static void screenInitYM2612(FrameBuffer screen, int tp, bool onlyPCM, bool isXGM)
+        public static void screenInitYM2612(FrameBuffer screen, int tp, bool onlyPCM, int isXGM)
         {
             if (screen == null) return;
 
@@ -424,13 +424,18 @@ namespace MDPlayer
                     }
                     else
                     {
-                        if (!isXGM) drawKbn(screen, 33 + kx, y * 8 + 8, kt, tp6);
+                        if (isXGM==0) drawKbn(screen, 33 + kx, y * 8 + 8, kt, tp6);
                     }
                 }
 
-                if (isXGM)
+                if (isXGM == 1)
                 {
                     Ch6YM2612XGM_P(screen, 1, 48, 0, false, tp6);
+                }
+                else if (isXGM == 2)
+                {
+                    Ch6YM2612XGM2_P(screen, 1, 48, 0, false, tp6);
+
                 }
 
                 if (y != 5)
@@ -2283,6 +2288,22 @@ namespace MDPlayer
             }
 
             Ch6YM2612XGM_P(screen, 1, 48, nt, nm == null ? false : (bool)nm, ntp);
+            ot = nt;
+            om = nm;
+            otp = ntp;
+        }
+
+        public static void Ch6YM2612XGM2(FrameBuffer screen, int buff, ref int ot, int nt, ref bool? om, bool? nm, ref int otp, int ntp)
+        {
+            if (buff == 0)
+            {
+                if (ot == nt && om == nm && otp == ntp)
+                {
+                    return;
+                }
+            }
+
+            Ch6YM2612XGM2_P(screen, 1, 48, nt, nm == null ? false : (bool)nm, ntp);
             ot = nt;
             om = nm;
             otp = ntp;
@@ -4646,6 +4667,30 @@ namespace MDPlayer
                 screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 16, 0, 16, 8);
                 drawFont8(screen, x + 16, y, 0, " ");
                 drawFont4(screen, x + 32, y, 0, " 1C00             2C00             3C00             4C00                ");
+            }
+        }
+
+        private static void Ch6YM2612XGM2_P(FrameBuffer screen, int x, int y, int m, bool mask, int tp)
+        {
+            if (m == 0)
+            {
+                //FM mode
+
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 0, 0, 16, 8);
+                drawFont8(screen, x + 16, y, mask ? 1 : 0, "6");
+                for (int i = 0; i < 96; i++)
+                {
+                    int kx = Tables.kbl[(i % 12) * 2] + i / 12 * 28;
+                    int kt = Tables.kbl[(i % 12) * 2 + 1];
+                    drawKbn(screen, 33 + kx, y, kt, tp);
+                }
+            }
+            else
+            {
+                //PCM mode
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 16, 0, 16, 8);
+                drawFont8(screen, x + 16, y, 0, " ");
+                drawFont4(screen, x + 32, y, 0, "  1C00                   2C00                   3C00                        ");
             }
         }
 

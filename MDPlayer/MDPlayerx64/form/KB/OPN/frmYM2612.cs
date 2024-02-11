@@ -29,11 +29,9 @@ namespace MDPlayer.form
             this.newParam = newParam;
             this.oldParam = oldParam;
             frameBuffer.Add(pbScreen, ResMng.ImgDic["planeYM2612"], null, zoom);
-            screenInit();
-            update();
         }
 
-        public void screenInit()
+        private void screenInit()
         {
             bool YM2612Type = (chipID == 0) ? parent.setting.YM2612Type[0].UseReal[0] : parent.setting.YM2612Type[1].UseReal[0];
             int YM2612SoundLocation = (chipID == 0)
@@ -43,8 +41,14 @@ namespace MDPlayer.form
             DrawBuff.screenInitYM2612(frameBuffer, tp, (chipID == 0)
                 ? parent.setting.YM2612Type[0].realChipInfo[0].OnlyPCMEmulation
                 : parent.setting.YM2612Type[1].realChipInfo[0].OnlyPCMEmulation
-                , newParam.fileFormat == EnmFileFormat.XGM);
+                , newParam.fileFormat == EnmFileFormat.XGM ? 1 : (newParam.fileFormat == EnmFileFormat.XGM2 ? 2 : 0));
             newParam.channels[5].pcmBuff = 100;
+            for (int i = 0; i < 4; i++)
+            {
+                oldParam.xpcmInst[i] = 0;
+                oldParam.xpcmKeyOn[i] = false;// !newParam.xpcmKeyOn[i];
+                oldParam.xpcmHiSpeed[i] = false;// !newParam.xpcmHiSpeed[i];
+            }
         }
 
         public void update()
@@ -301,6 +305,33 @@ namespace MDPlayer.form
                     }
                 }
             }
+            else if (newParam.fileFormat == EnmFileFormat.XGM2 && Audio.DriverVirtual is MDPlayerx64.Driver.xgm2)
+            {
+                if (Audio.DriverVirtual != null && ((MDPlayerx64.Driver.xgm2)Audio.DriverVirtual).xgm2pcm != null)
+                {
+                    for (int i = 0; i < 3; i++)
+                    {
+                        if (((MDPlayerx64.Driver.xgm2)Audio.DriverVirtual).xgm2pcm[i].isPlaying)
+                        {
+                            newParam.xpcmInst[i] = (int)(((MDPlayerx64.Driver.xgm2)Audio.DriverVirtual).xgm2pcm[i].inst);
+                            int d = (((MDPlayerx64.Driver.xgm2)Audio.DriverVirtual).xgm2pcm[i].data / 6);
+                            d = Math.Min(d, 19);
+                            newParam.xpcmVolL[i] = d;
+                            newParam.xpcmVolR[i] = d;
+                            newParam.xpcmKeyOn[i] = true;
+                        }
+                        else
+                        {
+                            newParam.xpcmInst[i] = 0;
+                            newParam.xpcmVolL[i] = 0;
+                            newParam.xpcmVolR[i] = 0;
+                            newParam.xpcmKeyOn[i] = false;
+                        }
+                        newParam.xpcmHiSpeed[i] = (((MDPlayerx64.Driver.xgm2)Audio.DriverVirtual).xgm2pcm[i].Speed == 0);
+                    }
+                }
+
+            }
         }
 
         public void screenDrawParams()
@@ -352,25 +383,7 @@ namespace MDPlayer.form
                     DrawBuff.Pan(frameBuffer, 25, 8 + c * 8, ref oyc.pan, nyc.pan, ref oyc.pantp, tp6v);
                     DrawBuff.InstOPN2(frameBuffer, 13, 96, c, oyc.inst, nyc.inst);
 
-                    if (newParam.fileFormat != EnmFileFormat.XGM)
-                    {
-                        if (oldParam.fileFormat != newParam.fileFormat)
-                        {
-                            //
-                            oyc.pcmMode = 1;
-                            nyc.pcmMode = 0;
-                            DrawBuff.Ch6YM2612XGM(frameBuffer, nyc.pcmBuff, ref oyc.pcmMode, nyc.pcmMode, ref oyc.mask, nyc.mask, ref oyc.tp, tp6v);
-                            oldParam.fileFormat = newParam.fileFormat;
-                        }
-
-                        DrawBuff.Ch6YM2612(frameBuffer, nyc.pcmBuff, ref oyc.pcmMode, nyc.pcmMode, ref oyc.mask, nyc.mask, ref oyc.tp, tp6v);
-                        DrawBuff.Volume(frameBuffer, 289, 8 + c * 8, 1, ref oyc.volumeL, nyc.volumeL, tp6v);
-                        DrawBuff.Volume(frameBuffer, 289, 8 + c * 8, 2, ref oyc.volumeR, nyc.volumeR, tp6v);
-                        DrawBuff.KeyBoardOPNM(frameBuffer, c, ref oyc.note, nyc.note, tp6v);
-                        DrawBuff.Slot(frameBuffer, 1 + 4 * 64, 8 + c * 8, ref oyc.slot, nyc.slot);
-                        DrawBuff.font4Hex16Bit(frameBuffer, 1 + 4 * 68, 8 + c * 8, 0, ref oyc.freq, nyc.freq);
-                    }
-                    else
+                    if (newParam.fileFormat == EnmFileFormat.XGM)
                     {
                         if (oldParam.fileFormat != newParam.fileFormat)
                         {
@@ -400,6 +413,59 @@ namespace MDPlayer.form
                                 }
                             }
                         }
+                    }
+                    else if (newParam.fileFormat == EnmFileFormat.XGM2)
+                    {
+                        if (oldParam.fileFormat != newParam.fileFormat)
+                        {
+                            screenInit();
+                            oldParam.fileFormat = newParam.fileFormat;
+                        }
+
+                        DrawBuff.Ch6YM2612XGM2(frameBuffer, nyc.pcmBuff, ref oyc.pcmMode, nyc.pcmMode, ref oyc.mask, nyc.mask, ref oyc.tp, tp6v);
+                        if (newParam.channels[5].pcmMode == 0)
+                        {
+                            DrawBuff.Volume(frameBuffer, 289, 8 + c * 8, 1, ref oyc.volumeL, nyc.volumeL, tp6v);
+                            DrawBuff.Volume(frameBuffer, 289, 8 + c * 8, 2, ref oyc.volumeR, nyc.volumeR, tp6v);
+                            DrawBuff.KeyBoardOPNM(frameBuffer, c, ref oyc.note, nyc.note, tp6v);
+                            DrawBuff.Slot(frameBuffer, 1 + 4 * 64, 8 + c * 8, ref oyc.slot, nyc.slot);
+                            DrawBuff.font4Hex16Bit(frameBuffer, 1 + 4 * 68, 8 + c * 8, 0, ref oyc.freq, nyc.freq);
+                        }
+                        else
+                        {
+                            for (int i = 0; i < 3; i++)
+                            {
+                                DrawBuff.VolumeXYOPN2(frameBuffer, (16 + i * 23) * 4 + 1, 12 * 4, 1, ref oldParam.xpcmVolL[i], newParam.xpcmVolL[i], tp6v);
+                                DrawBuff.VolumeXYOPN2(frameBuffer, (16 + i * 23) * 4 + 1, 12 * 4, 2, ref oldParam.xpcmVolR[i], newParam.xpcmVolR[i], tp6v);
+                                if (oldParam.xpcmInst[i] != newParam.xpcmInst[i])
+                                {
+                                    DrawBuff.drawFont4Int2(frameBuffer, (12 + i * 23) * 4 + 1, 48, tp6v, 2, newParam.xpcmInst[i]);
+                                    oldParam.xpcmInst[i] = newParam.xpcmInst[i];
+                                }
+                                oldParam.xpcmKeyOn[i] = !newParam.xpcmKeyOn[i];
+                                oldParam.xpcmHiSpeed[i] = !newParam.xpcmHiSpeed[i];
+                                DrawBuff.drawNESSw(frameBuffer, (14 + i * 23) * 4 + 1, 48, ref oldParam.xpcmKeyOn[i], newParam.xpcmKeyOn[i]);
+                                DrawBuff.drawNESSw(frameBuffer, (15 + i * 23) * 4 + 1, 48, ref oldParam.xpcmHiSpeed[i], newParam.xpcmHiSpeed[i]);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (oldParam.fileFormat != newParam.fileFormat)
+                        {
+                            //
+                            oyc.pcmMode = 1;
+                            nyc.pcmMode = 0;
+                            DrawBuff.Ch6YM2612XGM(frameBuffer, nyc.pcmBuff, ref oyc.pcmMode, nyc.pcmMode, ref oyc.mask, nyc.mask, ref oyc.tp, tp6v);
+                            oldParam.fileFormat = newParam.fileFormat;
+                        }
+
+                        DrawBuff.Ch6YM2612(frameBuffer, nyc.pcmBuff, ref oyc.pcmMode, nyc.pcmMode, ref oyc.mask, nyc.mask, ref oyc.tp, tp6v);
+                        DrawBuff.Volume(frameBuffer, 289, 8 + c * 8, 1, ref oyc.volumeL, nyc.volumeL, tp6v);
+                        DrawBuff.Volume(frameBuffer, 289, 8 + c * 8, 2, ref oyc.volumeR, nyc.volumeR, tp6v);
+                        DrawBuff.KeyBoardOPNM(frameBuffer, c, ref oyc.note, nyc.note, tp6v);
+                        DrawBuff.Slot(frameBuffer, 1 + 4 * 64, 8 + c * 8, ref oyc.slot, nyc.slot);
+                        DrawBuff.font4Hex16Bit(frameBuffer, 1 + 4 * 68, 8 + c * 8, 0, ref oyc.freq, nyc.freq);
                     }
                 }
                 else
@@ -480,6 +546,12 @@ namespace MDPlayer.form
                 parent.GetInstCh(EnmChip.YM2612, instCh, chipID);
             }
 
+        }
+
+        private void frmYM2612_Shown(object sender, EventArgs e)
+        {
+            screenInit();
+            update();
         }
     }
 }

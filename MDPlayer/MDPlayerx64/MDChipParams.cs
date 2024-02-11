@@ -96,6 +96,8 @@
             public int[] xpcmVolL = new int[4] { -1, -1, -1, -1 };
             public int[] xpcmVolR = new int[4] { -1, -1, -1, -1 };
             public int[] xpcmInst = new int[4] { -1, -1, -1, -1 };
+            public bool[] xpcmKeyOn = new bool[4] { false, false, false, false };
+            public bool[] xpcmHiSpeed = new bool[4] { false, false, false, false };
 
             public Channel[] channels = new Channel[9] { new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel() };
 
