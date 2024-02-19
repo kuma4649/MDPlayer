@@ -4686,104 +4686,108 @@ namespace MDPlayer.form
             isRunning = true;
             stopped = false;
 
-            while (isRunning)
+            try
             {
-
-                if (reqAllScreenInit)
+                while (isRunning)
                 {
-                    allScreenInit();
-                }
 
-                float period = 1000f / (float)setting.other.ScreenFrameRate;
-                double tickCount = (double)System.Environment.TickCount;
-
-                if (tickCount < nextFrame)
-                {
-                    if (nextFrame - tickCount > 1)
+                    if (reqAllScreenInit)
                     {
-                        System.Threading.Thread.Sleep((int)(nextFrame - tickCount));
+                        allScreenInit();
                     }
-                    continue;
-                }
+
+                    float period = 1000f / (float)setting.other.ScreenFrameRate;
+                    double tickCount = (double)System.Environment.TickCount;
+
+                    if (tickCount < nextFrame)
+                    {
+                        if (nextFrame - tickCount > 1)
+                        {
+                            System.Threading.Thread.Sleep((int)(nextFrame - tickCount));
+                        }
+                        continue;
+                    }
 
 
-                screenChangeParams();
-                screenChangeParamsForms();
+                    screenChangeParams();
+                    screenChangeParamsForms();
 
 
-                if ((double)System.Environment.TickCount >= nextFrame + period)
-                {
+                    if ((double)System.Environment.TickCount >= nextFrame + period)
+                    {
+                        nextFrame += period;
+                        continue;
+                    }
+
+
+                    this.Invoke((Action)(screenDrawParams));
+                    this.Invoke((Action)(screenDrawParamsForms));
+
+
                     nextFrame += period;
-                    continue;
-                }
 
-
-                this.Invoke((Action)(screenDrawParams));
-                this.Invoke((Action)(screenDrawParamsForms));
-
-
-                nextFrame += period;
-
-                if (frmPlayList.isPlaying())
-                {
-                    if ((setting.other.UseLoopTimes && Audio.GetVgmCurLoopCounter() > setting.other.LoopTimes - 1)
-                        || Audio.GetVGMStopped())
+                    if (frmPlayList.isPlaying())
                     {
-                        Fadeout();
-                    }
-                    if (Audio.Stopped && frmPlayList.isPlaying())
-                    {
-                        NextPlayMode();
-                    }
-                }
-
-                //remote対応
-                string msg = mmf.GetMessage();
-                if (!string.IsNullOrEmpty(msg))
-                {
-                    if (msg.Trim().ToUpper() == "CLOSE")
-                    {
-                        this.BeginInvoke((Action)Close);
-                    }
-                    else
-                    {
-                        this.Invoke(//Asyncしないこと
-                            (Action<string>)Remote
-                            //, new object[] { lin }//配列が引数の場合はこの様に指定する必要あり
-                            , msg
-                            );
-                    }
-                }
-
-                if (Audio.FatalError)
-                {
-                    log.ForcedWrite("AudioでFatalErrorが発生。再度Audio初期化処理開始");
-
-                    frmPlayList.Stop();
-                    try
-                    {
-                        Request req = new(EnmRequest.Stop);
-                        OpeManager.RequestToAudio(req);
-                        while (!req.End) System.Threading.Thread.Sleep(1);
-                        //Audio.Stop();
-                    }
-                    catch (Exception ex)
-                    {
-                        log.ForcedWrite(ex);
+                        if ((setting.other.UseLoopTimes && Audio.GetVgmCurLoopCounter() > setting.other.LoopTimes - 1)
+                            || Audio.GetVGMStopped())
+                        {
+                            Fadeout();
+                        }
+                        if (Audio.Stopped && frmPlayList.isPlaying())
+                        {
+                            NextPlayMode();
+                        }
                     }
 
-                    try { Audio.Close(); }
-                    catch (Exception ex)
+                    //remote対応
+                    string msg = mmf.GetMessage();
+                    if (!string.IsNullOrEmpty(msg))
                     {
-                        log.ForcedWrite(ex);
+                        if (msg.Trim().ToUpper() == "CLOSE")
+                        {
+                            this.BeginInvoke((Action)Close);
+                        }
+                        else
+                        {
+                            this.Invoke(//Asyncしないこと
+                                (Action<string>)Remote
+                                //, new object[] { lin }//配列が引数の場合はこの様に指定する必要あり
+                                , msg
+                                );
+                        }
                     }
 
-                    Audio.FatalError = false;
-                    Audio.Init(setting);
+                    if (Audio.FatalError)
+                    {
+                        log.ForcedWrite("AudioでFatalErrorが発生。再度Audio初期化処理開始");
 
-                    log.ForcedWrite("Audio初期化処理完了");
+                        frmPlayList.Stop();
+                        try
+                        {
+                            Request req = new(EnmRequest.Stop);
+                            OpeManager.RequestToAudio(req);
+                            while (!req.End) System.Threading.Thread.Sleep(1);
+                            //Audio.Stop();
+                        }
+                        catch (Exception ex)
+                        {
+                            log.ForcedWrite(ex);
+                        }
+
+                        try { Audio.Close(); }
+                        catch (Exception ex)
+                        {
+                            log.ForcedWrite(ex);
+                        }
+
+                        Audio.FatalError = false;
+                        Audio.Init(setting);
+
+                        log.ForcedWrite("Audio初期化処理完了");
+                    }
                 }
             }
+            catch { }
 
             stopped = true;
 

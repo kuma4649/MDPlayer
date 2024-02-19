@@ -47,7 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NAudio" Version="2.1.0" />
+    <PackageReference Include="NAudio" Version="2.2.1" />
     <PackageReference Include="VST.NET2-Host" Version="2.1.0" />
   </ItemGroup>
 

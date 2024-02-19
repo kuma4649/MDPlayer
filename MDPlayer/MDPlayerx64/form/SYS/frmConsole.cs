@@ -14,9 +14,12 @@ namespace MDPlayerx64.form.SYS
 
         private void lw(string message)
         {
-            tbLog.SelectionStart = tbLog.Text.Length;
-            tbLog.SelectionLength = 0;
-            tbLog.SelectedText = string.Format("{0}\r\n", message);
+            try
+            {
+                tbLog.SelectionStart = tbLog.Text.Length;
+                tbLog.SelectionLength = 0;
+                tbLog.SelectedText = string.Format("{0}\r\n", message);
+            } catch { }
         }
 
         public frmConsole(Setting setting)
