@@ -1005,9 +1005,9 @@
             cbEmulationPCMOnly.Location = new Point(186, 22);
             cbEmulationPCMOnly.Margin = new Padding(4);
             cbEmulationPCMOnly.Name = "cbEmulationPCMOnly";
-            cbEmulationPCMOnly.Size = new Size(122, 19);
+            cbEmulationPCMOnly.Size = new Size(184, 19);
             cbEmulationPCMOnly.TabIndex = 5;
-            cbEmulationPCMOnly.Text = "Emulate PCM only";
+            cbEmulationPCMOnly.Text = "Emulate PCM only(Gens Only)";
             cbEmulationPCMOnly.UseVisualStyleBackColor = true;
             // 
             // cbTwice

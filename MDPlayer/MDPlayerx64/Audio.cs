@@ -5995,11 +5995,11 @@ namespace MDPlayer
 
                         if (
                             (i == 0 && (
-                                (setting.YM2612Type[0].UseEmu[0] || setting.YM2612Type[0].realChipInfo[0].OnlyPCMEmulation)
+                                (setting.YM2612Type[0].UseEmu[0] || (setting.YM2612Type[0].UseEmu[0]&&setting.YM2612Type[0].realChipInfo[0].OnlyPCMEmulation))
                                 || setting.YM2612Type[0].UseReal[0])
                             )
                             || (i == 1 &&
-                                (setting.YM2612Type[1].UseEmu[0] || setting.YM2612Type[1].realChipInfo[0].OnlyPCMEmulation)
+                                (setting.YM2612Type[1].UseEmu[0] || (setting.YM2612Type[1].UseEmu[0]&&setting.YM2612Type[1].realChipInfo[0].OnlyPCMEmulation))
                                 || setting.YM2612Type[1].UseReal[0]
                             )
                         )

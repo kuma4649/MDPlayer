@@ -1031,6 +1031,11 @@ namespace MDPlayer.form
                 }
             }
 
+            if (ChipType2.UseEmu[0])
+                rbEmu.Checked = true;
+            else
+                rbSilent.Checked = true;
+
             if (ChipType2.UseEmu.Length > 1 && ChipType2.UseEmu[1])
             {
                 rbEmu2.Checked = true;
