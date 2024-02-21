@@ -4185,7 +4185,8 @@ namespace MDPlayer
                 chip = new MDSound.MDSound.Chip
                 {
                     ID = (byte)0,
-                    Option = null
+                    Option = null,
+                    Clock=0
                 };
                 MDSound.ym2612 ym2612 = null;
                 MDSound.ym3438 ym3438 = null;
@@ -4207,6 +4208,9 @@ namespace MDPlayer
                             |(setting.nukedOPN2.GensSSGEG ? 0x02: 0x00)
                         )
                     };
+                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
+                    chip.Volume = setting.balance.YM2612Volume;
+                    chip.Clock = 7670454;
                 }
                 else if (setting.YM2612Type[0].UseEmu[1])
                 {
@@ -4235,6 +4239,9 @@ namespace MDPlayer
                             ym3438.OPN2_SetChipType(ym3438_const.ym3438_type.asic_lp);
                             break;
                     }
+                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
+                    chip.Volume = setting.balance.YM2612Volume;
+                    chip.Clock = 7670454;
                 }
                 else if (setting.YM2612Type[0].UseEmu[2])
                 {
@@ -4245,18 +4252,23 @@ namespace MDPlayer
                     chip.Start = ym2612mame.Start;
                     chip.Stop = ym2612mame.Stop;
                     chip.Reset = ym2612mame.Reset;
+                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
+                    chip.Volume = setting.balance.YM2612Volume;
+                    chip.Clock = 7670454;
                 }
 
-                chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
-                chip.Volume = setting.balance.YM2612Volume;
-                chip.Clock = 7670454;
-                ClockYM2612 = 7670454;
-                ChipLED.PriOPN2 = 1;
-                lstChips.Add(chip);
-                UseChip.Add(EnmChip.YM2612);
+                if (chip.Clock != 0)
+                {
+                    ClockYM2612 = 7670454;
+                    ChipLED.PriOPN2 = 1;
+                    lstChips.Add(chip);
+                    UseChip.Add(EnmChip.YM2612);
+                }
 
                 sn76489 sn76489;
                 SN76496 sn76496;
+                chip = null;
+
                 if (setting.SN76489Type[0].UseEmu[0] || setting.SN76489Type[0].UseReal[0])
                 {
                     sn76489 = new sn76489();
@@ -4291,9 +4303,13 @@ namespace MDPlayer
                     ClockSN76489 = (int)(chip.Clock & 0x7fff_ffff);
                     chip.Option = null;
                 }
-                ChipLED.PriDCSG = 1;
-                lstChips.Add(chip);
-                UseChip.Add(EnmChip.SN76489);
+
+                if (chip != null)
+                {
+                    ChipLED.PriDCSG = 1;
+                    lstChips.Add(chip);
+                    UseChip.Add(EnmChip.SN76489);
+                }
 
                 if (hiyorimiNecessary) hiyorimiNecessary = true;
                 else hiyorimiNecessary = false;
