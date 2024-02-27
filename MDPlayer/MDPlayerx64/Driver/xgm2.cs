@@ -139,18 +139,22 @@ namespace MDPlayerx64.Driver
             psgmusicPtr = psgDataBlockAddr;
             xgm2pcm = [new XGM2PCM(), new XGM2PCM(), new XGM2PCM(), new XGM2PCM()];
 
+            WriteYM2612P0(0x2b, 0x80);
+            WriteYM2612P0(0x2a, 0x80);
             WriteYM2612P0(0x2b, 0x00);
             DACEnable = 0;
             WriteYM2612P0(0x27, 0x05);
             ch3spEnable = false;
 
             fmWaitCnt = 0;
-            endFm = false;
             fmLoopCnt = 0;
             psgWaitCnt = 0;
-            endPsg = false;
             psgLoopCnt = 0;
             pendingFrame = 0;
+            endFm = false;
+            if (fmDataBlockSize == 0) endFm = true;
+            endPsg = false;
+            if (psgDataBlockSize == 0) endPsg = true;
 
             return true;
         }
@@ -214,15 +218,20 @@ namespace MDPlayerx64.Driver
                 psgDataBlockSize = Common.getLE16(vgmBuf, 0x000a) * 256;
 
                 uint ptr = 0x000c;
-                uint lastSampleAdr = 0;
                 sampleID = new XGMSampleID[((multiTrack ? 504 : 248) - 12) / 2];//最後の12バイトはPCM SFXに使用する
                 for (uint i = 0; i < sampleID.Length; i++)
                 {
                     sampleID[i] = new XGMSampleID();
-                    sampleID[i].addr = (Common.getLE16(vgmBuf, ptr) * 256);//0xffff00 is empty
-                    sampleID[i].size = (Common.getLE16(vgmBuf, ptr + 2) * 256) - sampleID[i].addr;
-                    if (sampleID[i].addr != 0xffff00) lastSampleAdr = sampleID[i].addr;
-                    ptr += 2;
+                    sampleID[i].addr = (Common.getLE16(vgmBuf, ptr + i * 2) * 256);//0xffff00 is empty
+                    sampleID[i].size = (Common.getLE16(vgmBuf, ptr + i * 2 + 2) * 256);
+
+                    if (sampleID[i].size == 0xffff00)
+                    {
+                        sampleID[i].size = sampleDataBlockSize - sampleID[i].addr;
+                        break;
+                    }
+                    sampleID[i].size -= sampleID[i].addr;
+
                 }
                 ptr += 12;
 
@@ -243,7 +252,7 @@ namespace MDPlayerx64.Driver
                 }
 
                 sampleDataBlockAddr = ptr;
-                ptr += lastSampleAdr;
+                ptr += sampleDataBlockSize;
                 fmDataBlockAddr = ptr;
                 ptr += fmDataBlockSize;
                 psgDataBlockAddr = ptr;
@@ -377,7 +386,9 @@ namespace MDPlayerx64.Driver
 
             while (true)
             {
+                if (fmmusicPtr >= vgmBuf.Length) { endFm = true; return; }
                 byte dat = vgmBuf[fmmusicPtr++];
+
                 byte cmd = (byte)(dat & 0xf0);
                 byte val = (byte)(dat & 0x0f);
                 byte id, cs, port, keyOffOn, pan, slot, tl, adr;
@@ -671,6 +682,7 @@ namespace MDPlayerx64.Driver
             if (psgWaitCnt-- > 0) return;
             while (true)
             {
+                if (psgmusicPtr >= vgmBuf.Length) { endPsg = true; return; }
                 byte dat = vgmBuf[psgmusicPtr++];
                 byte cmd = (byte)(dat & 0xf0);
                 byte val = (byte)(dat & 0x0f);

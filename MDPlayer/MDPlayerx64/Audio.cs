@@ -7675,7 +7675,7 @@ namespace MDPlayer
                 SoftReset(EnmModel.VirtualModel);
                 SoftReset(EnmModel.RealModel);
 
-                int timeout = 5000;
+                int timeout = 1000;
                 while (!TrdStopped)
                 {
                     Thread.Sleep(1);

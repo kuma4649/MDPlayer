@@ -1,4 +1,5 @@
 ﻿using Konamiman.Z80dotNet;
+using MDPlayerx64.Driver;
 using System.IO.Compression;
 using System.Reflection;
 using System.Text;
@@ -295,7 +296,7 @@ namespace MDPlayer
             return delta;
         }
 
-        public static EnmFileFormat CheckExt(string filename)
+        public static EnmFileFormat CheckExt(string filename,byte[] buf=null)
         {
             if (filename.ToLower().LastIndexOf(".m3u") != -1) return EnmFileFormat.M3U;
             if (filename.ToLower().LastIndexOf(".mid") != -1) return EnmFileFormat.MID;
@@ -322,7 +323,12 @@ namespace MDPlayer
             if (filename.ToLower().LastIndexOf(".s98") != -1) return EnmFileFormat.S98;
             if (filename.ToLower().LastIndexOf(".vgm") != -1) return EnmFileFormat.VGM;
             if (filename.ToLower().LastIndexOf(".vgz") != -1) return EnmFileFormat.VGM;
-            if (filename.ToLower().LastIndexOf(".xgm") != -1) return EnmFileFormat.XGM;
+            if (filename.ToLower().LastIndexOf(".xgm") != -1)
+            {
+                if (buf == null || buf.Length < 5) return EnmFileFormat.unknown;
+                if (buf[0] + (buf[1] << 8) + (buf[2] << 16) + (buf[3] << 24) == xgm2.FCC_XGM2) return EnmFileFormat.XGM2;
+                return EnmFileFormat.XGM;
+            }
             if (filename.ToLower().LastIndexOf(".xgz") != -1) return EnmFileFormat.XGM;
             if (filename.ToLower().LastIndexOf(".zgm") != -1) return EnmFileFormat.ZGM;
             if (filename.ToLower().LastIndexOf(".zip") != -1) return EnmFileFormat.ZIP;

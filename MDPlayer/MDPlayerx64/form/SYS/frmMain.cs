@@ -5958,7 +5958,7 @@ namespace MDPlayer.form
             return Common.unzipFile(filename);
         }
 
-        public void GetInstCh(EnmChip chip, int ch, int chipID)
+        public void GetInstCh(EnmChip chip, int ch, int chipID,int note=-1)
         {
             try
             {
@@ -6082,7 +6082,7 @@ namespace MDPlayer.form
                             GetInstChForMML2VGM(chip, ch, chipID);
                             break;
                         case EnmInstFormat.MUCOM88:
-                            GetInstChForMucom88(chip, ch, chipID);
+                            GetInstChForMucom88(chip, ch, chipID, note);
                             break;
                         case EnmInstFormat.MUSICLALF:
                             GetInstChForMUSICLALF(chip, ch, chipID);
@@ -6570,10 +6570,17 @@ namespace MDPlayer.form
             if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
         }
 
-        private void GetInstChForMucom88(EnmChip chip, int ch, int chipID)
+        private void GetInstChForMucom88(EnmChip chip, int ch, int chipID, int note)
         {
 
             string n = "";
+            int num = ch + 1;
+            string notes = "";
+            if (note != -1)
+            {
+                notes = Tables.kbn[note % 12];
+                if (note / 12 < 10) notes += Tables.kbo[note / 12];
+            }
 
             if (chip == EnmChip.YM2612 || chip == EnmChip.YM2608 || chip == EnmChip.YM2203 || chip == EnmChip.YM2610)
             {
@@ -6591,7 +6598,8 @@ namespace MDPlayer.form
                 };
                 GetAdjustTLParam(alg, ref tl[0], ref tl[1], ref tl[2], ref tl[3]);
 
-                n = string.Format("  @xx:{{\r\n  {0:D3}, {1:D3}\r\n"
+                n = string.Format("  @{0:D02}:{{\r\n  {1:D3}, {2:D3}\r\n"
+                    , num
                     , (fmRegister[p][0xb0 + c] & 0x38) >> 3//FB
                     , alg//AL
                     );
@@ -6611,7 +6619,7 @@ namespace MDPlayer.form
                         , (fmRegister[p][0x30 + ops + c] & 0x70) >> 4//DT
                     );
                 }
-                n += ",\"MDP\"  }\r\n";
+                n += string.Format(",\"{0}\"  }}\r\n", note == -1 ? "MDP" : notes);
             }
             else if (chip == EnmChip.YM2151)
             {
@@ -6627,7 +6635,8 @@ namespace MDPlayer.form
                 };
                 GetAdjustTLParam(alg, ref tl[0], ref tl[1], ref tl[2], ref tl[3]);
 
-                n = string.Format("  @xx:{{\r\n  {0:D3}, {1:D3}\r\n"
+                n = string.Format("  @{0:D02}:{{\r\n  {1:D3}, {2:D3}\r\n"
+                    , num
                     , (ym2151Register[0x20 + ch] & 0x38) >> 3//FB
                     , alg //AL
                     );
@@ -6647,7 +6656,7 @@ namespace MDPlayer.form
                         , (ym2151Register[0x40 + ops + ch] & 0x70) >> 4 //DT
                     );
                 }
-                n += ",\"MDP\"  }\r\n";
+                n += string.Format(",\"{0}\"  }}\r\n", note == -1 ? "MDP" : notes);
             }
 
             if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
@@ -8245,7 +8254,7 @@ namespace MDPlayer.form
                 string playingArcFileName = "";
                 EnmFileFormat format = EnmFileFormat.unknown;
                 List<Tuple<string, byte[]>> extFile = null;
-                format = Common.CheckExt(fullPath);
+                format = Common.CheckExt(fullPath,buf);
                 srcBuf = buf;
 
                 //再生前に音量のバランスを設定する

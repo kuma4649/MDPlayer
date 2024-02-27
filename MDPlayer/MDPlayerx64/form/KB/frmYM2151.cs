@@ -133,7 +133,7 @@ namespace MDPlayer.form
             if (instCh < 8)
             {
                 //クリップボードに音色をコピーする
-                parent.GetInstCh(EnmChip.YM2151, instCh, chipID);
+                parent.GetInstCh(EnmChip.YM2151, instCh, chipID, newParam.channels[instCh].note);
             }
         }
 
