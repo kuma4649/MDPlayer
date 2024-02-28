@@ -233,6 +233,8 @@ namespace MDPlayerx64.Driver
                     sampleID[i].size -= sampleID[i].addr;
 
                 }
+
+                ptr += (uint)(sampleID.Length * 2);
                 ptr += 12;
 
                 if (multiTrack)

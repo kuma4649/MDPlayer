@@ -325,7 +325,17 @@ namespace MDPlayer
             if (filename.ToLower().LastIndexOf(".vgz") != -1) return EnmFileFormat.VGM;
             if (filename.ToLower().LastIndexOf(".xgm") != -1)
             {
-                if (buf == null || buf.Length < 5) return EnmFileFormat.unknown;
+                if (buf == null || buf.Length < 5)
+                {
+                    if (!File.Exists(filename)) return EnmFileFormat.unknown;
+                    try
+                    {
+                        buf = File.ReadAllBytes(filename);
+                        if (buf == null || buf.Length < 5)
+                            return EnmFileFormat.unknown;
+                    }
+                    catch { return EnmFileFormat.unknown; }
+                }
                 if (buf[0] + (buf[1] << 8) + (buf[2] << 16) + (buf[3] << 24) == xgm2.FCC_XGM2) return EnmFileFormat.XGM2;
                 return EnmFileFormat.XGM;
             }

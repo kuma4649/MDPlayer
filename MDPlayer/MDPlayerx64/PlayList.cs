@@ -339,6 +339,9 @@ namespace MDPlayer
                 case EnmFileFormat.XGM:
                     AddFileXGM(mc, entry);
                     break;
+                case EnmFileFormat.XGM2:
+                    AddFileXGM2(mc, entry);
+                    break;
                 case EnmFileFormat.ZGM:
                     AddFileZGM(mc, entry);
                     break;
@@ -653,6 +656,16 @@ namespace MDPlayer
         }
 
         private void AddFileXGM(ref int index, Music mc, object entry = null)
+        {
+            AddFilexxx(ref index, mc, entry);
+        }
+
+        private void AddFileXGM2(Music mc, object entry = null)
+        {
+            AddFilexxx(mc, entry);
+        }
+
+        private void AddFileXGM2(ref int index, Music mc, object entry = null)
         {
             AddFilexxx(ref index, mc, entry);
         }
