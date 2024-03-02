@@ -417,6 +417,9 @@ namespace MDPlayer
                 case EnmFileFormat.XGM:
                     AddFileXGM(ref index, mc, entry);
                     break;
+                case EnmFileFormat.XGM2:
+                    AddFileXGM2(ref index, mc, entry);
+                    break;
                 case EnmFileFormat.ZGM:
                     AddFileZGM(ref index, mc, entry);
                     break;
