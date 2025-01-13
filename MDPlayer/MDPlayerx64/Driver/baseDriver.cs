@@ -28,6 +28,7 @@
         protected uint waitTime = 0;
 
         public string errMsg { get; internal set; }
+        public bool SkipSwitchPianoRoll { get; internal set; }
 
         public abstract bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime);
         public abstract bool init(byte[] vgmBuf, int fileType, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime);

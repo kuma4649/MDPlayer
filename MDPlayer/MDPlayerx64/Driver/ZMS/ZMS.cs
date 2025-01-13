@@ -203,6 +203,7 @@ namespace MDPlayer.Driver.ZMS
 
                 }
 
+                if (SkipSwitchPianoRoll) return;
                 checkCounter--;
                 if (checkCounter < 0)
                 {

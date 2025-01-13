@@ -29,7 +29,7 @@ namespace MDPlayer.form
 
         private bool playing = false;
         private int playIndex = -1;
-        private int oldPlayIndex = -1;
+        public int oldPlayIndex = -1;
 
         private Random rand = new System.Random();
         private bool IsInitialOpenFolder = true;
@@ -1336,9 +1336,11 @@ namespace MDPlayer.form
                 string fn = playList.LstMusic[i].fileName;
                 if (playList.LstMusic[i].arcType != EnmArcType.LZH
                     && playList.LstMusic[i].arcType != EnmArcType.ZIP
+                    && playList.LstMusic[i].arcType != EnmArcType.ZDF
                     && (playList.LstMusic[i].arcFileName == null || playList.LstMusic[i].arcFileName.ToLower().LastIndexOf(".m3u") == -1)
                     && fn.ToLower().LastIndexOf(".lzh") == -1
                     && fn.ToLower().LastIndexOf(".zip") == -1
+                    && fn.ToLower().LastIndexOf(".zdf") == -1
                     && fn.ToLower().LastIndexOf(".m3u") == -1
                     //&& fn.ToLower().LastIndexOf(".sid") == -1
                     )

@@ -8892,10 +8892,12 @@ namespace MDPlayer
         
         private static void SkipPlay(long skipTick, baseDriver driver)
         {
+            driver.SkipSwitchPianoRoll = true;
             for (long i = 0; i < skipTick; i++)
             {
                 driver.oneFrameProc();
             }
+            driver.SkipSwitchPianoRoll = false;
         }
 
         private static void ClearFadeoutVolume()
@@ -9959,7 +9961,13 @@ namespace MDPlayer
         private static void oneFrameProc()
         {
             DriverVirtual.oneFrameProc();
-            if (DriverPianoRoll != null) DriverPianoRoll.oneFrameProc();
+            if (DriverPianoRoll != null)
+            {
+                //ピアノロール時には不要なチェックなどをスキップすることにより出来るだけ軽くする。
+                DriverPianoRoll.SkipSwitchPianoRoll = true;
+                DriverPianoRoll.oneFrameProc();
+                DriverPianoRoll.SkipSwitchPianoRoll = false;
+            }
         }
 
         private static string naudioFileName = null;

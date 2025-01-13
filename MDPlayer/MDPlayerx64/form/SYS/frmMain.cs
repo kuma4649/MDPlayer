@@ -17,6 +17,7 @@ using MDPlayerx64.Driver;
 using Driver.libsidplayfp.sidtune;
 using System.Runtime.CompilerServices;
 using MDPlayerx64.MDServer;
+using static MDPlayer.Setting;
 
 namespace MDPlayer.form
 {
@@ -5091,7 +5092,7 @@ namespace MDPlayer.form
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                string filename = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
+                string[] filename = ((string[])e.Data.GetData(DataFormats.FileDrop));
 
                 try
                 {
@@ -5102,17 +5103,48 @@ namespace MDPlayer.form
                     while (!Audio.IsStopped)
                         Application.DoEvents();
 
-                    frmPlayList.getPlayList().AddFile(filename);
+                    //frmPlayList.getPlayList().AddFile(filename);
+                    int i = frmPlayList.getPlayList().LstMusic.Count;
+                    int buIndex = i;
+                    frmPlayList.getPlayList().InsertFile(ref i,filename);
                     //frmPlayList.AddList(filename);
 
-                    if (filename.ToLower().LastIndexOf(".zip") == -1)
+                    if (buIndex <= frmPlayList.oldPlayIndex)
                     {
-                        loadAndPlay(0, 0, filename, null, null, null, null);
-                        frmPlayList.setStart(-1);
-                        oldParam = new MDChipParams();
-
-                        frmPlayList.Play();
+                        frmPlayList.oldPlayIndex += i - buIndex;
                     }
+                    i = buIndex;
+
+                    if (i >= frmPlayList.getPlayList().LstMusic.Count) return;
+
+                    //選択位置の曲を再生する
+                    string fn = frmPlayList.getPlayList().LstMusic[i].fileName;
+                    if (frmPlayList.getPlayList().LstMusic[i].arcType != EnmArcType.LZH
+                        && frmPlayList.getPlayList().LstMusic[i].arcType != EnmArcType.ZIP
+                        && frmPlayList.getPlayList().LstMusic[i].arcType != EnmArcType.ZDF
+                        && (frmPlayList.getPlayList().LstMusic[i].arcFileName == null 
+                        || frmPlayList.getPlayList().LstMusic[i].arcFileName.ToLower().LastIndexOf(".m3u") == -1)
+                        && fn.ToLower().LastIndexOf(".lzh") == -1
+                        && fn.ToLower().LastIndexOf(".zip") == -1
+                        && fn.ToLower().LastIndexOf(".zdf") == -1
+                        && fn.ToLower().LastIndexOf(".m3u") == -1
+                        //&& fn.ToLower().LastIndexOf(".sid") == -1
+                        )
+                    {
+                        loadAndPlay(0, 0, fn, null, null, null, null);
+                        frmPlayList.setStart(i);// -1);
+                        oldParam = new MDChipParams();
+                        Play();
+                    }
+
+                    //if (filename.ToLower().LastIndexOf(".zip") == -1)
+                    //{
+                    //    loadAndPlay(0, 0, filename, null, null, null, null);
+                    //    frmPlayList.setStart(-1);
+                    //    oldParam = new MDChipParams();
+
+                    //    frmPlayList.Play();
+                    //}
                 }
                 catch (Exception ex)
                 {
