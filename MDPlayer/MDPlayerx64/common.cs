@@ -348,6 +348,7 @@ namespace MDPlayer
             if (filename.ToLower().LastIndexOf(".zgm") != -1) return EnmFileFormat.ZGM;
             if (filename.ToLower().LastIndexOf(".zip") != -1) return EnmFileFormat.ZIP;
             if (filename.ToLower().LastIndexOf(".lzh") != -1) return EnmFileFormat.LZH;
+            if (filename.ToLower().LastIndexOf(".zdf") != -1) return EnmFileFormat.ZDF;
             if (filename.ToLower().LastIndexOf(".wav") != -1) return EnmFileFormat.WAV;
             if (filename.ToLower().LastIndexOf(".mp3") != -1) return EnmFileFormat.MP3;
             if (filename.ToLower().LastIndexOf(".aiff") != -1) return EnmFileFormat.AIFF;
@@ -1087,13 +1088,15 @@ namespace MDPlayer
         RCS = 33,
         AY=34,
         GBS = 35,
+        ZDF = 36,
     }
 
     public enum EnmArcType : int
     {
         unknown = 0,
         ZIP = 1,
-        LZH = 2
+        LZH = 2,
+        ZDF = 3
     }
 
     public enum EnmRealModel

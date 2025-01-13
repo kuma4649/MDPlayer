@@ -137,6 +137,7 @@ namespace MDPlayer.Driver.ZMS.nise68
             byte dat = 0;
             if (c == 0x3)//rgr
             {
+                return dat;
                 throw new Exception();//R01 is write only.
             }
             else if (c == 0x7)//
@@ -155,6 +156,7 @@ namespace MDPlayer.Driver.ZMS.nise68
             }
             else
             {
+                return dat;
                 throw new NotImplementedException();
             }
             Log.WriteLine(LogLevel.Trace2, "Read CZ-6BM1 {2} Adr:$00ea_fa{0:x02} Dat:${1:x02}", ptr, dat, num == 0 ? "Pri" : "Sec");

@@ -29,6 +29,8 @@ namespace MDPlayer.Driver.ZMS.nise68
         public UInt32 defUSP = 0xfe_0000;
         public UInt32 defSSP = 0xff_0000;
         private Action[] tblFunc = new Action[256];
+        private Action[] tblFEFunc = new Action[256];
+        
         private myEncoding enc;
         public memMng memMng;
         private procInfo currentProc = new procInfo();
@@ -36,20 +38,22 @@ namespace MDPlayer.Driver.ZMS.nise68
         private int fileHandle = 0;
         private FileIni[] fi = new FileIni[256];
         private string currentWorkPath = "C:\\";//niseHumanにC:\\と思わせる実際のパス
-        public Dictionary<string, byte[]> fb = new Dictionary<string, byte[]>();
+        //public Dictionary<string, byte[]> fb = new Dictionary<string, byte[]>();
         private List<string> envZPDs;
+        private FileMng fileMng;
 
         public class procInfo
         {
             public UInt32 startAddress;
         }
 
-        public niseHuman(Memory68 mem, Register68 reg,List<string> envZPDs)
+        public niseHuman(Memory68 mem, Register68 reg,List<string> envZPDs,FileMng fm)
         {
             enc = new myEncoding();
             this.mem = mem;
             this.reg = reg;
             this.envZPDs = envZPDs;
+            this.fileMng = fm;
 
             programTerminate = false;
             returnCode = 0;
@@ -61,13 +65,13 @@ namespace MDPlayer.Driver.ZMS.nise68
             tblFunc = new Action[]
             {
                 //0x00
-                exit,null,putchar,null,  null,null,null,null,  null,print,null,null,  null,null,null,drvctrl,
+                exit,null,putchar,null,  null,null,null,inkey,  null,print,null,null,  null,null,null,drvctrl,
                 //0x10
                 null,null,null,null,  null,null,null,null,  null,null,null,null,  null,null,fputs,null,
                 //0x20
-                super,null,null,conctrl,  null,null,null,null,  null,null,null,null,  null,null,null,null,
+                super,null,null,conctrl,  null,intvcs,null,null,  null,null,null,null,  null,null,null,null,
                 //0x30
-                vernum,keeppr,null,null,  null,null,null,null,  null,null,null,null,  create,open,close,read,
+                vernum,keeppr,null,null,  null,null,null,nameck,  null,null,null,null,  create,open,close,read,
 
                 //0x40
                 write,delete,seek,null,  null,null,null,null,  malloc,mfree,setblock,exec,  exit2,null,files,null,
@@ -97,17 +101,57 @@ namespace MDPlayer.Driver.ZMS.nise68
                 null,null,null,null,  null,null,null,bus_err,  null,null,null,null,  null,null,null,null,
 
             };
+
+            tblFEFunc = new Action[]
+            {
+                //0x00
+                null,null,null,null,  null,null,null,null,  null,null,null,null,  null,null,null,null,
+                //0x10
+                null,_LTOS,null,null,  null,null,null,null,  null,null,null,null,  null,null,null,null,
+                //0x20
+                null,null,null,null,  null,null,null,null,  null,null,null,null,  null,null,null,null,
+                //0x30
+                null,null,null,null,  null,null,null,null,  null,null,null,null,  null,null,null,null,
+
+                //0x40
+                null,null,null,null,  null,null,null,null,  null,null,null,null,  null,null,null,null,
+                //0x50
+                null,null,null,null,  null,null,null,null,  null,null,null,null,  null,null,null,null,
+                //0x60
+                null,null,null,null,  null,null,null,null,  null,null,null,null,  null,null,null,null,
+                //0x70
+                null,null,null,null,  null,null,null,null,  null,null,null,null,  null,null,null,null,
+
+                //0x80
+                null,null,null,null,  null,null,null,null,  null,null,null,null,  null,null,null,null,
+                //0x90
+                null,null,null,null,  null,null,null,null,  null,null,null,null,  null,null,null,null,
+                //0xa0
+                null,null,null,null,  null,null,null,null,  null,null,null,null,  null,null,null,null,
+                //0xb0
+                null,null,null,null,  null,null,null,null,  null,null,null,null,  null,null,null,null,
+
+                //0xc0
+                null,null,null,null,  null,null,null,null,  null,null,null,null,  null,null,null,null,
+                //0xd0
+                null,null,null,null,  null,null,null,null,  null,null,null,null,  null,null,null,null,
+                //0xe0
+                null,null,null,null,  null,null,null,null,  null,null,null,null,  null,null,null,null,
+                //0xf0
+                null,null,null,null,  null,null,null,null,  null,null,null,null,  null,null,null,null,
+
+            };
         }
 
-        public void LoadAndExecuteFile(string filename, string option, string currentWorkPath, uint startAddress)
+        public void LoadAndExecuteFile(string filename, string option, uint startAddress)
         {
             Log.WriteLine(LogLevel.Information, "niseHuman>{0} {1}", filename, option);
             Log.WriteLine(LogLevel.Information, "CurrentWorkPath>{0}", currentWorkPath);
 
-            this.currentWorkPath = currentWorkPath;
-            if (String.IsNullOrEmpty(this.currentWorkPath)) this.currentWorkPath = "C:\\";
+            currentWorkPath = fileMng.VCurrentPath;
+            if (String.IsNullOrEmpty(currentWorkPath)) currentWorkPath = "C:\\";
 
-            byte[] bin = File.ReadAllBytes(filename);
+            byte[] bin = fileMng.VReadAllBytes(filename);
             string fext = Path.GetExtension(filename).ToUpper();
             LoadRunner(bin, fext == ".R", option, startAddress);
         }
@@ -122,9 +166,10 @@ namespace MDPlayer.Driver.ZMS.nise68
             MakeEnv(envAddress, envSize);
 
             uint stackPtr = startAddress;
-            cmdLineAddress = stackPtr;
-            uint stackSize = 0x10000;
-            execPtr = stackPtr + stackSize;
+            uint stackSize = 0x0100;
+            cmdLineAddress = stackPtr+stackSize;
+            uint cmdLineSize = 0x100;
+            execPtr = stackPtr + stackSize + cmdLineSize;
 
             MakePSP(startAddress, (uint)prog.Length, this.memMng.Address, 0x1000_0000);
 
@@ -134,7 +179,7 @@ namespace MDPlayer.Driver.ZMS.nise68
             {
                 //.r
 
-                WriteOption(stackPtr, option);
+                WriteOption(cmdLineAddress, option);
 
                 //init reg
                 reg.PC = execPtr;
@@ -166,7 +211,7 @@ namespace MDPlayer.Driver.ZMS.nise68
                 }
                 relocate(textSize + dataSize, relocTblSize, execPtr);
 
-                WriteOption(stackPtr, option);
+                WriteOption(cmdLineAddress, option);
 
                 //init reg
                 reg.PC = execPtr + startAdr;
@@ -272,6 +317,7 @@ namespace MDPlayer.Driver.ZMS.nise68
             //mem.PokeB(startAddress + 0x04, 0x00);//0x00:normal memBlock 0xff:regidentProc memBlock
             mem.PokeL(startAddress + 0x04, processID);
             mem.PokeL(startAddress + 0x08, length);
+            mem.PokeL(startAddress + 0x08, 0xb00000);// startAddress + PSPSize + progSize);//てけとー(lzz.rむけ)
             mem.PokeL(startAddress + 0x0c, 0);// nextProcPSP);
 
             if (beforePSP != 0)
@@ -320,6 +366,19 @@ namespace MDPlayer.Driver.ZMS.nise68
             }
         }
 
+        public void FEFunc(ushort n)
+        {
+            try
+            {
+                tblFEFunc[(byte)n]();
+            }
+            catch
+            {
+                Log.WriteLine(LogLevel.Trace2, "<NiseHuman>FEFunc call ${0:x04}", n);
+                throw;
+            }
+        }
+
         public void doscall(ushort n)
         {
             try
@@ -353,6 +412,12 @@ namespace MDPlayer.Driver.ZMS.nise68
                 Log.Write(LogLevel.Information, System.Text.Encoding.GetEncoding("shift_jis").GetString(consoleTextBuf.ToArray()));
                 consoleTextBuf.Clear();
             }
+        }
+
+        private void inkey()
+        {
+            Log.WriteLine(LogLevel.Trace2, "<NiseHuman>dos call $FF07 inkey");
+            reg.D[0] = 'Y';
         }
 
         private void print()
@@ -456,6 +521,23 @@ namespace MDPlayer.Driver.ZMS.nise68
             }
         }
 
+        private void intvcs()
+        {
+            Log.WriteLine(LogLevel.Trace2, "<NiseHuman>dos call $FF25 intvcs");
+            UInt16 intno = mem.PeekW(reg.A[7] + 0);
+            UInt32 jobadr = mem.PeekL(reg.A[7] + 2);
+
+            if (intno < 0x100)
+            {
+                reg.D[0] = mem.PeekL((uint)(intno * 4));
+                mem.PokeL((uint)(intno * 4), jobadr);
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         private void vernum()
         {
             Log.WriteLine(LogLevel.Trace2, "<NiseHuman>dos call $FF30 vernum");
@@ -471,6 +553,74 @@ namespace MDPlayer.Driver.ZMS.nise68
 
             programTerminate = true;
             returnCode = (int)code;
+        }
+
+        private void nameck()
+        {
+            Log.WriteLine(LogLevel.Trace2, "<NiseHuman>dos call $FF37 nameck");
+            UInt32 file = mem.PeekL(reg.A[7] + 0);
+            UInt32 buffer = mem.PeekL(reg.A[7] + 4);
+
+            List<byte> msg = new List<byte>();
+            int cnt = 0;
+            do
+            {
+                byte b = mem.PeekB((UInt32)(file + cnt));
+                if ((char)b == '\0') break;
+                msg.Add(b);
+                cnt++;
+            } while (true);
+            string fn = enc.GetStringFromSjisArray(msg.ToArray());
+            Log.WriteLine(LogLevel.Trace2, "Filename:[{0}]", fn);
+            fn = fileMng.VGetFullFilename(fn);
+            try
+            {
+                string path = Path.GetDirectoryName(fn);
+                string filename = Path.GetFileNameWithoutExtension(fn);
+                string extension = Path.GetExtension(fn);
+                
+                //ドライブレター(dummy)
+                mem.PokeB((uint)(buffer + 0), (byte)path[0]);
+                mem.PokeB((uint)(buffer + 1), (byte)path[1]);
+
+                //パスネーム MAX:64byte + endMark:$00
+                cnt = -2;
+                foreach (char c in path)
+                {
+                    if (cnt < 0) { cnt++; continue; }
+                    mem.PokeB((uint)(buffer + 2 + cnt), (byte)c);
+                    cnt++;
+                    if (cnt == 64) break;
+                }
+                mem.PokeB((uint)(buffer + 2 + cnt), (byte)0x00);
+
+                //ファイルネーム MAX:18byte + endMark:$00
+                cnt = 0;
+                foreach (char c in filename)
+                {
+                    mem.PokeB((uint)(buffer + 67 + cnt), (byte)c);
+                    cnt++;
+                    if (cnt == 18) break;
+                }
+                mem.PokeB((uint)(buffer + 67 + cnt), (byte)0x00);
+
+                //拡張子 MAX:4byte + endMark:$00
+                cnt = 0;
+                foreach (char c in extension)
+                {
+                    mem.PokeB((uint)(buffer + 86 + cnt), (byte)c);
+                    cnt++;
+                    if (cnt == 4) break;
+                }
+                mem.PokeB((uint)(buffer + 86 + cnt), (byte)0x00);
+
+                reg.D[0] = 0;//ワイルドカード指定なし
+            }
+            catch (Exception)
+            {
+                reg.D[0] = unchecked((uint)(-1));//error
+            }
+
         }
 
         private void create()
@@ -490,7 +640,7 @@ namespace MDPlayer.Driver.ZMS.nise68
             string fn = enc.GetStringFromSjisArray(msg.ToArray());
             Log.WriteLine(LogLevel.Trace2, "Filename:[{0}] ATR:{1}", fn, ATR);
 
-            string physicalFn = GetPhysicalFn(fn);
+            //string physicalFn = GetPhysicalFn(fn);
 
             reg.D[0] = unchecked((uint)(-1));
 
@@ -515,23 +665,26 @@ namespace MDPlayer.Driver.ZMS.nise68
                 fi[i].ptr = 0;
                 //fi[i].dat = File.ReadAllBytes(fn);
                 byte[] dat;
-                if (fb.ContainsKey(physicalFn))
-                {
-                    dat = fb[physicalFn];
-                }
-                else
-                {
-                    if (File.Exists(physicalFn))
-                    {
-                        dat = File.ReadAllBytes(physicalFn);
-                    }
-                    else
-                    {
-                        dat= new byte[0];
-                    }
-                    fb.Add(physicalFn, dat);
-                }
-                fi[i].memoryStream = new MemoryStream(dat);
+                //if (fb.ContainsKey(physicalFn))
+                //{
+                //    dat = fb[physicalFn];
+                //}
+                //else
+                //{
+                //    if (File.Exists(physicalFn))
+                //    {
+                //        dat = File.ReadAllBytes(physicalFn);
+                //    }
+                //    else
+                //    {
+                //        dat= new byte[0];
+                //    }
+                //    fb.Add(physicalFn, dat);
+                //}
+                dat = fileMng.VReadAllBytes(fn);
+                if(dat==null)
+                    fi[i].memoryStream = new MemoryStream(new byte[0]);
+                else fi[i].memoryStream = new MemoryStream(dat);
                 break;
             }
             if (fileHandle < 0) return;
@@ -558,11 +711,11 @@ namespace MDPlayer.Driver.ZMS.nise68
             string fn = enc.GetStringFromSjisArray(msg.ToArray());
             Log.WriteLine(LogLevel.Trace2, "Filename:[{0}] Mode:{1}", fn, MODE);
 
-            string physicalFn = GetPhysicalFn(fn);
+            //string physicalFn = GetPhysicalFn(fn);
 
             reg.D[0] = unchecked((uint)(-1));
 
-            if (MODE != 0)
+            if (MODE != 0 && MODE != 1)
             {
                 //読み込みのみサポート失敗
                 return;
@@ -574,7 +727,8 @@ namespace MDPlayer.Driver.ZMS.nise68
             {
                 if (fi[i] == null) fi[i] = new FileIni();
                 if (fi[i].IsOpen) continue;
-                if (!File.Exists(physicalFn)) continue;
+                //if (!File.Exists(physicalFn)) continue;
+                if (!fileMng.ExistsFile(fn)) continue;
 
                 fileHandle = i;
                 fi[i].IsTemp = false;
@@ -582,15 +736,16 @@ namespace MDPlayer.Driver.ZMS.nise68
                 fi[i].filename = fn;
                 fi[i].ptr = 0;
                 byte[] dat;
-                if (fb.ContainsKey(physicalFn))
-                {
-                    dat = fb[physicalFn];
-                }
-                else
-                {
-                    dat = File.ReadAllBytes(physicalFn);
-                    fb.Add(physicalFn, dat);
-                }
+                //if (fb.ContainsKey(physicalFn))
+                //{
+                //    dat = fb[physicalFn];
+                //}
+                //else
+                //{
+                //    dat = File.ReadAllBytes(physicalFn);
+                //    fb.Add(physicalFn, dat);
+                //}
+                dat=fileMng.VReadAllBytes(fn);
                 fi[i].memoryStream = new MemoryStream(dat);
                 break;
             }
@@ -698,15 +853,27 @@ namespace MDPlayer.Driver.ZMS.nise68
             List<byte> data = new List<byte>();
 
             for (; i < size; i++) data.Add(mem.PeekB((uint)(dataPtr + i)));
-            string physicalFn = GetPhysicalFn(fi[fileno].filename);
+            //string physicalFn = GetPhysicalFn(fi[fileno].filename);
 
-            if (fb.ContainsKey(physicalFn))
+            //if (fb.ContainsKey(physicalFn))
+            //{
+            //    byte[] f = fb[physicalFn];// File.ReadAllBytes(physicalFn);
+            //    int nSize = f.Length + data.Count - fi[fileno].ptr;
+            //    byte[] nf = new byte[nSize];
+            //    Array.Copy(data.ToArray(), 0, nf, fi[fileno].ptr, data.Count);
+            //    fb[physicalFn] = nf;// File.WriteAllBytes(physicalFn, nf);
+
+            //    reg.D[0] = (uint)i;
+            //}
+
+            string fn = fi[fileno].filename;
+            if (fileMng.ExistsFile(fn))
             {
-                byte[] f = fb[physicalFn];// File.ReadAllBytes(physicalFn);
-                int nSize = f.Length + data.Count - fi[fileno].ptr;
+                byte[] f=fileMng.VReadAllBytes(fn);
+                int nSize = (f != null ? f.Length : 0) + data.Count - fi[fileno].ptr;
                 byte[] nf = new byte[nSize];
                 Array.Copy(data.ToArray(), 0, nf, fi[fileno].ptr, data.Count);
-                fb[physicalFn] = nf;// File.WriteAllBytes(physicalFn, nf);
+                fileMng.SetVFile(fn, nf);// File.WriteAllBytes(physicalFn, nf);
 
                 reg.D[0] = (uint)i;
             }
@@ -809,7 +976,7 @@ namespace MDPlayer.Driver.ZMS.nise68
                 return;
             }
 
-            reg.D[0] = 0x0000_0000 + newlen;
+            reg.D[0] = 0x0000_0000;// + newlen;
         }
 
         private void exec()
@@ -934,10 +1101,11 @@ namespace MDPlayer.Driver.ZMS.nise68
             } while (true);
             string fn = enc.GetStringFromSjisArray(msg.ToArray());
             Log.WriteLine(LogLevel.Trace2, string.Format("Filename:[{0}] Atr:{1:x04}", fn, atr));
-            string physicalFn = GetPhysicalFn(fn);
+            //string physicalFn = GetPhysicalFn(fn);
 
             reg.D[0] = unchecked((uint)-1);
-            if (File.Exists(physicalFn))
+            //if (File.Exists(physicalFn))
+            if (fileMng.ExistsFile(fn))
             {
                 mem.PokeB(filbuf + 0, 0);//ATR(sys)
                 mem.PokeB(filbuf + 1, 0);//DriveNo(sys)
@@ -952,7 +1120,7 @@ namespace MDPlayer.Driver.ZMS.nise68
                 mem.PokeB(filbuf + 21, (byte)atr);//ATR
                 mem.PokeW(filbuf + 22, 0x0000);//TIME
                 mem.PokeW(filbuf + 24, 0x0000);//DATE
-                FileInfo fi = new FileInfo(fn);
+                //FileInfo fi = new FileInfo(fn);
                 mem.PokeL(filbuf + 26, (uint)fn.Length);//FileLength
                 for (uint i = 0; i < 23; i++)
                     mem.PokeB(filbuf + 30 + i, 0x00);//PACKEDNAME
@@ -1093,6 +1261,21 @@ namespace MDPlayer.Driver.ZMS.nise68
             }
 
             reg.D[0] = 0x0000_0000;//0:読み書き可能 1,2,-1:エラー
+        }
+
+        private void _LTOS()
+        {
+            Log.WriteLine(LogLevel.Trace2, "<NiseHuman>FE func call $FE11 _LTOS");
+
+            Int32 val = (Int32)reg.GetDl(0);
+            UInt32 dadr = reg.A[0];
+            byte[] dat=enc.GetSjisArrayFromString(string.Format("{0:d}", val));
+            foreach(byte d in dat)
+            {
+                mem.PokeB(dadr++, d);
+            }
+            mem.PokeB(dadr, 0);
+            reg.A[0] = dadr;
         }
     }
 }

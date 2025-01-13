@@ -381,6 +381,9 @@ namespace MDPlayer
                 case EnmFileFormat.LZH:
                     AddFileLZH(mc, entry);
                     break;
+                case EnmFileFormat.ZDF:
+                    AddFileZDF(mc, entry);
+                    break;
                 case EnmFileFormat.WAV:
                     AddFileWAV(mc, entry);
                     break;
@@ -477,6 +480,9 @@ namespace MDPlayer
                 case EnmFileFormat.LZH:
                     AddFileLZH(ref index, mc, entry);
                     break;
+                case EnmFileFormat.ZDF:
+                    AddFileZDF(ref index, mc, entry);
+                    break;
                 case EnmFileFormat.M3U:
                     AddFileM3U(ref index, mc, entry);
                     break;
@@ -552,8 +558,17 @@ namespace MDPlayer
                     }
                     else
                     {
-                        UnlhaWrap.UnlhaCmd cmd = new();
-                        buf = cmd.GetFileByte(((Tuple<string, string>)entry).Item1, ((Tuple<string, string>)entry).Item2);
+                        EnmFileFormat ff= Common.CheckExt(((Tuple<string, string>)entry).Item1);
+                        if (ff == EnmFileFormat.ZDF)
+                        {
+                            UnZDF uz = new UnZDF();
+                            buf = uz.GetFileByte(((Tuple<string, string>)entry).Item1, ((Tuple<string, string>)entry).Item2);
+                        }
+                        else
+                        {
+                            UnlhaWrap.UnlhaCmd cmd = new();
+                            buf = cmd.GetFileByte(((Tuple<string, string>)entry).Item1, ((Tuple<string, string>)entry).Item2);
+                        }
                     }
                 }
 
@@ -1059,7 +1074,7 @@ namespace MDPlayer
             if (entry != null) return;
 
             UnlhaWrap.UnlhaCmd cmd = new();
-            List<Tuple<string, UInt64>> res = cmd.GetFileList(mc.fileName, "*.*");
+            List<Tuple<string, UInt64>> res = cmd.GetFileList(mc.fileName, "*.*");//(string , uint64) = (filename , original file size)
             mc.arcFileName = mc.fileName;
             mc.arcType = EnmArcType.LZH;
             List<string> zipMember = new();
@@ -1222,6 +1237,98 @@ namespace MDPlayer
                 }
             }
 
+        }
+
+        private void AddFileZDF(Music mc, object entry = null)
+        {
+            if (entry != null) return;
+
+            UnZDF cmd = new();
+            List<Tuple<string, UInt64>> res = cmd.GetFileList(mc.fileName, "*.*");
+            if (res == null || res.Count < 1) return;
+
+            mc.arcFileName = mc.fileName;
+            mc.arcType = EnmArcType.ZDF;
+            List<string> zipMember = new();
+            List<Music> mMember = new();
+
+            foreach (Tuple<string, UInt64> ent in res)
+            {
+                if (Common.CheckExt(ent.Item1) != EnmFileFormat.M3U)
+                {
+                    zipMember.Add(ent.Item1);
+                }
+                else
+                {
+                    PlayList pl = M3U.LoadM3U(ent, mc.arcFileName);
+                    foreach (Music m in pl.LstMusic) mMember.Add(m);
+                }
+            }
+
+            foreach (string zm in zipMember)
+            {
+                bool found = false;
+                foreach (Music m in mMember)
+                {
+                    if (m.fileName == zm)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found && Common.CheckExt(zm) == EnmFileFormat.VGM)
+                {
+                    string vzm = "";
+                    if (Path.GetExtension(zm).ToLower() == ".vgm") vzm = Path.ChangeExtension(zm, ".vgz");
+                    else vzm = Path.ChangeExtension(zm, ".vgm");
+                    foreach (Music m in mMember)
+                    {
+                        if (m.fileName == vzm)
+                        {
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+                if (!found)
+                {
+                    Music zmc = new()
+                    {
+                        fileName = zm,
+                        arcFileName = mc.arcFileName,
+                        arcType = mc.arcType
+                    };
+                    mMember.Add(zmc);
+                }
+            }
+
+            foreach (Tuple<string, UInt64> ent in res)
+            {
+                foreach (Music m in mMember)
+                {
+                    string vzm = "";
+                    if (Path.GetExtension(m.fileName).ToLower() == ".vgm") vzm = Path.ChangeExtension(m.fileName, ".vgz");
+                    else if (Path.GetExtension(m.fileName).ToLower() == ".vgz") vzm = Path.ChangeExtension(m.fileName, ".vgm");
+
+                    if (ent.Item1 == m.fileName || ent.Item1 == vzm)
+                    {
+                        m.format = Common.CheckExt(m.fileName);
+                        m.arcFileName = mc.arcFileName;
+                        m.arcType = mc.arcType;
+                        AddFileLoop(m, new Tuple<string, string>(m.arcFileName, ent.Item1));
+
+                        //m3uが複数同梱されている時、同名のファイルが多数追加されることになるケースがある。
+                        //それを防ぐためここでbreakする
+                        break;
+                    }
+                }
+            }
+
+        }
+
+        private void AddFileZDF(ref int _, Music mc, object entry = null)
+        {
+            AddFileZDF(mc, entry);
         }
 
         private void AddFileM3U(Music mc, object entry = null)

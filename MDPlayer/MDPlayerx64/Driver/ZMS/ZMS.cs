@@ -10,6 +10,7 @@ namespace MDPlayer.Driver.ZMS
     {
         private readonly EnmFileFormat format = format;
         private nise68.nise68 nise68;
+        private nise68.FileMng fileMng;
         public mpcmX68k mpcm;
         public mpcmpp mpcmpp;
         public int mpcmtype = 0;
@@ -44,6 +45,7 @@ namespace MDPlayer.Driver.ZMS
         }
 
         public string PlayingFileName { get; internal set; }
+        public string PlayingArcFileName { get; internal set; }
         public List<Tuple<byte[], string>> SupportFileBinaryAndName;
         public byte[] CompiledData { get; set; }
 
@@ -221,11 +223,13 @@ namespace MDPlayer.Driver.ZMS
                                 byte[] zmd = null;
                                 if (preData.Count == 0)
                                 {
-                                    if (nise68.hmn.fb.ContainsKey(fnZMD)) zmd = nise68.hmn.fb[fnZMD];
+                                    //if (nise68.hmn.fb.ContainsKey(fnZMD)) zmd = nise68.hmn.fb[fnZMD];
+                                    if (fileMng.ExistsFile(fnZMD)) zmd = fileMng.VReadAllBytes(fnZMD);
                                 }
                                 else
                                 {
-                                    if (nise68.hmn.fb.ContainsKey(preData[0])) zmd = nise68.hmn.fb[preData[0]];
+                                    //if (nise68.hmn.fb.ContainsKey(preData[0])) zmd = nise68.hmn.fb[preData[0]];
+                                    if (fileMng.ExistsFile(preData[0])) zmd = fileMng.VReadAllBytes(preData[0]);
                                 }
                                 uint fileSize = (uint)zmd.Length;
                                 uint filePtr = (uint)nise68.hmn.memMng.Malloc(fileSize);
@@ -283,10 +287,11 @@ namespace MDPlayer.Driver.ZMS
             string fn = PlayingFileName;
             string withoutExtFn;
             string? dn = Path.GetDirectoryName(fn);
+            if (string.IsNullOrEmpty(dn)) dn = Path.GetDirectoryName(Application.ExecutablePath);
             if (!string.IsNullOrEmpty(dn)) withoutExtFn = Path.Combine(dn, Path.GetFileNameWithoutExtension(fn));
             else withoutExtFn = Path.GetFileNameWithoutExtension(fn);
-            string fnZMD = withoutExtFn + ".ZMD";
-            string fnZMS = withoutExtFn + ".ZMS";
+            string fnZMD = Path.GetFileName(withoutExtFn + ".ZMD");
+            string fnZMS = Path.GetFileName(withoutExtFn + ".ZMS");
 
             MDPlayer.Driver.ZMS.nise68.Log.SetMsgWrite(MsgWrite);
             nise68 = new nise68.nise68();
@@ -294,9 +299,24 @@ namespace MDPlayer.Driver.ZMS
             nise68.SetOPM(OPMCallBack);
             nise68.SetMIDI(MIDICallBack, (int)Common.VGMProcSampleRate);
             nise68.SetSCC_A(SCCCallBack, (int)Common.VGMProcSampleRate);
-            nise68.Init(envZPDs, version == 2);
+            if (!string.IsNullOrEmpty(PlayingArcFileName))
+            {
+                EnmFileFormat ff = Common.CheckExt(PlayingArcFileName);
+                if (ff == EnmFileFormat.ZDF)
+                {
+                    UnZDF cmd= new UnZDF();
+                    fileMng= cmd.Unpack(PlayingArcFileName);
+                }
 
-            nise68.hmn.fb.Add(fnZMD, vgmBuf);
+            }
+            else
+            {
+                fileMng = new FileMng(dn);
+            }
+            nise68.Init(envZPDs, version == 2, fileMng);
+
+            fileMng.SetVFile(Path.GetFileName(fnZMD), vgmBuf);
+            //nise68.hmn.fb.Add(fnZMD, vgmBuf);
             //if (format == EnmFileFormat.ZMD) nise68.hmn.fb.Add(fnZMD, vgmBuf);
             //else
             //{
@@ -325,20 +345,26 @@ namespace MDPlayer.Driver.ZMS
             string? dn = Path.GetDirectoryName(fn);
             if (!string.IsNullOrEmpty(dn)) withoutExtFn = Path.Combine(dn, Path.GetFileNameWithoutExtension(fn));
             else withoutExtFn = Path.GetFileNameWithoutExtension(fn);
-            fnZMD = withoutExtFn + ".ZMD";
+            fnZMD = Path.GetFileName(withoutExtFn + ".ZMD");
             string crntDir = Path.GetDirectoryName(Application.ExecutablePath);
+
             string zmsc3 = Path.Combine(crntDir, "ZMSC3.X");
             if (!File.Exists(zmsc3))
             {
                 log.Write(LogLevel.Information, "File not found : {0}", zmsc3);
                 throw new FileNotFoundException(zmsc3);
             }
+            fileMng.SetVFile(zmsc3);
+            zmsc3 = Path.GetFileName(zmsc3);
+
             string zmusic = Path.Combine(crntDir, "ZMUSIC.X");//ver2
             if (!File.Exists(zmusic))
             {
                 log.Write(LogLevel.Information, "File not found : {0}", zmusic);
                 throw new FileNotFoundException(zmusic);
             }
+            fileMng.SetVFile(zmusic);
+            zmusic = Path.GetFileName(zmusic);
 
             trp = 3 + 32;
 
@@ -358,18 +384,20 @@ namespace MDPlayer.Driver.ZMS
                         if (ext == ".ZPD")
                         {
                             optionZpd = " -B" + Path.GetFileName(s.Item2);
-                            if (!nise68.hmn.fb.ContainsKey(s.Item2))
+                            if (!fileMng.ExistsFile(s.Item2))
                             {
-                                nise68.hmn.fb.Add(s.Item2, s.Item1);
+                                fileMng.SetVFile(s.Item2, s.Item1);
                             }
                         }
-                        if (ext == ".ZMD"|| ext == ".ZMS")
+                        if (ext == ".ZMD" || ext == ".ZMS")
                         {
-                            optionZmd = " -N";
-                            if (!nise68.hmn.fb.ContainsKey(s.Item2))
+                            string f = s.Item2;
+                            f = Path.ChangeExtension(f, ".ZMD");
+                            optionZmd = " -N" + Path.GetFileName(f);
+                            if (!fileMng.ExistsFile(f))
                             {
-                                nise68.hmn.fb.Add(s.Item2, s.Item1);
-                                preData.Add(s.Item2);
+                                fileMng.SetVFile(f, s.Item1);
+                                preData.Add(f);
                             }
                         }
                     }
@@ -377,11 +405,14 @@ namespace MDPlayer.Driver.ZMS
 
                 nise68.hmn.memMng = new memMng((uint)(0x0001_2000 + (9212 + 2048) * 1024 + File.ReadAllBytes(zmusic).Length));
 
-                if (nise68.LoadRun(zmusic, "-P9212 -T2048" + optionZpd + optionZmd, Path.GetDirectoryName(fnZMD), 0x00012000
+                //if (nise68.LoadRun(zmusic, "-P9212 -T2048" + optionZpd + optionZmd, Path.GetDirectoryName(fnZMD), 0x00012000
+                //, true, true, true
+                //) != 0) throw new Exception("zmusic regident Error");
+                if (nise68.LoadRun(zmusic, "-P9212 -T2048" + optionZpd + optionZmd, 0x00012000
                 , true, true, true
                 ) != 0) throw new Exception("zmusic regident Error");
 
-                if(pcm8type==0) opmPCM?.x68sound[0].MountMemory(nise68.mem.mem);
+                if (pcm8type==0) opmPCM?.x68sound[0].MountMemory(nise68.mem.mem);
                 else pcm8pp?.MountMemory(nise68.mem.mem);
 
                 //演奏
@@ -391,24 +422,36 @@ namespace MDPlayer.Driver.ZMS
                     if (File.Exists(fnZMD))
                     {
                         zmd = File.ReadAllBytes(fnZMD);
-                        if (!nise68.hmn.fb.ContainsKey(fnZMD))
+                        //if (!nise68.hmn.fb.ContainsKey(fnZMD))
+                        //{
+                        //    nise68.hmn.fb.Add(fnZMD, zmd);
+                        //}
+                        if(!fileMng.ExistsFile(fnZMD))
                         {
-                            nise68.hmn.fb.Add(fnZMD, zmd);
+                            fileMng.SetVFile(fnZMD, zmd);
                         }
                     }
                     else
                     {
-                        if (nise68.hmn.fb.ContainsKey(fnZMD))
+                        //if (nise68.hmn.fb.ContainsKey(fnZMD))
+                        //{
+                        //    zmd = nise68.hmn.fb[fnZMD];
+                        //}
+                        if (fileMng.ExistsFile(Path.GetFileName(fnZMD)))
                         {
-                            zmd = nise68.hmn.fb[fnZMD];
+                            zmd = fileMng.VReadAllBytes(Path.GetFileName(fnZMD));
                         }
                     }
                 }
                 else
                 {
-                    if (nise68.hmn.fb.ContainsKey(preData[0]))
+                    //if (nise68.hmn.fb.ContainsKey(preData[0]))
+                    //{
+                    //    zmd = nise68.hmn.fb[preData[0]];
+                    //}
+                    if (fileMng.ExistsFile(preData[0]))
                     {
-                        zmd = nise68.hmn.fb[preData[0]];
+                        zmd = fileMng.VReadAllBytes(preData[0]);
                     }
                 }
                 if (zmd == null)
@@ -433,9 +476,12 @@ namespace MDPlayer.Driver.ZMS
             //zmsc3常駐
             nise68.hmn.memMng = new memMng(0x0004_0000);
 
-            if (nise68.LoadRun(zmsc3, "-w", Path.GetDirectoryName(fnZMD), 0x00012000
-            , true, true, true
-            ) != 0) throw new Exception("zmsc3 regident Error");
+            //if (nise68.LoadRun(zmsc3, "-w", Path.GetDirectoryName(fnZMD), 0x00012000
+            //, true, true, true
+            //) != 0) throw new Exception("zmsc3 regident Error");
+            if (nise68.LoadRun(zmsc3, "-w", 0x00012000
+           , true, true, true
+           ) != 0) throw new Exception("zmsc3 regident Error");
 
             //演奏
             //Log.WriteLine(LogLevel.Information, "");
@@ -471,7 +517,7 @@ namespace MDPlayer.Driver.ZMS
             }
             {
                 //演奏
-                byte[] zmd = nise68.hmn.fb[fnZMD];
+                byte[] zmd = fileMng.VReadAllBytes(Path.GetFileName(fnZMD));// nise68.hmn.fb[fnZMD];
                 uint fileSize = (uint)zmd.Length;
                 uint filePtr = (uint)nise68.hmn.memMng.Malloc(fileSize);
                 for (int i = 0; i < zmd.Length; i++)
@@ -494,14 +540,14 @@ namespace MDPlayer.Driver.ZMS
 
         }
 
-        public bool Compile(byte[] vgmBuf,string fn)
+        public bool Compile(byte[] vgmBuf, string fn)
         {
             string withoutExtFn;
             string? dn = Path.GetDirectoryName(fn);
             if (!string.IsNullOrEmpty(dn)) withoutExtFn = Path.Combine(dn, Path.GetFileNameWithoutExtension(fn));
             else withoutExtFn = Path.GetFileNameWithoutExtension(fn);
-            string fnZMD = withoutExtFn + ".ZMD";
-            string fnZMS = withoutExtFn + ".ZMS";
+            string fnZMD = Path.GetFileName(withoutExtFn + ".ZMD");
+            string fnZMS = Path.GetFileName(withoutExtFn + ".ZMS");
             string crntDir = Path.GetDirectoryName(Application.ExecutablePath);
             string zmc = Path.Combine(crntDir, "ZMC.X");
             if (!File.Exists(zmc))
@@ -509,6 +555,8 @@ namespace MDPlayer.Driver.ZMS
                 log.Write(LogLevel.Information, "File not found : {0}", zmc);
                 return false;//throw new FileNotFoundException(zmc);
             }
+            fileMng.SetVFile(zmc);
+            zmc = Path.GetFileName(zmc);
 
             MDPlayer.Driver.ZMS.nise68.Log.SetMsgWrite(MsgWrite);
             nise68 = new nise68.nise68();
@@ -516,19 +564,23 @@ namespace MDPlayer.Driver.ZMS
             nise68.SetOPM(OPMCallBack);
             nise68.SetMIDI(MIDICallBack, (int)Common.VGMProcSampleRate);
             nise68.SetSCC_A(SCCCallBack, (int)Common.VGMProcSampleRate);
-            nise68.Init(null, false);
+            nise68.Init(null, false, fileMng);
 
             //コンパイル
-            nise68.hmn.fb.Add(fnZMS, vgmBuf);
-            if (nise68.LoadRun(zmc, Path.GetFileName(fnZMS), Path.GetDirectoryName(fnZMS), 0x00012000
+            //nise68.hmn.fb.Add(fnZMS, vgmBuf);
+            fileMng.SetVFile(fnZMS, vgmBuf);
+            //if (nise68.LoadRun(zmc, Path.GetFileName(fnZMS), Path.GetDirectoryName(fnZMS), 0x00012000
+            //, true, true, true
+            //) != 0)
+            if (nise68.LoadRun(zmc, Path.GetFileName(fnZMS), 0x00012000
             , true, true, true
             ) != 0)
             {
                 log.Write(LogLevel.Information, "v3 Compile Error", zmc);
                 return false;
             }
-            CompiledData = nise68.hmn.fb[fnZMD];
-
+            //CompiledData = nise68.hmn.fb[fnZMD];
+            CompiledData = fileMng.VReadAllBytes(fnZMD);
             return true;
         }
 
@@ -539,8 +591,8 @@ namespace MDPlayer.Driver.ZMS
             string? dn = Path.GetDirectoryName(fn);
             if (!string.IsNullOrEmpty(dn)) withoutExtFn = Path.Combine(dn, Path.GetFileNameWithoutExtension(fn));
             else withoutExtFn = Path.GetFileNameWithoutExtension(fn);
-            string fnZMD = withoutExtFn + ".ZMD";
-            string fnZMS = withoutExtFn + ".ZMS";
+            string fnZMD = Path.GetFileName(withoutExtFn + ".ZMD");
+            string fnZMS = Path.GetFileName(withoutExtFn + ".ZMS");
             string crntDir = Path.GetDirectoryName(Application.ExecutablePath);
             string zmusic = Path.Combine(crntDir, "ZMUSIC.X");
             if (!File.Exists(zmusic))
@@ -555,18 +607,28 @@ namespace MDPlayer.Driver.ZMS
             nise68.SetOPM(OPMCallBack);
             nise68.SetMIDI(MIDICallBack, (int)Common.VGMProcSampleRate);
             nise68.SetSCC_A(SCCCallBack, (int)Common.VGMProcSampleRate);
-            nise68.Init(null, false);
+
+            fileMng = new FileMng(dn);//曲ファイルのパスを物理ドライブのカレントに設定する.仮想ドライブのカレントは"C:"(デフォルト)
+            fileMng.SetVFile(zmusic);
+            zmusic = Path.GetFileName(zmusic);
+
+            nise68.Init(null, false, fileMng);
 
             //コンパイル
-            nise68.hmn.fb.Add(fnZMS, vgmBuf);
-            if (nise68.LoadRun(zmusic, "-C "+Path.GetFileName(fnZMS), Path.GetDirectoryName(fnZMS), 0x00012000
-            , true, true, true
-            ) != 0)
-            {
-                log.Write(LogLevel.Information, "v2 Compile Error", zmusic);
+            //nise68.hmn.fb.Add(fnZMS, vgmBuf);
+            fileMng.SetVFile(fnZMS, vgmBuf);
+            //if (nise68.LoadRun(zmusic, "-C " + Path.GetFileName(fnZMS), Path.GetDirectoryName(fnZMS), 0x00012000
+            //, true, true, true
+            //) != 0)
+                if (nise68.LoadRun(zmusic, "-C " + fnZMS, 0x00012000
+                , true, true, true
+                ) != 0)
+                {
+                    log.Write(LogLevel.Information, "v2 Compile Error", zmusic);
                 return false;
             }
-            CompiledData = nise68.hmn.fb[fnZMD];
+            //CompiledData = nise68.hmn.fb[fnZMD];
+            CompiledData = fileMng.VReadAllBytes(Path.GetFileName(fnZMD));
 
             return true;
         }

@@ -62,7 +62,7 @@ namespace MDPlayer.Driver.ZMS.nise68
                 Cshift   ,Cshift   ,Cshift   ,Cshift    , Cshift   ,Cshift   ,Cshift    ,Cshift,
                 //f0
                 null     ,null     ,null     ,null      , null     ,null     ,null      ,null,
-                null     ,null     ,null     ,null      , null     ,null     ,null      ,Cdos,
+                null     ,null     ,null     ,null      , null     ,null     ,CFEFunc   ,Cdos,
             };
         }
 
@@ -1659,7 +1659,189 @@ namespace MDPlayer.Driver.ZMS.nise68
 
         private int CandwEADn(ushort n)
         {
-            throw new NotImplementedException();
+#if DEBUG
+            string nimo = "AND.w ";
+#endif
+
+            int cycle = 0;
+            int m = (n & 0x0038) >> 3;
+            int r = (n & 0x0007);
+            int sr = (n & 0x0e00) >> 9;
+
+            ushort src = 0;
+            ushort dst = reg.GetDw(sr);
+            ushort after = 0;
+
+            UInt16 vw;
+            bool isA;
+            int ni;
+            bool isL;
+            UInt32 IX;
+            UInt32 ptr;
+
+            switch (m)
+            {
+                case 0://Dn
+                    src = reg.GetDw(r);
+                    after = (ushort)(src & dst);
+                    reg.SetDw(sr, after);
+#if DEBUG
+                    nimo += string.Format("D{0},D{1}", r, sr);
+#endif
+
+                    cycle = cy.And_wEADn[0];
+                    break;
+                case 1:
+                    throw new NotImplementedException();
+                case 2://(An)
+                    src = mem.PeekW(reg.A[r]);
+                    after = (ushort)(src & dst);
+                    reg.SetDw(sr, after);
+#if DEBUG
+                    nimo += string.Format("(A{0}),D{1}", r, sr);
+#endif
+
+                    cycle = cy.And_wEADn[1];
+                    break;
+                case 3://(An)+
+                    src = mem.PeekW(reg.A[r]);
+                    after = (ushort)(src & dst);
+                    reg.SetDw(sr, after);
+                    reg.A[r] += 2;
+#if DEBUG
+                    nimo += string.Format("(A{0})+,D{1}", r, sr);
+#endif
+
+                    cycle = cy.And_wEADn[2];
+                    break;
+                case 4://-(An)
+                    reg.A[r] -= 2;
+                    src = mem.PeekW(reg.A[r]);
+                    after = (ushort)(src & dst);
+                    reg.SetDw(sr, after);
+#if DEBUG
+                    nimo += string.Format("-(A{0}),D{1}", r, sr);
+#endif
+
+                    cycle = cy.And_wEADn[3];
+                    break;
+                case 5://d16(An)
+                    Int16 d16 = (Int16)FetchW();
+                    src = mem.PeekW((UInt32)(reg.A[r] + d16));
+                    after = (ushort)(src & dst);
+                    reg.SetDw(sr, after);
+#if DEBUG
+                    nimo += string.Format("${0:x04}(A{1}),D{2}", d16, r, sr);
+#endif
+
+                    cycle = cy.And_wEADn[4];
+                    break;
+                case 6://d8(An,IX)
+                    vw = FetchW();
+                    isA = (vw & 0x8000) != 0;
+                    ni = (vw & 0x7000) >> 12;
+                    isL = (vw & 0x0800) != 0;
+                    IX = (isA ? reg.A[ni] : reg.D[ni]);
+#if DEBUG
+                    nimo += string.Format("${0:x02}(A{1},{2}{3}.{4}),D{5}", (byte)vw, r, isA ? "A" : "D", ni, isL ? "l" : "w", sr);
+#endif
+
+                    if (!isL) ptr = (UInt32)(reg.A[r] + ((sbyte)(byte)vw) + (Int16)(UInt16)IX);
+                    else ptr = (UInt32)(reg.A[r] + ((sbyte)(byte)vw) + IX);
+                    src = mem.PeekW(ptr);
+                    after = (ushort)(src & dst);
+                    reg.SetDw(sr, after);
+                    cycle = cy.And_wEADn[5];
+                    break;
+                case 7://etc.
+                    switch (r)
+                    {
+                        case 0://Abs.W
+                            ptr = (UInt32)(Int16)FetchW();
+#if DEBUG
+                            nimo += string.Format("${0:x04},D{1}", (Int16)ptr, sr);
+#endif
+
+                            src = mem.PeekW(ptr);
+                            after = (ushort)(src & dst);
+                            reg.SetDw(sr, after);
+                            cycle = cy.And_wEADn[6];
+                            break;
+                        case 1://Abs.L
+                            ptr = FetchL();
+#if DEBUG
+                            nimo += string.Format("${0:x08},D{1}", (Int32)ptr, sr);
+#endif
+
+                            src = mem.PeekW(ptr);
+                            after = (ushort)(src & dst);
+                            reg.SetDw(sr, after);
+                            cycle = cy.And_wEADn[7];
+                            break;
+                        case 2://d16(PC)
+                            ptr = (UInt32)(Int16)FetchW();
+#if DEBUG
+                            nimo += string.Format("${0:x04}(PC),D{1}", (UInt16)ptr, sr);
+#endif
+
+                            src = mem.PeekW(ptr + reg.PC - 2);
+                            after = (ushort)(src & dst);
+                            reg.SetDw(sr, after);
+                            cycle = cy.And_wEADn[8];
+                            break;
+                        case 3://d8(PC,IX)
+                            vw = FetchW();
+                            isA = (vw & 0x8000) != 0;
+                            ni = (vw & 0x7000) >> 12;
+                            isL = (vw & 0x0800) != 0;
+#if DEBUG
+                            nimo += string.Format("${0:x02}(PC,{1}{2}.{3}),D{4}", (byte)vw, isA ? "A" : "D", ni, isL ? "l" : "w", sr);
+#endif
+
+                            if (isL)
+                            {
+                                IX = (isA ? reg.GetAl(ni) : reg.GetDl(ni));
+                                ptr = (UInt32)(reg.PC + ((sbyte)(byte)vw) + (Int32)(UInt32)IX - 2);
+                            }
+                            else
+                            {
+                                IX = (isA ? reg.GetAw(ni) : reg.GetDw(ni));
+                                ptr = (UInt32)(reg.PC + ((sbyte)(byte)vw) + (Int16)(UInt16)IX - 2);
+                            }
+                            src = mem.PeekW(ptr);
+                            after = (ushort)(src & dst);
+                            reg.SetDw(sr, after);
+                            cycle = cy.And_wEADn[9];
+                            break;
+                        case 4://#Imm
+                            src = FetchW();
+#if DEBUG
+                            nimo += string.Format("${0:x02},D{1}", (Int32)src, sr);
+#endif
+
+                            after = (ushort)(src & dst);
+                            reg.SetDw(sr, after);
+                            cycle = cy.And_wEADn[10];
+                            break;
+                        default:
+                            throw new NotImplementedException();
+                    }
+                    break;
+            }
+
+            //flag
+            //reg.X
+            reg.N = (after & 0x8000) != 0;
+            //reg.N = (after & 0x80) != 0;
+            reg.Z = (after == 0);
+            reg.V = false;
+            reg.C = false;
+
+#if DEBUG
+            Log.WriteLine(LogLevel.Trace, nimo);
+#endif
+
+            return cycle;
         }
 
         private int CandlEADn(ushort n)
@@ -1836,7 +2018,8 @@ namespace MDPlayer.Driver.ZMS.nise68
 
             //flag
             //reg.X
-            reg.N = (after & 0x80) != 0;
+            reg.N = (after & 0x8000_0000) != 0;
+            //reg.N = (after & 0x80) != 0;
             reg.Z = (after == 0);
             reg.V = false;
             reg.C = false;
@@ -7791,6 +7974,16 @@ namespace MDPlayer.Driver.ZMS.nise68
                 return Cjmp(n);
             }
 
+            if ((n & 0xfff8) == 0x4e50)
+            {
+                return Clink(n);
+            }
+
+            if ((n & 0xfff8) == 0x4e58)
+            {
+                return Cunlk(n);
+            }
+
             if (n == 0x4e71)
             {
                 return Cnop(n);
@@ -9284,7 +9477,7 @@ namespace MDPlayer.Driver.ZMS.nise68
             Log.WriteLine(LogLevel.Trace, "B{0} ${1:x04} ; ptr+PC=${2:x08}",
                 cs == "t" ? "ra" : cs, ptr, (UInt32)(reg.PC + ptr - size));
 #endif
-            if (v) reg.PC += (UInt32)(ptr - size);
+            if (v) reg.PC = (UInt32)(reg.PC +ptr - size);
 
             return cycle;
         }
@@ -10741,6 +10934,7 @@ namespace MDPlayer.Driver.ZMS.nise68
             reg.SetZ(ans);
             reg.SetVadd(src, dst, ans);
             reg.SetCadd(src, dst, ans);
+            reg.X = reg.C;
 
 #if DEBUG
             Log.WriteLine(LogLevel.Trace, nimo);
@@ -10882,6 +11076,7 @@ namespace MDPlayer.Driver.ZMS.nise68
             reg.SetZ(ans);
             reg.SetVadd(src, dst, ans);
             reg.SetCadd(src, dst, ans);
+            reg.X = reg.C;
 
 #if DEBUG
             Log.WriteLine(LogLevel.Trace, nimo);
@@ -11023,6 +11218,7 @@ namespace MDPlayer.Driver.ZMS.nise68
             reg.SetZ(ans);
             reg.SetVadd(src, dst, ans);
             reg.SetCadd(src, dst, ans);
+            reg.X = reg.C;
 
 #if DEBUG
             Log.WriteLine(LogLevel.Trace, nimo);
@@ -11033,6 +11229,49 @@ namespace MDPlayer.Driver.ZMS.nise68
 
         private int Cadd(UInt16 n)
         {
+            // 0000 0110 xxxx xxxx ADDI
+            // 0101 xxx0 xxxx xxxx ADDQ
+            // 1101 xxx1 xx00 0xxx ADDX dr to dr
+            // 1101 xxx1 xx00 1xxx ADDX mem to mem
+            // 1101 xxx1 11xx xxxx ADDA
+            // 1101 xxxx xxxx xxxx ADDA
+            if ((n & 0xf138) == 0xd100)
+            {
+                //ADDX dr to dr
+                int mm = (n & 0x01c0) >> 6;
+                if (mm != 3 && mm != 7)
+                {
+                    mm = (n & 0x00c0) >> 6;
+                    switch (mm)
+                    {
+                        case 0://byte
+                            return Caddxb_dd(n);
+                        case 1://word
+                            return Caddxw_dd(n);
+                        case 2://long
+                            return Caddxl_dd(n);
+                    }
+                }
+            }
+            else if ((n & 0xf138) == 0xd108)
+            {
+                //ADDX mem to mem
+                int mm = (n & 0x01c0) >> 6;
+                if (mm != 3 && mm != 7)
+                {
+                    mm = (n & 0x00c0) >> 6;
+                    switch (mm)
+                    {
+                        case 0://byte
+                            return Caddxb_mm(n);
+                        case 1://word
+                            return Caddxw_mm(n);
+                        case 2://long
+                            return Caddxl_mm(n);
+                    }
+                }
+            }
+
             int m = (n & 0x01c0) >> 6;
             switch (m)
             {
@@ -11055,6 +11294,77 @@ namespace MDPlayer.Driver.ZMS.nise68
             }
 
             throw new NotImplementedException("dummy");
+        }
+
+        private int Caddxb_dd(ushort n)
+        {
+            string nimo = "";
+#if DEBUG
+            nimo = "ADDX.b ";
+#endif
+
+
+            int cycle=4;
+
+            int dr = (n & 0x0e00) >> 9;
+            int sr = (n & 0x0007);
+
+            //src
+            Int32 sval = reg.GetDb(sr);
+
+#if DEBUG
+            nimo += string.Format("D{0},", sr);
+#endif
+
+
+            //dst
+            Int32 dval = (Int32)reg.GetDb(dr);
+
+            //compute
+            Int32 ans = dval + sval + (reg.X ? 1 : 0);
+            reg.SetDb(dr, (byte)ans);
+
+#if DEBUG
+            nimo += string.Format("D{0}", dr);
+#endif
+
+            //flag
+            reg.SetN((byte)ans);
+            reg.SetZ((byte)ans);
+            reg.SetVadd((byte)sval, (byte)dval, (byte)ans);
+            reg.SetCadd((byte)sval, (byte)dval, (byte)ans);
+            reg.X = reg.C;
+
+#if DEBUG
+            Log.WriteLine(LogLevel.Trace, nimo);
+#endif
+
+            return cycle;
+        }
+
+        private int Caddxw_dd(ushort n)
+        {
+            throw new NotImplementedException();
+        }
+
+        private int Caddxl_dd(ushort n)
+        {
+            throw new NotImplementedException();
+        }
+
+        private int Caddxb_mm(ushort n)
+        {
+            throw new NotImplementedException();
+        }
+
+        private int Caddxw_mm(ushort n)
+        {
+            throw new NotImplementedException();
+        }
+
+        private int Caddxl_mm(ushort n)
+        {
+            throw new NotImplementedException();
         }
 
         private int Cadd0b(UInt16 n)
@@ -11098,6 +11408,7 @@ namespace MDPlayer.Driver.ZMS.nise68
             reg.SetZ((byte)ans);
             reg.SetVadd((byte)sval, (byte)dval, (byte)ans);
             reg.SetCadd((byte)sval, (byte)dval, (byte)ans);
+            reg.X = reg.C;
 
 #if DEBUG
             Log.WriteLine(LogLevel.Trace, nimo);
@@ -11147,6 +11458,7 @@ namespace MDPlayer.Driver.ZMS.nise68
             reg.SetZ((UInt16)ans);
             reg.SetVadd((UInt16)sval, (UInt16)dval, (UInt16)ans);
             reg.SetCadd((UInt16)sval, (UInt16)dval, (UInt16)ans);
+            reg.X = reg.C;
 
 #if DEBUG
             Log.WriteLine(LogLevel.Trace, nimo);
@@ -11196,6 +11508,7 @@ namespace MDPlayer.Driver.ZMS.nise68
             reg.SetZ((UInt32)ans);
             reg.SetVadd((UInt32)sval, (UInt32)dval, (UInt32)ans);
             reg.SetCadd((UInt32)sval, (UInt32)dval, (UInt32)ans);
+            reg.X = reg.C;
 
 #if DEBUG
             Log.WriteLine(LogLevel.Trace, nimo);
@@ -11337,6 +11650,7 @@ namespace MDPlayer.Driver.ZMS.nise68
             reg.SetZ((byte)ans);
             reg.SetVadd((byte)sval, (byte)dval, (byte)ans);
             reg.SetCadd((byte)sval, (byte)dval, (byte)ans);
+            reg.X = reg.C;
 
 #if DEBUG
             Log.WriteLine(LogLevel.Trace, nimo);
@@ -11477,6 +11791,7 @@ namespace MDPlayer.Driver.ZMS.nise68
             reg.SetZ((UInt16)ans);
             reg.SetVadd((UInt16)sval, (UInt16)dval, (UInt16)ans);
             reg.SetCadd((UInt16)sval, (UInt16)dval, (UInt16)ans);
+            reg.X = reg.C;
 
 #if DEBUG
             Log.WriteLine(LogLevel.Trace, nimo);
@@ -11662,11 +11977,11 @@ namespace MDPlayer.Driver.ZMS.nise68
 
             cycle = cy.Adda_w[cycle];
 
-            //flag
-            reg.SetN((UInt16)ans);
-            reg.SetZ((UInt16)ans);
-            reg.SetVadd((UInt16)sval, (UInt16)dval, (UInt16)ans);
-            reg.SetCadd((UInt16)sval, (UInt16)dval, (UInt16)ans);
+            ////flag
+            //reg.SetN((UInt16)ans);
+            //reg.SetZ((UInt16)ans);
+            //reg.SetVadd((UInt16)sval, (UInt16)dval, (UInt16)ans);
+            //reg.SetCadd((UInt16)sval, (UInt16)dval, (UInt16)ans);
 
 #if DEBUG
             Log.WriteLine(LogLevel.Trace, nimo);
@@ -11711,11 +12026,11 @@ namespace MDPlayer.Driver.ZMS.nise68
 
             cycle = cy.Adda_l[cycle];
 
-            //flag
-            reg.SetN((UInt32)ans);
-            reg.SetZ((UInt32)ans);
-            reg.SetVadd((UInt32)sval, (UInt32)dval, (UInt32)ans);
-            reg.SetCadd((UInt32)sval, (UInt32)dval, (UInt32)ans);
+            ////flag
+            //reg.SetN((UInt32)ans);
+            //reg.SetZ((UInt32)ans);
+            //reg.SetVadd((UInt32)sval, (UInt32)dval, (UInt32)ans);
+            //reg.SetCadd((UInt32)sval, (UInt32)dval, (UInt32)ans);
 
 #if DEBUG
             Log.WriteLine(LogLevel.Trace, nimo);
@@ -13148,10 +13463,64 @@ namespace MDPlayer.Driver.ZMS.nise68
             throw new NotImplementedException();
         }
 
+        private int CFEFunc(ushort n)
+        {
+            hmn.FEFunc(n);
+            return 0;
+        }
+
         private int Cdos(ushort n)
         {
             hmn.doscall(n);
             return 0;
+        }
+
+        private int Clink(UInt16 n)
+        {
+            int dr = (n & 0x7);
+            int cycle = 16;
+#if DEBUG
+            string nimo = "LINK A{0}, #${1:d}";
+#endif
+
+            short ptr = (short)FetchW();
+#if DEBUG
+            nimo = string.Format(nimo, dr, ptr);
+#endif
+
+            reg.A[7] -= 4;
+            mem.PokeL(reg.A[7], reg.A[dr]);
+            reg.A[dr] = reg.A[7];
+            reg.A[7] = (uint)(reg.A[7] + (int)ptr);
+
+#if DEBUG
+            Log.WriteLine(LogLevel.Trace, nimo);
+#endif
+
+            return cycle;
+        }
+
+        private int Cunlk(UInt16 n)
+        {
+            int dr = (n & 0x7);
+            int cycle = 16;
+#if DEBUG
+            string nimo = "UNLK A{0}";
+#endif
+
+#if DEBUG
+            nimo = string.Format(nimo, dr);
+#endif
+
+            reg.A[7] = reg.A[dr];
+            reg.A[dr] = mem.PeekL(reg.A[7]);
+            reg.A[7] += 4;
+
+#if DEBUG
+            Log.WriteLine(LogLevel.Trace, nimo);
+#endif
+
+            return cycle;
         }
 
         private uint srcAddressingByte(ref string nimo, ref int cycle, int sm, int sr, uint support = 0xfff, bool nimoSw = true)

@@ -12,6 +12,7 @@ namespace MDPlayer.Driver.ZMS.nise68
         private niseM68 cpu = null;
         private niseIOCS iocs = null;
         private midiBoard[] midiBoard = null;
+        private FileMng fileMng = null;
         private Func<int, byte, int> scc;
         private scc_A scc_A = null;
 
@@ -30,11 +31,12 @@ namespace MDPlayer.Driver.ZMS.nise68
         public Func<int, byte, int> MIDI = null;
 
 
-        public void Init(List<string> envZPDs,bool isVer2)
+        public void Init(List<string> envZPDs,bool isVer2,FileMng fm)
         {
             mem = new Memory68();
             reg = new Register68();
-            hmn = new niseHuman(mem, reg, envZPDs);
+            hmn = new niseHuman(mem, reg, envZPDs, fm);
+            fileMng = fm;
             cpu = new niseM68(mem, reg);
             cpu.hmn = hmn;
             iocs = new niseIOCS(mem, reg);
@@ -75,10 +77,10 @@ namespace MDPlayer.Driver.ZMS.nise68
         }
 
 
-        public int LoadRun(string filename, string option, string currentWorkPath, uint startAddress, bool dispReg = false, bool useStepCounter = false, bool dispStepCounter = false,
+        public int LoadRun(string filename, string option, uint startAddress, bool dispReg = false, bool useStepCounter = false, bool dispStepCounter = false,
     long MaxStepCounter = 100_000_000, long StartStepCounterForDispStep = 0)
         {
-            hmn.LoadAndExecuteFile(filename, option, currentWorkPath, startAddress);
+            hmn.LoadAndExecuteFile(filename, option, startAddress);
             if (dispReg) DispRegs(reg);
 
             int waitClock = 0;
@@ -102,22 +104,22 @@ namespace MDPlayer.Driver.ZMS.nise68
                     DispRegs(reg);
                 }
 
-                if (dispStepCounter) Log.WriteLine(LogLevel.Trace, "STEP:{0} totalCycle:{1}\r\n", step, waitClock);
+                //if (dispStepCounter) Log.WriteLine(LogLevel.Trace, "STEP:{0} totalCycle:{1}\r\n", step, waitClock);
 
-                //if (run > 0 && step >= 5699)
-                //{
-                //    ;
-                //    //Log.SetLogLevel(LogLevel.Trace);
-                //}
+                if (run > 0 && step == 500)
+                {
+                    ;
+                    //Log.SetLogLevel(LogLevel.Trace);
+                }
 
-                if (reg.PC == 0x0002e9fe)
+                if (reg.PC == 0x0002_2968)
                 {
                     ;
                 }
-                //if (reg.PC == 0x0000002_58a8)//コメント読みこみ完了
-                //{
-                //    ;
-                //}
+                if (reg.PC == 0x0000002_2982)//コメント読みこみ完了
+                {
+                    ;
+                }
                 //if (reg.PC == 0x0000002_22e2)//(で始まるコマンドの処理へ
                 //{
                 //    ;
@@ -169,21 +171,21 @@ namespace MDPlayer.Driver.ZMS.nise68
 
                 if (dispStepCounter) Log.WriteLine(LogLevel.Trace, "STEP:{0} totalCycle:{1}\r\n", step, waitClock);
 
-                //if (run > 3082 && step == 1827)
-                //{
-                //    //Log.SetLogLevel(LogLevel.Trace);
-                //}
+                if (run > 8 && step == 146)
+                {
+                    //Log.SetLogLevel(LogLevel.Trace);
+                }
 
                 //if (run > 0 && step == 249)
                 //{
                 //    //Log.SetLogLevel(LogLevel.Trace);
                 //}
 
-                //if (run >0 && (reg.PC == 0x0002_f350
-                //    ))
-                //{
-                //    ;
-                //}
+                if (run > 0 && (reg.PC == 0x0002_e9fe
+                    ))
+                {
+                    ;
+                }
 
                 ////コマンド毎のデバッグ向け
                 //if (run > 0 && reg.PC == 0x0003_07ba)//D7->コマンド番号

@@ -47,6 +47,7 @@ del /Q .\output\KINROU5.DRV
 del /Q .\output\ZMC.X
 del /Q .\output\ZMSC3.X
 del /Q .\output\ZMUSIC.X
+del /Q .\output\LZZ.R
 
 del /Q .\output\*.pdb
 rem del /Q .\output\*.config

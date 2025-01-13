@@ -17,10 +17,12 @@ namespace MDPlayer.Driver.ZMS.nise68
 
         public void PokeB(uint ptr, byte dat)
         {
-            if (ptr >= 0x000a2fc0 && ptr<= 0x000a2fc0+0x10f1)
-            {
-                ;
-            }
+#if DEBUG
+            //if (ptr >= 0x00033D0F && ptr<= 0x00033D0F)
+            //{
+            //    ;
+            //}
+#endif
             uint adr = (uint)(ptr % mem.Length);
             if (CheckAndWriteHookAddressByte(adr, dat)) return;
             mem[adr] = dat;
@@ -28,20 +30,24 @@ namespace MDPlayer.Driver.ZMS.nise68
 
         public void PokeW(uint ptr, UInt16 dat)//BE
         {
-            if (ptr >= 0x000a2fc0 && ptr <= 0x000a2fc0 + 0x10f1+2)
-            {
-                ;
-            }
+#if DEBUG
+            //if (ptr >= 0x00033D0F && ptr <= 0x00033D0F + 2)
+            //{
+            //    ;
+            //}
+#endif
             mem[(uint)ptr % mem.Length] = (byte)(dat >> 8);
             mem[((uint)ptr + 1) % mem.Length] = (byte)dat;
         }
 
         public void PokeL(uint ptr, UInt32 dat)//BE
         {
-            if (ptr >= 0x000a2fc0 && ptr <= 0x000a2fc0 + 0x10f1+4)
-            {
-                ;
-            }
+#if DEBUG
+            //if (ptr >= 0x00033D0F && ptr <= 0x00033D0F + 4)
+            //{
+            //    ;
+            //}
+#endif
             mem[(uint)ptr % mem.Length] = (byte)(dat >> 24);
             mem[((uint)ptr + 1) % mem.Length] = (byte)(dat >> 16);
             mem[((uint)ptr + 2) % mem.Length] = (byte)(dat >> 8);

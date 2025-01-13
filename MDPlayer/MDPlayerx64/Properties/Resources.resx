@@ -367,9 +367,9 @@ WAVファイル(*.wav)|*.wav|
 MP3ファイル(*.mp3)|*.mp3|
 AIFFファイル(*.aiff)|*.aiff|
 M3Uファイル(*.m3u)|*.m3u|
-アーカイブファイル(*.zip;*.lzh)|*.zip;*.lzh|
-すべてのサポートファイル(*.vgm;*.vgz;*.zip;*.lzh;*.nrd;*.xgm;*.zgm;*.s98;*.nsf;*.gbs;*.hes;*.sid;*.ay;*.mgs;*.msd;*.bgm;*.mnd;*.mdr;*.mdx;*.mub;*.muc;*.m;*.m2;*.mz;*.mpi;*.mvi;*.mzi;*.opi;*.ovi;*.ozi;*.mml;*.zms;*.zmd;*.mid;*.rcp;*.rcs;*.wav;*.mp3;*.aiff;*.m3u)|
-*.vgm;*.vgz;*.zip;*.lzh;*.nrd;*.xgm;*.zgm;*.s98;*.nsf;*.gbs;*.hes;*.sid;*.ay;*.mgs;*.msd;*.bgm;*.mnd;*.mdr;*.mdx;*.mub;*.muc;*.m;*.m2;*.mz;*.mpi;*.mvi;*.mzi;*.opi;*.ovi;*.ozi;*.mml;*.zms;*.zmd;*.mid;*.rcp;*.rcs;*.wav;*.mp3;*.aiff;*.m3u|
+アーカイブファイル(*.zip;*.lzh;*.zdf)|*.zip;*.lzh;*.zdf|
+すべてのサポートファイル(*.vgm;*.vgz;*.zip;*.lzh;*.zdf;*.nrd;*.xgm;*.zgm;*.s98;*.nsf;*.gbs;*.hes;*.sid;*.ay;*.mgs;*.msd;*.bgm;*.mnd;*.mdr;*.mdx;*.mub;*.muc;*.m;*.m2;*.mz;*.mpi;*.mvi;*.mzi;*.opi;*.ovi;*.ozi;*.mml;*.zms;*.zmd;*.mid;*.rcp;*.rcs;*.wav;*.mp3;*.aiff;*.m3u)|
+*.vgm;*.vgz;*.zip;*.lzh;*.zdf;*.nrd;*.xgm;*.zgm;*.s98;*.nsf;*.gbs;*.hes;*.sid;*.ay;*.mgs;*.msd;*.bgm;*.mnd;*.mdr;*.mdx;*.mub;*.muc;*.m;*.m2;*.mz;*.mpi;*.mvi;*.mzi;*.opi;*.ovi;*.ozi;*.mml;*.zms;*.zmd;*.mid;*.rcp;*.rcs;*.wav;*.mp3;*.aiff;*.m3u|
 すべてのファイル(*.*)|*.*</value>
   </data>
   <data name="planeMSM6295" type="System.Resources.ResXFileRef, System.Windows.Forms">

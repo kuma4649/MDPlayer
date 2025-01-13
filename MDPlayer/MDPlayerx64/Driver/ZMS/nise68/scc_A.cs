@@ -79,6 +79,7 @@ namespace MDPlayer.Driver.ZMS.nise68
             }
             else
             {
+                return dat;
                 throw new NotImplementedException();
             }
             Log.WriteLine(LogLevel.Trace2, "Read SCC_A Adr:$00e9_80{0:x02} Dat:${1:x02}", c, dat);

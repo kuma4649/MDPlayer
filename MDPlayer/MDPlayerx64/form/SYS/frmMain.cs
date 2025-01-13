@@ -8824,8 +8824,8 @@ namespace MDPlayer.form
                 {
 
                     playingArcFileName = zfn;
-
-                    if (Path.GetExtension(zfn).ToUpper() == ".ZIP")
+                    EnmFileFormat zff = Common.CheckExt(zfn);
+                    if (zff == EnmFileFormat.ZIP)
                     {
                         using ZipArchive archive = ZipFile.OpenRead(zfn);
                         ZipArchiveEntry entry = archive.GetEntry(fn);
@@ -8839,12 +8839,23 @@ namespace MDPlayer.form
                             extFile = getExtendFile(fn, null, srcBuf, format, archive);
                         }
                     }
-                    else
+                    else if (zff == EnmFileFormat.LZH)
                     {
                         format = Common.CheckExt(fn);
                         if (format != EnmFileFormat.unknown)
                         {
                             UnlhaWrap.UnlhaCmd cmd = new();
+                            srcBuf = cmd.GetFileByte(zfn, fn);
+                            playingFileName = fn;
+                            extFile = getExtendFile(fn, null, srcBuf, format, new Tuple<string, string>(zfn, fn));
+                        }
+                    }
+                    else
+                    {
+                        format = Common.CheckExt(fn);
+                        if (format != EnmFileFormat.unknown)
+                        {
+                            UnZDF cmd = new();
                             srcBuf = cmd.GetFileByte(zfn, fn);
                             playingFileName = fn;
                             extFile = getExtendFile(fn, null, srcBuf, format, new Tuple<string, string>(zfn, fn));

@@ -280,9 +280,9 @@ namespace MDPlayer
                 type = "-"
             };
 
-            if (!string.IsNullOrEmpty(zipFile)) music.arcType 
-                    = (Path.GetExtension(zipFile).ToLower()==".zip") 
-                    ? EnmArcType.ZIP : EnmArcType.LZH;
+            if (!string.IsNullOrEmpty(zipFile)) music.arcType
+                    = (Path.GetExtension(zipFile).ToLower() == ".zip")
+                    ? EnmArcType.ZIP : ((Path.GetExtension(zipFile).ToLower() == ".lzh") ? EnmArcType.LZH : EnmArcType.ZDF);
 
             string ext = Path.GetExtension(file).ToLower();
             if (ext == ".nrd")
@@ -2299,6 +2299,7 @@ namespace MDPlayer
                     setting = setting
                 };
                 ((Driver.ZMS.ZMS)DriverVirtual).PlayingFileName = PlayingFileName;
+                ((Driver.ZMS.ZMS)DriverVirtual).PlayingArcFileName = PlayingArcFileName;
                 //((Driver.ZMS.ZMS)DriverVirtual).SupportFileName = SupportFile;
 
                 DriverReal = null;
@@ -2309,6 +2310,7 @@ namespace MDPlayer
                         setting = setting
                     };
                     ((Driver.ZMS.ZMS)DriverReal).PlayingFileName = PlayingFileName;
+                    ((Driver.ZMS.ZMS)DriverReal).PlayingArcFileName = PlayingArcFileName;
                     //((Driver.ZMS.ZMS)DriverReal).SupportFileName = SupportFile;
                 }
                 DriverPianoRoll = null;
@@ -2319,6 +2321,7 @@ namespace MDPlayer
                         setting = setting
                     };
                     ((Driver.ZMS.ZMS)DriverPianoRoll).PlayingFileName = PlayingFileName;
+                    ((Driver.ZMS.ZMS)DriverPianoRoll).PlayingArcFileName = PlayingArcFileName;
                 }
                 return ZmdPlay(setting, PlayingFileFormat);
             }
@@ -4112,11 +4115,11 @@ namespace MDPlayer
                                     break;
                             }
                             if (!string.IsNullOrEmpty(ErrMsg)) return false;
-                            supportFileBinaly.Add(new Tuple<byte[], string>(buf, sf));
+                            supportFileBinaly.Add(new Tuple<byte[], string>(buf, Path.GetFileName(sf)));
                             continue;
                         }
                         buf = File.ReadAllBytes(sf);
-                        supportFileBinaly.Add(new Tuple<byte[], string>(buf, sf));
+                        supportFileBinaly.Add(new Tuple<byte[], string>(buf, Path.GetFileName(sf)));
                     }
                 }
                 ((Driver.ZMS.ZMS)DriverReal).SupportFileBinaryAndName =

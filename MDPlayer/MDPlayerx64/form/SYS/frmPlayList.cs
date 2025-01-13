@@ -34,7 +34,7 @@ namespace MDPlayer.form
         private Random rand = new System.Random();
         private bool IsInitialOpenFolder = true;
 
-        private string[] sext = ".vgm;.vgz;.zip;.lzh;.nrd;.xgm;.xgz;.zgm;.s98;.nsf;.gbs;.hes;.sid;.ay;.mnd;.mgs;.bgm;.msd;.mdr;.mdx;.mub;.muc;.m;.m2;.mz;.mml;.mpi;.mvi;.mzi;.opi;.ovi;.ozi;.mid;.zms;.zmd;.rcp;.rcs;.wav;.mp3;.aiff;.m3u".Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+        private string[] sext = ".vgm;.vgz;.zip;.lzh;.zdf;.nrd;.xgm;.xgz;.zgm;.s98;.nsf;.gbs;.hes;.sid;.ay;.mnd;.mgs;.bgm;.msd;.mdr;.mdx;.mub;.muc;.m;.m2;.mz;.mml;.mpi;.mvi;.mzi;.opi;.ovi;.ozi;.mid;.zms;.zmd;.rcp;.rcs;.wav;.mp3;.aiff;.m3u".Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
 
         public frmPlayList(frmMain frm)
         {
