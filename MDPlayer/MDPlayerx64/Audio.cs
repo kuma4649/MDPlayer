@@ -8877,6 +8877,7 @@ namespace MDPlayer
             vgmSpeed = value;
             if (DriverVirtual != null) DriverVirtual.vgmSpeed = vgmSpeed;
             if (DriverReal != null) DriverReal.vgmSpeed = vgmSpeed;
+            if (DriverPianoRoll != null) DriverPianoRoll.vgmSpeed = vgmSpeed;
         }
 
 
@@ -8963,9 +8964,9 @@ namespace MDPlayer
         public static void FF()
         {
             vgmSpeed = (vgmSpeed == 1) ? 4 : 1;
-            if (DriverVirtual == null) return;
-            DriverVirtual.vgmSpeed = vgmSpeed;
+            if (DriverVirtual != null) DriverVirtual.vgmSpeed = vgmSpeed;
             if (DriverReal != null) DriverReal.vgmSpeed = vgmSpeed;
+            if (DriverPianoRoll != null) DriverPianoRoll.vgmSpeed = vgmSpeed;
         }
 
         public static void Slow()
@@ -8973,6 +8974,7 @@ namespace MDPlayer
             vgmSpeed = (vgmSpeed == 1) ? 0.25 : 1;
             if (DriverVirtual != null) DriverVirtual.vgmSpeed = vgmSpeed;
             if (DriverReal != null) DriverReal.vgmSpeed = vgmSpeed;
+            if (DriverPianoRoll != null) DriverPianoRoll.vgmSpeed = vgmSpeed;
         }
 
         public static void ResetSlow()
@@ -8980,6 +8982,7 @@ namespace MDPlayer
             vgmSpeed = 1;
             DriverVirtual.vgmSpeed = vgmSpeed;
             if (DriverReal != null) DriverReal.vgmSpeed = vgmSpeed;
+            if (DriverPianoRoll != null) DriverPianoRoll.vgmSpeed = vgmSpeed;
         }
 
         public static void Pause()
@@ -10268,6 +10271,12 @@ namespace MDPlayer
         {
             if (DriverReal == null) return -1;
             return DriverReal.vgmFrameCounter;
+        }
+
+        public static long GetPianoFrameCounter()
+        {
+            if (DriverPianoRoll == null) return -1;
+            return DriverPianoRoll.vgmFrameCounter;
         }
 
         public static GD3 GetGD3()

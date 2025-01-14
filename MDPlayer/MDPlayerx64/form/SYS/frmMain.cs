@@ -34,33 +34,33 @@ namespace MDPlayer.form
         private frmPlayList frmPlayList = null;
         private frmVSTeffectList frmVSTeffectList = null;
 
-        private frmMegaCD[] frmMCD = new frmMegaCD[2] { null, null };
-        private frmRf5c68[] frmRf5c68 = new frmRf5c68[2] { null, null };
-        private frmC140[] frmC140 = new frmC140[2] { null, null };
-        private frmPPZ8[] frmPPZ8 = new frmPPZ8[2] { null, null };
-        private frmS5B[] frmS5B = new frmS5B[2] { null, null };
-        private frmDMG[] frmDMG = new frmDMG[2] { null, null };
-        private frmYMZ280B[] frmYMZ280B = new frmYMZ280B[2] { null, null };
-        private frmC352[] frmC352 = new frmC352[2] { null, null };
-        private frmGA20[] frmGA20 = new frmGA20[2] { null, null };
-        private frmK054539[] frmK054539 = new frmK054539[2] { null, null };
-        private frmMultiPCM[] frmMultiPCM = new frmMultiPCM[2] { null, null };
-        private frmQSound[] frmQSound = new frmQSound[2] { null, null };
-        private frmYM2608[] frmYM2608 = new frmYM2608[2] { null, null };
-        private frmYM2151[] frmYM2151 = new frmYM2151[2] { null, null };
-        private frmYM2203[] frmYM2203 = new frmYM2203[2] { null, null };
-        private frmYM2609[] frmYM2609 = new frmYM2609[2] { null, null };
-        private frmYM2610[] frmYM2610 = new frmYM2610[2] { null, null };
-        private frmYM2612[] frmYM2612 = new frmYM2612[2] { null, null };
-        private frmYM3526[] frmYM3526 = new frmYM3526[2] { null, null };
-        private frmY8950[] frmY8950 = new frmY8950[2] { null, null };
-        private frmYM3812[] frmYM3812 = new frmYM3812[2] { null, null };
-        private frmOKIM6258[] frmOKIM6258 = new frmOKIM6258[2] { null, null };
-        private frmOKIM6295[] frmOKIM6295 = new frmOKIM6295[2] { null, null };
-        private frmPCM8[] frmPCM8 = new frmPCM8[2] { null, null };
-        private frmMpcmX68k[] frmMPCMX68k = new frmMpcmX68k[2] { null, null };
-        private frmSN76489[] frmSN76489 = new frmSN76489[2] { null, null };
-        private frmSegaPCM[] frmSegaPCM = new frmSegaPCM[2] { null, null };
+        private frmMegaCD[] frmMCD = [null, null];
+        private frmRf5c68[] frmRf5c68 = [null, null];
+        private frmC140[] frmC140 = [null, null];
+        private frmPPZ8[] frmPPZ8 = [null, null];
+        private frmS5B[] frmS5B = [null, null];
+        private frmDMG[] frmDMG = [null, null];
+        private frmYMZ280B[] frmYMZ280B = [null, null];
+        private frmC352[] frmC352 = [null, null];
+        private frmGA20[] frmGA20 = [null, null];
+        private frmK054539[] frmK054539 = [null, null];
+        private frmMultiPCM[] frmMultiPCM = [null, null];
+        private frmQSound[] frmQSound = [null, null];
+        private frmYM2608[] frmYM2608 = [null, null];
+        private frmYM2151[] frmYM2151 = [null, null];
+        private frmYM2203[] frmYM2203 = [null, null];
+        private frmYM2609[] frmYM2609 = [null, null];
+        private frmYM2610[] frmYM2610 = [null, null];
+        private frmYM2612[] frmYM2612 = [null, null];
+        private frmYM3526[] frmYM3526 = [null, null];
+        private frmY8950[] frmY8950 = [null, null];
+        private frmYM3812[] frmYM3812 = [null, null];
+        private frmOKIM6258[] frmOKIM6258 = [null, null];
+        private frmOKIM6295[] frmOKIM6295 = [null, null];
+        private frmPCM8[] frmPCM8 = [null, null];
+        private frmMpcmX68k[] frmMPCMX68k = [null, null];
+        private frmSN76489[] frmSN76489 = [null, null];
+        private frmSegaPCM[] frmSegaPCM = [null, null];
         private frmAY8910[] frmAY8910 = [null, null];
         private frmHuC6280[] frmHuC6280 = [null, null];
         private frmK051649[] frmK051649 = [null, null];
@@ -68,8 +68,8 @@ namespace MDPlayer.form
         private frmYM2413[] frmYM2413 = [null, null];
         private frmYMF262[] frmYMF262 = [null, null];
         private frmYMF271[] frmYMF271 = [null, null];
-        private frmYMF278B[] frmYMF278B = new frmYMF278B[2] { null, null };
-        private frmMIDI[] frmMIDI = new frmMIDI[4] { null, null, null, null };
+        private frmYMF278B[] frmYMF278B = [null, null];
+        private frmMIDI[] frmMIDI = [null, null, null, null];
         private frmYM2612MIDI frmYM2612MIDI = null;
         private frmMixer2 frmMixer2 = null;
         private frmNESDMC[] frmNESDMC = [null, null];
@@ -113,19 +113,19 @@ namespace MDPlayer.form
         private bool flgReinit = false;
         public bool reqAllScreenInit = true;
 
-        private string[] modeTip = new string[]{
+        private string[] modeTip = [
             "Mode\r\nNow:Step\r\nNext:Random",
             "Mode\r\nNow:Random\r\nNext:Loop",
             "Mode\r\nNow:Loop\r\nNext:LoopOne",
             "Mode\r\nNow:LoopOne\r\nNext:Step",
-        };
+        ];
 
-        private string[] zoomTip = new string[]{
+        private string[] zoomTip = [
             "Zoom\r\nNow:x1\r\nNext:x2",
             "Zoom\r\nNow:x2\r\nNext:x3",
             "Zoom\r\nNow:x3\r\nNext:x4",
             "Zoom\r\nNow:x4\r\nNext:x1",
-        };
+        ];
 
         //private FileSystemWatcher watcher = null;
         private KumaCom mmf = null;
@@ -5090,68 +5090,7 @@ namespace MDPlayer.form
 
         private void pbScreen_DragDrop(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                string[] filename = ((string[])e.Data.GetData(DataFormats.FileDrop));
-
-                try
-                {
-
-                    //曲を停止
-                    frmPlayList.Stop();
-                    this.Stop();
-                    while (!Audio.IsStopped)
-                        Application.DoEvents();
-
-                    //frmPlayList.getPlayList().AddFile(filename);
-                    int i = frmPlayList.getPlayList().LstMusic.Count;
-                    int buIndex = i;
-                    frmPlayList.getPlayList().InsertFile(ref i,filename);
-                    //frmPlayList.AddList(filename);
-
-                    if (buIndex <= frmPlayList.oldPlayIndex)
-                    {
-                        frmPlayList.oldPlayIndex += i - buIndex;
-                    }
-                    i = buIndex;
-
-                    if (i >= frmPlayList.getPlayList().LstMusic.Count) return;
-
-                    //選択位置の曲を再生する
-                    string fn = frmPlayList.getPlayList().LstMusic[i].fileName;
-                    if (frmPlayList.getPlayList().LstMusic[i].arcType != EnmArcType.LZH
-                        && frmPlayList.getPlayList().LstMusic[i].arcType != EnmArcType.ZIP
-                        && frmPlayList.getPlayList().LstMusic[i].arcType != EnmArcType.ZDF
-                        && (frmPlayList.getPlayList().LstMusic[i].arcFileName == null 
-                        || frmPlayList.getPlayList().LstMusic[i].arcFileName.ToLower().LastIndexOf(".m3u") == -1)
-                        && fn.ToLower().LastIndexOf(".lzh") == -1
-                        && fn.ToLower().LastIndexOf(".zip") == -1
-                        && fn.ToLower().LastIndexOf(".zdf") == -1
-                        && fn.ToLower().LastIndexOf(".m3u") == -1
-                        //&& fn.ToLower().LastIndexOf(".sid") == -1
-                        )
-                    {
-                        loadAndPlay(0, 0, fn, null, null, null, null);
-                        frmPlayList.setStart(i);// -1);
-                        oldParam = new MDChipParams();
-                        Play();
-                    }
-
-                    //if (filename.ToLower().LastIndexOf(".zip") == -1)
-                    //{
-                    //    loadAndPlay(0, 0, filename, null, null, null, null);
-                    //    frmPlayList.setStart(-1);
-                    //    oldParam = new MDChipParams();
-
-                    //    frmPlayList.Play();
-                    //}
-                }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                    MessageBox.Show("ファイルの読み込みに失敗しました。");
-                }
-            }
+            frmPlayList?.dgvList_DragDrop(sender, e);
         }
 
         protected override bool ShowWithoutActivation
@@ -5632,12 +5571,14 @@ namespace MDPlayer.form
             if (setting.debug.DispFrameCounter)
             {
                 long v = Audio.GetVirtualFrameCounter();
-                if (v != -1) DrawBuff.drawFont8(screen.mainScreen, 0, 0, 0, string.Format("EMU        : {0:D12} ", v));
+                if (v != -1) DrawBuff.drawFont4(screen.mainScreen, 200, 0, 0, string.Format("EMU        : {0:D12} ", v));
                 long r = Audio.GetRealFrameCounter();
-                if (r != -1) DrawBuff.drawFont8(screen.mainScreen, 0, 8, 0, string.Format("REAL CHIP  : {0:D12} ", r));
+                if (r != -1) DrawBuff.drawFont4(screen.mainScreen, 200, 8, 0, string.Format("REAL CHIP  : {0:D12} ", r));
+                long p = Audio.GetPianoFrameCounter();
+                if (p != -1) DrawBuff.drawFont4(screen.mainScreen, 200,16, 0, string.Format("PIANO ROLL : {0:D12} ", p));
                 long d = r - v;
-                if (r != -1 && v != -1) DrawBuff.drawFont8(screen.mainScreen, 0, 16, 0, string.Format("R.CHIP-EMU : {0:D12} ", d));
-                DrawBuff.drawFont8(screen.mainScreen, 0, 24, 0, string.Format("PROC TIME  : {0:D12} ", Audio.ProcTimePer1Frame));
+                if (r != -1 && v != -1) DrawBuff.drawFont4(screen.mainScreen, 200, 24, 0, string.Format("R.CHIP-EMU : {0:D12} ", d));
+                DrawBuff.drawFont4(screen.mainScreen, 200, 32, 0, string.Format("PROC TIME  : {0:D12} ", Audio.ProcTimePer1Frame));
             }
 
             DrawBuff.drawFaderH(screen.mainScreen, 23 * 8, 14
@@ -9076,37 +9017,49 @@ namespace MDPlayer.form
         {
             try
             {
+                string trgFn;
                 if (archive == null)
                 {
-                    string trgFn =
+                    trgFn =
                         this.GetFileSearcePathList(srcFn)
-                            .Select(dirPath => System.IO.Path.Combine(dirPath, extFn).Trim())
-                            .FirstOrDefault(path => System.IO.File.Exists(path));
+                            .Select(dirPath => Path.Combine(dirPath, extFn).Trim())
+                            .FirstOrDefault(path => File.Exists(path));
                     if (trgFn == default) return null;
-                    return System.IO.File.ReadAllBytes(trgFn);
+                    return File.ReadAllBytes(trgFn);
                 }
-                else
+
+                trgFn = Path.Combine(Path.GetDirectoryName(srcFn), extFn);
+                trgFn = trgFn.Replace("\\", "/").Trim();
+
+                if (archive is ZipArchive archive1)
                 {
-                    string trgFn = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(srcFn), extFn);
-                    trgFn = trgFn.Replace("\\", "/").Trim();
-                    if (archive is ZipArchive archive1)
-                    {
-                        ZipArchiveEntry entry = archive1.GetEntry(trgFn);
-                        if (entry == null) return null;
-                        string arcFn = "";
-                        return getBytesFromZipFile(entry, out arcFn);
-                    }
-                    else
-                    {
-                        UnlhaWrap.UnlhaCmd cmd = new();
-                        return cmd.GetFileByte(((Tuple<string, string>)archive).Item1, trgFn);
-                    }
+                    ZipArchiveEntry entry = archive1.GetEntry(trgFn);
+                    if (entry == null) return null;
+                    return getBytesFromZipFile(entry, out string arcFn);
                 }
+
+                Tuple<string, string> arc = (Tuple<string, string>)archive;
+                string arcExt = Path.GetExtension(arc.Item1).ToUpper();
+                
+                if (arcExt == ".ZDF")
+                {
+                    UnZDF cmd = new();
+                    return cmd.GetFileByte(arc.Item1, trgFn);
+                }
+
+                if (arcExt == ".LZH")
+                {
+                    UnlhaWrap.UnlhaCmd cmd = new();
+                    return cmd.GetFileByte(arc.Item1, trgFn);
+                }
+
             }
             catch
             {
-                return null;
+                ;//なにもしない
             }
+
+            return null;
         }
 
         public byte[] getBytesFromZipFile(ZipArchiveEntry entry, out string arcFn)

@@ -142,6 +142,7 @@ namespace MDPlayer.Driver.ZMS
             vgmCurLoop = 0;
             this.model = model;
             vgmFrameCounter = -latency - waitTime;
+            vgmSpeed = 1;
             SetZPDSearchPath();
 
             try
