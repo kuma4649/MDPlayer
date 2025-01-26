@@ -31,7 +31,7 @@ namespace MDPlayer.Driver.GBS
 
         int LD_pBCs_A()
         {
-            mem.PokeB(reg.bc, reg.a);
+            mem.PokeB(reg.bc, reg.a,vgmFrameCounter);
 
 #if DEBUG
             nimo = "LD (BC),A";
@@ -127,7 +127,7 @@ namespace MDPlayer.Driver.GBS
         {
             ushort a = mem.PeekW(reg.pc);
             reg.pc += 2;
-            mem.PokeW(a, reg.sp);
+            mem.PokeW(a, reg.sp, vgmFrameCounter);
 #if DEBUG
             nimo = string.Format("LD ({0:X04),SP", a);
 #endif
@@ -271,7 +271,7 @@ namespace MDPlayer.Driver.GBS
 
         int LD_pDEs_A()
         {
-            mem.PokeB(reg.de, reg.a);
+            mem.PokeB(reg.de, reg.a, vgmFrameCounter);
 
 #if DEBUG
             nimo = "LD (DE),A";
@@ -525,7 +525,7 @@ namespace MDPlayer.Driver.GBS
 
         int LD_pHLplss_A()
         {
-            mem.PokeB(reg.hl, reg.a);
+            mem.PokeB(reg.hl, reg.a, vgmFrameCounter);
             reg.hl++;
 #if DEBUG
             nimo = "LD (HL+),A";
@@ -780,7 +780,7 @@ namespace MDPlayer.Driver.GBS
 
         int LD_pHLmiss_A()
         {
-            mem.PokeB(reg.hl, reg.a);
+            mem.PokeB(reg.hl, reg.a, vgmFrameCounter);
             reg.hl--;
 #if DEBUG
             nimo = "LD (HL-),A";
@@ -806,7 +806,7 @@ namespace MDPlayer.Driver.GBS
         {
             byte d = mem.PeekB(reg.hl);
             byte e = (byte)(d + 1);
-            mem.PokeB(reg.hl, e);
+            mem.PokeB(reg.hl, e, vgmFrameCounter);
 
             reg.Z = (e == 0);
             reg.S = false;
@@ -825,7 +825,7 @@ namespace MDPlayer.Driver.GBS
         {
             byte d = mem.PeekB(reg.hl);
             byte e = (byte)(d - 1);
-            mem.PokeB(reg.hl, e);
+            mem.PokeB(reg.hl, e, vgmFrameCounter);
 
             reg.Z = (e == 0);
             reg.S = true;
@@ -843,7 +843,7 @@ namespace MDPlayer.Driver.GBS
         int LD_pHLs_d8()
         {
             byte d = mem.PeekB(reg.pc++);
-            mem.PokeB(reg.hl, d);
+            mem.PokeB(reg.hl, d, vgmFrameCounter);
 
 #if DEBUG
             nimo = string.Format("LD (HL),${0:X02}", d);
@@ -1487,7 +1487,7 @@ namespace MDPlayer.Driver.GBS
         // 0x70
         int LD_pHLs_B()
         {
-            mem.PokeB(reg.hl, reg.b);
+            mem.PokeB(reg.hl, reg.b, vgmFrameCounter);
 #if DEBUG
             nimo = "LD (HL),B";
 #endif
@@ -1497,7 +1497,7 @@ namespace MDPlayer.Driver.GBS
 
         int LD_pHLs_C()
         {
-            mem.PokeB(reg.hl, reg.c);
+            mem.PokeB(reg.hl, reg.c, vgmFrameCounter);
 #if DEBUG
             nimo = "LD (HL),C";
 #endif
@@ -1507,7 +1507,7 @@ namespace MDPlayer.Driver.GBS
 
         int LD_pHLs_D()
         {
-            mem.PokeB(reg.hl, reg.d);
+            mem.PokeB(reg.hl, reg.d, vgmFrameCounter);
 #if DEBUG
             nimo = "LD (HL),D";
 #endif
@@ -1517,7 +1517,7 @@ namespace MDPlayer.Driver.GBS
 
         int LD_pHLs_E()
         {
-            mem.PokeB(reg.hl, reg.e);
+            mem.PokeB(reg.hl, reg.e, vgmFrameCounter);
 #if DEBUG
             nimo = "LD (HL),E";
 #endif
@@ -1527,7 +1527,7 @@ namespace MDPlayer.Driver.GBS
 
         int LD_pHLs_H()
         {
-            mem.PokeB(reg.hl, reg.h);
+            mem.PokeB(reg.hl, reg.h, vgmFrameCounter);
 #if DEBUG
             nimo = "LD (HL),H";
 #endif
@@ -1537,7 +1537,7 @@ namespace MDPlayer.Driver.GBS
 
         int LD_pHLs_L()
         {
-            mem.PokeB(reg.hl, reg.l);
+            mem.PokeB(reg.hl, reg.l, vgmFrameCounter);
 #if DEBUG
             nimo = "LD (HL),L";
 #endif
@@ -1557,7 +1557,7 @@ namespace MDPlayer.Driver.GBS
 
         int LD_pHLs_A()
         {
-            mem.PokeB(reg.hl, reg.a);
+            mem.PokeB(reg.hl, reg.a, vgmFrameCounter);
 #if DEBUG
             nimo = "LD (HL),A";
 #endif
@@ -3226,7 +3226,7 @@ namespace MDPlayer.Driver.GBS
         int LDH_pa8s_A()
         {
             byte p = mem.PeekB(reg.pc++);
-            mem.PokeB(0xff00 + p, reg.a);
+            mem.PokeB(0xff00 + p, reg.a, vgmFrameCounter);
 #if DEBUG
             nimo = string.Format("LD ($FF00+${0:X02}),A", p);
 #endif
@@ -3246,7 +3246,7 @@ namespace MDPlayer.Driver.GBS
 
         int LD_pCs_A()
         {
-            mem.PokeB(0xff00 + reg.c, reg.a);
+            mem.PokeB(0xff00 + reg.c, reg.a, vgmFrameCounter);
 #if DEBUG
             nimo = "LD ($ff00+C),A";
 #endif
@@ -3331,7 +3331,7 @@ namespace MDPlayer.Driver.GBS
         {
             ushort d = mem.PeekW(reg.pc);
             reg.pc += 2;
-            mem.PokeB(d, reg.a);
+            mem.PokeB(d, reg.a, vgmFrameCounter);
 #if DEBUG
             nimo = string.Format("LD (${0:X04}),A", d);
 #endif
@@ -3657,7 +3657,7 @@ namespace MDPlayer.Driver.GBS
             byte d = mem.PeekB(reg.hl);
             reg.C = (d & 0x80) != 0;
             d = (byte)((d << 1) | (reg.C ? 1 : 0));
-            mem.PokeB(reg.hl, d);
+            mem.PokeB(reg.hl, d, vgmFrameCounter);
 
             reg.Z = (d == 0);
             reg.S = false;
@@ -3810,7 +3810,7 @@ namespace MDPlayer.Driver.GBS
             byte d = mem.PeekB(reg.hl);
             reg.C = (d & 0x01) != 0;
             d = (byte)((d >> 1) | (reg.C ? 0x80 : 0));
-            mem.PokeB(reg.hl, d);
+            mem.PokeB(reg.hl, d,vgmFrameCounter);
 
             reg.Z = (d == 0);
             reg.S = false;
@@ -3977,7 +3977,7 @@ namespace MDPlayer.Driver.GBS
             reg.C = (d & 0x80) != 0;
 
             d = (byte)((d << 1) | e);
-            mem.PokeB(reg.hl, d);
+            mem.PokeB(reg.hl, d, vgmFrameCounter);
 
             reg.Z = false;
             reg.S = false;
@@ -4146,7 +4146,7 @@ namespace MDPlayer.Driver.GBS
             reg.C = (d & 0x01) != 0;
 
             d = (byte)((d >> 1) | e);
-            mem.PokeB(reg.hl, d);
+            mem.PokeB(reg.hl, d , vgmFrameCounter);
 
             reg.Z = false;
             reg.S = false;
@@ -4294,7 +4294,7 @@ namespace MDPlayer.Driver.GBS
         {
             byte a = mem.PeekB(reg.hl);
             byte b = (byte)(a << 1);
-            mem.PokeB(reg.hl, b);
+            mem.PokeB(reg.hl, b, vgmFrameCounter);
 
             reg.Z = (b == 0);
             reg.S = false;
@@ -4440,7 +4440,7 @@ namespace MDPlayer.Driver.GBS
         {
             byte a = mem.PeekB(reg.hl);
             byte b = (byte)((a >> 1) | (a & 0x80));
-            mem.PokeB(reg.hl, b);
+            mem.PokeB(reg.hl, b, vgmFrameCounter);
 
             reg.Z = (b == 0);
             reg.S = false;
@@ -4568,7 +4568,7 @@ namespace MDPlayer.Driver.GBS
         {
             byte a = mem.PeekB(reg.hl);
             a = (byte)(((a >> 4) & 0xf) | ((a << 4) & 0xf0));
-            mem.PokeB(reg.hl, a);
+            mem.PokeB(reg.hl, a, vgmFrameCounter);
             reg.Z = a == 0;
             reg.S = false;
             reg.H = false;
@@ -4708,7 +4708,7 @@ namespace MDPlayer.Driver.GBS
         {
             byte a = mem.PeekB(reg.hl);
             byte b = (byte)(a >> 1);
-            mem.PokeB(reg.hl, b);
+            mem.PokeB(reg.hl, b, vgmFrameCounter);
 
             reg.Z = (b == 0);
             reg.S = false;
@@ -5846,7 +5846,7 @@ namespace MDPlayer.Driver.GBS
         {
             byte a = mem.PeekB(reg.hl);
             a &= unchecked((byte)~(1 << 0));
-            mem.PokeB(reg.hl, a);
+            mem.PokeB(reg.hl, a, vgmFrameCounter);
 
 #if DEBUG
             nimo = "RES 0,(HL)";
@@ -5937,7 +5937,7 @@ namespace MDPlayer.Driver.GBS
         {
             byte a = mem.PeekB(reg.hl);
             a &= unchecked((byte)~(1 << 1));
-            mem.PokeB(reg.hl, a);
+            mem.PokeB(reg.hl, a, vgmFrameCounter);
 
 #if DEBUG
             nimo = "RES 1,(HL)";
@@ -6028,7 +6028,7 @@ namespace MDPlayer.Driver.GBS
         {
             byte a = mem.PeekB(reg.hl);
             a &= unchecked((byte)~(1 << 2));
-            mem.PokeB(reg.hl, a);
+            mem.PokeB(reg.hl, a, vgmFrameCounter);
 
 #if DEBUG
             nimo = "RES 2,(HL)";
@@ -6119,7 +6119,7 @@ namespace MDPlayer.Driver.GBS
         {
             byte a = mem.PeekB(reg.hl);
             a &= unchecked((byte)~(1 << 3));
-            mem.PokeB(reg.hl, a);
+            mem.PokeB(reg.hl, a, vgmFrameCounter);
 
 #if DEBUG
             nimo = "RES 3,(HL)";
@@ -6210,7 +6210,7 @@ namespace MDPlayer.Driver.GBS
         {
             byte a = mem.PeekB(reg.hl);
             a &= unchecked((byte)~(1 << 4));
-            mem.PokeB(reg.hl, a);
+            mem.PokeB(reg.hl, a, vgmFrameCounter);
 
 #if DEBUG
             nimo = "RES 4,(HL)";
@@ -6301,7 +6301,7 @@ namespace MDPlayer.Driver.GBS
         {
             byte a = mem.PeekB(reg.hl);
             a &= unchecked((byte)~(1 << 5));
-            mem.PokeB(reg.hl, a);
+            mem.PokeB(reg.hl, a, vgmFrameCounter);
 
 #if DEBUG
             nimo = "RES 5,(HL)";
@@ -6392,7 +6392,7 @@ namespace MDPlayer.Driver.GBS
         {
             byte a = mem.PeekB(reg.hl);
             a &= unchecked((byte)~(1 << 6));
-            mem.PokeB(reg.hl, a);
+            mem.PokeB(reg.hl, a, vgmFrameCounter);
 
 #if DEBUG
             nimo = "RES 6,(HL)";
@@ -6483,7 +6483,7 @@ namespace MDPlayer.Driver.GBS
         {
             byte a = mem.PeekB(reg.hl);
             a &= unchecked((byte)~(1 << 7));
-            mem.PokeB(reg.hl, a);
+            mem.PokeB(reg.hl, a, vgmFrameCounter);
 
 #if DEBUG
             nimo = "RES 7,(HL)";
@@ -6574,7 +6574,7 @@ namespace MDPlayer.Driver.GBS
         {
             byte a = mem.PeekB(reg.hl);
             a |= (1 << 0);
-            mem.PokeB(reg.hl, a);
+            mem.PokeB(reg.hl, a, vgmFrameCounter);
 
 #if DEBUG
             nimo = "SET 0,(HL)";
@@ -6665,7 +6665,7 @@ namespace MDPlayer.Driver.GBS
         {
             byte a = mem.PeekB(reg.hl);
             a |= (1 << 1);
-            mem.PokeB(reg.hl, a);
+            mem.PokeB(reg.hl, a, vgmFrameCounter);
 
 #if DEBUG
             nimo = "SET 1,(HL)";
@@ -6756,7 +6756,7 @@ namespace MDPlayer.Driver.GBS
         {
             byte a = mem.PeekB(reg.hl);
             a |= (1 << 2);
-            mem.PokeB(reg.hl, a);
+            mem.PokeB(reg.hl, a, vgmFrameCounter);
 
 #if DEBUG
             nimo = "SET 2,(HL)";
@@ -6847,7 +6847,7 @@ namespace MDPlayer.Driver.GBS
         {
             byte a = mem.PeekB(reg.hl);
             a |= (1 << 3);
-            mem.PokeB(reg.hl, a);
+            mem.PokeB(reg.hl, a, vgmFrameCounter);
 
 #if DEBUG
             nimo = "SET 3,(HL)";
@@ -6938,7 +6938,7 @@ namespace MDPlayer.Driver.GBS
         {
             byte a = mem.PeekB(reg.hl);
             a |= (1 << 4);
-            mem.PokeB(reg.hl, a);
+            mem.PokeB(reg.hl, a, vgmFrameCounter);
 
 #if DEBUG
             nimo = "SET 4,(HL)";
@@ -7029,7 +7029,7 @@ namespace MDPlayer.Driver.GBS
         {
             byte a = mem.PeekB(reg.hl);
             a |= (1 << 5);
-            mem.PokeB(reg.hl, a);
+            mem.PokeB(reg.hl, a, vgmFrameCounter);
 
 #if DEBUG
             nimo = "SET 5,(HL)";
@@ -7120,7 +7120,7 @@ namespace MDPlayer.Driver.GBS
         {
             byte a = mem.PeekB(reg.hl);
             a |= (1 << 6);
-            mem.PokeB(reg.hl, a);
+            mem.PokeB(reg.hl, a, vgmFrameCounter);
 
 #if DEBUG
             nimo = "SET 6,(HL)";
@@ -7211,7 +7211,7 @@ namespace MDPlayer.Driver.GBS
         {
             byte a = mem.PeekB(reg.hl);
             a |= (1 << 7);
-            mem.PokeB(reg.hl, a);
+            mem.PokeB(reg.hl, a, vgmFrameCounter);
 
 #if DEBUG
             nimo = "SET 7,(HL)";
@@ -7246,7 +7246,7 @@ namespace MDPlayer.Driver.GBS
         private void push(ushort dat)
         {
             reg.sp -= 2;
-            mem.PokeW(reg.sp, dat);
+            mem.PokeW(reg.sp, dat, vgmFrameCounter);
         }
 
         private ushort pop()

@@ -17,6 +17,7 @@ namespace MDPlayer.Driver.GBS
         public string nimo = "";
         public bool cbSwitch = false;
         public int ime = 1;
+        public long vgmFrameCounter;
 
         public CPU(int clock, Memory memory)
         {

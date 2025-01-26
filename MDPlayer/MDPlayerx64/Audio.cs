@@ -2638,6 +2638,14 @@ namespace MDPlayer
                 //    driverReal = new nsf();
                 //    driverReal.setting = setting;
                 //}
+                DriverPianoRoll = null;
+                if (setting.pianoRoll.usePianoRoll)
+                {
+                    DriverPianoRoll = new gbs(setting)
+                    {
+                        setting = setting
+                    };
+                }
                 return GbsPlay(setting);
             }
 
@@ -7003,6 +7011,13 @@ namespace MDPlayer
                         , (uint)(setting.outputDevice.SampleRate * setting.LatencySCCI / 1000)
                         , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
                 }
+                if (DriverPianoRoll != null)
+                {
+                    ((gbs)DriverPianoRoll).song = (byte)SongNo;
+                    if (!DriverPianoRoll.init(vgmBuf, chipRegister, EnmModel.PianoRollModel, new EnmChip[] { EnmChip.Unuse }
+                        , (uint)(setting.outputDevice.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                }
 
                 MDSound.MDSound.Chip chip;
                 gb gb = new();
@@ -7024,6 +7039,24 @@ namespace MDPlayer
                 ((gbs)DriverVirtual).dmg = chip;
                 UseChip.Add(EnmChip.DMG);
 
+                gb = new();
+                chip = new MDSound.MDSound.Chip
+                {
+                    ID = 0,
+                    type = MDSound.MDSound.enmInstrumentType.DMG,
+                    Instrument = gb,
+                    Update = gb.Update,
+                    Start = gb.Start,
+                    Stop = gb.Stop,
+                    Reset = gb.Reset,
+                    SamplingRate = (UInt32)setting.outputDevice.SampleRate,
+                    Volume = setting.balance.DMGVolume,
+                    Clock = 4194304,
+                    Option = null
+                };
+                ((gbs)DriverPianoRoll).dmg = chip;
+                gb.Start(0, 4194304);
+
                 if (hiyorimiNecessary) hiyorimiNecessary = true;
                 else hiyorimiNecessary = false;
 
@@ -7033,12 +7066,15 @@ namespace MDPlayer
                     mds.Init((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
 
                 chipRegister.initChipRegister(lstChips.ToArray());
-                chipRegister.setDMGRegister(0, 0x16, 0x8f, EnmModel.VirtualModel);
-                chipRegister.setDMGRegister(0, 0x14, 0x77, EnmModel.VirtualModel);
-                chipRegister.setDMGRegister(0, 0x15, 0xf7, EnmModel.VirtualModel);
-                chipRegister.setDMGRegister(0, 0x16, 0x8f, EnmModel.RealModel);
-                chipRegister.setDMGRegister(0, 0x14, 0x77, EnmModel.RealModel);
-                chipRegister.setDMGRegister(0, 0x15, 0xf7, EnmModel.RealModel);
+                chipRegister.setDMGRegister(0, 0x16, 0x8f, EnmModel.VirtualModel,0);
+                chipRegister.setDMGRegister(0, 0x14, 0x77, EnmModel.VirtualModel, 0);
+                chipRegister.setDMGRegister(0, 0x15, 0xf7, EnmModel.VirtualModel, 0);
+                chipRegister.setDMGRegister(0, 0x16, 0x8f, EnmModel.RealModel, 0);
+                chipRegister.setDMGRegister(0, 0x14, 0x77, EnmModel.RealModel, 0);
+                chipRegister.setDMGRegister(0, 0x15, 0xf7, EnmModel.RealModel, 0);
+                chipRegister.setDMGRegister(0, 0x16, 0x8f, EnmModel.PianoRollModel, 0);
+                chipRegister.setDMGRegister(0, 0x14, 0x77, EnmModel.PianoRollModel, 0);
+                chipRegister.setDMGRegister(0, 0x15, 0xf7, EnmModel.PianoRollModel, 0);
                 //Play
 
                 Paused = false;

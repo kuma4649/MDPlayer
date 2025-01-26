@@ -1208,7 +1208,7 @@
     <value>5, 5, 5, 5</value>
   </data>
   <data name="ucSI.Size" type="System.Drawing.Size, System.Drawing">
-    <value>560, 380</value>
+    <value>560, 358</value>
   </data>
   <data name="ucSI.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -1235,7 +1235,7 @@
     <value>4, 4, 4, 4</value>
   </data>
   <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>567, 431</value>
+    <value>567, 411</value>
   </data>
   <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -1457,7 +1457,7 @@
     <value>6</value>
   </data>
   <data name="groupBox3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 443</value>
+    <value>4, 423</value>
   </data>
   <data name="groupBox3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
@@ -6518,7 +6518,7 @@
     <value>4, 4, 4, 4</value>
   </data>
   <data name="dgvMIDIoutListA.Size" type="System.Drawing.Size, System.Drawing">
-    <value>516, 229</value>
+    <value>516, 220</value>
   </data>
   <data name="dgvMIDIoutListA.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -6569,7 +6569,7 @@
     <value>Bottom, Right</value>
   </data>
   <data name="btnDOWN_A.Location" type="System.Drawing.Point, System.Drawing">
-    <value>524, 159</value>
+    <value>524, 150</value>
   </data>
   <data name="btnDOWN_A.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
@@ -6605,7 +6605,7 @@
     <value>4, 4, 4, 4</value>
   </data>
   <data name="tabPage1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>557, 243</value>
+    <value>557, 234</value>
   </data>
   <data name="tabPage1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -7580,7 +7580,7 @@
     <value>4, 4, 4, 4</value>
   </data>
   <data name="tbcMIDIoutList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>565, 271</value>
+    <value>565, 262</value>
   </data>
   <data name="tbcMIDIoutList.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>

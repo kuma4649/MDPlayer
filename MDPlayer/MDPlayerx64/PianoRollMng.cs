@@ -19,6 +19,7 @@ namespace MDPlayer
         public PianoRollMng()
         {
             chipList.Add(EnmChip.AY8910, new MDPlayerx64.PianoRoll.AY8910(lstPrNote));
+            chipList.Add(EnmChip.DMG, new MDPlayerx64.PianoRoll.DMG(lstPrNote));
             chipList.Add(EnmChip.HuC6280, new MDPlayerx64.PianoRoll.HuC6280(lstPrNote));
             chipList.Add(EnmChip.K051649, new MDPlayerx64.PianoRoll.K051649(lstPrNote));
             chipList.Add(EnmChip.YM2151, new MDPlayerx64.PianoRoll.YM2151(lstPrNote));

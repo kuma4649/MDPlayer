@@ -59,6 +59,7 @@ namespace MDPlayer
             getGD3Info(vgmBuf, 0);
             info = GetGbsInfo(vgmBuf);
             this.chipRegister = chipRegister;
+            this.model = model;
 
             //Console.WriteLine("Load " + fn);
             //Console.WriteLine("");
@@ -83,6 +84,7 @@ namespace MDPlayer
                 io = new(chipRegister, (MDSound.gb)dmg.Instrument, model);
                 memory = new(info.mem, io);
                 cpu = new(GBClock, memory);
+                cpu.vgmFrameCounter = vgmFrameCounter;
                 cpu.Init();
 
                 cpu.reg.pc = info.initAddress;
@@ -137,6 +139,7 @@ namespace MDPlayer
             {
                 if (cpu.reg.sp != breakSp)
                 {
+                    cpu.vgmFrameCounter = vgmFrameCounter;
                     double oneClock = cpu.clock / (double)setting.outputDevice.SampleRate;
                     while (cycles < oneClock && cpu.reg.sp != breakSp)
                     {

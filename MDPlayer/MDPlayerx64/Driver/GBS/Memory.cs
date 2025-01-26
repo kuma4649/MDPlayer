@@ -113,7 +113,7 @@ namespace MDPlayer.Driver.GBS
             }
         }
 
-        public void PokeB(int pc, byte dat)
+        public void PokeB(int pc, byte dat,long vgmFrameCounter)
         {
             if (pc >= 0x2000 && pc < 0x4000)
             {
@@ -158,7 +158,7 @@ namespace MDPlayer.Driver.GBS
             }
             else if (pc >= 0xff00 && pc < 0xff80)
             {
-                io.Write((byte)pc, dat);
+                io.Write((byte)pc, dat, vgmFrameCounter);
             }
             else if (pc >= 0xff80 && pc < 0xffff)
             {
@@ -181,10 +181,10 @@ namespace MDPlayer.Driver.GBS
             return (ushort)(PeekB(pc) + (PeekB(pc + 1) << 8));
         }
 
-        public void PokeW(int pc, ushort dat)
+        public void PokeW(int pc, ushort dat, long vgmFrameCounter)
         {
-            PokeB(pc, (byte)dat);
-            PokeB(pc + 1, (byte)(dat >> 8));
+            PokeB(pc, (byte)dat, vgmFrameCounter);
+            PokeB(pc + 1, (byte)(dat >> 8), vgmFrameCounter);
         }
 
         public string GetBank()

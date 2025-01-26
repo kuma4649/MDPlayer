@@ -520,7 +520,7 @@
                     chipRegister.setAY8910Register(ChipID, Offset, Data, model, 0);
                     break;
                 case 0x13:  // DMG+
-                    chipRegister.setDMGRegister(ChipID, Offset, Data, model);
+                    chipRegister.setDMGRegister(ChipID, Offset, Data, model, 0);
                     break;
                 case 0x14:  // NES+
                     chipRegister.setNESRegister(ChipID, Offset, Data, model);

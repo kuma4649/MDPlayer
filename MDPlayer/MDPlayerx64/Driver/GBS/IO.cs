@@ -11,9 +11,10 @@ namespace MDPlayer.Driver.GBS
         // FF00-FF7F   I/O Ports
         private Action<byte>[] iow;
         private Func<byte>[] ior;
-        private ChipRegister mds;
+        private ChipRegister cr;
         private MDSound.gb gb;
         private EnmModel model;
+        private long vgmFrameCounter;
 
         private const Int32 NR10 = 0x00;
         private const Int32 NR11 = 0x01;
@@ -58,9 +59,9 @@ namespace MDPlayer.Driver.GBS
 
         //http://bgb.bircd.org/pandocs.htm#soundcontroller
 
-        public IO(ChipRegister mds, MDSound.gb gb,EnmModel model)
+        public IO(ChipRegister cr, MDSound.gb gb,EnmModel model)
         {
-            this.mds = mds;
+            this.cr = cr;
             this.gb = gb;
             this.model = model;
 
@@ -230,8 +231,9 @@ namespace MDPlayer.Driver.GBS
             };
         }
 
-        public void Write(byte pc, byte dat)
+        public void Write(byte pc, byte dat,long vgmFrameCounter)
         {
+            this.vgmFrameCounter = vgmFrameCounter;
             if (iow[(byte)pc] != null) iow[(byte)pc](dat);
             else
             {
@@ -278,7 +280,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF10_NR10_Channel_1_Sweep_register(byte dat)
         {
-            mds.setDMGRegister(0, NR10, dat, model);
+            cr.setDMGRegister(0, NR10, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF10 - NR10 - Channel 1 Sweep register (R/W) ${0:X02}", dat);
 #endif
@@ -295,7 +297,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF11_NR11_Channel_1_Sound_length_Wave_pattern_duty(byte dat)
         {
-            mds.setDMGRegister(0, NR11, dat, model);
+            cr.setDMGRegister(0, NR11, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF11 - NR11 - Channel 1 Sound length/Wave pattern duty (R/W) ${0:X02}", dat);
 #endif
@@ -312,7 +314,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF12_NR12_Channel_1_Volume_Envelope(byte dat)
         {
-            mds.setDMGRegister(0, NR12, dat, model);
+            cr.setDMGRegister(0, NR12, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF12 - NR12 - Channel 1 Volume Envelope (R/W) ${0:X02}", dat);
 #endif
@@ -320,7 +322,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF13_NR13_Channel_1_Frequency_lo(byte dat)
         {
-            mds.setDMGRegister(0, NR13, dat, model);
+            cr.setDMGRegister(0, NR13, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF13 - NR13 - Channel 1 Frequency lo (W) ${0:X02}", dat);
 #endif
@@ -337,7 +339,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF14_NR14_Channel_1_Frequency_hi(byte dat)
         {
-            mds.setDMGRegister(0, NR14, dat, model);
+            cr.setDMGRegister(0, NR14, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF14 - NR14 - Channel 1 Frequency hi (R/W) ${0:X02}", dat);
 #endif
@@ -354,7 +356,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF16_NR21_Channel_2_Sound_length_Wave_pattern_duty(byte dat)
         {
-            mds.setDMGRegister(0, NR21, dat, model);
+            cr.setDMGRegister(0, NR21, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF16 - NR21 - Channel 2 Sound Length/Wave Pattern Duty (R/W) ${0:X02}", dat);
 #endif
@@ -371,7 +373,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF17_NR22_Channel_2_Volume_Envelope(byte dat)
         {
-            mds.setDMGRegister(0, NR22, dat, model);
+            cr.setDMGRegister(0, NR22, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF17 - NR22 - Channel 2 Volume Envelope (R/W) ${0:X02}", dat);
 #endif
@@ -379,7 +381,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF18_NR23_Channel_2_Frequency_lo(byte dat)
         {
-            mds.setDMGRegister(0, NR23, dat, model);
+            cr.setDMGRegister(0, NR23, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF18 - NR23 - Channel 2 Frequency lo data (W) ${0:X02}", dat);
 #endif
@@ -396,7 +398,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF19_NR24_Channel_2_Frequency_hi(byte dat)
         {
-            mds.setDMGRegister(0, NR24, dat, model);
+            cr.setDMGRegister(0, NR24, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF19 - NR24 - Channel 2 Frequency hi data (R/W) ${0:X02}", dat);
 #endif
@@ -413,7 +415,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF1A_NR30_Channel_3_Sound_on_off(byte dat)
         {
-            mds.setDMGRegister(0, NR30, dat, model);
+            cr.setDMGRegister(0, NR30, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF1A - NR30 - Channel 3 Sound on/off (R/W) ${0:X02}", dat);
 #endif
@@ -430,7 +432,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF1B_NR31_Channel_3_Sound_Length(byte dat)
         {
-            mds.setDMGRegister(0, NR31, dat, model);
+            cr.setDMGRegister(0, NR31, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF1B - NR31 - Channel 3 Sound Length ${0:X02}", dat);
 #endif
@@ -447,7 +449,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF1C_NR32_Channel_3_Select_output_level(byte dat)
         {
-            mds.setDMGRegister(0, NR32, dat, model);
+            cr.setDMGRegister(0, NR32, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF1C - NR32 - Channel 3 Select output level (R/W) ${0:X02}", dat);
 #endif
@@ -455,7 +457,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF1D_NR33_Channel_3_Frequencys_lower_data(byte dat)
         {
-            mds.setDMGRegister(0, NR33, dat, model);
+            cr.setDMGRegister(0, NR33, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF1D - NR33 - Channel 3 Frequency's lower data (W) ${0:X02}", dat);
 #endif
@@ -472,7 +474,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF1E_NR34_Channel_3_Frequencys_higher_data(byte dat)
         {
-            mds.setDMGRegister(0, NR34, dat, model);
+            cr.setDMGRegister(0, NR34, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF1E - NR34 - Channel 3 Frequency's higher data (R/W) ${0:X02}", dat);
 #endif
@@ -489,7 +491,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF20_NR41_Channel_4_Sound_Length(byte dat)
         {
-            mds.setDMGRegister(0, NR41, dat, model);
+            cr.setDMGRegister(0, NR41, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF20 - NR41 - Channel 4 Sound Length (R/W) ${0:X02}", dat);
 #endif
@@ -506,7 +508,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF21_NR42_Channel_4_Volume_Envelope(byte dat)
         {
-            mds.setDMGRegister(0, NR42, dat, model);
+            cr.setDMGRegister(0, NR42, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF21 - NR42 - Channel 4 Volume Envelope (R/W) ${0:X02}", dat);
 #endif
@@ -523,7 +525,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF22_NR43_Channel_4_Polynomial_Counter(byte dat)
         {
-            mds.setDMGRegister(0, NR43, dat, model);
+            cr.setDMGRegister(0, NR43, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF22 - NR43 - Channel 4 Polynomial Counter (R/W) ${0:X02}", dat);
 #endif
@@ -540,7 +542,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF23_NR44_Channel_4_Counter_consecutive_Inital(byte dat)
         {
-            mds.setDMGRegister(0, NR44, dat, model);
+            cr.setDMGRegister(0, NR44, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF23 - NR44 - Channel 4 Counter/consecutive; Inital (R/W) ${0:X02}", dat);
 #endif
@@ -556,7 +558,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF24_NR50_ChannelControl(byte dat)
         {
-            mds.setDMGRegister(0, NR50, dat, model);
+            cr.setDMGRegister(0, NR50, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF24 - NR50 - Channel control / ON-OFF / Volume (R/W) ${0:X02}", dat);
 #endif
@@ -573,7 +575,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF25_NR51_SelectionOfSoundOutputTerminal(byte dat)
         {
-            mds.setDMGRegister(0, NR51, dat, model);
+            cr.setDMGRegister(0, NR51, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF25 - NR51 - Selection of Sound output terminal (R/W) ${0:X02}", dat);
 #endif
@@ -590,7 +592,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF26_NR52_SoundOnOff(byte dat)
         {
-            mds.setDMGRegister(0, NR52, dat, model);
+            cr.setDMGRegister(0, NR52, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF26 - NR52 - Sound on/off ${0:X02}", dat);
 #endif
@@ -607,7 +609,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF30_Wave_Pattern_RAM(byte dat)
         {
-            mds.setDMGRegister(0, AUD3W0, dat, model);
+            cr.setDMGRegister(0, AUD3W0, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF30 - Wave Pattern RAM ${0:X02}", dat);
 #endif
@@ -624,7 +626,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF31_Wave_Pattern_RAM(byte dat)
         {
-            mds.setDMGRegister(0, AUD3W1, dat, model);
+            cr.setDMGRegister(0, AUD3W1, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF31 - Wave Pattern RAM ${0:X02}", dat);
 #endif
@@ -641,7 +643,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF32_Wave_Pattern_RAM(byte dat)
         {
-            mds.setDMGRegister(0, AUD3W2, dat, model);
+            cr.setDMGRegister(0, AUD3W2, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF32 - Wave Pattern RAM ${0:X02}", dat);
 #endif
@@ -658,7 +660,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF33_Wave_Pattern_RAM(byte dat)
         {
-            mds.setDMGRegister(0, AUD3W3, dat, model);
+            cr.setDMGRegister(0, AUD3W3, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF33 - Wave Pattern RAM ${0:X02}", dat);
 #endif
@@ -675,7 +677,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF34_Wave_Pattern_RAM(byte dat)
         {
-            mds.setDMGRegister(0, AUD3W4, dat, model);
+            cr.setDMGRegister(0, AUD3W4, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF34 - Wave Pattern RAM ${0:X02}", dat);
 #endif
@@ -692,7 +694,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF35_Wave_Pattern_RAM(byte dat)
         {
-            mds.setDMGRegister(0, AUD3W5, dat, model);
+            cr.setDMGRegister(0, AUD3W5, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF35 - Wave Pattern RAM ${0:X02}", dat);
 #endif
@@ -709,7 +711,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF36_Wave_Pattern_RAM(byte dat)
         {
-            mds.setDMGRegister(0, AUD3W6, dat, model);
+            cr.setDMGRegister(0, AUD3W6, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF36 - Wave Pattern RAM ${0:X02}", dat);
 #endif
@@ -726,7 +728,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF37_Wave_Pattern_RAM(byte dat)
         {
-            mds.setDMGRegister(0, AUD3W7, dat, model);
+            cr.setDMGRegister(0, AUD3W7, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF37 - Wave Pattern RAM ${0:X02}", dat);
 #endif
@@ -743,7 +745,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF38_Wave_Pattern_RAM(byte dat)
         {
-            mds.setDMGRegister(0, AUD3W8, dat, model);
+            cr.setDMGRegister(0, AUD3W8, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF38 - Wave Pattern RAM ${0:X02}", dat);
 #endif
@@ -760,7 +762,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF39_Wave_Pattern_RAM(byte dat)
         {
-            mds.setDMGRegister(0, AUD3W9, dat, model);
+            cr.setDMGRegister(0, AUD3W9, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF39 - Wave Pattern RAM ${0:X02}", dat);
 #endif
@@ -777,7 +779,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF3A_Wave_Pattern_RAM(byte dat)
         {
-            mds.setDMGRegister(0, AUD3WA, dat, model);
+            cr.setDMGRegister(0, AUD3WA, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF3A - Wave Pattern RAM ${0:X02}", dat);
 #endif
@@ -794,7 +796,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF3B_Wave_Pattern_RAM(byte dat)
         {
-            mds.setDMGRegister(0, AUD3WB, dat, model);
+            cr.setDMGRegister(0, AUD3WB, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF3B - Wave Pattern RAM ${0:X02}", dat);
 #endif
@@ -811,7 +813,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF3C_Wave_Pattern_RAM(byte dat)
         {
-            mds.setDMGRegister(0, AUD3WC, dat, model);
+            cr.setDMGRegister(0, AUD3WC, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF3C - Wave Pattern RAM ${0:X02}", dat);
 #endif
@@ -828,7 +830,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF3D_Wave_Pattern_RAM(byte dat)
         {
-            mds.setDMGRegister(0, AUD3WD, dat, model);
+            cr.setDMGRegister(0, AUD3WD, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF3D - Wave Pattern RAM ${0:X02}", dat);
 #endif
@@ -845,7 +847,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF3E_Wave_Pattern_RAM(byte dat)
         {
-            mds.setDMGRegister(0, AUD3WE, dat, model);
+            cr.setDMGRegister(0, AUD3WE, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF3E - Wave Pattern RAM ${0:X02}", dat);
 #endif
@@ -862,7 +864,7 @@ namespace MDPlayer.Driver.GBS
 
         private void W_FF3F_Wave_Pattern_RAM(byte dat)
         {
-            mds.setDMGRegister(0, AUD3WF, dat, model);
+            cr.setDMGRegister(0, AUD3WF, dat, model, vgmFrameCounter);
 #if DEBUG
             Console.WriteLine("Write FF3F - Wave Pattern RAM ${0:X02}", dat);
 #endif

@@ -1792,9 +1792,13 @@ namespace MDPlayer
             mds.WriteZXBeep((byte)chipID);
         }
 
-        public void setDMGRegister(int chipID, int dAddr, int dData, EnmModel model)
+        public void setDMGRegister(int chipID, int dAddr, int dData, EnmModel model, long vgmFrameCounter)
         {
-            if (model == EnmModel.PianoRollModel) return;
+            if (model == EnmModel.PianoRollModel)
+            {
+                pianoRollMng.SetRegister(EnmChip.DMG, chipID, dAddr, dData, vgmFrameCounter);
+                return;
+            }
             if (chipID == 0) chipLED.PriDMG = 2;
             else chipLED.SecDMG = 2;
 
