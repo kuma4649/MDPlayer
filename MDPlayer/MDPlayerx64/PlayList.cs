@@ -435,6 +435,9 @@ namespace MDPlayer
                 case EnmFileFormat.MuSICA:
                     AddFileMuSICA(ref index, mc, entry);
                     break;
+                case EnmFileFormat.MuSICA_src:
+                    AddFileMuSICA(ref index, mc, entry);
+                    break;
                 case EnmFileFormat.NDP:
                     AddFileNDP(ref index, mc, entry);
                     break;
