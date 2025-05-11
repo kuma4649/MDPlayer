@@ -173,7 +173,7 @@ namespace MDPlayer
             return GD3;
         }
 
-        public static string getNRDString(byte[] buf, ref uint index)
+        public static string getNRDString(byte[] buf, ref uint index,byte del=0)
         {
             if (buf == null || buf.Length < 1 || index < 0 || index >= buf.Length) return "";
 
@@ -182,8 +182,16 @@ namespace MDPlayer
                 List<byte> lst = new List<byte>();
                 for (; buf[index] != 0; index++)
                 {
-                    if (buf.Length > index + 1 && buf[index] == 0x1a && buf[index + 1] == 0x00)
-                        break;
+                    if (del == 0)
+                    {
+                        if (buf.Length > index + 1 && buf[index] == 0x1a && buf[index + 1] == 0x00)
+                            break;
+                    }
+                    else
+                    {
+                        if (buf.Length > index + 1 && buf[index] == del)
+                            break;
+                    }
                     lst.Add(buf[index]);
                 }
 

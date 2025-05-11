@@ -16,9 +16,26 @@ namespace MDPlayer.Driver.NDP
             GD3 ret = new();
             if (buf != null && buf.Length > 8)
             {
-                Run(buf);
+                if (buf.Length > 7 + 0x0b && (buf[7 + 0x0b] & 2) != 0)
+                {
+                    uint index = 7 + 0xe;
+                    string TITLE = Common.getNRDString(buf, ref index, 0xff);
+                    GD3.TrackName = GD3.TrackNameJ = TITLE;
+                    string COMPOSER = Common.getNRDString(buf, ref index, 0xff);
+                    GD3.Composer = GD3.ComposerJ = COMPOSER;
+                    string ARRANGER = Common.getNRDString(buf, ref index, 0xff);
+                    GD3.SystemName = ARRANGER;
+                    string PROGRAMMER = Common.getNRDString(buf, ref index, 0xff);
+                    GD3.Converted = PROGRAMMER;
+                    string MEMO = Common.getNRDString(buf, ref index, 0xff);
+                    GD3.Notes = MEMO;
+                }
                 ret.TrackName = GD3.TrackName;
                 ret.TrackNameJ = GD3.TrackNameJ;
+                ret.Composer = GD3.Composer;
+                ret.ComposerJ = GD3.ComposerJ;
+                ret.SystemName = GD3.SystemName;
+                ret.Converted = GD3.Converted;
                 ret.Notes = GD3.Notes;
             }
 
