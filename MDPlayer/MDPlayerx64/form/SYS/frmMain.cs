@@ -6430,6 +6430,12 @@ namespace MDPlayer.form
                 return buf;
             }
 
+            if (ext == ".ndp")
+            {
+                format = EnmFileFormat.NDP;
+                return buf;
+            }
+
             if (ext == ".mdr")
             {
                 format = EnmFileFormat.MDR;
@@ -10539,6 +10545,10 @@ namespace MDPlayer.form
                         case EnmFileFormat.MuSICA_src:
                             fn = "DriverBalance_MuSICA.mbc";
                             defMbc = Resources.DefaultVolumeBalance_MuSICA;
+                            break;
+                        case EnmFileFormat.NDP:
+                            fn = "DriverBalance_NDP.mbc";
+                            defMbc = Resources.DefaultVolumeBalance_NDP;
                             break;
                         case EnmFileFormat.FMP:
                             fn = "DriverBalance_FMP.mbc";

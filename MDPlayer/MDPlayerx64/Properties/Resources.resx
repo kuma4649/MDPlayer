@@ -125,7 +125,7 @@
     <value>..\resources\defaultvolumebalance_nsf.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
   </data>
   <data name="DefaultVolumeBalance_GBS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-	<value>..\resources\defaultvolumebalance_gbs.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+    <value>..\resources\defaultvolumebalance_gbs.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
   </data>
   <data name="rPSGMode_04" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\rPSGMode_04.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -352,6 +352,7 @@ MuSICAファイル(*.msd;*.bgm)|*.msd;*.bgm|
 MNDファイル(*.mnd)|*.mnd|
 MUCOM88ファイル(*.mub;*.muc)|*.mub;*.muc|
 NRDファイル(*.nrd)|*.nrd|
+NDPファイル(*.ndp)|*.ndp|
 NSFファイル(*.nsf)|*.nsf|
 GBSファイル(*.gbs)|*.gbs|
 PMDファイル(*.m;*.m2;*.mz;*.mml)|*.m;*.m2;*.mz;*.mml|
@@ -368,8 +369,8 @@ MP3ファイル(*.mp3)|*.mp3|
 AIFFファイル(*.aiff)|*.aiff|
 M3Uファイル(*.m3u)|*.m3u|
 アーカイブファイル(*.zip;*.lzh;*.zdf)|*.zip;*.lzh;*.zdf|
-すべてのサポートファイル(*.vgm;*.vgz;*.zip;*.lzh;*.zdf;*.nrd;*.xgm;*.zgm;*.s98;*.nsf;*.gbs;*.hes;*.sid;*.ay;*.mgs;*.msd;*.bgm;*.mnd;*.mdr;*.mdx;*.mub;*.muc;*.m;*.m2;*.mz;*.mpi;*.mvi;*.mzi;*.opi;*.ovi;*.ozi;*.mml;*.zms;*.zmd;*.mid;*.rcp;*.rcs;*.wav;*.mp3;*.aiff;*.m3u)|
-*.vgm;*.vgz;*.zip;*.lzh;*.zdf;*.nrd;*.xgm;*.zgm;*.s98;*.nsf;*.gbs;*.hes;*.sid;*.ay;*.mgs;*.msd;*.bgm;*.mnd;*.mdr;*.mdx;*.mub;*.muc;*.m;*.m2;*.mz;*.mpi;*.mvi;*.mzi;*.opi;*.ovi;*.ozi;*.mml;*.zms;*.zmd;*.mid;*.rcp;*.rcs;*.wav;*.mp3;*.aiff;*.m3u|
+すべてのサポートファイル(*.vgm;*.vgz;*.zip;*.lzh;*.zdf;*.nrd;*.ndp;*.xgm;*.zgm;*.s98;*.nsf;*.gbs;*.hes;*.sid;*.ay;*.mgs;*.msd;*.bgm;*.mnd;*.mdr;*.mdx;*.mub;*.muc;*.m;*.m2;*.mz;*.mpi;*.mvi;*.mzi;*.opi;*.ovi;*.ozi;*.mml;*.zms;*.zmd;*.mid;*.rcp;*.rcs;*.wav;*.mp3;*.aiff;*.m3u)|
+*.vgm;*.vgz;*.zip;*.lzh;*.zdf;*.nrd;*.ndp;*.xgm;*.zgm;*.s98;*.nsf;*.gbs;*.hes;*.sid;*.ay;*.mgs;*.msd;*.bgm;*.mnd;*.mdr;*.mdx;*.mub;*.muc;*.m;*.m2;*.mz;*.mpi;*.mvi;*.mzi;*.opi;*.ovi;*.ozi;*.mml;*.zms;*.zmd;*.mid;*.rcp;*.rcs;*.wav;*.mp3;*.aiff;*.m3u|
 すべてのファイル(*.*)|*.*</value>
   </data>
   <data name="planeMSM6295" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -1163,6 +1164,9 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
     <value>..\Resources\DefaultVolumeBalance_MGS.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
   </data>
   <data name="DefaultVolumeBalance_MuSICA" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DefaultVolumeBalance_MuSICA.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
+  <data name="DefaultVolumeBalance_NDP" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DefaultVolumeBalance_MuSICA.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
   </data>
   <data name="planeMain" type="System.Resources.ResXFileRef, System.Windows.Forms">

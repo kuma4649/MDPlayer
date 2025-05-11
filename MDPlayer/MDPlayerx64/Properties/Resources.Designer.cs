@@ -793,11 +793,12 @@ namespace MDPlayerx64.Properties {
         ///MNDファイル(*.mnd)|*.mnd|
         ///MUCOM88ファイル(*.mub;*.muc)|*.mub;*.muc|
         ///NRDファイル(*.nrd)|*.nrd|
+        ///NDPファイル(*.ndp)|*.ndp|
         ///NSFファイル(*.nsf)|*.nsf|
         ///GBSファイル(*.gbs)|*.gbs|
         ///PMDファイル(*.m;*.m2;*.mz;*.mml)|*.m;*.m2;*.mz;*.mml|
         ///FMPファイル(*.mpi;*.mvi;*.mzi;*.opi;*.ovi;*.ozi)|*.mpi;*.mvi;*.mzi;*.opi;*.ovi;*.ozi|
-        ///ZMUSIC3ファイル(*.zms;*.zmd)|*.zms;*.zmd [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        ///ZMUSIC3ファイル(* [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string cntSupportFile {
             get {
@@ -1072,6 +1073,26 @@ namespace MDPlayerx64.Properties {
         internal static string DefaultVolumeBalance_MuSICA {
             get {
                 return ResourceManager.GetString("DefaultVolumeBalance_MuSICA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;Balance xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
+        ///  &lt;MasterVolume&gt;0&lt;/MasterVolume&gt;
+        ///  &lt;YM2612Volume&gt;-192&lt;/YM2612Volume&gt;
+        ///  &lt;SN76489Volume&gt;-192&lt;/SN76489Volume&gt;
+        ///  &lt;RF5C68Volume&gt;-192&lt;/RF5C68Volume&gt;
+        ///  &lt;RF5C164Volume&gt;-192&lt;/RF5C164Volume&gt;
+        ///  &lt;PWMVolume&gt;-192&lt;/PWMVolume&gt;
+        ///  &lt;C140Volume&gt;-192&lt;/C140Volume&gt;
+        ///  &lt;OKIM6258Volume&gt;-192&lt;/OKIM6258Volume&gt;
+        ///  &lt;OKIM6295Volume&gt;-192&lt;/OKIM6295Volume&gt;
+        ///  &lt;SEGAPCMVolume&gt;-192&lt;/SEGAPCM [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string DefaultVolumeBalance_NDP {
+            get {
+                return ResourceManager.GetString("DefaultVolumeBalance_NDP", resourceCulture);
             }
         }
         

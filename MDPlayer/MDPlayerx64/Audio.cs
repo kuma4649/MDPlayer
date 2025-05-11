@@ -368,6 +368,30 @@ namespace MDPlayer
                 music.vgmby = "";
                 music.converted = "";
             }
+            else if (ext == ".ndp")
+            {
+
+                music.format = EnmFileFormat.NDP;
+                GD3 gd3 = (new Driver.NDP.NDP()).getGD3Info(buf, 0);
+                if (gd3 == null)
+                {
+                    music.title = Path.GetFileName(file);
+                    music.titleJ = Path.GetFileName(file);
+                    music.notes = "";
+                }
+                else
+                {
+                    music.title = gd3.TrackName == "" ? Path.GetFileName(file) : gd3.TrackName;
+                    music.titleJ = gd3.TrackName == "" ? Path.GetFileName(file) : gd3.TrackNameJ;
+                    music.notes = gd3.Notes == "" ? "" : gd3.Notes;
+                }
+                music.game = "";
+                music.gameJ = "";
+                music.composer = "";
+                music.composerJ = "";
+                music.vgmby = "";
+                music.converted = "";
+            }
             else if (ext == ".mdr")
             {
 
@@ -2118,6 +2142,34 @@ namespace MDPlayer
                 return MscPlay_mscdrv(setting);
             }
 
+            if (PlayingFileFormat == EnmFileFormat.NDP)
+            {
+                DriverVirtual = new Driver.NDP.NDP
+                {
+                    setting = setting
+                };
+                ((Driver.NDP.NDP)DriverVirtual).PlayingFileName = PlayingFileName;
+                DriverReal = null;
+                if (setting.outputDevice.DeviceType != Common.DEV_Null)
+                {
+                    DriverReal = new Driver.NDP.NDP
+                    {
+                        setting = setting
+                    };
+                    ((Driver.NDP.NDP)DriverReal).PlayingFileName = PlayingFileName;
+                }
+                DriverPianoRoll = null;
+                if (setting.pianoRoll.usePianoRoll)
+                {
+                    DriverPianoRoll = new Driver.NDP.NDP
+                    {
+                        setting = setting
+                    };
+                    ((Driver.NDP.NDP)DriverPianoRoll).PlayingFileName = PlayingFileName;
+                }
+                return NdpPlay_ndp(setting);
+            }
+
             if (PlayingFileFormat == EnmFileFormat.MuSICA_src)
             {
                 string vcd = Path.ChangeExtension(PlayingFileName, ".vcd");
@@ -3178,6 +3230,170 @@ namespace MDPlayer
                     + trkOffsets[3] + trkOffsets[4] + trkOffsets[5]
                     + trkOffsets[6] + trkOffsets[7] + trkOffsets[8]
                     ) != 0);
+
+                chipRegister.resetChips();
+                ResetFadeOutParam();
+                UseChip.Clear();
+
+                StartTrdVgmReal();
+
+                List<MDSound.MDSound.Chip> lstChips = new();
+                MDSound.MDSound.Chip chip;
+
+                hiyorimiNecessary = setting.HiyorimiMode;
+
+                ChipLED = new ChipLEDs();
+                MasterVolume = setting.balance.MasterVolume;
+
+                if (useAY)
+                {
+                    ay8910 ay8910 = null;
+                    ay8910_mame ay8910mame = null;
+                    chip = new MDSound.MDSound.Chip
+                    {
+                        type = MDSound.MDSound.enmInstrumentType.AY8910,
+                        ID = (byte)0
+                    };
+
+                    if ((setting.AY8910Type[0].UseEmu[0] || setting.AY8910Type[0].UseReal[0]))
+                    {
+                        ay8910 ??= new ay8910();
+                        chip.type = MDSound.MDSound.enmInstrumentType.AY8910;
+                        chip.Instrument = ay8910;
+                        chip.Update = ay8910.Update;
+                        chip.Start = ay8910.Start;
+                        chip.Stop = ay8910.Stop;
+                        chip.Reset = ay8910.Reset;
+                        chip.Option = null;
+                    }
+                    else if ((setting.AY8910Type[0].UseEmu[1]))
+                    {
+                        ay8910mame ??= new ay8910_mame();
+                        chip.type = MDSound.MDSound.enmInstrumentType.AY8910mame;
+                        chip.Instrument = ay8910mame;
+                        chip.Update = ay8910mame.Update;
+                        chip.Start = ay8910mame.Start;
+                        chip.Stop = ay8910mame.Stop;
+                        chip.Reset = ay8910mame.Reset;
+                        chip.Option = new object[]{
+                            (byte)(setting.AY8910Type[0].YM2149mode ? 0x10:0x00), //chip_type 0x10:YM2149 0x00:AY
+                            (byte)0x00  //chip_flag
+                        };
+                    }
+
+                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
+                    chip.Volume = setting.balance.AY8910Volume;
+                    chip.Clock = Driver.MuSICA.MuSICA.baseclockAY8910 / 2;
+                    ClockAY8910 = (int)Driver.MuSICA.MuSICA.baseclockAY8910;
+
+                    ChipLED.PriAY10 = 1;
+
+                    lstChips.Add(chip);
+                    UseChip.Add(EnmChip.AY8910);
+
+                }
+
+                if (useOPLL)
+                {
+                    MDSound.emu2413 ym2413 = null;
+                    chip = new MDSound.MDSound.Chip();
+                    ym2413 = new MDSound.emu2413();
+                    chip.ID = 0;
+                    ChipLED.PriOPLL = 1;
+                    chip.type = MDSound.MDSound.enmInstrumentType.YM2413emu;
+                    chip.Instrument = ym2413;
+                    chip.Update = ym2413.Update;
+                    chip.Start = ym2413.Start;
+                    chip.Stop = ym2413.Stop;
+                    chip.Reset = ym2413.Reset;
+                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
+                    chip.Volume = setting.balance.YM2413Volume;
+                    chip.Clock = Driver.MuSICA.MuSICA.baseclockYM2413;
+                    chip.Option = null;
+                    lstChips.Add(chip);
+                    UseChip.Add(EnmChip.YM2413);
+                    ClockYM2413 = (int)Driver.MuSICA.MuSICA.baseclockYM2413;
+                }
+
+                if (useSCC)
+                {
+                    MDSound.K051649 K051649 = null;
+                    chip = new MDSound.MDSound.Chip();
+                    K051649 = new MDSound.K051649();
+                    chip.ID = 0;
+                    ChipLED.PriK051649 = 1;
+                    chip.type = MDSound.MDSound.enmInstrumentType.K051649;
+                    chip.Instrument = K051649;
+                    chip.Update = K051649.Update;
+                    chip.Start = K051649.Start;
+                    chip.Stop = K051649.Stop;
+                    chip.Reset = K051649.Reset;
+                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
+                    chip.Volume = setting.balance.K051649Volume;
+                    chip.Clock = Driver.MuSICA.MuSICA.baseclockK051649;
+                    chip.Option = null;
+                    lstChips.Add(chip);
+                    UseChip.Add(EnmChip.K051649);
+                    ClockK051649 = (int)Driver.MuSICA.MuSICA.baseclockK051649;
+                }
+
+                if (hiyorimiNecessary) hiyorimiNecessary = true;
+                else hiyorimiNecessary = false;
+
+                if (mds == null)
+                    mds = new MDSound.MDSound((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
+                else
+                    mds.Init((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
+
+                chipRegister.initChipRegister(lstChips.ToArray());
+
+                if (useOPLL)
+                {
+                    chipRegister.setYM2413Register(0, 14, 32, EnmModel.VirtualModel, 0);
+                }
+
+                if (!DriverVirtual.init(vgmBuf, chipRegister, EnmModel.VirtualModel, new EnmChip[] { EnmChip.AY8910, EnmChip.YM2413, EnmChip.K051649 }
+                    , (uint)(setting.outputDevice.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                if (DriverReal != null)
+                {
+                    if (!DriverReal.init(vgmBuf, chipRegister, EnmModel.RealModel, new EnmChip[] { EnmChip.AY8910 }
+                        , (uint)(setting.outputDevice.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                }
+                if (DriverPianoRoll != null)
+                {
+                    if (!DriverPianoRoll.init(vgmBuf, chipRegister, EnmModel.PianoRollModel, new EnmChip[] { EnmChip.AY8910 }
+                        , (uint)(setting.outputDevice.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                }
+
+                //Play
+
+                Paused = false;
+                oneTimeReset = false;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+                return false;
+            }
+
+        }
+
+        public static bool NdpPlay_ndp(Setting setting)
+        {
+
+            try
+            {
+
+                if (vgmBuf == null || setting == null) return false;
+
+                bool useAY = true;
+                bool useSCC = false;
+                bool useOPLL = false;
 
                 chipRegister.resetChips();
                 ResetFadeOutParam();

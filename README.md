@@ -3,7 +3,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   
 [概要]  
   このツールは、鍵盤表示を行いながらVGMファイルの再生を行います。  
-  (NRD,XGM,S98,MID,RCP,RCS,NSF,GBS,HES,SID,AY,MGS,MDR,MDX,MND,ZMD,ZMS,MUC,MUB,M,M2,MZ,MPI,MVI,MZI,OPI,OVI,OZI,WAV,MP3,AIFFファイルにも対応。)  
+  (NRD,NDP,XGM,S98,MID,RCP,RCS,NSF,GBS,HES,SID,AY,MGS,MDR,MDX,MND,ZMD,ZMS,MUC,MUB,M,M2,MZ,MPI,MVI,MZI,OPI,OVI,OZI,WAV,MP3,AIFFファイルにも対応。)  
   
 [注意]  
   ・作者様よりSCCI2の同梱の許可をいただきました。但しForkなどしてバイナリを配布する際にSCCI2を同梱したい場合は別途、許可を頂くようお願いします。  
@@ -25,6 +25,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   .VGM (所謂vgmファイル)  
   .VGZ (vgmファイルをgzipしたもの)  
   .NRD (NRTDRV X1でOPM2個とAY8910を鳴らすドライバの演奏ファイル)  
+  .NDP (NDPファイル 演奏するにはNRD.BINが必要です)  
   .XGM (MegaDrive向けファイル)  
   .ZGM (mml2vgmで生成可能なVGM拡張フォーマットファイル)  
   .S98 (主に日本製レトロPC向けファイル)  
@@ -107,6 +108,8 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   ・YMEmuWithFiltersのソースを参考にしています。  
 
   ・NRTDRVのソースを参考、移植しています。  
+  
+  ・NDPのソースを参考、移植しています。  
   
   ・MoonDriverのソースを参考、移植しています。  
   
@@ -334,6 +337,10 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   (予め同梱させていただいていますが必要であれば、公式サイトから入手してください。)
     KINROU5.DRV  
 
+  ・NDPのファイルを演奏するには、以下のファイルが必要です。  
+  (公式サイトから入手してください。)
+    NDP.BIN  
+
   ・FMPのファイルを演奏するには、以下のファイルが必要です。  
   (公式サイト,VECTORなどから入手してください。)
     FMP.COM  
@@ -531,6 +538,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
     ・さくらエディター  
     ・VOPMex  
     ・NRTDRV  
+    ・NDP  
     ・MoonDriver  
     ・MXP  
     ・MXDRV  
@@ -656,6 +664,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   ・libsidplayfp  
   ・sidplayfp  
   ・NRTDRV  
+  ・NDP  
   ・MoonDriver  
   ・MXP  
   ・MXDRV  

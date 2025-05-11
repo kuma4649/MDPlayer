@@ -315,6 +315,7 @@ namespace MDPlayer
             if (filename.ToLower().LastIndexOf(".mgs") != -1) return EnmFileFormat.MGS;
             if (filename.ToLower().LastIndexOf(".msd") != -1) return EnmFileFormat.MuSICA_src;
             if (filename.ToLower().LastIndexOf(".bgm") != -1) return EnmFileFormat.MuSICA;
+            if (filename.ToLower().LastIndexOf(".ndp") != -1) return EnmFileFormat.NDP;
             if (filename.ToLower().LastIndexOf(".m") != -1) return EnmFileFormat.M;
             if (filename.ToLower().LastIndexOf(".m2") != -1) return EnmFileFormat.M;
             if (filename.ToLower().LastIndexOf(".mz") != -1) return EnmFileFormat.M;
@@ -1089,6 +1090,7 @@ namespace MDPlayer
         AY=34,
         GBS = 35,
         ZDF = 36,
+        NDP = 37,
     }
 
     public enum EnmArcType : int

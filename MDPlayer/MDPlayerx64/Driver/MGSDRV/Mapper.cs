@@ -32,11 +32,14 @@ namespace MDPlayer.Driver.MGSDRV
             {
                 case 0://adr
                     //log.Write(" MAPPER PROC ALL_SEG Reg.A={0:x02} Reg.B={1:x02}", z80.Registers.A, z80.Registers.B);
-                    if (z80.Registers.B != 0) throw new NotImplementedException();
+                    if (z80.Registers.B != 0) { z80.Registers.CF = 1; return; }
                     if (freeSegment == 0) { z80.Registers.CF = 1; return; }
                     z80.Registers.A = freeSegment++;//Segment Number 1c 1b
                     //log.Write("   Allocate Reg.A={0:x02} ", z80.Registers.A );
                     z80.Registers.B = 0x00;//Slot number
+                    z80.Registers.CF = 0;//割り当て失敗時に1
+                    break;
+                case 1:
                     z80.Registers.CF = 0;//割り当て失敗時に1
                     break;
                 case 10://adr:0x1e
