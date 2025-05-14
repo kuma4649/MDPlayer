@@ -381,7 +381,8 @@ namespace MDPlayer
         {
             if (myAsioOut == null) return;
             long old = vSamplePos;
-            while (old == vSamplePos) { Thread.Sleep(0); }
+            int timeout = 3000;
+            while (old == vSamplePos && timeout > 0) { Thread.Sleep(0); timeout--; }
             rSamplePos = vSamplePos;
         }
 

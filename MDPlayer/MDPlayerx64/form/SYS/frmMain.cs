@@ -11433,7 +11433,16 @@ namespace MDPlayer.form
             frmPic.BackgroundImage = pic;
             //frmPic.Size = new Size(Math.Min(pic.Size.Width, Screen.PrimaryScreen.Bounds.Width / 2),
             //    Math.Min(pic.Size.Height, Screen.PrimaryScreen.Bounds.Height / 2));
-            frmPic.Show();
+            try
+            {
+                frmPic.Show();
+            }
+            catch (System.ObjectDisposedException)
+            {
+                frmPic.Close();
+                frmPic = null;
+                return;
+            }
             frmPic.TopMost = true;
             frmPic.TopMost = false;
         }
