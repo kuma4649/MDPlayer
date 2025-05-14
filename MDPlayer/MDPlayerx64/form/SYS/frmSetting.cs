@@ -8,6 +8,7 @@ using NAudio.Wave;
 using NAudio.CoreAudioApi;
 using System.Reflection;
 using System.Diagnostics;
+using System.Net;
 
 namespace MDPlayer.form
 {
@@ -19,10 +20,13 @@ namespace MDPlayer.form
         private bool IsInitialOpenFolder;
         DataGridView[] dgv = null;
 
+        private List<Tuple<string, string>> wasapicache;
 
-        public frmSetting(Setting setting)
+        public frmSetting(Setting setting, List<Tuple<string, string>> wasapicache=null)
         {
             this.setting = setting.Copy();
+            this.wasapicache=wasapicache;
+            if(this.wasapicache==null) this.wasapicache = new List<Tuple<string, string>>();
 
             InitializeComponent();
 
@@ -79,11 +83,26 @@ namespace MDPlayer.form
 
             if (wasapiSupported)
             {
-                var enumerator = new MMDeviceEnumerator();
-                var endPoints = enumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active);
-                foreach (var endPoint in endPoints)
+                if (wasapicache.Count<1)
                 {
-                    cmbWasapiDevice.Items.Add(string.Format("{0} ({1})", endPoint.FriendlyName, endPoint.DeviceFriendlyName));
+                    var enumerator = new MMDeviceEnumerator();
+                    var endPoints = enumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active);
+                    wasapicache.Clear();
+                    foreach (var endPoint in endPoints)
+                    {
+                        string fri = endPoint.FriendlyName;
+                        string dev = endPoint.DeviceFriendlyName;
+                        cmbWasapiDevice.Items.Add(string.Format("{0} ({1})", fri, dev));
+                        wasapicache.Add(new Tuple<string, string>(fri, dev));
+                    }
+                }
+                else
+                {
+                    foreach (Tuple<string,string> item in wasapicache)
+                    {
+                        cmbWasapiDevice.Items.Add(string.Format("{0} ({1})", item.Item1, item.Item2));
+                    }
+
                 }
             }
 

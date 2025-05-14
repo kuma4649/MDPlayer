@@ -4889,9 +4889,12 @@ namespace MDPlayer.form
             oldParam.ym2612Midi = new MDChipParams.YM2612MIDI();
         }
 
+        public List<Tuple<string, string>> wasapicache = new List<Tuple<string, string>>();
+
         private void openSetting()
         {
-            frmSetting frm = new(setting);
+            frmSetting frm;
+            frm = new(setting, wasapicache);
             if (frm.ShowDialog() == DialogResult.OK)
             {
                 flgReinit = true;

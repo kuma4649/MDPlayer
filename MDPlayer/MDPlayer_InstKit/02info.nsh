@@ -1,4 +1,4 @@
 !define NAME "MDPlayer"
-!define VERSION "STBL494"
+!define VERSION "STBL495"
 !define PUBLISHER "Kumata"
 !define PACKAGE "${NAME} ${VERSION}"

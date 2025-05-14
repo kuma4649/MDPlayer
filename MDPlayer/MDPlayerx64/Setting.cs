@@ -893,6 +893,7 @@ namespace MDPlayer
         private KeyBoardHook _keyBoardHook = new();
 
         private PianoRoll _pianoRoll= new();
+        
         public PianoRoll pianoRoll
         { get => _pianoRoll; set => _pianoRoll = value; }
 
