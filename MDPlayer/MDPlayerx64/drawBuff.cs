@@ -1102,12 +1102,13 @@ namespace MDPlayer
             for (int n = 0; n < 16; n++)
             {
                 s = (value1 / 8) < n ? 8 : 0;
-                screen.drawIntArray(x, vy, rMIDILCD[MIDImodule], 136, 8 * 16, s, 8, (n % 2 == 0 ? 2 : 3));
-                vy -= (n % 2 == 0 ? 4 : 3);
+                screen.drawIntArray(x, vy, rMIDILCD[MIDImodule], 136, 8 * 16, s, 8, 3);// (n % 2 == 0 ? 2 : 3));
+                vy -= 4;// (n % 2 == 0 ? 4 : 3);
             }
 
             s = value2 / 8;
-            screen.drawIntArray(x, y - s * 3 - (s + 1) / 2, rMIDILCD[MIDImodule], 136, 8 * 16, 0, 8, (s % 2 == 0 ? 2 : 3));
+            //screen.drawIntArray(x, y - s * 3 - (s + 1) / 2, rMIDILCD[MIDImodule], 136, 8 * 16, 0, 8, (s % 2 == 0 ? 2 : 3));
+            screen.drawIntArray(x, y - s * 4, rMIDILCD[MIDImodule], 136, 8 * 16, 0, 8, 3);
 
             oldValue1 = value1;
             oldValue2 = value2;

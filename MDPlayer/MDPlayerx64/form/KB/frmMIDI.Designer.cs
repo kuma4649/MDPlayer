@@ -41,9 +41,9 @@ namespace MDPlayer.form
             // pbScreen
             // 
             pbScreen.Location = new Point(0, 0);
-            pbScreen.Margin = new Padding(4, 4, 4, 4);
+            pbScreen.Margin = new Padding(4);
             pbScreen.Name = "pbScreen";
-            pbScreen.Size = new Size(513, 440);
+            pbScreen.Size = new Size(513, 448);
             pbScreen.TabIndex = 0;
             pbScreen.TabStop = false;
             pbScreen.MouseClick += pbScreen_MouseClick;
@@ -51,11 +51,11 @@ namespace MDPlayer.form
             // frmMIDI
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(513, 440);
+            ClientSize = new Size(513, 448);
             Controls.Add(pbScreen);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(5, 5, 5, 5);
+            Margin = new Padding(5);
             MaximizeBox = false;
             Name = "frmMIDI";
             Text = "MIDI";

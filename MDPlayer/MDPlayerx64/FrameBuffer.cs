@@ -201,7 +201,7 @@ namespace MDPlayer
                 {
                     if (adr1 >= 0 && adr2 >= 0)
                     {
-                        for (int j = 0; j < imgWidth ; j += 4)
+                        for (int j = 0; j < imgWidth ; j ++)
                         {
 
                             if (adr1 + j >= baPlaneBuffer.Length)
@@ -220,7 +220,7 @@ namespace MDPlayer
                     }
 
                     adr1 += wid;
-                    adr2 += srcWidth * 4;
+                    adr2 += srcWidth;
 
                 }
             }
