@@ -6713,7 +6713,7 @@
     <value>4, 4, 4, 4</value>
   </data>
   <data name="tabPage2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>557, 243</value>
+    <value>557, 234</value>
   </data>
   <data name="tabPage2.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -6818,7 +6818,7 @@
     <value>4, 4, 4, 4</value>
   </data>
   <data name="tabPage3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>557, 243</value>
+    <value>557, 234</value>
   </data>
   <data name="tabPage3.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -6923,7 +6923,7 @@
     <value>4, 4, 4, 4</value>
   </data>
   <data name="tabPage4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>557, 243</value>
+    <value>557, 234</value>
   </data>
   <data name="tabPage4.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -7028,7 +7028,7 @@
     <value>4, 4, 4, 4</value>
   </data>
   <data name="tabPage5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>557, 243</value>
+    <value>557, 234</value>
   </data>
   <data name="tabPage5.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -7133,7 +7133,7 @@
     <value>4, 4, 4, 4</value>
   </data>
   <data name="tabPage6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>557, 243</value>
+    <value>557, 234</value>
   </data>
   <data name="tabPage6.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -7238,7 +7238,7 @@
     <value>4, 4, 4, 4</value>
   </data>
   <data name="tabPage7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>557, 243</value>
+    <value>557, 234</value>
   </data>
   <data name="tabPage7.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -7343,7 +7343,7 @@
     <value>4, 4, 4, 4</value>
   </data>
   <data name="tabPage8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>557, 243</value>
+    <value>557, 234</value>
   </data>
   <data name="tabPage8.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -7448,7 +7448,7 @@
     <value>4, 4, 4, 4</value>
   </data>
   <data name="tabPage9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>557, 243</value>
+    <value>557, 234</value>
   </data>
   <data name="tabPage9.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -7553,7 +7553,7 @@
     <value>4, 4, 4, 4</value>
   </data>
   <data name="tabPage10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>557, 243</value>
+    <value>557, 234</value>
   </data>
   <data name="tabPage10.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -8984,9 +8984,8 @@
   </data>
   <data name="pictureBox4.InitialImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAFNJREFUOE/N
-        i7EJwEAMxLxQJsj+6/wKSSNQcxx8Z4E6aXbwPue7kU1S1GSTFDXZJEVNNklRk01S1GSTFDXZJEVNNklR
-        k01S1GSTFDXZJEVNthXM/K5aT+B9OtR7AAAAAElFTkSuQmCC
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAB5JREFUOE9j
+        YBgUwFr33X9SMLr+UQNGDRguBgwoAACuWk/gELp96AAAAABJRU5ErkJggg==
 </value>
   </data>
   <data name="pictureBox4.Location" type="System.Drawing.Point, System.Drawing">

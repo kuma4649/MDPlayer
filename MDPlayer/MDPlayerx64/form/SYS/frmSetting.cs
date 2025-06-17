@@ -42,7 +42,9 @@ namespace MDPlayer.form
         {
 
             this.labelProductName.Text = AssemblyProduct;
-            this.labelVersion.Text = String.Format("バージョン {0}", AssemblyVersion);
+            string version="Fail read VERSION.txt.";
+            if (File.Exists("VERSION.txt")) version = File.ReadAllText("VERSION.txt");
+            this.labelVersion.Text = String.Format("バージョン {0}", version);
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelCompanyName.Text = AssemblyCompany;
             this.textBoxDescription.Text = Resources.cntDescription;
