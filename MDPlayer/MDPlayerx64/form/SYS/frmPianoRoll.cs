@@ -1,19 +1,4 @@
-﻿using Driver.libsidplayfp.sidtune;
-using MDPlayer;
-using MDPlayer.Driver.FMP;
-using MDPlayerx64;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static MDPlayer.Setting;
-
-namespace MDPlayer.form
+﻿namespace MDPlayer.form
 {
     public partial class frmPianoRoll : frmBase
     {
@@ -25,11 +10,11 @@ namespace MDPlayer.form
         private const int WIDTH = 1024;
         private const int HEIGHT = 384;
 
-        private FrameBuffer frameBuffer = new FrameBuffer();
+        private readonly FrameBuffer frameBuffer = new FrameBuffer();
         private int zoom = 1;
-        Image img = new Bitmap(1024, 8 * 12 * 4);
+        readonly Image img = new Bitmap(1024, 8 * 12 * 4);
         //Image img = new Bitmap(8 * 12 * 4,1024);
-        private PianoRollMng pianoRollMng = null;
+        private readonly PianoRollMng pianoRollMng = null;
 
         //private List<Note> lstNotes = new List<Note>();
         private const double FREQ = 44100;
@@ -38,7 +23,7 @@ namespace MDPlayer.form
         private int noteThin = 3;
         private int playLine = (int)FREQ;//1秒(44100Hz)
         private double mul = 1 / FREQ * 200.0;
-        private int[] kn = new int[] { 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1 };
+        private int[] kn = [1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1];
         private int[] line = new int[8 * 12 + 1];
         private bool[] lineK = new bool[8 * 12 + 1];
 

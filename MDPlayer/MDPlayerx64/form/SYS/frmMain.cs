@@ -6405,6 +6405,12 @@ namespace MDPlayer.form
                 return new byte[] { (byte)'A', (byte)'I', (byte)'F', (byte)'F' };
             }
 
+            if (ext == ".ogg")
+            {
+                format = EnmFileFormat.OGG;
+                return new byte[] { (byte)'O', (byte)'G', (byte)'G' };
+            }
+
             //先ずは丸ごと読み込む
             byte[] buf = System.IO.File.ReadAllBytes(filename);
 

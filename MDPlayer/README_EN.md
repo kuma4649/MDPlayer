@@ -3,7 +3,7 @@ Player for VGM files, etc. (Performance tool with emulation of Mega Drive sound 
   
 [Summary]  
   This tool plays VGM files while displaying the keyboard.  
-  (NRD,XGM,S98,MID,RCP,RCS,NSF,GBS,HES,SID,AY,MGS,MDR,MDX,MND,ZMD,ZMS,MUC,MUB,M,M2,MZ,MPI,MVI,MZI,OPI,OVI,OZI,WAV,MP3,AIFF files are also supported.)  
+  (NRD,XGM,S98,MID,RCP,RCS,NSF,GBS,HES,SID,AY,MGS,MDR,MDX,MND,ZMD,ZMS,MUC,MUB,M,M2,MZ,MPI,MVI,MZI,OPI,OVI,OZI,WAV,MP3,AIFF,OGG files are also supported.)  
   
 [NOTE]  
   The author has given us permission to include SCCI2 in the package. However, if you want to include SCCI2 when you distribute binaries by Forking, etc., please ask for permission separately.  
@@ -58,6 +58,7 @@ Player for VGM files, etc. (Performance tool with emulation of Mega Drive sound 
   .WAV (audio file)  
   .MP3 (audio file)  
   .AIF (Audio file)  
+  .OGG (Audio file)  
   .M3U (playlist)  
   
 [機能、特徴]  

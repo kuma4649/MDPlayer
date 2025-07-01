@@ -142,7 +142,7 @@ namespace MDPlayer
             }
         }
 
-        public void drawIntArray(int x, int y, int[] src, int srcWidth, int imgX, int imgY, int imgWidth, int imgHeight)
+        public void drawIntArray(in int x, in int y, in int[] src, in int srcWidth, in int imgX, in int imgY, in int imgWidth, in int imgHeight)
         {
             if (bmpPlane == null)
             {
@@ -179,7 +179,7 @@ namespace MDPlayer
             }
         }
 
-        public void drawByteArrayTransp(int x, int y, int[] src, int srcWidth, int imgX, int imgY, int imgWidth, int imgHeight)
+        public void drawByteArrayTransp(in int x, in int y, in int[] src, in int srcWidth, in int imgX, in int imgY, in int imgWidth, in int imgHeight)
         {
             if (bmpPlane == null)
             {
@@ -230,7 +230,7 @@ namespace MDPlayer
             }
         }
 
-        public void drawBoxArray(int x, int y, byte src, int thin, int width, int height)
+        public void drawBoxArray(in int x, in int y, in byte src, in int thin, in int width, in int height)
         {
             if (bmpPlane == null) return;
 
@@ -274,7 +274,7 @@ namespace MDPlayer
             }
         }
 
-        public void drawFillBox(int x, int y, int width, int height, byte b, byte g, byte r)
+        public void drawFillBox(in int x, in int y, in int width, in int height, in byte b, in byte g, in byte r)
         {
             if (bmpPlane == null) return;
 
@@ -312,7 +312,7 @@ namespace MDPlayer
 
         }
 
-        public void drawFillBox(int x, int y, int width, int height, byte b1, byte g1, byte r1, byte b2, byte g2, byte r2)
+        public void drawFillBox(in int x, in int y, in int width, in int height, in byte b1, in byte g1, in byte r1, in byte b2, in byte g2, in byte r2)
         {
             if (bmpPlane == null) return;
 

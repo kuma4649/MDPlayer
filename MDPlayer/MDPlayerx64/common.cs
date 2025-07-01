@@ -361,6 +361,7 @@ namespace MDPlayer
             if (filename.ToLower().LastIndexOf(".wav") != -1) return EnmFileFormat.WAV;
             if (filename.ToLower().LastIndexOf(".mp3") != -1) return EnmFileFormat.MP3;
             if (filename.ToLower().LastIndexOf(".aiff") != -1) return EnmFileFormat.AIFF;
+            if (filename.ToLower().LastIndexOf(".ogg") != -1) return EnmFileFormat.OGG;
 
             return EnmFileFormat.unknown;
         }
@@ -1099,6 +1100,7 @@ namespace MDPlayer
         GBS = 35,
         ZDF = 36,
         NDP = 37,
+        OGG = 38,
     }
 
     public enum EnmArcType : int

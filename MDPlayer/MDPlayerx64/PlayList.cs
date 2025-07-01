@@ -396,6 +396,9 @@ namespace MDPlayer
                 case EnmFileFormat.AIFF:
                     AddFileAIFF(mc, entry);
                     break;
+                case EnmFileFormat.OGG:
+                    AddFileOGG(mc, entry);
+                    break;
             }
         }
 
@@ -482,6 +485,9 @@ namespace MDPlayer
                     break;
                 case EnmFileFormat.AIFF:
                     AddFileAIFF(ref index, mc, entry);
+                    break;
+                case EnmFileFormat.OGG:
+                    AddFileOGG(ref index, mc, entry);
                     break;
                 case EnmFileFormat.ZIP:
                     AddFileZIP(ref index, mc, entry);
@@ -910,6 +916,16 @@ namespace MDPlayer
         }
 
         private void AddFileAIFF(ref int index, Music mc, object entry = null)
+        {
+            AddFilexxx(ref index, mc, entry);
+        }
+
+        private void AddFileOGG(Music mc, object entry = null)
+        {
+            AddFilexxx(mc, entry);
+        }
+
+        private void AddFileOGG(ref int index, Music mc, object entry = null)
         {
             AddFilexxx(ref index, mc, entry);
         }

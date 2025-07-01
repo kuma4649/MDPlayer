@@ -1027,6 +1027,33 @@ namespace MDPlayer
                     music.title = string.Format("({0})", System.IO.Path.GetFileName(file));
                 }
             }
+            else if (ext == ".ogg")
+            {
+                music.format = EnmFileFormat.OGG;
+                GD3 gd3 = new Ogg().getGD3Info(buf, 0);
+                if (gd3 != null)
+                {
+                    music.title = gd3.TrackName;
+                    music.titleJ = gd3.TrackNameJ;
+                    music.game = gd3.GameName;
+                    music.gameJ = gd3.GameNameJ;
+                    music.composer = gd3.Composer;
+                    music.composerJ = gd3.ComposerJ;
+                    music.vgmby = gd3.VGMBy;
+
+                    music.converted = gd3.Converted;
+                    music.notes = gd3.Notes;
+                }
+                else
+                {
+                    music.title = string.Format("({0})", System.IO.Path.GetFileName(file));
+                }
+
+                if (music.title == "" && music.titleJ == "")
+                {
+                    music.title = string.Format("({0})", System.IO.Path.GetFileName(file));
+                }
+            }
             else
             {
                 if (buf.Length < 0x40)
@@ -2036,12 +2063,12 @@ namespace MDPlayer
             UseCompiler = useCom;
             Common.playingFilePath = Path.GetDirectoryName(playingFileName);
 
-            if (naudioWaveFileReader != null|| naudioMp3FileReader != null|| naudioAiffFileReader != null)
+            if (naudioWaveFileReader != null|| naudioMp3FileReader != null || naudioAiffFileReader != null || naudioOggFileReader != null)
             {
                 NAudioStop();
             }
 
-            if (format == EnmFileFormat.WAV || format == EnmFileFormat.MP3 || format == EnmFileFormat.AIFF)
+            if (format == EnmFileFormat.WAV || format == EnmFileFormat.MP3 || format == EnmFileFormat.AIFF || format == EnmFileFormat.OGG)
             {
                 naudioFileName = playingFileName;
             }
@@ -2862,6 +2889,41 @@ namespace MDPlayer
                 WaveFormat format = new WaveFormat(setting.outputDevice.SampleRate, 16, 2);
                 wfcp = new WaveFormatConversionProvider(format, naudioAiffFileReader);
                 
+                ChipLED = new ChipLEDs();
+                vgmSpeed = 1;
+                vgmFadeout = false;
+                vgmFadeoutCounter = 1.0;
+                vgmFadeoutCounterV = 0.00001;
+                DriverVirtual = null;
+                DriverReal = null;
+                naudioSampleCounter = 0;
+                naudioDummyCount = 0;
+
+                return true;
+            }
+
+            if (PlayingFileFormat == EnmFileFormat.OGG)
+            {
+                try
+                {
+                    wavestreamGD3 = (new Ogg()).getGD3Info(File.ReadAllBytes(naudioFileName), 0);
+                }
+                catch
+                {
+                    wavestreamGD3 = null;
+                }
+
+                naudioOggFileReader = new NAudio.Vorbis.VorbisWaveReader(naudioFileName);
+                WaveFormat format = new WaveFormat(setting.outputDevice.SampleRate, 16, 2);
+                //WaveOut waveOut = new WaveOut();
+                //waveOut.Init(naudioOggFileReader);
+                //waveOut.Play();
+
+                //wfcp = new WaveFormatConversionProvider(format, naudioOggFileReader);
+                var s = new RawSourceWaveStream(naudioOggFileReader, new  WaveFormat(44100, 32, 2));
+                Wave32To16Stream a = new Wave32To16Stream(naudioOggFileReader);
+                wfcp = new WaveFormatConversionProvider(format, a);
+
                 ChipLED = new ChipLEDs();
                 vgmSpeed = 1;
                 vgmFadeout = false;
@@ -9314,7 +9376,7 @@ namespace MDPlayer
                 if (Paused) Pause();
 
                 //暫定
-                if ((naudioWaveFileReader != null || naudioMp3FileReader != null || naudioAiffFileReader != null))
+                if ((naudioWaveFileReader != null || naudioMp3FileReader != null || naudioAiffFileReader != null || naudioOggFileReader != null))
                 {
                     Stopped = true;
                 }
@@ -9326,8 +9388,9 @@ namespace MDPlayer
 
                     if ((PlayingFileFormat != EnmFileFormat.WAV
                         || PlayingFileFormat != EnmFileFormat.MP3
-                        || PlayingFileFormat != EnmFileFormat.AIFF)
-                        && (naudioWaveFileReader != null|| naudioMp3FileReader != null|| naudioAiffFileReader != null))
+                        || PlayingFileFormat != EnmFileFormat.AIFF
+                        || PlayingFileFormat != EnmFileFormat.OGG)
+                        && (naudioWaveFileReader != null|| naudioMp3FileReader != null|| naudioAiffFileReader != null || naudioOggFileReader != null))
                     {
                         NAudioStop();
                     }
@@ -9353,7 +9416,7 @@ namespace MDPlayer
                 }
                 TrdClosed = true;
 
-                if (naudioWaveFileReader != null || naudioMp3FileReader != null || naudioAiffFileReader != null)
+                if (naudioWaveFileReader != null || naudioMp3FileReader != null || naudioAiffFileReader != null || naudioOggFileReader != null)
                 {
                     NAudioStop();
                     return;
@@ -9428,6 +9491,13 @@ namespace MDPlayer
                     wfcp = null;
                     dmy.Dispose();
                 }
+                if (naudioOggFileReader != null)
+                {
+                    NAudio.Vorbis.VorbisWaveReader dmy = naudioOggFileReader;
+                    naudioOggFileReader = null;
+                    wfcp = null;
+                    dmy.Dispose();
+                }
             }
             catch { }
         }
@@ -9494,6 +9564,7 @@ namespace MDPlayer
                 if (naudioWaveFileReader != null) ws = naudioWaveFileReader;
                 if (naudioMp3FileReader != null) ws = naudioMp3FileReader;
                 if (naudioAiffFileReader != null) ws = naudioAiffFileReader;
+                if (naudioOggFileReader != null) ws = naudioOggFileReader;
                 if (ws != null)
                 {
                     //long ns = (long)((double)ws.TotalTime.TotalNanoseconds / (double)ws.Length * ws.Position);
@@ -9521,6 +9592,7 @@ namespace MDPlayer
                 if (naudioWaveFileReader != null) ws = naudioWaveFileReader;
                 if (naudioMp3FileReader != null) ws = naudioMp3FileReader;
                 if (naudioAiffFileReader != null) ws = naudioAiffFileReader;
+                if (naudioOggFileReader != null) ws = naudioOggFileReader;
                 if (ws != null)
                 {
                     long ns= (long)ws.TotalTime.TotalNanoseconds;
@@ -9723,7 +9795,7 @@ namespace MDPlayer
         {
             bool v;
             bool r;
-            if (naudioWaveFileReader != null || naudioMp3FileReader != null || naudioAiffFileReader != null)
+            if (naudioWaveFileReader != null || naudioMp3FileReader != null || naudioAiffFileReader != null || naudioOggFileReader != null)
             {
                 return false;
             }
@@ -10030,7 +10102,7 @@ namespace MDPlayer
             //return NaudioRead(buffer, offset, sampleCount);
             naudioWrap.UpdateSamplePosition(sampleCount);
 
-            if (naudioWaveFileReader != null || naudioMp3FileReader != null || naudioAiffFileReader != null)
+            if (naudioWaveFileReader != null || naudioMp3FileReader != null || naudioAiffFileReader != null || naudioOggFileReader != null)
             {
                 if (TrdClosed)
                 {
@@ -10231,6 +10303,7 @@ namespace MDPlayer
         private static WaveFileReader naudioWaveFileReader = null;
         private static Mp3FileReader naudioMp3FileReader = null;
         private static AiffFileReader naudioAiffFileReader = null;
+        private static NAudio.Vorbis.VorbisWaveReader naudioOggFileReader = null;
         private static WaveFormatConversionProvider wfcp = null;
         private static byte[] naudioSrcbuffer = null;
         private static long naudioSampleCounter = 0;
@@ -10244,6 +10317,7 @@ namespace MDPlayer
             if (naudioWaveFileReader != null) ws = naudioWaveFileReader;
             if (naudioMp3FileReader != null) ws = naudioMp3FileReader;
             if (naudioAiffFileReader != null) ws = naudioAiffFileReader;
+            if (naudioOggFileReader != null) ws = naudioOggFileReader;
             if (ws != null)
             {
                 if (ws.CanSeek)
@@ -10539,6 +10613,10 @@ namespace MDPlayer
                     return wavestreamGD3;
                 }
                 if (naudioAiffFileReader != null)
+                {
+                    return wavestreamGD3;
+                }
+                if (naudioOggFileReader != null)
                 {
                     return wavestreamGD3;
                 }

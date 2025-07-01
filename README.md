@@ -3,7 +3,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   
 [概要]  
   このツールは、鍵盤表示を行いながらVGMファイルの再生を行います。  
-  (NRD,NDP,XGM,S98,MID,RCP,RCS,NSF,GBS,HES,SID,AY,MGS,MDR,MDX,MND,ZMD,ZMS,MUC,MUB,M,M2,MZ,MPI,MVI,MZI,OPI,OVI,OZI,WAV,MP3,AIFFファイルにも対応。)  
+  (NRD,NDP,XGM,S98,MID,RCP,RCS,NSF,GBS,HES,SID,AY,MGS,MDR,MDX,MND,ZMD,ZMS,MUC,MUB,M,M2,MZ,MPI,MVI,MZI,OPI,OVI,OZI,WAV,MP3,AIFF,OGGファイルにも対応。)  
   
 [注意]  
   ・作者様よりSCCI2の同梱の許可をいただきました。但しForkなどしてバイナリを配布する際にSCCI2を同梱したい場合は別途、許可を頂くようお願いします。  
@@ -59,6 +59,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   .WAV (音声ファイル)  
   .MP3 (音声ファイル)  
   .AIF (音声ファイル)  
+  .OGG (音声ファイル)  
   .M3U (プレイリスト)  
   
 [機能、特徴]  
@@ -676,6 +677,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   ・M86(M86DotNET)  
   ・VST.NET  
   ・NAudio  
+  ・NAudio.Vorbis 
   ・SCCI  
   ・c86ctl  
   ・PMD(PMDDotNET)  
