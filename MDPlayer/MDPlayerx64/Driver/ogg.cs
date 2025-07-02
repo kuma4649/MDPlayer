@@ -8,6 +8,11 @@ namespace MDPlayerx64.Driver
 
         public System.Drawing.Image img = null;
 
+        public long looplength { get { return _looplength; } set { _looplength = value; } }
+        public long loopstart { get { return _loopstart; } set { _loopstart = value; } }
+        private long _looplength;
+        private long _loopstart;
+
         public override GD3 getGD3Info(byte[] buf, uint vgmGd3)
         {
             GD3 ret = new GD3();
@@ -16,7 +21,7 @@ namespace MDPlayerx64.Driver
                 throw new Exception("Not OGG file.");
             }
 
-            string[] tags = new string[] { "TITLE=", "ALBUM=", "ARTIST=" };
+            string[] tags = new string[] { "TITLE=", "ALBUM=", "ARTIST=", "LOOPLENGTH=", "LOOPSTART=" };
             List<string> cmt = new List<string>();
 
             using (MemoryStream ms = new MemoryStream(buf))
@@ -63,6 +68,9 @@ namespace MDPlayerx64.Driver
                 }
             }
 
+            looplength = -1;
+            loopstart = -1;
+
             foreach(string c in cmt)
             {
                 foreach(string tag in tags)
@@ -73,6 +81,20 @@ namespace MDPlayerx64.Driver
                     if (tag == tags[0]) { GD3.TrackName = GD3.TrackNameJ = val; }
                     else if (tag == tags[1]) { GD3.GameName = GD3.GameNameJ = val; }
                     else if (tag == tags[2]) { GD3.Composer = GD3.ComposerJ = val; }
+                    else if (tag == tags[3]) {
+                        if (!long.TryParse(val, out _looplength))
+                        {
+                            _looplength = -1;
+                        }
+                        _looplength = Math.Max(looplength, -1);
+                    }
+                    else if (tag == tags[4]) {
+                        if (!long.TryParse(val, out _loopstart))
+                        {
+                            _loopstart = -1;
+                        }
+                        _loopstart = Math.Max(_loopstart, -1);
+                    }
                 }
             }
 

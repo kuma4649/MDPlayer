@@ -2,6 +2,7 @@
 using MDPlayer.Driver.MNDRV;
 using MDPlayer.Driver.SID;
 using MDPlayer.form;
+using MDPlayerx64;
 using MDPlayerx64.Driver;
 using MDSound;
 using MDSound.np.chip;
@@ -2832,8 +2833,9 @@ namespace MDPlayer
             if (PlayingFileFormat == EnmFileFormat.WAV)
             {
                 naudioWaveFileReader = new WaveFileReader(naudioFileName);
+                AftertasteStream l = new AftertasteStream(naudioWaveFileReader);
                 WaveFormat format = new WaveFormat(setting.outputDevice.SampleRate, 16, 2);
-                wfcp = new WaveFormatConversionProvider(format, naudioWaveFileReader);
+                wfcp = new WaveFormatConversionProvider(format, l);
 
                 ChipLED = new ChipLEDs();
                 vgmSpeed = 1;
@@ -2858,8 +2860,9 @@ namespace MDPlayer
                     wavestreamGD3 = null;
                 }
                 naudioMp3FileReader = new Mp3FileReader(naudioFileName);
+                AftertasteStream l = new AftertasteStream(naudioMp3FileReader);
                 WaveFormat format = new WaveFormat(setting.outputDevice.SampleRate, 16, 2);
-                wfcp = new WaveFormatConversionProvider(format, naudioMp3FileReader);
+                wfcp = new WaveFormatConversionProvider(format, l);
 
                 ChipLED = new ChipLEDs();
                 vgmSpeed = 1;
@@ -2886,8 +2889,9 @@ namespace MDPlayer
                 }
 
                 naudioAiffFileReader = new AiffFileReader(naudioFileName);
+                AftertasteStream l = new AftertasteStream(naudioAiffFileReader);
                 WaveFormat format = new WaveFormat(setting.outputDevice.SampleRate, 16, 2);
-                wfcp = new WaveFormatConversionProvider(format, naudioAiffFileReader);
+                wfcp = new WaveFormatConversionProvider(format, l);
                 
                 ChipLED = new ChipLEDs();
                 vgmSpeed = 1;
@@ -2904,9 +2908,10 @@ namespace MDPlayer
 
             if (PlayingFileFormat == EnmFileFormat.OGG)
             {
+                Ogg ogg = new Ogg();
                 try
                 {
-                    wavestreamGD3 = (new Ogg()).getGD3Info(File.ReadAllBytes(naudioFileName), 0);
+                    wavestreamGD3 = ogg.getGD3Info(File.ReadAllBytes(naudioFileName), 0);
                 }
                 catch
                 {
@@ -2919,10 +2924,18 @@ namespace MDPlayer
                 //waveOut.Init(naudioOggFileReader);
                 //waveOut.Play();
 
-                //wfcp = new WaveFormatConversionProvider(format, naudioOggFileReader);
-                var s = new RawSourceWaveStream(naudioOggFileReader, new  WaveFormat(44100, 32, 2));
-                Wave32To16Stream a = new Wave32To16Stream(naudioOggFileReader);
-                wfcp = new WaveFormatConversionProvider(format, a);
+                if (ogg.loopstart != -1 && ogg.looplength != -1)
+                {
+                    loopStream = new LoopStream(naudioOggFileReader,ogg.loopstart,ogg.looplength);
+                    Wave32To16Stream a = new Wave32To16Stream(loopStream);
+                    wfcp = new WaveFormatConversionProvider(format, a);
+                }
+                else
+                {
+                    AftertasteStream l = new AftertasteStream(naudioOggFileReader);
+                    Wave32To16Stream a = new Wave32To16Stream(l);
+                    wfcp = new WaveFormatConversionProvider(format, a);
+                }
 
                 ChipLED = new ChipLEDs();
                 vgmSpeed = 1;
@@ -9467,6 +9480,7 @@ namespace MDPlayer
             try
             {
                 Stopped = true;
+                loopStream = null;
 
                 if (naudioWaveFileReader != null)
                 {
@@ -9787,7 +9801,10 @@ namespace MDPlayer
             {
                 cnt = Math.Min(DriverReal.vgmCurLoop, cnt);
             }
-
+            if (loopStream != null)
+            {
+                cnt = (uint)loopStream.loopCount;
+            }
             return cnt;
         }
 
@@ -10304,6 +10321,7 @@ namespace MDPlayer
         private static Mp3FileReader naudioMp3FileReader = null;
         private static AiffFileReader naudioAiffFileReader = null;
         private static NAudio.Vorbis.VorbisWaveReader naudioOggFileReader = null;
+        private static LoopStream loopStream = null;
         private static WaveFormatConversionProvider wfcp = null;
         private static byte[] naudioSrcbuffer = null;
         private static long naudioSampleCounter = 0;
@@ -10347,7 +10365,7 @@ namespace MDPlayer
                 
 
                 //データを最後まで演奏したら3回空ループ後、演奏停止する
-                if (read == 0)
+                if (read <= 0)
                 {
                     naudioDummyCount++;
                     if (naudioDummyCount >= 3) Stopped = true;
