@@ -1,4 +1,7 @@
 更新履歴 
+STBL503 2025/07/03 2nd
+  コア:ogg:METADATA_BLOCK_PICTUREに対応(但し画像形式はpng/jpegのみ)。
+
 STBL502 2025/07/03
   コア:ogg:LOOPSTART,LOOPLENGTHがある場合はループ処理するようにした
   コア:wav/mp3/aiff/ogg:曲終了時に1秒ぐらいの無音を追加するようにした
