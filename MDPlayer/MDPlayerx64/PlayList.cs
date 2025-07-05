@@ -399,6 +399,15 @@ namespace MDPlayer
                 case EnmFileFormat.OGG:
                     AddFileOGG(mc, entry);
                     break;
+                case EnmFileFormat.M4A:
+                    AddFileM4A(mc, entry);
+                    break;
+                case EnmFileFormat.AAC:
+                    AddFileAAC(mc, entry);
+                    break;
+                case EnmFileFormat.WMA:
+                    AddFileWMA(mc, entry);
+                    break;
             }
         }
 
@@ -488,6 +497,15 @@ namespace MDPlayer
                     break;
                 case EnmFileFormat.OGG:
                     AddFileOGG(ref index, mc, entry);
+                    break;
+                case EnmFileFormat.M4A:
+                    AddFileM4A(ref index, mc, entry);
+                    break;
+                case EnmFileFormat.AAC:
+                    AddFileAAC(ref index, mc, entry);
+                    break;
+                case EnmFileFormat.WMA:
+                    AddFileWMA(ref index, mc, entry);
                     break;
                 case EnmFileFormat.ZIP:
                     AddFileZIP(ref index, mc, entry);
@@ -926,6 +944,36 @@ namespace MDPlayer
         }
 
         private void AddFileOGG(ref int index, Music mc, object entry = null)
+        {
+            AddFilexxx(ref index, mc, entry);
+        }
+
+        private void AddFileM4A(Music mc, object entry = null)
+        {
+            AddFilexxx(mc, entry);
+        }
+
+        private void AddFileM4A(ref int index, Music mc, object entry = null)
+        {
+            AddFilexxx(ref index, mc, entry);
+        }
+
+        private void AddFileAAC(Music mc, object entry = null)
+        {
+            AddFilexxx(mc, entry);
+        }
+
+        private void AddFileAAC(ref int index, Music mc, object entry = null)
+        {
+            AddFilexxx(ref index, mc, entry);
+        }
+
+        private void AddFileWMA(Music mc, object entry = null)
+        {
+            AddFilexxx(mc, entry);
+        }
+
+        private void AddFileWMA(ref int index, Music mc, object entry = null)
         {
             AddFilexxx(ref index, mc, entry);
         }

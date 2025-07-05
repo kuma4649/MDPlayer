@@ -6386,7 +6386,7 @@ namespace MDPlayer.form
 
             string ext = Path.GetExtension(filename).ToLower();
 
-            //wav/mp3/aiffはnaudioに任せるのでここの処理はスキップ
+            //wav/mp3/aiff/ogg/m4a/aac/wmaはnaudioに任せるのでここの処理はスキップ
             if (ext == ".wav")
             {
                 format = EnmFileFormat.WAV;
@@ -6409,6 +6409,24 @@ namespace MDPlayer.form
             {
                 format = EnmFileFormat.OGG;
                 return new byte[] { (byte)'O', (byte)'G', (byte)'G' };
+            }
+
+            if (ext == ".m4a")
+            {
+                format = EnmFileFormat.M4A;
+                return new byte[] { (byte)'M', (byte)'4', (byte)'A' };
+            }
+
+            if (ext == ".aac")
+            {
+                format = EnmFileFormat.AAC;
+                return new byte[] { (byte)'A', (byte)'A', (byte)'C' };
+            }
+
+            if (ext == ".wma")
+            {
+                format = EnmFileFormat.WMA;
+                return new byte[] { (byte)'W', (byte)'M', (byte)'A' };
             }
 
             //先ずは丸ごと読み込む

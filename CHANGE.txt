@@ -1,4 +1,8 @@
 更新履歴 
+STBL504 2025/07/05
+  コア:.m4a/.aac/.wmaに対応(Microsoft Media Foundation使用)
+       (.wmaはメタデータに対応してません)
+
 STBL503 2025/07/03 2nd
   コア:ogg:METADATA_BLOCK_PICTUREに対応(但し画像形式はpng/jpegのみ)。
 

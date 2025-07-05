@@ -362,6 +362,9 @@ namespace MDPlayer
             if (filename.ToLower().LastIndexOf(".mp3") != -1) return EnmFileFormat.MP3;
             if (filename.ToLower().LastIndexOf(".aiff") != -1) return EnmFileFormat.AIFF;
             if (filename.ToLower().LastIndexOf(".ogg") != -1) return EnmFileFormat.OGG;
+            if (filename.ToLower().LastIndexOf(".m4a") != -1) return EnmFileFormat.M4A;
+            if (filename.ToLower().LastIndexOf(".aac") != -1) return EnmFileFormat.AAC;
+            if (filename.ToLower().LastIndexOf(".wma") != -1) return EnmFileFormat.WMA;
 
             return EnmFileFormat.unknown;
         }
@@ -1101,6 +1104,9 @@ namespace MDPlayer
         ZDF = 36,
         NDP = 37,
         OGG = 38,
+        M4A = 39,
+        AAC = 40,
+        WMA = 41,
     }
 
     public enum EnmArcType : int

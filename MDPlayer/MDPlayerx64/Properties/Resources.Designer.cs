@@ -726,7 +726,7 @@ namespace MDPlayerx64.Properties {
         ///  
         ///[概要]  
         ///  このツールは、鍵盤表示を行いながらVGMファイルの再生を行います。  
-        ///  (NRD,NDP,XGM,S98,MID,RCP,RCS,NSF,GBS,HES,SID,AY,MGS,MDR,MDX,MND,ZMD,ZMS,MUC,MUB,M,M2,MZ,MPI,MVI,MZI,OPI,OVI,OZI,WAV,MP3,AIFF,OGGファイルにも対応。)  
+        ///  (NRD,NDP,XGM,S98,MID,RCP,RCS,NSF,GBS,HES,SID,AY,MGS,MDR,MDX,MND,ZMD,ZMS,MUC,MUB,M,M2,MZ,MPI,MVI,MZI,OPI,OVI,OZI,WAV,MP3,AIFF,OGG,M4A,AAC,WMAファイルにも対応。)  
         ///  
         ///[注意]  
         ///  ・作者様よりSCCI2の同梱の許可をいただきました。但しForkなどしてバイナリを配布する際にSCCI2を同梱したい場合は別途、許可を頂くようお願いします。  
@@ -734,7 +734,7 @@ namespace MDPlayerx64.Properties {
         ///  ・FileAssociationTool(ファイル関連付け設定ツール)についてはREADME_AST.md/README_AST_EN.mdを参照お願いします。  
         ///  
         ///  ・再生時の音量に注意してください。バグによる雑音が大音量で再生される場合もあります。  
-        ///  (特に再生したことのないフ [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        ///  ( [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string cntDescription {
             get {
