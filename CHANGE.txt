@@ -1,4 +1,7 @@
 更新履歴 
+STBL505 2025/07/12
+  mucomDotNET更新
+
 STBL504 2025/07/05
   コア:.m4a/.aac/.wmaに対応(Microsoft Media Foundation使用)
        (.wmaはメタデータに対応してません)

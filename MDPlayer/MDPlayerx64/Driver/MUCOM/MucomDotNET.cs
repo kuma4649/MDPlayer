@@ -1,4 +1,5 @@
 ﻿using musicDriverInterface;
+using System.Text;
 
 namespace MDPlayer.Driver
 {
@@ -46,6 +47,16 @@ namespace MDPlayer.Driver
             g.ComposerJ = gt.dicItem.ContainsKey(enmTag.ComposerJ) ? gt.dicItem[enmTag.ComposerJ][0] : "";
             g.VGMBy = gt.dicItem.ContainsKey(enmTag.Artist) ? gt.dicItem[enmTag.Artist][0] : "";
             g.Converted = gt.dicItem.ContainsKey(enmTag.ReleaseDate) ? gt.dicItem[enmTag.ReleaseDate][0] : "";
+            try
+            {
+                if (gt.dicItem.ContainsKey(enmTag.Artwork))
+                {
+                    byte[] b = Convert.FromBase64String(gt.dicItem[enmTag.Artwork][0]);
+                    ImageConverter ic = new ImageConverter();
+                    g.pic = (Image)ic.ConvertFrom(b);
+                }
+            }
+            catch { }
 
             return g;
         }

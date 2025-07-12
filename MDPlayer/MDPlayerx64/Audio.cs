@@ -263,8 +263,49 @@ namespace MDPlayer
                 return;
             }
 
-            if (mds == null) return;
-            mds.visWaveBuffer.Copy(dest);
+            if ((
+                naudioWaveFileReader != null
+                || naudioMp3FileReader != null
+                || naudioOggFileReader != null
+                || naudioM4aFileReader != null
+                || naudioAacFileReader != null
+                || naudioWmaFileReader != null
+                )
+                && naudioBuff!=null)
+            {
+                //int s = 0;
+                //ushort bb = 0;
+                int p = 0;
+                int pp = 0;
+                foreach (short b in naudioBuff)
+                {
+                    if (pp == dest[0].Length) 
+                        break;
+                    //if (s == 0)
+                    //{
+                    //    bb = b;
+                    //    s++;
+                    //    continue;
+                    //}
+                    //else
+                    //{
+                    //    bb = (ushort)(bb | (b << 8));
+                    //    dest[p][pp] = (short)bb;
+                    //    s = 0;
+                    //}
+                    dest[p][pp] = b;
+                    p++;
+                    if (p == 2) { p = 0; pp++; }
+                }
+                return;
+            }
+
+            if (mds != null)
+            {
+                mds.visWaveBuffer.Copy(dest);
+                return;
+            }
+
         }
 
         public static List<PlayList.Music> GetMusic(string file, byte[] buf, string zipFile = null, object entry = null)
@@ -10640,6 +10681,8 @@ namespace MDPlayer
 
         }
 
+        private static short[] naudioBuff = null;
+
         public static int NaudioRead(short[] buffer, int offset, int count)
         {
             try
@@ -10668,6 +10711,7 @@ namespace MDPlayer
 
 
                 Convert2byteToShort(buffer, offset, naudioSrcbuffer, count, speed);
+                naudioBuff = buffer;
             }
             catch
             {
