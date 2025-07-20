@@ -6278,7 +6278,9 @@ namespace MDPlayer.form
         {
             if (Audio.IsPaused)
             {
-                Audio.StepPlay(4000);
+                //Audio.StepPlay(4000);
+                speedRatio = 0.01;
+                Speed();
                 Audio.Pause();
                 return;
             }
@@ -6289,6 +6291,8 @@ namespace MDPlayer.form
             }
 
             Audio.Slow();
+            speedRatio = Audio.vgmSpeed;// 0.25;
+            //Speed();
         }
 
         public void Speed()

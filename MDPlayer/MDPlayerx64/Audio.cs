@@ -167,7 +167,7 @@ namespace MDPlayer
         private static readonly double swFreq = Stopwatch.Frequency;
 
         private static byte[] vgmBuf = null;
-        private static double vgmSpeed;
+        public static double vgmSpeed;
         private static bool vgmFadeout;
         private static double vgmFadeoutCounter;
         private static double vgmFadeoutCounterV;
