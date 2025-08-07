@@ -2971,7 +2971,20 @@ namespace MDPlayer
                 naudioWaveFileReader = new WaveFileReader(naudioFileName);
                 AftertasteStream l = new AftertasteStream(naudioWaveFileReader);
                 WaveFormat format = new WaveFormat(setting.outputDevice.SampleRate, 16, 2);
-                wfcp = new WaveFormatConversionProvider(format, l);
+                if (naudioWaveFileReader.WaveFormat.BitsPerSample == 32)
+                {
+                    Wave32To16Stream a = new Wave32To16Stream(l);
+                    wfcp = new WaveFormatConversionProvider(format, a);
+                }
+                if (naudioWaveFileReader.WaveFormat.BitsPerSample == 24)
+                {
+                    Wave24To16Stream a = new Wave24To16Stream(l);
+                    wfcp = new WaveFormatConversionProvider(format, a);
+                }
+                else
+                {
+                    wfcp = new WaveFormatConversionProvider(naudioWaveFileReader.WaveFormat, l);
+                }
 
                 ChipLED = new ChipLEDs();
                 vgmSpeed = 1;
@@ -2998,7 +3011,20 @@ namespace MDPlayer
                 naudioMp3FileReader = new Mp3FileReader(naudioFileName);
                 AftertasteStream l = new AftertasteStream(naudioMp3FileReader);
                 WaveFormat format = new WaveFormat(setting.outputDevice.SampleRate, 16, 2);
-                wfcp = new WaveFormatConversionProvider(format, l);
+                if (naudioMp3FileReader.WaveFormat.BitsPerSample == 32)
+                {
+                    Wave32To16Stream a = new Wave32To16Stream(l);
+                    wfcp = new WaveFormatConversionProvider(format, a);
+                }
+                if (naudioMp3FileReader.WaveFormat.BitsPerSample == 24)
+                {
+                    Wave24To16Stream a = new Wave24To16Stream(l);
+                    wfcp = new WaveFormatConversionProvider(format, a);
+                }
+                else
+                {
+                    wfcp = new WaveFormatConversionProvider(naudioMp3FileReader.WaveFormat, l);
+                }
 
                 ChipLED = new ChipLEDs();
                 vgmSpeed = 1;
@@ -3027,8 +3053,22 @@ namespace MDPlayer
                 naudioAiffFileReader = new AiffFileReader(naudioFileName);
                 AftertasteStream l = new AftertasteStream(naudioAiffFileReader);
                 WaveFormat format = new WaveFormat(setting.outputDevice.SampleRate, 16, 2);
-                wfcp = new WaveFormatConversionProvider(format, l);
-                
+
+                if (naudioAiffFileReader.WaveFormat.BitsPerSample == 32)
+                {
+                    Wave32To16Stream a = new Wave32To16Stream(l);
+                    wfcp = new WaveFormatConversionProvider(format, a);
+                }
+                if (naudioAiffFileReader.WaveFormat.BitsPerSample == 24)
+                {
+                    Wave24To16Stream a = new Wave24To16Stream(l);
+                    wfcp = new WaveFormatConversionProvider(format, a);
+                }
+                else
+                {
+                    wfcp = new WaveFormatConversionProvider(naudioAiffFileReader.WaveFormat, l);
+                }
+
                 ChipLED = new ChipLEDs();
                 vgmSpeed = 1;
                 vgmFadeout = false;
@@ -3063,14 +3103,38 @@ namespace MDPlayer
                 if (ogg.loopstart != -1 && ogg.looplength != -1)
                 {
                     loopStream = new LoopStream(naudioOggFileReader,ogg.loopstart,ogg.looplength);
-                    Wave32To16Stream a = new Wave32To16Stream(loopStream);
-                    wfcp = new WaveFormatConversionProvider(format, a);
+                    if (naudioOggFileReader.WaveFormat.BitsPerSample == 32)
+                    {
+                        Wave32To16Stream a = new Wave32To16Stream(loopStream);
+                        wfcp = new WaveFormatConversionProvider(format, a);
+                    }
+                    if (naudioOggFileReader.WaveFormat.BitsPerSample == 24)
+                    {
+                        Wave24To16Stream a = new Wave24To16Stream(loopStream);
+                        wfcp = new WaveFormatConversionProvider(format, a);
+                    }
+                    else
+                    {
+                        wfcp = new WaveFormatConversionProvider(naudioOggFileReader.WaveFormat, loopStream);
+                    }
                 }
                 else
                 {
                     AftertasteStream l = new AftertasteStream(naudioOggFileReader);
-                    Wave32To16Stream a = new Wave32To16Stream(l);
-                    wfcp = new WaveFormatConversionProvider(format, a);
+                    if (naudioOggFileReader.WaveFormat.BitsPerSample == 32)
+                    {
+                        Wave32To16Stream a = new Wave32To16Stream(l);
+                        wfcp = new WaveFormatConversionProvider(format, a);
+                    }
+                    if (naudioOggFileReader.WaveFormat.BitsPerSample == 24)
+                    {
+                        Wave24To16Stream a = new Wave24To16Stream(l);
+                        wfcp = new WaveFormatConversionProvider(format, a);
+                    }
+                    else
+                    {
+                        wfcp = new WaveFormatConversionProvider(naudioOggFileReader.WaveFormat, l);
+                    }
                 }
 
                 ChipLED = new ChipLEDs();
@@ -3105,9 +3169,14 @@ namespace MDPlayer
                 //waveOut.Play();
 
                 AftertasteStream l = new AftertasteStream(naudioM4aFileReader);
-                if (naudioM4aFileReader.WaveFormat.BitsPerSample != 16)
+                if (naudioM4aFileReader.WaveFormat.BitsPerSample == 32)
                 {
                     Wave32To16Stream a = new Wave32To16Stream(l);
+                    wfcp = new WaveFormatConversionProvider(format, a);
+                }
+                if (naudioM4aFileReader.WaveFormat.BitsPerSample == 24)
+                {
+                    Wave24To16Stream a = new Wave24To16Stream(l);
                     wfcp = new WaveFormatConversionProvider(format, a);
                 }
                 else
@@ -3142,14 +3211,15 @@ namespace MDPlayer
 
                 naudioAacFileReader = new MediaFoundationReader(naudioFileName);
                 WaveFormat format = new WaveFormat(setting.outputDevice.SampleRate, 16, 2);
-                //WaveOut waveOut = new WaveOut();
-                //waveOut.Init(naudioOggFileReader);
-                //waveOut.Play();
-
                 AftertasteStream l = new AftertasteStream(naudioAacFileReader);
-                if (naudioAacFileReader.WaveFormat.BitsPerSample != 16)
+                if (naudioAacFileReader.WaveFormat.BitsPerSample == 32)
                 {
                     Wave32To16Stream a = new Wave32To16Stream(l);
+                    wfcp = new WaveFormatConversionProvider(format, a);
+                }
+                if (naudioAacFileReader.WaveFormat.BitsPerSample == 24)
+                {
+                    Wave24To16Stream a = new Wave24To16Stream(l);
                     wfcp = new WaveFormatConversionProvider(format, a);
                 }
                 else
@@ -3184,14 +3254,15 @@ namespace MDPlayer
 
                 naudioWmaFileReader = new MediaFoundationReader(naudioFileName);
                 WaveFormat format = new WaveFormat(setting.outputDevice.SampleRate, 16, 2);
-                //WaveOut waveOut = new WaveOut();
-                //waveOut.Init(naudioOggFileReader);
-                //waveOut.Play();
-
                 AftertasteStream l = new AftertasteStream(naudioWmaFileReader);
-                if (naudioWmaFileReader.WaveFormat.BitsPerSample != 16)
+                if (naudioWmaFileReader.WaveFormat.BitsPerSample == 32)
                 {
                     Wave32To16Stream a = new Wave32To16Stream(l);
+                    wfcp = new WaveFormatConversionProvider(format, a);
+                }
+                if (naudioWmaFileReader.WaveFormat.BitsPerSample == 24)
+                {
+                    Wave24To16Stream a = new Wave24To16Stream(l);
                     wfcp = new WaveFormatConversionProvider(format, a);
                 }
                 else
