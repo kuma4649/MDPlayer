@@ -3,7 +3,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   
 [概要]  
   このツールは、鍵盤表示を行いながらVGMファイルの再生を行います。  
-  (NRD,NDP,XGM,S98,MID,RCP,RCS,NSF,GBS,HES,SID,AY,MGS,MDR,MDX,MND,ZMD,ZMS,MUC,MUB,M,M2,MZ,MPI,MVI,MZI,OPI,OVI,OZI,WAV,MP3,AIFF,OGG,M4A,AAC,WMAファイルにも対応。)  
+  (NRD,NDP,XGM,S98,MID,RCP,RCS,NSF,GBS,HES,SID,AY,MGS,MDR,MDX,MND,ZMD,ZMS,MUC,MUB,M,M2,MZ,MPI,MVI,MZI,OPI,OVI,OZI,MUS,O,OX,OY,WAV,MP3,AIFF,OGG,M4A,AAC,WMAファイルにも対応。)  
   
 [注意]  
   ・作者様よりSCCI2の同梱の許可をいただきました。但しForkなどしてバイナリを配布する際にSCCI2を同梱したい場合は別途、許可を頂くようお願いします。  
@@ -56,6 +56,10 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   .ZMS (ZMUSIC2/3 向けファイル 演奏するにはZMUSIC.X,ZMC.X,ZMSC3.Xが必要です)    
   .ZMD (ZMUSIC3 向けファイル 演奏するにはZMC.X,ZMSC3.Xが必要です)    
   .ZMD (ZMUSIC2 向けファイル 演奏するにはZMUSIC.Xが必要です)    
+  .MUS (みゅあっぷ 向けファイル)    
+  .O   (みゅあっぷ 向けファイル)    
+  .OX  (みゅあっぷ 向けファイル)    
+  .OY  (みゅあっぷ 向けファイル)    
   .WAV (音声ファイル)  
   .MP3 (音声ファイル)  
   .AIF (音声ファイル)  
@@ -138,6 +142,8 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   
   ・ZMUSICv2/v3のコードを参考にしています。  
 
+  ・みゅあっぷのソースを参考、移植にしています。  
+  
   ・CVS.EXEの出力を参考に同じデータが出力されるよう調整しています。  
   
   ・SCCI2を利用して本物のYM2612(YM3438),SN76489,YM2608,YM2151,YMF262から再生が可能です。  
@@ -360,6 +366,10 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
     ZMC.X  
     ZMSC3.X  
   
+  ・みゅあっぷのファイルを演奏するには、以下のファイルが必要です。  
+  (公式サイトなどから入手してください。)
+    TONES.DTA  
+  
   ・SCCI2を使用して実チップから演奏するには、以下のファイルが必要です。  
   (公式サイトなどから入手してください。)
     scci2.dll  
@@ -567,6 +577,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
     ・PPZ8  
     ・ZMUSICv2/v3    
     ・RCSMP  
+    ・みゅあっぷ  
      
     ・SMS Power!  
     ・DOBON.NET  
@@ -692,6 +703,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   ・PPZ8  
   ・ZMUSICv2  
   ・ZMUSICv3  
+  ・みゅあっぷ  
   
   
   
