@@ -332,6 +332,10 @@ namespace MDPlayer
             if (filename.ToLower().LastIndexOf(".ozi") != -1) return EnmFileFormat.FMP;
             if (filename.ToLower().LastIndexOf(".zms") != -1) return EnmFileFormat.ZMS;
             if (filename.ToLower().LastIndexOf(".zmd") != -1) return EnmFileFormat.ZMD;
+            if (filename.ToLower().LastIndexOf(".mus") != -1) return EnmFileFormat.MUAP_src;
+            if (filename.ToLower().LastIndexOf(".o") != -1) return EnmFileFormat.MUAP;
+            if (filename.ToLower().LastIndexOf(".ox") != -1) return EnmFileFormat.MUAP;
+            if (filename.ToLower().LastIndexOf(".oy") != -1) return EnmFileFormat.MUAP;
             if (filename.ToLower().LastIndexOf(".rcp") != -1) return EnmFileFormat.RCP;
             if (filename.ToLower().LastIndexOf(".rcs") != -1) return EnmFileFormat.RCS;
             if (filename.ToLower().LastIndexOf(".s98") != -1) return EnmFileFormat.S98;
@@ -1099,7 +1103,7 @@ namespace MDPlayer
         ZMS = 31,
         ZMD = 32,
         RCS = 33,
-        AY=34,
+        AY = 34,
         GBS = 35,
         ZDF = 36,
         NDP = 37,
@@ -1107,6 +1111,8 @@ namespace MDPlayer
         M4A = 39,
         AAC = 40,
         WMA = 41,
+        MUAP_src = 42,
+        MUAP = 43,
     }
 
     public enum EnmArcType : int

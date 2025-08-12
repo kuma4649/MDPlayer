@@ -197,6 +197,15 @@
     <None Update="plugin\driver\MoonDriverDotNETmessage.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="plugin\driver\muapDotNETCommon.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="plugin\driver\muapDotNETCompiler.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="plugin\driver\muapDotNETDriver.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="plugin\driver\mucomDotNETCommon.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

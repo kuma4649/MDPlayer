@@ -6527,6 +6527,18 @@ namespace MDPlayer.form
                 return buf;
             }
 
+            if (ext == ".mus")
+            {
+                format = EnmFileFormat.MUAP_src;
+                return buf;
+            }
+
+            if (ext == ".o" || ext == ".ox" || ext == ".oy")
+            {
+                format = EnmFileFormat.MUAP;
+                return buf;
+            }
+
             if (ext == ".mml")
             {
                 format = EnmFileFormat.MML;
@@ -10904,10 +10916,10 @@ namespace MDPlayer.form
             }
             else
             {
+                log.Write(LogLevel.Information, "{0} is location reset !", frm.Name);
                 frm.Location = new System.Drawing.Point(100, 100);
                 return;
             }
-
         }
 
         private void frmMain_FormClosed(object sender, FormClosedEventArgs e)

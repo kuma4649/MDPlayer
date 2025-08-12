@@ -358,6 +358,7 @@ GBSファイル(*.gbs)|*.gbs|
 PMDファイル(*.m;*.m2;*.mz;*.mml)|*.m;*.m2;*.mz;*.mml|
 FMPファイル(*.mpi;*.mvi;*.mzi;*.opi;*.ovi;*.ozi)|*.mpi;*.mvi;*.mzi;*.opi;*.ovi;*.ozi|
 ZMUSIC3ファイル(*.zms;*.zmd)|*.zms;*.zmd|
+MUAPファイル(*.mus;*.o;*.ox;*.oy)|*.mus;*.o;*.ox;*.oy|
 RCPファイル(*.rcp)|*.rcp|
 RCSファイル(*.rcs)|*.rcs|
 S98ファイル(*.s98)|*.s98|
@@ -373,8 +374,8 @@ AACファイル(*.aac)|*.aac|
 WMAファイル(*.wma)|*.wma|
 M3Uファイル(*.m3u)|*.m3u|
 アーカイブファイル(*.zip;*.lzh;*.zdf)|*.zip;*.lzh;*.zdf|
-すべてのサポートファイル(*.vgm;*.vgz;*.zip;*.lzh;*.zdf;*.nrd;*.ndp;*.xgm;*.zgm;*.s98;*.nsf;*.gbs;*.hes;*.sid;*.ay;*.mgs;*.msd;*.bgm;*.mnd;*.mdr;*.mdx;*.mub;*.muc;*.m;*.m2;*.mz;*.mpi;*.mvi;*.mzi;*.opi;*.ovi;*.ozi;*.mml;*.zms;*.zmd;*.mid;*.rcp;*.rcs;*.wav;*.mp3;*.aiff;*.ogg;*.m4a;*.aac;*.wma;*.m3u)|
-*.vgm;*.vgz;*.zip;*.lzh;*.zdf;*.nrd;*.ndp;*.xgm;*.zgm;*.s98;*.nsf;*.gbs;*.hes;*.sid;*.ay;*.mgs;*.msd;*.bgm;*.mnd;*.mdr;*.mdx;*.mub;*.muc;*.m;*.m2;*.mz;*.mpi;*.mvi;*.mzi;*.opi;*.ovi;*.ozi;*.mml;*.zms;*.zmd;*.mid;*.rcp;*.rcs;*.wav;*.mp3;*.aiff;*.ogg;*.m4a;*.aac;*.wma;*.m3u|
+すべてのサポートファイル(*.vgm;*.vgz;*.zip;*.lzh;*.zdf;*.nrd;*.ndp;*.xgm;*.zgm;*.s98;*.nsf;*.gbs;*.hes;*.sid;*.ay;*.mgs;*.msd;*.bgm;*.mnd;*.mdr;*.mdx;*.mub;*.muc;*.m;*.m2;*.mz;*.mpi;*.mvi;*.mzi;*.opi;*.ovi;*.ozi;*.mml;*.zms;*.zmd;*.mus;*.o;*.ox;*.oy;*.mid;*.rcp;*.rcs;*.wav;*.mp3;*.aiff;*.ogg;*.m4a;*.aac;*.wma;*.m3u)|
+*.vgm;*.vgz;*.zip;*.lzh;*.zdf;*.nrd;*.ndp;*.xgm;*.zgm;*.s98;*.nsf;*.gbs;*.hes;*.sid;*.ay;*.mgs;*.msd;*.bgm;*.mnd;*.mdr;*.mdx;*.mub;*.muc;*.m;*.m2;*.mz;*.mpi;*.mvi;*.mzi;*.opi;*.ovi;*.ozi;*.mml;*.zms;*.zmd;*.mus;*.o;*.ox;*.oy;*.mid;*.rcp;*.rcs;*.wav;*.mp3;*.aiff;*.ogg;*.m4a;*.aac;*.wma;*.m3u|
 すべてのファイル(*.*)|*.*</value>
   </data>
   <data name="planeMSM6295" type="System.Resources.ResXFileRef, System.Windows.Forms">

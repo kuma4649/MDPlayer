@@ -226,8 +226,8 @@ namespace MDPlayer
         public static bool EmuOnly { get; set; }
         public static InstanceMarker MucomDotNETim { get; private set; }
         public static InstanceMarker PMDDotNETim { get; private set; }
-
         public static InstanceMarker MoonDriverDotNETim { get; private set; }
+        public static InstanceMarker muapDotNETim { get; private set; }
 
 
         public static List<vstMng.vstInfo2> GetVSTInfos()
@@ -606,6 +606,40 @@ namespace MDPlayer
                 music.format = EnmFileFormat.ZMD;
                 uint index = 0;
                 GD3 gd3 = new Driver.ZMS.ZMS(music.format).getGD3Info(buf, index);
+                music.title = gd3.TrackName == "" ? Path.GetFileName(file) : gd3.TrackName;
+                music.titleJ = gd3.TrackName == "" ? Path.GetFileName(file) : gd3.TrackNameJ;
+                music.game = gd3.GameName;
+                music.gameJ = gd3.GameNameJ;
+                music.composer = gd3.Composer;
+                music.composerJ = gd3.ComposerJ;
+                music.vgmby = gd3.VGMBy;
+
+                music.converted = gd3.Converted;
+                music.notes = gd3.Notes;
+
+            }
+            else if (ext == ".mus")
+            {
+                music.format = EnmFileFormat.MUAP_src;
+                uint index = 0;
+                GD3 gd3 = new Driver.muapDotNET(muapDotNETim).getGD3Info(buf, index);
+                music.title = gd3.TrackName == "" ? Path.GetFileName(file) : gd3.TrackName;
+                music.titleJ = gd3.TrackName == "" ? Path.GetFileName(file) : gd3.TrackNameJ;
+                music.game = gd3.GameName;
+                music.gameJ = gd3.GameNameJ;
+                music.composer = gd3.Composer;
+                music.composerJ = gd3.ComposerJ;
+                music.vgmby = gd3.VGMBy;
+
+                music.converted = gd3.Converted;
+                music.notes = gd3.Notes;
+
+            }
+            else if (ext == ".o"|| ext == ".ox"|| ext == ".oy")
+            {
+                music.format = EnmFileFormat.MUAP;
+                uint index = 0;
+                GD3 gd3 = new Driver.muapDotNET(muapDotNETim).getGD3Info(buf, index);
                 music.title = gd3.TrackName == "" ? Path.GetFileName(file) : gd3.TrackName;
                 music.titleJ = gd3.TrackName == "" ? Path.GetFileName(file) : gd3.TrackNameJ;
                 music.game = gd3.GameName;
@@ -2050,6 +2084,9 @@ namespace MDPlayer
 #else
             moonDriverDotNETim.LoadDriverDll(Path.Combine(System.Windows.Forms.Application.StartupPath, "plugin\\driver\\moonDriverDotNETDriver.dll"));
 #endif
+            muapDotNETim = new InstanceMarker();
+            muapDotNETim.LoadCompilerDll(Path.Combine(System.Windows.Forms.Application.StartupPath, "plugin\\driver\\muapDotNETCompiler.dll"));
+            muapDotNETim.LoadDriverDll(Path.Combine(System.Windows.Forms.Application.StartupPath, "plugin\\driver\\muapDotNETDriver.dll"));
 
             log.ForcedWrite("Audio:Init:STEP 10");
 
@@ -2541,6 +2578,38 @@ namespace MDPlayer
                 }
                 return ZmdPlay(setting, PlayingFileFormat);
             }
+
+            if (PlayingFileFormat == EnmFileFormat.MUAP_src|| PlayingFileFormat == EnmFileFormat.MUAP)
+            {
+                DriverVirtual = new Driver.muapDotNET(muapDotNETim)
+                {
+                    setting = setting
+                };
+                ((Driver.muapDotNET)DriverVirtual).PlayingFileName = PlayingFileName;
+
+                DriverReal = null;
+                if (setting.outputDevice.DeviceType != Common.DEV_Null)
+                {
+                    DriverReal = new Driver.muapDotNET(muapDotNETim)
+                    {
+                        setting = setting
+                    };
+
+                    ((Driver.muapDotNET)DriverReal).PlayingFileName = PlayingFileName;
+                }
+                DriverPianoRoll = null;
+                if (setting.pianoRoll.usePianoRoll)
+                {
+                    DriverPianoRoll = new Driver.muapDotNET(muapDotNETim)
+                    {
+                        setting = setting
+                    };
+
+                    ((Driver.muapDotNET)DriverPianoRoll).PlayingFileName = PlayingFileName;
+                }
+                return MuapPlay(setting, PlayingFileFormat);
+            }
+
 
             if (PlayingFileFormat == EnmFileFormat.NRT)
             {
@@ -4166,6 +4235,150 @@ namespace MDPlayer
 
                 DriverVirtual.SetYM2151Hosei(Driver.MucomDotNET.OPMbaseclock);
                 DriverReal?.SetYM2151Hosei(Driver.MucomDotNET.OPMbaseclock);
+
+                //Play
+
+                Paused = false;
+
+                if (DriverReal != null && setting.YM2608Type[0].UseReal[0])
+                {
+                    realChip.WaitOPNADPCMData(setting.YM2608Type[0].realChipInfo[0].SoundLocation == -1);
+                }
+
+                oneTimeReset = false;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+                return false;
+            }
+
+        }
+
+        public static bool MuapPlay(Setting setting, EnmFileFormat fileType)
+        {
+
+            try
+            {
+
+                if (vgmBuf == null || setting == null) return false;
+
+                if (fileType == EnmFileFormat.MUAP_src)
+                {
+                    vgmBuf = ((Driver.muapDotNET)DriverVirtual).Compile(vgmBuf);
+                }
+                if (vgmBuf == null) return false;
+
+                chipRegister.resetChips();
+                ResetFadeOutParam();
+                UseChip.Clear();
+
+                StartTrdVgmReal();
+
+                List<MDSound.MDSound.Chip> lstChips = new();
+                MDSound.MDSound.Chip chip;
+
+                hiyorimiNecessary = setting.HiyorimiMode;
+
+                ChipLED = new ChipLEDs();
+                MasterVolume = setting.balance.MasterVolume;
+
+                ym2608 ym2608 = null;
+                ym2608 = new ym2608();
+                ym3438 ym3438 = null;
+                ym3438 = new ym3438();
+                Func<string, Stream> fn = Common.GetOPNARyhthmStream;
+
+                    chip = new MDSound.MDSound.Chip
+                    {
+                        ID = 0,
+                        type = MDSound.MDSound.enmInstrumentType.YM2608,
+                        Instrument = ym2608,
+                        Update = ym2608.Update,
+                        Start = ym2608.Start,
+                        Stop = ym2608.Stop,
+                        Reset = ym2608.Reset,
+                        SamplingRate = 55467,// (UInt32)setting.outputDevice.SampleRate;
+                        Volume = setting.balance.YM2608Volume,
+                        Clock = Driver.MucomDotNET.OPNAbaseclock,
+                        Option = new object[] { fn }
+                    };
+                    ChipLED.PriOPNA = 1;
+                    lstChips.Add(chip);
+                    UseChip.Add(EnmChip.YM2608);
+                    ClockYM2608 = Driver.MucomDotNET.OPNAbaseclock;
+
+                    chip = new MDSound.MDSound.Chip
+                    {
+                        ID = 1,
+                        type = MDSound.MDSound.enmInstrumentType.YM3438,
+                        Instrument = ym3438,
+                        Update = ym3438.Update,
+                        Start = ym3438.Start,
+                        Stop = ym3438.Stop,
+                        Reset = ym3438.Reset,
+                        SamplingRate = 55467,// (UInt32)setting.outputDevice.SampleRate;
+                        Volume = setting.balance.YM2612Volume,
+                        Clock = Driver.MucomDotNET.OPNAbaseclock,
+                        Option = new object[] { fn }
+                    };
+                    ChipLED.PriOPN2 = 1;
+                    lstChips.Add(chip);
+                    UseChip.Add(EnmChip.YM2612);
+
+                if (hiyorimiNecessary) hiyorimiNecessary = true;
+                else hiyorimiNecessary = false;
+
+                if (mds == null)
+                    mds = new MDSound.MDSound((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
+                else
+                    mds.Init((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
+
+                chipRegister.initChipRegister(lstChips.ToArray());
+
+                SetYM2608Volume(true, setting.balance.YM2608Volume);
+                SetYM2608FMVolume(true, setting.balance.YM2608FMVolume);
+                SetYM2608PSGVolume(true, setting.balance.YM2608PSGVolume);
+                SetYM2608RhythmVolume(true, setting.balance.YM2608RhythmVolume);
+                SetYM2608AdpcmVolume(true, setting.balance.YM2608AdpcmVolume);
+
+                chipRegister.setYM2608Register(0, 0, 0x2d, 0x00, EnmModel.VirtualModel, 0);
+                chipRegister.setYM2608Register(0, 0, 0x2d, 0x00, EnmModel.RealModel, 0);
+                chipRegister.setYM2608Register(0, 0, 0x29, 0x82, EnmModel.VirtualModel, 0);
+                chipRegister.setYM2608Register(0, 0, 0x29, 0x82, EnmModel.RealModel, 0);
+                chipRegister.setYM2608Register(1, 0, 0x29, 0x82, EnmModel.VirtualModel, 0);
+                chipRegister.setYM2608Register(1, 0, 0x29, 0x82, EnmModel.RealModel, 0);
+                chipRegister.setYM2608Register(0, 0, 0x07, 0x38, EnmModel.VirtualModel, 0); //PSG TONE でリセット
+                chipRegister.setYM2608Register(0, 0, 0x07, 0x38, EnmModel.RealModel, 0);
+                chipRegister.setYM2608Register(0, 0, 0x08, 0x00, EnmModel.VirtualModel, 0);
+                chipRegister.setYM2608Register(0, 0, 0x08, 0x00, EnmModel.RealModel, 0);
+                chipRegister.setYM2608Register(0, 0, 0x09, 0x00, EnmModel.VirtualModel, 0);
+                chipRegister.setYM2608Register(0, 0, 0x09, 0x00, EnmModel.RealModel, 0);
+                chipRegister.setYM2608Register(0, 0, 0x0a, 0x00, EnmModel.VirtualModel, 0);
+                chipRegister.setYM2608Register(0, 0, 0x0a, 0x00, EnmModel.RealModel, 0);
+
+                chipRegister.writeYM2608Clock(0, Driver.MucomDotNET.OPNAbaseclock, EnmModel.RealModel);
+                chipRegister.writeYM2608Clock(1, Driver.MucomDotNET.OPNAbaseclock, EnmModel.RealModel);
+                chipRegister.setYM2608SSGVolume(0, setting.balance.GimicOPNAVolume, EnmModel.RealModel);
+                chipRegister.setYM2608SSGVolume(1, setting.balance.GimicOPNAVolume, EnmModel.RealModel);
+
+                if (!DriverVirtual.init(vgmBuf, chipRegister, EnmModel.VirtualModel, new EnmChip[] { EnmChip.YM2608 }
+                    , (uint)(setting.outputDevice.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                if (DriverReal != null)
+                {
+                    if (!DriverReal.init(vgmBuf, chipRegister, EnmModel.RealModel, new EnmChip[] { EnmChip.YM2608 }
+                        , (uint)(setting.outputDevice.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                }
+                if (DriverPianoRoll != null)
+                {
+                    if (!DriverPianoRoll.init(vgmBuf, chipRegister, EnmModel.PianoRollModel, new EnmChip[] { EnmChip.YM2608 }
+                        , (uint)(setting.outputDevice.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                }
 
                 //Play
 
