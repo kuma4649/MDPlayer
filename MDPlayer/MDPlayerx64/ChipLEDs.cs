@@ -56,6 +56,7 @@
         public byte PriPPZ8 = 0;
         public byte PriPPSDRV = 0;
         public byte PriP86 = 0;
+        public byte PriCS4231 = 0;
 
         public byte SecOPN = 0;
         public byte SecOPN2 = 0;
@@ -111,6 +112,8 @@
         public byte SecPPSDRV = 0;
         public byte SecP86 = 0;
         public byte SecQsnd = 0;
+        public byte SecCS4231 = 0;
+
         public byte TrdMID = 0;
         public byte ForMID = 0;
 

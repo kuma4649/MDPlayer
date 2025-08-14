@@ -45,6 +45,7 @@ namespace MDPlayer
         private Setting.ChipType2[] ctSEGAPCM = new Setting.ChipType2[2] { null, null };
         private Setting.ChipType2[] ctC140 = new Setting.ChipType2[2] { null, null };
         private Setting.ChipType2[] ctES5503 = new Setting.ChipType2[2] { null, null };
+        private Setting.ChipType2[] ctCS4231 = new Setting.ChipType2[2] { null, null };
 
         private RealChip realChip = null;
         private RSoundChip[] scSN76489 = [null, null];
@@ -3387,6 +3388,93 @@ namespace MDPlayer
             writeYM2608(chipID, 1, 0x01, 0x06, model); // ADPCM消音
             writeYM2608(chipID, 1, 0x10, 0x9C, model); // FLAGリセット        }
         }
+
+
+        public void setCS4231Register(int chipID, int dPort, int dAddr, int dData, EnmModel model, long vgmFrameCounter)
+        {
+            //if (ctCS4231 == null) return;
+            if (dAddr < 0 || dData < 0) return;
+
+            if (chipID == 0) chipLED.PriCS4231 = 2;
+            else chipLED.SecCS4231 = 2;
+
+            if (model == EnmModel.PianoRollModel)
+            {
+                pianoRollMng.SetRegister(EnmChip.CS4231, chipID, dPort * 0x100 + dAddr, dData, vgmFrameCounter);
+                return;
+            }
+
+            if (model == EnmModel.VirtualModel)
+            {
+                //if (!ctCS4231[chipID].UseReal[0] && ctCS4231[chipID].UseEmu[0])
+                {
+                    //if(dAddr==0x29) Console.Write("{0:x2}:{1:x2}:{2:x2}  ", dPort, dAddr, dData);
+                    mds.WriteCS4231((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                }
+            }
+            else if (model == EnmModel.RealModel)
+            {
+                return;
+            }
+
+        }
+
+        public void setCS4231FIFOBuf(int chipID, byte[] buf, EnmModel model)
+        {
+            if (model == EnmModel.VirtualModel)
+            {
+                mds.SetCS4231FIFOBuf((byte)chipID, buf);
+            }
+            else if (model == EnmModel.RealModel)
+            {
+                return;
+            }
+
+        }
+
+        public void setCS4231Int0bEnt(int chipID, Action act, EnmModel model)
+        {
+            if (model == EnmModel.VirtualModel)
+            {
+                mds.SetCS4231Int0bEnt((byte)chipID, act);
+            }
+            else if (model == EnmModel.RealModel)
+            {
+                return;
+            }
+
+        }
+
+        public byte getCS4231Register(int chipID, int dAddr, EnmModel model, long vgmFrameCounter)
+        {
+            //if (ctCS4231 == null) return;
+            if (dAddr < 0) return 0;
+
+            if (chipID == 0) chipLED.PriCS4231 = 2;
+            else chipLED.SecCS4231 = 2;
+
+            if (model == EnmModel.PianoRollModel)
+            {
+                //pianoRollMng.SetRegister(EnmChip.CS4231, chipID, dPort * 0x100 + dAddr, dData, vgmFrameCounter);
+                return 0;
+            }
+
+            if (model == EnmModel.VirtualModel)
+            {
+                //if (!ctCS4231[chipID].UseReal[0] && ctCS4231[chipID].UseEmu[0])
+                {
+                    //if(dAddr==0x29) Console.Write("{0:x2}:{1:x2}:{2:x2}  ", dPort, dAddr, dData);
+                    return mds.ReadCS4231((byte)chipID, (byte)dAddr);
+                }
+            }
+            else if (model == EnmModel.RealModel)
+            {
+                return 0;
+            }
+
+            return 0;
+        }
+
 
         private void writeYM2612(int chipID, int dPort, int dAddr, int dData, EnmModel model,long vgmFrameCounter)
         {

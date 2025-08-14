@@ -969,6 +969,7 @@ namespace MDPlayer
         , ES5503
         , PCM8
         , MPCMX68k
+        , CS4231
 
         , S_SN76489
         , S_YM2612

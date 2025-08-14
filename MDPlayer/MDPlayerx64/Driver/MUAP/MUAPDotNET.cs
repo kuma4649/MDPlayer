@@ -218,11 +218,12 @@ namespace MDPlayer.Driver
             mucomChipAction ca;
             ca = new mucomChipAction(OPNAWriteP, null, null); lca.Add(ca);
             ca = new mucomChipAction(OPN2WriteP, null, null); lca.Add(ca);
+            ca = new mucomChipAction(CS4231Write, null, null); lca.Add(ca);
             muapDriver.Init(
                 lca,
                 buf.ToArray()
                 , null
-                , null
+                , (object)CS4231Read
                 );
 
             muapDriver.StartRendering(Common.VGMProcSampleRate
@@ -231,6 +232,9 @@ namespace MDPlayer.Driver
                 ]
             );
             muapDriver.MusicSTART(0);
+            object[] work = (object[])muapDriver.GetWork();
+            chipRegister.setCS4231FIFOBuf(0, (byte[])work[0], model);
+            chipRegister.setCS4231Int0bEnt(0, (Action)work[1], model);
 
             return true;
         }
@@ -286,6 +290,32 @@ namespace MDPlayer.Driver
             //Log.WriteLine(LogLevel.TRACE, string.Format("Out ChipA:{0} Port:{1} Adr:[{2:x02}] val[{3:x02}]", chipId, dat.port, (int)dat.address, (int)dat.data));
 
             chipRegister.setYM2612Register((byte)chipId, (byte)dat.port, (byte)dat.address, (byte)dat.data, model, vgmFrameCounter);
+        }
+
+        void CS4231Write(ChipDatum dat)
+        {
+            if (dat != null && dat.addtionalData != null)
+            {
+                MmlDatum md = (MmlDatum)dat.addtionalData;
+                if (md.linePos != null)
+                {
+                    //Log.WriteLine(LogLevel.TRACE, string.Format("! OPNA i{0} r{1} c{2}"
+                    //, chipId
+                    //, md.linePos.row
+                    //, md.linePos.col
+                    //));
+                }
+            }
+
+            if (dat.address == -1) return;
+            //Log.WriteLine(LogLevel.TRACE, string.Format("Out ChipA:{0} Port:{1} Adr:[{2:x02}] val[{3:x02}]", chipId, dat.port, (int)dat.address, (int)dat.data));
+
+            chipRegister.setCS4231Register((byte)0, (byte)dat.port, (byte)dat.address, (byte)dat.data, model, vgmFrameCounter);
+        }
+
+        byte CS4231Read(byte adr)
+        {
+            return chipRegister.getCS4231Register((byte)0, (byte)adr, model, vgmFrameCounter);
         }
 
     }

@@ -4289,6 +4289,8 @@ namespace MDPlayer
                 ym2608 = new ym2608();
                 ym3438 ym3438 = null;
                 ym3438 = new ym3438();
+                CS4231 cs4231 = null;
+                cs4231 = new CS4231();
                 Func<string, Stream> fn = Common.GetOPNARyhthmStream;
 
                     chip = new MDSound.MDSound.Chip
@@ -4312,7 +4314,7 @@ namespace MDPlayer
 
                     chip = new MDSound.MDSound.Chip
                     {
-                        ID = 1,
+                        ID = 0,
                         type = MDSound.MDSound.enmInstrumentType.YM3438,
                         Instrument = ym3438,
                         Update = ym3438.Update,
@@ -4327,6 +4329,24 @@ namespace MDPlayer
                     ChipLED.PriOPN2 = 1;
                     lstChips.Add(chip);
                     UseChip.Add(EnmChip.YM2612);
+
+                chip = new MDSound.MDSound.Chip
+                {
+                    ID = 0,
+                    type = MDSound.MDSound.enmInstrumentType.CS4231,
+                    Instrument = cs4231,
+                    Update = cs4231.Update,
+                    Start = cs4231.Start,
+                    Stop = cs4231.Stop,
+                    Reset = cs4231.Reset,
+                    SamplingRate = 55467,// (UInt32)setting.outputDevice.SampleRate;
+                    Volume = 0,//setting.balance.CS4231Volume,
+                    Clock = 0,
+                    Option = null
+                };
+                ChipLED.PriCS4231 = 1;
+                lstChips.Add(chip);
+                UseChip.Add(EnmChip.CS4231);
 
                 if (hiyorimiNecessary) hiyorimiNecessary = true;
                 else hiyorimiNecessary = false;
