@@ -357,6 +357,12 @@ namespace MDPlayer
                 case EnmFileFormat.ZMD:
                     AddFileZMD(mc, entry);
                     break;
+                case EnmFileFormat.MUAP_src:
+                    AddFileMUAP(mc, entry);
+                    break;
+                case EnmFileFormat.MUAP:
+                    AddFileMUAP(mc, entry);
+                    break;
                 case EnmFileFormat.RCP:
                     AddFileRCP(mc, entry);
                     break;
@@ -912,6 +918,11 @@ namespace MDPlayer
         private void AddFileMuSICA(ref int index, Music mc, object entry = null)
         {
             AddFilexxx(ref index, mc, entry);
+        }
+
+        private void AddFileMUAP(Music mc, object entry = null)
+        {
+            AddFilexxx(mc, entry);
         }
 
         private void AddFileMUAP(ref int index, Music mc, object entry = null)
