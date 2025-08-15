@@ -2267,7 +2267,7 @@ namespace MDPlayer
                     }
                     if (dAddr == 4)
                     {
-                        dData = (int)(maskChHuC6280[chipID][HuC6280CurrentCh[chipID]] ? 0 : dData);
+                        //dData = (int)(maskChHuC6280[chipID][HuC6280CurrentCh[chipID]] ? 0 : dData);
                     }
                     //System.Console.WriteLine("chipID:{0} Adr:{1} Dat:{2}", chipID, dAddr, dData);
                     mds.WriteHuC6280((byte)chipID, (byte)dAddr, (byte)dData);
@@ -4987,6 +4987,11 @@ namespace MDPlayer
         public void setMaskHuC6280(int chipID, int ch, bool mask)
         {
             maskChHuC6280[chipID][ch] = mask;
+            if (dicChipsInfo.ContainsKey(MDSound.MDSound.enmInstrumentType.HuC6280))
+            {
+                if (mask) mds.setHuC6280Mask(chipID, ch);
+                else mds.resetHuC6280Mask(chipID, ch);
+            }
         }
 
         public void setMaskSegaPCM(int chipID, int ch, bool mask)
