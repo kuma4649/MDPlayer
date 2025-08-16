@@ -4989,6 +4989,7 @@ namespace MDPlayer
             maskChHuC6280[chipID][ch] = mask;
             if (dicChipsInfo.ContainsKey(MDSound.MDSound.enmInstrumentType.HuC6280))
             {
+                //HESはレジスタの内容をリードするため、ライトするデータを加工できない。その為CHIP側のmute機能に任せる
                 if (mask) mds.setHuC6280Mask(chipID, ch);
                 else mds.resetHuC6280Mask(chipID, ch);
             }

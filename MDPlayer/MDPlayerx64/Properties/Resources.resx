@@ -1517,4 +1517,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   <data name="DefaultVolumeBalance_AY" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DefaultVolumeBalance_AY.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
   </data>
+  <data name="DefaultVolumeBalance_MUAP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DefaultVolumeBalance_MUAP.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>

@@ -10601,6 +10601,11 @@ namespace MDPlayer.form
                         case EnmFileFormat.ZMD:
                             fn = "DriverBalance_ZMD.mbc";
                             break;
+                        case EnmFileFormat.MUAP_src:
+                        case EnmFileFormat.MUAP:
+                            fn = "DriverBalance_MUAP.mbc";
+                            defMbc = Resources.DefaultVolumeBalance_MUAP;
+                            break;
                     }
 
                     fullPath = Path.Combine(fullPath, fn);
@@ -10611,7 +10616,8 @@ namespace MDPlayer.form
 
 
                 //存在確認。無い場合は作成。
-                if (!File.Exists(fullPath) && defMbc != "") File.WriteAllText(fullPath, defMbc);
+                if (!File.Exists(fullPath) && defMbc != "") 
+                    File.WriteAllText(fullPath, defMbc);
                 //データフォルダに存在するファイルを読み込む
                 balance = Setting.Balance.Load(fullPath);
 
