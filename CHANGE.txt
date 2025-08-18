@@ -1,4 +1,7 @@
 更新履歴 
+STBL516 2025/08/19
+  MUAP:muapDotNET更新。
+
 STBL515 2025/08/18
   MUAP:muapDotNET更新。
 
