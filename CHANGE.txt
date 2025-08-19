@@ -1,4 +1,8 @@
 更新履歴 
+STBL517 2025/08/19 2nd
+  MUAP:muapDotNET更新。
+      arpコマンド系の実装。DTコマンド、Pコマンド、SSGchの判定ミスのバグ修正。
+
 STBL516 2025/08/19
   MUAP:muapDotNET更新。
 
