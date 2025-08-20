@@ -1,4 +1,7 @@
 更新履歴 
+STBL518 2025/08/20
+  鍵盤:SEGAPCM:音量メータの表示微調整
+
 STBL517 2025/08/19 2nd
   MUAP:muapDotNET更新。
       arpコマンド系の実装。DTコマンド、Pコマンド、SSGchの判定ミスのバグ修正。

@@ -149,6 +149,8 @@ namespace MDPlayer.form
             }
         }
 
+        private int voldelay = 3;
+
         public void screenChangeParams()
         {
             //MDSound.segapcm.segapcm_state segapcmState = Audio.GetSegaPCMRegister(chipID);
@@ -201,13 +203,16 @@ namespace MDPlayer.form
                     if (segapcmKeyOn[ch])
                     {
                         newParam.channels[ch].note = Common.searchSegaPCMNote(ml);
-                        newParam.channels[ch].volumeL = Math.Min(Math.Max((l * 1) >> 1, 0), 19);
-                        newParam.channels[ch].volumeR = Math.Min(Math.Max((r * 1) >> 1, 0), 19);
+                        newParam.channels[ch].volumeL = Math.Min(Math.Max((l * 1) >> 1, 2), 19);
+                        newParam.channels[ch].volumeR = Math.Min(Math.Max((r * 1) >> 1, 2), 19);
                     }
                     else
                     {
-                        newParam.channels[ch].volumeL -= newParam.channels[ch].volumeL > 0 ? 1 : 0;
+                        if (voldelay==0)
+                        {
+                            newParam.channels[ch].volumeL -= newParam.channels[ch].volumeL > 0 ? 1 : 0;
                         newParam.channels[ch].volumeR -= newParam.channels[ch].volumeR > 0 ? 1 : 0;
+                        }
 
                         if (newParam.channels[ch].volumeL == 0 && newParam.channels[ch].volumeR == 0)
                         {
@@ -215,10 +220,22 @@ namespace MDPlayer.form
                         }
                     }
 
+                    //newParam.channels[ch].note = Common.searchSegaPCMNote(ml);
+                    //    newParam.channels[ch].volumeL = Math.Min(Math.Max(l/6, 0), 19);
+                    //    newParam.channels[ch].volumeR = Math.Min(Math.Max(r/6, 0), 19);
+                    //    if (l == 0 && r == 0)
+                    //    {
+                    //        newParam.channels[ch].note = -1;
+                    //    }
+
                     newParam.channels[ch].pan = ((l >> 3) & 0xf) | (((r >> 3) & 0xf) << 4);
 
                     segapcmKeyOn[ch] = false;
                 }
+
+                voldelay--;
+                if (voldelay < 0) voldelay = 5;
+
             }
 
         }
