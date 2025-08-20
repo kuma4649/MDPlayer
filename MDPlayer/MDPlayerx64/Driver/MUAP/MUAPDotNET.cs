@@ -13,6 +13,8 @@ namespace MDPlayer.Driver
         private InstanceMarker im = null;
         private iCompiler muapCompiler = null;
         private iDriver muapDriver = null;
+        public byte[] toneBuff;
+
 
         public string PlayingFileName { get; internal set; }
 
@@ -152,6 +154,11 @@ namespace MDPlayer.Driver
                 dest.Add(md != null ? (byte)md.dat : (byte)0);
             }
 
+            if(ret!=null && ret.Length>0 && ret[0].args!=null && ret[0].args[0]!=null && ret[0].args[0] is byte[])
+            {
+                toneBuff = (byte[])ret[0].args[0];
+            }
+
             return dest.ToArray();
         }
 
@@ -223,7 +230,7 @@ namespace MDPlayer.Driver
                 lca,
                 buf.ToArray()
                 , null
-                , (object)CS4231Read
+                , (object)(new object[] { CS4231Read ,toneBuff})
                 );
 
             muapDriver.StartRendering(Common.VGMProcSampleRate

@@ -1,4 +1,5 @@
-﻿using MDPlayer.Driver.FMP.Nise98;
+﻿using MDPlayer.Driver;
+using MDPlayer.Driver.FMP.Nise98;
 using MDPlayer.Driver.MNDRV;
 using MDPlayer.Driver.SID;
 using MDPlayer.form;
@@ -4270,6 +4271,11 @@ namespace MDPlayer
                     vgmBuf = ((Driver.muapDotNET)DriverVirtual).Compile(vgmBuf);
                 }
                 if (vgmBuf == null) return false;
+
+                //音色テーブルの共有
+                byte[] toneBuff = ((Driver.muapDotNET)DriverVirtual).toneBuff;
+                ((Driver.muapDotNET)DriverReal).toneBuff = toneBuff;
+                ((Driver.muapDotNET)DriverPianoRoll).toneBuff = toneBuff;
 
                 chipRegister.resetChips();
                 ResetFadeOutParam();
