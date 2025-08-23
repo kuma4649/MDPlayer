@@ -11303,6 +11303,18 @@ namespace MDPlayer
             else return DriverVirtual.GD3;
         }
 
+        public static List<Tuple<string, string>> GetTagsDriver()
+        {
+            if (DriverVirtual == null) return null;
+
+            if (DriverVirtual is muapDotNET)
+            {
+                return ((muapDotNET)DriverVirtual).GetTags();
+            }
+
+            return null;
+        }
+
 
 
 

@@ -70,7 +70,7 @@ namespace MDPlayer.form
             dgvInfo.RowHeadersVisible = false;
             dgvInfo.RowTemplate.Height = 19;
             dgvInfo.RowTemplate.ReadOnly = true;
-            dgvInfo.Size = new Size(523, 258);
+            dgvInfo.Size = new Size(523, 284);
             dgvInfo.TabIndex = 17;
             // 
             // clmKey
@@ -101,11 +101,11 @@ namespace MDPlayer.form
             rtbLyric.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             rtbLyric.BackColor = Color.Black;
             rtbLyric.BorderStyle = BorderStyle.None;
-            rtbLyric.Location = new Point(12, 265);
+            rtbLyric.Location = new Point(12, 287);
             rtbLyric.Name = "rtbLyric";
             rtbLyric.ReadOnly = true;
             rtbLyric.ScrollBars = RichTextBoxScrollBars.None;
-            rtbLyric.Size = new Size(496, 18);
+            rtbLyric.Size = new Size(496, 40);
             rtbLyric.TabIndex = 18;
             rtbLyric.Text = "";
             // 
@@ -114,13 +114,13 @@ namespace MDPlayer.form
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.Black;
             BackgroundImageLayout = ImageLayout.None;
-            ClientSize = new Size(520, 281);
+            ClientSize = new Size(520, 329);
             Controls.Add(rtbLyric);
             Controls.Add(dgvInfo);
             Font = new Font("Consolas", 12F, FontStyle.Bold);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(5);
-            MinimumSize = new Size(370, 320);
+            MinimumSize = new Size(370, 360);
             Name = "frmInfo";
             Text = "Information";
             FormClosed += FrmInfo_FormClosed;

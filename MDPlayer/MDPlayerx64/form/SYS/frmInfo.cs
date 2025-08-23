@@ -1,4 +1,6 @@
-﻿namespace MDPlayer.form
+﻿using System.Reflection.Metadata.Ecma335;
+
+namespace MDPlayer.form
 {
     public partial class frmInfo : Form
     {
@@ -10,6 +12,7 @@
         public List<Tuple<int, int, string>> lyrics = null;
         public int lyricsIndex = 0;
         private Color culColor = Color.FromArgb(192, 192, 255);
+        private int oldComlength = -1;
 
         public frmInfo(frmMain frm)
         {
@@ -49,15 +52,23 @@
             dgvInfo.ClearSelection();
 
             parent.OpenPicWindow(gd3.pic);
- 
-            if (gd3.Lyrics == null)
+
+            if (Audio.PlayingFileFormat == EnmFileFormat.MUAP || Audio.PlayingFileFormat == EnmFileFormat.MUAP_src)
             {
-                timer.Enabled = false;
+                timer.Enabled = true;
+                return;
             }
             else
             {
-                lyrics = gd3.Lyrics;
-                timer.Enabled = true;
+                if (gd3.Lyrics == null)
+                {
+                    timer.Enabled = false;
+                }
+                else
+                {
+                    lyrics = gd3.Lyrics;
+                    timer.Enabled = true;
+                }
             }
         }
 
@@ -80,10 +91,12 @@
             if (WindowState == FormWindowState.Normal)
             {
                 parent.setting.location.PInfo = Location;
+                parent.setting.location.SInfo = Size;
             }
             else
             {
                 parent.setting.location.PInfo = RestoreBounds.Location;
+                parent.setting.location.SInfo = RestoreBounds.Size;
             }
 
             isClosed = true;
@@ -106,6 +119,12 @@
 
         private void Timer_Tick(object sender, EventArgs e)
         {
+            if(Audio.PlayingFileFormat == EnmFileFormat.MUAP || Audio.PlayingFileFormat == EnmFileFormat.MUAP_src)
+            {
+                muapLyrics();
+                return;
+            }
+
             if (lyrics == null || lyrics.Count < 1) return;
 
             long cnt = Audio.GetDriverCounter();
@@ -181,5 +200,41 @@
                 catch { }
             }
         }
+
+
+        private void muapLyrics()
+        {
+            List<Tuple<string, string>> ret = Audio.GetTagsDriver();
+            if (ret == null || ret.Count < 2 || ret[0] == null) return;
+
+            string ly = ret[0].Item2;
+            int comlength = int.Parse(ret[1].Item2);
+            ly = ly.Replace("\0", "");
+            if (comlength == 255)
+            {
+                rtbLyric.ForeColor = Color.White;
+                rtbLyric.Text = ly;
+                oldComlength = -1;
+                return;
+            }
+
+            if (oldComlength == comlength) return;
+
+            oldComlength = comlength;
+            rtbLyric.SuspendLayout();
+            rtbLyric.Clear();
+            if (comlength != 0)
+            {
+                rtbLyric.SelectionColor = Color.White;
+                rtbLyric.SelectedText = ly.Substring(0, Math.Min(ly.Length, comlength));
+            }
+            if (ly.Length > comlength)
+            {
+                rtbLyric.SelectionColor = Color.Blue;
+                rtbLyric.SelectedText = ly.Substring(comlength);
+            }
+            rtbLyric.ResumeLayout();
+        }
+
     }
 }

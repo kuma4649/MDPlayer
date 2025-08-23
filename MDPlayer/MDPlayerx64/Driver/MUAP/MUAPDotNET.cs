@@ -329,5 +329,10 @@ namespace MDPlayer.Driver
             return chipRegister.getCS4231Register((byte)0, (byte)adr, model, vgmFrameCounter);
         }
 
+        public List<Tuple<string, string>> GetTags()
+        {
+            if(chipRegister == null) return null;
+            return muapDriver.GetTags();
+        }
     }
 }

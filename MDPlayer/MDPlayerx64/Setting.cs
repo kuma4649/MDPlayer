@@ -2923,6 +2923,24 @@ namespace MDPlayer
                 }
             }
 
+            private Size _SInfo = Size.Empty;
+            public Size SInfo
+            {
+                get
+                {
+                    if (_SInfo.Width < 0 || _SInfo.Height < 0)
+                    {
+                        return new Size(10, 10);
+                    }
+                    return _SInfo;
+                }
+
+                set
+                {
+                    _SInfo = value;
+                }
+            }
+
             private bool _OInfo = false;
             public bool OInfo
             {
@@ -4430,6 +4448,7 @@ namespace MDPlayer
                 {
                     Main = this.Main.Copy(),
                     PInfo = this.PInfo,
+                    SInfo= this.SInfo,
                     OInfo = this.OInfo,
                     PPic = this.PPic,
                     SPic = this.SPic,

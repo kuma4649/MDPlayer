@@ -4787,11 +4787,15 @@ namespace MDPlayer.form
             {
                 frmInfo.x = this.Location.X + 328;
                 frmInfo.y = this.Location.Y;
+                frmInfo.Width = frmInfo.MinimumSize.Width;
+                frmInfo.Height = frmInfo.MinimumSize.Height;
             }
             else
             {
                 frmInfo.x = setting.location.PInfo.X;
                 frmInfo.y = setting.location.PInfo.Y;
+                frmInfo.Width = setting.location.SInfo.Width;
+                frmInfo.Height = setting.location.SInfo.Height;
             }
 
             frmPic = new frmPic(this);
