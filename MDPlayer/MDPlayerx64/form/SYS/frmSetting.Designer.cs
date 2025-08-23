@@ -624,6 +624,10 @@ namespace MDPlayer.form
             labelCompanyName = new Label();
             textBoxDescription = new TextBox();
             llOpenGithub = new LinkLabel();
+            tpMuapDotNET = new TabPage();
+            rb98CanBe = new RadioButton();
+            rbOTOMI = new RadioButton();
+            groupBox42 = new GroupBox();
             gbWaveOut.SuspendLayout();
             gbAsioOut.SuspendLayout();
             gbWasapiOut.SuspendLayout();
@@ -746,6 +750,8 @@ namespace MDPlayer.form
             tpAbout.SuspendLayout();
             tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)logoPictureBox).BeginInit();
+            tpMuapDotNET.SuspendLayout();
+            groupBox42.SuspendLayout();
             SuspendLayout();
             // 
             // btnOK
@@ -880,6 +886,7 @@ namespace MDPlayer.form
             tcSetting.Controls.Add(tpNuked);
             tcSetting.Controls.Add(tpNSF);
             tcSetting.Controls.Add(tpSID);
+            tcSetting.Controls.Add(tpMuapDotNET);
             tcSetting.Controls.Add(tpPMDDotNET);
             tcSetting.Controls.Add(tabX68k);
             tcSetting.Controls.Add(tpMIDIOut);
@@ -5013,6 +5020,35 @@ namespace MDPlayer.form
             llOpenGithub.TabStop = true;
             llOpenGithub.LinkClicked += LlOpenGithub_LinkClicked;
             // 
+            // tpMuapDotNET
+            // 
+            tpMuapDotNET.Controls.Add(groupBox42);
+            resources.ApplyResources(tpMuapDotNET, "tpMuapDotNET");
+            tpMuapDotNET.Name = "tpMuapDotNET";
+            tpMuapDotNET.UseVisualStyleBackColor = true;
+            // 
+            // rb98CanBe
+            // 
+            resources.ApplyResources(rb98CanBe, "rb98CanBe");
+            rb98CanBe.Checked = true;
+            rb98CanBe.Name = "rb98CanBe";
+            rb98CanBe.TabStop = true;
+            rb98CanBe.UseVisualStyleBackColor = true;
+            // 
+            // rbOTOMI
+            // 
+            resources.ApplyResources(rbOTOMI, "rbOTOMI");
+            rbOTOMI.Name = "rbOTOMI";
+            rbOTOMI.UseVisualStyleBackColor = true;
+            // 
+            // groupBox42
+            // 
+            groupBox42.Controls.Add(rb98CanBe);
+            groupBox42.Controls.Add(rbOTOMI);
+            resources.ApplyResources(groupBox42, "groupBox42");
+            groupBox42.Name = "groupBox42";
+            groupBox42.TabStop = false;
+            // 
             // frmSetting
             // 
             resources.ApplyResources(this, "$this");
@@ -5210,6 +5246,9 @@ namespace MDPlayer.form
             tableLayoutPanel.ResumeLayout(false);
             tableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)logoPictureBox).EndInit();
+            tpMuapDotNET.ResumeLayout(false);
+            groupBox42.ResumeLayout(false);
+            groupBox42.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -5827,5 +5866,9 @@ namespace MDPlayer.form
         private GroupBox gbMDServer;
         private CheckBox cbUseMDServer;
         private TextBox tbPort;
+        private TabPage tpMuapDotNET;
+        private GroupBox groupBox42;
+        private RadioButton rb98CanBe;
+        private RadioButton rbOTOMI;
     }
 }

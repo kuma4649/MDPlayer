@@ -953,6 +953,11 @@ namespace MDPlayer.form
             CbPMDUsePPSDRV_CheckedChanged(null, null);
             RbPMDUsePPSDRVManualFreq_CheckedChanged(null, null);
 
+
+            rb98CanBe.Checked = setting.muapDotNET.soundDeviceMode == 0;
+            rbOTOMI.Checked = setting.muapDotNET.soundDeviceMode != 0;
+
+
             rbZmV3V2.Checked = setting.zmusic.compilePriority == 0;
             rbZmV2V3.Checked = setting.zmusic.compilePriority == 1;
             rbZmV3.Checked = setting.zmusic.compilePriority == 2;
@@ -1895,6 +1900,12 @@ namespace MDPlayer.form
             if (!int.TryParse(tbPMDVolumeGIMICSSG.Text, out nn)) nn = 31;
             nn = Math.Min(Math.Max(nn, 0), 127);
             setting.pmdDotNET.volumeGIMICSSG = nn;
+
+
+
+            setting.muapDotNET.soundDeviceMode = rb98CanBe.Checked ? 0 : 1;
+
+
 
             setting.zmusic.compilePriority = rbZmV3V2.Checked ? 0 : (rbZmV2V3.Checked ? 1 : (rbZmV3.Checked ? 2 : 3));
             setting.zmusic.pcm8type = rbZmPCM8.Checked ? 0 : (rbZmPCM8PP.Checked ? 1 : 0);

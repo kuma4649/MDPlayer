@@ -94,14 +94,14 @@ namespace MDPlayer.Driver
                 //lp = lp < 0 ? 0 : lp;
                 //vgmCurLoop = (uint)lp;
 
-                //if (muapDriver.GetStatus() < 1)
-                //{
-                //    //if (mucomDriver.GetStatus() == 0 && !Stopped)
-                //    //{
-                //    //    Thread.Sleep((int)(setting.outputDevice.SampleRate/latency * 2.0));//実際の音声が発音しきるまでlatency*2の分だけ待つ
-                //    //}
-                //    Stopped = true;
-                //}
+                if (muapDriver.GetStatus() < 1)
+                {
+                    //if (mucomDriver.GetStatus() == 0 && !Stopped)
+                    //{
+                    //    Thread.Sleep((int)(setting.outputDevice.SampleRate/latency * 2.0));//実際の音声が発音しきるまでlatency*2の分だけ待つ
+                    //}
+                    Stopped = true;
+                }
             }
             catch (Exception ex)
             {
@@ -230,7 +230,11 @@ namespace MDPlayer.Driver
                 lca,
                 buf.ToArray()
                 , null
-                , (object)(new object[] { CS4231Read ,toneBuff})
+                , (object)(new object[] {
+                    (object)CS4231Read,
+                    toneBuff,
+                    setting.muapDotNET.soundDeviceMode
+                    })
                 );
 
             muapDriver.StartRendering(Common.VGMProcSampleRate

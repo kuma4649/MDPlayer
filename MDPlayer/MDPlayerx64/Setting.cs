@@ -817,6 +817,20 @@ namespace MDPlayer
             }
         }
 
+        private MuapDotNET _MuapDotNET = new();
+        public MuapDotNET muapDotNET
+        {
+            get
+            {
+                return _MuapDotNET;
+            }
+
+            set
+            {
+                _MuapDotNET = value;
+            }
+        }
+
         private Zmusic _Zmusic = new();
         public Zmusic zmusic
         {
@@ -5597,6 +5611,22 @@ namespace MDPlayer
         }
 
         [Serializable]
+        public class MuapDotNET
+        {
+            public int soundDeviceMode = 0;
+
+            public MuapDotNET Copy()
+            {
+                MuapDotNET p = new()
+                {
+                    soundDeviceMode = this.soundDeviceMode
+                };
+
+                return p;
+            }
+        }
+
+        [Serializable]
         public class Zmusic
         {
             public int compilePriority = 0;
@@ -6191,6 +6221,7 @@ namespace MDPlayer
             setting.nukedOPN2 = this.nukedOPN2.Copy();
             setting.autoBalance = this.autoBalance.Copy();
             setting.pmdDotNET = this.pmdDotNET.Copy();
+            setting.muapDotNET=this.muapDotNET.Copy();
             setting.zmusic = this.zmusic.Copy();
             setting.mxdrv = this.mxdrv.Copy();
             setting.mndrv = this.mndrv.Copy();
