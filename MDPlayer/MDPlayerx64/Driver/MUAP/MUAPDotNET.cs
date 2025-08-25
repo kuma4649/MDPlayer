@@ -257,6 +257,14 @@ namespace MDPlayer.Driver
         }
         void OPN2WriteP(ChipDatum dat)
         {
+            if (dat.address > 0xff)
+            {
+                ;
+            }
+            if (dat.port > 0)
+            {
+                ;
+            }
             //log.Write(LogLevel.Trace, string.Format("Write OPN2 : Prt:${0:X02} Adr:${1:X02} Dat:${2:X02}", dat.port, dat.address, dat.data));
             OPN2Write(0, dat);
         }
@@ -298,7 +306,7 @@ namespace MDPlayer.Driver
             }
 
             if (dat.address == -1) return;
-            //Log.WriteLine(LogLevel.TRACE, string.Format("Out ChipA:{0} Port:{1} Adr:[{2:x02}] val[{3:x02}]", chipId, dat.port, (int)dat.address, (int)dat.data));
+            //Debug.WriteLine(string.Format("Out ChipA:{0} Port:{1} Adr:[{2:x02}] val[{3:x02}]", chipId, dat.port, (int)dat.address, (int)dat.data));
 
             chipRegister.setYM2612Register((byte)chipId, (byte)dat.port, (byte)dat.address, (byte)dat.data, model, vgmFrameCounter);
         }

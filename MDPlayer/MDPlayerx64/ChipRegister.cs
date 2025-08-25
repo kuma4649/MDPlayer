@@ -4728,7 +4728,7 @@ namespace MDPlayer
                         return;//TESTレジスタへのデータ送信をキャンセルする
 
                     //エミュを使用する場合のみMDSoundへデータを送る
-                    //Console.WriteLine("{0}:{1:X02}:{2:X02}:{3:X02}", chipID, dPort, dAddr, dData);
+                    //Debug.WriteLine("{0}:{1:X02}:{2:X02}:{3:X02}", chipID, dPort, dAddr, dData);
                     if (ctYM2612[chipID].UseEmu[0]) mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                     if (ctYM2612[chipID].UseEmu[1]) mds.WriteYM3438((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                     if (ctYM2612[chipID].UseEmu[2]) mds.WriteYM2612mame((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);

@@ -1,4 +1,8 @@
 更新履歴 
+STBL525 2025/08/26
+  mucomDotNET(TAG002)の差し替え
+  ・OPN2が鳴らなくなってしまっていたのを修正
+
 STBL524 2025/08/25
   mucomDotNET(TAG002)の差し替え
   ・SPB、ユーザー定義PCMの読み込み処理修正

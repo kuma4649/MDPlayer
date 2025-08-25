@@ -4293,8 +4293,8 @@ namespace MDPlayer
 
                 ym2608 ym2608 = null;
                 ym2608 = new ym2608();
-                ym3438 ym3438 = null;
-                ym3438 = new ym3438();
+                //ym3438 ym3438 = null;
+                //ym3438 = new ym3438();
                 CS4231 cs4231 = null;
                 cs4231 = new CS4231();
                 Func<string, Stream> fn = Common.GetOPNARyhthmStream;
@@ -4308,7 +4308,7 @@ namespace MDPlayer
                         Start = ym2608.Start,
                         Stop = ym2608.Stop,
                         Reset = ym2608.Reset,
-                        SamplingRate = 55467,// (UInt32)setting.outputDevice.SampleRate;
+                        SamplingRate = (UInt32)setting.outputDevice.SampleRate,
                         Volume = setting.balance.YM2608Volume,
                         Clock = Driver.MucomDotNET.OPNAbaseclock,
                         Option = new object[] { fn }
@@ -4316,25 +4316,86 @@ namespace MDPlayer
                     ChipLED.PriOPNA = 1;
                     lstChips.Add(chip);
                     UseChip.Add(EnmChip.YM2608);
-                    ClockYM2608 = Driver.MucomDotNET.OPNAbaseclock;
+                    ClockYM2608 = 7987200;
 
-                    chip = new MDSound.MDSound.Chip
+                MDSound.ym2612 ym2612 = null;
+                MDSound.ym3438 ym3438 = null;
+                MDSound.ym2612mame ym2612mame = null;
+                chip = new MDSound.MDSound.Chip();
+
+                if (setting.YM2612Type[0].UseEmu[0])
+                {
+                    ym2612 ??= new ym2612();
+                    chip.type = MDSound.MDSound.enmInstrumentType.YM2612;
+                    chip.Instrument = ym2612;
+                    chip.Update = ym2612.Update;
+                    chip.Start = ym2612.Start;
+                    chip.Stop = ym2612.Stop;
+                    chip.Reset = ym2612.Reset;
+                    chip.Option = new object[]
                     {
-                        ID = 0,
-                        type = MDSound.MDSound.enmInstrumentType.YM3438,
-                        Instrument = ym3438,
-                        Update = ym3438.Update,
-                        Start = ym3438.Start,
-                        Stop = ym3438.Stop,
-                        Reset = ym3438.Reset,
-                        SamplingRate = 55467,// (UInt32)setting.outputDevice.SampleRate;
-                        Volume = setting.balance.YM2612Volume,
-                        Clock = Driver.MucomDotNET.OPNAbaseclock,
-                        Option = new object[] { fn }
+                        (int)(
+                            (setting.nukedOPN2.GensDACHPF ? 0x01: 0x00)
+                            |(setting.nukedOPN2.GensSSGEG ? 0x02: 0x00)
+                        )
                     };
+                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
+                    chip.Volume = setting.balance.YM2612Volume;
+                    chip.Clock = 7987200;
+                }
+                else if (setting.YM2612Type[0].UseEmu[1])
+                {
+                    ym3438 ??= new ym3438();
+                    chip.type = MDSound.MDSound.enmInstrumentType.YM3438;
+                    chip.Instrument = ym3438;
+                    chip.Update = ym3438.Update;
+                    chip.Start = ym3438.Start;
+                    chip.Stop = ym3438.Stop;
+                    chip.Reset = ym3438.Reset;
+                    switch (setting.nukedOPN2.EmuType)
+                    {
+                        case 0:
+                            ym3438.OPN2_SetChipType(ym3438_const.ym3438_type.discrete);
+                            break;
+                        case 1:
+                            ym3438.OPN2_SetChipType(ym3438_const.ym3438_type.asic);
+                            break;
+                        case 2:
+                            ym3438.OPN2_SetChipType(ym3438_const.ym3438_type.ym2612);
+                            break;
+                        case 3:
+                            ym3438.OPN2_SetChipType(ym3438_const.ym3438_type.ym2612_u);
+                            break;
+                        case 4:
+                            ym3438.OPN2_SetChipType(ym3438_const.ym3438_type.asic_lp);
+                            break;
+                    }
+                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
+                    chip.Volume = setting.balance.YM2612Volume;
+                    chip.Clock = 7987200;
+                }
+                else if (setting.YM2612Type[0].UseEmu[2])
+                {
+                    ym2612mame ??= new ym2612mame();
+                    chip.type = MDSound.MDSound.enmInstrumentType.YM2612mame;
+                    chip.Instrument = ym2612mame;
+                    chip.Update = ym2612mame.Update;
+                    chip.Start = ym2612mame.Start;
+                    chip.Stop = ym2612mame.Stop;
+                    chip.Reset = ym2612mame.Reset;
+                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
+                    chip.Volume = setting.balance.YM2612Volume;
+                    chip.Clock = 7987200;
+                }
+
+                if (chip.Clock != 0)
+                {
+                    ClockYM2612 = 7670454;
                     ChipLED.PriOPN2 = 1;
                     lstChips.Add(chip);
                     UseChip.Add(EnmChip.YM2612);
+                }
+
 
                 chip = new MDSound.MDSound.Chip
                 {
