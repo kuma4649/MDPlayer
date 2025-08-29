@@ -14,7 +14,7 @@ namespace MDPlayer.Driver
         private iCompiler muapCompiler = null;
         private iDriver muapDriver = null;
         public byte[] toneBuff;
-
+        public ushort[] labelAdr;
 
         public string PlayingFileName { get; internal set; }
 
@@ -90,9 +90,9 @@ namespace MDPlayer.Driver
                     vgmFrameCounter++;
                 }
 
-                //int lp = muapDriver.GetNowLoopCounter();
-                //lp = lp < 0 ? 0 : lp;
-                //vgmCurLoop = (uint)lp;
+                int lp = muapDriver.GetNowLoopCounter();
+                lp = lp < 0 ? 0 : lp;
+                vgmCurLoop = (uint)lp;
 
                 if (muapDriver.GetStatus() < 1)
                 {
@@ -154,9 +154,18 @@ namespace MDPlayer.Driver
                 dest.Add(md != null ? (byte)md.dat : (byte)0);
             }
 
-            if(ret!=null && ret.Length>0 && ret[0].args!=null && ret[0].args[0]!=null && ret[0].args[0] is byte[])
+            toneBuff = null;
+            labelAdr = null;
+            if (ret != null && ret.Length > 0 && ret[0].args != null)
             {
-                toneBuff = (byte[])ret[0].args[0];
+                if (ret[0].args[0] != null && ret[0].args[0] is byte[])
+                {
+                    toneBuff = (byte[])ret[0].args[0];
+                }
+                if (ret[0].args[1] != null && ret[0].args[1] is ushort[])
+                {
+                    labelAdr = (ushort[])ret[0].args[1];
+                }
             }
 
             return dest.ToArray();
@@ -233,7 +242,8 @@ namespace MDPlayer.Driver
                 , (object)(new object[] {
                     (object)CS4231Read,
                     toneBuff,
-                    setting.muapDotNET.soundDeviceMode
+                    setting.muapDotNET.soundDeviceMode,
+                    labelAdr
                     })
                 );
 

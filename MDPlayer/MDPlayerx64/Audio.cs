@@ -4276,6 +4276,10 @@ namespace MDPlayer
                 byte[] toneBuff = ((Driver.muapDotNET)DriverVirtual).toneBuff;
                 ((Driver.muapDotNET)DriverReal).toneBuff = toneBuff;
                 ((Driver.muapDotNET)DriverPianoRoll).toneBuff = toneBuff;
+                //ラベルテーブルの共有
+                ushort[] labelAdr = ((Driver.muapDotNET)DriverVirtual).labelAdr;
+                ((Driver.muapDotNET)DriverReal).labelAdr = labelAdr;
+                ((Driver.muapDotNET)DriverPianoRoll).labelAdr = labelAdr;
 
                 chipRegister.resetChips();
                 ResetFadeOutParam();
