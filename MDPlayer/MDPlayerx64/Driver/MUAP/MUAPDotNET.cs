@@ -1,9 +1,5 @@
-﻿using musicDriverInterface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MDSound;
+using musicDriverInterface;
 using static MDPlayer.Driver.MucomDotNET;
 
 namespace MDPlayer.Driver
@@ -22,7 +18,7 @@ namespace MDPlayer.Driver
         public muapDotNET(InstanceMarker muapDotNET_Im)
         {
             im = muapDotNET_Im;
-            Log.writeLine = writeLine;
+            musicDriverInterface.Log.writeLine = writeLine;
         }
 
         public override GD3 getGD3Info(byte[] buf, uint vgmGd3)
@@ -240,7 +236,13 @@ namespace MDPlayer.Driver
                 buf.ToArray()
                 , null
                 , (object)(new object[] {
-                    (object)CS4231Read,
+                    (Func<byte,byte>)CS4231Read,
+                    (Func<byte[]>)CS4231EMS_GetCrntMapBuf,
+                    (iDriver.dlgEMS_Map)CS4231EMS_Map,
+                    (Func<ushort>)CS4231EMS_GetPageMap,
+                    (iDriver.dlgEMS_GetHandleName)CS4231EMS_GetHandleName,
+                    (iDriver.dlgEMS_SetHandleName)CS4231EMS_SetHandleName,
+                    (iDriver.dlgEMS_AllocMemory)CS4231EMS_AllocMemory,
                     toneBuff,
                     setting.muapDotNET.soundDeviceMode,
                     labelAdr
@@ -255,7 +257,7 @@ namespace MDPlayer.Driver
             muapDriver.MusicSTART(0);
             object[] work = (object[])muapDriver.GetWork();
             chipRegister.setCS4231FIFOBuf(0, (byte[])work[0], model);
-            chipRegister.setCS4231Int0bEnt(0, (Action)work[1], model);
+            //chipRegister.setCS4231Int0bEnt(0, (Action)work[1], model);
 
             return true;
         }
@@ -345,6 +347,36 @@ namespace MDPlayer.Driver
         byte CS4231Read(byte adr)
         {
             return chipRegister.getCS4231Register((byte)0, (byte)adr, model, vgmFrameCounter);
+        }
+
+        byte[] CS4231EMS_GetCrntMapBuf()
+        {
+            return chipRegister.getCS4231EMS_GetCrntMapBuf(0, model);
+        }
+
+        void CS4231EMS_Map(byte al, ref byte ah, ushort bx, ushort dx)
+        {
+            chipRegister.setCS4231EMS_Map(0, al, ref ah, bx, dx, model);
+        }
+
+        ushort CS4231EMS_GetPageMap()
+        {
+            return chipRegister.getCS4231EMS_GetPageMap(0, model);
+        }
+
+        void CS4231EMS_GetHandleName(ref byte ah, ushort dx, ref string sbuf)
+        {
+            chipRegister.getCS4231EMS_GetHandleName(0, ref ah, dx, ref sbuf, model);
+        }
+
+        void CS4231EMS_SetHandleName(ref byte ah, ushort dx, string emsname2)
+        {
+            chipRegister.setCS4231EMS_SetHandleName(0, ref ah, dx, emsname2, model);
+        }
+
+        void CS4231EMS_AllocMemory(ref byte ah, ref ushort dx, ushort bx)
+        {
+            chipRegister.setCS4231EMS_AllocMemory(0, ref ah, ref dx, bx, model);
         }
 
         public List<Tuple<string, string>> GetTags()

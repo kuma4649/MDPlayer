@@ -1,37 +1,47 @@
 更新履歴 
+STBL530 2025/09/09
+  muapDotNET(TAG009)の差し替え
+  MDSound(TAG155)の差し替え
+  ・CS4231の処理を変更
+
+STBL529 2025/08/29 3rd
+  muapDotNET(TAG009)の差し替え
+  ・更にループ回数をチェックするように修正
+  (*コマンド実行回数又は@LABEL0/1へのジャンプ回数(.MUSファイルのみ)をループした回数としてカウントします)
+
 STBL528 2025/08/29 2nd
-  mucomDotNET(TAG008)の差し替え
+  muapDotNET(TAG008)の差し替え
   ・ループ回数をチェックするように修正
   (*コマンド実行回数又は@LABEL0へのジャンプ回数(.MUSファイルのみ)をループした回数としてカウントします)
 
 STBL527 2025/08/29
-  mucomDotNET(TAG007)の差し替え
+  muapDotNET(TAG007)の差し替え
   ・コンパイラ:mixerとスライドの処理を修正
 
 STBL526 2025/08/26 2nd
-  mucomDotNET(TAG002)の差し替え
+  muapDotNET(TAG002)の差し替え
   ・OPN2に余計なデータが送信されるケースがあるのを修正
 
 STBL525 2025/08/26
-  mucomDotNET(TAG002)の差し替え
+  muapDotNET(TAG002)の差し替え
   ・OPN2が鳴らなくなってしまっていたのを修正
 
 STBL524 2025/08/25
-  mucomDotNET(TAG002)の差し替え
+  muapDotNET(TAG002)の差し替え
   ・SPB、ユーザー定義PCMの読み込み処理修正
 
 STBL523 2025/08/24
-  mucomDotNET(TAG002)の差し替え
+  muapDotNET(TAG002)の差し替え
   ・ファイル名取得処理のバグを修正
   ・SPB、ユーザー定義PCMの読み込みにちょっとだけ対応(まだ不具合有り)
 
 STBL522 2025/08/23 2nd
-  mucomDotNET(TAG002)の差し替え
+  muapDotNET(TAG002)の差し替え
   ・歌詞情報を取得できるように修正
   Info:muapの歌詞表示に対応
 
 STBL521 2025/08/23
-  mucomDotNET(TAG001)の差し替え
+  muapDotNET(TAG001)の差し替え
   ・sound deviceを切り替え出来るようにした(98CanBe/音美ちゃん)
   ・ファンクションは呼び出し時は受け付けるだけにして、実際は割り込み中に実行するように変更。
   ・演奏が終わったことを検出できるように修正

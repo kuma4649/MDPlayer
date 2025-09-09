@@ -4411,7 +4411,7 @@ namespace MDPlayer
                     Stop = cs4231.Stop,
                     Reset = cs4231.Reset,
                     SamplingRate = 55467,// (UInt32)setting.outputDevice.SampleRate;
-                    Volume = 0,//setting.balance.CS4231Volume,
+                    Volume = setting.balance.CS4231Volume,
                     Clock = 0,
                     Option = null
                 };

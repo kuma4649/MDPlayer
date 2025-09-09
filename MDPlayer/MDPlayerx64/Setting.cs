@@ -2732,6 +2732,21 @@ namespace MDPlayer
                 }
             }
 
+            private int _CS4231Volume = 0;
+            public int CS4231Volume
+            {
+                get
+                {
+                    if (_CS4231Volume > 20 || _CS4231Volume < -192) _CS4231Volume = 0;
+                    return _CS4231Volume;
+                }
+
+                set
+                {
+                    _CS4231Volume = value;
+                    if (_CS4231Volume > 20 || _CS4231Volume < -192) _CS4231Volume = 0;
+                }
+            }
 
             private int _GimicOPNVolume = 0;
             public int GimicOPNVolume
@@ -2829,6 +2844,7 @@ namespace MDPlayer
                     PCM8Volume = this.PCM8Volume,
                     PCM8PPVolume = this.PCM8PPVolume,
                     MPCMX68kVolume = this.MPCMX68kVolume,
+                    CS4231Volume = this.CS4231Volume,
 
                     GimicOPNVolume = this.GimicOPNVolume,
                     GimicOPNAVolume = this.GimicOPNAVolume

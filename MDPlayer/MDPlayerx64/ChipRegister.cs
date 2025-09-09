@@ -3432,17 +3432,78 @@ namespace MDPlayer
 
         }
 
-        public void setCS4231Int0bEnt(int chipID, Action act, EnmModel model)
+        public byte[] getCS4231EMS_GetCrntMapBuf(int chipID, EnmModel model)
         {
             if (model == EnmModel.VirtualModel)
             {
-                mds.SetCS4231Int0bEnt((byte)chipID, act);
+                return mds.getCS4231EMS_GetCrntMapBuf((byte)chipID);
+            }
+            else if (model == EnmModel.RealModel)
+            {
+                return null;
+            }
+            return null;
+        }
+
+        public void setCS4231EMS_Map(int chipID, byte al, ref byte ah, ushort bx, ushort dx, EnmModel model)
+        {
+            if (model == EnmModel.VirtualModel)
+            {
+                mds.setCS4231EMS_Map((byte)chipID,  al, ref ah, bx, dx);
             }
             else if (model == EnmModel.RealModel)
             {
                 return;
             }
+        }
 
+        public ushort getCS4231EMS_GetPageMap(int chipID, EnmModel model)
+        {
+            if (model == EnmModel.VirtualModel)
+            {
+                return mds.getCS4231EMS_GetPageMap((byte)chipID);
+            }
+            else if (model == EnmModel.RealModel)
+            {
+                return 0;
+            }
+            return 0;
+        }
+
+        public void getCS4231EMS_GetHandleName(int chipID, ref byte ah, ushort dx, ref string sbuf, EnmModel model)
+        {
+            if (model == EnmModel.VirtualModel)
+            {
+                mds.getCS4231EMS_GetHandleName((byte)chipID, ref ah, dx, ref sbuf);
+            }
+            else if (model == EnmModel.RealModel)
+            {
+                return;
+            }
+        }
+
+        public void setCS4231EMS_SetHandleName(int chipID, ref byte ah, ushort dx, string sbuf, EnmModel model)
+        {
+            if (model == EnmModel.VirtualModel)
+            {
+                mds.setCS4231EMS_SetHandleName((byte)chipID, ref ah, dx, sbuf);
+            }
+            else if (model == EnmModel.RealModel)
+            {
+                return;
+            }
+        }
+
+        public void setCS4231EMS_AllocMemory(int chipID, ref byte ah, ref ushort dx, ushort bx, EnmModel model)
+        {
+            if (model == EnmModel.VirtualModel)
+            {
+                mds.setCS4231EMS_AllocMemory((byte)chipID, ref ah, ref dx, bx);
+            }
+            else if (model == EnmModel.RealModel)
+            {
+                return;
+            }
         }
 
         public byte getCS4231Register(int chipID, int dAddr, EnmModel model, long vgmFrameCounter)
