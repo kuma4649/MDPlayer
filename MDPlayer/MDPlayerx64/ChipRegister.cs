@@ -3252,6 +3252,10 @@ namespace MDPlayer
                 if (!ctYM2608[chipID].UseReal[0] && ctYM2608[chipID].UseEmu[0])
                 {
                     //if(dAddr==0x29) Console.Write("{0:x2}:{1:x2}:{2:x2}  ", dPort, dAddr, dData);
+                    //if (chipID == 0 && dPort == 0 && dAddr >= 0x08 && dAddr <= 0x0a)
+                    //{
+                    //log.Write(string.Format("FM P{2} Out:Adr[{0:x02}] val[{1:x02}]", (int)dAddr, (int)dData,dPort));
+                    //}
                     mds.WriteYM2608((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                 }
             }

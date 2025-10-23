@@ -50,7 +50,11 @@ namespace MDPlayer
                 string tmsg = string.Format("[{0}][{1}]{2}", timefmt, logLvl, mmsg);
                 logger?.Invoke(tmsg);
                 if (consoleEchoBack) Console.WriteLine(tmsg);
-                using (StreamWriter writer = new StreamWriter(path, true, sjisEnc)) writer.WriteLine(tmsg);
+                using (StreamWriter writer = new StreamWriter(path, true, sjisEnc))
+                {
+                    //writer.WriteLine(tmsg);
+                    writer.WriteLine(msg);
+                }
             }
         }
 
