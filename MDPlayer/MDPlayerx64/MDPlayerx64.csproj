@@ -47,9 +47,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BunLabs.NAudio.Flac" Version="2.0.1" />
     <PackageReference Include="NAudio" Version="2.2.1" />
     <PackageReference Include="NAudio.Vorbis" Version="1.5.0" />
-    <PackageReference Include="System.Text.Json" Version="9.0.6" />
+    <PackageReference Include="System.Text.Json" Version="9.0.10" />
     <PackageReference Include="VST.NET2-Host" Version="2.1.0" />
   </ItemGroup>
 

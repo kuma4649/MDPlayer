@@ -414,6 +414,9 @@ namespace MDPlayer
                 case EnmFileFormat.WMA:
                     AddFileWMA(mc, entry);
                     break;
+                case EnmFileFormat.FLAC:
+                    AddFileFLAC(mc, entry);
+                    break;
             }
         }
 
@@ -518,6 +521,9 @@ namespace MDPlayer
                     break;
                 case EnmFileFormat.WMA:
                     AddFileWMA(ref index, mc, entry);
+                    break;
+                case EnmFileFormat.FLAC:
+                    AddFileFLAC(ref index, mc, entry);
                     break;
                 case EnmFileFormat.ZIP:
                     AddFileZIP(ref index, mc, entry);
@@ -996,6 +1002,16 @@ namespace MDPlayer
         }
 
         private void AddFileWMA(ref int index, Music mc, object entry = null)
+        {
+            AddFilexxx(ref index, mc, entry);
+        }
+
+        private void AddFileFLAC(Music mc, object entry = null)
+        {
+            AddFilexxx(mc, entry);
+        }
+
+        private void AddFileFLAC(ref int index, Music mc, object entry = null)
         {
             AddFilexxx(ref index, mc, entry);
         }

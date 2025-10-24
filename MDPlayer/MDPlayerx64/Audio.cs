@@ -18,6 +18,7 @@ using System.IO.Compression;
 using System.Text;
 using static MDPlayer.MDChipParams;
 using static MDPlayer.Setting;
+using NAudio.Flac;
 
 namespace MDPlayer
 {
@@ -271,6 +272,7 @@ namespace MDPlayer
                 || naudioM4aFileReader != null
                 || naudioAacFileReader != null
                 || naudioWmaFileReader != null
+                || naudioFlacFileReader != null
                 )
                 && naudioBuff!=null)
             {
@@ -1189,6 +1191,33 @@ namespace MDPlayer
             {
                 music.format = EnmFileFormat.WMA;
                 GD3 gd3 = new Wma().getGD3Info(buf, 0);
+                if (gd3 != null)
+                {
+                    music.title = gd3.TrackName;
+                    music.titleJ = gd3.TrackNameJ;
+                    music.game = gd3.GameName;
+                    music.gameJ = gd3.GameNameJ;
+                    music.composer = gd3.Composer;
+                    music.composerJ = gd3.ComposerJ;
+                    music.vgmby = gd3.VGMBy;
+
+                    music.converted = gd3.Converted;
+                    music.notes = gd3.Notes;
+                }
+                else
+                {
+                    music.title = string.Format("({0})", System.IO.Path.GetFileName(file));
+                }
+
+                if (music.title == "" && music.titleJ == "")
+                {
+                    music.title = string.Format("({0})", System.IO.Path.GetFileName(file));
+                }
+            }
+            else if (ext == ".flac")
+            {
+                music.format = EnmFileFormat.FLAC;
+                GD3 gd3 = new Flac().getGD3Info(buf, 0);
                 if (gd3 != null)
                 {
                     music.title = gd3.TrackName;
@@ -2225,12 +2254,13 @@ namespace MDPlayer
             Common.playingFilePath = Path.GetDirectoryName(playingFileName);
 
             if (naudioWaveFileReader != null
-                || naudioMp3FileReader != null 
+                || naudioMp3FileReader != null
                 || naudioAiffFileReader != null
                 || naudioOggFileReader != null
                 || naudioM4aFileReader != null
                 || naudioAacFileReader != null
                 || naudioWmaFileReader != null
+                || naudioFlacFileReader != null
                 )
             {
                 NAudioStop();
@@ -2243,6 +2273,7 @@ namespace MDPlayer
                 || format == EnmFileFormat.M4A
                 || format == EnmFileFormat.AAC
                 || format == EnmFileFormat.WMA
+                || format == EnmFileFormat.FLAC
                 )
             {
                 naudioFileName = playingFileName;
@@ -3338,6 +3369,49 @@ namespace MDPlayer
                 else
                 {
                     wfcp = new WaveFormatConversionProvider(naudioWmaFileReader.WaveFormat, l);
+                }
+
+                ChipLED = new ChipLEDs();
+                vgmSpeed = 1;
+                vgmFadeout = false;
+                vgmFadeoutCounter = 1.0;
+                vgmFadeoutCounterV = 0.00001;
+                DriverVirtual = null;
+                DriverReal = null;
+                naudioSampleCounter = 0;
+                naudioDummyCount = 0;
+
+                return true;
+            }
+
+            if (PlayingFileFormat == EnmFileFormat.FLAC)
+            {
+                Flac flac = new Flac();
+                try
+                {
+                    wavestreamGD3 = flac.getGD3Info(File.ReadAllBytes(naudioFileName), 0);
+                }
+                catch
+                {
+                    wavestreamGD3 = null;
+                }
+
+                naudioFlacFileReader = new FlacReader(naudioFileName);
+                WaveFormat format = new WaveFormat(setting.outputDevice.SampleRate, 16, 2);
+                AftertasteStream l = new AftertasteStream(naudioFlacFileReader);
+                if (naudioFlacFileReader.WaveFormat.BitsPerSample == 32)
+                {
+                    Wave32To16Stream a = new Wave32To16Stream(l);
+                    wfcp = new WaveFormatConversionProvider(format, a);
+                }
+                if (naudioFlacFileReader.WaveFormat.BitsPerSample == 24)
+                {
+                    Wave24To16Stream a = new Wave24To16Stream(l);
+                    wfcp = new WaveFormatConversionProvider(format, a);
+                }
+                else
+                {
+                    wfcp = new WaveFormatConversionProvider(naudioFlacFileReader.WaveFormat, l);
                 }
 
                 ChipLED = new ChipLEDs();
@@ -10033,6 +10107,7 @@ namespace MDPlayer
                     || naudioM4aFileReader != null
                     || naudioAacFileReader != null
                     || naudioWmaFileReader != null
+                    || naudioFlacFileReader != null
                     ))
                 {
                     Stopped = true;
@@ -10050,6 +10125,7 @@ namespace MDPlayer
                         || PlayingFileFormat != EnmFileFormat.M4A
                         || PlayingFileFormat != EnmFileFormat.AAC
                         || PlayingFileFormat != EnmFileFormat.WMA
+                        || PlayingFileFormat != EnmFileFormat.FLAC
                         )
                         && (naudioWaveFileReader != null
                         || naudioMp3FileReader != null
@@ -10058,6 +10134,7 @@ namespace MDPlayer
                         || naudioM4aFileReader != null
                         || naudioAacFileReader != null
                         || naudioWmaFileReader != null
+                        || naudioFlacFileReader != null
                         ))
                     {
                         NAudioStop();
@@ -10091,6 +10168,7 @@ namespace MDPlayer
                     || naudioM4aFileReader != null
                     || naudioAacFileReader != null
                     || naudioWmaFileReader != null
+                    || naudioFlacFileReader != null
                     )
                 {
                     NAudioStop();
@@ -10195,6 +10273,13 @@ namespace MDPlayer
                     wfcp = null;
                     dmy.Dispose();
                 }
+                if (naudioFlacFileReader != null)
+                {
+                    FlacReader dmy = naudioFlacFileReader;
+                    naudioFlacFileReader = null;
+                    wfcp = null;
+                    dmy.Dispose();
+                }
             }
             catch { }
         }
@@ -10265,6 +10350,7 @@ namespace MDPlayer
                 if (naudioM4aFileReader != null) ws = naudioM4aFileReader;
                 if (naudioAacFileReader != null) ws = naudioAacFileReader;
                 if (naudioWmaFileReader != null) ws = naudioWmaFileReader;
+                if (naudioFlacFileReader != null) ws = naudioFlacFileReader;
                 if (ws != null)
                 {
                     //long ns = (long)((double)ws.TotalTime.TotalNanoseconds / (double)ws.Length * ws.Position);
@@ -10296,6 +10382,7 @@ namespace MDPlayer
                 if (naudioM4aFileReader != null) ws = naudioM4aFileReader;
                 if (naudioAacFileReader != null) ws = naudioAacFileReader;
                 if (naudioWmaFileReader != null) ws = naudioWmaFileReader;
+                if (naudioFlacFileReader != null) ws = naudioFlacFileReader;
                 if (ws != null)
                 {
                     long ns= (long)ws.TotalTime.TotalNanoseconds;
@@ -10508,6 +10595,7 @@ namespace MDPlayer
                 || naudioM4aFileReader != null
                 || naudioAacFileReader != null
                 || naudioWmaFileReader != null
+                || naudioFlacFileReader != null
                 )
             {
                 return false;
@@ -10822,6 +10910,7 @@ namespace MDPlayer
                 || naudioM4aFileReader != null
                 || naudioAacFileReader != null
                 || naudioWmaFileReader != null
+                || naudioFlacFileReader != null
                 )
             {
                 if (TrdClosed)
@@ -11027,6 +11116,7 @@ namespace MDPlayer
         private static MediaFoundationReader naudioM4aFileReader = null;
         private static MediaFoundationReader naudioAacFileReader = null;
         private static MediaFoundationReader naudioWmaFileReader = null;
+        private static FlacReader naudioFlacFileReader = null;
         private static LoopStream loopStream = null;
         private static WaveFormatConversionProvider wfcp = null;
         private static byte[] naudioSrcbuffer = null;
@@ -11045,6 +11135,7 @@ namespace MDPlayer
             if (naudioM4aFileReader != null) ws = naudioM4aFileReader;
             if (naudioAacFileReader != null) ws = naudioAacFileReader;
             if (naudioWmaFileReader != null) ws = naudioWmaFileReader;
+            if (naudioFlacFileReader != null) ws = naudioFlacFileReader;
             if (ws != null)
             {
                 if (ws.CanSeek)
@@ -11359,6 +11450,10 @@ namespace MDPlayer
                     return wavestreamGD3;
                 }
                 else if (naudioWmaFileReader != null)
+                {
+                    return wavestreamGD3;
+                }
+                else if (naudioFlacFileReader != null)
                 {
                     return wavestreamGD3;
                 }

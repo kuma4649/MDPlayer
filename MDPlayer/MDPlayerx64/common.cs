@@ -369,6 +369,7 @@ namespace MDPlayer
             if (filename.ToLower().LastIndexOf(".m4a") != -1) return EnmFileFormat.M4A;
             if (filename.ToLower().LastIndexOf(".aac") != -1) return EnmFileFormat.AAC;
             if (filename.ToLower().LastIndexOf(".wma") != -1) return EnmFileFormat.WMA;
+            if (filename.ToLower().LastIndexOf(".flac") != -1) return EnmFileFormat.FLAC;
 
             return EnmFileFormat.unknown;
         }
@@ -1114,6 +1115,7 @@ namespace MDPlayer
         WMA = 41,
         MUAP_src = 42,
         MUAP = 43,
+        FLAC = 44,
     }
 
     public enum EnmArcType : int

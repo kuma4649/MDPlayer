@@ -6437,6 +6437,12 @@ namespace MDPlayer.form
                 return new byte[] { (byte)'W', (byte)'M', (byte)'A' };
             }
 
+            if (ext == ".flac")
+            {
+                format = EnmFileFormat.FLAC;
+                return new byte[] { (byte)'F', (byte)'L', (byte)'A', (byte)'C' };
+            }
+
             //先ずは丸ごと読み込む
             byte[] buf = System.IO.File.ReadAllBytes(filename);
 
