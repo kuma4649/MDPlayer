@@ -151,7 +151,7 @@ namespace MDPlayer
             }
             catch
             {
-                ReleaseDriver(basicDriver);
+                ReleaseDriver(basicDriver); 
                 throw;
             }
             driver.ResetRequestCallback = OnDriverResetRequest;

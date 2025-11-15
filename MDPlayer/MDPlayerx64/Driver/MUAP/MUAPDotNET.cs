@@ -154,13 +154,19 @@ namespace MDPlayer.Driver
             labelAdr = null;
             if (ret != null && ret.Length > 0 && ret[0].args != null)
             {
-                if (ret[0].args[0] != null && ret[0].args[0] is byte[])
+                int i = 0;
+                while (i < ret[0].args.Count && ret[0].args[i] != null && !(ret[0].args[i] is byte[]))
                 {
-                    toneBuff = (byte[])ret[0].args[0];
+                    i++;
                 }
-                if (ret[0].args[1] != null && ret[0].args[1] is ushort[])
+
+                if (ret[0].args[i] != null && ret[0].args[i] is byte[])
                 {
-                    labelAdr = (ushort[])ret[0].args[1];
+                    toneBuff = (byte[])ret[0].args[i];
+                }
+                if (ret[0].args[i+1] != null && ret[0].args[i+1] is ushort[])
+                {
+                    labelAdr = (ushort[])ret[0].args[i + 1];
                 }
             }
 
