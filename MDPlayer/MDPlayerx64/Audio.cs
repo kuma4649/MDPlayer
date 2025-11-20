@@ -3227,7 +3227,7 @@ namespace MDPlayer
                         Wave32To16Stream a = new Wave32To16Stream(l);
                         wfcp = new WaveFormatConversionProvider(format, a);
                     }
-                    if (naudioOggFileReader.WaveFormat.BitsPerSample == 24)
+                    else if (naudioOggFileReader.WaveFormat.BitsPerSample == 24)
                     {
                         Wave24To16Stream a = new Wave24To16Stream(l);
                         wfcp = new WaveFormatConversionProvider(format, a);
