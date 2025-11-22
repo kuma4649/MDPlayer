@@ -1,4 +1,7 @@
 更新履歴 
+STBL538 2025/11/22
+  mucomDotNET差し替え
+
 STBL537 2025/11/21
   ogg:BitperSampleの比較をミスっていて32bitの曲を再生できなかったので修正
 
