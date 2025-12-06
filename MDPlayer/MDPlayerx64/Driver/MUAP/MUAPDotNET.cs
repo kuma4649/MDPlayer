@@ -237,6 +237,11 @@ namespace MDPlayer.Driver
             ca = new mucomChipAction(OPNAWriteP, null, null); lca.Add(ca);
             ca = new mucomChipAction(OPN2WriteP, null, null); lca.Add(ca);
             ca = new mucomChipAction(CS4231Write, null, null); lca.Add(ca);
+            Audio.GetPlayingFileName(out string pfn, out _);
+            if (!string.IsNullOrEmpty(pfn))
+            {
+                pfn = Path.GetDirectoryName(Path.GetFullPath(pfn));
+            }
             muapDriver.Init(
                 lca,
                 buf.ToArray()
@@ -251,7 +256,8 @@ namespace MDPlayer.Driver
                     (iDriver.dlgEMS_AllocMemory)CS4231EMS_AllocMemory,
                     toneBuff,
                     setting.muapDotNET.soundDeviceMode,
-                    labelAdr
+                    labelAdr,
+                    pfn
                     })
                 );
 

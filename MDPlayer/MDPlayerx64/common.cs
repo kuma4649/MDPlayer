@@ -1067,6 +1067,7 @@ namespace MDPlayer
         MGSCSCC_PLAIN = 14,
         RYM2612 = 15,
         SendMML2VGM = 16,
+        MUAP98 = 17
     }
 
     public enum EnmFileFormat : int

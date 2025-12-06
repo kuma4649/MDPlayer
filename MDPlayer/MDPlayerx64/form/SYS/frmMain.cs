@@ -6796,6 +6796,9 @@ namespace MDPlayer.form
                         case EnmInstFormat.SendMML2VGM:
                             GetInstChForSendMML2VGM(chip, ch, chipID);
                             break;
+                        case EnmInstFormat.MUAP98:
+                            GetInstChForMUAP98(chip, ch, chipID);
+                            break;
                     }
                 }
             }
@@ -6887,6 +6890,94 @@ namespace MDPlayer.form
                     , alg //AL
                     , (ym2151Register[0x20 + ch] & 0x38) >> 3//FB
                 );
+            }
+
+            if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
+        }
+
+        private void GetInstChForMUAP98(EnmChip chip, int ch, int chipID)
+        {
+
+            string n = "";
+
+            if (chip == EnmChip.YM2612 || chip == EnmChip.YM2608 || chip == EnmChip.YM2203 || chip == EnmChip.YM2610)
+            {
+                int p = (ch > 2) ? 1 : 0;
+                int c = (ch > 2) ? ch - 3 : ch;
+                int[][] fmRegister = (chip == EnmChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == EnmChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == EnmChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
+
+                int alg = fmRegister[p][0xb0 + c] & 0x07;
+                int[] tl = new int[]
+                {
+                        fmRegister[p][0x40 + 0x0 + c] & 0x7f//TL1
+                       ,fmRegister[p][0x40 + 0x8 + c] & 0x7f//TL2
+                       ,fmRegister[p][0x40 + 0x4 + c] & 0x7f//TL3
+                       ,fmRegister[p][0x40 + 0xc + c] & 0x7f//TL4
+                };
+                GetAdjustTLParam(alg, ref tl[0], ref tl[1], ref tl[2], ref tl[3]);
+
+                n = "    ; SRC  TRG   FB CN    From MDPlayer\r\n";
+                n += string.Format("    Z@100,@100,E,{0:D2},{1:D2},\r\n"
+                    , (fmRegister[p][0xb0 + c] & 0x38) >> 3//FB
+                    , alg//AL
+                );
+                n += "    ;    AR  DR  SR  RR  SL  TL  KR  MP  DT\r\n";
+
+                for (int i = 0; i < 4; i++)
+                {
+                    int ops = (i == 0) ? 0 : ((i == 1) ? 8 : ((i == 2) ? 4 : 12));
+                    n += string.Format("         {0:D3},{1:D3},{2:D3},{3:D3},{4:D3},{5:D3},{6:D3},{7:D3},{8:D3}, ; AM={9:D3}\r\n"
+                        , fmRegister[p][0x50 + ops + c] & 0x1f //AR
+                        , fmRegister[p][0x60 + ops + c] & 0x1f //DR
+                        , fmRegister[p][0x70 + ops + c] & 0x1f //SR
+                        , fmRegister[p][0x80 + ops + c] & 0x0f //RR
+                        , (fmRegister[p][0x80 + ops + c] & 0xf0) >> 4//SL
+                        , tl[i]//TL
+                        , (fmRegister[p][0x50 + ops + c] & 0xc0) >> 6//KS
+                        , fmRegister[p][0x30 + ops + c] & 0x0f//ML
+                        , (fmRegister[p][0x30 + ops + c] & 0x70) >> 4//DT
+                        , (fmRegister[p][0x60 + ops + c] & 0x80) >> 7//AM
+                    );
+                }
+            }
+            else if (chip == EnmChip.YM2151)
+            {
+                int[] ym2151Register = Audio.GetYM2151Register(chipID);
+
+                int alg = ym2151Register[0x20 + ch] & 0x07;
+                int[] tl = new int[]
+                {
+                        ym2151Register[0x60 + 0x00 + ch] & 0x7f//TL1
+                       ,ym2151Register[0x60 + 0x10 + ch] & 0x7f//TL1
+                       ,ym2151Register[0x60 + 0x08 + ch] & 0x7f//TL1
+                       ,ym2151Register[0x60 + 0x18 + ch] & 0x7f//TL1
+                };
+                GetAdjustTLParam(alg, ref tl[0], ref tl[1], ref tl[2], ref tl[3]);
+
+                n = "    ; SRC  TRG   FB CN    From MDPlayer\r\n";
+                n += string.Format("    Z@100,@100,E,{0:D2},{1:D2},\r\n"
+                    , (ym2151Register[0x20 + ch] & 0x38) >> 3//FB
+                    , alg //AL
+                );
+                n += "    ;    AR  DR  SR  RR  SL  TL  KR  MP  DT\r\n";
+
+                for (int i = 0; i < 4; i++)
+                {
+                    int ops = (i == 0) ? 0 : ((i == 1) ? 16 : ((i == 2) ? 8 : 24));
+                    n += string.Format("         {0:D3},{1:D3},{2:D3},{3:D3},{4:D3},{5:D3},{6:D3},{7:D3},{8:D3}, ; DT2={9:D3} AM={10:D3}\r\n"
+                        , ym2151Register[0x80 + ops + ch] & 0x1f //AR
+                        , ym2151Register[0xa0 + ops + ch] & 0x1f //DR
+                        , ym2151Register[0xc0 + ops + ch] & 0x1f //SR
+                        , ym2151Register[0xe0 + ops + ch] & 0x0f //RR
+                        , (ym2151Register[0xe0 + ops + ch] & 0xf0) >> 4 //SL
+                        , tl[i] //TL
+                        , (ym2151Register[0x80 + ops + ch] & 0xc0) >> 6 //KS
+                        , ym2151Register[0x40 + ops + ch] & 0x0f //ML
+                        , (ym2151Register[0x40 + ops + ch] & 0x70) >> 4 //DT
+                        , (ym2151Register[0xc0 + ops + ch] & 0xc0) >> 6 //DT2
+                        , (ym2151Register[0xa0 + ops + ch] & 0x80) >> 7 //AM
+                    );
+                }
             }
 
             if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);

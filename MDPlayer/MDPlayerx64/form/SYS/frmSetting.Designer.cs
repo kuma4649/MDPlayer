@@ -153,6 +153,10 @@ namespace MDPlayer.form
             tbSIDOutputBufferSize = new TextBox();
             label51 = new Label();
             label49 = new Label();
+            tpMuapDotNET = new TabPage();
+            groupBox42 = new GroupBox();
+            rb98CanBe = new RadioButton();
+            rbOTOMI = new RadioButton();
             tpPMDDotNET = new TabPage();
             rbPMDManual = new RadioButton();
             rbPMDAuto = new RadioButton();
@@ -624,10 +628,6 @@ namespace MDPlayer.form
             labelCompanyName = new Label();
             textBoxDescription = new TextBox();
             llOpenGithub = new LinkLabel();
-            tpMuapDotNET = new TabPage();
-            rb98CanBe = new RadioButton();
-            rbOTOMI = new RadioButton();
-            groupBox42 = new GroupBox();
             gbWaveOut.SuspendLayout();
             gbAsioOut.SuspendLayout();
             gbWasapiOut.SuspendLayout();
@@ -654,6 +654,8 @@ namespace MDPlayer.form
             groupBox27.SuspendLayout();
             groupBox14.SuspendLayout();
             groupBox13.SuspendLayout();
+            tpMuapDotNET.SuspendLayout();
+            groupBox42.SuspendLayout();
             tpPMDDotNET.SuspendLayout();
             gbPMDManual.SuspendLayout();
             groupBox32.SuspendLayout();
@@ -750,8 +752,6 @@ namespace MDPlayer.form
             tpAbout.SuspendLayout();
             tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)logoPictureBox).BeginInit();
-            tpMuapDotNET.SuspendLayout();
-            groupBox42.SuspendLayout();
             SuspendLayout();
             // 
             // btnOK
@@ -1601,6 +1601,35 @@ namespace MDPlayer.form
             // 
             resources.ApplyResources(label49, "label49");
             label49.Name = "label49";
+            // 
+            // tpMuapDotNET
+            // 
+            tpMuapDotNET.Controls.Add(groupBox42);
+            resources.ApplyResources(tpMuapDotNET, "tpMuapDotNET");
+            tpMuapDotNET.Name = "tpMuapDotNET";
+            tpMuapDotNET.UseVisualStyleBackColor = true;
+            // 
+            // groupBox42
+            // 
+            groupBox42.Controls.Add(rb98CanBe);
+            groupBox42.Controls.Add(rbOTOMI);
+            resources.ApplyResources(groupBox42, "groupBox42");
+            groupBox42.Name = "groupBox42";
+            groupBox42.TabStop = false;
+            // 
+            // rb98CanBe
+            // 
+            resources.ApplyResources(rb98CanBe, "rb98CanBe");
+            rb98CanBe.Checked = true;
+            rb98CanBe.Name = "rb98CanBe";
+            rb98CanBe.TabStop = true;
+            rb98CanBe.UseVisualStyleBackColor = true;
+            // 
+            // rbOTOMI
+            // 
+            resources.ApplyResources(rbOTOMI, "rbOTOMI");
+            rbOTOMI.Name = "rbOTOMI";
+            rbOTOMI.UseVisualStyleBackColor = true;
             // 
             // tpPMDDotNET
             // 
@@ -4687,7 +4716,7 @@ namespace MDPlayer.form
             // 
             cmbInstFormat.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbInstFormat.FormattingEnabled = true;
-            cmbInstFormat.Items.AddRange(new object[] { resources.GetString("cmbInstFormat.Items"), resources.GetString("cmbInstFormat.Items1"), resources.GetString("cmbInstFormat.Items2"), resources.GetString("cmbInstFormat.Items3"), resources.GetString("cmbInstFormat.Items4"), resources.GetString("cmbInstFormat.Items5"), resources.GetString("cmbInstFormat.Items6"), resources.GetString("cmbInstFormat.Items7"), resources.GetString("cmbInstFormat.Items8"), resources.GetString("cmbInstFormat.Items9"), resources.GetString("cmbInstFormat.Items10"), resources.GetString("cmbInstFormat.Items11"), resources.GetString("cmbInstFormat.Items12"), resources.GetString("cmbInstFormat.Items13"), resources.GetString("cmbInstFormat.Items14"), resources.GetString("cmbInstFormat.Items15"), resources.GetString("cmbInstFormat.Items16") });
+            cmbInstFormat.Items.AddRange(new object[] { resources.GetString("cmbInstFormat.Items"), resources.GetString("cmbInstFormat.Items1"), resources.GetString("cmbInstFormat.Items2"), resources.GetString("cmbInstFormat.Items3"), resources.GetString("cmbInstFormat.Items4"), resources.GetString("cmbInstFormat.Items5"), resources.GetString("cmbInstFormat.Items6"), resources.GetString("cmbInstFormat.Items7"), resources.GetString("cmbInstFormat.Items8"), resources.GetString("cmbInstFormat.Items9"), resources.GetString("cmbInstFormat.Items10"), resources.GetString("cmbInstFormat.Items11"), resources.GetString("cmbInstFormat.Items12"), resources.GetString("cmbInstFormat.Items13"), resources.GetString("cmbInstFormat.Items14"), resources.GetString("cmbInstFormat.Items15"), resources.GetString("cmbInstFormat.Items16"), resources.GetString("cmbInstFormat.Items17") });
             resources.ApplyResources(cmbInstFormat, "cmbInstFormat");
             cmbInstFormat.Name = "cmbInstFormat";
             // 
@@ -5020,35 +5049,6 @@ namespace MDPlayer.form
             llOpenGithub.TabStop = true;
             llOpenGithub.LinkClicked += LlOpenGithub_LinkClicked;
             // 
-            // tpMuapDotNET
-            // 
-            tpMuapDotNET.Controls.Add(groupBox42);
-            resources.ApplyResources(tpMuapDotNET, "tpMuapDotNET");
-            tpMuapDotNET.Name = "tpMuapDotNET";
-            tpMuapDotNET.UseVisualStyleBackColor = true;
-            // 
-            // rb98CanBe
-            // 
-            resources.ApplyResources(rb98CanBe, "rb98CanBe");
-            rb98CanBe.Checked = true;
-            rb98CanBe.Name = "rb98CanBe";
-            rb98CanBe.TabStop = true;
-            rb98CanBe.UseVisualStyleBackColor = true;
-            // 
-            // rbOTOMI
-            // 
-            resources.ApplyResources(rbOTOMI, "rbOTOMI");
-            rbOTOMI.Name = "rbOTOMI";
-            rbOTOMI.UseVisualStyleBackColor = true;
-            // 
-            // groupBox42
-            // 
-            groupBox42.Controls.Add(rb98CanBe);
-            groupBox42.Controls.Add(rbOTOMI);
-            resources.ApplyResources(groupBox42, "groupBox42");
-            groupBox42.Name = "groupBox42";
-            groupBox42.TabStop = false;
-            // 
             // frmSetting
             // 
             resources.ApplyResources(this, "$this");
@@ -5105,6 +5105,9 @@ namespace MDPlayer.form
             groupBox14.PerformLayout();
             groupBox13.ResumeLayout(false);
             groupBox13.PerformLayout();
+            tpMuapDotNET.ResumeLayout(false);
+            groupBox42.ResumeLayout(false);
+            groupBox42.PerformLayout();
             tpPMDDotNET.ResumeLayout(false);
             tpPMDDotNET.PerformLayout();
             gbPMDManual.ResumeLayout(false);
@@ -5246,9 +5249,6 @@ namespace MDPlayer.form
             tableLayoutPanel.ResumeLayout(false);
             tableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)logoPictureBox).EndInit();
-            tpMuapDotNET.ResumeLayout(false);
-            groupBox42.ResumeLayout(false);
-            groupBox42.PerformLayout();
             ResumeLayout(false);
         }
 
