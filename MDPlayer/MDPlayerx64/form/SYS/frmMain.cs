@@ -4582,7 +4582,7 @@ namespace MDPlayer.form
 
             frmRegTest.Show();
             frmRegTest.update();
-            frmRegTest.changeChip(selectedChip);
+            //frmRegTest.changeChip(selectedChip);
             frmRegTest.Text = string.Format("RegTest ({0})", chipID == 0 ? "Primary" : "Secondary");
 
             CheckAndSetForm(frmRegTest);
@@ -11222,6 +11222,7 @@ namespace MDPlayer.form
             else if (sender == yM3812ToolStripMenuItem) OpenFormRegTest(0, EnmChip.YM3812);
             else if (sender == sIDToolStripMenuItem) OpenFormRegTest(0, EnmChip.SID);
             else if (sender == pOKEYToolStripMenuItem) OpenFormRegTest(0, EnmChip.POKEY);
+            else if (sender == nESToolStripMenuItem) OpenFormRegTest(0, EnmChip.NES);
             else OpenFormRegTest(0);
         }
 

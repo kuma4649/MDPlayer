@@ -89,7 +89,7 @@ namespace MDPlayer
 
         public unsafe void clearScreen()
         {
-            for (int i = 0; i < baPlaneBuffer.Length; i += 4)
+            for (int i = 0; i < baPlaneBuffer.Length; i ++)//= 4)
             {
                 baPlaneBuffer[i] = unchecked((int)0xFF00_0000); // ABGR
             }

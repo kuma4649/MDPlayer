@@ -1,6 +1,7 @@
 ﻿using Driver.libsidplayfp.sidplayfp;
 using MDPlayer.Driver.SID;
 using MDSound;
+using musicDriverInterface;
 
 namespace MDPlayer.form
 {
@@ -90,7 +91,7 @@ namespace MDPlayer.form
                     return Audio.GetPSGRegister(0);
                 });
 
-                AddChip("AY", 1, 16, (Select) =>
+                AddChip("AY8910", 1, 16, (Select) =>
                 { // 14
                     return Audio.GetAY8910Register(0);
                 });
@@ -241,6 +242,13 @@ namespace MDPlayer.form
         public frmRegTest(frmMain frm, int chipID, EnmChip enmPage, int zoom)
         {
             parent = frm;
+            if (enmPage == EnmChip.Unuse)
+            {
+                if (chipID == 0) enmPage = parent.setting.regTest.latestChipPri;
+                else enmPage = parent.setting.regTest.latestChipSec;
+            }
+            if (chipID == 0) parent.setting.regTest.latestChipPri = enmPage;
+            else parent.setting.regTest.latestChipSec = enmPage;
             this.chipID = chipID;
             this.zoom = zoom;
             int pageSel = 0;
@@ -260,6 +268,26 @@ namespace MDPlayer.form
             RegMan.setSelect(pageSel);
             RegMan.needRefresh = true;
             update();
+            if (chipID == 0)
+            {
+                int n = RegMan.getSelect();
+                foreach (var k in pageDict)
+                {
+                    if (k.Value != n) continue;
+                    parent.setting.regTest.latestChipPri = k.Key;
+                    break;
+                }
+            }
+            else
+            {
+                int n = RegMan.getSelect();
+                foreach (var k in pageDict)
+                {
+                    if (k.Value != n) continue;
+                    parent.setting.regTest.latestChipSec = k.Key;
+                    break;
+                }
+            }
         }
 
         public new void update()
@@ -288,13 +316,35 @@ namespace MDPlayer.form
             }
             parent.setting.location.ChipSelect = RegMan.getSelect();
             update();
+
+            if (chipID == 0)
+            {
+                int n = RegMan.getSelect();
+                foreach (var k in pageDict)
+                {
+                    if (k.Value != n) continue;
+                    parent.setting.regTest.latestChipPri = k.Key;
+                    break;
+                }
+            }
+            else
+            {
+                int n = RegMan.getSelect();
+                foreach (var k in pageDict)
+                {
+                    if (k.Value != n) continue;
+                    parent.setting.regTest.latestChipSec = k.Key;
+                    break;
+                }
+            }
+
             isClosed = true;
         }
 
         private void frmRegTest_Load(object sender, EventArgs e)
         {
             this.Location = new Point(x, y);
-            RegMan.setSelect(parent.setting.location.ChipSelect);
+            //RegMan.setSelect(parent.setting.regTest.latestChipPri);
 
             frameSizeW = this.Width - this.ClientSize.Width;
             frameSizeH = this.Height - this.ClientSize.Height;
@@ -343,7 +393,7 @@ namespace MDPlayer.form
             //var actualRegSize = RegMan.getRegisterSize();//Reg.Length >= regSize ? regSize : Reg.Length; //TODO: Change this
             DrawBuff.drawFont8(frameBuffer, 2, 1, 0, Name);
             DrawBuff.drawFont8(frameBuffer, 2, 9, 0, Name2);
-            DrawBuff.drawFont8(frameBuffer, 210, 1, 0, $"<>");
+            //DrawBuff.drawFont8(frameBuffer, 210, 1, 0, $"<>");
 
             var y = 17;
 

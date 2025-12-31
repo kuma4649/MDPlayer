@@ -283,8 +283,10 @@ namespace MDPlayer.form
             aY8910ToolStripMenuItem = new ToolStripMenuItem();
             sIDToolStripMenuItem = new ToolStripMenuItem();
             pOKEYToolStripMenuItem = new ToolStripMenuItem();
+            nESToolStripMenuItem = new ToolStripMenuItem();
             tsmiVisualizer = new ToolStripMenuItem();
             tsmiOutputwavFile = new ToolStripMenuItem();
+            tsmiPianoRoll = new ToolStripMenuItem();
             opeButtonSetting = new Button();
             toolTip1 = new ToolTip(components);
             opeButtonStop = new Button();
@@ -305,7 +307,6 @@ namespace MDPlayer.form
             opeButtonOpen = new Button();
             opeButtonMode = new Button();
             keyboardHook1 = new HongliangSoft.Utilities.Gui.KeyboardHook();
-            tsmiPianoRoll = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)pbScreen).BeginInit();
             cmsOpenOtherPanel.SuspendLayout();
             cmsMenu.SuspendLayout();
@@ -1691,7 +1692,7 @@ namespace MDPlayer.form
             // 
             // レジスタダンプ表示ToolStripMenuItem
             // 
-            レジスタダンプ表示ToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { yM2612ToolStripMenuItem, ym2151ToolStripMenuItem, ym2203ToolStripMenuItem, ym2413ToolStripMenuItem, ym2608ToolStripMenuItem, yM2610ToolStripMenuItem, yM3812ToolStripMenuItem, yMF262ToolStripMenuItem, yMF278BToolStripMenuItem, yMZ280BToolStripMenuItem, c140ToolStripMenuItem, c352ToolStripMenuItem, qSoundToolStripMenuItem, segaPCMToolStripMenuItem, sN76489ToolStripMenuItem, aY8910ToolStripMenuItem, sIDToolStripMenuItem, pOKEYToolStripMenuItem });
+            レジスタダンプ表示ToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { yM2612ToolStripMenuItem, ym2151ToolStripMenuItem, ym2203ToolStripMenuItem, ym2413ToolStripMenuItem, ym2608ToolStripMenuItem, yM2610ToolStripMenuItem, yM3812ToolStripMenuItem, yMF262ToolStripMenuItem, yMF278BToolStripMenuItem, yMZ280BToolStripMenuItem, c140ToolStripMenuItem, c352ToolStripMenuItem, qSoundToolStripMenuItem, segaPCMToolStripMenuItem, sN76489ToolStripMenuItem, aY8910ToolStripMenuItem, sIDToolStripMenuItem, pOKEYToolStripMenuItem, nESToolStripMenuItem });
             レジスタダンプ表示ToolStripMenuItem.Name = "レジスタダンプ表示ToolStripMenuItem";
             resources.ApplyResources(レジスタダンプ表示ToolStripMenuItem, "レジスタダンプ表示ToolStripMenuItem");
             // 
@@ -1803,6 +1804,12 @@ namespace MDPlayer.form
             resources.ApplyResources(pOKEYToolStripMenuItem, "pOKEYToolStripMenuItem");
             pOKEYToolStripMenuItem.Click += RegisterDumpMenuItem_Click;
             // 
+            // nESToolStripMenuItem
+            // 
+            nESToolStripMenuItem.Name = "nESToolStripMenuItem";
+            resources.ApplyResources(nESToolStripMenuItem, "nESToolStripMenuItem");
+            nESToolStripMenuItem.Click += RegisterDumpMenuItem_Click;
+            // 
             // tsmiVisualizer
             // 
             tsmiVisualizer.Name = "tsmiVisualizer";
@@ -1815,6 +1822,12 @@ namespace MDPlayer.form
             tsmiOutputwavFile.Name = "tsmiOutputwavFile";
             resources.ApplyResources(tsmiOutputwavFile, "tsmiOutputwavFile");
             tsmiOutputwavFile.Click += tsmiOutputwavFile_Click;
+            // 
+            // tsmiPianoRoll
+            // 
+            tsmiPianoRoll.Name = "tsmiPianoRoll";
+            resources.ApplyResources(tsmiPianoRoll, "tsmiPianoRoll");
+            tsmiPianoRoll.Click += tsmiPianoRoll_Click;
             // 
             // opeButtonSetting
             // 
@@ -2180,12 +2193,6 @@ namespace MDPlayer.form
             // 
             keyboardHook1.KeyboardHooked += keyboardHook1_KeyboardHooked;
             // 
-            // tsmiPianoRoll
-            // 
-            tsmiPianoRoll.Name = "tsmiPianoRoll";
-            resources.ApplyResources(tsmiPianoRoll, "tsmiPianoRoll");
-            tsmiPianoRoll.Click += tsmiPianoRoll_Click;
-            // 
             // frmMain
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -2498,6 +2505,7 @@ namespace MDPlayer.form
         private ToolStripMenuItem mPCMX68kToolStripMenuItem1;
         private ToolStripMenuItem pOKEYToolStripMenuItem;
         private ToolStripMenuItem tsmiPianoRoll;
+        private ToolStripMenuItem nESToolStripMenuItem;
     }
 }
 

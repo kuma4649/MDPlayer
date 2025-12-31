@@ -911,6 +911,12 @@ namespace MDPlayer
         public PianoRoll pianoRoll
         { get => _pianoRoll; set => _pianoRoll = value; }
 
+        private RegTest _regTest = new();
+
+        public RegTest regTest
+        { get => _regTest; set => _regTest = value; }
+
+
         [Serializable]
         public class OutputDevice
         {
@@ -6122,6 +6128,23 @@ namespace MDPlayer
             }
         }
 
+        [Serializable]
+        public class RegTest
+        {
+            public EnmChip latestChipPri = EnmChip.Unuse;
+            public EnmChip latestChipSec = EnmChip.Unuse;
+
+            public RegTest Copy()
+            {
+                RegTest r = new()
+                {
+                    latestChipPri = this.latestChipPri,
+                    latestChipSec = this.latestChipSec
+                };
+                return r;
+            }
+        }
+
         public Setting Copy()
         {
             Setting setting = new()
@@ -6262,6 +6285,7 @@ namespace MDPlayer
             setting.mndrv = this.mndrv.Copy();
             setting.rcs = this.rcs.Copy();
             setting.playList = this.playList.Copy();
+            setting.regTest = this.regTest.Copy();
 
             setting.keyBoardHook = this.keyBoardHook.Copy();
             setting.pianoRoll=this.pianoRoll.Copy();
@@ -6284,10 +6308,10 @@ namespace MDPlayer
             try
             {
                 string fn = Resources.cntSettingFileName;
-                if (System.IO.File.Exists(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Application.ExecutablePath), fn)))
+                if (File.Exists(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), fn)))
                 {
                     //アプリケーションと同じフォルダに設定ファイルがあるならそちらを使用する
-                    Common.settingFilePath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+                    Common.settingFilePath = Path.GetDirectoryName(Application.ExecutablePath);
                 }
                 else
                 {
