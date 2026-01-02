@@ -54,6 +54,7 @@
             public bool? mask = false;
             public byte slot = 0;
             public int tp = -1;
+            public int kc = -1;//OPM only
             public int kf = -1;//OPM only
             public int tn = 0;//PSG only
             public bool ex = false;//OPN/2/A/B
@@ -294,6 +295,8 @@
             public int lfrq = -1;
             public int pmd = -1;
             public int amd = -1;
+            public int timerA = -1;
+            public int timerB = -1;
             public int waveform = -1;
             public int lfosync = -1;
             public Channel[] channels = new Channel[8] { new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel() };

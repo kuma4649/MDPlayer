@@ -150,21 +150,21 @@ namespace MDPlayer.form
             for (int ch = 0; ch < 8; ch++)
             {
 
-                DrawBuff.drawFont8(frameBuffer, 296, ch * 8 + 8, 1, "   ");
+                DrawBuff.drawFont8(frameBuffer, 82 * 4 + 1, ch * 8 + 8, 1, "   ");
 
                 for (int ot = 0; ot < 12 * 8; ot++)
                 {
                     int kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
                     int kt = Tables.kbl[(ot % 12) * 2 + 1];
-                    DrawBuff.drawKbn(frameBuffer, 32 + kx, ch * 8 + 8, kt, tp);
+                    DrawBuff.drawKbn(frameBuffer, 8*4 + kx+1, ch * 8 + 8, kt, tp);
                 }
 
-                DrawBuff.ChYM2151_P(frameBuffer, 0, ch * 8 + 8, ch, false, tp);
-                DrawBuff.drawPanP(frameBuffer, 24, ch * 8 + 8, 3, tp);
+                DrawBuff.ChYM2151_P(frameBuffer, 1, ch * 8 + 8, ch, false, tp);
+                DrawBuff.drawPanP(frameBuffer, 25, ch * 8 + 8, 3, tp);
                 int d = 99;
-                DrawBuff.Volume(frameBuffer, 256, 8 + ch * 8, 1, ref d, 0, tp);
+                DrawBuff.Volume(frameBuffer, 68 * 4 + 1, 8 + ch * 8, 1, ref d, 0, tp);
                 d = 99;
-                DrawBuff.Volume(frameBuffer, 256, 8 + ch * 8, 2, ref d, 0, tp);
+                DrawBuff.Volume(frameBuffer, 68 * 4 + 1, 8 + ch * 8, 2, ref d, 0, tp);
 
             }
         }
@@ -213,6 +213,7 @@ namespace MDPlayer.form
                 newParam.channels[ch].inst[46] = (ym2151Register[0x38 + ch] & 0x3);//AMS
                 newParam.channels[ch].inst[47] = (ym2151Register[0x38 + ch] & 0x70) >> 4;//PMS
 
+                newParam.channels[ch].slot = (byte)(fmKeyYM2151[ch] >> 3);
                 int p = (ym2151Register[0x20 + ch] & 0xc0) >> 6;
                 newParam.channels[ch].pan = p == 1 ? 2 : (p == 2 ? 1 : p);
                 int note = (ym2151Register[0x28 + ch] & 0x0f);
@@ -244,6 +245,7 @@ namespace MDPlayer.form
                 newParam.channels[ch].volumeL = Math.Min(Math.Max((int)((127 - v) / 127.0 * ((ym2151Register[0x20 + ch] & 0x80) != 0 ? 1 : 0) * fmYM2151Vol[ch] / 80.0), 0), 19);
                 newParam.channels[ch].volumeR = Math.Min(Math.Max((int)((127 - v) / 127.0 * ((ym2151Register[0x20 + ch] & 0x40) != 0 ? 1 : 0) * fmYM2151Vol[ch] / 80.0), 0), 19);
 
+                newParam.channels[ch].kc = (ym2151Register[0x28 + ch] & 0x7f);
                 newParam.channels[ch].kf = ((ym2151Register[0x30 + ch] & 0xfc) >> 2);
 
             }
@@ -252,6 +254,8 @@ namespace MDPlayer.form
             newParam.lfrq = ((ym2151Register[0x18] & 0xff) >> 0);
             newParam.pmd = Audio.GetYM2151PMD(chipID);
             newParam.amd = Audio.GetYM2151AMD(chipID);
+            newParam.timerA = ym2151Register[0x10] | ((ym2151Register[0x11] & 0x3) << 8);
+            newParam.timerB = ym2151Register[0x12];
             newParam.waveform = ((ym2151Register[0x1b] & 0x3) >> 0);
             newParam.lfosync = ((ym2151Register[0x01] & 0x02) >> 1);
 
@@ -272,16 +276,19 @@ namespace MDPlayer.form
                     : parent.setting.YM2151Type[1].realChipInfo[0].SoundLocation;
                 int tp = !YM2151Type ? 0 : (YM2151SoundLocation < 0 ? 2 : 1);
 
-                DrawBuff.Inst(frameBuffer, 1, 11, c, oyc.inst, nyc.inst);
+                DrawBuff.InstOPM(frameBuffer, 9, 11, c, oyc.inst, nyc.inst);
 
-                DrawBuff.Pan(frameBuffer, 24, 8 + c * 8, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
-                DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
+                DrawBuff.Pan(frameBuffer, 25, 8 + c * 8, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
+                DrawBuff.KeyBoardOPM(frameBuffer,c, ref oyc.note, nyc.note, tp);
+                //.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
 
-                DrawBuff.Volume(frameBuffer, 256, 8 + c * 8, 1, ref oyc.volumeL, nyc.volumeL, tp);
-                DrawBuff.Volume(frameBuffer, 256, 8 + c * 8, 2, ref oyc.volumeR, nyc.volumeR, tp);
+                DrawBuff.Slot(frameBuffer, 1 + 4 * 64, 8 + c * 8, ref oyc.slot, nyc.slot);
+                DrawBuff.Volume(frameBuffer, 68*4+1, 8 + c * 8, 1, ref oyc.volumeL, nyc.volumeL, tp);
+                DrawBuff.Volume(frameBuffer, 68*4+1, 8 + c * 8, 2, ref oyc.volumeR, nyc.volumeR, tp);
 
                 DrawBuff.ChYM2151(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
 
+                DrawBuff.KcYM2151(frameBuffer, c, ref oyc.kc, nyc.kc);
                 DrawBuff.KfYM2151(frameBuffer, c, ref oyc.kf, nyc.kf);
             }
 
@@ -290,6 +297,9 @@ namespace MDPlayer.form
             DrawBuff.LfrqYM2151(frameBuffer, ref oldParam.lfrq, newParam.lfrq);
             DrawBuff.AmdYM2151(frameBuffer, ref oldParam.amd, newParam.amd);
             DrawBuff.PmdYM2151(frameBuffer, ref oldParam.pmd, newParam.pmd);
+
+            DrawBuff.font4Hex12Bit(frameBuffer, 82 * 4+1, 22 * 8, 0, ref oldParam.timerA, newParam.timerA);
+            DrawBuff.font4HexByte(frameBuffer, 82 * 4+1, 23 * 8, 0, ref oldParam.timerB, newParam.timerB);
             DrawBuff.WaveFormYM2151(frameBuffer, ref oldParam.waveform, newParam.waveform);
             DrawBuff.LfoSyncYM2151(frameBuffer, ref oldParam.lfosync, newParam.lfosync);
 

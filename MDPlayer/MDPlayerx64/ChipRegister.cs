@@ -1304,7 +1304,8 @@ namespace MDPlayer
                         }
                         else
                         {
-                            fmKeyOnYM2151[chipID][ch] &= 0xfe;
+                            byte con = (byte)(dData & 0x78);
+                            fmKeyOnYM2151[chipID][ch] = con;
                         }
                     }
                 }
@@ -1610,7 +1611,8 @@ namespace MDPlayer
                     }
                     else
                     {
-                        fmKeyOnYM2151[chipID][ch] &= 0xfe;
+                        byte con = (byte)(dData & 0x78);
+                        fmKeyOnYM2151[chipID][ch] = con;
                     }
                 }
             }
