@@ -5132,9 +5132,10 @@ namespace MDPlayer
                         supportFileBinaly.Add(new Tuple<byte[], string>(buf, Path.GetFileName(sf)));
                     }
                 }
-                ((Driver.ZMS.ZMS)DriverReal).SupportFileBinaryAndName =
-                    ((Driver.ZMS.ZMS)DriverVirtual).SupportFileBinaryAndName =
-                    supportFileBinaly;
+
+                ((Driver.ZMS.ZMS)DriverVirtual).SupportFileBinaryAndName = supportFileBinaly;
+                if (DriverReal != null) ((Driver.ZMS.ZMS)DriverReal).SupportFileBinaryAndName = supportFileBinaly;
+                if (DriverPianoRoll != null) ((Driver.ZMS.ZMS)DriverPianoRoll).SupportFileBinaryAndName = supportFileBinaly;
 
                 //ZMSの場合は事前にコンパイルを実施
                 if (fm == EnmFileFormat.ZMS)
@@ -5145,14 +5146,12 @@ namespace MDPlayer
                             //Version3優先
                             if (((Driver.ZMS.ZMS)DriverVirtual).Compile(vgmBuf,PlayingFileName))
                             {
-                                vgmBuf = ((Driver.ZMS.ZMS)DriverReal).CompiledData = ((Driver.ZMS.ZMS)DriverVirtual).CompiledData;
+                                SetVgmBufV3();
                                 ChipLED.PriMPCMX68k = 1;
                             }
                             else if (((Driver.ZMS.ZMS)DriverVirtual).Compilev2(vgmBuf, PlayingFileName))
                             {
-                                vgmBuf = ((Driver.ZMS.ZMS)DriverReal).CompiledData = ((Driver.ZMS.ZMS)DriverVirtual).CompiledData;
-                                ((Driver.ZMS.ZMS)DriverVirtual).version = 2;
-                                ((Driver.ZMS.ZMS)DriverReal).version = 2;
+                                SetVgmBufV2();
                                 ChipLED.PriPCM8 = 1;
                             }
                             else
@@ -5166,14 +5165,12 @@ namespace MDPlayer
                             //Version2優先
                             if (((Driver.ZMS.ZMS)DriverVirtual).Compilev2(vgmBuf, PlayingFileName))
                             {
-                                vgmBuf = ((Driver.ZMS.ZMS)DriverReal).CompiledData = ((Driver.ZMS.ZMS)DriverVirtual).CompiledData;
-                                ((Driver.ZMS.ZMS)DriverVirtual).version = 2;
-                                ((Driver.ZMS.ZMS)DriverReal).version = 2;
+                                SetVgmBufV2();
                                 ChipLED.PriPCM8 = 1;
                             }
                             else if (((Driver.ZMS.ZMS)DriverVirtual).Compile(vgmBuf, PlayingFileName))
                             {
-                                vgmBuf = ((Driver.ZMS.ZMS)DriverReal).CompiledData = ((Driver.ZMS.ZMS)DriverVirtual).CompiledData;
+                                SetVgmBufV3();
                                 ChipLED.PriMPCMX68k = 1;
                             }
                             else
@@ -5187,7 +5184,7 @@ namespace MDPlayer
                             //Version3のみ
                             if (((Driver.ZMS.ZMS)DriverVirtual).Compile(vgmBuf, PlayingFileName))
                             {
-                                vgmBuf = ((Driver.ZMS.ZMS)DriverReal).CompiledData = ((Driver.ZMS.ZMS)DriverVirtual).CompiledData;
+                                SetVgmBufV3();
                                 ChipLED.PriMPCMX68k = 1;
                                 //File.WriteAllBytes("c:\\temp\\ge.zmd", vgmBuf);
                             }
@@ -5202,9 +5199,7 @@ namespace MDPlayer
                             //Version2のみ
                             if (((Driver.ZMS.ZMS)DriverVirtual).Compilev2(vgmBuf, PlayingFileName))
                             {
-                                vgmBuf = ((Driver.ZMS.ZMS)DriverReal).CompiledData = ((Driver.ZMS.ZMS)DriverVirtual).CompiledData;
-                                ((Driver.ZMS.ZMS)DriverVirtual).version = 2;
-                                ((Driver.ZMS.ZMS)DriverReal).version = 2;
+                                SetVgmBufV2();
                                 ChipLED.PriPCM8 = 1;
                             }
                             else
@@ -5270,6 +5265,29 @@ namespace MDPlayer
             {
                 log.ForcedWrite(ex);
                 return false;
+            }
+        }
+
+        private static void SetVgmBufV3()
+        {
+            vgmBuf = ((Driver.ZMS.ZMS)DriverVirtual).CompiledData;
+            if (DriverReal != null) ((Driver.ZMS.ZMS)DriverReal).CompiledData = vgmBuf;
+            if (DriverPianoRoll != null) ((Driver.ZMS.ZMS)DriverPianoRoll).CompiledData = vgmBuf;
+        }
+
+        private static void SetVgmBufV2()
+        {
+            vgmBuf = ((Driver.ZMS.ZMS)DriverVirtual).CompiledData;
+            ((Driver.ZMS.ZMS)DriverVirtual).version = 2;
+            if (DriverReal != null)
+            {
+                ((Driver.ZMS.ZMS)DriverReal).CompiledData = vgmBuf;
+                ((Driver.ZMS.ZMS)DriverReal).version = 2;
+            }
+            if (DriverPianoRoll != null)
+            {
+                ((Driver.ZMS.ZMS)DriverPianoRoll).CompiledData = vgmBuf;
+                ((Driver.ZMS.ZMS)DriverPianoRoll).version = 2;
             }
         }
 

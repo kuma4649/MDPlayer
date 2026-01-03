@@ -52,8 +52,8 @@ namespace MDPlayer
                 if (consoleEchoBack) Console.WriteLine(tmsg);
                 using (StreamWriter writer = new StreamWriter(path, true, sjisEnc))
                 {
-                    //writer.WriteLine(tmsg);
-                    writer.WriteLine(msg);
+                    writer.WriteLine(tmsg);
+                    //writer.WriteLine(mmsg);
                 }
             }
         }

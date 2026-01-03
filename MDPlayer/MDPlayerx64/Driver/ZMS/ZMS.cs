@@ -557,6 +557,7 @@ namespace MDPlayer.Driver.ZMS
                 log.Write(LogLevel.Information, "File not found : {0}", zmc);
                 return false;//throw new FileNotFoundException(zmc);
             }
+            fileMng = new FileMng(dn);//曲ファイルのパスを物理ドライブのカレントに設定する.仮想ドライブのカレントは"C:"(デフォルト)
             fileMng.SetVFile(zmc);
             zmc = Path.GetFileName(zmc);
 

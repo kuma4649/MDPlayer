@@ -80,6 +80,8 @@ namespace MDPlayer.Driver.ZMS.nise68
         public int LoadRun(string filename, string option, uint startAddress, bool dispReg = false, bool useStepCounter = false, bool dispStepCounter = false,
     long MaxStepCounter = 100_000_000, long StartStepCounterForDispStep = 0)
         {
+            //Log.SetLogLevel(LogLevel.Trace);
+
             hmn.LoadAndExecuteFile(filename, option, startAddress);
             if (dispReg) DispRegs(reg);
 
