@@ -1679,6 +1679,20 @@ namespace MDPlayer
                 }
             }
 
+            private string _PlayListFilterIndex = "";
+            public string PlayListFilterIndex
+            {
+                get
+                {
+                    return _PlayListFilterIndex;
+                }
+
+                set
+                {
+                    _PlayListFilterIndex = value;
+                }
+            }
+
             private string _TextExt = "txt;doc;hed";
             public string TextExt { get => _TextExt; set => _TextExt = value; }
 
@@ -1724,6 +1738,7 @@ namespace MDPlayer
                     WavSwitch = this.WavSwitch,
                     WavPath = this.WavPath,
                     FilterIndex = this.FilterIndex,
+                    PlayListFilterIndex = this.PlayListFilterIndex,
                     TextExt = this.TextExt,
                     MMLExt = this.MMLExt,
                     ImageExt = this.ImageExt,

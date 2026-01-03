@@ -142,7 +142,7 @@ namespace MDPlayer.form
 
                 DrawBuff.ChPCM8(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
 
-                DrawBuff.Pan(frameBuffer, 36, 8 + c * 8, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
+                DrawBuff.Pan(frameBuffer, 36, 8 + c * 8, ref oyc.pan, Math.Clamp(nyc.pan,0,3), ref oyc.pantp, tp);
                 
                 int x = 10;
                 DrawBuff.font4Hex32Bit(frameBuffer, (x + 3) * 4, c * 8 + 8, 0, ref oyc.utp, nyc.utp);//ptr

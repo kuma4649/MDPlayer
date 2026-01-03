@@ -924,6 +924,17 @@ namespace MDPlayer.form
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "サポートする全てのプレイリスト(*.xml;*.m3u)|*.xml;*.m3u|ファイル(*.xml)|*.xml|M3Uファイル(*.m3u)|*.m3u";
             ofd.Title = "プレイリストファイルを選択";
+            string[] fl=ofd.Filter.Split('|');
+            int index=-1;
+            for (int i = 0; i < fl.Length; i += 2)
+            {
+                if (fl[i + 1] != setting.other.PlayListFilterIndex) continue;
+                index = i / 2 + 1;
+                break;
+            }
+            if (index == -1) index = 0;
+
+            ofd.FilterIndex = index;
             if (frmMain.setting.other.DefaultDataPath != "" && Directory.Exists(frmMain.setting.other.DefaultDataPath) && IsInitialOpenFolder)
             {
                 ofd.InitialDirectory = frmMain.setting.other.DefaultDataPath;
@@ -940,6 +951,7 @@ namespace MDPlayer.form
             }
 
             IsInitialOpenFolder = false;
+            setting.other.PlayListFilterIndex = fl[(ofd.FilterIndex - 1) * 2 + 1];
 
             try
             {
@@ -984,6 +996,16 @@ namespace MDPlayer.form
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "M3Uファイル(*.m3u)|*.m3u|XMLファイル(*.xml)|*.xml";
             sfd.Title = "プレイリストファイルを保存";
+            string[] fl = sfd.Filter.Split('|');
+            int index = -1;
+            for (int i = 0; i < fl.Length; i += 2)
+            {
+                if (fl[i + 1]!=setting.other.PlayListFilterIndex) continue;
+                index = i / 2 + 1;
+                break;
+            }
+            if (index == -1) index = 0;
+            sfd.FilterIndex = index;
             if (frmMain.setting.other.DefaultDataPath != "" && Directory.Exists(frmMain.setting.other.DefaultDataPath) && IsInitialOpenFolder)
             {
                 sfd.InitialDirectory = frmMain.setting.other.DefaultDataPath;
@@ -1001,6 +1023,7 @@ namespace MDPlayer.form
 
             IsInitialOpenFolder = false;
             string filename = sfd.FileName;
+            setting.other.PlayListFilterIndex = fl[(sfd.FilterIndex - 1) * 2 + 1];
 
             switch (sfd.FilterIndex)
             {

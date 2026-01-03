@@ -103,7 +103,8 @@ namespace MDPlayer.Driver.ZMS.nise68
                 byte[] body;
                 try
                 {
-                    body = File.ReadAllBytes(pFull);
+                    if (File.Exists(pFull)) body = File.ReadAllBytes(pFull);
+                    else body = null;
                 }
                 catch { body = null; }
                 SetVFile(vFilename, body);
@@ -126,9 +127,19 @@ namespace MDPlayer.Driver.ZMS.nise68
             string vPath = Path.GetDirectoryName(vFull);
             if (vPath.IndexOf(vDir) != 0)
             {
-                throw new ArgumentOutOfRangeException("範囲外のパスを参照しています");
+                if (vPath != "\\")
+                {
+                    throw new ArgumentOutOfRangeException("範囲外のパスを参照しています");
+                }
             }
-            string pFull = Path.Combine(vPath.Replace(vDir, pDir),Path.GetFileName(vFull));
+            string pFull;
+            if (vPath != "\\")
+                pFull = Path.Combine(vPath.Replace(vDir, pDir),Path.GetFileName(vFull));
+            else
+            {
+                pFull = Path.Combine(pDir, Path.GetFileName(vFull));
+
+            }
 
             return pFull;
         }
