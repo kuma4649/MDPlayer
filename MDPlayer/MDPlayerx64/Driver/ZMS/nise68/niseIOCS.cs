@@ -32,7 +32,7 @@ namespace MDPlayer.Driver.ZMS.nise68
                 //50
                 null ,null,null,null, null,null,null,null,  null,null,null,null, null,null,null,null,
                 //60
-                _ADPCMOUT ,null,null,null, null,null,null,_ADPCMMOD,  null,null,_OPMINTST,null, null,null,null,null,
+                _ADPCMOUT ,null,null,null, null,null,null,_ADPCMMOD,  _OPMSET,null,_OPMINTST,null, null,null,null,null,
                 //70
                 _MS_INIT ,null,null,null, null,null,null,null,  null,null,null,null, null,null,null,null,
                 //80
@@ -145,6 +145,19 @@ namespace MDPlayer.Driver.ZMS.nise68
             reg.SSP += 4;
 
             uint mode = reg.GetDl(1);//0 stop 1 pause 2 resume
+        }
+
+        private void _OPMSET()
+        {
+            Log.WriteLine(LogLevel.Trace, "IOCS _OPMSET");
+
+            reg.SR = mem.PeekW(reg.SSP);
+            reg.SSP += 2;
+            reg.PC = mem.PeekL(reg.SSP);
+            reg.SSP += 4;
+
+            byte rAdr = reg.GetDb(1);
+            byte rDat = reg.GetDb(2);
         }
 
         private void _OPMINTST()
