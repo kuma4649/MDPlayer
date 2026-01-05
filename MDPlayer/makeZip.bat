@@ -16,7 +16,6 @@ del /Q .\output\FileAssociationTool\ico\*.*
 
 xcopy   .\mdc\bin\Release\*.*          .\output\ /E /R /Y /I /K
 xcopy   .\mdpc\bin\Release\net8.0-windows7.0\*.*         .\output\ /E /R /Y /I /K
-pause
 xcopy   .\MDPlayerx64\bin\x64\Release\net8.0-windows7.0\*.*  .\output\ /E /R /Y /I /K
 xcopy   .\FileAssociationTool\bin\Release\net8.0-windows\*.* .\output\FileAssociationTool\ /E /R /Y /I /K
 xcopy   ..\licenses                       .\output\licenses\ /E /R /Y /I /K
@@ -48,6 +47,7 @@ del /Q .\output\KINROU5.DRV
 del /Q .\output\ZMC.X
 del /Q .\output\ZMSC3.X
 del /Q .\output\ZMUSIC.X
+del /Q .\output\Z*.X
 del /Q .\output\LZZ.R
 
 del /Q .\output\*.pdb

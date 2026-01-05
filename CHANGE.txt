@@ -1,4 +1,7 @@
 更新履歴 
+STBL548 2026/01/05
+  ストリーム系の形式(wav,ogg,etc.):形式によるStreamReaderの選択を改善。
+
 STBL547 2026/01/04
   Zmusic:niseIOCS:OPMSET($68)に対応。一部のZMUSIC.Xで例外が出るのを対策。
 

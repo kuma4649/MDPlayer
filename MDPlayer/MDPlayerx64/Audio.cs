@@ -3077,7 +3077,7 @@ namespace MDPlayer
                     Wave32To16Stream a = new Wave32To16Stream(l);
                     wfcp = new WaveFormatConversionProvider(format, a);
                 }
-                if (naudioWaveFileReader.WaveFormat.BitsPerSample == 24)
+                else if (naudioWaveFileReader.WaveFormat.BitsPerSample == 24)
                 {
                     Wave24To16Stream a = new Wave24To16Stream(l);
                     wfcp = new WaveFormatConversionProvider(format, a);
@@ -3117,7 +3117,7 @@ namespace MDPlayer
                     Wave32To16Stream a = new Wave32To16Stream(l);
                     wfcp = new WaveFormatConversionProvider(format, a);
                 }
-                if (naudioMp3FileReader.WaveFormat.BitsPerSample == 24)
+                else if (naudioMp3FileReader.WaveFormat.BitsPerSample == 24)
                 {
                     Wave24To16Stream a = new Wave24To16Stream(l);
                     wfcp = new WaveFormatConversionProvider(format, a);
@@ -3160,7 +3160,7 @@ namespace MDPlayer
                     Wave32To16Stream a = new Wave32To16Stream(l);
                     wfcp = new WaveFormatConversionProvider(format, a);
                 }
-                if (naudioAiffFileReader.WaveFormat.BitsPerSample == 24)
+                else if (naudioAiffFileReader.WaveFormat.BitsPerSample == 24)
                 {
                     Wave24To16Stream a = new Wave24To16Stream(l);
                     wfcp = new WaveFormatConversionProvider(format, a);
@@ -3209,7 +3209,7 @@ namespace MDPlayer
                         Wave32To16Stream a = new Wave32To16Stream(loopStream);
                         wfcp = new WaveFormatConversionProvider(format, a);
                     }
-                    if (naudioOggFileReader.WaveFormat.BitsPerSample == 24)
+                    else if (naudioOggFileReader.WaveFormat.BitsPerSample == 24)
                     {
                         Wave24To16Stream a = new Wave24To16Stream(loopStream);
                         wfcp = new WaveFormatConversionProvider(format, a);
@@ -3275,7 +3275,7 @@ namespace MDPlayer
                     Wave32To16Stream a = new Wave32To16Stream(l);
                     wfcp = new WaveFormatConversionProvider(format, a);
                 }
-                if (naudioM4aFileReader.WaveFormat.BitsPerSample == 24)
+                else if (naudioM4aFileReader.WaveFormat.BitsPerSample == 24)
                 {
                     Wave24To16Stream a = new Wave24To16Stream(l);
                     wfcp = new WaveFormatConversionProvider(format, a);
@@ -3318,7 +3318,7 @@ namespace MDPlayer
                     Wave32To16Stream a = new Wave32To16Stream(l);
                     wfcp = new WaveFormatConversionProvider(format, a);
                 }
-                if (naudioAacFileReader.WaveFormat.BitsPerSample == 24)
+                else if (naudioAacFileReader.WaveFormat.BitsPerSample == 24)
                 {
                     Wave24To16Stream a = new Wave24To16Stream(l);
                     wfcp = new WaveFormatConversionProvider(format, a);
@@ -3361,7 +3361,7 @@ namespace MDPlayer
                     Wave32To16Stream a = new Wave32To16Stream(l);
                     wfcp = new WaveFormatConversionProvider(format, a);
                 }
-                if (naudioWmaFileReader.WaveFormat.BitsPerSample == 24)
+                else if (naudioWmaFileReader.WaveFormat.BitsPerSample == 24)
                 {
                     Wave24To16Stream a = new Wave24To16Stream(l);
                     wfcp = new WaveFormatConversionProvider(format, a);
@@ -3404,7 +3404,7 @@ namespace MDPlayer
                     Wave32To16Stream a = new Wave32To16Stream(l);
                     wfcp = new WaveFormatConversionProvider(format, a);
                 }
-                if (naudioFlacFileReader.WaveFormat.BitsPerSample == 24)
+                else if (naudioFlacFileReader.WaveFormat.BitsPerSample == 24)
                 {
                     Wave24To16Stream a = new Wave24To16Stream(l);
                     wfcp = new WaveFormatConversionProvider(format, a);
