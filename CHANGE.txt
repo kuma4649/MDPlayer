@@ -1,4 +1,7 @@
 更新履歴 
+STBL549 2026/01/17
+  mucomDotNET差し替え
+
 STBL548 2026/01/05
   ストリーム系の形式(wav,ogg,etc.):形式によるStreamReaderの選択を改善。
 
