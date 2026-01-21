@@ -3072,20 +3072,12 @@ namespace MDPlayer
                 naudioWaveFileReader = new WaveFileReader(naudioFileName);
                 AftertasteStream l = new AftertasteStream(naudioWaveFileReader);
                 WaveFormat format = new WaveFormat(setting.outputDevice.SampleRate, 16, 2);
+                IWaveProvider iwp = l;
                 if (naudioWaveFileReader.WaveFormat.BitsPerSample == 32)
-                {
-                    Wave32To16Stream a = new Wave32To16Stream(l);
-                    wfcp = new WaveFormatConversionProvider(format, a);
-                }
+                    iwp = new Wave32To16Stream(l);
                 else if (naudioWaveFileReader.WaveFormat.BitsPerSample == 24)
-                {
-                    Wave24To16Stream a = new Wave24To16Stream(l);
-                    wfcp = new WaveFormatConversionProvider(format, a);
-                }
-                else
-                {
-                    wfcp = new WaveFormatConversionProvider(naudioWaveFileReader.WaveFormat, l);
-                }
+                    iwp = new Wave24To16Stream(l);
+                wfcp = new WaveFormatConversionProvider(format, iwp);
 
                 ChipLED = new ChipLEDs();
                 vgmSpeed = 1;
@@ -3112,20 +3104,12 @@ namespace MDPlayer
                 naudioMp3FileReader = new Mp3FileReader(naudioFileName);
                 AftertasteStream l = new AftertasteStream(naudioMp3FileReader);
                 WaveFormat format = new WaveFormat(setting.outputDevice.SampleRate, 16, 2);
+                IWaveProvider iwp = l;
                 if (naudioMp3FileReader.WaveFormat.BitsPerSample == 32)
-                {
-                    Wave32To16Stream a = new Wave32To16Stream(l);
-                    wfcp = new WaveFormatConversionProvider(format, a);
-                }
+                    iwp = new Wave32To16Stream(l);
                 else if (naudioMp3FileReader.WaveFormat.BitsPerSample == 24)
-                {
-                    Wave24To16Stream a = new Wave24To16Stream(l);
-                    wfcp = new WaveFormatConversionProvider(format, a);
-                }
-                else
-                {
-                    wfcp = new WaveFormatConversionProvider(naudioMp3FileReader.WaveFormat, l);
-                }
+                    iwp = new Wave24To16Stream(l);
+                wfcp = new WaveFormatConversionProvider(format, iwp);
 
                 ChipLED = new ChipLEDs();
                 vgmSpeed = 1;
@@ -3154,21 +3138,12 @@ namespace MDPlayer
                 naudioAiffFileReader = new AiffFileReader(naudioFileName);
                 AftertasteStream l = new AftertasteStream(naudioAiffFileReader);
                 WaveFormat format = new WaveFormat(setting.outputDevice.SampleRate, 16, 2);
-
+                IWaveProvider iwp = l;
                 if (naudioAiffFileReader.WaveFormat.BitsPerSample == 32)
-                {
-                    Wave32To16Stream a = new Wave32To16Stream(l);
-                    wfcp = new WaveFormatConversionProvider(format, a);
-                }
+                    iwp = new Wave32To16Stream(l);
                 else if (naudioAiffFileReader.WaveFormat.BitsPerSample == 24)
-                {
-                    Wave24To16Stream a = new Wave24To16Stream(l);
-                    wfcp = new WaveFormatConversionProvider(format, a);
-                }
-                else
-                {
-                    wfcp = new WaveFormatConversionProvider(naudioAiffFileReader.WaveFormat, l);
-                }
+                    iwp = new Wave24To16Stream(l);
+                wfcp = new WaveFormatConversionProvider(format, iwp);
 
                 ChipLED = new ChipLEDs();
                 vgmSpeed = 1;
@@ -3197,9 +3172,6 @@ namespace MDPlayer
                 
                 naudioOggFileReader = new NAudio.Vorbis.VorbisWaveReader(naudioFileName);
                 WaveFormat format = new WaveFormat(setting.outputDevice.SampleRate, 16, 2);
-                //WaveOut waveOut = new WaveOut();
-                //waveOut.Init(naudioOggFileReader);
-                //waveOut.Play();
 
                 if (ogg.loopstart != -1 && ogg.looplength != -1)
                 {
@@ -3216,7 +3188,7 @@ namespace MDPlayer
                     }
                     else
                     {
-                        wfcp = new WaveFormatConversionProvider(naudioOggFileReader.WaveFormat, loopStream);
+                        wfcp = new WaveFormatConversionProvider(format, loopStream);
                     }
                 }
                 else
@@ -3234,7 +3206,7 @@ namespace MDPlayer
                     }
                     else
                     {
-                        wfcp = new WaveFormatConversionProvider(naudioOggFileReader.WaveFormat, l);
+                        wfcp = new WaveFormatConversionProvider(format, l);
                     }
                 }
 
@@ -3265,9 +3237,6 @@ namespace MDPlayer
 
                 naudioM4aFileReader = new MediaFoundationReader(naudioFileName);
                 WaveFormat format = new WaveFormat(setting.outputDevice.SampleRate, 16, 2);
-                //WaveOut waveOut = new WaveOut();
-                //waveOut.Init(naudioOggFileReader);
-                //waveOut.Play();
 
                 AftertasteStream l = new AftertasteStream(naudioM4aFileReader);
                 if (naudioM4aFileReader.WaveFormat.BitsPerSample == 32)
@@ -3282,7 +3251,7 @@ namespace MDPlayer
                 }
                 else
                 {
-                    wfcp = new WaveFormatConversionProvider(naudioM4aFileReader.WaveFormat, l);
+                    wfcp = new WaveFormatConversionProvider(format, l);
                 }
 
                 ChipLED = new ChipLEDs();
@@ -3325,7 +3294,7 @@ namespace MDPlayer
                 }
                 else
                 {
-                    wfcp = new WaveFormatConversionProvider(naudioAacFileReader.WaveFormat, l);
+                    wfcp = new WaveFormatConversionProvider(format, l);
                 }
 
                 ChipLED = new ChipLEDs();
@@ -3368,7 +3337,7 @@ namespace MDPlayer
                 }
                 else
                 {
-                    wfcp = new WaveFormatConversionProvider(naudioWmaFileReader.WaveFormat, l);
+                    wfcp = new WaveFormatConversionProvider(format, l);
                 }
 
                 ChipLED = new ChipLEDs();
@@ -3411,7 +3380,7 @@ namespace MDPlayer
                 }
                 else
                 {
-                    wfcp = new WaveFormatConversionProvider(naudioFlacFileReader.WaveFormat, l);
+                    wfcp = new WaveFormatConversionProvider(format, l);
                 }
 
                 ChipLED = new ChipLEDs();
@@ -11193,8 +11162,7 @@ namespace MDPlayer
 
                 naudioSampleCounter += (int)(count * speed);
 
-
-                Convert2byteToShort(buffer, offset, naudioSrcbuffer, count, speed);
+                Convert2byteToShort(buffer, offset, naudioSrcbuffer, count, speed, (int)(read / 2 / speed));
                 naudioBuff = buffer;
             }
             catch
@@ -11214,7 +11182,7 @@ namespace MDPlayer
             return buffer;
         }
 
-        private static unsafe void Convert2byteToShort(short[] destBuffer, int offset, byte[] source, int shortCount, double speed)
+        private static unsafe void Convert2byteToShort(short[] destBuffer, int offset, byte[] source, int shortCount, double speed,int shortRead)
         {
             fixed (short* pDestBuffer = &destBuffer[offset])
             fixed (byte* pSourceBuffer = &source[0])
@@ -11227,8 +11195,16 @@ namespace MDPlayer
 
                 for (int n = 0; n < samplesRead / 2; n += 2)
                 {
-                    psDestBuffer[(int)n * 2] = (short)Limit((pfSourceBuffer[(int)(n * speed) * 2] * mul) >> 14, 0x7fff, -0x8000);
-                    psDestBuffer[(int)n * 2 + 1] = (short)Limit((pfSourceBuffer[(int)(n * speed) * 2 + 1] * mul) >> 14, 0x7fff, -0x8000);
+                    if (n < shortRead)
+                    {
+                        psDestBuffer[(int)n * 2] = (short)Limit((pfSourceBuffer[(int)(n * speed) * 2] * mul) >> 14, 0x7fff, -0x8000);
+                        psDestBuffer[(int)n * 2 + 1] = (short)Limit((pfSourceBuffer[(int)(n * speed) * 2 + 1] * mul) >> 14, 0x7fff, -0x8000);
+                    }
+                    else
+                    {
+                        psDestBuffer[(int)n * 2] = 0;
+                        psDestBuffer[(int)n * 2 + 1] = 0;
+                    }
 
                     //フェードアウト処理
                     if (!vgmFadeout) continue;

@@ -48,7 +48,7 @@ namespace MDPlayerx64
         //
         // 概要:
         //     NAudio.Wave.WaveStream.BlockAlign
-        public override int BlockAlign => sourceStream.BlockAlign / 3*2;
+        public override int BlockAlign => sourceStream.BlockAlign * 2 / 3;
 
         //
         // 概要:
@@ -117,8 +117,8 @@ namespace MDPlayerx64
             waveFormat = new WaveFormat(sourceStream.WaveFormat.SampleRate, 16, sourceStream.WaveFormat.Channels);
             volume = 1f;
             this.sourceStream = sourceStream;
-            length = sourceStream.Length / 3 * 2;
-            position = sourceStream.Position / 3 * 2;
+            length = sourceStream.Length * 2 / 3;
+            position = sourceStream.Position * 2 / 3;
         }
 
         public override int Read(byte[] destBuffer, int offset, int numBytes)
@@ -129,8 +129,8 @@ namespace MDPlayerx64
                 sourceBuffer = BufferHelpers.Ensure(sourceBuffer, num);
                 int num2 = sourceStream.Read(sourceBuffer, 0, num);
                 Convert24To16(destBuffer, offset, sourceBuffer, num2);
-                position += num2 / 3 * 2;
-                return num2 / 3 * 2;
+                position += num2 * 2 / 3;
+                return num2 * 2 / 3;
             }
         }
 
