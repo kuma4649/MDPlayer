@@ -118,6 +118,14 @@ namespace MDPlayer
             try
             {
                 // ::が無い場合は全てをファイル名として処理終了
+                if (line.ToLower().IndexOf("http://") >= 0 
+                    || line.ToLower().IndexOf("https://") >= 0)
+                {
+                    ms.fileName = line;
+                    return ms;
+                }
+
+                // ::が無い場合は全てをファイル名として処理終了
                 if (line.IndexOf("::") < 0)
                 {
                     ms.fileName = line;

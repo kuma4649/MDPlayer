@@ -6394,6 +6394,15 @@ namespace MDPlayer.form
 
             string ext = Path.GetExtension(filename).ToLower();
 
+            if (ext == "")
+            {
+                if (filename.ToLower().IndexOf("http://") >= 0 || filename.ToLower().IndexOf("https://") >= 0)
+                {
+                    format = EnmFileFormat.shoutcast;
+                    return new byte[] { (byte)'s', (byte)'h', (byte)'o', (byte)'u', (byte)'t', (byte)'c', (byte)'a', (byte)'s', (byte)'t' };
+                }
+            }
+
             //wav/mp3/aiff/ogg/m4a/aac/wmaはnaudioに任せるのでここの処理はスキップ
             if (ext == ".wav")
             {

@@ -1,4 +1,5 @@
-﻿using System.IO.Compression;
+﻿using System;
+using System.IO.Compression;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -198,12 +199,24 @@ namespace MDPlayer
                 row.Cells[dgvList.Columns["clmZipFileName"].Index].Value = music.arcFileName;
                 row.Cells[dgvList.Columns["clmSupportFile"].Index].Value = music.supportFileName;
                 row.Cells[dgvList.Columns["clmUseCompiler"].Index].Value = music.useCompiler;
-                row.Cells[dgvList.Columns["clmDispFileName"].Index].Value = Path.GetFileName(music.fileName);
+                row.Cells[dgvList.Columns["clmDispFileName"].Index].Value = 
+                    (music.fileName.ToLower().IndexOf("http://") >= 0 || music.fileName.ToLower().IndexOf("https://") >= 0)
+                    ? music.fileName
+                    : Path.GetFileName(music.fileName);
                 row.Cells[dgvList.Columns["clmDispFileName"].Index].ToolTipText = music.fileName;
-                row.Cells[dgvList.Columns["clmDispSupportFileName"].Index].Value = string.IsNullOrEmpty(music.supportFileName) ? "-" : Path.GetFileName(music.supportFileName);
+                row.Cells[dgvList.Columns["clmDispSupportFileName"].Index].Value = 
+                    string.IsNullOrEmpty(music.supportFileName) 
+                    ? "-" 
+                    : Path.GetFileName(music.supportFileName);
                 row.Cells[dgvList.Columns["clmDispSupportFileName"].Index].ToolTipText = music.supportFileName;
-                row.Cells[dgvList.Columns["clmDispUseCompiler"].Index].Value = string.IsNullOrEmpty(music.useCompiler) ? "-" : music.useCompiler;
-                row.Cells[dgvList.Columns["clmEXT"].Index].Value = Path.GetExtension(music.fileName).ToUpper();
+                row.Cells[dgvList.Columns["clmDispUseCompiler"].Index].Value = 
+                    string.IsNullOrEmpty(music.useCompiler) 
+                    ? "-" 
+                    : music.useCompiler;
+                row.Cells[dgvList.Columns["clmEXT"].Index].Value = 
+                    (music.fileName.ToLower().IndexOf("http://")>=0|| music.fileName.ToLower().IndexOf("https://") >= 0) 
+                    ? "ShoutCAST" 
+                    : Path.GetExtension(music.fileName).ToUpper();
                 row.Cells[dgvList.Columns["clmType"].Index].Value = music.type;
                 row.Cells[dgvList.Columns["clmTitle"].Index].Value = music.title;
                 row.Cells[dgvList.Columns["clmTitleJ"].Index].Value = music.titleJ;
@@ -417,6 +430,9 @@ namespace MDPlayer
                 case EnmFileFormat.FLAC:
                     AddFileFLAC(mc, entry);
                     break;
+                case EnmFileFormat.shoutcast:
+                    AddFileShoutcast(mc, entry);
+                    break;
             }
         }
 
@@ -548,6 +564,9 @@ namespace MDPlayer
                     break;
                 case EnmFileFormat.SID:
                     AddFileSID(ref index, mc, entry);
+                    break;
+                case EnmFileFormat.shoutcast:
+                    AddFileShoutcast(ref index, mc, entry);
                     break;
             }
         }
@@ -1986,6 +2005,55 @@ namespace MDPlayer
                         musics.Clear();
                     }
                 }
+
+                List<DataGridViewRow> rows = MakeRow(musics);
+                foreach (DataGridViewRow row in rows) dgvList.Rows.Add(row);
+                foreach (PlayList.Music music in musics) LstMusic.Add(music);
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+        }
+
+        private void AddFileShoutcast(ref int index, Music mc, object entry = null)
+        {
+            try
+            {
+                List<PlayList.Music> musics = new List<Music>();
+
+                PlayList.Music music = new Music();
+                music.songNo = 0;
+                music.fileName = mc.fileName;
+                music.title = mc.fileName;
+                music.titleJ = mc.fileName;
+                musics.Clear();
+                musics.Add(music);
+
+                List<DataGridViewRow> rows = MakeRow(musics);
+                dgvList.Rows.InsertRange(index, rows.ToArray());
+                LstMusic.InsertRange(index, musics);
+                index += rows.Count;
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+        }
+
+        private void AddFileShoutcast(Music mc, object entry = null)
+        {
+            try
+            {
+                List<PlayList.Music> musics = new List<Music>();
+
+                PlayList.Music music_ = new Music();
+                music_.songNo = 0;
+                music_.fileName = mc.fileName;
+                music_.title = mc.fileName;
+                music_.titleJ = mc.fileName;
+                musics.Clear();
+                musics.Add(music_);
 
                 List<DataGridViewRow> rows = MakeRow(musics);
                 foreach (DataGridViewRow row in rows) dgvList.Rows.Add(row);

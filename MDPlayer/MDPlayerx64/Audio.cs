@@ -2,6 +2,7 @@
 using MDPlayer.Driver.FMP.Nise98;
 using MDPlayer.Driver.MNDRV;
 using MDPlayer.Driver.SID;
+using MDPlayer.Driver.ZMS.nise68;
 using MDPlayer.form;
 using MDPlayerx64;
 using MDPlayerx64.Driver;
@@ -9,16 +10,19 @@ using MDSound;
 using MDSound.np.chip;
 using Microsoft.VisualBasic.Devices;
 using musicDriverInterface;
+using NAudio.Flac;
 using NAudio.Wave;
+using NAudio.Wave.SampleProviders;
 using System;
 using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.IO.Compression;
+using System.Reflection.PortableExecutable;
+using System.Security.Policy;
 using System.Text;
 using static MDPlayer.MDChipParams;
 using static MDPlayer.Setting;
-using NAudio.Flac;
 
 namespace MDPlayer
 {
@@ -273,6 +277,7 @@ namespace MDPlayer
                 || naudioAacFileReader != null
                 || naudioWmaFileReader != null
                 || naudioFlacFileReader != null
+                || naudioShoutcastWaveStream != null
                 )
                 && naudioBuff!=null)
             {
@@ -2261,6 +2266,7 @@ namespace MDPlayer
                 || naudioAacFileReader != null
                 || naudioWmaFileReader != null
                 || naudioFlacFileReader != null
+                || naudioShoutcastWaveStream != null
                 )
             {
                 NAudioStop();
@@ -2274,6 +2280,7 @@ namespace MDPlayer
                 || format == EnmFileFormat.AAC
                 || format == EnmFileFormat.WMA
                 || format == EnmFileFormat.FLAC
+                || format == EnmFileFormat.shoutcast
                 )
             {
                 naudioFileName = playingFileName;
@@ -3071,13 +3078,32 @@ namespace MDPlayer
             {
                 naudioWaveFileReader = new WaveFileReader(naudioFileName);
                 AftertasteStream l = new AftertasteStream(naudioWaveFileReader);
-                WaveFormat format = new WaveFormat(setting.outputDevice.SampleRate, 16, 2);
                 IWaveProvider iwp = l;
-                if (naudioWaveFileReader.WaveFormat.BitsPerSample == 32)
+                var format = naudioWaveFileReader.WaveFormat;
+
+                if (format.Encoding == WaveFormatEncoding.IeeeFloat && format.BitsPerSample == 32)
                     iwp = new Wave32To16Stream(l);
-                else if (naudioWaveFileReader.WaveFormat.BitsPerSample == 24)
+                else if (format.Encoding == WaveFormatEncoding.Pcm && format.BitsPerSample == 24)
                     iwp = new Wave24To16Stream(l);
-                wfcp = new WaveFormatConversionProvider(format, iwp);
+                else if (format.Encoding == WaveFormatEncoding.Pcm && format.BitsPerSample == 16)
+                    // そのまま使えるので変換不要
+                    iwp = l;
+                else
+                    // 未対応フォーマット
+                    throw new InvalidOperationException($"未対応のフォーマット: Encoding={format.Encoding}, BitsPerSample={format.BitsPerSample}");
+
+                // MediaFoundationResampler は ISampleProvider を使うので変換
+                var sampleProvider = iwp.ToSampleProvider();
+                // 出力フォーマットを指定（例：44100Hz, 2ch）
+                var desiredFormat = WaveFormat.CreateIeeeFloatWaveFormat(setting.outputDevice.SampleRate, 2);
+                // サンプルレート変換（float → float）
+                var resampled = new MediaFoundationResampler(sampleProvider.ToWaveProvider(), desiredFormat)
+                {
+                    ResamplerQuality = 60 // 1〜60（高いほど高音質）
+                };
+                // 最終的に 16bit PCM に変換
+                IWaveProvider finalProvider = new SampleToWaveProvider16(resampled.ToSampleProvider());
+                wfcp = finalProvider;
 
                 ChipLED = new ChipLEDs();
                 vgmSpeed = 1;
@@ -3392,6 +3418,127 @@ namespace MDPlayer
                 DriverReal = null;
                 naudioSampleCounter = 0;
                 naudioDummyCount = 0;
+
+                return true;
+            }
+
+            if (PlayingFileFormat == EnmFileFormat.shoutcast)
+            {
+                // --- 既存のヘッダー解析処理 ---
+                ShoutCastDrv scd = new ShoutCastDrv();
+                try { wavestreamGD3 = scd.getGD3Info(null, 0); } catch { wavestreamGD3 = null; }
+
+                using var client = new HttpClient();
+                client.DefaultRequestHeaders.Add("Icy-MetaData", "1");
+                var response = client.GetAsync(naudioFileName, HttpCompletionOption.ResponseHeadersRead).GetAwaiter().GetResult();
+
+                string contentType = response.Content.Headers.ContentType?.MediaType.ToLower() ?? "";
+                bool isAac = contentType.Contains("aac") || contentType.Contains("audio/aacp") || contentType.Contains("video/mp4");
+
+                // メタデータ間隔・ビットレート・サンプリングレート取得
+                int metaInt = 0;
+                if (response.Headers.TryGetValues("icy-metaint", out var mv)) int.TryParse(mv.FirstOrDefault(), out metaInt);
+                int sr = 44100;
+                if (response.Headers.TryGetValues("icy-sr", out var mvs)) int.TryParse(mvs.FirstOrDefault(), out sr);
+
+                // メタデータ抽出用ストリームの生成
+                var rawStream = response.Content.ReadAsStreamAsync().GetAwaiter().GetResult();
+                naudioShoutcastWaveStream = new ShoutcastWaveStream(rawStream, metaInt, new WaveFormat(sr, 16, 2));
+                naudioShoutcastWaveStream.MetadataReceived += (s, meta) => System.Diagnostics.Debug.WriteLine($"[Metadata] {meta}");
+
+                WaveFormat targetFormat = new WaveFormat(setting.outputDevice.SampleRate, 16, 2);
+
+                if (isAac)
+                {
+                    // --- AAC 再生: URL直接指定でCOMエラー回避 ---
+                    var aacDecoder = new MediaFoundationReader(naudioFileName);
+
+                    // メタデータ用ストリームを別スレッドで空回し
+                    _ = Task.Run(async () => {
+                        try
+                        {
+                            byte[] discardBuffer = new byte[4096];
+                            while (true)
+                            {
+                                int r = await naudioShoutcastWaveStream.ReadAsync(discardBuffer, 0, discardBuffer.Length);
+                                if (r <= 0) break;
+                            }
+                        }
+                        catch { }
+                    });
+
+                    IWaveProvider lastProvider = aacDecoder;
+                    if (aacDecoder.WaveFormat.Encoding == WaveFormatEncoding.IeeeFloat)
+                        lastProvider = new SampleToWaveProvider16(new WaveToSampleProvider(aacDecoder));
+
+                    wfcp = new WaveFormatConversionProvider(targetFormat, lastProvider);
+                }
+                else
+                {
+                    // --- MP3 再生ロジック (エラーに最も強いフレーム読み込み方式) ---
+
+                    // 1. 最初のフレームを読み込んでフォーマットを確定させる
+                    Mp3Frame frame = Mp3Frame.LoadFromStream(naudioShoutcastWaveStream);
+                    if (frame == null) throw new Exception("MP3フレームが見つかりません。");
+
+                    var mp3Format = new Mp3WaveFormat(frame.SampleRate,
+                                                      frame.ChannelMode == ChannelMode.Mono ? 1 : 2,
+                                                      frame.FrameLength, frame.BitRate);
+
+                    // 1. デコード結果を溜めるバッファを十分に確保 (20秒分)
+                    var bufferedWaveProvider = new BufferedWaveProvider(new WaveFormat(frame.SampleRate, 16, frame.ChannelMode == ChannelMode.Mono ? 1 : 2))
+                    {
+                        BufferDuration = TimeSpan.FromSeconds(20), // プロパティがない場合は以下の設定を使用
+                        DiscardOnBufferOverflow = true // これを true にすると Buffer full 例外が発生しなくなります
+                    };
+
+                    // 3. これを wfcp (WaveFormatConversionProvider) に繋ぐ
+                    wfcp = new WaveFormatConversionProvider(targetFormat, bufferedWaveProvider);
+
+                    // 4. 別タスクで「デコード・バッファ供給ループ」を回す
+                    _ = Task.Run(async () =>
+                    {
+                        using var decompressor = new AcmMp3FrameDecompressor(mp3Format);
+                        byte[] pcmBuffer = new byte[16384 * 4];
+
+                        while (frame != null)
+                        {
+                            // バッファが溢れないように制御
+                            int bytesInFiveSeconds = bufferedWaveProvider.WaveFormat.AverageBytesPerSecond * 5;
+
+                            while (bufferedWaveProvider.BufferedBytes > bytesInFiveSeconds)
+                            {
+                                await Task.Delay(500); // 0.5秒待機
+                            }
+
+                            try
+                            {
+                                int decompressedCount = decompressor.DecompressFrame(frame, pcmBuffer, 0);
+                                if (decompressedCount > 0)
+                                    bufferedWaveProvider.AddSamples(pcmBuffer, 0, decompressedCount);
+                            }
+                            catch { break; }
+
+                            // 次のフレームを読み込む（ID3タグがあっても飛ばしてくれる）
+                            frame = Mp3Frame.LoadFromStream(naudioShoutcastWaveStream);
+                        }
+                    });
+
+                    // 以降の初期化
+                    ChipLED = new ChipLEDs();
+                    vgmSpeed = 1; vgmFadeout = false;
+                    vgmFadeoutCounter = 1.0; vgmFadeoutCounterV = 0.00001;
+                    DriverVirtual = null; DriverReal = null;
+                    naudioSampleCounter = 0; naudioDummyCount = 0;
+                    return true;
+                }
+
+                // --- 共通の初期化処理 ---
+                ChipLED = new ChipLEDs();
+                vgmSpeed = 1; vgmFadeout = false;
+                vgmFadeoutCounter = 1.0; vgmFadeoutCounterV = 0.00001;
+                DriverVirtual = null; DriverReal = null;
+                naudioSampleCounter = 0; naudioDummyCount = 0;
 
                 return true;
             }
@@ -10095,6 +10242,7 @@ namespace MDPlayer
                     || naudioAacFileReader != null
                     || naudioWmaFileReader != null
                     || naudioFlacFileReader != null
+                    || naudioShoutcastWaveStream != null
                     ))
                 {
                     Stopped = true;
@@ -10113,6 +10261,7 @@ namespace MDPlayer
                         || PlayingFileFormat != EnmFileFormat.AAC
                         || PlayingFileFormat != EnmFileFormat.WMA
                         || PlayingFileFormat != EnmFileFormat.FLAC
+                        || PlayingFileFormat != EnmFileFormat.shoutcast
                         )
                         && (naudioWaveFileReader != null
                         || naudioMp3FileReader != null
@@ -10122,6 +10271,7 @@ namespace MDPlayer
                         || naudioAacFileReader != null
                         || naudioWmaFileReader != null
                         || naudioFlacFileReader != null
+                        || naudioShoutcastWaveStream != null
                         ))
                     {
                         NAudioStop();
@@ -10156,6 +10306,7 @@ namespace MDPlayer
                     || naudioAacFileReader != null
                     || naudioWmaFileReader != null
                     || naudioFlacFileReader != null
+                    || naudioShoutcastWaveStream != null
                     )
                 {
                     NAudioStop();
@@ -10267,6 +10418,13 @@ namespace MDPlayer
                     wfcp = null;
                     dmy.Dispose();
                 }
+                if (naudioShoutcastWaveStream != null)
+                {
+                    ShoutcastWaveStream dmy = naudioShoutcastWaveStream;
+                    naudioShoutcastWaveStream = null;
+                    wfcp = null;
+                    dmy.Dispose();
+                }
             }
             catch { }
         }
@@ -10338,6 +10496,7 @@ namespace MDPlayer
                 if (naudioAacFileReader != null) ws = naudioAacFileReader;
                 if (naudioWmaFileReader != null) ws = naudioWmaFileReader;
                 if (naudioFlacFileReader != null) ws = naudioFlacFileReader;
+                if (naudioShoutcastWaveStream != null) ws = naudioShoutcastWaveStream;
                 if (ws != null)
                 {
                     //long ns = (long)((double)ws.TotalTime.TotalNanoseconds / (double)ws.Length * ws.Position);
@@ -10370,6 +10529,7 @@ namespace MDPlayer
                 if (naudioAacFileReader != null) ws = naudioAacFileReader;
                 if (naudioWmaFileReader != null) ws = naudioWmaFileReader;
                 if (naudioFlacFileReader != null) ws = naudioFlacFileReader;
+                if (naudioShoutcastWaveStream != null) ws = naudioShoutcastWaveStream;
                 if (ws != null)
                 {
                     long ns= (long)ws.TotalTime.TotalNanoseconds;
@@ -10583,6 +10743,7 @@ namespace MDPlayer
                 || naudioAacFileReader != null
                 || naudioWmaFileReader != null
                 || naudioFlacFileReader != null
+                || naudioShoutcastWaveStream != null
                 )
             {
                 return false;
@@ -10898,6 +11059,7 @@ namespace MDPlayer
                 || naudioAacFileReader != null
                 || naudioWmaFileReader != null
                 || naudioFlacFileReader != null
+                || naudioShoutcastWaveStream != null
                 )
             {
                 if (TrdClosed)
@@ -11104,8 +11266,10 @@ namespace MDPlayer
         private static MediaFoundationReader naudioAacFileReader = null;
         private static MediaFoundationReader naudioWmaFileReader = null;
         private static FlacReader naudioFlacFileReader = null;
+        private static ShoutcastWaveStream naudioShoutcastWaveStream = null;
         private static LoopStream loopStream = null;
-        private static WaveFormatConversionProvider wfcp = null;
+        //private static WaveFormatConversionProvider wfcp = null;
+        private static IWaveProvider wfcp = null;
         private static byte[] naudioSrcbuffer = null;
         private static long naudioSampleCounter = 0;
         private static int naudioDummyCount = 0;
@@ -11123,6 +11287,7 @@ namespace MDPlayer
             if (naudioAacFileReader != null) ws = naudioAacFileReader;
             if (naudioWmaFileReader != null) ws = naudioWmaFileReader;
             if (naudioFlacFileReader != null) ws = naudioFlacFileReader;
+            if(naudioShoutcastWaveStream != null) ws = naudioShoutcastWaveStream;
             if (ws != null)
             {
                 if (ws.CanSeek)
@@ -11451,6 +11616,10 @@ namespace MDPlayer
                 {
                     return wavestreamGD3;
                 }
+                else if (naudioShoutcastWaveStream != null)
+                {
+                    return wavestreamGD3;
+                }
 
                 return null;
             }
@@ -11459,6 +11628,11 @@ namespace MDPlayer
 
         public static List<Tuple<string, string>> GetTagsDriver()
         {
+            if (naudioShoutcastWaveStream != null)
+            {
+                return naudioShoutcastWaveStream.ReadTitle();
+            }
+
             if (DriverVirtual == null) return null;
 
             if (DriverVirtual is muapDotNET)

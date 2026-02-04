@@ -306,6 +306,8 @@ namespace MDPlayer
 
         public static EnmFileFormat CheckExt(string filename,byte[] buf=null)
         {
+            if (filename.ToLower().IndexOf("http://") != -1) return EnmFileFormat.shoutcast;
+            if (filename.ToLower().IndexOf("https://") != -1) return EnmFileFormat.shoutcast;
             if (filename.ToLower().LastIndexOf(".m3u") != -1) return EnmFileFormat.M3U;
             if (filename.ToLower().LastIndexOf(".mid") != -1) return EnmFileFormat.MID;
             if (filename.ToLower().LastIndexOf(".nrd") != -1) return EnmFileFormat.NRT;
@@ -1117,6 +1119,7 @@ namespace MDPlayer
         MUAP_src = 42,
         MUAP = 43,
         FLAC = 44,
+        shoutcast = 45,
     }
 
     public enum EnmArcType : int

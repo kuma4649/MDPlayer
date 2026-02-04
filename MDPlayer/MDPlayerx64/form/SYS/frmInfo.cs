@@ -58,6 +58,11 @@ namespace MDPlayer.form
                 timer.Enabled = true;
                 return;
             }
+            else if (Audio.PlayingFileFormat == EnmFileFormat.shoutcast)
+            {
+                timer.Enabled = true;
+                return;
+            }
             else
             {
                 if (gd3.Lyrics == null)
@@ -122,6 +127,11 @@ namespace MDPlayer.form
             if(Audio.PlayingFileFormat == EnmFileFormat.MUAP || Audio.PlayingFileFormat == EnmFileFormat.MUAP_src)
             {
                 muapLyrics();
+                return;
+            }
+            else if (Audio.PlayingFileFormat == EnmFileFormat.shoutcast)
+            {
+                UpdateShoutcastTitle();
                 return;
             }
 
@@ -201,6 +211,12 @@ namespace MDPlayer.form
             }
         }
 
+        private void UpdateShoutcastTitle()
+        {
+            List<Tuple<string, string>> ret = Audio.GetTagsDriver();
+            if (ret == null || ret.Count < 1 || ret[0] == null) return;
+            dgvInfo.Rows[0].Cells[1].Value = ret[0].Item2;
+        }
 
         private void muapLyrics()
         {
