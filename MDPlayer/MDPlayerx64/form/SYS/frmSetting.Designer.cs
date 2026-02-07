@@ -599,6 +599,7 @@ namespace MDPlayer.form
             btnResetPosition = new Button();
             btnOpenSettingFolder = new Button();
             cbExALL = new CheckBox();
+            cbToast = new CheckBox();
             cbTappyMode = new CheckBox();
             cbSaveCompiledFile = new CheckBox();
             cbInitAlways = new CheckBox();
@@ -4634,6 +4635,7 @@ namespace MDPlayer.form
             tpOther.Controls.Add(btnResetPosition);
             tpOther.Controls.Add(btnOpenSettingFolder);
             tpOther.Controls.Add(cbExALL);
+            tpOther.Controls.Add(cbToast);
             tpOther.Controls.Add(cbTappyMode);
             tpOther.Controls.Add(cbSaveCompiledFile);
             tpOther.Controls.Add(cbInitAlways);
@@ -4846,6 +4848,13 @@ namespace MDPlayer.form
             cbExALL.Name = "cbExALL";
             cbExALL.UseVisualStyleBackColor = true;
             cbExALL.CheckedChanged += CbUseLoopTimes_CheckedChanged;
+            // 
+            // cbToast
+            // 
+            resources.ApplyResources(cbToast, "cbToast");
+            cbToast.Name = "cbToast";
+            cbToast.UseVisualStyleBackColor = true;
+            cbToast.CheckedChanged += CbUseLoopTimes_CheckedChanged;
             // 
             // cbTappyMode
             // 
@@ -5870,5 +5879,6 @@ namespace MDPlayer.form
         private GroupBox groupBox42;
         private RadioButton rb98CanBe;
         private RadioButton rbOTOMI;
+        private CheckBox cbToast;
     }
 }

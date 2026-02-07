@@ -123,8 +123,10 @@ namespace MDPlayer.form
             MinimumSize = new Size(370, 360);
             Name = "frmInfo";
             Text = "Information";
+            FormClosing += frmInfo_FormClosing;
             FormClosed += FrmInfo_FormClosed;
             Load += FrmInfo_Load;
+            Shown += frmInfo_Shown;
             ((System.ComponentModel.ISupportInitialize)dgvInfo).EndInit();
             ResumeLayout(false);
         }

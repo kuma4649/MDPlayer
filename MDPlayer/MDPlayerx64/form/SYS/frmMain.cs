@@ -330,7 +330,7 @@ namespace MDPlayer.form
             frmVSTeffectList.Refresh();
 
             if (setting.location.OPlayList) DispPlayList();
-            if (setting.location.OInfo) openInfo();
+            openInfoLoad(setting.location.OInfo);
             if (setting.location.OMixer) openMixer();
             if (setting.location.OpenYm2612MIDI) openMIDIKeyboard();
             if (setting.location.OpenVisWave) OpenFormVisWave();
@@ -1319,8 +1319,8 @@ namespace MDPlayer.form
             }
             if (frmInfo != null && !frmInfo.isClosed)
             {
+                setting.location.OInfo = frmInfo.Visible;
                 frmInfo.Close();
-                setting.location.OInfo = true;
             }
             if (frmPic != null && !frmPic.isClosed)
             {
@@ -4755,16 +4755,17 @@ namespace MDPlayer.form
         {
             if (frmInfo != null && !frmInfo.isClosed)
             {
-                try
-                {
-                    frmInfo.Close();
-                    frmInfo.Dispose();
-                }
-                catch { }
-                finally
-                {
-                    frmInfo = null;
-                }
+                frmInfo.Visible = !frmInfo.Visible;
+                //try
+                //{
+                //    frmInfo.Close();
+                //    frmInfo.Dispose();
+                //}
+                //catch { }
+                //finally
+                //{
+                //    frmInfo = null;
+                //}
                 return;
             }
 
@@ -4782,6 +4783,58 @@ namespace MDPlayer.form
                 }
             }
 
+            frmInfo = new frmInfo(this);
+            if (setting.location.PInfo == System.Drawing.Point.Empty)
+            {
+                frmInfo.x = this.Location.X + 328;
+                frmInfo.y = this.Location.Y;
+                frmInfo.Width = frmInfo.MinimumSize.Width;
+                frmInfo.Height = frmInfo.MinimumSize.Height;
+            }
+            else
+            {
+                frmInfo.x = setting.location.PInfo.X;
+                frmInfo.y = setting.location.PInfo.Y;
+                frmInfo.Width = setting.location.SInfo.Width;
+                frmInfo.Height = setting.location.SInfo.Height;
+            }
+            frmInfo.Visible = true;
+
+            frmPic = new frmPic(this);
+            if (setting.location.PPic == System.Drawing.Point.Empty)
+            {
+                frmPic.x = this.Location.X + 328;
+                frmPic.y = this.Location.Y;
+                frmPic.w = 320;
+                frmPic.h = 200;
+            }
+            else
+            {
+                frmPic.x = setting.location.PPic.X;
+                frmPic.y = setting.location.PPic.Y;
+                frmPic.w = setting.location.SPic.X;
+                frmPic.h = setting.location.SPic.Y;
+            }
+            //frmPic.Show();
+
+            Screen s = Screen.FromControl(frmInfo);
+            Rectangle rc = new(frmInfo.Location, frmInfo.Size);
+            if (s.WorkingArea.Contains(rc))
+            {
+                frmInfo.Location = rc.Location;
+                frmInfo.Size = rc.Size;
+            }
+            else
+            {
+                frmInfo.Location = new System.Drawing.Point(100, 100);
+            }
+
+            frmInfo.setting = setting;
+            frmInfo.Show();
+            frmInfo.UpdateInfo();
+        }
+        private void openInfoLoad(bool vis)
+        {
             frmInfo = new frmInfo(this);
             if (setting.location.PInfo == System.Drawing.Point.Empty)
             {
@@ -4829,8 +4882,10 @@ namespace MDPlayer.form
 
             frmInfo.setting = setting;
             frmInfo.Show();
+            frmInfo.Visible = vis;
             frmInfo.UpdateInfo();
         }
+
 
         private void openMIDIKeyboard()
         {

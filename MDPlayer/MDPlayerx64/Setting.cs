@@ -1719,7 +1719,8 @@ namespace MDPlayer
             public bool AdjustTLParam { get; set; } = false;
             public string ResourceFile { get; set; } = null;
             public bool SaveCompiledFile { get; set; } = false;
-            public bool TappyMode { get;  set; }=true;
+            public bool TappyMode { get; set; } = true;
+            public bool ToastMode { get; set; } = true;
 
             public Other Copy()
             {
@@ -1753,6 +1754,7 @@ namespace MDPlayer
                     ResourceFile = this.ResourceFile,
                     SaveCompiledFile = this.SaveCompiledFile,
                     TappyMode=this.TappyMode,
+                    ToastMode=this.ToastMode,
                 };
 
                 return other;

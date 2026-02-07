@@ -11,6 +11,7 @@
     <ApplicationIcon>Resources\Feli128.ico</ApplicationIcon>
 <PublishAot>true</PublishAot>
 <PublishTrimmed>false</PublishTrimmed>
+<SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

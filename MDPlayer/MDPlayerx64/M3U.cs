@@ -1,16 +1,23 @@
 ﻿using System.Globalization;
 using System.IO.Compression;
 using System.Text;
+using static MDPlayer.PlayList;
 
 namespace MDPlayer
 {
     public class M3U
     {
+        private static readonly string EXTM3U = "#EXTM3U";
+        private static readonly string EXTINF = "#EXTINF:";
+        private static readonly char Comment = '#';
+
         public static PlayList LoadM3U(string filename, string rootPath)
         {
             try
             {
                 PlayList pl = new PlayList();
+                bool isM3U = false;
+                string info = "";
 
                 using (StreamReader sr = new StreamReader(filename, Encoding.GetEncoding(932)))
                 {
@@ -20,10 +27,38 @@ namespace MDPlayer
 
                         line = line.Trim();
                         if (line == "") continue;
-                        if (line[0] == '#') continue;
+                        if (line == EXTM3U) { isM3U = true; continue; }
+                        if (line.IndexOf(EXTINF)==0 && isM3U) {
+                            info = line.Substring(EXTINF.Length);
+                            continue; 
+                        }
+                        if (line[0] == Comment) continue;
 
                         PlayList.Music ms = analyzeLine(line, rootPath);
                         ms.format = Common.CheckExt(ms.fileName);
+                        ms.title = ms.fileName;
+                        ms.titleJ = ms.fileName;
+                        ms.composer = "";
+                        ms.composerJ = "";
+                        if (!string.IsNullOrEmpty(info))
+                        {
+                            try
+                            {
+                                info = info.Substring(info.IndexOf(',')+1);
+                                ms.title = info.Substring(info.LastIndexOf(" - ")+2).Trim();
+                                ms.titleJ = ms.title;
+                                ms.composer = info.Substring(0, info.LastIndexOf(" - ")).Trim();
+                                ms.composerJ = ms.composer;
+                            }
+                            catch
+                            {
+                                ms.title = info;
+                                ms.titleJ = ms.title;
+                                ms.composer = "(Unknown)";
+                                ms.composerJ = ms.composer;
+                            }
+                            info = "";
+                        }
                         if (ms != null) pl.LstMusic.Add(ms);
 
                     }

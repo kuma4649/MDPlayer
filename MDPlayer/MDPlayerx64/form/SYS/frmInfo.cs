@@ -1,4 +1,5 @@
-﻿using System.Reflection.Metadata.Ecma335;
+﻿using MDPlayerx64;
+using System.Reflection.Metadata.Ecma335;
 
 namespace MDPlayer.form
 {
@@ -19,7 +20,6 @@ namespace MDPlayer.form
             parent = frm;
             InitializeComponent();
             rtbLyric.GotFocus += RichTextBox1_GotFocus;
-            UpdateInfo();
         }
 
         private void RichTextBox1_GotFocus(object sender, EventArgs e)
@@ -36,6 +36,11 @@ namespace MDPlayer.form
             GD3 gd3 = Audio.GetGD3();
             if (gd3 == null) return;
 
+            if (dgvInfo.Columns.Count < 2)
+            {
+                dgvInfo.Columns.Add("項目", "項目");
+                dgvInfo.Columns.Add("内容", "内容");
+            }
             dgvInfo.Rows.Add("Title", Common.EscSeqFilter(gd3.TrackName));
             dgvInfo.Rows.Add("TitleJ", Common.EscSeqFilter(gd3.TrackNameJ));
             dgvInfo.Rows.Add("Game", Common.EscSeqFilter(gd3.GameName));
@@ -50,6 +55,15 @@ namespace MDPlayer.form
             dgvInfo.Rows.Add("Version", Common.EscSeqFilter(gd3.Version));
             dgvInfo.Rows.Add("UsedChips", Common.EscSeqFilter(gd3.UsedChips));
             dgvInfo.ClearSelection();
+
+            if (setting.other.ToastMode)
+            {
+                this.BeginInvoke(new Action(() =>
+                {
+                    frmToast toast = new frmToast(Common.EscSeqFilter(gd3.Composer), Common.EscSeqFilter(gd3.TrackName));
+                    toast.Show();
+                }));
+            }
 
             parent.OpenPicWindow(gd3.pic);
 
@@ -124,7 +138,7 @@ namespace MDPlayer.form
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            if(Audio.PlayingFileFormat == EnmFileFormat.MUAP || Audio.PlayingFileFormat == EnmFileFormat.MUAP_src)
+            if (Audio.PlayingFileFormat == EnmFileFormat.MUAP || Audio.PlayingFileFormat == EnmFileFormat.MUAP_src)
             {
                 muapLyrics();
                 return;
@@ -216,6 +230,15 @@ namespace MDPlayer.form
             List<Tuple<string, string>> ret = Audio.GetTagsDriver();
             if (ret == null || ret.Count < 1 || ret[0] == null) return;
             dgvInfo.Rows[0].Cells[1].Value = ret[0].Item2;
+
+            if (setting.other.ToastMode)
+            {
+                this.BeginInvoke(new Action(() =>
+                {
+                    frmToast toast = new frmToast("", ret[0].Item2);
+                    toast.Show();
+                }));
+            }
         }
 
         private void muapLyrics()
@@ -252,5 +275,15 @@ namespace MDPlayer.form
             rtbLyric.ResumeLayout();
         }
 
+        private void frmInfo_Shown(object sender, EventArgs e)
+        {
+            UpdateInfo();
+        }
+
+        private void frmInfo_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Visible = false;
+            e.Cancel = true;
+        }
     }
 }

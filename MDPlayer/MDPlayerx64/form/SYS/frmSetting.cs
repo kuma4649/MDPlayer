@@ -925,6 +925,7 @@ namespace MDPlayer.form
             cbExALL.Checked = setting.other.ExAll;
             cbNonRenderingForPause.Checked = setting.other.NonRenderingForPause;
             cbTappyMode.Checked = setting.other.TappyMode;
+            cbToast.Checked = setting.other.ToastMode;
 
 
 
@@ -1713,6 +1714,7 @@ namespace MDPlayer.form
             setting.other.EmptyPlayList = cbEmptyPlayList.Checked;
             setting.other.ExAll = cbExALL.Checked;
             setting.other.TappyMode = cbTappyMode.Checked;
+            setting.other.ToastMode = cbToast.Checked;
             setting.other.NonRenderingForPause = cbNonRenderingForPause.Checked;
             setting.other.AdjustTLParam = cbAdjustTLParam.Checked;
             setting.other.SaveCompiledFile = cbSaveCompiledFile.Checked;

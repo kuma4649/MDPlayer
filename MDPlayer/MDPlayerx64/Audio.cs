@@ -10,6 +10,7 @@ using MDSound;
 using MDSound.np.chip;
 using Microsoft.VisualBasic.Devices;
 using musicDriverInterface;
+using NAudio;
 using NAudio.Flac;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
@@ -3453,15 +3454,22 @@ namespace MDPlayer
                     // --- AAC 再生: URL直接指定でCOMエラー回避 ---
                     var aacDecoder = new MediaFoundationReader(naudioFileName);
 
-                    // メタデータ用ストリームを別スレッドで空回し
+                    // メタデータ用ストリームを別スレッドで空回し（リトライ対応版）
                     _ = Task.Run(async () => {
                         try
                         {
                             byte[] discardBuffer = new byte[4096];
-                            while (true)
+                            int retryCount = 0;
+                            while (retryCount < 10) // 最大10回リトライ
                             {
                                 int r = await naudioShoutcastWaveStream.ReadAsync(discardBuffer, 0, discardBuffer.Length);
-                                if (r <= 0) break;
+                                if (r <= 0)
+                                {
+                                    retryCount++;
+                                    await Task.Delay(1000); // 1秒待機して再試行
+                                    continue;
+                                }
+                                retryCount = 0; // 読めたらリセット
                             }
                         }
                         catch { }
@@ -3475,52 +3483,83 @@ namespace MDPlayer
                 }
                 else
                 {
-                    // --- MP3 再生ロジック (エラーに最も強いフレーム読み込み方式) ---
+                    // --- MP3 再生ロジック (VBR対応・ネットワークリトライ版) ---
 
-                    // 1. 最初のフレームを読み込んでフォーマットを確定させる
                     Mp3Frame frame = Mp3Frame.LoadFromStream(naudioShoutcastWaveStream);
-                    if (frame == null) throw new Exception("MP3フレームが見つかりません。");
+                    if (frame == null)
+                    {
+                        throw new Exception("MP3フレームが見つかりません。");
+                    }
 
                     var mp3Format = new Mp3WaveFormat(frame.SampleRate,
                                                       frame.ChannelMode == ChannelMode.Mono ? 1 : 2,
-                                                      frame.FrameLength, frame.BitRate);
+                                                      0,
+                                                      frame.BitRate);
 
-                    // 1. デコード結果を溜めるバッファを十分に確保 (20秒分)
                     var bufferedWaveProvider = new BufferedWaveProvider(new WaveFormat(frame.SampleRate, 16, frame.ChannelMode == ChannelMode.Mono ? 1 : 2))
                     {
-                        BufferDuration = TimeSpan.FromSeconds(20), // プロパティがない場合は以下の設定を使用
-                        DiscardOnBufferOverflow = true // これを true にすると Buffer full 例外が発生しなくなります
+                        BufferDuration = TimeSpan.FromSeconds(20),
+                        DiscardOnBufferOverflow = true
                     };
 
-                    // 3. これを wfcp (WaveFormatConversionProvider) に繋ぐ
                     wfcp = new WaveFormatConversionProvider(targetFormat, bufferedWaveProvider);
 
-                    // 4. 別タスクで「デコード・バッファ供給ループ」を回す
                     _ = Task.Run(async () =>
                     {
                         using var decompressor = new AcmMp3FrameDecompressor(mp3Format);
                         byte[] pcmBuffer = new byte[16384 * 4];
+                        int retryCount = 0;
+                        const int maxRetries = 10; // 最大10回リトライ（約5秒間待機）
 
-                        while (frame != null)
+                        try
                         {
-                            // バッファが溢れないように制御
-                            int bytesInFiveSeconds = bufferedWaveProvider.WaveFormat.AverageBytesPerSecond * 5;
-
-                            while (bufferedWaveProvider.BufferedBytes > bytesInFiveSeconds)
+                            while (true)
                             {
-                                await Task.Delay(500); // 0.5秒待機
-                            }
+                                // バッファが溢れないように制御 (5秒分溜まっていたら待機)
+                                int bytesInFiveSeconds = bufferedWaveProvider.WaveFormat.AverageBytesPerSecond * 5;
+                                while (bufferedWaveProvider.BufferedBytes > bytesInFiveSeconds)
+                                {
+                                    await Task.Delay(500);
+                                }
 
-                            try
-                            {
-                                int decompressedCount = decompressor.DecompressFrame(frame, pcmBuffer, 0);
-                                if (decompressedCount > 0)
-                                    bufferedWaveProvider.AddSamples(pcmBuffer, 0, decompressedCount);
-                            }
-                            catch { break; }
+                                if (frame == null)
+                                {
+                                    // フレームが取れなかった場合（ネットワーク遅延など）
+                                    if (retryCount < maxRetries)
+                                    {
+                                        retryCount++;
+                                        System.Diagnostics.Debug.WriteLine($"[Retry] フレーム取得失敗、再試行中... ({retryCount}/{maxRetries})");
+                                        await Task.Delay(500);
+                                        frame = Mp3Frame.LoadFromStream(naudioShoutcastWaveStream);
+                                        continue;
+                                    }
+                                    break; // リトライ上限に達した場合はループ終了
+                                }
 
-                            // 次のフレームを読み込む（ID3タグがあっても飛ばしてくれる）
-                            frame = Mp3Frame.LoadFromStream(naudioShoutcastWaveStream);
+                                retryCount = 0; // 正常に読み込めたらリトライカウントをリセット
+
+                                try
+                                {
+                                    // 安全策: 展開後の最大サイズを確認し、必要ならバッファを拡張
+                                    int maxPcmSize = frame.SampleCount * (bufferedWaveProvider.WaveFormat.BitsPerSample / 8) * bufferedWaveProvider.WaveFormat.Channels;
+                                    if (pcmBuffer.Length < maxPcmSize) pcmBuffer = new byte[maxPcmSize];
+
+                                    int decompressedCount = decompressor.DecompressFrame(frame, pcmBuffer, 0);
+                                    if (decompressedCount > 0)
+                                        bufferedWaveProvider.AddSamples(pcmBuffer, 0, decompressedCount);
+                                }
+                                catch (MmException mmex)
+                                {
+                                    System.Diagnostics.Debug.WriteLine($"Decompress Error: {mmex.Message} at {frame.BitRate}bps");
+                                }
+
+                                // 次のフレームを読み込む
+                                frame = Mp3Frame.LoadFromStream(naudioShoutcastWaveStream);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            System.Diagnostics.Debug.WriteLine($"Stream Loop Error: {ex.Message}");
                         }
                     });
 

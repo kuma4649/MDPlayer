@@ -2,6 +2,7 @@
 using System.IO.Compression;
 using System.Runtime.CompilerServices;
 using System.Text;
+using static MDPlayer.PlayList;
 
 namespace MDPlayer
 {
@@ -2025,8 +2026,10 @@ namespace MDPlayer
                 PlayList.Music music = new Music();
                 music.songNo = 0;
                 music.fileName = mc.fileName;
-                music.title = mc.fileName;
-                music.titleJ = mc.fileName;
+                music.title = mc.title;
+                music.titleJ = mc.titleJ;
+                music.composer = mc.composer;
+                music.composerJ = mc.composerJ;
                 musics.Clear();
                 musics.Add(music);
 
@@ -2050,8 +2053,10 @@ namespace MDPlayer
                 PlayList.Music music_ = new Music();
                 music_.songNo = 0;
                 music_.fileName = mc.fileName;
-                music_.title = mc.fileName;
-                music_.titleJ = mc.fileName;
+                music_.title = mc.title;
+                music_.titleJ = mc.titleJ;
+                music_.composer = mc.composer;
+                music_.composerJ = mc.composerJ;
                 musics.Clear();
                 musics.Add(music_);
 
