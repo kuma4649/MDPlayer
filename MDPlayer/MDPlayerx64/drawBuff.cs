@@ -2057,6 +2057,18 @@ namespace MDPlayer
             om = nm;
         }
 
+        public static void ChYMZ280B(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            ChYMZ280B_P(screen, 1, 8 + ch * 8, ch, nm == null ? false : (bool)nm, tp);
+            om = nm;
+        }
+
         public static void ChK053260(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
         {
 
@@ -4404,6 +4416,14 @@ namespace MDPlayer
             //if (ch < 9) drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
             //else
             drawFont4(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString("d2"));
+        }
+
+        public static void ChYMZ280B_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
+        {
+            if (screen == null) return;
+
+            screen.drawIntArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 16, 0, 16, 8);
+            drawFont4(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString("d1"));
         }
 
         private static void ChHuC6280_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)

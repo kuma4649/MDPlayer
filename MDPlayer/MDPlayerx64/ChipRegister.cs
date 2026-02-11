@@ -5411,6 +5411,18 @@ namespace MDPlayer
             if (nes_n106 != null) nes_n106.SetMask(nsfN163mask);
         }
 
+        public void setYMZ280BMask(int chipID, int ch)
+        {
+            if (chipID != 0) return;
+            mds.setYMZ280BMask(chipID, ch);
+        }
+
+        public void resetYMZ280BMask(int chipID, int ch)
+        {
+            if (chipID != 0) return;
+            mds.resetYMZ280BMask(chipID, ch);
+        }
+
 
 
 

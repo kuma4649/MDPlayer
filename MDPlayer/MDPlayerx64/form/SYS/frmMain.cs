@@ -9766,6 +9766,17 @@ namespace MDPlayer.form
                         newParam.n106[chipID].channels[ch].mask = !newParam.n106[chipID].channels[ch].mask;
                     }
                     break;
+                case EnmChip.YMZ280B:
+                    if (ch >= 0 && ch < 8)
+                    {
+                        if (newParam.ymz280b[chipID].channels[ch].mask == false || newParam.ymz280b[chipID].channels[ch].mask == null)
+                            Audio.SetYMZ280BMask(chipID, ch);
+                        else
+                            Audio.ResetYMZ280BMask(chipID, ch);
+
+                        newParam.ymz280b[chipID].channels[ch].mask = !newParam.ymz280b[chipID].channels[ch].mask;
+                    }
+                    break;
             }
         }
 
@@ -10015,6 +10026,13 @@ namespace MDPlayer.form
                 case EnmChip.N163:
                     newParam.n106[chipID].channels[ch].mask = false;
                     Audio.ResetN163Mask(chipID, ch);
+                    break;
+                case EnmChip.YMZ280B:
+                    if (ch >= 0 && ch < 8)
+                    {
+                        Audio.ResetYMZ280BMask(chipID, ch);
+                        newParam.ymz280b[chipID].channels[ch].mask = false;
+                    }
                     break;
 
             }

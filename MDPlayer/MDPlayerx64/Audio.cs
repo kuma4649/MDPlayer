@@ -13030,6 +13030,11 @@ namespace MDPlayer
             chipRegister.setN163Mask(chipID, ch);
         }
 
+        public static void SetYMZ280BMask(int chipID, int ch)
+        {
+            chipRegister.setYMZ280BMask(chipID, ch);
+        }
+
 
 
         public static void ResetOKIM6258Mask(int chipID)
@@ -13296,6 +13301,12 @@ namespace MDPlayer
         {
             chipRegister.resetN163Mask(chipID, ch);
         }
+
+        public static void ResetYMZ280BMask(int chipID, int ch)
+        {
+            chipRegister.resetYMZ280BMask(chipID, ch);
+        }
+
     }
 
 

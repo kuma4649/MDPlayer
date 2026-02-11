@@ -130,6 +130,14 @@ namespace MDPlayer.form
         {
             for (int ch = 0; ch < 8; ch++)
             {
+                MDChipParams.Channel nrc = newParam.channels[ch];
+                MDChipParams.Channel orc = oldParam.channels[ch];
+                nrc.volumeL = 0;
+                nrc.volumeR = 0;
+                nrc.panL = 4;
+                nrc.panR = 4;
+                orc.panL = -1;
+                orc.panR = -1;
 
                 DrawBuff.drawFont8(frameBuffer, 4 * 78 + 1, ch * 8 + 8, 1, "   ");
 
@@ -159,9 +167,6 @@ namespace MDPlayer.form
                 nrc.pan = (byte)(reg[0x3 + ch * 4] & 0xf);
                 nrc.panL = nrc.pan == 8 ? 4 : (nrc.pan < 8 ? 4 : (4 * (15 - nrc.pan) / 7));
                 nrc.panR = nrc.pan == 8 ? 4 : (nrc.pan < 8 ? ((nrc.pan == 0) ? 0 : 4 * (nrc.pan - 1) / 7) : 4);
-                int vol = Math.Min(19, nrc.nfrq / 12);
-                nrc.volumeL = nrc.pan == 8 ? vol : (nrc.pan < 8 ? vol : (vol * (15 - nrc.pan) / 7));
-                nrc.volumeR = nrc.pan == 8 ? vol : (nrc.pan < 8 ? ((nrc.pan == 0) ? 0 : vol * (nrc.pan - 1) / 7) : 4);
 
                 nrc.sadr = ((byte)reg[0x20 + ch * 4] << 16)
                     + ((byte)reg[0x40 + ch * 4] << 8)
@@ -181,10 +186,23 @@ namespace MDPlayer.form
                 nrc.noise = (reg[0x1 + ch * 4] & 0x20) != 0;
                 nrc.loopFlg = (reg[0x1 + ch * 4] & 0x10) != 0;
 
+                int vol = Math.Min(19, nrc.nfrq / 12);
                 nrc.note = -1;
-                if (nrc.dda && vol > 0)
+                if (nrc.dda)
                 {
-                    nrc.note = SearchNote(nrc.freq);
+                    if (vol > 0) {
+                        nrc.note = SearchNote(nrc.freq);
+                    }
+                    //if (!oldParam.channels[ch].dda)
+                    {
+                        nrc.volumeL = nrc.pan == 8 ? vol : (nrc.pan < 8 ? vol : (vol * (15 - nrc.pan) / 7));
+                        nrc.volumeR = nrc.pan == 8 ? vol : (nrc.pan < 8 ? ((nrc.pan == 0) ? 0 : vol * (nrc.pan - 1) / 7) : 4);
+                    }
+                }
+                else
+                {
+                    nrc.volumeL += nrc.volumeL > 0 ? -1 : 0;
+                    nrc.volumeR += nrc.volumeR > 0 ? -1 : 0;
                 }
             }
         }
@@ -196,6 +214,7 @@ namespace MDPlayer.form
                 MDChipParams.Channel orc = oldParam.channels[ch];
                 MDChipParams.Channel nrc = newParam.channels[ch];
 
+                DrawBuff.ChYMZ280B(frameBuffer, ch, ref orc.mask, nrc.mask, 0);
                 DrawBuff.PanType5(frameBuffer, 6 * 4 + 1, ch * 8 + 8, ref orc.panL, nrc.panL, 0);
                 DrawBuff.PanType5(frameBuffer, 7 * 4 + 1, ch * 8 + 8, ref orc.panR, nrc.panR, 0);
                 DrawBuff.KeyBoardYMZ280B(frameBuffer, 4 * 8 + 1, ch * 8 + 8, ref orc.note, nrc.note, 0);
