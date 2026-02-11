@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace MDPlayer.form
@@ -8,6 +9,22 @@ namespace MDPlayer.form
     // 重複を避けるためコンストラクタ周辺を整理します
     public partial class frmToast : Form
     {
+        // Win32 API 定義
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool SetWindowPos(
+            IntPtr hWnd, IntPtr hWndInsertAfter,
+            int X, int Y, int cx, int cy, uint uFlags);
+
+        private static readonly IntPtr HWND_TOPMOST = new IntPtr(-1);
+
+        private const uint SWP_NOSIZE = 0x0001;
+        private const uint SWP_NOMOVE = 0x0002;
+        private const uint SWP_NOACTIVATE = 0x0010;
+        private const uint SWP_SHOWWINDOW = 0x0040;
+
+        // ShowWithoutActivation を true にする
+        protected override bool ShowWithoutActivation => true;
+
         private System.Windows.Forms.Timer scrollTimer;
         private System.Windows.Forms.Timer closeTimer;
         private Label lblTitle;
@@ -15,8 +32,27 @@ namespace MDPlayer.form
         private bool isScrollFinished = false; // スクロールが終わったか
         private bool isTimeReached = false;    // 5秒経過したか
 
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+
+            // 最前面に表示するがフォーカスは奪わない
+            SetWindowPos(
+                this.Handle,
+                HWND_TOPMOST,
+                0, 0, 0, 0,
+                SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE | SWP_SHOWWINDOW
+            );
+        }
+
         public frmToast(string artist, string title)
         {
+            //Width = 400;
+            //Height = 200;
+            //StartPosition = FormStartPosition.CenterScreen;
+            //FormBorderStyle = FormBorderStyle.FixedToolWindow;
+
+
             // デザイナーを使わずコードのみで生成する場合の初期設定
             this.FormBorderStyle = FormBorderStyle.None;
             this.ShowInTaskbar = false;
@@ -43,7 +79,7 @@ namespace MDPlayer.form
                 Location = new Point(0, 0),
                 AutoSize = true
             };
-            containerPanel.Controls.Add(lblTitle); // 重要：ここを修正
+            containerPanel.Controls.Add(lblTitle); 
 
             // アーティストラベル（こちらはフォームに直接置く）
             Label lblArtist = new Label
@@ -116,23 +152,37 @@ namespace MDPlayer.form
 
         private async void AnimateWindow()
         {
-            this.Opacity = 0;
-            while (this.Opacity < 1)
+            try
             {
-                await System.Threading.Tasks.Task.Delay(10);
-                this.Opacity += 0.05;
+                this.Opacity = 0;
+                while (this.Opacity < 1)
+                {
+                    await System.Threading.Tasks.Task.Delay(10);
+                    this.Opacity += 0.05;
+                }
+            }
+            catch
+            {
+                // フォームが閉じられた後にアニメーションが続行される場合の例外を無視
             }
         }
 
         private async System.Threading.Tasks.Task FadeOutAndClose()
         {
-            // 徐々に不透明度を下げる
-            while (this.Opacity > 0)
+            try
             {
-                await System.Threading.Tasks.Task.Delay(10);
-                this.Opacity -= 0.05;
+                // 徐々に不透明度を下げる
+                while (this.Opacity > 0)
+                {
+                    await System.Threading.Tasks.Task.Delay(10);
+                    this.Opacity -= 0.05;
+                }
+                this.Close(); // 完全に消えたら閉じる
             }
-            this.Close(); // 完全に消えたら閉じる
+            catch
+            {
+                // フォームが既に閉じられている場合の例外を無視
+            }
         }
 
         private async void CheckAndClose()
