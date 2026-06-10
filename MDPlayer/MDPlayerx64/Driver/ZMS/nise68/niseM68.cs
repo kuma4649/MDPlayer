@@ -113,16 +113,16 @@ namespace MDPlayer.Driver.ZMS.nise68
 
             int size = (n & 0x00c0) >> 6;
 
-            switch (size)
+            return size switch
             {
-                case 0://byte
-                    return Corib(n);
-                case 1://word
-                    return Coriw(n);
-                case 2://long
-                    return Coril(n);
-            }
-            throw new NotImplementedException();
+                //byte
+                0 => Corib(n),
+                //word
+                1 => Coriw(n),
+                //long
+                2 => Coril(n),
+                _ => throw new NotImplementedException(),
+            };
         }
 
         private int Corib(ushort n)

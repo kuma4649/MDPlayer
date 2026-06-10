@@ -2437,8 +2437,6 @@
                         {
                             C140ClockValue = C140clock & 0x3fff_ffff;
                             C140DualChipFlag = (C140clock & 0x4000_0000) != 0;
-                            if (C140DualChipFlag) chips.Add("C140x2");
-                            else chips.Add("C140");
 
                             C140Type = vgmBuf[0x96] switch
                             {
@@ -2446,6 +2444,9 @@
                                 0x01 => MDSound.c140.C140_TYPE.SYSTEM21,
                                 _ => MDSound.c140.C140_TYPE.ASIC219,
                             };
+
+                            if (C140DualChipFlag) chips.Add(C140Type == MDSound.c140.C140_TYPE.ASIC219 ? "C219x2" : "C140x2");
+                            else chips.Add(C140Type == MDSound.c140.C140_TYPE.ASIC219 ? "C219" : "C140");
                         }
                     }
 

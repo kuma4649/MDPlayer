@@ -7890,8 +7890,8 @@ namespace MDPlayer.form
                 int[] tl = new int[]
                 {
                         fmRegister[p][0x40 + 0x0 + c] & 0x7f//TL1
-                       ,fmRegister[p][0x40 + 0x8 + c] & 0x7f//TL2
-                       ,fmRegister[p][0x40 + 0x4 + c] & 0x7f//TL3
+                       ,fmRegister[p][0x40 + 0x4 + c] & 0x7f//TL2
+                       ,fmRegister[p][0x40 + 0x8 + c] & 0x7f//TL3
                        ,fmRegister[p][0x40 + 0xc + c] & 0x7f//TL4
                 };
                 GetAdjustTLParam(alg, ref tl[0], ref tl[1], ref tl[2], ref tl[3]);
@@ -7999,8 +7999,8 @@ namespace MDPlayer.form
                 int[] tl = new int[]
                 {
                         fmRegister[p][0x40 + 0x0 + c] & 0x7f//TL1
-                       ,fmRegister[p][0x40 + 0x8 + c] & 0x7f//TL2
-                       ,fmRegister[p][0x40 + 0x4 + c] & 0x7f//TL3
+                       ,fmRegister[p][0x40 + 0x4 + c] & 0x7f//TL2
+                       ,fmRegister[p][0x40 + 0x8 + c] & 0x7f//TL3
                        ,fmRegister[p][0x40 + 0xc + c] & 0x7f//TL4
                 };
                 GetAdjustTLParam(alg, ref tl[0], ref tl[1], ref tl[2], ref tl[3]);
@@ -8317,8 +8317,8 @@ namespace MDPlayer.form
                 int[] tl = new int[]
                 {
                         fmRegister[p][0x40 + 0x0 + c] & 0x7f//TL1
-                       ,fmRegister[p][0x40 + 0x8 + c] & 0x7f//TL2
-                       ,fmRegister[p][0x40 + 0x4 + c] & 0x7f//TL3
+                       ,fmRegister[p][0x40 + 0x4 + c] & 0x7f//TL2
+                       ,fmRegister[p][0x40 + 0x8 + c] & 0x7f//TL3
                        ,fmRegister[p][0x40 + 0xc + c] & 0x7f//TL4
                 };
                 GetAdjustTLParam(alg, ref tl[0], ref tl[1], ref tl[2], ref tl[3]);
