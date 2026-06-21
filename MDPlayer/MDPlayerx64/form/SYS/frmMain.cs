@@ -30,6 +30,7 @@ namespace MDPlayer.form
         private int pHeight = 0;
 
         private frmInfo frmInfo = null;
+        public frmToast frmToast = null;
         private frmPic frmPic = null;
         private frmPlayList frmPlayList = null;
         private frmVSTeffectList frmVSTeffectList = null;
@@ -1197,6 +1198,13 @@ namespace MDPlayer.form
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (forcedExit) return;
+
+            // 何故かここでクローズしないとログのapplication.DoEvent()で固まる
+            // 多分、インスタンスを作った親スレッドの違いとかそこらへん
+            if (frmToast != null)
+            {
+                frmToast.Close();
+            }
 
             log.ForcedWrite("終了処理開始");
             log.ForcedWrite("frmMain_FormClosing:STEP 00");

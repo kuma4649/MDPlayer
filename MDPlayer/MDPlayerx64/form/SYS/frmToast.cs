@@ -25,8 +25,8 @@ namespace MDPlayer.form
         // ShowWithoutActivation を true にする
         protected override bool ShowWithoutActivation => true;
 
-        private System.Windows.Forms.Timer scrollTimer;
-        private System.Windows.Forms.Timer closeTimer;
+        //private System.Windows.Forms.Timer scrollTimer;
+        //private System.Windows.Forms.Timer closeTimer;
         private Label lblTitle;
         private Panel containerPanel;
         private bool isScrollFinished = false; // スクロールが終わったか
@@ -45,13 +45,9 @@ namespace MDPlayer.form
             );
         }
 
-        public frmToast(string artist, string title)
+        public frmToast(string artist, string title)//,frmMain frm)
         {
-            //Width = 400;
-            //Height = 200;
-            //StartPosition = FormStartPosition.CenterScreen;
-            //FormBorderStyle = FormBorderStyle.FixedToolWindow;
-
+            InitializeComponent();
 
             // デザイナーを使わずコードのみで生成する場合の初期設定
             this.FormBorderStyle = FormBorderStyle.None;
@@ -79,7 +75,7 @@ namespace MDPlayer.form
                 Location = new Point(0, 0),
                 AutoSize = true
             };
-            containerPanel.Controls.Add(lblTitle); 
+            containerPanel.Controls.Add(lblTitle);
 
             // アーティストラベル（こちらはフォームに直接置く）
             Label lblArtist = new Label
@@ -92,62 +88,7 @@ namespace MDPlayer.form
             };
             this.Controls.Add(lblArtist);
 
-            // 5秒後に閉じるタイマーの設定
-            closeTimer = new System.Windows.Forms.Timer { Interval = 5000 };
-            closeTimer.Tick += async (s, e) =>
-            {
-                closeTimer.Stop();
-                isTimeReached = true;
-                CheckAndClose(); // 条件が揃っていれば閉じる
-            };
-            closeTimer.Start();
 
-            this.Load += (s, e) => {
-                // 表示位置の計算
-                Rectangle screen = Screen.PrimaryScreen.WorkingArea;
-                this.Location = new Point(screen.Right - this.Width - 10,
-                                          screen.Bottom - this.Height - 10);
-
-                AnimateWindow();
-
-                // 3. スクロールが必要か判定（Load後に行うのが確実）
-                if (lblTitle.Width > containerPanel.Width)
-                {
-                    scrollTimer = new System.Windows.Forms.Timer { Interval = 30 };
-                    scrollTimer.Tick += (s, e) =>
-                    {
-                        lblTitle.Left -= 1;
-
-                        // 文字が完全に左へ消え切った判定 (ループさせずに終了フラグを立てる)
-                        if (lblTitle.Right < 0)
-                        {
-                            scrollTimer.Stop();
-                            isScrollFinished = true;
-                            CheckAndClose(); // 条件が揃っていれば閉じる
-                        }
-                    };
-                    scrollTimer.Start();
-                }
-                else
-                {
-                    // スクロール不要な場合は最初から完了扱い
-                    isScrollFinished = true;
-                }
-            };
-        }
-
-        private void StartScroll()
-        {
-            scrollTimer = new System.Windows.Forms.Timer { Interval = 30 };
-            scrollTimer.Tick += (s, e) =>
-            {
-                lblTitle.Left -= 1;
-                if (lblTitle.Right < 0)
-                {
-                    lblTitle.Left = containerPanel.Width;
-                }
-            };
-            scrollTimer.Start();
         }
 
         private async void AnimateWindow()
@@ -192,6 +133,78 @@ namespace MDPlayer.form
             {
                 await FadeOutAndClose();
             }
+        }
+
+        private void InitializeComponent()
+        {
+            scrollTimer = new System.Windows.Forms.Timer();
+            closeTimer = new System.Windows.Forms.Timer();
+            SuspendLayout();
+            // 
+            // scrollTimer
+            // 
+            scrollTimer.Tick += scrollTimer_Tick;
+            // 
+            // closeTimer
+            // 
+            closeTimer.Tick += closeTimer_Tick;
+            // 
+            // frmToast
+            // 
+            ClientSize = new Size(284, 261);
+            Name = "frmToast";
+            Load += frmToast_Load;
+            ResumeLayout(false);
+
+        }
+
+        private System.Windows.Forms.Timer scrollTimer;
+        private System.Windows.Forms.Timer closeTimer;
+        private frmMain parent;
+
+        private void closeTimer_Tick(object sender, EventArgs e)
+        {
+            closeTimer.Stop();
+            isTimeReached = true;
+            CheckAndClose(); // 条件が揃っていれば閉じる
+        }
+
+        private void scrollTimer_Tick(object sender, EventArgs e)
+        {
+            lblTitle.Left -= 1;
+            // 文字が完全に左へ消え切った判定 (ループさせずに終了フラグを立てる)
+            if (lblTitle.Right < 0)
+            {
+                scrollTimer.Stop();
+                isScrollFinished = true;
+                CheckAndClose(); // 条件が揃っていれば閉じる
+            }
+        }
+
+        private void frmToast_Load(object sender, EventArgs e)
+        {
+                // 表示位置の計算
+                Rectangle screen = Screen.PrimaryScreen.WorkingArea;
+                this.Location = new Point(screen.Right - this.Width - 10,
+                                          screen.Bottom - this.Height - 10);
+
+                // 5秒後に閉じるタイマーの設定
+                closeTimer.Interval = 5000;
+                closeTimer.Enabled = true;
+
+                AnimateWindow();
+
+                // 3. スクロールが必要か判定（Load後に行うのが確実）
+                if (lblTitle.Width > containerPanel.Width)
+                {
+                    scrollTimer.Interval = 30;
+                    scrollTimer.Enabled = true;
+                }
+                else
+                {
+                    // スクロール不要な場合は最初から完了扱い
+                    isScrollFinished = true;
+                }
         }
     }
 }

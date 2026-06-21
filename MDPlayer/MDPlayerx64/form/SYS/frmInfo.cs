@@ -58,11 +58,18 @@ namespace MDPlayer.form
 
             if (setting.other.ToastMode)
             {
-                this.BeginInvoke(new Action(() =>
+                //this.BeginInvoke(new Action(() =>
                 {
-                    frmToast toast = new frmToast(Common.EscSeqFilter(gd3.Composer), Common.EscSeqFilter(gd3.TrackName));
-                    toast.Show();
-                }));
+                    if (parent.frmToast != null)
+                    {
+                        parent.frmToast.Close();
+                        parent.frmToast.Dispose();
+                    }
+                    parent.frmToast = new frmToast(Common.EscSeqFilter(gd3.Composer), Common.EscSeqFilter(gd3.TrackName));
+                    parent.frmToast.Name = "frmToast";
+                    parent.frmToast.Show();
+                }
+                //));
             }
 
             parent.OpenPicWindow(gd3.pic);
@@ -112,6 +119,12 @@ namespace MDPlayer.form
 
         private void FrmInfo_FormClosed(object sender, FormClosedEventArgs e)
         {
+            if (parent.frmToast != null)
+            {
+                try { parent.frmToast.Close(); } catch { }
+                try { parent.frmToast.Dispose(); } catch { }
+            }
+
             if (WindowState == FormWindowState.Normal)
             {
                 parent.setting.location.PInfo = Location;
@@ -243,11 +256,17 @@ namespace MDPlayer.form
 
             if (setting.other.ToastMode)
             {
-                this.BeginInvoke(new Action(() =>
+                //this.BeginInvoke(new Action(() =>
                 {
-                    frmToast toast = new frmToast("", ret[0].Item2);
-                    toast.Show();
-                }));
+                    if (parent.frmToast != null)
+                    {
+                        parent.frmToast.Close();
+                        parent.frmToast.Dispose();
+                    }
+                    parent.frmToast = new frmToast("", ret[0].Item2);
+                    parent.frmToast.Show();
+                }
+                //));
             }
         }
 
@@ -259,11 +278,18 @@ namespace MDPlayer.form
 
             if (setting.other.ToastMode)
             {
-                this.BeginInvoke(new Action(() =>
+                //this.BeginInvoke(new Action(() =>
                 {
-                    frmToast toast = new frmToast("", ret[0].Item2);
-                    toast.Show();
-                }));
+                    if (parent.frmToast != null)
+                    {
+                        parent.frmToast.Close();
+                        parent.frmToast.Dispose();
+                    }
+                    parent.frmToast = new frmToast("", ret[0].Item2);
+                    parent.frmToast.Name = "frmToast_2";
+                    parent.frmToast.Show();
+                }
+                //));
             }
         }
 
