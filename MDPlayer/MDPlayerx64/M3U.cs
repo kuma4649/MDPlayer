@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using MDPlayerx64;
+using System.Globalization;
 using System.IO.Compression;
 using System.Text;
 using static MDPlayer.PlayList;
@@ -35,11 +36,35 @@ namespace MDPlayer
                         if (line[0] == Comment) continue;
 
                         PlayList.Music ms = analyzeLine(line, rootPath);
-                        ms.format = Common.CheckExt(ms.fileName);
-                        ms.title = ms.fileName;
-                        ms.titleJ = ms.fileName;
-                        ms.composer = "";
-                        ms.composerJ = "";
+
+                        if (ms.fileName.ToLower().IndexOf("http://") != -1 || ms.fileName.ToLower().IndexOf("https://") != -1)
+                        {
+                            PodcastFeedParser.PodcastFeed pf = PodcastFeedParser.ParseFeedSync(ms.fileName);
+                            if (pf == null)
+                            {
+                                ms.format = EnmFileFormat.shoutcast;
+                                ms.title = ms.fileName;
+                                ms.titleJ = ms.fileName;
+                                ms.composer = "";
+                                ms.composerJ = "";
+                            }
+                            else
+                            {
+                                ms.format = EnmFileFormat.podcast;
+                                ms.title = pf.Title;
+                                ms.titleJ = pf.Title;
+                                ms.composer = "";
+                                ms.composerJ = "";
+                            }
+                        }
+                        else
+                        {
+                            ms.format = Common.CheckExt(ms.fileName);
+                            ms.title = ms.fileName;
+                            ms.titleJ = ms.fileName;
+                            ms.composer = "";
+                            ms.composerJ = "";
+                        }
                         if (!string.IsNullOrEmpty(info))
                         {
                             try

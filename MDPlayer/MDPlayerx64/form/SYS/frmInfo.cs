@@ -77,6 +77,11 @@ namespace MDPlayer.form
                 timer.Enabled = true;
                 return;
             }
+            else if (Audio.PlayingFileFormat == EnmFileFormat.podcast)
+            {
+                timer.Enabled = true;
+                return;
+            }
             else
             {
                 if (gd3.Lyrics == null)
@@ -146,6 +151,11 @@ namespace MDPlayer.form
             else if (Audio.PlayingFileFormat == EnmFileFormat.shoutcast)
             {
                 UpdateShoutcastTitle();
+                return;
+            }
+            else if (Audio.PlayingFileFormat == EnmFileFormat.podcast)
+            {
+                UpdatePodcastTitle();
                 return;
             }
 
@@ -226,6 +236,22 @@ namespace MDPlayer.form
         }
 
         private void UpdateShoutcastTitle()
+        {
+            List<Tuple<string, string>> ret = Audio.GetTagsDriver();
+            if (ret == null || ret.Count < 1 || ret[0] == null) return;
+            dgvInfo.Rows[0].Cells[1].Value = ret[0].Item2;
+
+            if (setting.other.ToastMode)
+            {
+                this.BeginInvoke(new Action(() =>
+                {
+                    frmToast toast = new frmToast("", ret[0].Item2);
+                    toast.Show();
+                }));
+            }
+        }
+
+        private void UpdatePodcastTitle()
         {
             List<Tuple<string, string>> ret = Audio.GetTagsDriver();
             if (ret == null || ret.Count < 1 || ret[0] == null) return;

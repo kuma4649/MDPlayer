@@ -1,4 +1,5 @@
 ﻿using Konamiman.Z80dotNet;
+using MDPlayerx64;
 using MDPlayerx64.Driver;
 using System.IO.Compression;
 using System.Reflection;
@@ -306,8 +307,12 @@ namespace MDPlayer
 
         public static EnmFileFormat CheckExt(string filename,byte[] buf=null)
         {
-            if (filename.ToLower().IndexOf("http://") != -1) return EnmFileFormat.shoutcast;
-            if (filename.ToLower().IndexOf("https://") != -1) return EnmFileFormat.shoutcast;
+            if (filename.ToLower().IndexOf("http://") != -1 || filename.ToLower().IndexOf("https://") != -1)
+            {
+                PodcastFeedParser.PodcastFeed pf = PodcastFeedParser.ParseFeedSync(filename);
+                if (pf == null) return EnmFileFormat.shoutcast;
+                return EnmFileFormat.podcast;
+            }
             if (filename.ToLower().LastIndexOf(".m3u") != -1) return EnmFileFormat.M3U;
             if (filename.ToLower().LastIndexOf(".mid") != -1) return EnmFileFormat.MID;
             if (filename.ToLower().LastIndexOf(".nrd") != -1) return EnmFileFormat.NRT;
@@ -1120,6 +1125,7 @@ namespace MDPlayer
         MUAP = 43,
         FLAC = 44,
         shoutcast = 45,
+        podcast = 46,
     }
 
     public enum EnmArcType : int

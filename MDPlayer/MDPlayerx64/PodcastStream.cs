@@ -12,7 +12,7 @@ namespace MDPlayerx64
     using System.Text;
     using System.Text.RegularExpressions;
 
-    public class ShoutcastWaveStream : WaveStream, IDisposable
+    public class PodcastWaveStream : WaveStream, IDisposable
     {
         private readonly Stream _baseStream;
         private readonly int _metaInt;
@@ -23,12 +23,12 @@ namespace MDPlayerx64
         public event EventHandler<string> MetadataReceived;
 
         /// <summary>
-        /// ShoutcastWaveStreamのコンストラクタ
+        /// PodcastWaveStreamのコンストラクタ
         /// </summary>
         /// <param name="baseStream">ネットワーク等のソースストリーム</param>
         /// <param name="metaInt">icy-metaintの値</param>
         /// <param name="format">ストリームのフォーマット（不明な場合は暫定のMP3等を指定）</param>
-        public ShoutcastWaveStream(Stream baseStream, int metaInt, WaveFormat format = null)
+        public PodcastWaveStream(Stream baseStream, int metaInt, WaveFormat format = null)
         {
             _baseStream = baseStream;
             _metaInt = metaInt;
@@ -115,17 +115,13 @@ namespace MDPlayerx64
         {
             List<Tuple<string, string>> lst = new List<Tuple<string, string>>();
             if (string.IsNullOrEmpty(metaString)) return null;
-            var match = Regex.Match(metaString, @"StreamTitle='(.*?)';", RegexOptions.IgnoreCase);
+            var match = metaString;
 
-            if (match.Success)
-            {
-                if (oldtitle == match.Groups[1].Value.Trim()) return null;
-                oldtitle = match.Groups[1].Value.Trim();
+            if (oldtitle == match) return null;
+            oldtitle = match;
 
-                lst.Add(new Tuple<string, string>("title", match.Groups[1].Value.Trim()));
-                return lst;
-            }
-            return null;
+            lst.Add(new Tuple<string, string>("title", match));
+            return lst;
         }
     }
 }

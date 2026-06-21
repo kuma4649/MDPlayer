@@ -852,6 +852,7 @@ namespace MDPlayer.form
                 if (Path.GetExtension(currentPlayList).ToLower() == ".m3u")
                 {
                     playList = PlayList.LoadM3U(currentPlayList);
+
                 }
                 else
                 {

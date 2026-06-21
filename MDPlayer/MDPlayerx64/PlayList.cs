@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MDPlayerx64;
+using System;
 using System.IO.Compression;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -164,9 +165,16 @@ namespace MDPlayer
                         if (line == "") continue;
                         if (line[0] == '#') continue;
 
-                        if (!Path.IsPathRooted(line))
+                        if (line.IndexOf("http://") < 0 && line.IndexOf("https://") < 0)
                         {
-                            line = Path.Combine(Path.GetDirectoryName(filename), line);
+                            if (!Path.IsPathRooted(line))
+                            {
+                                line = Path.Combine(Path.GetDirectoryName(filename), line);
+                            }
+                        }
+                        else
+                        {
+
                         }
                         Music ms = new()
                         {
@@ -214,13 +222,37 @@ namespace MDPlayer
                     string.IsNullOrEmpty(music.useCompiler) 
                     ? "-" 
                     : music.useCompiler;
-                row.Cells[dgvList.Columns["clmEXT"].Index].Value = 
-                    (music.fileName.ToLower().IndexOf("http://")>=0|| music.fileName.ToLower().IndexOf("https://") >= 0) 
-                    ? "ShoutCAST" 
-                    : Path.GetExtension(music.fileName).ToUpper();
+
+                PodcastFeedParser.PodcastFeed pf = null;
+                if (music.format == EnmFileFormat.unknown)
+                {
+                    if (music.fileName.ToLower().IndexOf("http://") >= 0 || music.fileName.ToLower().IndexOf("https://") >= 0)
+                    {
+                        pf = PodcastFeedParser.ParseFeedSync(music.fileName);
+                        row.Cells[dgvList.Columns["clmEXT"].Index].Value =
+                            pf == null ? "ShoutCAST" : "PodCAST";
+                    }
+                    else
+                    {
+                        row.Cells[dgvList.Columns["clmEXT"].Index].Value =
+                            Path.GetExtension(music.fileName).ToUpper();
+                    }
+                }
+                else
+                {
+                    row.Cells[dgvList.Columns["clmEXT"].Index].Value = music.format.ToString();
+                }
                 row.Cells[dgvList.Columns["clmType"].Index].Value = music.type;
-                row.Cells[dgvList.Columns["clmTitle"].Index].Value = music.title;
-                row.Cells[dgvList.Columns["clmTitleJ"].Index].Value = music.titleJ;
+                if (pf == null)
+                {
+                    row.Cells[dgvList.Columns["clmTitle"].Index].Value = music.title;
+                    row.Cells[dgvList.Columns["clmTitleJ"].Index].Value = music.titleJ;
+                }
+                else
+                {
+                    row.Cells[dgvList.Columns["clmTitle"].Index].Value = pf.Title;
+                    row.Cells[dgvList.Columns["clmTitleJ"].Index].Value = pf.Title;
+                }
                 row.Cells[dgvList.Columns["clmGame"].Index].Value = music.game;
                 row.Cells[dgvList.Columns["clmGameJ"].Index].Value = music.gameJ;
                 //row.Cells[dgvList.Columns["clmRemark"].Index].Value = music.remark;
@@ -434,6 +466,9 @@ namespace MDPlayer
                 case EnmFileFormat.shoutcast:
                     AddFileShoutcast(mc, entry);
                     break;
+                case EnmFileFormat.podcast:
+                    AddFilePodcast(mc, entry);
+                    break;
             }
         }
 
@@ -568,6 +603,9 @@ namespace MDPlayer
                     break;
                 case EnmFileFormat.shoutcast:
                     AddFileShoutcast(ref index, mc, entry);
+                    break;
+                case EnmFileFormat.podcast:
+                    AddFilePodcast(ref index, mc, entry);
                     break;
             }
         }
@@ -2030,6 +2068,35 @@ namespace MDPlayer
                 music.titleJ = mc.titleJ;
                 music.composer = mc.composer;
                 music.composerJ = mc.composerJ;
+                music.format = EnmFileFormat.shoutcast;
+                musics.Clear();
+                musics.Add(music);
+
+                List<DataGridViewRow> rows = MakeRow(musics);
+                dgvList.Rows.InsertRange(index, rows.ToArray());
+                LstMusic.InsertRange(index, musics);
+                index += rows.Count;
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+        }
+
+        private void AddFilePodcast(ref int index, Music mc, object entry = null)
+        {
+            try
+            {
+                List<PlayList.Music> musics = new List<Music>();
+
+                PlayList.Music music = new Music();
+                music.songNo = 0;
+                music.fileName = mc.fileName;
+                music.title = mc.title;
+                music.titleJ = mc.titleJ;
+                music.composer = mc.composer;
+                music.composerJ = mc.composerJ;
+                music.format = EnmFileFormat.podcast;
                 musics.Clear();
                 musics.Add(music);
 
@@ -2045,6 +2112,32 @@ namespace MDPlayer
         }
 
         private void AddFileShoutcast(Music mc, object entry = null)
+        {
+            try
+            {
+                List<PlayList.Music> musics = new List<Music>();
+
+                PlayList.Music music_ = new Music();
+                music_.songNo = 0;
+                music_.fileName = mc.fileName;
+                music_.title = mc.title;
+                music_.titleJ = mc.titleJ;
+                music_.composer = mc.composer;
+                music_.composerJ = mc.composerJ;
+                musics.Clear();
+                musics.Add(music_);
+
+                List<DataGridViewRow> rows = MakeRow(musics);
+                foreach (DataGridViewRow row in rows) dgvList.Rows.Add(row);
+                foreach (PlayList.Music music in musics) LstMusic.Add(music);
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+        }
+
+        private void AddFilePodcast(Music mc, object entry = null)
         {
             try
             {

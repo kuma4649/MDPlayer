@@ -1233,11 +1233,11 @@ namespace MDPlayer.form
             log.ForcedWrite("frmMain_FormClosing:STEP 02");
 
             isRunning = false;
-            while (!stopped)
-            {
-                System.Threading.Thread.Sleep(1);
-                Application.DoEvents();
-            }
+            //while (!stopped)
+            //{
+            //    System.Threading.Thread.Sleep(1);
+            //    Application.DoEvents();
+            //}
 
             log.ForcedWrite("frmMain_FormClosing:STEP 03");
 
@@ -6453,8 +6453,18 @@ namespace MDPlayer.form
             {
                 if (filename.ToLower().IndexOf("http://") >= 0 || filename.ToLower().IndexOf("https://") >= 0)
                 {
-                    format = EnmFileFormat.shoutcast;
-                    return new byte[] { (byte)'s', (byte)'h', (byte)'o', (byte)'u', (byte)'t', (byte)'c', (byte)'a', (byte)'s', (byte)'t' };
+                    // URL の場合、podcast RSS feed かどうかを判定
+                    var podcastFeed = TryParsePodcastFeed(filename);
+                    if (podcastFeed != null && podcastFeed.Episodes.Count > 0)
+                    {
+                        format = EnmFileFormat.podcast;
+                        return new byte[] { (byte)'p', (byte)'o', (byte)'d', (byte)'c', (byte)'a', (byte)'s', (byte)'t' };
+                    }
+                    else
+                    {
+                        format = EnmFileFormat.shoutcast;
+                        return new byte[] { (byte)'s', (byte)'h', (byte)'o', (byte)'u', (byte)'t', (byte)'c', (byte)'a', (byte)'s', (byte)'t' };
+                    }
                 }
             }
 
@@ -6702,6 +6712,52 @@ namespace MDPlayer.form
 
             format = EnmFileFormat.VGM;
             return Common.unzipFile(filename);
+        }
+
+        /// <summary>
+        /// URLがPodcast RSS feedかどうかを判定して解析（タイムアウト付き）
+        /// </summary>
+        /// <param name="url">チェックするURL</param>
+        /// <returns>Podcast feed 情報、または null</returns>
+        private PodcastFeedParser.PodcastFeed TryParsePodcastFeed(string url)
+        {
+            try
+            {
+                System.Diagnostics.Debug.WriteLine($"[TryParsePodcastFeed] Starting: {url}");
+
+                // 直接同期実行（ParseFeedSync）を呼び出す
+                var feedTask = System.Threading.Tasks.Task.Run(() => PodcastFeedParser.ParseFeedSync(url));
+
+                System.Diagnostics.Debug.WriteLine($"[TryParsePodcastFeed] Task created, waiting...");
+
+                // 最大 15秒でタイムアウト
+                if (feedTask.Wait(TimeSpan.FromSeconds(15)))
+                {
+                    var feed = feedTask.Result;
+                    System.Diagnostics.Debug.WriteLine($"[TryParsePodcastFeed] Task completed. Feed: {feed?.Episodes.Count ?? 0} episodes");
+
+                    if (feed != null && feed.Episodes.Count > 0)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"[Podcast] Feed parsed: {feed.Title}, Episodes: {feed.Episodes.Count}");
+                        return feed;
+                    }
+
+                    System.Diagnostics.Debug.WriteLine($"[Podcast] No episodes found");
+                    return null;
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine($"[Podcast] Parse timeout (15 seconds exceeded)");
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[Podcast Parse Error] {ex.GetType().Name}: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"[Podcast Parse Error] Stack: {ex.StackTrace}");
+                // エラー時はnull（shoutcastと判定）
+                return null;
+            }
         }
 
         public void GetInstCh(EnmChip chip, int ch, int chipID, int note = -1)
@@ -8999,10 +9055,42 @@ namespace MDPlayer.form
                 {
                     try
                     {
+                        System.Diagnostics.Debug.WriteLine($"[loadAndPlay] GetAllBytes starting for: {fn}");
                         srcBuf = GetAllBytes(fn, out format);
+                        System.Diagnostics.Debug.WriteLine($"[loadAndPlay] GetAllBytes completed. Format: {format}");
+
+                        // Podcast の場合、エピソード URL を取得して fn を置き換え
+                        if (format == EnmFileFormat.podcast)
+                        {
+                            System.Diagnostics.Debug.WriteLine($"[loadAndPlay] Podcast detected. Fetching latest episode...");
+                            var podcastFeed = TryParsePodcastFeed(fn);
+                            System.Diagnostics.Debug.WriteLine($"[loadAndPlay] TryParsePodcastFeed returned: {podcastFeed?.Episodes.Count ?? 0} episodes");
+
+                            if (podcastFeed != null && podcastFeed.Episodes.Count > 0)
+                            {
+                                var latestEpisode = podcastFeed.Episodes[0];
+                                System.Diagnostics.Debug.WriteLine($"[loadAndPlay] Latest episode: {latestEpisode.Title}");
+                                System.Diagnostics.Debug.WriteLine($"[loadAndPlay] Audio URL: {latestEpisode.AudioUrl}");
+
+                                if (!string.IsNullOrEmpty(latestEpisode.AudioUrl))
+                                {
+                                    fn = latestEpisode.AudioUrl;
+                                    System.Diagnostics.Debug.WriteLine($"[loadAndPlay] Podcast: {latestEpisode.Title} -> {fn}");
+                                }
+                                else
+                                {
+                                    System.Diagnostics.Debug.WriteLine($"[loadAndPlay] WARNING: Episode has no AudioUrl");
+                                }
+                            }
+                            else
+                            {
+                                System.Diagnostics.Debug.WriteLine($"[loadAndPlay] WARNING: No episodes found in podcast feed");
+                            }
+                        }
                     }
-                    catch
+                    catch (Exception ex)
                     {
+                        System.Diagnostics.Debug.WriteLine($"[loadAndPlay] Exception: {ex.GetType().Name} - {ex.Message}");
                         srcBuf = null;
                     }
                     extFile = getExtendFile(fn, spfn, srcBuf, format);

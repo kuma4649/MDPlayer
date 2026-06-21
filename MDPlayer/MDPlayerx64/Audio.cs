@@ -279,6 +279,7 @@ namespace MDPlayer
                 || naudioWmaFileReader != null
                 || naudioFlacFileReader != null
                 || naudioShoutcastWaveStream != null
+                || naudioPodcastWaveStream != null
                 )
                 && naudioBuff!=null)
             {
@@ -2268,6 +2269,7 @@ namespace MDPlayer
                 || naudioWmaFileReader != null
                 || naudioFlacFileReader != null
                 || naudioShoutcastWaveStream != null
+                || naudioPodcastWaveStream != null
                 )
             {
                 NAudioStop();
@@ -2282,6 +2284,7 @@ namespace MDPlayer
                 || format == EnmFileFormat.WMA
                 || format == EnmFileFormat.FLAC
                 || format == EnmFileFormat.shoutcast
+                || format == EnmFileFormat.podcast
                 )
             {
                 naudioFileName = playingFileName;
@@ -3573,6 +3576,236 @@ namespace MDPlayer
                 }
 
                 // --- 共通の初期化処理 ---
+                ChipLED = new ChipLEDs();
+                vgmSpeed = 1; vgmFadeout = false;
+                vgmFadeoutCounter = 1.0; vgmFadeoutCounterV = 0.00001;
+                DriverVirtual = null; DriverReal = null;
+                naudioSampleCounter = 0; naudioDummyCount = 0;
+
+                return true;
+            }
+
+            if (PlayingFileFormat == EnmFileFormat.podcast)
+            {
+                // --- Podcast RSS feed 処理 ---
+                // naudioFileName は RSS feed URL
+                // その中から最新エピソードの音声 URL を取得する必要がある
+
+                string actualAudioUrl = naudioFileName;
+                string metastring = "";
+                try
+                {
+                    System.Diagnostics.Debug.WriteLine($"[Podcast] Parsing feed for audio URL: {naudioFileName}");
+
+                    // RSS feed を解析して最新エピソードの音声 URL を取得
+                    var podcastFeed = PodcastFeedParser.ParseFeedSync(naudioFileName);
+                    if (podcastFeed != null && podcastFeed.Episodes.Count > 0)
+                    {
+                        var latestEpisode = podcastFeed.Episodes[0];
+                        metastring = latestEpisode.Description;
+                        if (!string.IsNullOrEmpty(latestEpisode.AudioUrl))
+                        {
+                            actualAudioUrl = latestEpisode.AudioUrl;
+                            System.Diagnostics.Debug.WriteLine($"[Podcast] Latest episode audio URL: {actualAudioUrl}");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"[Podcast] Feed parsing failed: {ex.Message}");
+                }
+
+                // リダイレクト先の実際の音声 URL を取得（Anchor.fm などの場合）
+                try
+                {
+                    System.Diagnostics.Debug.WriteLine($"[Podcast] Resolving redirect: {actualAudioUrl}");
+
+                    using (var handler = new HttpClientHandler())
+                    {
+                        handler.AllowAutoRedirect = false; // 手動でリダイレクト処理
+                        using (var client = new HttpClient(handler))
+                        {
+                            client.Timeout = TimeSpan.FromSeconds(10);
+                            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
+
+                            var response = client.GetAsync(actualAudioUrl).GetAwaiter().GetResult();
+
+                            // リダイレクト先を取得
+                            if ((int)response.StatusCode >= 300 && (int)response.StatusCode < 400)
+                            {
+                                if (response.Headers.Location != null)
+                                {
+                                    actualAudioUrl = response.Headers.Location.ToString();
+                                    System.Diagnostics.Debug.WriteLine($"[Podcast] Redirect resolved to: {actualAudioUrl}");
+                                }
+                            }
+                            else if (response.IsSuccessStatusCode)
+                            {
+                                System.Diagnostics.Debug.WriteLine($"[Podcast] No redirect, using URL as-is");
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"[Podcast] Redirect resolution failed: {ex.Message}");
+                    // 失敗した場合は現在の actualAudioUrl を使用
+                }
+
+                PodCastDrv pcd = new PodCastDrv();
+                try { wavestreamGD3 = pcd.getGD3Info(null, 0); } catch { wavestreamGD3 = null; }
+
+                using var client2 = new HttpClient();
+                client2.DefaultRequestHeaders.Add("Icy-MetaData", "1");
+                var response2 = client2.GetAsync(actualAudioUrl, HttpCompletionOption.ResponseHeadersRead).GetAwaiter().GetResult();
+
+                string contentType = response2.Content.Headers.ContentType?.MediaType.ToLower() ?? "";
+                System.Diagnostics.Debug.WriteLine($"[Podcast] ContentType: {contentType}");
+
+                bool isAac = contentType.Contains("aac") || contentType.Contains("audio/aacp") || contentType.Contains("video/mp4");
+                bool isMp3 = contentType.Contains("mpeg") || contentType.Contains("mp3");
+
+                // メタデータ間隔・ビットレート・サンプリングレート取得
+                int metaInt = 0;
+                if (response2.Headers.TryGetValues("icy-metaint", out var mv)) int.TryParse(mv.FirstOrDefault(), out metaInt);
+                int sr = 44100;
+                if (response2.Headers.TryGetValues("icy-sr", out var mvs)) int.TryParse(mvs.FirstOrDefault(), out sr);
+
+                System.Diagnostics.Debug.WriteLine($"[Podcast] MetaInt: {metaInt}, SampleRate: {sr}");
+
+                // メタデータ抽出用ストリームの生成
+                var rawStream = response2.Content.ReadAsStreamAsync().GetAwaiter().GetResult();
+
+                // metaInt=0 の場合（通常の HTTP ストリーム）はシーク可能なバッファに変換
+                if (metaInt == 0)
+                {
+                    var memoryStream = new MemoryStream();
+                    rawStream.CopyTo(memoryStream);
+                    memoryStream.Position = 0;
+                    rawStream.Dispose();
+                    rawStream = memoryStream;
+                    System.Diagnostics.Debug.WriteLine($"[Podcast] Converted to seekable buffer: {memoryStream.Length} bytes");
+                }
+
+                // 常に ShoutcastWaveStream を作成（metaInt=0 の場合はメタデータなしで処理）
+                naudioPodcastWaveStream = new PodcastWaveStream(rawStream, metaInt, new WaveFormat(sr, 16, 2));
+                naudioPodcastWaveStream.metaString = metastring;
+
+                WaveFormat targetFormat = new WaveFormat(setting.outputDevice.SampleRate, 16, 2);
+
+                if (isAac)
+                {
+                    // --- AAC 再生: URL直接指定でCOMエラー回避 ---
+                    var aacDecoder = new MediaFoundationReader(actualAudioUrl);
+
+                    // メタデータ用ストリームを別スレッドで空回し（Shoutcast の場合のみ）
+                    if (naudioPodcastWaveStream != null)
+                    {
+                        _ = Task.Run(async () => {
+                            try
+                            {
+                                byte[] discardBuffer = new byte[4096];
+                                int retryCount = 0;
+                                while (retryCount < 10) // 最大10回リトライ
+                                {
+                                    int r = await naudioPodcastWaveStream.ReadAsync(discardBuffer, 0, discardBuffer.Length);
+                                    if (r <= 0)
+                                    {
+                                        retryCount++;
+                                        await Task.Delay(1000); // 1秒待機して再試行
+                                        continue;
+                                    }
+                                    retryCount = 0; // 読めたらリセット
+                                }
+                            }
+                            catch { }
+                        });
+                    }
+
+                    IWaveProvider lastProvider = aacDecoder;
+                    if (aacDecoder.WaveFormat.Encoding == WaveFormatEncoding.IeeeFloat)
+                        lastProvider = new SampleToWaveProvider16(new WaveToSampleProvider(aacDecoder));
+
+                    wfcp = new WaveFormatConversionProvider(targetFormat, lastProvider);
+                }
+                else if (isMp3)
+                {
+                    // --- MP3 再生ロジック ---
+                    // Podcast MP3 は常に rawStream を使用（metaInt の有無に関わらず）
+
+                    Stream sourceStream = rawStream;
+                    System.Diagnostics.Debug.WriteLine($"[Podcast] Using rawStream for MP3 (metaInt: {metaInt})");
+
+                    Mp3Frame frame = Mp3Frame.LoadFromStream(sourceStream);
+                    if (frame == null)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"[Podcast] MP3フレームが見つかりません。");
+                        throw new Exception("MP3フレームが見つかりません。");
+                    }
+
+                    var mp3Format = new Mp3WaveFormat(frame.SampleRate,
+                                                      frame.ChannelMode == ChannelMode.Mono ? 1 : 2,
+                                                      0,
+                                                      frame.BitRate);
+
+                    var bufferedWaveProvider_mp3 = new BufferedWaveProvider(new WaveFormat(frame.SampleRate, 16, frame.ChannelMode == ChannelMode.Mono ? 1 : 2))
+                    {
+                        BufferDuration = TimeSpan.FromSeconds(20),
+                        DiscardOnBufferOverflow = true
+                    };
+
+                    wfcp = new WaveFormatConversionProvider(targetFormat, bufferedWaveProvider_mp3);
+
+                    _ = Task.Run(async () =>
+                    {
+                        using var decompressor = new AcmMp3FrameDecompressor(mp3Format);
+                        byte[] pcmBuffer = new byte[16384 * 4];
+                        Mp3Frame currentFrame = frame;
+
+                        try
+                        {
+                            while (currentFrame != null)
+                            {
+                                // バッファが溢れないように制御
+                                int bytesInFiveSeconds = bufferedWaveProvider_mp3.WaveFormat.AverageBytesPerSecond * 5;
+                                while (bufferedWaveProvider_mp3.BufferedBytes > bytesInFiveSeconds)
+                                {
+                                    await Task.Delay(500);
+                                }
+
+                                try
+                                {
+                                    int maxPcmSize = currentFrame.SampleCount * (bufferedWaveProvider_mp3.WaveFormat.BitsPerSample / 8) * bufferedWaveProvider_mp3.WaveFormat.Channels;
+                                    if (pcmBuffer.Length < maxPcmSize) pcmBuffer = new byte[maxPcmSize];
+
+                                    int decompressedCount = decompressor.DecompressFrame(currentFrame, pcmBuffer, 0);
+                                    if (decompressedCount > 0)
+                                        bufferedWaveProvider_mp3.AddSamples(pcmBuffer, 0, decompressedCount);
+                                }
+                                catch (MmException mmex)
+                                {
+                                    System.Diagnostics.Debug.WriteLine($"[Podcast] Decompress Error: {mmex.Message}");
+                                }
+
+                                // 次のフレームを読み込む
+                                 currentFrame = Mp3Frame.LoadFromStream(sourceStream);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            System.Diagnostics.Debug.WriteLine($"[Podcast] Stream Loop Error: {ex.Message}");
+                        }
+                    });
+
+                    ChipLED = new ChipLEDs();
+                    vgmSpeed = 1; vgmFadeout = false;
+                    vgmFadeoutCounter = 1.0; vgmFadeoutCounterV = 0.00001;
+                    DriverVirtual = null; DriverReal = null;
+                    naudioSampleCounter = 0; naudioDummyCount = 0;
+                    return true;
+                }
+
+                // --- 共通の初期化処理（AAC時） ---
                 ChipLED = new ChipLEDs();
                 vgmSpeed = 1; vgmFadeout = false;
                 vgmFadeoutCounter = 1.0; vgmFadeoutCounterV = 0.00001;
@@ -10282,6 +10515,7 @@ namespace MDPlayer
                     || naudioWmaFileReader != null
                     || naudioFlacFileReader != null
                     || naudioShoutcastWaveStream != null
+                    || naudioPodcastWaveStream != null
                     ))
                 {
                     Stopped = true;
@@ -10301,6 +10535,7 @@ namespace MDPlayer
                         || PlayingFileFormat != EnmFileFormat.WMA
                         || PlayingFileFormat != EnmFileFormat.FLAC
                         || PlayingFileFormat != EnmFileFormat.shoutcast
+                        || PlayingFileFormat != EnmFileFormat.podcast
                         )
                         && (naudioWaveFileReader != null
                         || naudioMp3FileReader != null
@@ -10311,6 +10546,7 @@ namespace MDPlayer
                         || naudioWmaFileReader != null
                         || naudioFlacFileReader != null
                         || naudioShoutcastWaveStream != null
+                        || naudioPodcastWaveStream != null
                         ))
                     {
                         NAudioStop();
@@ -10346,6 +10582,7 @@ namespace MDPlayer
                     || naudioWmaFileReader != null
                     || naudioFlacFileReader != null
                     || naudioShoutcastWaveStream != null
+                    || naudioPodcastWaveStream != null
                     )
                 {
                     NAudioStop();
@@ -10464,6 +10701,13 @@ namespace MDPlayer
                     wfcp = null;
                     dmy.Dispose();
                 }
+                if (naudioPodcastWaveStream != null)
+                {
+                    PodcastWaveStream dmy = naudioPodcastWaveStream;
+                    naudioPodcastWaveStream = null;
+                    wfcp = null;
+                    dmy.Dispose();
+                }
             }
             catch { }
         }
@@ -10536,6 +10780,7 @@ namespace MDPlayer
                 if (naudioWmaFileReader != null) ws = naudioWmaFileReader;
                 if (naudioFlacFileReader != null) ws = naudioFlacFileReader;
                 if (naudioShoutcastWaveStream != null) ws = naudioShoutcastWaveStream;
+                if (naudioPodcastWaveStream != null) ws = naudioPodcastWaveStream;
                 if (ws != null)
                 {
                     //long ns = (long)((double)ws.TotalTime.TotalNanoseconds / (double)ws.Length * ws.Position);
@@ -10569,6 +10814,7 @@ namespace MDPlayer
                 if (naudioWmaFileReader != null) ws = naudioWmaFileReader;
                 if (naudioFlacFileReader != null) ws = naudioFlacFileReader;
                 if (naudioShoutcastWaveStream != null) ws = naudioShoutcastWaveStream;
+                if (naudioPodcastWaveStream != null) ws = naudioPodcastWaveStream;
                 if (ws != null)
                 {
                     long ns= (long)ws.TotalTime.TotalNanoseconds;
@@ -10783,6 +11029,7 @@ namespace MDPlayer
                 || naudioWmaFileReader != null
                 || naudioFlacFileReader != null
                 || naudioShoutcastWaveStream != null
+                || naudioPodcastWaveStream != null
                 )
             {
                 return false;
@@ -11099,6 +11346,7 @@ namespace MDPlayer
                 || naudioWmaFileReader != null
                 || naudioFlacFileReader != null
                 || naudioShoutcastWaveStream != null
+                || naudioPodcastWaveStream != null
                 )
             {
                 if (TrdClosed)
@@ -11306,6 +11554,7 @@ namespace MDPlayer
         private static MediaFoundationReader naudioWmaFileReader = null;
         private static FlacReader naudioFlacFileReader = null;
         private static ShoutcastWaveStream naudioShoutcastWaveStream = null;
+        private static PodcastWaveStream naudioPodcastWaveStream = null;
         private static LoopStream loopStream = null;
         //private static WaveFormatConversionProvider wfcp = null;
         private static IWaveProvider wfcp = null;
@@ -11326,7 +11575,8 @@ namespace MDPlayer
             if (naudioAacFileReader != null) ws = naudioAacFileReader;
             if (naudioWmaFileReader != null) ws = naudioWmaFileReader;
             if (naudioFlacFileReader != null) ws = naudioFlacFileReader;
-            if(naudioShoutcastWaveStream != null) ws = naudioShoutcastWaveStream;
+            if (naudioShoutcastWaveStream != null) ws = naudioShoutcastWaveStream;
+            if (naudioPodcastWaveStream != null) ws = naudioPodcastWaveStream;
             if (ws != null)
             {
                 if (ws.CanSeek)
@@ -11628,7 +11878,8 @@ namespace MDPlayer
         {
             if (DriverVirtual == null)
             {
-                if (naudioMp3FileReader != null){
+                if (naudioMp3FileReader != null)
+                {
                     return wavestreamGD3;
                 }
                 else if (naudioAiffFileReader != null)
@@ -11659,7 +11910,10 @@ namespace MDPlayer
                 {
                     return wavestreamGD3;
                 }
-
+                else if (naudioPodcastWaveStream != null)
+                {
+                    return wavestreamGD3;
+                }
                 return null;
             }
             else return DriverVirtual.GD3;
@@ -11670,6 +11924,11 @@ namespace MDPlayer
             if (naudioShoutcastWaveStream != null)
             {
                 return naudioShoutcastWaveStream.ReadTitle();
+            }
+
+            if (naudioPodcastWaveStream != null)
+            {
+                return naudioPodcastWaveStream.ReadTitle();
             }
 
             if (DriverVirtual == null) return null;
