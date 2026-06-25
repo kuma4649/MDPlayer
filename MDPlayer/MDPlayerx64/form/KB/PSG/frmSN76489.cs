@@ -130,7 +130,6 @@ namespace MDPlayer.form
                             if (psgRegister[ch * 2 + 1] != 15 && newParam.channels[ch].freq != 0)
                             {
                                 float ftone = Audio.ClockSN76489 / (2.0f * psgRegister[ch * 2] * 16.0f);
-
                                 newParam.channels[ch].note = SearchSSGNote(ftone);// searchPSGNote(psgRegister[ch * 2]);
                             }
                             else
@@ -162,7 +161,9 @@ namespace MDPlayer.form
                             newParam.channels[ch].freq = psgRegister[ch * 2];
                             if (psgRegister[ch * 2 + 1] != 15 && newParam.channels[ch].freq != 0)
                             {
-                                newParam.channels[ch].note = SearchPSGNote(psgRegister[ch * 2]);
+                                //newParam.channels[ch].note = SearchPSGNote(psgRegister[ch * 2]);
+                                float ftone = Audio.ClockSN76489 / (2.0f * psgRegister[ch * 2] * 16.0f);
+                                newParam.channels[ch].note = SearchSSGNote(ftone);// searchPSGNote(psgRegister[ch * 2]);
                             }
                             else
                             {
