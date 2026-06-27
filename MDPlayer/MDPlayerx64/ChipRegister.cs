@@ -1199,6 +1199,29 @@ namespace MDPlayer
 
         }
 
+        private void midiReset(int devNo)
+        {
+            midiOuts[devNo].SendBuffer(new byte[] {
+                            0xB0, 0x78, 0x00,
+                            0xB1, 0x78, 0x00,
+                            0xB2, 0x78, 0x00,
+                            0xB3, 0x78, 0x00,
+                            0xB4, 0x78, 0x00,
+                            0xB5, 0x78, 0x00,
+                            0xB6, 0x78, 0x00,
+                            0xB7, 0x78, 0x00,
+                            0xB8, 0x78, 0x00,
+                            0xB9, 0x78, 0x00,
+                            0xBA, 0x78, 0x00,
+                            0xBB, 0x78, 0x00,
+                            0xBC, 0x78, 0x00,
+                            0xBD, 0x78, 0x00,
+                            0xBE, 0x78, 0x00,
+                            0xBF, 0x78, 0x00
+                        });
+            midiOuts[devNo].Reset();
+        }
+
         public void resetAllMIDIout()
         {
             if (midiOuts != null)
@@ -1206,7 +1229,7 @@ namespace MDPlayer
                 for (int i = 0; i < midiOuts.Count; i++)
                 {
                     if (midiOuts[i] == null) continue;
-                    midiOuts[i].Reset();
+                    midiReset(i);
                 }
             }
 
@@ -1215,7 +1238,21 @@ namespace MDPlayer
 
         public void softResetMIDI(int chipID, EnmModel model)
         {
-            resetAllMIDIout();
+            if (model == EnmModel.RealModel)
+            {
+                if (midiOuts != null)
+                {
+                    for (int i = 0; i < midiOuts.Count; i++)
+                    {
+                        if (midiOuts[i] == null) continue;
+                        midiReset(i);
+                    }
+                }
+            }
+            else if (model == EnmModel.VirtualModel)
+            {
+                vstMng.resetAllMIDIout(EnmModel.VirtualModel);
+            }
         }
 
 

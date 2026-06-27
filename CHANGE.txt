@@ -1,4 +1,8 @@
 更新履歴 
+STBL560 2026/06/28
+  コア:Naudio、その他NuGetパッケージ更新
+  MIDI:NAudioのResetが効かなくなっているようなので全てのChにAllNoteOffを送るように機能追加
+
 STBL559 2026/06/26
   鍵盤:DCSG:音階がずれていたのを修正
 

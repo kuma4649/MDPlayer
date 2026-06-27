@@ -2219,6 +2219,24 @@ namespace MDPlayer
                 {
                     if (midiOuts[i] != null)
                     {
+                        midiOuts[i].SendBuffer(new byte[] {
+                            0xB0, 0x78, 0x00,
+                            0xB1, 0x78, 0x00,
+                            0xB2, 0x78, 0x00,
+                            0xB3, 0x78, 0x00,
+                            0xB4, 0x78, 0x00,
+                            0xB5, 0x78, 0x00,
+                            0xB6, 0x78, 0x00,
+                            0xB7, 0x78, 0x00,
+                            0xB8, 0x78, 0x00,
+                            0xB9, 0x78, 0x00,
+                            0xBA, 0x78, 0x00,
+                            0xBB, 0x78, 0x00,
+                            0xBC, 0x78, 0x00,
+                            0xBD, 0x78, 0x00,
+                            0xBE, 0x78, 0x00,
+                            0xBF, 0x78, 0x00
+                        });
                         midiOuts[i].Reset();
                         midiOuts[i].Close();
                         midiOuts[i] = null;
