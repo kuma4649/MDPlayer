@@ -52,24 +52,23 @@
     <PackageReference Include="NAudio" Version="2.3.0" />
     <PackageReference Include="NAudio.Vorbis" Version="1.5.0" />
     <PackageReference Include="System.Text.Json" Version="10.0.9" />
-    <PackageReference Include="VST.NET2-Host" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="MDSound">
-      <HintPath>..\MDPlayer\lib\MDSound.dll</HintPath>
+      <HintPath>..\lib\MDSound.dll</HintPath>
     </Reference>
     <Reference Include="musicDriverInterface">
-      <HintPath>lib\musicDriverInterface.dll</HintPath>
+      <HintPath>..\lib\musicDriverInterface.dll</HintPath>
     </Reference>
     <Reference Include="NiseC86ctl">
-      <HintPath>lib\NiseC86ctl.dll</HintPath>
+      <HintPath>..\lib\NiseC86ctl.dll</HintPath>
     </Reference>
     <Reference Include="RealChipCtlWrap64">
-      <HintPath>lib\RealChipCtlWrap64.dll</HintPath>
+      <HintPath>..\lib\RealChipCtlWrap64.dll</HintPath>
     </Reference>
     <Reference Include="Z80dotNet">
-      <HintPath>..\MDPlayer\lib\Z80dotNet.dll</HintPath>
+      <HintPath>..\lib\Z80dotNet.dll</HintPath>
     </Reference>
   </ItemGroup>
 

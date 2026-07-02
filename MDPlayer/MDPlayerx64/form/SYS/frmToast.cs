@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Drawing;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace MDPlayer.form
 {
@@ -9,6 +11,8 @@ namespace MDPlayer.form
     // 重複を避けるためコンストラクタ周辺を整理します
     public partial class frmToast : Form
     {
+        // フォームが閉じられたかのフラグ（frmMain で参照される）
+        public bool isClosed = false;
         // Win32 API 定義
         [DllImport("user32.dll", SetLastError = true)]
         private static extern bool SetWindowPos(
@@ -29,6 +33,17 @@ namespace MDPlayer.form
         //private System.Windows.Forms.Timer closeTimer;
         private Label lblTitle;
         private Panel containerPanel;
+        private FrameBuffer frameBuffer;
+        private PictureBox pbScreen;
+        private string artistText = "";
+        private Bitmap cachedTextBitmap = null;
+        private string cachedTitle = null;
+        private string cachedArtist = null;
+        private Bitmap cachedTitleBitmap = null;
+        private Bitmap cachedArtistBitmap = null;
+        private int titleOffset = 0;
+        private int titleWidth = 0;
+        private int titleHeight = 0;
         private bool isScrollFinished = false; // スクロールが終わったか
         private bool isTimeReached = false;    // 5秒経過したか
 
@@ -45,9 +60,156 @@ namespace MDPlayer.form
             );
         }
 
+        // ANSI エスケープシーケンスや制御文字を取り除いたプレーンテキストを返す
+        private static string StripAnsi(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+                return string.Empty;
+
+            try
+            {
+                // CSI シーケンス (ESC [ ... letter)
+                input = Regex.Replace(input, "\u001B\\[[0-9;?]*[ -/]*[@-~]", "");
+                // その他の制御文字を除去 (0x00-0x1F, DEL)
+                input = Regex.Replace(input, "[\x00-\x1F\x7F]+", "");
+            }
+            catch { }
+
+            return input;
+        }
+
+        private void PrepareCachedTextBitmaps()
+        {
+            try
+            {
+                string title = lblTitle?.Text ?? "";
+                string artist = artistText ?? "";
+
+                // title bitmap
+                // title bitmap (ANSI sequences stripped - plain white text)
+                if (cachedTitleBitmap == null || title != cachedTitle)
+                {
+                    cachedTitleBitmap?.Dispose();
+                    cachedTitleBitmap = null;
+                    // strip ANSI/control sequences for plain rendering
+                    string plainTitle = StripAnsi(title);
+                    cachedTitle = title;
+                    if (!string.IsNullOrEmpty(plainTitle))
+                    {
+                        using (var f = new Font("Segoe UI", 10, FontStyle.Bold))
+                        {
+                            var sz = TextRenderer.MeasureText(plainTitle, f, new Size(int.MaxValue, int.MaxValue), TextFormatFlags.NoPadding);
+                            titleWidth = Math.Max(1, sz.Width);
+                            titleHeight = Math.Max(1, sz.Height);
+                        }
+
+                        cachedTitleBitmap = new Bitmap(titleWidth, titleHeight, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                        using (var g2 = Graphics.FromImage(cachedTitleBitmap))
+                        using (var f2 = new Font("Segoe UI", 10, FontStyle.Bold))
+                        {
+                            g2.Clear(Color.Transparent);
+                            g2.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+                            TextRenderer.DrawText(g2, plainTitle, f2, new Point(0, 0), Color.White, TextFormatFlags.NoPadding);
+                        }
+                    }
+                    else
+                    {
+                        titleWidth = 0;
+                        titleHeight = 0;
+                    }
+                }
+
+                // artist bitmap
+                if (cachedArtistBitmap == null || artist != cachedArtist)
+                {
+                    cachedArtistBitmap?.Dispose();
+                    cachedArtistBitmap = null;
+                    cachedArtist = artist;
+                    if (!string.IsNullOrEmpty(artist))
+                    {
+                        using (var tmp = new Bitmap(1, 1))
+                        using (var g = Graphics.FromImage(tmp))
+                        using (var f = new Font("Segoe UI", 9))
+                        {
+                            var sz = g.MeasureString(artist, f);
+                            int w = Math.Max(1, (int)Math.Ceiling(sz.Width));
+                            int h = Math.Max(1, (int)Math.Ceiling(sz.Height));
+                            cachedArtistBitmap = new Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                            using (var g2 = Graphics.FromImage(cachedArtistBitmap))
+                            using (var f2 = new Font("Segoe UI", 9))
+                            using (var b = new SolidBrush(Color.LightGray))
+                            {
+                                g2.Clear(Color.Transparent);
+                                g2.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+                                g2.DrawString(artist, f2, b, new PointF(0f, 0f));
+                            }
+                        }
+                    }
+                }
+            }
+            catch { }
+        }
+
+        private void RenderTextToFrameBuffer()
+        {
+            try
+            {
+                if (frameBuffer == null) return;
+
+                // Ensure text bitmaps prepared
+                PrepareCachedTextBitmaps();
+
+                // Clear framebuffer
+                frameBuffer.clearScreen();
+
+                int fw = frameBuffer.bmpPlaneW;
+                int fh = frameBuffer.bmpPlaneH;
+                if (fw <= 0) fw = Math.Max(1, this.ClientSize.Width);
+                if (fh <= 0) fh = Math.Max(1, this.ClientSize.Height);
+
+                using (Bitmap tmp = new Bitmap(fw, fh, System.Drawing.Imaging.PixelFormat.Format32bppArgb))
+                {
+                    using (Graphics g = Graphics.FromImage(tmp))
+                    {
+                        g.Clear(this.BackColor);
+                        // draw title (scrolling) using cachedTitleBitmap
+                        if (cachedTitleBitmap != null)
+                        {
+                            g.DrawImageUnscaled(cachedTitleBitmap, titleOffset, 8);
+                        }
+                        // draw artist static
+                        if (cachedArtistBitmap != null)
+                        {
+                            g.DrawImageUnscaled(cachedArtistBitmap, 10, 24);
+                        }
+                    }
+
+                    try
+                    {
+                        System.Drawing.Imaging.BitmapData bd = tmp.LockBits(new Rectangle(0, 0, tmp.Width, tmp.Height), System.Drawing.Imaging.ImageLockMode.ReadOnly, tmp.PixelFormat);
+                        try
+                        {
+                            int[] src = new int[bd.Stride / 4 * bd.Height];
+                            System.Runtime.InteropServices.Marshal.Copy(bd.Scan0, src, 0, src.Length);
+                            frameBuffer.drawIntArray(0, 0, src, bd.Stride / 4, 0, 0, tmp.Width, tmp.Height);
+                        }
+                        finally
+                        {
+                            tmp.UnlockBits(bd);
+                        }
+                    }
+                    catch { }
+                }
+            }
+            catch { }
+        }
+
         public frmToast(string artist, string title)//,frmMain frm)
         {
             InitializeComponent();
+
+            // 閉じたフラグを管理
+            this.FormClosed += (s, e) => { isClosed = true; };
 
             // デザイナーを使わずコードのみで生成する場合の初期設定
             this.FormBorderStyle = FormBorderStyle.None;
@@ -57,97 +219,43 @@ namespace MDPlayer.form
             this.Size = new Size(300, 80);
             this.DoubleBuffered = true; // ちらつき防止
 
-            // 1. パネルの配置
-            containerPanel = new Panel
-            {
-                Location = new Point(10, 15),
-                Size = new Size(280, 25),
-                BackColor = Color.Transparent
-            };
-            this.Controls.Add(containerPanel);
+            // 1. PictureBox + FrameBuffer で描画（Label を使わない）
+            pbScreen = new PictureBox();
+            pbScreen.Location = new Point(0, 0);
+            pbScreen.Size = this.ClientSize;
+            pbScreen.BackColor = Color.Transparent;
+            pbScreen.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
+            this.Controls.Add(pbScreen);
 
-            // 2. タイトルラベル（パネルの中に入れる！）
-            lblTitle = new Label
+            frameBuffer = new FrameBuffer();
+            // 初期イメージ: 背景色で塗った bitmap
+            Bitmap init = new Bitmap(Math.Max(1, this.ClientSize.Width), Math.Max(1, this.ClientSize.Height));
+            using (Graphics g = Graphics.FromImage(init))
             {
-                Text = title,
-                ForeColor = Color.White,
-                Font = new Font("Segoe UI", 10, FontStyle.Bold),
-                Location = new Point(0, 0),
-                AutoSize = true
-            };
-            containerPanel.Controls.Add(lblTitle);
+                g.Clear(this.BackColor);
+            }
+            frameBuffer.Add(pbScreen, init, null, 1);
+            init.Dispose();
 
-            // アーティストラベル（こちらはフォームに直接置く）
-            Label lblArtist = new Label
-            {
-                Text = artist,
-                ForeColor = Color.LightGray,
-                Font = new Font("Segoe UI", 9),
-                Location = new Point(10, 40),
-                AutoSize = true
-            };
-            this.Controls.Add(lblArtist);
+            // 保存用ラベルテキストはプロパティとして保管
+            lblTitle = new Label();
+            lblTitle.Text = title;
+            artistText = artist;
+            containerPanel = new Panel();
+            // ラベル/パネルは描画に使わないがテキスト保存用に残す
+            this.Controls.Remove(containerPanel);
 
 
         }
 
-        private async void AnimateWindow()
-        {
-            try
-            {
-                this.Opacity = 0;
-                while (this.Opacity < 1)
-                {
-                    await System.Threading.Tasks.Task.Delay(10);
-                    this.Opacity += 0.05;
-                }
-            }
-            catch
-            {
-                // フォームが閉じられた後にアニメーションが続行される場合の例外を無視
-            }
-        }
-
-        private async System.Threading.Tasks.Task FadeOutAndClose()
-        {
-            try
-            {
-                // 徐々に不透明度を下げる
-                while (this.Opacity > 0)
-                {
-                    await System.Threading.Tasks.Task.Delay(10);
-                    this.Opacity -= 0.05;
-                }
-                this.Close(); // 完全に消えたら閉じる
-            }
-            catch
-            {
-                // フォームが既に閉じられている場合の例外を無視
-            }
-        }
-
-        private async void CheckAndClose()
-        {
-            // 「5秒経過」かつ「スクロール完了」の両方を満たした時だけ閉じる
-            if (isTimeReached && isScrollFinished)
-            {
-                await FadeOutAndClose();
-            }
-        }
+        // フェード制御（frmMain のループから毎フレーム呼ばれる想定）
+        private bool fadingIn = true;
+        private bool fadingOut = false;
+        private float fadeSpeed = 5.0f; // opacity change per second
 
         private void InitializeComponent()
         {
-            scrollTimer = new System.Windows.Forms.Timer();
-            closeTimer = new System.Windows.Forms.Timer();
             SuspendLayout();
-            // 
-            // scrollTimer
-            // 
-            scrollTimer.Tick += scrollTimer_Tick;
-            // 
-            // closeTimer
-            // 
-            closeTimer.Tick += closeTimer_Tick;
             // 
             // frmToast
             // 
@@ -157,54 +265,174 @@ namespace MDPlayer.form
             ResumeLayout(false);
 
         }
-
-        private System.Windows.Forms.Timer scrollTimer;
-        private System.Windows.Forms.Timer closeTimer;
+        private Stopwatch lifeWatch;
+        private long lastUpdateMs;
+        private float scrollSpeed = 60f; // pixels per second
+        private bool scrollingActive = false;
+        private bool needsPaint = false;
+        private double lastOpacity = 0.0;
         private frmMain parent;
 
-        private void closeTimer_Tick(object sender, EventArgs e)
-        {
-            closeTimer.Stop();
-            isTimeReached = true;
-            CheckAndClose(); // 条件が揃っていれば閉じる
-        }
-
-        private void scrollTimer_Tick(object sender, EventArgs e)
-        {
-            lblTitle.Left -= 1;
-            // 文字が完全に左へ消え切った判定 (ループさせずに終了フラグを立てる)
-            if (lblTitle.Right < 0)
-            {
-                scrollTimer.Stop();
-                isScrollFinished = true;
-                CheckAndClose(); // 条件が揃っていれば閉じる
-            }
-        }
+        // timers removed; main form will call screenDrawParams/update at ~60fps
 
         private void frmToast_Load(object sender, EventArgs e)
         {
-                // 表示位置の計算
+            // 表示位置の計算
+            Rectangle screen = Screen.PrimaryScreen.WorkingArea;
+            this.Location = new Point(screen.Right - this.Width - 10,
+                                      screen.Bottom - this.Height - 10);
+
+            // 初期不透明度とフェードイン開始
+            this.Opacity = 0.0;
+            fadingIn = true;
+
+            // 初期タイマー／スクロール状態
+            lifeWatch = Stopwatch.StartNew();
+            lastUpdateMs = lifeWatch.ElapsedMilliseconds;
+            // prepare cached text bitmaps and initial offsets
+            PrepareCachedTextBitmaps();
+            int viewW = frameBuffer?.bmpPlaneW ?? this.ClientSize.Width;
+            titleOffset = viewW; // start from right edge
+            scrollingActive = (titleWidth > viewW - 20);
+            isScrollFinished = !scrollingActive;
+
+            // 初回描画パラメータ設定
+            //screenDrawParams();
+
+        }
+
+        // frmMain の screenDrawParamsForms から呼ばれる想定のメソッド
+        public void screenDrawParams()
+        {
+            try
+            {
+                // 位置を作業領域の右下に合わせる
                 Rectangle screen = Screen.PrimaryScreen.WorkingArea;
                 this.Location = new Point(screen.Right - this.Width - 10,
                                           screen.Bottom - this.Height - 10);
-
-                // 5秒後に閉じるタイマーの設定
-                closeTimer.Interval = 5000;
-                closeTimer.Enabled = true;
-
-                AnimateWindow();
-
-                // 3. スクロールが必要か判定（Load後に行うのが確実）
-                if (lblTitle.Width > containerPanel.Width)
+                // 初回または毎フレームの更新（スクロール・経過時間）
+                if (lifeWatch == null)
                 {
-                    scrollTimer.Interval = 30;
-                    scrollTimer.Enabled = true;
+                    lifeWatch = Stopwatch.StartNew();
+                    lastUpdateMs = lifeWatch.ElapsedMilliseconds;
                 }
-                else
+
+                long now = lifeWatch.ElapsedMilliseconds;
+                long delta = now - lastUpdateMs;
+                if (delta < 0) delta = 0;
+                lastUpdateMs = now;
+
+                // スクロール判定 / 更新
+                try
                 {
-                    // スクロール不要な場合は最初から完了扱い
-                    isScrollFinished = true;
+                    PrepareCachedTextBitmaps();
+                    int viewW = frameBuffer?.bmpPlaneW ?? this.ClientSize.Width;
+                    if (titleWidth > viewW - 20)
+                    {
+                        scrollingActive = true;
+                    }
+                    else
+                    {
+                        scrollingActive = false;
+                        isScrollFinished = true;
+                    }
+
+                    if (scrollingActive)
+                    {
+                        float dx = scrollSpeed * (delta / 1000f);
+                        // move titleOffset left by dx
+                        int newOffset = titleOffset - Math.Max(1, (int)Math.Ceiling(dx));
+                        if (newOffset != titleOffset)
+                        {
+                            titleOffset = newOffset;
+                            RenderTextToFrameBuffer();
+                            needsPaint = true;
+                        }
+                        // fully scrolled out
+                        if (titleOffset + titleWidth < 0)
+                        {
+                            scrollingActive = false;
+                            isScrollFinished = true;
+                            RenderTextToFrameBuffer();
+                            needsPaint = true;
+                        }
+                    }
+                    else
+                    {
+                        // static: ensure title positioned at left margin
+                        int desired = 10;
+                        if (titleOffset != desired)
+                        {
+                            titleOffset = desired;
+                            RenderTextToFrameBuffer();
+                            needsPaint = true;
+                        }
+                    }
                 }
+                catch { }
+
+                // 経過時間で閉じる判定（5秒）。スクロール完了と両方満たしたらフェードアウト開始
+                if (!isTimeReached && lifeWatch.ElapsedMilliseconds >= 5000)
+                {
+                    isTimeReached = true;
+                }
+
+                if (isTimeReached && isScrollFinished && !fadingOut)
+                {
+                    fadingOut = true;
+                }
+
+                // フェードイン/アウト処理
+                if (fadingIn)
+                {
+                    float dop = fadeSpeed * (delta / 1000f);
+                    double newOp = Math.Min(1.0, this.Opacity + dop);
+                    if (Math.Abs(newOp - this.Opacity) > 0.001)
+                    {
+                        this.Opacity = newOp;
+                        RenderTextToFrameBuffer();
+                        needsPaint = true;
+                    }
+                    if (this.Opacity >= 1.0)
+                    {
+                        fadingIn = false;
+                    }
+                }
+                else if (fadingOut)
+                {
+                    float dop = fadeSpeed * (delta / 1000f);
+                    double newOp = Math.Max(0.0, this.Opacity - dop);
+                    if (Math.Abs(newOp - this.Opacity) > 0.001)
+                    {
+                        this.Opacity = newOp;
+                        RenderTextToFrameBuffer();
+                        needsPaint = true;
+                    }
+                    if (this.Opacity <= 0.0)
+                    {
+                        this.Close();
+                    }
+                }
+            }
+            catch { }
+        }
+
+        // frmMain から呼ばれる更新メソッド
+        public void update()
+        {
+            try
+            {
+                if (!this.IsDisposed && this.IsHandleCreated)
+                {
+                    // 描画が必要なときは frameBuffer に非同期描画を要求する（UI スレッドをブロックしない）
+                    if (needsPaint && frameBuffer != null)
+                    {
+                        frameBuffer.RefreshAsync(null);
+                        needsPaint = false;
+                    }
+                }
+            }
+            catch { }
         }
     }
 }

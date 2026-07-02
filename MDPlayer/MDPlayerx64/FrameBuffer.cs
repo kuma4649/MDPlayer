@@ -142,6 +142,35 @@ namespace MDPlayer
             }
         }
 
+        // 非同期で描画を要求する（UI スレッドをブロックしない）
+        public void RefreshAsync(Action<object, PaintEventArgs> p)
+        {
+            if (pbScreen == null) return;
+            if (pbScreen.IsDisposed) return;
+
+            try
+            {
+                pbScreen.BeginInvoke((Action)(() =>
+                {
+                    try
+                    {
+                        drawScreen();
+                    }
+                    catch (Exception ex)
+                    {
+                        log.ForcedWrite(ex);
+                        Remove(p);
+                    }
+                    if (bgPlane != null) bgPlane.Render();
+                }));
+            }
+            catch (ObjectDisposedException)
+            {
+                ;
+            }
+            catch { }
+        }
+
         public void drawIntArray(in int x, in int y, in int[] src, in int srcWidth, in int imgX, in int imgY, in int imgWidth, in int imgHeight)
         {
             if (bmpPlane == null)

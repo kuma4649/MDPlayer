@@ -71,9 +71,13 @@ namespace MDPlayer.Driver.ZMS.nise68
             UInt16 n = FetchW();
             int cycle = 0;
 
-            if (cmdTbl[n >> 8] != null)
+            // High-frequency path: calculate opcode once
+            byte opcode = (byte)(n >> 8);
+            var cmd = cmdTbl[opcode];
+
+            if (cmd != null)
             {
-                cycle += cmdTbl[n >> 8](n);
+                cycle += cmd(n);
             }
             else
             {

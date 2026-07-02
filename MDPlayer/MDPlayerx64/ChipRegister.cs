@@ -13,7 +13,7 @@ namespace MDPlayer
 {
     public class ChipRegister
     {
-        private vstMng vstMng = null;
+        //private vstMng vstMng = null;
         private Setting setting = null;
         private MDSound.MDSound mds = null;
         private MidiOutInfo[] midiOutInfos = null;
@@ -541,7 +541,7 @@ namespace MDPlayer
             , PianoRollMng pianoRollMng
             , MDSound.MDSound mds
             , RealChip nScci
-            , vstMng vstMng
+            //, vstMng vstMng
             , RSoundChip[] scYM2612
             , RSoundChip[] scSN76489
             , RSoundChip[] scYM2608
@@ -564,8 +564,8 @@ namespace MDPlayer
             this.setting = setting;
             this.pianoRollMng = pianoRollMng;
             this.mds = mds;
-            this.vstMng = vstMng;
-            this.vstMng.midiParams = midiParams;
+            //this.vstMng = vstMng;
+            //this.vstMng.midiParams = midiParams;
             this.realChip = nScci;
             this.scYM2612 = scYM2612;
             this.scYM2608 = scYM2608;
@@ -1123,20 +1123,20 @@ namespace MDPlayer
             //this.vstMidiOutsType = vstMidiOutsType;
 
             if (midiParams == null && midiParams.Length < 1) return;
-            if (midiOutsType == null && vstMng.vstMidiOutsType == null) return;
-            if (midiOuts == null && vstMng.vstMidiOuts == null) return;
+            //if (midiOutsType == null && vstMng.vstMidiOutsType == null) return;
+            //if (midiOuts == null && vstMng.vstMidiOuts == null) return;
 
             if (midiOutsType.Count > 0) midiParams[0].MIDIModule = Math.Min(midiOutsType[0], 2);
             if (midiOutsType.Count > 1) midiParams[1].MIDIModule = Math.Min(midiOutsType[1], 2);
 
-            if (vstMng.vstMidiOutsType.Count > 0)
-            {
-                if (midiOutsType.Count < 1 || (midiOutsType.Count > 0 && midiOuts[0] == null)) midiParams[0].MIDIModule = Math.Min(vstMng.vstMidiOutsType[0], 2);
-            }
-            if (vstMng.vstMidiOutsType.Count > 1)
-            {
-                if (midiOutsType.Count < 2 || (midiOutsType.Count > 1 && midiOuts[1] == null)) midiParams[1].MIDIModule = Math.Min(vstMng.vstMidiOutsType[1], 2);
-            }
+            //if (vstMng.vstMidiOutsType.Count > 0)
+            //{
+            //    if (midiOutsType.Count < 1 || (midiOutsType.Count > 0 && midiOuts[0] == null)) midiParams[0].MIDIModule = Math.Min(vstMng.vstMidiOutsType[0], 2);
+            //}
+            //if (vstMng.vstMidiOutsType.Count > 1)
+            //{
+            //    if (midiOutsType.Count < 2 || (midiOutsType.Count > 1 && midiOuts[1] == null)) midiParams[1].MIDIModule = Math.Min(vstMng.vstMidiOutsType[1], 2);
+            //}
         }
 
         internal void SetFileName(string fn)
@@ -1163,7 +1163,7 @@ namespace MDPlayer
                 return;
             }
 
-            vstMng.sendMIDIout(model, num, cmd, prm1, prm2, deltaFrames);
+            //vstMng.sendMIDIout(model, num, cmd, prm1, prm2, deltaFrames);
         }
 
         public void sendMIDIout(EnmModel model, int num, byte cmd, byte prm1, int deltaFrames = 0)
@@ -1179,7 +1179,7 @@ namespace MDPlayer
                 return;
             }
 
-            vstMng.sendMIDIout(model, num, cmd, prm1, deltaFrames);
+            //vstMng.sendMIDIout(model, num, cmd, prm1, deltaFrames);
         }
 
         public void sendMIDIout(EnmModel model, int num, byte[] data, int deltaFrames = 0)
@@ -1195,7 +1195,7 @@ namespace MDPlayer
                 return;
             }
 
-            vstMng.sendMIDIout(model, num, data, deltaFrames);
+            //vstMng.sendMIDIout(model, num, data, deltaFrames);
 
         }
 
@@ -1233,7 +1233,7 @@ namespace MDPlayer
                 }
             }
 
-            vstMng.resetAllMIDIout(EnmModel.VirtualModel);
+            //vstMng.resetAllMIDIout(EnmModel.VirtualModel);
         }
 
         public void softResetMIDI(int chipID, EnmModel model)
@@ -1251,7 +1251,7 @@ namespace MDPlayer
             }
             else if (model == EnmModel.VirtualModel)
             {
-                vstMng.resetAllMIDIout(EnmModel.VirtualModel);
+                //vstMng.resetAllMIDIout(EnmModel.VirtualModel);
             }
         }
 

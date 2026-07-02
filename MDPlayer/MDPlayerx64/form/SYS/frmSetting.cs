@@ -2679,41 +2679,41 @@ namespace MDPlayer.form
 
         private void BtnAddVST_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "VST Pluginファイル(*.dll)|*.dll|すべてのファイル(*.*)|*.*";
-            ofd.Title = "ファイルを選択してください";
-            //ofd.FilterIndex = setting.other.FilterIndex;
+            //OpenFileDialog ofd = new OpenFileDialog();
+            //ofd.Filter = "VST Pluginファイル(*.dll)|*.dll|すべてのファイル(*.*)|*.*";
+            //ofd.Title = "ファイルを選択してください";
+            ////ofd.FilterIndex = setting.other.FilterIndex;
 
-            if (setting.vst.DefaultPath != "" && Directory.Exists(setting.vst.DefaultPath) && IsInitialOpenFolder)
-            {
-                ofd.InitialDirectory = setting.vst.DefaultPath;
-            }
-            else
-            {
-                ofd.RestoreDirectory = true;
-            }
-            ofd.CheckPathExists = true;
-            ofd.Multiselect = false;
+            //if (setting.vst.DefaultPath != "" && Directory.Exists(setting.vst.DefaultPath) && IsInitialOpenFolder)
+            //{
+            //    ofd.InitialDirectory = setting.vst.DefaultPath;
+            //}
+            //else
+            //{
+            //    ofd.RestoreDirectory = true;
+            //}
+            //ofd.CheckPathExists = true;
+            //ofd.Multiselect = false;
 
-            if (ofd.ShowDialog() != DialogResult.OK)
-            {
-                return;
-            }
+            //if (ofd.ShowDialog() != DialogResult.OK)
+            //{
+            //    return;
+            //}
 
-            vstInfo s = Audio.GetVSTInfo(ofd.FileName);
-            if (s == null) return;
+            //vstInfo s = Audio.GetVSTInfo(ofd.FileName);
+            //if (s == null) return;
 
-            setting.vst.DefaultPath = Path.GetDirectoryName(ofd.FileName);
+            //setting.vst.DefaultPath = Path.GetDirectoryName(ofd.FileName);
 
-            int p = tbcMIDIoutList.SelectedIndex;
-            dgv[p].Rows.Add(
-                -999
-                , true
-                , s.fileName
-                , s.effectName
-                , "GM"
-                , "None"
-                , s.vendorName);
+            //int p = tbcMIDIoutList.SelectedIndex;
+            //dgv[p].Rows.Add(
+            //    -999
+            //    , true
+            //    , s.fileName
+            //    , s.effectName
+            //    , "GM"
+            //    , "None"
+            //    , s.vendorName);
 
         }
 

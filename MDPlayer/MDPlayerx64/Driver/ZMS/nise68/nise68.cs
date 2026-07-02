@@ -83,55 +83,32 @@ namespace MDPlayer.Driver.ZMS.nise68
             //Log.SetLogLevel(LogLevel.Trace);
 
             hmn.LoadAndExecuteFile(filename, option, startAddress);
+#if DEBUG_M68
             if (dispReg) DispRegs(reg);
+#endif
 
             int waitClock = 0;
             hmn.programTerminate = false;
             step = 0;
             run++;
 
-            while (((useStepCounter && step < MaxStepCounter) || !useStepCounter) && !hmn.programTerminate)
+            if (useStepCounter)
             {
-                waitClock += StepExecute();
-
-                if (useStepCounter)
+                while (step < MaxStepCounter && !hmn.programTerminate)
                 {
+                    waitClock += StepExecute();
                     step++;
                     if (step < StartStepCounterForDispStep) continue;
+                    DebugStep(dispReg);
                 }
-
-#if DEBUG
-                if (dispReg)
+            }
+            else
+            {
+                while (!hmn.programTerminate)
                 {
-                    DispRegs(reg);
+                    waitClock += StepExecute();
+                    DebugStep(dispReg);
                 }
-
-                //if (dispStepCounter) Log.WriteLine(LogLevel.Trace, "STEP:{0} totalCycle:{1}\r\n", step, waitClock);
-
-                if (run > 0 && step == 500)
-                {
-                    ;
-                    //Log.SetLogLevel(LogLevel.Trace);
-                }
-
-                if (reg.PC == 0x0002_2968)
-                {
-                    ;
-                }
-                if (reg.PC == 0x0000002_2982)//コメント読みこみ完了
-                {
-                    ;
-                }
-                //if (reg.PC == 0x0000002_22e2)//(で始まるコマンドの処理へ
-                //{
-                //    ;
-                //}
-
-                //if ((reg.PC & 0xffff_fff0) == reg.PC)
-                //{
-                //    DumpMemory(reg.PC - 0x80, reg.PC + 0x80);
-                //}
-#endif
             }
 
             Log.WriteLine(LogLevel.Debug, "Terminate program. return code=${0:X02}", hmn.returnCode);
@@ -141,39 +118,43 @@ namespace MDPlayer.Driver.ZMS.nise68
             return hmn.returnCode;
         }
 
-        public void Trap(int num, bool dispReg = false, bool useStepCounter = false, bool dispStepCounter = false,
-    long MaxStepCounter = 100_000_000, long StartStepCounterForDispStep = 0)
-        {
-            if (dispReg) DispRegs(reg);
+                 public void Trap(int num, bool dispReg = false, bool useStepCounter = false, bool dispStepCounter = false,
+             long MaxStepCounter = 100_000_000, long StartStepCounterForDispStep = 0)
+                 {
+        #if DEBUG_M68
+                     if (dispReg) DispRegs(reg);
+        #endif
 
-            int waitClock = 0;
+                     int waitClock = 0;
             hmn.programTerminate = false;
             step = 0;
             run++;
 
             reg.SSP = hmn.defSSP;
             reg.USP = hmn.defUSP;
-            cpu.Ctrap2((ushort)num);
+                         cpu.Ctrap2((ushort)num);
 
-            while (((useStepCounter && step < MaxStepCounter) || !useStepCounter) && !hmn.programTerminate)
-            {
-                waitClock += StepExecute();
+                         while (((useStepCounter && step < MaxStepCounter) || !useStepCounter) && !hmn.programTerminate)
+                         {
+                             waitClock += StepExecute();
 
-#if DEBUG
-                if (useStepCounter)
-                {
-                    step++;
-                    if (step < StartStepCounterForDispStep) continue;
-                }
+            #if DEBUG
+                             if (useStepCounter)
+                             {
+                                 step++;
+                                 if (step < StartStepCounterForDispStep) continue;
+                             }
 
-                if (dispReg)
-                {
-                    DispRegs(reg);
-                }
+            #if DEBUG_M68
+                             if (dispReg)
+                             {
+                                 DispRegs(reg);
+                             }
+            #endif
 
-                if (dispStepCounter) Log.WriteLine(LogLevel.Trace, "STEP:{0} totalCycle:{1}\r\n", step, waitClock);
+                             if (dispStepCounter) Log.WriteLine(LogLevel.Trace, "STEP:{0} totalCycle:{1}\r\n", step, waitClock);
 
-                if (run > 8 && step == 146)
+                             if (run > 8 && step == 146)
                 {
                     //Log.SetLogLevel(LogLevel.Trace);
                 }
@@ -209,39 +190,43 @@ namespace MDPlayer.Driver.ZMS.nise68
 #endif
         }
 
-        public void TrapOPM(bool dispReg = false, bool useStepCounter = false, bool dispStepCounter = false,
-    long MaxStepCounter = 100_000_000, long StartStepCounterForDispStep = 0)
-        {
-            if (dispReg) DispRegs(reg);
+                 public void TrapOPM(bool dispReg = false, bool useStepCounter = false, bool dispStepCounter = false,
+             long MaxStepCounter = 100_000_000, long StartStepCounterForDispStep = 0)
+                 {
+        #if DEBUG_M68
+                     if (dispReg) DispRegs(reg);
+        #endif
 
-            int waitClock = 0;
+                     int waitClock = 0;
             hmn.programTerminate = false;
             step = 0;
             run++;
 
             reg.SSP = hmn.defSSP;
             reg.USP = hmn.defUSP;
-            cpu.CtrapPtr(iocs.interruptOPM);
+                         cpu.CtrapPtr(iocs.interruptOPM);
 
-            while (((useStepCounter && step < MaxStepCounter) || !useStepCounter) && !hmn.programTerminate)
-            {
-                waitClock += StepExecute();
+                         while (((useStepCounter && step < MaxStepCounter) || !useStepCounter) && !hmn.programTerminate)
+                         {
+                             waitClock += StepExecute();
 
-#if DEBUG
-                if (useStepCounter)
-                {
-                    step++;
-                    if (step < StartStepCounterForDispStep) continue;
-                }
+            #if DEBUG
+                             if (useStepCounter)
+                             {
+                                 step++;
+                                 if (step < StartStepCounterForDispStep) continue;
+                             }
 
-                if (dispReg)
-                {
-                    DispRegs(reg);
-                }
+            #if DEBUG_M68
+                             if (dispReg)
+                             {
+                                 DispRegs(reg);
+                             }
+            #endif
 
-                if (dispStepCounter) Log.WriteLine(LogLevel.Trace, "STEP:{0} totalCycle:{1}\r\n", step, waitClock);
+                             if (dispStepCounter) Log.WriteLine(LogLevel.Trace, "STEP:{0} totalCycle:{1}\r\n", step, waitClock);
 
-                //if (run > 3082 && step == 1827)
+                             //if (run > 3082 && step == 1827)
                 //{
                 //    //Log.SetLogLevel(LogLevel.Trace);
                 //}
@@ -334,10 +319,52 @@ namespace MDPlayer.Driver.ZMS.nise68
             reg.SSP += 4;
         }
 
+        #if DEBUG_M68
         private void DispRegs(Register68 regs)
         {
             Log.WriteLine(LogLevel.Trace, regs?.ToString());
         }
+#endif
+
+#if DEBUG
+         private void DebugStep(bool dispReg)
+         {
+#if DEBUG_M68
+             if (dispReg)
+             {
+                 DispRegs(reg);
+             }
+#endif
+
+             //if (dispStepCounter) Log.WriteLine(LogLevel.Trace, "STEP:{0} totalCycle:{1}\r\n", step, waitClock);
+
+            //if (run > 0 && step == 500)
+            //{
+            //    ;
+            //    //Log.SetLogLevel(LogLevel.Trace);
+            //}
+
+            //if (reg.PC == 0x0002_2968)
+            //{
+            //    ;
+            //}
+            //if (reg.PC == 0x0000002_2982)//コメント読みこみ完了
+            //{
+            //    ;
+            //}
+            //if (reg.PC == 0x0000002_22e2)//(で始まるコマンドの処理へ
+            //{
+            //    ;
+            //}
+
+            //if ((reg.PC & 0xffff_fff0) == reg.PC)
+            //{
+            //    DumpMemory(reg.PC - 0x80, reg.PC + 0x80);
+            //}
+        }
+#else
+        private void DebugStep(bool dispReg) { }
+#endif
 
         private uint hkVsync(uint ptr)
         {

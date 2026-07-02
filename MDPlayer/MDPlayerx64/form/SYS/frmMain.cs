@@ -33,7 +33,7 @@ namespace MDPlayer.form
         public frmToast frmToast = null;
         private frmPic frmPic = null;
         private frmPlayList frmPlayList = null;
-        private frmVSTeffectList frmVSTeffectList = null;
+        //private frmVSTeffectList frmVSTeffectList = null;
 
         private frmMegaCD[] frmMCD = [null, null];
         private frmRf5c68[] frmRf5c68 = [null, null];
@@ -323,12 +323,12 @@ namespace MDPlayer.form
             //frmPlayList.Location = new System.Drawing.Point(this.Location.X + 328, this.Location.Y + 264);
             frmPlayList.Refresh();
 
-            frmVSTeffectList = new frmVSTeffectList(this, setting);
-            frmVSTeffectList.Show();
-            frmVSTeffectList.Visible = false;
-            frmVSTeffectList.Opacity = 1.0;
-            //frmVSTeffectList.Location = new System.Drawing.Point(this.Location.X + 328, this.Location.Y + 264);
-            frmVSTeffectList.Refresh();
+            //frmVSTeffectList = new frmVSTeffectList(this, setting);
+            //frmVSTeffectList.Show();
+            //frmVSTeffectList.Visible = false;
+            //frmVSTeffectList.Opacity = 1.0;
+            ////frmVSTeffectList.Location = new System.Drawing.Point(this.Location.X + 328, this.Location.Y + 264);
+            //frmVSTeffectList.Refresh();
 
             if (setting.location.OPlayList) DispPlayList();
             openInfoLoad(setting.location.OInfo);
@@ -1345,11 +1345,11 @@ namespace MDPlayer.form
                 frmYM2612MIDI.Close();
                 setting.location.OpenYm2612MIDI = true;
             }
-            if (frmVSTeffectList != null && !frmVSTeffectList.isClosed)
-            {
-                frmVSTeffectList.Close();
-                setting.location.OpenVSTeffectList = true;
-            }
+            //if (frmVSTeffectList != null && !frmVSTeffectList.isClosed)
+            //{
+            //    frmVSTeffectList.Close();
+            //    setting.location.OpenVSTeffectList = true;
+            //}
             if (frmPianoRoll != null && !frmPianoRoll.isClosed)
             {
                 frmPianoRoll.Close();
@@ -5006,7 +5006,7 @@ namespace MDPlayer.form
             log.debug = this.setting.debug.logDebug;
             log.logLevel = this.setting.debug.logLevel;
 
-            frmVSTeffectList.dispPluginList();
+            //frmVSTeffectList.dispPluginList();
             StartMIDIInMonitoring();
 
             IsInitialOpenFolder = true;
@@ -5265,8 +5265,10 @@ namespace MDPlayer.form
                     }
 
 
-                    this.Invoke((Action)(screenDrawParams));
-                    this.Invoke((Action)(screenDrawParamsForms));
+                    // Use BeginInvoke to avoid blocking the background screenMainLoop thread
+                    // if the UI thread is temporarily busy (prevents deadlocks/freezes).
+                    try { this.BeginInvoke((Action)(screenDrawParams)); } catch { }
+                    try { this.BeginInvoke((Action)(screenDrawParamsForms)); } catch { }
 
 
                     nextFrame += period;
@@ -5830,6 +5832,27 @@ namespace MDPlayer.form
 
             if (frmRegTest != null && !frmRegTest.isClosed) { frmRegTest.screenDrawParams(); frmRegTest.update(); } else frmRegTest = null;
             if (frmPianoRoll != null && !frmPianoRoll.isClosed) { frmPianoRoll.screenDrawParams(); frmPianoRoll.update(); } else frmPianoRoll = null;
+
+            // Toast ウィンドウの描画更新（存在する場合）
+            if (frmToast != null)
+            {
+                try
+                {
+                    if (!frmToast.isClosed)
+                    {
+                        frmToast.screenDrawParams();
+                        frmToast.update();
+                    }
+                    else
+                    {
+                        frmToast = null;
+                    }
+                }
+                catch
+                {
+                    frmToast = null;
+                }
+            }
 
         }
 
@@ -6433,10 +6456,10 @@ namespace MDPlayer.form
 
         private void DispVSTList()
         {
-            frmVSTeffectList.Visible = !frmVSTeffectList.Visible;
-            if (frmVSTeffectList.Visible) CheckAndSetForm(frmVSTeffectList);
-            frmVSTeffectList.TopMost = true;
-            frmVSTeffectList.TopMost = false;
+            //frmVSTeffectList.Visible = !frmVSTeffectList.Visible;
+            //if (frmVSTeffectList.Visible) CheckAndSetForm(frmVSTeffectList);
+            //frmVSTeffectList.TopMost = true;
+            //frmVSTeffectList.TopMost = false;
         }
 
         private void ShowContextMenu()

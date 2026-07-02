@@ -42,7 +42,7 @@ namespace MDPlayerx64
                 , "NAudio.dll"
                 , "RealChipCtlWrap64.dll"
             };
-            chkFn.AddRange(MDPlayer.vstMng.chkFn);
+            //chkFn.AddRange(MDPlayer.vstMng.chkFn);
 
             foreach (string fn in chkFn)
             {

@@ -32,7 +32,7 @@ namespace MDPlayer
 
 
         public  static frmMain FrmMain { get; set; } = null;
-        public  static vstMng VstMng { get; set; } = new();
+        //public  static vstMng VstMng { get; set; } = new();
         public static Setting Setting { get; set; } = null;
 
         public static int ClockAY8910 { get; set; } = 1789750;
@@ -237,25 +237,25 @@ namespace MDPlayer
         public static InstanceMarker muapDotNETim { get; private set; }
 
 
-        public static List<vstMng.vstInfo2> GetVSTInfos()
-        {
-            return VstMng.getVSTInfos();
-        }
+        //public static List<vstMng.vstInfo2> GetVSTInfos()
+        //{
+        //    return VstMng.getVSTInfos();
+        //}
 
-        public static vstInfo GetVSTInfo(string filename)
-        {
-            return VstMng.getVSTInfo(filename);
-        }
+        //public static vstInfo GetVSTInfo(string filename)
+        //{
+        //    return VstMng.getVSTInfo(filename);
+        //}
 
-        public static bool AddVSTeffect(string fileName)
-        {
-            return VstMng.addVSTeffect(fileName);
-        }
+        //public static bool AddVSTeffect(string fileName)
+        //{
+        //    return VstMng.addVSTeffect(fileName);
+        //}
 
-        public static bool DelVSTeffect(string key)
-        {
-            return VstMng.delVSTeffect(key);
-        }
+        //public static bool DelVSTeffect(string key)
+        //{
+        //    return VstMng.delVSTeffect(key);
+        //}
 
         public static void CopyWaveBuffer(short[][] dest)
         {
@@ -1670,7 +1670,7 @@ namespace MDPlayer
             log.ForcedWrite("Audio:Init:STEP 02");
 
             Audio.Setting = setting;// Copy();
-            VstMng.setting = setting;
+            //VstMng.setting = setting;
 
             waveWriter = new WaveWriter(setting);
 
@@ -2011,7 +2011,7 @@ namespace MDPlayer
                 , pianoRollMng
                 , mds
                 , realChip
-                , VstMng
+                //, VstMng
                 , scYM2612
                 , scSN76489
                 , scYM2608
@@ -2041,58 +2041,58 @@ namespace MDPlayer
 
             log.ForcedWrite("Audio:Init:STEP 06");
 
-            log.ForcedWrite("Audio:Init:VST:STEP 01");
+            //log.ForcedWrite("Audio:Init:VST:STEP 01");
 
-            VstMng.vstparse();
+            //VstMng.vstparse();
 
-            log.ForcedWrite("Audio:Init:VST:STEP 02"); //Load VST instrument
+            //log.ForcedWrite("Audio:Init:VST:STEP 02"); //Load VST instrument
 
-            //複数のmidioutの設定から必要なVSTを絞り込む
-            Dictionary<string, int> dicVst = new();
-            if (setting.midiOut.lstMidiOutInfo != null)
-            {
-                foreach (MidiOutInfo[] aryMoi in setting.midiOut.lstMidiOutInfo)
-                {
-                    if (aryMoi == null) continue;
-                    Dictionary<string, int> dicVst2 = new();
-                    foreach (MidiOutInfo moi in aryMoi)
-                    {
-                        if (!moi.isVST) continue;
-                        if (dicVst2.ContainsKey(moi.fileName))
-                        {
-                            dicVst2[moi.fileName]++;
-                            continue;
-                        }
-                        dicVst2.Add(moi.fileName, 1);
-                    }
+            ////複数のmidioutの設定から必要なVSTを絞り込む
+            //Dictionary<string, int> dicVst = new();
+            //if (setting.midiOut.lstMidiOutInfo != null)
+            //{
+            //    foreach (MidiOutInfo[] aryMoi in setting.midiOut.lstMidiOutInfo)
+            //    {
+            //        if (aryMoi == null) continue;
+            //        Dictionary<string, int> dicVst2 = new();
+            //        foreach (MidiOutInfo moi in aryMoi)
+            //        {
+            //            if (!moi.isVST) continue;
+            //            if (dicVst2.ContainsKey(moi.fileName))
+            //            {
+            //                dicVst2[moi.fileName]++;
+            //                continue;
+            //            }
+            //            dicVst2.Add(moi.fileName, 1);
+            //        }
 
-                    foreach (var kv in dicVst2)
-                    {
-                        if (dicVst.ContainsKey(kv.Key))
-                        {
-                            if (dicVst[kv.Key] < kv.Value)
-                            {
-                                dicVst[kv.Key] = kv.Value;
-                            }
-                            continue;
-                        }
-                        dicVst.Add(kv.Key, kv.Value);
-                    }
-                }
-            }
+            //        foreach (var kv in dicVst2)
+            //        {
+            //            if (dicVst.ContainsKey(kv.Key))
+            //            {
+            //                if (dicVst[kv.Key] < kv.Value)
+            //                {
+            //                    dicVst[kv.Key] = kv.Value;
+            //                }
+            //                continue;
+            //            }
+            //            dicVst.Add(kv.Key, kv.Value);
+            //        }
+            //    }
+            //}
 
-            foreach (var kv in dicVst)
-            {
-                for (int i = 0; i < kv.Value; i++)
-                    VstMng.SetUpVstInstrument(kv);
-            }
+            //foreach (var kv in dicVst)
+            //{
+            //    for (int i = 0; i < kv.Value; i++)
+            //        VstMng.SetUpVstInstrument(kv);
+            //}
 
 
-            if (setting.vst != null && setting.vst.VSTInfo != null)
-            {
-                log.ForcedWrite("Audio:Init:VST:STEP 03"); //Load VST Effect
-                VstMng.SetUpVstEffect();
-            }
+            //if (setting.vst != null && setting.vst.VSTInfo != null)
+            //{
+            //    log.ForcedWrite("Audio:Init:VST:STEP 03"); //Load VST Effect
+            //    VstMng.SetUpVstEffect();
+            //}
 
             log.ForcedWrite("Audio:Init:STEP 07");
 
@@ -2200,7 +2200,7 @@ namespace MDPlayer
 
                 if (n == -1)
                 {
-                    VstMng.SetupVstMidiOut(setting.midiOut.lstMidiOutInfo[m][i]);
+                    //VstMng.SetupVstMidiOut(setting.midiOut.lstMidiOutInfo[m][i]);
                 }
 
                 if (mo != null)
@@ -2246,7 +2246,7 @@ namespace MDPlayer
                 midiOutsType.Clear();
             }
 
-            VstMng.ReleaseAllMIDIout();
+            //VstMng.ReleaseAllMIDIout();
         }
 
         public static MDSound.MDSound.Chip GetMDSChipInfo(MDSound.MDSound.enmInstrumentType typ)
@@ -10754,8 +10754,8 @@ namespace MDPlayer
                     midiOutsType.Clear();
                 }
 
-                VstMng.ReleaseAllMIDIout();
-                VstMng.Close();
+                //VstMng.ReleaseAllMIDIout();
+                //VstMng.Close();
 
                 if (isRealChipClose) realChip = null;
             }
@@ -11474,7 +11474,7 @@ namespace MDPlayer
 
                 //waveWriter.Write(buffer, offset, sampleCount);
                 //VST
-                VstMng.VST_Update(buffer, offset, sampleCount);
+                //VstMng.VST_Update(buffer, offset, sampleCount);
 
                 for (i = 0; i < sampleCount; i++)
                 {
