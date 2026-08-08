@@ -249,7 +249,7 @@ namespace MDPlayer.Driver.FMP
             regs.DX = 0x0000;
             regs.SS = unchecked((short)0xE000);
             regs.SP = 0x0000;
-            nise98.CallRunfunctionCall(0xd2, true, true, true, 10_000_000_000, 0_000);
+            nise98.CallRunfunctionCall(0xd2, false, true, true, 10_000_000_000, 0_000);
             
             if (pcmDataSendCount != 0)
             {

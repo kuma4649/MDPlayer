@@ -1163,7 +1163,12 @@ namespace MDPlayer.form
             log.Write(" Welcome to the MDPlayer zone. Get Ready ? ");
             log.Write("-------------------------------------------");
 
-            if (args.Length < 2) return;
+            // 起動時オプションの指定がない場合はエコモードのカウントダウンを開始する
+            if (args.Length < 2)
+            {
+                EcoQos.StartEcoQos();
+                return;
+            }
 
             log.ForcedWrite("frmMain_Shown:起動時オプション解析");
             log.ForcedWrite(arg);
@@ -5929,7 +5934,7 @@ namespace MDPlayer.form
                 Audio.ResetTimeCounter();
                 frmPianoRoll?.Clear();
             }
-
+            EcoQos.StartEcoQos();
             frmPlayList.Stop();
             OpeManager.RequestToAudio(new Request(EnmRequest.Stop, null, screenInit));
             //Audio.Stop();
@@ -6004,6 +6009,7 @@ namespace MDPlayer.form
         {
             try
             {
+                EcoQos.ExitEcoMode();
 
                 if (srcBuf == null)
                 {

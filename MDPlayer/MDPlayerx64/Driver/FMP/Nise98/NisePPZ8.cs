@@ -85,7 +85,7 @@ namespace MDPlayer.Driver.FMP.Nise98
             regs.SI = ppz8IDOfs;//'PPZ8'のofs
             regs.DX = ppz8ReleaseOfs;//常駐解除時のFarコール
             regs.CL = 0x00;//TASK_ASIN
-            nise98.CallRunfunctionCall(0xd2, true, true, true, 10_000_000_000, 0_000);
+            nise98.CallRunfunctionCall(0xd2, false, true, true, 10_000_000_000, 0_000);
 
             Log.Write(musicDriverInterface.LogLevel.INFO, "偽PPZ8をFMPタスクへ設定しました。\r\n");
         }
