@@ -439,7 +439,7 @@ namespace MDPlayer.form
             }
 
             GD3 gd3 = getGD3FromPl(pi);
-            frmMain.loadAndPlay(m, songNo, fn, zfn, spFn, useCom,gd3);
+            frmMain.loadAndPlay(m, songNo, fn, zfn, spFn, useCom, gd3);
             if (Audio.ErrMsg != "")
             {
                 playing = false;
@@ -532,7 +532,7 @@ namespace MDPlayer.form
                 useCom = dgvList.Rows[pi].Cells["clmUseCompiler"].Value.ToString();
             }
             GD3 gd3 = getGD3FromPl(pi);
-            if (!frmMain.loadAndPlay(m, songNo, fn, zfn, spFn, useCom,gd3))
+            if (!frmMain.loadAndPlay(m, songNo, fn, zfn, spFn, useCom, gd3))
             {
                 playing = false;
                 return;
@@ -623,7 +623,7 @@ namespace MDPlayer.form
                 useCom = dgvList.Rows[pi].Cells["clmUseCompiler"].Value.ToString();
             }
             GD3 gd3 = getGD3FromPl(pi);
-            frmMain.loadAndPlay(m, songNo, fn, zfn, spFn, useCom,gd3);
+            frmMain.loadAndPlay(m, songNo, fn, zfn, spFn, useCom, gd3);
             updatePlayingIndex(pi);
             playing = true;
         }
@@ -766,7 +766,7 @@ namespace MDPlayer.form
                     useCom = dgvList.Rows[e.RowIndex].Cells["clmUseCompiler"].Value.ToString();
                 }
 
-                GD3 gd3= getGD3FromPl(e.RowIndex);
+                GD3 gd3 = getGD3FromPl(e.RowIndex);
                 if (!frmMain.loadAndPlay(m, songNo, fn, zfn, spFn, useCom, gd3)) return;
                 updatePlayingIndex(e.RowIndex);
 
@@ -925,8 +925,8 @@ namespace MDPlayer.form
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "サポートする全てのプレイリスト(*.xml;*.m3u)|*.xml;*.m3u|ファイル(*.xml)|*.xml|M3Uファイル(*.m3u)|*.m3u";
             ofd.Title = "プレイリストファイルを選択";
-            string[] fl=ofd.Filter.Split('|');
-            int index=-1;
+            string[] fl = ofd.Filter.Split('|');
+            int index = -1;
             for (int i = 0; i < fl.Length; i += 2)
             {
                 if (fl[i + 1] != setting.other.PlayListFilterIndex) continue;
@@ -953,6 +953,22 @@ namespace MDPlayer.form
 
             IsInitialOpenFolder = false;
             setting.other.PlayListFilterIndex = fl[(ofd.FilterIndex - 1) * 2 + 1];
+
+            try
+            {
+                foreach (string fn in ofd.FileNames)
+                {
+                    DataGridViewRow row = new();
+                    row.CreateCells(dgvPlayList);
+                    row.Cells[dgvPlayList.Columns["clmPL_FileName"].Index].Value = fn;
+                    row.Cells[dgvPlayList.Columns["clmPL_Title"].Index].Value = Path.GetFileName(fn);
+                    dgvPlayList.Rows.Add(row);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
 
             try
             {
@@ -1001,7 +1017,7 @@ namespace MDPlayer.form
             int index = -1;
             for (int i = 0; i < fl.Length; i += 2)
             {
-                if (fl[i + 1]!=setting.other.PlayListFilterIndex) continue;
+                if (fl[i + 1] != setting.other.PlayListFilterIndex) continue;
                 index = i / 2 + 1;
                 break;
             }
@@ -1314,10 +1330,11 @@ namespace MDPlayer.form
                 reent = true;
             }
 
-            if (!e.Data.GetDataPresent(DataFormats.FileDrop)) return;
-
             try
             {
+
+                if (!e.Data.GetDataPresent(DataFormats.FileDrop)) return;
+
                 this.Enabled = false;
                 this.timer1.Enabled = false;
 
@@ -1369,7 +1386,7 @@ namespace MDPlayer.form
                     //&& fn.ToLower().LastIndexOf(".sid") == -1
                     )
                 {
-                    frmMain.loadAndPlay(0, 0, fn, null, null, null,null);
+                    frmMain.loadAndPlay(0, 0, fn, null, null, null, null);
                     setStart(i);// -1);
                     frmMain.oldParam = new MDChipParams();
                     Play();
@@ -1792,5 +1809,70 @@ namespace MDPlayer.form
 
         }
 
+        private void dgvPlayList_DragDrop(object sender, DragEventArgs e)
+        {
+            lock (relock)
+            {
+                if (reent) return;
+                reent = true;
+            }
+
+            try
+            {
+                if (!e.Data.GetDataPresent(DataFormats.FileDrop)) return;
+
+                string[] filename = ((string[])e.Data.GetData(DataFormats.FileDrop));
+                foreach (string fn in filename)
+                {
+                    string ext = Path.GetExtension(fn).ToLower();
+                    if (ext != ".xml" && ext != ".m3u") continue;
+
+                    DataGridViewRow row = new();
+                    row.CreateCells(dgvPlayList);
+                    row.Cells[dgvPlayList.Columns["clmPL_FileName"].Index].Value = fn;
+                    row.Cells[dgvPlayList.Columns["clmPL_Title"].Index].Value = Path.GetFileName(fn);
+                    dgvPlayList.Rows.Add(row);
+                }
+
+            }
+            catch
+            {
+            }
+            finally
+            {
+                lock (relock)
+                {
+                    reent = false;
+                }
+            }
+        }
+
+        private void dgvPlayList_DragLeave(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvPlayList_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.All;
+            Point cp = dgvPlayList.PointToClient(new Point(e.X, e.Y));
+            DataGridView.HitTestInfo hti = dgvPlayList.HitTest(cp.X, cp.Y);
+            if (hti.Type != DataGridViewHitTestType.Cell || hti.RowIndex < 0 || hti.RowIndex >= dgvPlayList.Rows.Count) return;
+            dgvPlayList.MultiSelect = false;
+            dgvPlayList.MultiSelect = true;
+            dgvPlayList.Rows[hti.RowIndex].Selected = true;
+        }
+
+        private void dgvPlayList_DragOver(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.All;
+            Point cp = dgvPlayList.PointToClient(new Point(e.X, e.Y));
+            DataGridView.HitTestInfo hti = dgvPlayList.HitTest(cp.X, cp.Y);
+            if (hti.Type != DataGridViewHitTestType.Cell || hti.RowIndex < 0 || hti.RowIndex >= dgvPlayList.Rows.Count) return;
+            dgvPlayList.MultiSelect = false;
+            dgvPlayList.MultiSelect = true;
+            dgvPlayList.Rows[hti.RowIndex].Selected = true;
+
+        }
     }
 }

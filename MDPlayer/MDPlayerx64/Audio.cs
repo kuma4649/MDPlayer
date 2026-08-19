@@ -3148,6 +3148,8 @@ namespace MDPlayer
                 }
                 catch {
                     wavestreamGD3 = null;
+                    log.Write(LogLevel.Error, "ファイル{0}のオープンに失敗しました", naudioFileName);
+                    return false;
                 }
                 naudioMp3FileReader = new Mp3FileReader(naudioFileName);
                 AftertasteStream l = new AftertasteStream(naudioMp3FileReader);
@@ -3181,6 +3183,8 @@ namespace MDPlayer
                 catch
                 {
                     wavestreamGD3 = null;
+                    log.Write(LogLevel.Error, "ファイル{0}のオープンに失敗しました", naudioFileName);
+                    return false;
                 }
 
                 naudioAiffFileReader = new AiffFileReader(naudioFileName);
@@ -3216,8 +3220,10 @@ namespace MDPlayer
                 catch
                 {
                     wavestreamGD3 = null;
+                    log.Write(LogLevel.Error, "ファイル{0}のオープンに失敗しました", naudioFileName);
+                    return false;
                 }
-                
+
                 naudioOggFileReader = new NAudio.Vorbis.VorbisWaveReader(naudioFileName);
                 WaveFormat format = new WaveFormat(setting.outputDevice.SampleRate, 16, 2);
 
@@ -3281,6 +3287,8 @@ namespace MDPlayer
                 catch
                 {
                     wavestreamGD3 = null;
+                    log.Write(LogLevel.Error, "ファイル{0}のオープンに失敗しました", naudioFileName);
+                    return false;
                 }
 
                 naudioM4aFileReader = new MediaFoundationReader(naudioFileName);
@@ -3325,6 +3333,8 @@ namespace MDPlayer
                 catch
                 {
                     wavestreamGD3 = null;
+                    log.Write(LogLevel.Error, "ファイル{0}のオープンに失敗しました", naudioFileName);
+                    return false;
                 }
 
                 naudioAacFileReader = new MediaFoundationReader(naudioFileName);
@@ -3368,6 +3378,8 @@ namespace MDPlayer
                 catch
                 {
                     wavestreamGD3 = null;
+                    log.Write(LogLevel.Error, "ファイル{0}のオープンに失敗しました", naudioFileName);
+                    return false;
                 }
 
                 naudioWmaFileReader = new MediaFoundationReader(naudioFileName);
@@ -3411,6 +3423,8 @@ namespace MDPlayer
                 catch
                 {
                     wavestreamGD3 = null;
+                    log.Write(LogLevel.Error, "ファイル{0}のオープンに失敗しました", naudioFileName);
+                    return false;
                 }
 
                 naudioFlacFileReader = new FlacReader(naudioFileName);

@@ -65,26 +65,31 @@ namespace MDPlayer
         private void drawScreen()
         {
             if (bmpPlane == null) return;
-
-            BitmapData bdPlane = bmpPlane.LockBits(new Rectangle(0, 0, bmpPlane.Width, bmpPlane.Height), ImageLockMode.WriteOnly, bmpPlane.PixelFormat);
-            unsafe
+            try
             {
-                int* bdP = (int*)bdPlane.Scan0;
-                int adr=0;
-                for (int y = 0; y < bdPlane.Height; y++)
+                BitmapData bdPlane = bmpPlane.LockBits(new Rectangle(0, 0, bmpPlane.Width, bmpPlane.Height), ImageLockMode.WriteOnly, bmpPlane.PixelFormat);
+                unsafe
                 {
-                    for (int x = 0; x < bdPlane.Stride / 4; x++)
+                    int* bdP = (int*)bdPlane.Scan0;
+                    int adr = 0;
+                    for (int y = 0; y < bdPlane.Height; y++)
                     {
-                        bdP[adr] = baPlaneBuffer[adr];
-                        adr++;
+                        for (int x = 0; x < bdPlane.Stride / 4; x++)
+                        {
+                            bdP[adr] = baPlaneBuffer[adr];
+                            adr++;
+                        }
                     }
                 }
+                bmpPlane.UnlockBits(bdPlane);
+
+                bgPlane.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+                bgPlane.Graphics.DrawImage(bmpPlane, 0, 0, bmpPlane.Width * zoom, bmpPlane.Height * zoom);
             }
-            bmpPlane.UnlockBits(bdPlane);
-
-            bgPlane.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-            bgPlane.Graphics.DrawImage(bmpPlane, 0, 0, bmpPlane.Width * zoom, bmpPlane.Height * zoom);
-
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
         }
 
         public unsafe void clearScreen()
