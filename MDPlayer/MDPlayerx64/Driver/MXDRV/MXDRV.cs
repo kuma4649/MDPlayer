@@ -6423,10 +6423,17 @@ namespace MDPlayer.Driver.MXDRV
                                                                     st.b    $27(a5,d0.w)	; L002233(d7.w)
             */
             D0 = mm.ReadByte(A4++);
-            A0 = mm.ReadByte(G + MXWORK_GLOBAL.L001df6 + 0);
+            //A0 = mm.ReadByte(G + MXWORK_GLOBAL.L001df6 + 0);
+            // lea.l is the address of the flag array, not a byte read from it (as at L001192,
+            // L0014b0 and where they are cleared): the sync went to the head of the work area
+            // and the part waiting on it never ran again (YoukaiDouchuuki YD_ALP.MDX)
+            A0 = G + MXWORK_GLOBAL.L001df6 + 0;
             mm.Write(A0 + D0, (byte)depend.SET);
             if (D0 >= 0x0009) goto L0014ae;
-            mm.Write(G + MXWORK_GLOBAL.L002233 + D7, (byte)depend.SET);
+            //mm.Write(G + MXWORK_GLOBAL.L002233 + D7, (byte)depend.SET);
+            // st.b $27(a5,d0.w) - by the number the command carries, which is what the count is
+            // guarded against; by d7 a part above the eighth writes past L002233's nine bytes
+            mm.Write(G + MXWORK_GLOBAL.L002233 + D0, (byte)depend.SET);
 
         L0014ae:;
             /*
