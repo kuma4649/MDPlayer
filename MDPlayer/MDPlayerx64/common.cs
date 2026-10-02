@@ -734,7 +734,12 @@ namespace MDPlayer
                 if (b1 <= 0x06 || b1 == 0x7F || b1 == 0xFF)
                 {
                     //'binary'
-                    isBinary = true;
+                    //isBinary = true;
+                    // SJIS の 2 バイト目としてありえない値だけをバイナリ扱いする
+                    if (i != len - 1 && (b1 == 0x00 || b1 == 0xFF))
+                    {
+                        isBinary = true;
+                    }
                     if (b1 == 0x00 && i < len - 1 && bytes[i + 1] <= 0x7F)
                     {
                         //smells like raw unicode
