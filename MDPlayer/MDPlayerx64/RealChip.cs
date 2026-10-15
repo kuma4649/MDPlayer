@@ -436,6 +436,7 @@ namespace MDPlayer
                         else if (di.Devname == "GMC-S2413") cct = ChipType.CHIP_YM2413;
                         else if (di.Devname == "GMC-S3438") cct = ChipType.CHIP_YM3438;
                         else if (di.Devname == "GMC-S5377") cct = ChipType.CHIP_SN76489;
+                        else if (di.Devname == "GMC-S2612") cct = ChipType.CHIP_YM2612;
                     }
                     Setting.ChipType2 ct = null;
                     int o;
